@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="fileloader.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="191" topLine="32" />
+	</File>
+	<File name="fileloader.h" open="0" top="0" tabpos="4">
+		<Cursor position="285" topLine="0" />
+	</File>
+	<File name="ini.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="162" topLine="0" />
+	</File>
+	<File name="ini.h" open="0" top="0" tabpos="0">
+		<Cursor position="227" topLine="0" />
+	</File>
+	<File name="minizip\ioapi.h" open="0" top="0" tabpos="0">
+		<Cursor position="1248" topLine="176" />
+	</File>
+	<File name="minizip\iowin32.c" open="0" top="0" tabpos="0">
+		<Cursor position="11928" topLine="363" />
+	</File>
+	<File name="minizip\iowin32.h" open="0" top="0" tabpos="0">
+		<Cursor position="465" topLine="0" />
+	</File>
+	<File name="minizip\unzip.c" open="0" top="0" tabpos="0">
+		<Cursor position="53360" topLine="1575" />
+	</File>
+	<File name="minizip\unzip.h" open="0" top="0" tabpos="0">
+		<Cursor position="1764" topLine="48" />
+	</File>
+	<File name="minizip\zlib\gzlib.c" open="0" top="0" tabpos="0">
+		<Cursor position="13600" topLine="503" />
+	</File>
+	<File name="simpleini\SimpleIni.h" open="0" top="0" tabpos="0">
+		<Cursor position="73081" topLine="1930" />
+	</File>
+	<File name="unzip.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="16194" topLine="597" />
+	</File>
+	<File name="unzip.h" open="0" top="0" tabpos="0">
+		<Cursor position="191" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

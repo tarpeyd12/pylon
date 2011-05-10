@@ -1,0 +1,52 @@
+pogel.o: pogel/pogel.cpp pogel/pogel.h pogel/pogel_classes.h \
+ pogel/templates/templates.h pogel/templates/arraylist.h \
+ pogel/templates/arraylist.cpp pogel/templates/arraylist.operators.cpp \
+ pogel/templates/classlist_template.h pogel/templates/hashlist_template.h \
+ pogel/templates/octree_template.h \
+ pogel/templates/../classes/bounding_class.h \
+ pogel/templates/../classes/point_class.h \
+ pogel/templates/../classes/misc_class.h \
+ pogel/templates/../classes/../pogel_internals.h \
+ pogel/templates/../classes/physics/solid_class.h \
+ pogel/templates/../classes/physics/physics.h \
+ pogel/templates/../classes/physics/../triangle_class.h \
+ pogel/templates/../classes/physics/../point_class.h \
+ pogel/templates/../classes/physics/../line_class.h \
+ pogel/templates/../classes/physics/../bounding_class.h \
+ pogel/templates/../classes/physics/../misc_class.h \
+ pogel/templates/../classes/physics/../../pogel_internals.h \
+ pogel/templates/../classes/physics/../image_class.h \
+ pogel/templates/../classes/physics/../matrix_class.h \
+ pogel/templates/../classes/physics/../quat_class.h \
+ pogel/templates/../classes/physics/../triangle_class.h \
+ pogel/templates/../classes/physics/../line_class.h \
+ pogel/templates/../classes/physics/../../pogel_internals.h \
+ pogel/templates/../classes/physics/../point_class.h \
+ pogel/templates/../classes/physics/../object_class.h \
+ pogel/templates/../classes/physics/../physics/physics.h \
+ pogel/templates/../classes/physics/singularity_class.h \
+ pogel/templates/../classes/physics/../../templates/classlist_template.h \
+ pogel/templates/octree_template_protected.h \
+ pogel/templates/octree_template_public.h pogel/classes/threads.h \
+ pogel/classes/bounding_class.h pogel/classes/image_class.h \
+ pogel/classes/view_class.h pogel/classes/../pogel_internals.h \
+ pogel/classes/misc_class.h pogel/classes/image_class.h \
+ pogel/classes/matrix_class.h pogel/classes/misc_class.h \
+ pogel/classes/object_class.h pogel/classes/fractal_class.h \
+ pogel/classes/object_class.h pogel/classes/point_class.h \
+ pogel/classes/sprite_class.h pogel/classes/object_funcs.h \
+ pogel/classes/triangle_class.h pogel/classes/point_class.h \
+ pogel/classes/quat_class.h pogel/classes/triangle_class.h \
+ pogel/classes/line_class.h pogel/classes/physics/physics.h \
+ pogel/classes/physics/solid_class.h \
+ pogel/classes/physics/singularity_class.h \
+ pogel/classes/physics/dynamics_class.h \
+ pogel/classes/physics/../../templates/templates.h \
+ pogel/classes/physics/physics.h \
+ pogel/classes/physics/singularity_class.h \
+ pogel/classes/physics/solid_class.h \
+ pogel/classes/physics/simulation_class.h \
+ pogel/classes/physics/dynamics_class.h \
+ pogel/classes/physics/fountain_class.h \
+ pogel/classes/physics/simulation_class.h \
+ pogel/classes/physics/microcosm_class.h pogel/pogel_internals.h

@@ -1,0 +1,14 @@
+EXPORTS
+    _ZN6Thread10joinThreadEv @1
+    _ZN6Thread11setPriorityEi @2
+    _ZN6Thread11startThreadEv @3
+    _ZN6Thread7setDataEPv @4
+    _ZN6Thread9setThreadEPFPvS0_E @5
+    _ZN6ThreadC1EPFPvS0_E @6
+    _ZN6ThreadC1EPFPvS0_ES0_ @7
+    _ZN6ThreadC1Ev @8
+    _ZN6ThreadC2EPFPvS0_E @9
+    _ZN6ThreadC2EPFPvS0_ES0_ @10
+    _ZN6ThreadC2Ev @11
+    _ZN6ThreadD1Ev @12
+    _ZN6ThreadD2Ev @13

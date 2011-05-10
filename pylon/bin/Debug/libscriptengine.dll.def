@@ -1,0 +1,62 @@
+EXPORTS
+    _ZN12ScriptEngine10InitializeEv @1
+    _ZN12ScriptEngine12FileExecutor7ExecuteEv @2
+    _ZN12ScriptEngine12FileExecutorC1ERKNS_8ExecutorE @3
+    _ZN12ScriptEngine12FileExecutorC1ESs @4
+    _ZN12ScriptEngine12FileExecutorC2ERKNS_8ExecutorE @5
+    _ZN12ScriptEngine12FileExecutorC2ESs @6
+    _ZN12ScriptEngine12FileExecutorD0Ev @7
+    _ZN12ScriptEngine12FileExecutorD1Ev @8
+    _ZN12ScriptEngine12FileExecutorD2Ev @9
+    _ZN12ScriptEngine14FunctionCaller4callESsPSsj @10
+    _ZN12ScriptEngine14FunctionCallerC1ESs @11
+    _ZN12ScriptEngine14FunctionCallerC2ESs @12
+    _ZN12ScriptEngine14FunctionCallerD0Ev @13
+    _ZN12ScriptEngine14FunctionCallerD1Ev @14
+    _ZN12ScriptEngine14FunctionCallerD2Ev @15
+    _ZN12ScriptEngine15MethodInterface3AddESsP11PyMethodDef @16
+    _ZN12ScriptEngine15MethodInterface5ClassE @17 DATA
+    _ZN12ScriptEngine15MethodInterface6NoArgsE @18 DATA
+    _ZN12ScriptEngine15MethodInterface6StaticE @19 DATA
+    _ZN12ScriptEngine15MethodInterface7OldArgsE @20 DATA
+    _ZN12ScriptEngine15MethodInterface7VarArgsE @21 DATA
+    _ZN12ScriptEngine15MethodInterface8KeyWordsE @22 DATA
+    _ZN12ScriptEngine3EndEv @23
+    _ZN12ScriptEngine5BeginEv @24
+    _ZN12ScriptEngine5Parse16getStringSectionEcjbcjbSs @25
+    _ZN12ScriptEngine5Parse22getOccurrencesInStringEcSs @26
+    _ZN12ScriptEngine5Parse23getStringComponentLevelEcbcbSsSs @27
+    _ZN12ScriptEngine5Parse23getStringComponentLevelEccSsSs @28
+    _ZN12ScriptEngine7ExecuteC1ERKNS_8ExecutorE @29
+    _ZN12ScriptEngine7ExecuteC1ESs @30
+    _ZN12ScriptEngine7ExecuteC2ERKNS_8ExecutorE @31
+    _ZN12ScriptEngine7ExecuteC2ESs @32
+    _ZN12ScriptEngine7ExecuteD0Ev @33
+    _ZN12ScriptEngine7ExecuteD1Ev @34
+    _ZN12ScriptEngine7ExecuteD2Ev @35
+    _ZN12ScriptEngine7startedE @36 DATA
+    _ZN12ScriptEngine8Executor15getInstructionsEv @37
+    _ZN12ScriptEngine8ExecutorC1ERKS0_ @38
+    _ZN12ScriptEngine8ExecutorC1ESs @39
+    _ZN12ScriptEngine8ExecutorC1Ev @40
+    _ZN12ScriptEngine8ExecutorC2ESs @41
+    _ZN12ScriptEngine8ExecutorC2Ev @42
+    _ZN12ScriptEngine8ExecutorD0Ev @43
+    _ZN12ScriptEngine8ExecutorD1Ev @44
+    _ZN12ScriptEngine8ExecutorD2Ev @45
+    _ZN12ScriptEngine8ExecutoraSERKS0_ @46
+    _ZN12ScriptEngine8FinalizeEv @47
+    _ZStorSt13_Ios_OpenmodeS_ @48
+    _ZTIN12ScriptEngine12FileExecutorE @49 DATA
+    _ZTIN12ScriptEngine14FunctionCallerE @50 DATA
+    _ZTIN12ScriptEngine7ExecuteE @51 DATA
+    _ZTIN12ScriptEngine8ExecutorE @52 DATA
+    _ZTSN12ScriptEngine12FileExecutorE @53 DATA
+    _ZTSN12ScriptEngine14FunctionCallerE @54 DATA
+    _ZTSN12ScriptEngine7ExecuteE @55 DATA
+    _ZTSN12ScriptEngine8ExecutorE @56 DATA
+    _ZTVN12ScriptEngine12FileExecutorE @57 DATA
+    _ZTVN12ScriptEngine14FunctionCallerE @58 DATA
+    _ZTVN12ScriptEngine7ExecuteE @59 DATA
+    _ZTVN12ScriptEngine8ExecutorE @60 DATA
+    _get_output_format @61

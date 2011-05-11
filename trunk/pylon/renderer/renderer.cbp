@@ -7,9 +7,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\bin\Debug\librenderer" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\bin\Debug" />
-				<Option object_output="obj\Debug\" />
+				<Option output="../bin/Debug/librenderer" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/Debug" />
+				<Option object_output="obj/Debug/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -20,13 +20,13 @@
 				<Linker>
 					<Add option="-L./bin/Debug" />
 					<Add library="pogel" />
-					<Add directory="..\bin\Debug" />
+					<Add directory="../bin/Debug" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="..\bin\Release\librenderer" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\bin\Release" />
-				<Option object_output="obj\Release\" />
+				<Option output="../bin/Release/librenderer" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/Release" />
+				<Option object_output="obj/Release/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -38,21 +38,21 @@
 					<Add option="-s" />
 					<Add option="-L./bin/Release" />
 					<Add library="pogel" />
-					<Add directory="..\bin\Release" />
+					<Add directory="../bin/Release" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add directory="C:\Program Files\CodeBlocks\MinGW\include" />
-			<Add directory="C:\Program Files\CodeBlocks\MinGW\lib" />
+			<Add directory="$(#base.include)" />
+			<Add directory="$(#base.lib)" />
 		</Compiler>
 		<Linker>
-			<Add library="opengl32" />
-			<Add library="glut32" />
-			<Add library="glu32" />
-			<Add directory="C:\Program Files\CodeBlocks\MinGW\lib" />
+			<Add library="$(#opengl.lflags)" />
+			<Add library="$(#glut.lflags)" />
+			<Add library="$(#glu.lflags)" />
+			<Add directory="$(#base.lib)" />
 		</Linker>
 		<Unit filename="cmd.cpp" />
 		<Unit filename="cmd.h" />

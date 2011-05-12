@@ -4,10 +4,10 @@
 	<File name="calcthread.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="560" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="3">
-		<Cursor position="1602" topLine="62" />
+	<File name="main.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="1580" topLine="59" />
 	</File>
-	<File name="main.h" open="1" top="0" tabpos="4">
+	<File name="main.h" open="1" top="0" tabpos="2">
 		<Cursor position="597" topLine="0" />
 	</File>
 	<File name="scriptthread.cpp" open="0" top="0" tabpos="0">

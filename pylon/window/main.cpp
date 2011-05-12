@@ -72,7 +72,9 @@ int main(int argc, char *argv[])
         chdir(forced_dir.c_str());
     #endif
 
-    //cout << ObjectLoader::getobject("Platonic 0",FileLoader::totalfile("Data/Default.wld")) << endl;
+    std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectPlatonic","Data/Default.wld");
+    std::string bob = ScriptEngine::Parse::getLabeledSection(ojdat,"CKeyFrame","{<",">}");
+    ObjectLoader::KeyFrame key(bob);
 
     FileLoader::extractfile(pylon_archive,".conf",true,false,"",false,"");
     FileLoader::Ini ini(".conf");

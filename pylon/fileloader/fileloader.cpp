@@ -17,7 +17,7 @@ namespace FileLoader
         do
         {
             line.clear();
-            std::getline(ifs,line,'\n');
+            std::getline(ifs,line);
             currentLine++;
         }
         while(ifs.good() && currentLine < lineNum);
@@ -38,7 +38,7 @@ namespace FileLoader
         do
         {
             line.clear();
-            std::getline(ifs,line,'\n');
+            std::getline(ifs,line);
             ret += line + "\n";
         }
         while(ifs.good());

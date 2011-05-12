@@ -6,8 +6,16 @@ try:
 	
 except ImportError:
 	print 'Importing failure for the required modules in \"pylonclasses.py\".'
-	quit()
-	
+	quit()	
+
+def getstrthing(st):
+	if pylon.key_ispressed(pylon.key_last()):
+		st = st + str(pylon.key_last())
+		a = 0
+		while a < 10000000:
+			a = a + 1
+	return st
+
 
 def getposcoord(pos,cord):
 	my_splitter = shlex.shlex(pos, posix = True)
@@ -109,7 +117,7 @@ class Simulation:
 			while a < 10000:
 				a = a + 1
 			#if pylon.hasproperty(2):
-				#print 'bob',line
+				#print line
 		self.restart()
 		return line
 			

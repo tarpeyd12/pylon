@@ -10,6 +10,7 @@
 			<Depends filename="renderer/renderer.cbp" />
 			<Depends filename="threads/threads.cbp" />
 			<Depends filename="pogelscriptinterface/pogelscriptinterface.cbp" />
+			<Depends filename="objectloader/objectloader.cbp" />
 		</Project>
 		<Project filename="scriptengine/scriptengine.cbp">
 			<Depends filename="fileloader/fileloader.cbp" />
@@ -24,6 +25,9 @@
 			<Depends filename="fileloader/fileloader.cbp" />
 			<Depends filename="scriptengine/scriptengine.cbp" />
 			<Depends filename="renderer/renderer.cbp" />
+		</Project>
+		<Project filename="objectloader/objectloader.cbp">
+			<Depends filename="scriptengine/scriptengine.cbp" />
 		</Project>
 	</Workspace>
 </CodeBlocks_workspace_file>

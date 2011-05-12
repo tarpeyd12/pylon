@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="pogelscriptinterface" />
+		<Option title="objectloader" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\bin\Debug\libpogelscriptinterface" prefix_auto="1" extension_auto="1" />
+				<Option output="..\bin\Debug\libobjectloader" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="..\bin\Debug" />
 				<Option object_output="obj\Debug\" />
 				<Option type="3" />
@@ -18,16 +18,13 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add option="-L./bin/Debug" />
-					<Add library="pogel" />
-					<Add library="renderer" />
 					<Add library="scriptengine" />
-					<Add library="fileloader" />
+					<Add library="pogel" />
 					<Add directory="..\bin\Debug" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="..\bin\Release\libpogelscriptinterface" prefix_auto="1" extension_auto="1" />
+				<Option output="..\bin\Release\libobjectloader" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="..\bin\Release" />
 				<Option object_output="obj\Release\" />
 				<Option type="3" />
@@ -39,11 +36,8 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add option="-L./bin/Release" />
-					<Add library="pogel" />
-					<Add library="renderer" />
 					<Add library="scriptengine" />
-					<Add library="fileloader" />
+					<Add library="pogel" />
 					<Add directory="..\bin\Release" />
 				</Linker>
 			</Target>
@@ -53,26 +47,14 @@
 			<Add option="-fexceptions" />
 			<Add directory="$(#python.include)" />
 			<Add directory="$(#python.lib)" />
-			<Add directory="$(#base.include)" />
-			<Add directory="$(#base.lib)" />
 		</Compiler>
 		<Linker>
-			<Add library="$(#python.lflags)" />
-			<Add library="$(#opengl.lflags)" />
-			<Add library="$(#glut.lflags)" />
-			<Add library="$(#glu.lflags)" />
 			<Add directory="$(#python.lib)" />
-			<Add directory="$(#base.lib)" />
 		</Linker>
-		<Unit filename="methoddef.cpp" />
-		<Unit filename="objects.cpp" />
-		<Unit filename="objects.h" />
-		<Unit filename="pogelscriptinterface.cpp" />
-		<Unit filename="pogelscriptinterface.h" />
+		<Unit filename="objectloader.cpp" />
+		<Unit filename="objectloader.h" />
 		<Extensions>
-			<envvars />
 			<code_completion />
-			<lib_finder disable_auto="1" />
 			<debugger />
 		</Extensions>
 	</Project>

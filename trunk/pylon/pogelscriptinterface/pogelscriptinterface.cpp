@@ -57,6 +57,13 @@ namespace pogelInterface
         return Py_BuildValue("i", (int)Renderer::Key::keys[(unsigned int)checkedKey]);
     }
 
+    Object* key_last(Object* self, Object* args)
+    {
+        if(!PyArg_ParseTuple(args, ":key_last"))
+            return NULL;
+        return Py_BuildValue("c", (char)Renderer::Key::last);
+    }
+
     ScriptEngine::MethodInterface::Object*
     mouse_ispressed(
         ScriptEngine::MethodInterface::Object* self,

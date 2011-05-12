@@ -27,6 +27,7 @@ namespace pogelInterface
         { "object_get_dir_s",   (CFunction)object_get_dir_s,  VarArgs, NULL },
         { "object_get_spin_s",  (CFunction)object_get_spin_s, VarArgs, NULL },
         { "key_ispressed",      (CFunction)key_ispressed,     VarArgs, NULL },
+        { "key_last",           (CFunction)key_last,          VarArgs, NULL },
         { "mouse_ispressed",    (CFunction)mouse_ispressed,   VarArgs, NULL },
         { "mouse_getbutton",    (CFunction)mouse_getbutton,   VarArgs, NULL },
         { "mouse_pos_x",        (CFunction)mouse_pos_x,       VarArgs, NULL },

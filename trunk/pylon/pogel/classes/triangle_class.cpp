@@ -10,7 +10,10 @@ POGEL::TRIANGLE::TRIANGLE(std::string s, POGEL::IMAGE* im) {
 	for(int i = 0; i < 3; i++) {
 		char* vt = POGEL::string("0 %d",i);
 		std::string v = POGEL::getStringComponentLevel('{','}', s, vt);
-		vertex[i] = POGEL::VERTEX(v); free(vt);
+		vertex[i] = POGEL::VERTEX(v);
+		#ifndef _WIN32
+        free(vt);
+        #endif
 	}
 	normal = POGEL::VECTOR(POGEL::getStringComponentLevel('{','}', s, "0 3"));
 };

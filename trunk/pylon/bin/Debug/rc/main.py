@@ -1,16 +1,16 @@
 if counter == 0.0:
 	print 'Pylon Engine started:',ctime(time())
 
+	
 count = counter
-while count > 20:
-	count = count - 20	
-goin = 0
+count = count % 20
+goin = False
 if count > 10:
-	goin = 1
-	count = count + 01
+	goin = True
+	count = count + 01 #
 else:
-	count = count - 01
-count = (count - 10) * -1
+	count = count - 01 #
+count = 10 - count
 
 orig = "{[0],[0],[0]}"
 
@@ -30,8 +30,8 @@ elif movestatetype == 1:
 	pylon.object_move_3f("sim",'sphere3',rnd(),rnd(),rnd())
 	pylon.object_move_3f("sim",'sphere4',rnd(),rnd(),rnd())
 	pylon.object_move_3f("sim",'sphere5',rnd(),rnd(),rnd())
-	pylon.object_move_3f("sim",'sphere6',rnd(),rnd(),rnd())
-
+	pylon.object_move_3f("sim",'sphere6',rnd(),rnd(),rnd())	
+	
 pylon.object_set_dir_s("sim",'sphere0',orig)
 pylon.object_set_dir_s("sim",'sphere1',orig)
 pylon.object_set_dir_s("sim",'sphere2',orig)
@@ -69,6 +69,10 @@ if pylon.key_ispressed('\r'):
 		calc.unlock()
 
 counter = counter + 0.5
+
+#st = getstrthing(st)
+
+#print st
 
 if pylon.key_ispressed(';'):
 	sphere8.move(rnd()*3,rnd()*3,rnd()*3)

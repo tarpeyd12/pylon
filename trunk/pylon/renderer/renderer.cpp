@@ -56,47 +56,6 @@ namespace Renderer
         glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
         glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 
-        /*POGEL::PHYSICS::SOLID *tmp = NULL;
-        POGEL::PHYSICS::SOLID *first = NULL;
-
-        std::string filename = "Data/log125.txt";
-        std::string line = "";
-        Renderer::Physics::Simulation *sim = Renderer::Physics::getSimulation("sim");
-        if(sim == NULL)
-        {
-            cout << "The simulation \"sim\" does not exist" << endl;
-            Renderer::Physics::addSimulation("sim",true);
-            sim = Renderer::Physics::getSimulation("sim");
-        }
-        int numObjects = 0;
-        do
-        {
-            line.clear();
-            line = getline(filename,numObjects);
-            if(line.empty())
-                break;
-            tmp = new POGEL::PHYSICS::SOLID(line);
-            tmp->build();
-            tmp->visable = true;
-            if(numObjects == 0)
-            {
-                first = tmp;
-            }
-            else
-            {
-                tmp->cleartriangles();
-                tmp->copytriangles(first);
-            }
-            static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->addSolid(tmp);
-            numObjects++;
-            //std::cout << numObjects << std::endl;
-        }
-        while(!line.empty());
-
-        std::cout << std::endl;*/
-        //sim.setThreadsNum(4);
-        //static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->FORCEfastAccessList();
-
         POGEL::InitFps();
         lastdur = POGEL::GetTimePassed();
     }
@@ -125,6 +84,7 @@ namespace Renderer
                         POGEL::POINT(Renderer::Mouse::static_x,Renderer::Mouse::static_y,0)
                         ).draw();
         }
+
         Renderer::Window::toFrustum();
 
         glBlendFunc(GL_SRC_ALPHA,GL_ONE);

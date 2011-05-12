@@ -11,6 +11,8 @@ namespace Renderer
     {
         extern char keys[256];
 
+        extern char last;
+
         void Down(unsigned char key, int x, int y);
         void Up(unsigned char key, int x, int y);
     }

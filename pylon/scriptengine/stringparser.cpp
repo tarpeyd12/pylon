@@ -27,6 +27,18 @@ namespace ScriptEngine
 
         };
 
+        std::string getLabeledSection(std::string in, std::string secname, std::string start_str, std::string end_str)
+        {
+            if(in.empty() || secname.empty() || start_str.empty() || end_str.empty())
+                return "";
+            if(start_str.compare(end_str) == 0)
+                return "";
+            //std::cout << "hello" << std::endl;
+            std::string cur = in.substr(in.find_first_of(secname));
+            std::string ret = cur.substr(cur.find(start_str)+start_str.length());
+            return ret.substr(0,ret.find(end_str)-end_str.length());
+        }
+
         // getStringComponentLevel( '{', false, '}', false, "{{} {} {{} {{{} {hello}} {} {}}} {}}", "0 2 1 0 1");
         //    will return "hello"
         std::string getStringComponentLevel(char startChar, bool firstInclusive, char endChar, bool lastInclusive, std::string s, std::string path_s) {

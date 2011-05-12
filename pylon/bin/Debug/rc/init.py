@@ -21,6 +21,8 @@ except ImportError:
 
 counter = 0
 
+st = ''
+
 movestatetype = 0
 
 going = True

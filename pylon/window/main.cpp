@@ -67,12 +67,12 @@ int main(int argc, char *argv[])
 
     if(forcedir)
     #ifdef _WIN32
-    {
         _chdir(forced_dir.c_str());
-    }
     #else
         chdir(forced_dir.c_str());
     #endif
+
+    //cout << ObjectLoader::getobject("Platonic 0",FileLoader::totalfile("Data/Default.wld")) << endl;
 
     FileLoader::extractfile(pylon_archive,".conf",true,false,"",false,"");
     FileLoader::Ini ini(".conf");

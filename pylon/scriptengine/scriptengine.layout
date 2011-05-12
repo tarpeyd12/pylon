@@ -10,13 +10,13 @@
 	<File name="scriptengine.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="590" topLine="5" />
 	</File>
-	<File name="scriptengine.h" open="0" top="0" tabpos="0">
+	<File name="scriptengine.h" open="1" top="0" tabpos="5">
 		<Cursor position="87" topLine="0" />
 	</File>
-	<File name="stringparser.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="2608" topLine="29" />
+	<File name="stringparser.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="1578" topLine="21" />
 	</File>
-	<File name="stringparser.h" open="0" top="0" tabpos="0">
-		<Cursor position="501" topLine="0" />
+	<File name="stringparser.h" open="1" top="0" tabpos="4">
+		<Cursor position="104" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

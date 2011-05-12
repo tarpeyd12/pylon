@@ -19,6 +19,7 @@
 #include "../threads/threads.h"
 #include "../scriptengine/scriptengine.h"
 #include "../pogelscriptinterface/pogelscriptinterface.h"
+#include "../objectloader/objectloader.h"
 
 extern std::string pylon_archive;
 extern std::string config_data;

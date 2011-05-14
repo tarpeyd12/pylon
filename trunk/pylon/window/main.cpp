@@ -76,6 +76,8 @@ int main(int argc, char *argv[])
     std::string bob = ScriptEngine::Parse::getLabeledSection(ojdat,"CKeyFrame","{<",">}");
     ObjectLoader::KeyFrame key(bob);
 
+    //cout << key.toString() << endl;
+
     FileLoader::extractfile(pylon_archive,".conf",true,false,"",false,"");
     FileLoader::Ini ini(".conf");
     if(!dontremove)

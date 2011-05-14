@@ -42,6 +42,8 @@ namespace ObjectLoader
         public:
             KeyFrame(std::string);
             virtual ~KeyFrame();
+
+            std::string toString();
     };
 }
 

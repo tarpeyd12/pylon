@@ -18,7 +18,6 @@ namespace ObjectLoader
                 nlc++;
             unsigned int nlnc = line.find_first_not_of("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890",nlc);
             gline = line.substr(nlc,nlnc);
-            //std::cout << gline << std::endl;
             if(gline.compare(type) == 0)
             {
                 unsigned int i = 0, ch = 0;

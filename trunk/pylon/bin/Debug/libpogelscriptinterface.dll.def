@@ -35,21 +35,22 @@ EXPORTS
     _ZN14pogelInterface3fpsEP7_objectS1_ @34
     _ZN14pogelInterface4InitEv @35
     _ZN14pogelInterface7getlineEP7_objectS1_ @36
-    _ZN14pogelInterface9addobjectEP7_objectS1_ @37
-    _ZN5POGEL5POINT8toStringEv @38
-    _ZN5POGEL5POINTC1ESs @39
-    _ZN5POGEL5POINTC1Efff @40
-    _ZN5POGEL5POINTC1Ev @41
-    _ZN5POGEL5POINTC2Ev @42
-    _ZN5POGEL5POINTaSERKS0_ @43
-    _ZN5POGEL6VECTORC1ESs @44
-    _ZN5POGEL6VECTORC1Ev @45
-    _ZN5POGEL6VECTORaSES0_ @46
-    _ZNSt11char_traitsIcE6lengthEPKc @47
-    _ZStplIcSt11char_traitsIcESaIcEESbIT_T0_T1_EPKS3_RKS6_ @48
-    _ZStplIcSt11char_traitsIcESaIcEESbIT_T0_T1_ERKS6_PKS3_ @49
-    _ZStplIcSt11char_traitsIcESaIcEESbIT_T0_T1_ERKS6_S8_ @50
-    __imp___glutCreateMenuWithExit@8 @51 DATA
-    __imp___glutCreateWindowWithExit@8 @52 DATA
-    __imp___glutInitWithExit@12 @53 DATA
-    _get_output_format @54
+    _ZN14pogelInterface8key_lastEP7_objectS1_ @37
+    _ZN14pogelInterface9addobjectEP7_objectS1_ @38
+    _ZN5POGEL5POINT8toStringEv @39
+    _ZN5POGEL5POINTC1ESs @40
+    _ZN5POGEL5POINTC1Efff @41
+    _ZN5POGEL5POINTC1Ev @42
+    _ZN5POGEL5POINTC2Ev @43
+    _ZN5POGEL5POINTaSERKS0_ @44
+    _ZN5POGEL6VECTORC1ESs @45
+    _ZN5POGEL6VECTORC1Ev @46
+    _ZN5POGEL6VECTORaSES0_ @47
+    _ZNSt11char_traitsIcE6lengthEPKc @48
+    _ZStplIcSt11char_traitsIcESaIcEESbIT_T0_T1_EPKS3_RKS6_ @49
+    _ZStplIcSt11char_traitsIcESaIcEESbIT_T0_T1_ERKS6_PKS3_ @50
+    _ZStplIcSt11char_traitsIcESaIcEESbIT_T0_T1_ERKS6_S8_ @51
+    __imp___glutCreateMenuWithExit@8 @52 DATA
+    __imp___glutCreateWindowWithExit@8 @53 DATA
+    __imp___glutInitWithExit@12 @54 DATA
+    _get_output_format @55

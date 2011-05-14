@@ -66,4 +66,9 @@ namespace ObjectLoader
     {
 
     }
+
+    std::string KeyFrame::toString()
+    {
+        return "";
+    }
 }

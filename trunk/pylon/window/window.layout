@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="Release" />
 	<File name="calcthread.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="560" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="1580" topLine="59" />
+	<File name="main.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="1795" topLine="63" />
 	</File>
-	<File name="main.h" open="1" top="0" tabpos="2">
-		<Cursor position="597" topLine="0" />
+	<File name="main.h" open="0" top="0" tabpos="2">
+		<Cursor position="665" topLine="12" />
 	</File>
 	<File name="scriptthread.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="3166" topLine="81" />

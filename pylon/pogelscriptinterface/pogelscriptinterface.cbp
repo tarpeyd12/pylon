@@ -7,9 +7,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\bin\Debug\libpogelscriptinterface" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\bin\Debug" />
-				<Option object_output="obj\Debug\" />
+				<Option output="../bin/Debug/libpogelscriptinterface" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/Debug" />
+				<Option object_output="obj/Debug/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -23,13 +23,13 @@
 					<Add library="renderer" />
 					<Add library="scriptengine" />
 					<Add library="fileloader" />
-					<Add directory="..\bin\Debug" />
+					<Add directory="../bin/Debug" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="..\bin\Release\libpogelscriptinterface" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\bin\Release" />
-				<Option object_output="obj\Release\" />
+				<Option output="../bin/Release/libpogelscriptinterface" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/Release" />
+				<Option object_output="obj/Release/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -44,7 +44,7 @@
 					<Add library="renderer" />
 					<Add library="scriptengine" />
 					<Add library="fileloader" />
-					<Add directory="..\bin\Release" />
+					<Add directory="../bin/Release" />
 				</Linker>
 			</Target>
 		</Build>

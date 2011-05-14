@@ -62,6 +62,22 @@ namespace ObjectLoader
         sscanf(csrtmp,"%f",&FocalLength);
     }
 
+    KeyFrame::KeyFrame(KeyFrame next, KeyFrame prev, float time)
+    {
+        if(next.TimeRef == time)
+        {
+            // make this equal to the next keyframe
+        }
+        else if(prev.TimeRef == time)
+        {
+            // make this equal to the previous keyframe
+        }
+        else
+        {
+            // create a keyframe inbetween the two with refference time
+        }
+    }
+
     KeyFrame::~KeyFrame()
     {
 
@@ -69,6 +85,6 @@ namespace ObjectLoader
 
     std::string KeyFrame::toString()
     {
-        return "";
+        return Color.toString();
     }
 }

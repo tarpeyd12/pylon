@@ -41,6 +41,7 @@ namespace ObjectLoader
             float FocalLength;
         public:
             KeyFrame(std::string);
+            KeyFrame(KeyFrame,KeyFrame,float);
             virtual ~KeyFrame();
 
             std::string toString();

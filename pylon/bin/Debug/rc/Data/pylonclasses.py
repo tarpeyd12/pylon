@@ -105,19 +105,19 @@ class Simulation:
 		# avoid thrashing
 		self.stop()
 		a = 0
-		while a < 100000:
+		while a < 1000000:
 			a = a + 1
 		#get the objects
 		line = 0
 		for obj in lines:
 			line = line + 1
-			print self.addobject(obj)
+			res = self.addobject(obj)
 			# avoid thrashing
 			a = 0
-			while a < 10000:
+			while a < 100000:
 				a = a + 1
-			#if pylon.hasproperty(2):
-				#print line
+			if pylon.hasproperty(2):
+				print res,line
 		self.restart()
 		return line
 			

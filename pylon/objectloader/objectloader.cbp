@@ -20,6 +20,7 @@
 				<Linker>
 					<Add library="scriptengine" />
 					<Add library="pogel" />
+					<Add library="fileloader" />
 					<Add directory="..\bin\Debug" />
 				</Linker>
 			</Target>
@@ -38,6 +39,7 @@
 					<Add option="-s" />
 					<Add library="scriptengine" />
 					<Add library="pogel" />
+					<Add library="fileloader" />
 					<Add directory="..\bin\Release" />
 				</Linker>
 			</Target>
@@ -51,11 +53,16 @@
 		<Linker>
 			<Add directory="$(#python.lib)" />
 		</Linker>
+		<Unit filename="camera.cpp" />
+		<Unit filename="camera.h" />
+		<Unit filename="keyframe.cpp" />
+		<Unit filename="keyframe.h" />
 		<Unit filename="objectloader.cpp" />
 		<Unit filename="objectloader.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

@@ -115,4 +115,5 @@ void* Scripts(void* arg)
         system(("cd " + ext_dir + " && rm *.* && cd ..").c_str());
     #endif
     pthread_exit(NULL);
+    return NULL;
 }

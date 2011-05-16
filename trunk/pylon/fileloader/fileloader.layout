@@ -13,29 +13,44 @@
 	<File name="ini.h" open="0" top="0" tabpos="0">
 		<Cursor position="227" topLine="0" />
 	</File>
-	<File name="minizip/ioapi.h" open="0" top="0" tabpos="0">
+	<File name="minizip\ioapi.h" open="0" top="0" tabpos="0">
 		<Cursor position="1248" topLine="176" />
 	</File>
-	<File name="minizip/iowin32.c" open="0" top="0" tabpos="0">
-		<Cursor position="11928" topLine="363" />
+	<File name="minizip\iowin32.c" open="0" top="0" tabpos="0">
+		<Cursor position="4635" topLine="126" />
 	</File>
-	<File name="minizip/iowin32.h" open="0" top="0" tabpos="0">
+	<File name="minizip\iowin32.h" open="0" top="0" tabpos="0">
 		<Cursor position="465" topLine="0" />
 	</File>
-	<File name="minizip/unzip.c" open="0" top="0" tabpos="0">
+	<File name="minizip\unzip.c" open="0" top="0" tabpos="0">
 		<Cursor position="53360" topLine="1575" />
 	</File>
-	<File name="minizip/unzip.h" open="0" top="0" tabpos="0">
+	<File name="minizip\unzip.h" open="0" top="0" tabpos="0">
 		<Cursor position="1764" topLine="48" />
 	</File>
-	<File name="minizip/zlib/gzlib.c" open="0" top="0" tabpos="0">
-		<Cursor position="13600" topLine="503" />
+	<File name="minizip\zlib\compress.c" open="0" top="0" tabpos="0">
+		<Cursor position="183" topLine="60" />
 	</File>
-	<File name="simpleini/SimpleIni.h" open="0" top="0" tabpos="0">
+	<File name="minizip\zlib\gzguts.h" open="0" top="0" tabpos="0">
+		<Cursor position="360" topLine="0" />
+	</File>
+	<File name="minizip\zlib\gzlib.c" open="0" top="0" tabpos="0">
+		<Cursor position="13600" topLine="499" />
+	</File>
+	<File name="minizip\zlib\inffast.c" open="0" top="0" tabpos="0">
+		<Cursor position="12737" topLine="75" />
+	</File>
+	<File name="minizip\zlib\inftrees.c" open="0" top="0" tabpos="0">
+		<Cursor position="13767" topLine="310" />
+	</File>
+	<File name="minizip\zlib\trees.c" open="0" top="0" tabpos="0">
+		<Cursor position="45240" topLine="1224" />
+	</File>
+	<File name="simpleini\SimpleIni.h" open="0" top="0" tabpos="0">
 		<Cursor position="73081" topLine="1930" />
 	</File>
 	<File name="unzip.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="15632" topLine="577" />
+		<Cursor position="15821" topLine="590" />
 	</File>
 	<File name="unzip.h" open="0" top="0" tabpos="0">
 		<Cursor position="191" topLine="0" />

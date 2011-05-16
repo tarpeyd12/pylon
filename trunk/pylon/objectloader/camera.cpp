@@ -6,7 +6,7 @@ namespace ObjectLoader
     {
         char* csrtmp;
         std::string tmp;
-        float ftmp;
+        //float ftmp;
 
         tmp = ScriptEngine::Parse::getLabeledSection(dat,"LookAt","<",">");
         csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="Pylon Engine">
-		<Project filename="pogel/pogel.cbp" />
+		<Project filename="pogel/pogel.cbp">
+			<Depends filename="threads/threads.cbp" />
+		</Project>
 		<Project filename="fileloader/fileloader.cbp" />
-		<Project filename="window/window.cbp" active="1">
+		<Project filename="window/window.cbp">
 			<Depends filename="pogel/pogel.cbp" />
 			<Depends filename="fileloader/fileloader.cbp" />
 			<Depends filename="scriptengine/scriptengine.cbp" />
@@ -26,7 +28,7 @@
 			<Depends filename="scriptengine/scriptengine.cbp" />
 			<Depends filename="renderer/renderer.cbp" />
 		</Project>
-		<Project filename="objectloader/objectloader.cbp">
+		<Project filename="objectloader/objectloader.cbp" active="1">
 			<Depends filename="pogel/pogel.cbp" />
 			<Depends filename="fileloader/fileloader.cbp" />
 			<Depends filename="scriptengine/scriptengine.cbp" />

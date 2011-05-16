@@ -3,7 +3,6 @@
 
 #include "objectloader.h"
 
-
 /*
 C3dCamera {
 	LookAt    < -7.927460 -16.687195 4.024653 >

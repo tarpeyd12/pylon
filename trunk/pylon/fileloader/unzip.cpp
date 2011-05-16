@@ -598,7 +598,7 @@ namespace FileLoader
 
         if (uf==NULL)
         {
-            printf("Cannot open %s, %s.zip, %s.pylon nor %s.pylon.zip\n",zipfilename,zipfilename);
+            printf("Cannot open %s, %s.zip, %s.pylon nor %s.pylon.zip\n",zipfilename,zipfilename,zipfilename,zipfilename);
             unzClose(uf);
             return 1;
         }

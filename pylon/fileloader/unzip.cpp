@@ -560,6 +560,7 @@ namespace FileLoader
             strncpy(filename_try, zipfilename,MAXFILENAME-1);
             /* strncpy doesnt append the trailing NULL, of the string is too long. */
             filename_try[ MAXFILENAME ] = '\0';
+            std::string filenametry = std::string(filename_try);
 
     #ifdef USEWIN32IOAPI
             fill_win32_filefunc64A(&ffunc);
@@ -569,19 +570,35 @@ namespace FileLoader
     #endif
             if (uf == NULL)
             {
-                strcat(filename_try,".zip");
     #ifdef USEWIN32IOAPI
-                uf = unzOpen2_64(filename_try,&ffunc);
+                uf = unzOpen2_64((filenametry+".zip").c_str(),&ffunc);
     #else
-                uf = unzOpen64(filename_try);
-                //std::cout << uf << std::endl;
+                uf = unzOpen64((filenametry+".zip").c_str());
+    #endif
+            }
+
+            if (uf == NULL)
+            {
+    #ifdef USEWIN32IOAPI
+                uf = unzOpen2_64((filenametry+".pylon").c_str(),&ffunc);
+    #else
+                uf = unzOpen64((filenametry+".pylon").c_str());
+    #endif
+            }
+
+            if (uf == NULL)
+            {
+    #ifdef USEWIN32IOAPI
+                uf = unzOpen2_64((filenametry+".pylon.zip").c_str(),&ffunc);
+    #else
+                uf = unzOpen64((filenametry+".pylon.zip").c_str());
     #endif
             }
         }
 
         if (uf==NULL)
         {
-            printf("Cannot open %s or %s.zip\n",zipfilename,zipfilename);
+            printf("Cannot open %s, %s.zip, %s.pylon nor %s.pylon.zip\n",zipfilename,zipfilename);
             unzClose(uf);
             return 1;
         }

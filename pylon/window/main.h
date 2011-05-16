@@ -31,6 +31,9 @@ extern bool forcedir;
 extern bool noarchiving;
 extern std::string forced_dir;
 
+extern std::string VersionStringNoOS;
+extern std::string VersionString;
+
 extern bool calcLock;
 
 extern Thread *calcThread;

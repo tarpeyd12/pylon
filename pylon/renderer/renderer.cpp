@@ -26,8 +26,6 @@ namespace Renderer
 
     void Init()
     {
-        POGEL::getcmd(Renderer::CMD::argumentCount, Renderer::CMD::argumentList);
-
         using namespace Renderer;
         glClearColor(0,0,0,0);
         //glEnable(GL_CULL_FACE);

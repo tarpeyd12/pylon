@@ -1,5 +1,7 @@
 #include "main.h"
 
+#include "version.h"
+
 /* Program entry point */
 
 std::string pylon_archive;
@@ -13,6 +15,26 @@ bool forcedir = false;
 bool noarchiving = false;
 std::string forced_dir = "";
 
+std::string VersionStringNoOS = std::string(AutoVersion::_FULLVERSION_STRING) + std::string(AutoVersion::_STATUS_SHORT);
+#if defined(WINDOWS) || defined(_WIN32)
+std::string VersionString = VersionStringNoOS + "_win";
+#elif defined(APPLE) || defined(_APPLE)
+std::string VersionString = VersionStringNoOS + "_mac";
+#elif defined(LINUX) || defined(_LINUX) || defined(linux)
+std::string VersionString = VersionStringNoOS + "_linux";
+#elif defined(UNIX) || defined(_UNIX) || defined(unix)
+std::string VersionString = VersionStringNoOS + "_unix";
+#else
+std::string VersionString = VersionStringNoOS + "_other";
+#endif
+
+void printVersion()
+{
+    cout << "Pylon_" << VersionString << endl;
+    cout << "\tCreated by: Dean Tarpey" << endl;
+    cout << "\thttp://pylon.googlecode.com/" << endl;
+    cout << endl;
+}
 
 bool calcLock = false;
 
@@ -21,6 +43,12 @@ Thread *scriptThread;
 
 int main(int argc, char *argv[])
 {
+    #ifdef PYLON_DEBUG_VERSION
+    VersionString += "_debug";
+    #endif
+
+    Renderer::CMD::get(argc, argv);
+
     pylon_archive = "resources.pylon";
 
     for(int i = 0; i < argc; i++)
@@ -61,6 +89,12 @@ int main(int argc, char *argv[])
             dontremove = true;
             continue;
         }
+        else
+        if(curarg.compare("-version") == 0)
+        {
+            printVersion();
+            exit(0);
+        }
     }
 
     FileLoader::__ar_extract_init(noarchiving,dontremove,forcedir,forced_dir);
@@ -71,6 +105,9 @@ int main(int argc, char *argv[])
     #else
         chdir(forced_dir.c_str());
     #endif
+
+    if(POGEL::hasproperty(POGEL_DEBUG))
+        printVersion();
 
     std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectPlatonic","Data/Default.wld");
     std::string bob = ScriptEngine::Parse::getLabeledSection(ojdat,"CKeyFrame","{<",">}");
@@ -94,12 +131,18 @@ int main(int argc, char *argv[])
     FileLoader::extractfile(pylon_archive,main_py,true,false,ext_dir,false,"");
     FileLoader::extractfile(pylon_archive,init_py,true,false,ext_dir,false,"");
 
-    Renderer::CMD::get(argc, argv);
     std::string winname = ini.getvalue("window","name");
     if(winname.length())
-        Renderer::Window::Create(winname);
+    {
+        std::string n = "";
+        if(POGEL::hasproperty(POGEL_DEBUG))
+            n = "Pylon_" + VersionString + ": '"+winname+"' in " + (!forcedir?"archive: '" + pylon_archive:"folder: '" + forced_dir) + "'";
+        else
+            n = winname;
+        Renderer::Window::Create(n);
+    }
     else
-        Renderer::Window::Create();
+        Renderer::Window::Create("Pylon_" + VersionString);
     Renderer::Init();
 
     scriptThread = new Thread(Scripts);

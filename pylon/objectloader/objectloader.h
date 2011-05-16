@@ -6,6 +6,7 @@
 #include "../fileloader/fileloader.h"
 
 #include "keyframe.h"
+#include "camera.h"
 
 namespace ObjectLoader
 {

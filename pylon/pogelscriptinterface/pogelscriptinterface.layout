@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="methoddef.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="1951" topLine="13" />
+	<File name="methoddef.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="1299" topLine="26" />
 	</File>
-	<File name="objects.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="1102" topLine="207" />
+	<File name="objects.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="1883" topLine="29" />
+	</File>
+	<File name="objects.h" open="0" top="0" tabpos="0">
+		<Cursor position="131" topLine="0" />
 	</File>
 	<File name="pogelscriptinterface.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="2044" topLine="41" />
 	</File>
 	<File name="pogelscriptinterface.h" open="0" top="0" tabpos="3">
-		<Cursor position="103" topLine="0" />
+		<Cursor position="1227" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

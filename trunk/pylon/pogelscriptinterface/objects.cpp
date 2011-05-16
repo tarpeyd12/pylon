@@ -1,4 +1,5 @@
 #include "objects.h"
+#include "../pogel/pogel.h"
 
 using namespace ScriptEngine::MethodInterface;
 

@@ -52,6 +52,17 @@ ScriptEngine::MethodInterface::MethodDef drawLockMethods[] =
     { NULL }
 };
 
+ScriptEngine::MethodInterface::Object* getVersion( ScriptEngine::MethodInterface::Object* )
+{
+    return Py_BuildValue("s", VersionStringNoOS.c_str());
+}
+
+ScriptEngine::MethodInterface::MethodDef gatVersionMethod[] =
+{
+    { "version", (ScriptEngine::MethodInterface::CFunction)getVersion, ScriptEngine::MethodInterface::NoArgs, NULL },
+    { NULL }
+};
+
 void* Scripts(void* arg)
 {
     bool firstrun = (bool)arg;
@@ -60,6 +71,7 @@ void* Scripts(void* arg)
         ScriptEngine::Begin();
         ScriptEngine::MethodInterface::Add( "calc", calcLockMethods );
         ScriptEngine::MethodInterface::Add( "draw", drawLockMethods );
+        ScriptEngine::MethodInterface::Add( "_pylon", gatVersionMethod );
         pogelInterface::Init();
         ScriptEngine::Execute(FileLoader::totalfile(init_py));
         if(!dontremove)
@@ -90,7 +102,7 @@ void* Scripts(void* arg)
             if(1.0/(curdur-lastdur) > 25)
                 usleep(1000000/25.0-(curdur - lastdur));
             else if(curdur == lastdur)
-                usleep(1000000/25);
+                usleep(1000000/25.0);
             //cout << 1/(curdur-lastdur) << endl;
             lastdur = POGEL::GetTimePassed();
         }

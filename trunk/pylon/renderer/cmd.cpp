@@ -14,6 +14,8 @@ namespace Renderer
             Renderer::CMD::argumentList = argv;
 
             glutInit(&Renderer::CMD::argumentCount, Renderer::CMD::argumentList);
+
+            POGEL::getcmd(Renderer::CMD::argumentCount, Renderer::CMD::argumentList);
         }
     }
 }

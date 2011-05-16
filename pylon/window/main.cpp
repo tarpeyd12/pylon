@@ -17,7 +17,11 @@ std::string forced_dir = "";
 
 std::string VersionStringNoOS = std::string(AutoVersion::_FULLVERSION_STRING) + std::string(AutoVersion::_STATUS_SHORT);
 #if defined(WINDOWS) || defined(_WIN32)
-std::string VersionString = VersionStringNoOS + "_win";
+    #if defined(_WIN64)
+        std::string VersionString = VersionStringNoOS + "_win64";
+    #else
+        std::string VersionString = VersionStringNoOS + "_win32";
+    #endif
 #elif defined(APPLE) || defined(_APPLE)
 std::string VersionString = VersionStringNoOS + "_mac";
 #elif defined(LINUX) || defined(_LINUX) || defined(linux)
@@ -112,6 +116,8 @@ int main(int argc, char *argv[])
     std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectPlatonic","Data/Default.wld");
     std::string bob = ScriptEngine::Parse::getLabeledSection(ojdat,"CKeyFrame","{<",">}");
     ObjectLoader::KeyFrame key(bob);
+
+    std::cout << key.toString() << std::endl;
 
     //cout << key.toString() << endl;
 

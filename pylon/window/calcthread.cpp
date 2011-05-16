@@ -20,4 +20,5 @@ void* Calculations(void* arg)
 
     }
     pthread_exit(NULL);
+    return NULL;
 };

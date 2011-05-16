@@ -98,10 +98,10 @@ namespace ScriptEngine
             if(numEndChars == 0) return "";
             unsigned int level = 0, levelocc = 0, branchpos = 0, branch; path >> branch;
             bool isschr = false, isechr = false;
-            int chlen = (startChar.length() > endChar.length() ? startChar.length() : endChar.length());
+            unsigned int chlen = (startChar.length() > endChar.length() ? startChar.length() : endChar.length());
             for(unsigned int i = 0; i < s.length(); i++) {
                 isschr = isechr = false;
-                for(int p = 0; p < chlen; p++)
+                for(unsigned int p = 0; p < chlen; p++)
                     if(p < startChar.length() && s[i] == startChar[p]) isschr = true;
                     else if(p < endChar.length() && s[i] == endChar[p]) isechr = true;
                 if(isschr && level++ == branchpos && levelocc++ >= branch) {
@@ -109,7 +109,7 @@ namespace ScriptEngine
                     if(path.good()) path >> branch;
                     else for(unsigned int g = i; i < s.length(); i++) {
                         bool uisschr = false, uisechr = false;
-                        for(int p = 0; p < chlen; p++)
+                        for(unsigned int p = 0; p < chlen; p++)
                             if(p < startChar.length() && s[i] == startChar[p]) uisschr = true;
                             else if(p < endChar.length() && s[i] == endChar[p]) uisechr = true;
                         if(uisschr) level++;

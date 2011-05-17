@@ -2,10 +2,10 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="camera.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="1170" topLine="15" />
+		<Cursor position="1160" topLine="15" />
 	</File>
 	<File name="camera.h" open="1" top="0" tabpos="5">
-		<Cursor position="438" topLine="10" />
+		<Cursor position="229" topLine="20" />
 	</File>
 	<File name="keyframe.cpp" open="1" top="0" tabpos="3">
 		<Cursor position="3537" topLine="42" />
@@ -13,13 +13,16 @@
 	<File name="keyframe.h" open="0" top="0" tabpos="4">
 		<Cursor position="1364" topLine="0" />
 	</File>
+	<File name="light.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="1221" topLine="33" />
+	</File>
 	<File name="light.h" open="1" top="1" tabpos="6">
-		<Cursor position="4799" topLine="140" />
+		<Cursor position="1345" topLine="38" />
 	</File>
 	<File name="objectloader.cpp" open="1" top="0" tabpos="2">
 		<Cursor position="577" topLine="0" />
 	</File>
 	<File name="objectloader.h" open="1" top="0" tabpos="1">
-		<Cursor position="249" topLine="0" />
+		<Cursor position="222" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

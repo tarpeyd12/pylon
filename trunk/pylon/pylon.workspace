@@ -5,7 +5,7 @@
 			<Depends filename="threads/threads.cbp" />
 		</Project>
 		<Project filename="fileloader/fileloader.cbp" />
-		<Project filename="window/window.cbp">
+		<Project filename="window/window.cbp" active="1">
 			<Depends filename="pogel/pogel.cbp" />
 			<Depends filename="fileloader/fileloader.cbp" />
 			<Depends filename="scriptengine/scriptengine.cbp" />
@@ -28,7 +28,7 @@
 			<Depends filename="scriptengine/scriptengine.cbp" />
 			<Depends filename="renderer/renderer.cbp" />
 		</Project>
-		<Project filename="objectloader/objectloader.cbp" active="1">
+		<Project filename="objectloader/objectloader.cbp">
 			<Depends filename="pogel/pogel.cbp" />
 			<Depends filename="fileloader/fileloader.cbp" />
 			<Depends filename="scriptengine/scriptengine.cbp" />

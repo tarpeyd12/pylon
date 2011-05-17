@@ -124,8 +124,18 @@ namespace ScriptEngine
 
         std::string getStringComponentLevelNoMore(std::string startChar, bool firstInclusive, std::string endChar, bool lastInclusive, std::string s, std::string path_s)
         {
-            std::string level = getStringComponentLevel(startChar,firstInclusive,endChar,lastInclusive,s,path_s);
-            //kashdgbfa
+            std::string level_str = getStringComponentLevel(startChar,firstInclusive,endChar,lastInclusive,s,path_s);
+            unsigned int level = 0, beg = 0;
+            for(unsigned int i = 0; i < level_str.length(); i++) {
+                for(unsigned int p = 0; p < startChar.length(); p++)
+                    if(level_str[i] == startChar[p] && level++ == 0) beg = i;
+                for(unsigned int p = 0; p < endChar.length(); p++)
+                    if(level_str[i] == endChar[p] && --level == 0) {
+                            level_str = level_str.substr(0,beg) + level_str.substr(i+1);
+                            i = beg = 0;
+                    }
+            }
+            return level_str;
         }
 
         std::string getLine(std::string dat, unsigned int ln, char ch)

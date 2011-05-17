@@ -86,13 +86,14 @@ namespace ObjectLoader
 			unsigned int ShadowMapSize;
 			unsigned int BufferMethod;
         public:
+            ShadowMap();
             ShadowMap(std::string);
             virtual ~ShadowMap();
-    }
+    };
 
-    class ShadowDepthMap : public ShadowMap { }
+    class ShadowDepthMap : public ObjectLoader::ShadowMap { };
 
-    class TransparentShadowMap : public ShadowMap { }
+    class TransparentShadowMap : public ObjectLoader::ShadowMap { };
 
     class FlareArray
     {
@@ -104,9 +105,10 @@ namespace ObjectLoader
             float ReflexScale;
             float ReflexSatn;
         public:
+            FlareArray();
             FlareArray(std::string);
             virtual ~FlareArray();
-    }
+    };
 
     class Light
     {
@@ -164,7 +166,7 @@ namespace ObjectLoader
         public:
             Light(std::string);
             virtual ~Light();
-    }
+    };
 }
 
 #endif // LIGHT_H_INCLUDED

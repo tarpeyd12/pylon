@@ -2,6 +2,13 @@
 
 namespace ObjectLoader
 {
+    ShadowMap::ShadowMap()
+    {
+        CasterName = "";
+        ShadowMapSize = 512;
+        BufferMethod = 0;
+    }
+
     ShadowMap::ShadowMap(std::string dat)
     {
         char* csrtmp;
@@ -13,16 +20,26 @@ namespace ObjectLoader
 
         tmp = ScriptEngine::Parse::getLabeledSection(dat,"ShadowMap Size","<",">");
         csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%f",&ShadowMapSize);
+        sscanf(csrtmp,"%u",&ShadowMapSize);
 
         tmp = ScriptEngine::Parse::getLabeledSection(dat,"Buffer Method","<",">");
         csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%f",&BufferMethod);
+        sscanf(csrtmp,"%u",&BufferMethod);
     }
 
     ShadowMap::~ShadowMap()
     {
 
+    }
+
+    FlareArray::FlareArray()
+    {
+        GlowList = "";
+        GlowScale = 1.0;
+        GlowScale = 1.0;
+        ReflexList = "";
+        ReflexScale = 1.0;
+        ReflexScale = 1.0;
     }
 
     FlareArray::FlareArray(std::string dat)
@@ -61,7 +78,7 @@ namespace ObjectLoader
 
     Light::Light(std::string dat)
     {
-
+        std::string toplevel = ScriptEngine::Parse::getStringComponentLevelNoMore("{",false,"}",false,dat,"0");
     }
 
     Light::~Light()

@@ -17,6 +17,8 @@ namespace ScriptEngine
         std::string getStringComponentLevel(char, char, std::string, std::string);
         std::string getStringComponentLevel(std::string, bool, std::string, bool, std::string, std::string);
 
+        std::string getStringComponentLevelNoMore(std::string, bool, std::string, bool, std::string, std::string);
+
         std::string getLine(std::string,unsigned int,char);
         std::string getLine(std::string,unsigned int);
     }

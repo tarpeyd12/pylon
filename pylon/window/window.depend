@@ -4758,3 +4758,335 @@
 
 1305570230 c:\users\tarpeyd12\desktop\pylon\pylon\window\version.h
 
+1305657228 source:c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\scriptthread.cpp
+	"main.h"
+
+1305657228 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\main.h
+	<Python.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdlib.h>
+	"../pogel/pogel.h"
+	"../fileloader/fileloader.h"
+	"../renderer/renderer.h"
+	"../threads/threads.h"
+	"../scriptengine/scriptengine.h"
+	"../pogelscriptinterface/pogelscriptinterface.h"
+	"../objectloader/objectloader.h"
+
+1305657210 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\pogel.h
+	<time.h>
+	<iostream>
+	<sstream>
+	<string>
+	"pogel_classes.h"
+
+1305657210 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\pogel_classes.h
+	"templates/templates.h"
+	"classes/threads.h"
+	"classes/bounding_class.h"
+	"classes/image_class.h"
+	"classes/view_class.h"
+	"classes/matrix_class.h"
+	"classes/misc_class.h"
+	"classes/object_class.h"
+	"classes/fractal_class.h"
+	"classes/sprite_class.h"
+	"classes/object_funcs.h"
+	"classes/point_class.h"
+	"classes/quat_class.h"
+	"classes/triangle_class.h"
+	"classes/line_class.h"
+	"classes/physics/physics.h"
+	"classes/physics/solid_class.h"
+	"classes/physics/singularity_class.h"
+	"classes/physics/dynamics_class.h"
+	"classes/physics/simulation_class.h"
+	"classes/physics/fountain_class.h"
+	"classes/physics/microcosm_class.h"
+	"pogel_internals.h"
+
+1305657210 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\templates\templates.h
+	"arraylist.h"
+	"classlist_template.h"
+	"hashlist_template.h"
+	"octree_template.h"
+
+1305657210 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\templates\arraylist.h
+	<iostream>
+	"arraylist.cpp"
+	"arraylist.operators.cpp"
+
+1305657210 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\templates\arraylist.cpp
+	<math.h>
+	<iostream>
+	"arraylist.h"
+
+1305657210 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\templates\arraylist.operators.cpp
+	<stdlib.h>
+	<iostream>
+	"arraylist.h"
+
+1305657210 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\templates\classlist_template.h
+	<iostream>
+	<vector>
+
+1305657210 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\templates\hashlist_template.h
+	"classlist_template.h"
+	"arraylist.h"
+
+1305657210 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\templates\octree_template.h
+	"hashlist_template.h"
+	"../classes/bounding_class.h"
+	"../classes/physics/solid_class.h"
+	"../classes/physics/singularity_class.h"
+	"octree_template_protected.h"
+	"octree_template_public.h"
+	"octree_template_protected.h"
+	"octree_template_public.h"
+
+1305657208 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\bounding_class.h
+	"point_class.h"
+	"misc_class.h"
+
+1305657208 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\point_class.h
+	<stdio.h>
+	<math.h>
+	"misc_class.h"
+	"../pogel_internals.h"
+
+1305657208 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\misc_class.h
+	<GL/gl.h>
+	"../pogel_internals.h"
+
+1305657210 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\pogel_internals.h
+	<GL/gl.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	<string>
+
+1305657205 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\physics\solid_class.h
+	<iostream>
+	<string>
+	"physics.h"
+	"../point_class.h"
+	"../object_class.h"
+
+1305657206 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\physics\physics.h
+	"../triangle_class.h"
+	"../line_class.h"
+	"../../pogel_internals.h"
+
+1305657208 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\triangle_class.h
+	"point_class.h"
+	"line_class.h"
+	"image_class.h"
+	"matrix_class.h"
+	"bounding_class.h"
+	"../pogel_internals.h"
+
+1305657208 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\line_class.h
+	"point_class.h"
+	"bounding_class.h"
+	"misc_class.h"
+	"../pogel_internals.h"
+
+1305657208 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\image_class.h
+	"../pogel_internals.h"
+
+1305657207 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\matrix_class.h
+	<GL/gl.h>
+	<math.h>
+	"quat_class.h"
+	"point_class.h"
+	"triangle_class.h"
+	"../pogel_internals.h"
+
+1305657208 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\quat_class.h
+	<stdio.h>
+	"matrix_class.h"
+	"point_class.h"
+	"../pogel_internals.h"
+
+1305657208 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\object_class.h
+	<stdlib.h>
+	<string.h>
+	"point_class.h"
+	"triangle_class.h"
+	"matrix_class.h"
+	"../pogel_internals.h"
+	"physics/physics.h"
+
+1305657205 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\physics\singularity_class.h
+	<stdlib.h>
+	"../../templates/classlist_template.h"
+	"physics.h"
+	"../point_class.h"
+
+1305657210 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\templates\octree_template_protected.h
+
+1305657210 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\templates\octree_template_public.h
+
+1305657208 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\threads.h
+	<pthread.h>
+	<stdlib.h>
+	<unistd.h>
+	<stdio.h>
+	"../../threads/threads.h"
+
+1305657248 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\threads\threads.h
+	<pthread.h>
+	<sched.h>
+	<stdlib.h>
+	<unistd.h>
+	<stdio.h>
+
+1305657208 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\view_class.h
+	"../pogel_internals.h"
+	"misc_class.h"
+	"image_class.h"
+
+1305657208 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\fractal_class.h
+	"object_class.h"
+	"point_class.h"
+
+1305657208 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\sprite_class.h
+	"point_class.h"
+	"object_class.h"
+
+1305657208 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\object_funcs.h
+	"point_class.h"
+	"triangle_class.h"
+	"object_class.h"
+
+1305657205 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\physics\dynamics_class.h
+	"../../templates/templates.h"
+	"physics.h"
+	"singularity_class.h"
+	"solid_class.h"
+
+1305657206 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\physics\simulation_class.h
+	"physics.h"
+	"dynamics_class.h"
+	"solid_class.h"
+
+1305657206 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\physics\fountain_class.h
+	"physics.h"
+	"solid_class.h"
+	"simulation_class.h"
+
+1305657206 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\classes\physics\microcosm_class.h
+	"physics.h"
+	"solid_class.h"
+	"simulation_class.h"
+
+1305657225 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\fileloader\fileloader.h
+	<string>
+	<fstream>
+	"unzip.h"
+	"ini.h"
+
+1305657225 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\fileloader\unzip.h
+	"fileloader.h"
+
+1305657224 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\fileloader\ini.h
+	"fileloader.h"
+	"simpleini/SimpleIni.h"
+
+1305657222 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\fileloader\simpleini\simpleini.h
+	<cstring>
+	<string>
+	<map>
+	<list>
+	<algorithm>
+	<stdio.h>
+	<iostream>
+	<cassert>
+	<unicode/ustring.h>
+	<wchar.h>
+	"ConvertUTF.h"
+	<unicode/ucnv.h>
+	<windows.h>
+	<mbstring.h>
+
+1305657222 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\fileloader\simpleini\convertutf.h
+
+1305657213 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\renderer\renderer.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdlib.h>
+	"../pogel/pogel.h"
+	"../fileloader/fileloader.h"
+	"mouse.h"
+	"window.h"
+	"key.h"
+	"cmd.h"
+	"physics.h"
+
+1305657213 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\renderer\mouse.h
+	"renderer.h"
+
+1305657213 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\renderer\window.h
+	"renderer.h"
+
+1305657213 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\renderer\key.h
+	"renderer.h"
+
+1305657213 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\renderer\cmd.h
+	"renderer.h"
+
+1305657213 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\renderer\physics.h
+	"renderer.h"
+
+1305657246 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\scriptengine\scriptengine.h
+	<Python.h>
+	"../fileloader/fileloader.h"
+	"../threads/threads.h"
+	<iostream>
+	"executor.h"
+	"stringparser.h"
+
+1305657246 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\scriptengine\executor.h
+	"scriptengine.h"
+
+1305657246 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\scriptengine\stringparser.h
+	<string>
+	<iostream>
+	<sstream>
+
+1305657251 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogelscriptinterface\pogelscriptinterface.h
+	<Python.h>
+	"../pogel/pogel.h"
+	"../scriptengine/scriptengine.h"
+	"../renderer/renderer.h"
+	"../fileloader/fileloader.h"
+	"objects.h"
+
+1305657250 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogelscriptinterface\objects.h
+	"pogelscriptinterface.h"
+
+1305657252 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\objectloader\objectloader.h
+	"../pogel/pogel.h"
+	"../scriptengine/scriptengine.h"
+	"../fileloader/fileloader.h"
+	"keyframe.h"
+	"camera.h"
+
+1305657252 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\objectloader\keyframe.h
+	"objectloader.h"
+
+1305666960 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\objectloader\camera.h
+	"objectloader.h"
+
+1305657228 source:c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\calcthread.cpp
+	"main.h"
+
+1305667742 source:c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\main.cpp
+	"main.h"
+	"version.h"
+
+1305657228 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\version.h
+

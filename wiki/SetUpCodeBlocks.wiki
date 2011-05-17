@@ -1,0 +1,8 @@
+#summary how to setup the code::blocks compiler for pylon compilation under windows.
+
+= Introduction =
+
+ # Install Code::Blocks in the usual way.
+ # when that is finished, do no open pylon. open the C::B IDE then go to "Settings" -> "Global Variables ..."
+ # under the "Current Set" press "New" and type in 'pylon', without quotes, then press "Ok"
+ # 

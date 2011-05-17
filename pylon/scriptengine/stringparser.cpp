@@ -122,6 +122,12 @@ namespace ScriptEngine
             return "";
         }
 
+        std::string getStringComponentLevelNoMore(std::string startChar, bool firstInclusive, std::string endChar, bool lastInclusive, std::string s, std::string path_s)
+        {
+            std::string level = getStringComponentLevel(startChar,firstInclusive,endChar,lastInclusive,s,path_s);
+            //kashdgbfa
+        }
+
         std::string getLine(std::string dat, unsigned int ln, char ch)
         {
             return getStringSection_sc(ch,ln-1,false,ch,ln+1,false,dat);

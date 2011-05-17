@@ -79,6 +79,35 @@ C3dObjectLight {
 
 namespace ObjectLoader
 {
+    class ShadowMap
+    {
+        private:
+            std::string CasterName;
+			unsigned int ShadowMapSize;
+			unsigned int BufferMethod;
+        public:
+            ShadowMap(std::string);
+            virtual ~ShadowMap();
+    }
+
+    class ShadowDepthMap : public ShadowMap { }
+
+    class TransparentShadowMap : public ShadowMap { }
+
+    class FlareArray
+    {
+        private:
+            std::string GlowList;
+            float GlowScale;
+            float GlowSatn;
+            std::string ReflexList;
+            float ReflexScale;
+            float ReflexSatn;
+        public:
+            FlareArray(std::string);
+            virtual ~FlareArray();
+    }
+
     class Light
     {
         private:
@@ -97,6 +126,41 @@ namespace ObjectLoader
             float QuadraticAttenuation;
             unsigned int EnableOpaqueShadows;
             unsigned int ShadowAllOpaqueObjects;
+            ShadowDepthMap SDepthMap;
+            unsigned int NumOpaqueShadowCasters;
+            unsigned int EnableTransparentShadows;
+            unsigned int ShadowAllTransparentObjects;
+            TransparentShadowMap TShadowMap_1;
+            unsigned int NumTransparentShadowCasters;
+            unsigned int EnableParticleEmitterShadows;
+            unsigned int ShadowAllParticleEmitters;
+            TransparentShadowMap TShadowMap_2;
+            unsigned int NumParticleEmitterShadowCasters;
+            FlareArray FArray;
+            unsigned int EnableLensflaredepthtest;
+            std::string Name;
+            POGEL::COLOR Color;
+            POGEL::POINT Origin;
+            POGEL::POINT Rotation;
+            POGEL::POINT Scale;
+            POGEL::POINT Translate;
+            unsigned int Constraints;
+            POGEL::POINT OrgnLimitsNeg;
+            POGEL::POINT OrgnLimitsPos;
+            POGEL::POINT RotnLimitsNeg;
+            POGEL::POINT RotnLimitsPos;
+            unsigned int DisplayMode;
+            unsigned int ShowObject;
+            unsigned int SolidColor;
+            unsigned int RenderMode;
+            unsigned int CastsShadows;
+            unsigned int ReceivesShadows;
+            unsigned int EnableLighting;
+            std::string MaterialName;
+            unsigned int NumTextures;
+            std::string GLSLShader;
+
+            // animation stuff
         public:
             Light(std::string);
             virtual ~Light();

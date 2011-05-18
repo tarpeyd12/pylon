@@ -91,9 +91,21 @@ namespace ObjectLoader
             virtual ~ShadowMap();
     };
 
-    class ShadowDepthMap : public ObjectLoader::ShadowMap { };
+    class ShadowDepthMap : public ObjectLoader::ShadowMap
+    {
+        public:
+            ShadowDepthMap();
+            ShadowDepthMap(std::string);
+            virtual ~ShadowDepthMap();
+    };
 
-    class TransparentShadowMap : public ObjectLoader::ShadowMap { };
+    class TransparentShadowMap : public ObjectLoader::ShadowMap
+    {
+        public:
+            TransparentShadowMap();
+            TransparentShadowMap(std::string);
+            virtual ~TransparentShadowMap();
+    };
 
     class FlareArray
     {

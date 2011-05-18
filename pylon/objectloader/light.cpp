@@ -79,6 +79,7 @@ namespace ObjectLoader
     Light::Light(std::string dat)
     {
         std::string toplevel = ScriptEngine::Parse::getStringComponentLevelNoMore("{",false,"}",false,dat,"0");
+
     }
 
     Light::~Light()

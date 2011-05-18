@@ -44,8 +44,7 @@ namespace ScriptEngine
 
         std::string getLabeledSection(std::string in, std::string secname, std::string start_str, std::string end_str)
         {
-            if(in.empty() || secname.empty() || start_str.empty() || end_str.empty()) return "";
-            if(start_str.compare(end_str) == 0) return "";
+            if(in.empty() || secname.empty() || start_str.empty() || end_str.empty() || start_str.compare(end_str) == 0) return "";
             std::string cur = "", sec = "";
             unsigned int b = 0, lastpos = -1;
             do {

@@ -1,9 +1,13 @@
 #ifndef LIGHT_H_INCLUDED
 #define LIGHT_H_INCLUDED
 
-#include "objectloader.h"
+//#include "objectloader.h"
 
-/*
+#include "../pogel/pogel.h"
+#include "../scriptengine/scriptengine.h"
+#include "../fileloader/fileloader.h"
+
+/*
 C3dObjectLight {
 	Radius        < 2.000000 >
 	Direction     < 0.000000 0.000000 0.000000 >

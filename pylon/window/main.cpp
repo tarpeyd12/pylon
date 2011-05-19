@@ -2,6 +2,30 @@
 
 #include "version.h"
 
+#undef RC_FILEVERSION
+#undef RC_FILEVERSION_STRING
+#include "../pogel/version.h"
+#undef RC_FILEVERSION
+#undef RC_FILEVERSION_STRING
+#include "../fileloader/version.h"
+#undef RC_FILEVERSION
+#undef RC_FILEVERSION_STRING
+#include "../scriptengine/version.h"
+#undef RC_FILEVERSION
+#undef RC_FILEVERSION_STRING
+#include "../renderer/version.h"
+#undef RC_FILEVERSION
+#undef RC_FILEVERSION_STRING
+#include "../threads/version.h"
+#undef RC_FILEVERSION
+#undef RC_FILEVERSION_STRING
+#include "../pogelscriptinterface/version.h"
+#undef RC_FILEVERSION
+#undef RC_FILEVERSION_STRING
+#include "../objectloader/version.h"
+#undef RC_FILEVERSION
+#undef RC_FILEVERSION_STRING
+
 /* Program entry point */
 
 std::string pylon_archive;
@@ -16,6 +40,7 @@ bool noarchiving = false;
 std::string forced_dir = "";
 
 std::string VersionStringNoOS = std::string(AutoVersion::_FULLVERSION_STRING) + std::string(AutoVersion::_STATUS_SHORT);
+
 #if defined(WINDOWS) || defined(_WIN32)
     #if defined(_WIN64)
         std::string VersionString = VersionStringNoOS + "_win64";
@@ -35,9 +60,15 @@ std::string VersionString = VersionStringNoOS + "_other";
 void printVersion()
 {
     cout << "Pylon_" << VersionString << endl;
-    cout << "\tCreated by: Dean Tarpey" << endl;
-    cout << "\thttp://pylon.googlecode.com/" << endl;
-    cout << endl;
+    cout << "  Pogel_" << std::string(PogelAutoVersion::FULLVERSION_STRING) + " " + std::string(PogelAutoVersion::STATUS) << endl;
+    cout << "  FileLoader_" << std::string(FileLoaderAutoVersion::FULLVERSION_STRING) + " " + std::string(FileLoaderAutoVersion::STATUS) << endl;
+    cout << "  ScriptEngine_" << std::string(ScriptEngineAutoVersion::FULLVERSION_STRING) + " " + std::string(ScriptEngineAutoVersion::STATUS) << endl;
+    cout << "  Renderer_" << std::string(RendererAutoVersion::FULLVERSION_STRING) + " " + std::string(RendererAutoVersion::STATUS) << endl;
+    cout << "  Threads_" << std::string(ThreadsAutoVersion::FULLVERSION_STRING) + " " + std::string(ThreadsAutoVersion::STATUS) << endl;
+    cout << "  pogelInterface_" << std::string(pogelInterfaceAutoVersion::FULLVERSION_STRING) + " " + std::string(pogelInterfaceAutoVersion::STATUS) << endl;
+    cout << "  ObjectLoader_" << std::string(ObjectLoaderAutoVersion::FULLVERSION_STRING) + " " + std::string(ObjectLoaderAutoVersion::STATUS) << endl;
+    cout << "Created by: Dean Tarpey" << endl;
+    cout << "http://pylon.googlecode.com/" << endl;
 }
 
 bool calcLock = false;
@@ -114,10 +145,10 @@ int main(int argc, char *argv[])
         printVersion();
 
     std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectPlatonic","Data/Default.wld");
-    std::string bob = ScriptEngine::Parse::getLabeledSection(ojdat,"CKeyFrame","{<",">}");
-    ObjectLoader::KeyFrame key(bob);
+    std::string bob = ScriptEngine::Parse::getLabeledSection(ojdat,"CAnimKeyFrame","{<",">}");
+    ObjectLoader::AnimKeyFrame key(bob);
 
-    std::cout << key.toString() << std::endl;
+    //std::cout << key.toString() << std::endl;
 
     //cout << key.toString() << endl;
 

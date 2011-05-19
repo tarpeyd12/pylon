@@ -64,6 +64,7 @@
 		<Unit filename="physics.h" />
 		<Unit filename="renderer.cpp" />
 		<Unit filename="renderer.h" />
+		<Unit filename="version.h" />
 		<Unit filename="window.cpp" />
 		<Unit filename="window.h" />
 		<Extensions>
@@ -71,6 +72,12 @@
 			<code_completion />
 			<lib_finder disable_auto="1" />
 			<debugger />
+			<AutoVersioning>
+				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
+				<Settings autoincrement="1" date_declarations="1" do_auto_increment="1" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
+				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
+				<Code header_guard="RENDERER_VERSION_H" namespace="RendererAutoVersion" prefix="" />
+			</AutoVersioning>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

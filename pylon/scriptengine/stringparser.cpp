@@ -54,8 +54,7 @@ namespace ScriptEngine
                 b = cur.find_first_of(start_str + end_str, secname.length());
                 while(cur[b-1] == ' ' || cur[b-1] == '\t') b--;
                 sec = cur.substr(0,b);
-            }
-            while(secname.compare(sec) != 0);
+            } while(secname.compare(sec) != 0);
             return getStringComponentLevel(start_str,false,end_str,false,cur,"0");
         }
 

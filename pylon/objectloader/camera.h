@@ -1,7 +1,11 @@
 #ifndef CAMERA_H_INCLUDED
 #define CAMERA_H_INCLUDED
 
-#include "objectloader.h"
+//#include "objectloader.h"
+
+#include "../pogel/pogel.h"
+#include "../scriptengine/scriptengine.h"
+#include "../fileloader/fileloader.h"
 
 /*
 C3dCamera {

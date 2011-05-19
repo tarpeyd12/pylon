@@ -7,4 +7,7 @@
 	<File name="threads.h" open="0" top="0" tabpos="0">
 		<Cursor position="211" topLine="0" />
 	</File>
+	<File name="version.h" open="0" top="0" tabpos="0">
+		<Cursor position="587" topLine="8" />
+	</File>
 </CodeBlocks_layout_file>

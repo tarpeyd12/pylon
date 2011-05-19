@@ -1,67 +1,6 @@
 #include "main.h"
 
-ScriptEngine::MethodInterface::Object* lockCalculations( ScriptEngine::MethodInterface::Object* )
-{
-    if(!calcLock)
-    {
-        calcLock = true;
-        calcThread->joinThread();
-    }
-    Py_RETURN_NONE;
-}
-
-ScriptEngine::MethodInterface::Object* unlockCalculations( ScriptEngine::MethodInterface::Object* )
-{
-    if(calcLock)
-    {
-        calcLock = false;
-        calcThread->startThread();
-    }
-    Py_RETURN_NONE;
-}
-
-ScriptEngine::MethodInterface::MethodDef calcLockMethods[] =
-{
-    { "lock", (ScriptEngine::MethodInterface::CFunction)lockCalculations, ScriptEngine::MethodInterface::NoArgs, NULL },
-    { "unlock", (ScriptEngine::MethodInterface::CFunction)unlockCalculations, ScriptEngine::MethodInterface::NoArgs, NULL },
-    { NULL }
-};
-
-ScriptEngine::MethodInterface::Object* lockRenderer( ScriptEngine::MethodInterface::Object* )
-{
-    if(!Renderer::drawLock)
-    {
-        Renderer::drawLock = true;
-    }
-    Py_RETURN_NONE;
-}
-
-ScriptEngine::MethodInterface::Object* unlockRenderer( ScriptEngine::MethodInterface::Object* )
-{
-    if(Renderer::drawLock)
-    {
-        Renderer::drawLock = false;
-    }
-    Py_RETURN_NONE;
-}
-
-ScriptEngine::MethodInterface::MethodDef drawLockMethods[] =
-{
-    { "lock", (ScriptEngine::MethodInterface::CFunction)lockRenderer, ScriptEngine::MethodInterface::NoArgs, NULL },
-    { "unlock", (ScriptEngine::MethodInterface::CFunction)unlockRenderer, ScriptEngine::MethodInterface::NoArgs, NULL },
-    { NULL }
-};
-
-ScriptEngine::MethodInterface::Object* getVersion( ScriptEngine::MethodInterface::Object* )
-{
-    return Py_BuildValue("s", VersionStringNoOS.c_str());
-}
-
-ScriptEngine::MethodInterface::MethodDef gatVersionMethod[] =
-{
-    { "version", (ScriptEngine::MethodInterface::CFunction)getVersion, ScriptEngine::MethodInterface::NoArgs, NULL },
-    { NULL }
-};
+#include "mainscriptdefs.h"
 
 void* Scripts(void* arg)
 {

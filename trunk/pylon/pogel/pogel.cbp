@@ -7,9 +7,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\bin\Debug\libpogel" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\bin\Debug" />
-				<Option object_output="obj\Debug\" />
+				<Option output="../bin/Debug/libpogel" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/Debug" />
+				<Option object_output="obj/Debug/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -20,13 +20,13 @@
 				<Linker>
 					<Add option="-L./bin/Debug" />
 					<Add library="threads" />
-					<Add directory="..\bin\Debug" />
+					<Add directory="../bin/Debug" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="..\bin\Release\libpogel" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\bin\Release" />
-				<Option object_output="obj\Release\" />
+				<Option output="../bin/Release/libpogel" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/Release" />
+				<Option object_output="obj/Release/" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -38,7 +38,7 @@
 					<Add option="-s" />
 					<Add option="-L./bin/Release" />
 					<Add library="threads" />
-					<Add directory="..\bin\Release" />
+					<Add directory="../bin/Release" />
 				</Linker>
 			</Target>
 		</Build>
@@ -58,65 +58,66 @@
 			<Add library="$(#opengl.lflags)" />
 			<Add directory="$(#base.lib)" />
 		</Linker>
-		<Unit filename="classes\bounding_class.cpp" />
-		<Unit filename="classes\bounding_class.h" />
-		<Unit filename="classes\fractal_class.cpp" />
-		<Unit filename="classes\fractal_class.h" />
-		<Unit filename="classes\image_class.cpp" />
-		<Unit filename="classes\image_class.h" />
-		<Unit filename="classes\line_class.h" />
-		<Unit filename="classes\matrix_class.cpp" />
-		<Unit filename="classes\matrix_class.h" />
-		<Unit filename="classes\misc_class.h" />
-		<Unit filename="classes\object_class.cpp" />
-		<Unit filename="classes\object_class.h" />
-		<Unit filename="classes\object_funcs.cpp" />
-		<Unit filename="classes\object_funcs.h" />
-		<Unit filename="classes\physics\collision.h" />
-		<Unit filename="classes\physics\dynamics_class.cpp" />
-		<Unit filename="classes\physics\dynamics_class.h" />
-		<Unit filename="classes\physics\fountain_class.cpp" />
-		<Unit filename="classes\physics\fountain_class.h" />
-		<Unit filename="classes\physics\microcosm_class.cpp" />
-		<Unit filename="classes\physics\microcosm_class.h" />
-		<Unit filename="classes\physics\physics.cpp" />
-		<Unit filename="classes\physics\physics.h" />
-		<Unit filename="classes\physics\simulation_class.cpp" />
-		<Unit filename="classes\physics\simulation_class.h" />
-		<Unit filename="classes\physics\simulation_class_collisions.cpp" />
-		<Unit filename="classes\physics\simulation_class_collisions_reaction.cpp" />
-		<Unit filename="classes\physics\singularity_class.cpp" />
-		<Unit filename="classes\physics\singularity_class.h" />
-		<Unit filename="classes\physics\solid_class.cpp" />
-		<Unit filename="classes\physics\solid_class.h" />
-		<Unit filename="classes\point_class.cpp" />
-		<Unit filename="classes\point_class.h" />
-		<Unit filename="classes\quat_class.cpp" />
-		<Unit filename="classes\quat_class.h" />
-		<Unit filename="classes\sprite_class.cpp" />
-		<Unit filename="classes\sprite_class.h" />
-		<Unit filename="classes\threads.h" />
-		<Unit filename="classes\triangle_class.cpp" />
-		<Unit filename="classes\triangle_class.h" />
-		<Unit filename="classes\view_class.cpp" />
-		<Unit filename="classes\view_class.h" />
+		<Unit filename="classes/bounding_class.cpp" />
+		<Unit filename="classes/bounding_class.h" />
+		<Unit filename="classes/fractal_class.cpp" />
+		<Unit filename="classes/fractal_class.h" />
+		<Unit filename="classes/image_class.cpp" />
+		<Unit filename="classes/image_class.h" />
+		<Unit filename="classes/line_class.h" />
+		<Unit filename="classes/matrix_class.cpp" />
+		<Unit filename="classes/matrix_class.h" />
+		<Unit filename="classes/misc_class.h" />
+		<Unit filename="classes/object_class.cpp" />
+		<Unit filename="classes/object_class.h" />
+		<Unit filename="classes/object_funcs.cpp" />
+		<Unit filename="classes/object_funcs.h" />
+		<Unit filename="classes/physics/collision.h" />
+		<Unit filename="classes/physics/dynamics_class.cpp" />
+		<Unit filename="classes/physics/dynamics_class.h" />
+		<Unit filename="classes/physics/fountain_class.cpp" />
+		<Unit filename="classes/physics/fountain_class.h" />
+		<Unit filename="classes/physics/microcosm_class.cpp" />
+		<Unit filename="classes/physics/microcosm_class.h" />
+		<Unit filename="classes/physics/physics.cpp" />
+		<Unit filename="classes/physics/physics.h" />
+		<Unit filename="classes/physics/simulation_class.cpp" />
+		<Unit filename="classes/physics/simulation_class.h" />
+		<Unit filename="classes/physics/simulation_class_collisions.cpp" />
+		<Unit filename="classes/physics/simulation_class_collisions_reaction.cpp" />
+		<Unit filename="classes/physics/singularity_class.cpp" />
+		<Unit filename="classes/physics/singularity_class.h" />
+		<Unit filename="classes/physics/solid_class.cpp" />
+		<Unit filename="classes/physics/solid_class.h" />
+		<Unit filename="classes/point_class.cpp" />
+		<Unit filename="classes/point_class.h" />
+		<Unit filename="classes/quat_class.cpp" />
+		<Unit filename="classes/quat_class.h" />
+		<Unit filename="classes/sprite_class.cpp" />
+		<Unit filename="classes/sprite_class.h" />
+		<Unit filename="classes/threads.h" />
+		<Unit filename="classes/triangle_class.cpp" />
+		<Unit filename="classes/triangle_class.h" />
+		<Unit filename="classes/view_class.cpp" />
+		<Unit filename="classes/view_class.h" />
 		<Unit filename="pogel.cpp" />
 		<Unit filename="pogel.h" />
 		<Unit filename="pogel_classes.h" />
 		<Unit filename="pogel_internals.h" />
-		<Unit filename="templates\arraylist.cpp">
+		<Unit filename="templates/arraylist.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="templates\arraylist.h" />
-		<Unit filename="templates\arraylist.operators.cpp">
+		<Unit filename="templates/arraylist.h" />
+		<Unit filename="templates/arraylist.operators.cpp">
 			<Option target="&lt;{~None~}&gt;" />
 		</Unit>
-		<Unit filename="templates\classlist_template.h" />
-		<Unit filename="templates\hashlist_template.h" />
-		<Unit filename="templates\octree_template.h" />
-		<Unit filename="templates\octree_template_protected.h" />
-		<Unit filename="templates\octree_template_public.h" />
-		<Unit filename="templates\templates.h" />
+		<Unit filename="templates/classlist_template.h" />
+		<Unit filename="templates/hashlist_template.h" />
+		<Unit filename="templates/octree_template.h" />
+		<Unit filename="templates/octree_template_protected.h" />
+		<Unit filename="templates/octree_template_public.h" />
+		<Unit filename="templates/templates.h" />
+		<Unit filename="version.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />
@@ -124,6 +125,12 @@
 				<lib name="pthread-stubs" />
 			</lib_finder>
 			<debugger />
+			<AutoVersioning>
+				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
+				<Settings autoincrement="1" date_declarations="1" do_auto_increment="1" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
+				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
+				<Code header_guard="POGEL_VERSION_H" namespace="PogelAutoVersion" prefix="" />
+			</AutoVersioning>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

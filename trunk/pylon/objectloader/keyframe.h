@@ -1,7 +1,11 @@
 #ifndef KEYFRAME_H_INCLUDED
 #define KEYFRAME_H_INCLUDED
 
-#include "objectloader.h"
+//#include "objectloader.h"
+
+#include "../pogel/pogel.h"
+#include "../scriptengine/scriptengine.h"
+#include "../fileloader/fileloader.h"
 
 /*
 CKeyFrame {

@@ -10,11 +10,11 @@
 	<File name="scriptengine.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="590" topLine="5" />
 	</File>
-	<File name="scriptengine.h" open="0" top="0" tabpos="3">
-		<Cursor position="87" topLine="0" />
+	<File name="scriptengine.h" open="1" top="0" tabpos="14">
+		<Cursor position="67" topLine="0" />
 	</File>
 	<File name="stringparser.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="288" topLine="0" />
+		<Cursor position="5726" topLine="77" />
 	</File>
 	<File name="stringparser.h" open="0" top="0" tabpos="1">
 		<Cursor position="539" topLine="0" />

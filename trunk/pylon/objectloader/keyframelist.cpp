@@ -2,6 +2,11 @@
 
 namespace ObjectLoader
 {
+    KeyFrameList::KeyFrameList()
+    {
+
+    }
+
     KeyFrameList::KeyFrameList(std::string dat)
     {
         char* csrtmp;
@@ -38,6 +43,11 @@ namespace ObjectLoader
         for(unsigned int i = 0; i < _Frames.length(); i++)
             delete _Frames[i];
         _Frames.clear();
+    }
+
+    AnimKeyFrame::AnimKeyFrame()
+    {
+
     }
 
     AnimKeyFrame::AnimKeyFrame(std::string dat)

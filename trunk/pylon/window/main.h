@@ -3,6 +3,12 @@
 
 #ifndef Py_PYTHON_H
 #include <Python.h> // include Python.h before any other includes, because it redefines some system stuff if it is after other includes
+#ifdef _POSIX_C_SOURCE
+#undef _POSIX_C_SOURCE
+#endif
+#ifdef _XOPEN_SOURCE
+#undef _XOPEN_SOURCE
+#endif
 #endif // Py_PYTHON_H
 
 #ifdef __APPLE__

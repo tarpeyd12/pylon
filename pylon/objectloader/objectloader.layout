@@ -4,32 +4,38 @@
 	<File name="camera.cpp" open="1" top="0" tabpos="10">
 		<Cursor position="1401" topLine="0" />
 	</File>
-	<File name="camera.h" open="1" top="1" tabpos="5">
-		<Cursor position="591" topLine="17" />
+	<File name="camera.h" open="1" top="0" tabpos="5">
+		<Cursor position="126" topLine="0" />
 	</File>
 	<File name="keyframe.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="3710" topLine="0" />
+		<Cursor position="3710" topLine="24" />
 	</File>
 	<File name="keyframe.h" open="1" top="0" tabpos="2">
-		<Cursor position="158" topLine="25" />
+		<Cursor position="129" topLine="0" />
 	</File>
 	<File name="keyframelist.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="0" topLine="0" />
+		<Cursor position="1335" topLine="0" />
 	</File>
 	<File name="keyframelist.h" open="1" top="0" tabpos="1">
-		<Cursor position="2188" topLine="11" />
+		<Cursor position="2130" topLine="49" />
 	</File>
 	<File name="light.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="9859" topLine="204" />
+		<Cursor position="9847" topLine="198" />
 	</File>
 	<File name="light.h" open="1" top="0" tabpos="4">
-		<Cursor position="192" topLine="158" />
+		<Cursor position="124" topLine="0" />
+	</File>
+	<File name="object_platonic.cpp" open="1" top="0" tabpos="11">
+		<Cursor position="2009" topLine="0" />
+	</File>
+	<File name="object_platonic.h" open="1" top="0" tabpos="12">
+		<Cursor position="171" topLine="0" />
 	</File>
 	<File name="objectloader.cpp" open="1" top="0" tabpos="7">
 		<Cursor position="80" topLine="0" />
 	</File>
-	<File name="objectloader.h" open="1" top="0" tabpos="3">
-		<Cursor position="266" topLine="0" />
+	<File name="objectloader.h" open="1" top="1" tabpos="3">
+		<Cursor position="290" topLine="0" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="0">
 		<Cursor position="604" topLine="0" />

@@ -34,8 +34,14 @@
 	<File name="minizip/zlib/gzguts.h" open="0" top="0" tabpos="0">
 		<Cursor position="360" topLine="0" />
 	</File>
-	<File name="minizip/zlib/gzlib.c" open="0" top="0" tabpos="0">
-		<Cursor position="13600" topLine="499" />
+	<File name="minizip/zlib/gzlib.c" open="1" top="0" tabpos="19">
+		<Cursor position="208" topLine="0" />
+	</File>
+	<File name="minizip/zlib/gzread.c" open="0" top="0" tabpos="0">
+		<Cursor position="20477" topLine="0" />
+	</File>
+	<File name="minizip/zlib/gzwrite.c" open="0" top="0" tabpos="0">
+		<Cursor position="14492" topLine="0" />
 	</File>
 	<File name="minizip/zlib/inffast.c" open="0" top="0" tabpos="0">
 		<Cursor position="12737" topLine="75" />

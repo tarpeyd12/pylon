@@ -61,6 +61,8 @@
 		<Unit filename="keyframelist.h" />
 		<Unit filename="light.cpp" />
 		<Unit filename="light.h" />
+		<Unit filename="object_platonic.cpp" />
+		<Unit filename="object_platonic.h" />
 		<Unit filename="objectloader.cpp" />
 		<Unit filename="objectloader.h" />
 		<Unit filename="version.h" />

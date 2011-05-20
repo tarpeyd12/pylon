@@ -1,8 +1,8 @@
 #ifndef OBJECTLOADER_H_INCLUDED
 #define OBJECTLOADER_H_INCLUDED
 
-#include "../pogel/pogel.h"
 #include "../scriptengine/scriptengine.h"
+#include "../pogel/pogel.h"
 #include "../fileloader/fileloader.h"
 
 #include "keyframe.h"

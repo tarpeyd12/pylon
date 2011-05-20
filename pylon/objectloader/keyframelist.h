@@ -56,6 +56,7 @@ namespace ObjectLoader
             unsigned int NumKeyFrames;
             CLASSLIST<ObjectLoader::KeyFrame*> _Frames;
         public:
+            KeyFrameList();
             KeyFrameList(std::string);
             virtual ~KeyFrameList();
     };
@@ -70,6 +71,7 @@ namespace ObjectLoader
             unsigned int Flags;
             KeyFrameList *KFList;
         public:
+            AnimKeyFrame();
             AnimKeyFrame(std::string);
             virtual ~AnimKeyFrame();
 

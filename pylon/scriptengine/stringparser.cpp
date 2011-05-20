@@ -127,11 +127,10 @@ namespace ScriptEngine
             for(unsigned int i = 0; i < level_str.length(); i++) {
                 for(unsigned int p = 0; p < startChar.length(); p++)
                     if(level_str[i] == startChar[p] && level++ == 0) beg = i;
-                for(unsigned int p = 0; p < endChar.length(); p++)
-                    if(level_str[i] == endChar[p] && --level == 0) {
-                            level_str = level_str.substr(0,beg) + level_str.substr(i+1);
-                            i = beg = 0;
-                    }
+                for(unsigned int p = 0; p < endChar.length(); p++) if(level_str[i] == endChar[p] && --level == 0) {
+                    level_str = level_str.substr(0,beg) + level_str.substr(i+1);
+                    i = beg = 0;
+                }
             }
             return level_str;
         }

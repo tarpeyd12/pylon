@@ -1,5 +1,6 @@
 if counter == 0.0:
 	print 'Pylon Engine started:',ctime(time())
+#	calc.lock()
 
 	
 count = counter
@@ -68,7 +69,7 @@ if pylon.key_ispressed('\r'):
 		waitcalc(1000000)
 		calc.unlock()
 
-counter = counter + 0.5
+counter = counter + 0.1
 
 #st = getstrthing(st)
 
@@ -90,5 +91,6 @@ if pylon.key_ispressed('G'):
 	waitcalc(1000000)
 
 cam.mouserot()
+#cam.turnby(0,.1,0)
 cam.mousepos()
 

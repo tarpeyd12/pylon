@@ -10,12 +10,12 @@ POGEL::OBJECT::OBJECT() {
 	face=NULL;
 	numfaces=0;
 	triangle_allocation_total=0;
-	base=NULL;
+	base=(unsigned int)NULL;
 	position=p;
 	rotation=p;
 	children=NULL;
 	numchildren=0;
-	properties=NULL;
+	properties=(unsigned int)NULL;
 	name=(char*)NULL;
 	parent=(POGEL::OBJECT*)NULL;
 	visable=true;
@@ -27,7 +27,7 @@ POGEL::OBJECT::OBJECT(unsigned int prop) {
 	face=NULL;
 	numfaces=0;
 	triangle_allocation_total=0;
-	base=NULL;
+	base=(unsigned int)NULL;
 	position=p;
 	rotation=p;
 	children=NULL;
@@ -43,7 +43,7 @@ POGEL::OBJECT::OBJECT(POGEL::TRIANGLE *tri, unsigned long num, unsigned int prop
 	POGEL::POINT p(0.0f,0.0f,0.0f);
 	numfaces=0;
 	triangle_allocation_total=0;
-	base=NULL;
+	base=(unsigned int)NULL;
 	position=p;
 	rotation=p;
 	children=NULL;
@@ -59,7 +59,7 @@ POGEL::OBJECT::OBJECT(POGEL::TRIANGLE *tri, unsigned long num, unsigned int prop
 POGEL::OBJECT::OBJECT(POGEL::TRIANGLE *tri, unsigned long num, unsigned int prop, POGEL::POINT pos, POGEL::POINT rot) {
 	numfaces=0;
 	triangle_allocation_total=0;
-	base=NULL;
+	base=(unsigned int)NULL;
 	position=pos;
 	rotation=rot;
 	children=NULL;
@@ -77,12 +77,12 @@ POGEL::OBJECT::OBJECT(const char* n) {
 	triangle_allocation_total=0;
 	face=NULL;
 	numfaces=0;
-	base=NULL;
+	base=(unsigned int)NULL;
 	position=p;
 	rotation=p;
 	children=NULL;
 	numchildren=0;
-	properties=NULL;
+	properties=(unsigned int)NULL;
 	name=(char*)n;
 	parent=(POGEL::OBJECT*)NULL;
 	visable=true;
@@ -94,7 +94,7 @@ POGEL::OBJECT::OBJECT(const char* n, unsigned int prop) {
 	face=NULL;
 	triangle_allocation_total=0;
 	numfaces=0;
-	base=NULL;
+	base=(unsigned int)NULL;
 	position=p;
 	rotation=p;
 	children=NULL;
@@ -110,7 +110,7 @@ POGEL::OBJECT::OBJECT(const char* n, POGEL::TRIANGLE *tri, unsigned long num, un
 	POGEL::POINT p(0.0f,0.0f,0.0f);
 	numfaces=0;
 	triangle_allocation_total=0;
-	base=NULL;
+	base=(unsigned int)NULL;
 	position=p;
 	rotation=p;
 	children=NULL;
@@ -126,7 +126,7 @@ POGEL::OBJECT::OBJECT(const char* n, POGEL::TRIANGLE *tri, unsigned long num, un
 POGEL::OBJECT::OBJECT(const char* n, POGEL::TRIANGLE *tri, unsigned long num, unsigned int prop, POGEL::POINT pos, POGEL::POINT rot) {
 	numfaces=0;
 	triangle_allocation_total=0;
-	base=NULL;
+	base=(unsigned int)NULL;
 	position=pos;
 	rotation=rot;
 	children=NULL;
@@ -140,18 +140,18 @@ POGEL::OBJECT::OBJECT(const char* n, POGEL::TRIANGLE *tri, unsigned long num, un
 };
 
 POGEL::OBJECT::~OBJECT() {
-	
+
 	destroy();
-	
+
 	char *n = getancestoryhash();
 	POGEL::message("deconstructing %s\n", n);
 	if(n!=getname()) free(n);
-	
+
 	if(face!=NULL) {
 		delete[] face;
 		face=NULL;
 	}
-	
+
 	if(children != NULL) {
 		killchildren();
 		/*if(numchildren > 0 && children != NULL)
@@ -163,9 +163,9 @@ POGEL::OBJECT::~OBJECT() {
 		delete[] children;*/
 		if(children) children=NULL;
 	}
-	
+
 	parent=NULL;
-	
+
 	if(name!=NULL) {
 		delete[] name;
 		name=NULL;
@@ -197,13 +197,13 @@ void POGEL::OBJECT::rotate(POGEL::VECTOR v) {
 	/*rotation.x+=v.x;
 	rotation.y+=v.y;
 	rotation.z+=v.z;*/
-	
+
 	if(rotation.x<0.0f) rotation.x+=360.0f;
 	if(rotation.x>360.0f) rotation.x-=360.0f;
-	
+
 	if(rotation.y<0.0f) rotation.y+=360.0f;
 	if(rotation.y>360.0f) rotation.y-=360.0f;
-	
+
 	if(rotation.z<0.0f) rotation.z+=360.0f;
 	if(rotation.z>360.0f) rotation.z-=360.0f;
 };
@@ -219,7 +219,7 @@ unsigned long POGEL::OBJECT::addtriangle(POGEL::TRIANGLE tri) {
 		addtrianglespace(OBJECT_TRIAGLE_ALLOCATION_SKIP);
 	face[numfaces]=tri;
 	numfaces++;
-	return numfaces-1;	
+	return numfaces-1;
 };
 
 void POGEL::OBJECT::addtriangles(POGEL::TRIANGLE *tri, unsigned long num) {
@@ -240,7 +240,7 @@ void POGEL::OBJECT::addtrianglespace(unsigned long num) {
 
 void POGEL::OBJECT::cleartriangles() {
 	delete[] face; face = NULL;
-	numfaces = triangle_allocation_total = 0;	
+	numfaces = triangle_allocation_total = 0;
 };
 
 unsigned long POGEL::OBJECT::addobject(POGEL::OBJECT *obj) {
@@ -253,10 +253,10 @@ unsigned long POGEL::OBJECT::addobject(POGEL::OBJECT *obj) {
 	}
 	tmp[numchildren]=obj;
 	tmp[numchildren]->parent=this;
-	
+
 	delete[] children;
 	children=tmp;
-	
+
 	numchildren++;
 	return numchildren-1;
 };
@@ -363,7 +363,7 @@ POGEL::MATRIX POGEL::OBJECT::getancestorialmatrix() {
 };
 
 void POGEL::OBJECT::build() {
-	
+
 	if(hasproperty(OBJECT_DRAW_DISPLAYLIST)) {
 		#ifdef OPENGL
 		unsigned long i;
@@ -375,7 +375,7 @@ void POGEL::OBJECT::build() {
 		#endif
 	}
 	matrix.get();
-	
+
 	if(getdecendant(this->getname(),false) != NULL) // if this object has a decendant with the same name, does not check self
 		if(getdecendant(this->getname(),false) == this) { // if the object with the same name as this object is this object, does not sheck self
 			POGEL::fatality(POGEL_FATALITY_CIRCULAR_HIERARCHY_RETNUM,"%s of object: \"%s\"",POGEL_FATALITY_CIRCULAR_HIERARCHY_STRING,this->getname()); // BADDNESS, complain, and exit the program
@@ -391,7 +391,7 @@ void POGEL::OBJECT::draw() {
 			matrix.invert();
 			matrix.transformPoint(&cam_pos);
 			float radius = cam_pos.distance(POGEL::POINT());
-			
+
 			rotation.x = POGEL::RadiansToDegrees(acos(cam_pos.y/radius))+90;
 			rotation.y = -1*(90+POGEL::RadiansToDegrees(atan2(cam_pos.z, cam_pos.x)))+180;
 			rotation.z = 0;
@@ -400,7 +400,7 @@ void POGEL::OBJECT::draw() {
 			glPushMatrix();
 		#endif /* OBJECT_USE_OPNEGL_MATRIX_RECURSION */
 		glTranslatef(position.x, position.y, position.z);
-		
+
 		if(hasproperty(OBJECT_ROTATE_XYZ)) {
 			glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
 			glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
@@ -428,7 +428,7 @@ void POGEL::OBJECT::draw() {
 					POGEL::LINE(POGEL::POINT(), children[i]->position, 1, POGEL::COLOR(0,.5,1,1)).draw();
 				children[i]->draw();
 			}
-		
+
 		if(hasproperty(OBJECT_DEBUG)) {
 			char *n = getancestory();
 			matrix.get();

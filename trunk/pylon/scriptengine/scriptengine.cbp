@@ -16,7 +16,6 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="/usr/include/python2.6" />
 				</Compiler>
 				<Linker>
 					<Add option="-L./bin/Debug" />
@@ -35,7 +34,6 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O2" />
-					<Add directory="/usr/include/python2.6" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />

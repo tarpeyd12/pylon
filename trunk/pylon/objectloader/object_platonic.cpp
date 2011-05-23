@@ -137,7 +137,8 @@ namespace ObjectLoader
                 //_ui_Triangles += p;
                 a = POGEL::VERTEX(_Verticies[p[0]]), b = POGEL::VERTEX(_Verticies[p[1]]), c = POGEL::VERTEX(_Verticies[p[2]]);
                 a.normal = _Normals[p[3]]; b.normal = _Normals[p[4]]; c.normal = _Normals[p[5]];
-                _Triangles += POGEL::TRIANGLE(a,b,c,POGEL::requestImage("{[Data/default_2.bmp],[32],[32],[1]}"),TRIANGLE_VERTEX_NORMALS);
+                // use default texture for now
+                _Triangles += POGEL::TRIANGLE(a,b,c,POGEL::requestImage("{[default_2.bmp],[32],[32],[1]}"),TRIANGLE_VERTEX_NORMALS);
             }
 
             //s_Triangle_Groups ScriptEngine::Parse::getLabeledSection(in,"C3dTriangleGroups","{","}")

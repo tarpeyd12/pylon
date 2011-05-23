@@ -47,12 +47,16 @@
 			<Add option="-fexceptions" />
 			<Add directory="$(#base.include)" />
 			<Add directory="$(#base.lib)" />
+			<Add directory="$(#python.lib)" />
+			<Add directory="$(#python.include)" />
 		</Compiler>
 		<Linker>
 			<Add library="$(#opengl.lflags)" />
 			<Add library="$(#glut.lflags)" />
 			<Add library="$(#glu.lflags)" />
+			<Add library="$(#python.lflags)" />
 			<Add directory="$(#base.lib)" />
+			<Add directory="$(#python.lib)" />
 		</Linker>
 		<Unit filename="cmd.cpp" />
 		<Unit filename="cmd.h" />

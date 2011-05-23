@@ -16,8 +16,8 @@
 	<File name="classes/object_class.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="2694" topLine="113" />
 	</File>
-	<File name="classes/object_class.h" open="0" top="0" tabpos="0">
-		<Cursor position="2658" topLine="79" />
+	<File name="classes/object_class.h" open="1" top="0" tabpos="4">
+		<Cursor position="4284" topLine="143" />
 	</File>
 	<File name="classes/physics/dynamics_class.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="507" topLine="7" />
@@ -38,7 +38,7 @@
 		<Cursor position="3819" topLine="6" />
 	</File>
 	<File name="classes/point_class.h" open="0" top="0" tabpos="0">
-		<Cursor position="359" topLine="20" />
+		<Cursor position="4976" topLine="110" />
 	</File>
 	<File name="classes/threads.h" open="0" top="0" tabpos="0">
 		<Cursor position="265" topLine="2" />
@@ -46,8 +46,8 @@
 	<File name="classes/triangle_class.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="459" topLine="198" />
 	</File>
-	<File name="classes/triangle_class.h" open="0" top="0" tabpos="0">
-		<Cursor position="0" topLine="24" />
+	<File name="classes/triangle_class.h" open="1" top="0" tabpos="10">
+		<Cursor position="1286" topLine="26" />
 	</File>
 	<File name="classes/view_class.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="1583" topLine="39" />
@@ -74,7 +74,7 @@
 		<Cursor position="3416" topLine="60" />
 	</File>
 	<File name="templates/classlist_template.h" open="0" top="0" tabpos="0">
-		<Cursor position="0" topLine="9" />
+		<Cursor position="628" topLine="10" />
 	</File>
 	<File name="templates/octree_template.h" open="0" top="0" tabpos="0">
 		<Cursor position="0" topLine="180" />

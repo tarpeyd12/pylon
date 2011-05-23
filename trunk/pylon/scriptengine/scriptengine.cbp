@@ -7,9 +7,9 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="../bin/Debug/libscriptengine" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../bin/Debug" />
-				<Option object_output="obj/Debug/" />
+				<Option output="..\bin\Debug\libscriptengine" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\bin\Debug" />
+				<Option object_output="obj\Debug\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -21,13 +21,13 @@
 					<Add option="-L./bin/Debug" />
 					<Add library="threads" />
 					<Add library="fileloader" />
-					<Add directory="../bin/Debug" />
+					<Add directory="..\bin\Debug" />
 				</Linker>
 			</Target>
 			<Target title="Release">
-				<Option output="../bin/Release/libscriptengine" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../bin/Release" />
-				<Option object_output="obj/Release/" />
+				<Option output="..\bin\Release\libscriptengine" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\bin\Release" />
+				<Option object_output="obj\Release\" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -40,7 +40,7 @@
 					<Add option="-L./bin/Release" />
 					<Add library="threads" />
 					<Add library="fileloader" />
-					<Add directory="../bin/Release" />
+					<Add directory="..\bin\Release" />
 				</Linker>
 			</Target>
 		</Build>
@@ -51,6 +51,7 @@
 			<Add directory="$(#python.lib)" />
 		</Compiler>
 		<Linker>
+			<Add option="--enable-auto-import" />
 			<Add library="$(#python.lflags)" />
 			<Add directory="$(#python.lib)" />
 		</Linker>

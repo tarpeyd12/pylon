@@ -8,9 +8,9 @@ count = count % 20
 goin = False
 if count > 10:
 	goin = True
-	count = count + 01 #
+	count = count + 01
 else:
-	count = count - 01 #
+	count = count - 01
 count = 10 - count
 
 orig = "{[0],[0],[0]}"

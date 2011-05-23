@@ -4,7 +4,7 @@
 namespace ObjectLoaderAutoVersion{
 	
 	//Date Version Types
-	static const char DATE[] = "20";
+	static const char DATE[] = "23";
 	static const char MONTH[] = "05";
 	static const char YEAR[] = "2011";
 	static const char UBUNTU_VERSION_STYLE[] = "11.05";
@@ -20,7 +20,7 @@ namespace ObjectLoaderAutoVersion{
 	static const long REVISION = 100;
 	
 	//Miscellaneous Version Types
-	static const long BUILDS_COUNT = 223;
+	static const long BUILDS_COUNT = 225;
 	#define RC_FILEVERSION 0,0,19,100
 	#define RC_FILEVERSION_STRING "0, 0, 19, 100\0"
 	static const char FULLVERSION_STRING[] = "0.0.19.100";

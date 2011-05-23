@@ -137,7 +137,7 @@ namespace ScriptEngine
 
         std::string getLine(std::string dat, unsigned int ln, char ch)
         {
-            return getStringSection_sc(ch,ln-1,false,ch,ln+1,false,dat);
+            return getStringSection_sc(ch,ln-1,false,ch,1,false,dat);
         }
 
         std::string getLine(std::string dat, unsigned int ln)

@@ -629,7 +629,7 @@ namespace FileLoader
             _chdir(curdur);
             free(curdur);
     #else
-            chdir(curdur);
+            int ret = chdir(curdur); ret = 0;
             free(curdur);
     #endif
         }

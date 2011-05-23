@@ -9,6 +9,7 @@
 #include "keyframelist.h"
 #include "camera.h"
 #include "light.h"
+#include "object_platonic.h"
 
 namespace ObjectLoader
 {

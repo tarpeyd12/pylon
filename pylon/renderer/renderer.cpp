@@ -1,5 +1,13 @@
 #include "renderer.h"
 
+#ifdef _POSIX_C_SOURCE
+#undef _POSIX_C_SOURCE
+#endif
+#ifdef _XOPEN_SOURCE
+#undef _XOPEN_SOURCE
+#endif
+#include "../objectloader/objectloader.h"
+
 namespace Renderer
 {
     // do not tamper with camrot, prot, campos nor ppos.
@@ -8,6 +16,9 @@ namespace Renderer
 
     POGEL::POINT campos;
     POGEL::POINT ppos;
+
+    POGEL::OBJECT* bob;
+    ObjectLoader::Object::Platonic* gr;
 
     float lastdur;
 
@@ -40,9 +51,9 @@ namespace Renderer
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_LIGHTING);
 
-        glBlendFunc(GL_SRC_ALPHA,GL_ONE);
-        glEnable(GL_BLEND);
-        glDisable(GL_DEPTH_TEST);
+        //glBlendFunc(GL_SRC_ALPHA,GL_ONE);
+        //glEnable(GL_BLEND);
+        //glDisable(GL_DEPTH_TEST);
 
         glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
         glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
@@ -53,6 +64,10 @@ namespace Renderer
         glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
         glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
         glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+
+        std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectPlatonic","Data/Default.wld");
+        gr = new ObjectLoader::Object::Platonic(ojdat);
+        bob = gr->toObject();
 
         POGEL::InitFps();
         lastdur = POGEL::GetTimePassed();
@@ -71,8 +86,8 @@ namespace Renderer
         //Renderer::Mouse::Rotation();
         //Renderer::Mouse::Translation();
 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Clear The Screen And The Depth Buffer
-        glLoadIdentity();				// Reset The View
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glLoadIdentity();
 
         Renderer::Window::toOrtho();
         if(Renderer::Mouse::state == GLUT_DOWN)
@@ -85,14 +100,17 @@ namespace Renderer
 
         Renderer::Window::toFrustum();
 
-        glBlendFunc(GL_SRC_ALPHA,GL_ONE);
-        glEnable(GL_BLEND);
-        glDisable(GL_DEPTH_TEST);
+        //glBlendFunc(GL_SRC_ALPHA,GL_ONE);
+        //glEnable(GL_BLEND);
+        //glDisable(GL_DEPTH_TEST);
 
         glTranslatef(campos.x,campos.y,campos.z);
         glRotatef( Renderer::camrot.x,  1.0f, 0.0f, 0.0f );
         glRotatef( Renderer::camrot.y,  0.0f, 1.0f, 0.0f );
         glRotatef( Renderer::camrot.z,  0.0f, 0.0f, 1.0f );
+
+        bob->position = POGEL::POINT();
+        bob->draw();
 
         if(!drawLock)
             for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)

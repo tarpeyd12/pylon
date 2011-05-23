@@ -34,7 +34,7 @@
 	<File name="minizip/zlib/gzguts.h" open="0" top="0" tabpos="0">
 		<Cursor position="360" topLine="0" />
 	</File>
-	<File name="minizip/zlib/gzlib.c" open="1" top="0" tabpos="19">
+	<File name="minizip/zlib/gzlib.c" open="0" top="0" tabpos="19">
 		<Cursor position="208" topLine="0" />
 	</File>
 	<File name="minizip/zlib/gzread.c" open="0" top="0" tabpos="0">
@@ -56,7 +56,7 @@
 		<Cursor position="73081" topLine="1930" />
 	</File>
 	<File name="unzip.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="15821" topLine="590" />
+		<Cursor position="16817" topLine="608" />
 	</File>
 	<File name="unzip.h" open="0" top="0" tabpos="0">
 		<Cursor position="191" topLine="0" />

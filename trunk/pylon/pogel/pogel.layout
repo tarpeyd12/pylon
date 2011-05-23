@@ -16,7 +16,7 @@
 	<File name="classes/object_class.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="2694" topLine="113" />
 	</File>
-	<File name="classes/object_class.h" open="1" top="0" tabpos="4">
+	<File name="classes/object_class.h" open="1" top="0" tabpos="1">
 		<Cursor position="4284" topLine="143" />
 	</File>
 	<File name="classes/physics/dynamics_class.cpp" open="0" top="0" tabpos="0">
@@ -46,7 +46,7 @@
 	<File name="classes/triangle_class.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="459" topLine="198" />
 	</File>
-	<File name="classes/triangle_class.h" open="1" top="0" tabpos="10">
+	<File name="classes/triangle_class.h" open="1" top="0" tabpos="2">
 		<Cursor position="1286" topLine="26" />
 	</File>
 	<File name="classes/view_class.cpp" open="0" top="0" tabpos="0">

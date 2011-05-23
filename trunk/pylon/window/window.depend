@@ -6012,7 +6012,7 @@
 
 1305747240 /home/tarpeyd12/Desktop/pylon/trunk/pylon/fileloader/simpleini/ConvertUTF.h
 
-1305747230 /home/tarpeyd12/Desktop/pylon/trunk/pylon/renderer/renderer.h
+1306171507 /home/tarpeyd12/Desktop/pylon/trunk/pylon/renderer/renderer.h
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<stdlib.h>
@@ -6066,7 +6066,7 @@
 1305747265 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogelscriptinterface/objects.h
 	"pogelscriptinterface.h"
 
-1305921052 /home/tarpeyd12/Desktop/pylon/trunk/pylon/objectloader/objectloader.h
+1306170374 /home/tarpeyd12/Desktop/pylon/trunk/pylon/objectloader/objectloader.h
 	"../scriptengine/scriptengine.h"
 	"../pogel/pogel.h"
 	"../fileloader/fileloader.h"
@@ -6074,6 +6074,7 @@
 	"keyframelist.h"
 	"camera.h"
 	"light.h"
+	"object_platonic.h"
 
 1305921013 /home/tarpeyd12/Desktop/pylon/trunk/pylon/objectloader/keyframe.h
 	"../scriptengine/scriptengine.h"
@@ -6090,7 +6091,7 @@
 	"../pogel/pogel.h"
 	"../fileloader/fileloader.h"
 
-1305764805 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/main.cpp
+1305924615 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/main.cpp
 	"main.h"
 	"version.h"
 	"../pogel/version.h"
@@ -6101,9 +6102,9 @@
 	"../pogelscriptinterface/version.h"
 	"../objectloader/version.h"
 
-1305764840 /home/tarpeyd12/Desktop/pylon/trunk/pylon/window/version.h
+1306174272 /home/tarpeyd12/Desktop/pylon/trunk/pylon/window/version.h
 
-1305758436 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/scriptthread.cpp
+1305924755 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/scriptthread.cpp
 	"main.h"
 	"mainscriptdefs.h"
 
@@ -6119,7 +6120,7 @@
 
 1305758784 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogelscriptinterface/version.h
 
-1305919988 /home/tarpeyd12/Desktop/pylon/trunk/pylon/objectloader/version.h
+1306175219 /home/tarpeyd12/Desktop/pylon/trunk/pylon/objectloader/version.h
 
 1305762184 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/mainscriptdefs.cpp
 	"main.h"
@@ -6364,4 +6365,10 @@
 	<signal.h>
 	<setjmp.h>
 	<math.h>
+
+1306171045 /home/tarpeyd12/Desktop/pylon/trunk/pylon/objectloader/object_platonic.h
+	"../scriptengine/scriptengine.h"
+	"../pogel/pogel.h"
+	"../fileloader/fileloader.h"
+	"keyframelist.h"
 

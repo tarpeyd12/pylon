@@ -141,6 +141,7 @@ namespace ObjectLoader
 			unsigned int Sequential;
 			unsigned int MinMaxRange[2];
         public:
+            TriangleGroup();
             TriangleGroup(std::string);
             virtual ~TriangleGroup();
     };
@@ -163,6 +164,7 @@ namespace ObjectLoader
                 CLASSLIST<POGEL::COLOR> _Colors;
                 unsigned int Triangles;
                 CLASSLIST<POGEL::TRIANGLE> _Triangles;
+                CLASSLIST<unsigned int*> _ui_Triangles;
                 CLASSLIST<TriangleGroup> __TriangleGroups;
                 std::string Name;
                 POGEL::COLOR Color;
@@ -190,6 +192,8 @@ namespace ObjectLoader
             public:
                 Platonic(std::string);
                 virtual ~Platonic();
+
+                POGEL::OBJECT* toObject();
         };
     }
 }

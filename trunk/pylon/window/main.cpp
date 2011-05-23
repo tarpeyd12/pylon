@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
     #ifdef _WIN32
         _chdir(forced_dir.c_str());
     #else
-        chdir(forced_dir.c_str());
+        { int ret = chdir(forced_dir.c_str()); ret = 0; }
     #endif
 
     if(POGEL::hasproperty(POGEL_DEBUG))
@@ -158,7 +158,7 @@ int main(int argc, char *argv[])
     #ifdef _WIN32
         system("del /Q .conf");
     #else
-        system("rm .conf");
+        { int ret = system("rm .conf"); ret = 0; }
     #endif
 
     main_py = ini.getvalue("pylon","main");

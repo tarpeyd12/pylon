@@ -17,7 +17,7 @@ void* Scripts(void* arg)
         #ifdef _WIN32
             system(("del /Q " + init_py).c_str());
         #else
-            system(("rm " + init_py).c_str());
+            { int ret = system(("rm " + init_py).c_str()); ret = 0; }
         #endif
     }
     else
@@ -27,7 +27,7 @@ void* Scripts(void* arg)
         #ifdef _WIN32
             system(("del /Q " + main_py).c_str());
         #else
-            system(("rm " + main_py).c_str());
+            { int ret = system(("rm " + main_py).c_str()); ret = 0; }
         #endif
         if(mainScriptData.length() == 0)
             cout << "no main data." << endl;
@@ -51,7 +51,7 @@ void* Scripts(void* arg)
     #ifdef _WIN32
         system(("del /S /Q " + ext_dir + "\\*.*").c_str());
     #else
-        system(("cd " + ext_dir + " && rm *.* && cd ..").c_str());
+        { int ret = system(("cd " + ext_dir + " && rm *.* && cd ..").c_str()); ret = 0; }
     #endif
     pthread_exit(NULL);
     return NULL;

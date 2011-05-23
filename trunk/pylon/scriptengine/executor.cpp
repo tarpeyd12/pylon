@@ -83,7 +83,7 @@ namespace ScriptEngine
     void FunctionCaller::call(std::string func, std::string* args, unsigned int numArgs)
     {
         PyObject *pName, *pModule, *pFunc;
-        PyObject *pArgs, *pValue;
+        PyObject *pArgs, *pValue = NULL;
 
         ScriptEngine::Initialize();
         pName = PyString_FromString(getInstructions().c_str());

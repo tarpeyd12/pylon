@@ -18,7 +18,8 @@
 
 1304969594 criptinterface/pogelscriptinterface.h"
 
-1263839506 /usr/include/GL/glut.h
+1295411577 /usr/include/GL/glut.h
+	"freeglut_std.h"
 	"freeglut_std.h"
 	"freeglut_std.h"
 	"freeglut_std.h"
@@ -26,7 +27,11 @@
 
 1263839506 std.h"
 
-1263839506 /usr/include/GL/freeglut_std.h
+1295411577 /usr/include/GL/freeglut_std.h
+	<Windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
 	<Windows.h>
 	<GL/gl.h>
 	<GL/glu.h>
@@ -44,7 +49,12 @@
 	<GL/glu.h>
 	<stdlib.h>
 
-1285865967 /usr/include/GL/gl.h
+1303210370 /usr/include/GL/gl.h
+	"gl_mangle.h"
+	<stdlib.h>
+	<windows.h>
+	<GL/mesa_wgl.h>
+	<GL/glext.h>
 	"gl_mangle.h"
 	<stdlib.h>
 	<windows.h>
@@ -68,9 +78,18 @@
 
 1305657222 h>
 
-1285865967 /usr/include/GL/gl_mangle.h
+1303210370 /usr/include/GL/gl_mangle.h
 
-1301528658 /usr/include/stdlib.h
+1302520061 /usr/include/stdlib.h
+	<features.h>
+	<stddef.h>
+	<bits/waitflags.h>
+	<bits/waitstatus.h>
+	<xlocale.h>
+	<sys/types.h>
+	<alloca.h>
+	<bits/stdlib.h>
+	<bits/stdlib-ldbl.h>
 	<features.h>
 	<stddef.h>
 	<bits/waitflags.h>
@@ -110,7 +129,10 @@
 
 1301528658 ib-ldbl.h>
 
-1301528615 /usr/include/features.h
+1302520045 /usr/include/features.h
+	<bits/predefs.h>
+	<sys/cdefs.h>
+	<gnu/stubs.h>
 	<bits/predefs.h>
 	<sys/cdefs.h>
 	<gnu/stubs.h>
@@ -126,9 +148,11 @@
 
 1250308682 .h>
 
-1301528615 /usr/include/bits/predefs.h
+1302520045 /usr/include/bits/predefs.h
 
-1301528683 /usr/include/sys/cdefs.h
+1302520070 /usr/include/sys/cdefs.h
+	<features.h>
+	<bits/wordsize.h>
 	<features.h>
 	<bits/wordsize.h>
 	<features.h>
@@ -140,9 +164,12 @@
 
 1301528657 size.h>
 
-1301528658 /usr/include/bits/wordsize.h
+1302520061 /usr/include/bits/wordsize.h
 
-1301528615 /usr/include/gnu/stubs.h
+1302520045 /usr/include/gnu/stubs.h
+	<bits/wordsize.h>
+	<gnu/stubs-32.h>
+	<gnu/stubs-64.h>
 	<bits/wordsize.h>
 	<gnu/stubs-32.h>
 	<gnu/stubs-64.h>
@@ -158,17 +185,21 @@
 
 1301528615 -64.h>
 
-1301528068 /usr/include/gnu/stubs-32.h
+1302519875 /usr/include/gnu/stubs-32.h
 
-1301528677 /usr/include/bits/waitflags.h
+1302520068 /usr/include/bits/waitflags.h
 
-1301528677 /usr/include/bits/waitstatus.h
+1302520068 /usr/include/bits/waitstatus.h
+	<endian.h>
 	<endian.h>
 	<endian.h>
 	<endian.h>
 	<endian.h>
 
-1301528666 /usr/include/endian.h
+1302520064 /usr/include/endian.h
+	<features.h>
+	<bits/endian.h>
+	<bits/byteswap.h>
 	<features.h>
 	<bits/endian.h>
 	<bits/byteswap.h>
@@ -184,17 +215,26 @@
 
 1301528666 swap.h>
 
-1301528666 /usr/include/bits/endian.h
+1302520064 /usr/include/bits/endian.h
 
-1301528666 /usr/include/bits/byteswap.h
+1302520064 /usr/include/bits/byteswap.h
+	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 
-1301528619 /usr/include/xlocale.h
+1302520046 /usr/include/xlocale.h
 
-1301528677 /usr/include/sys/types.h
+1302520068 /usr/include/sys/types.h
+	<features.h>
+	<bits/types.h>
+	<time.h>
+	<stddef.h>
+	<endian.h>
+	<sys/select.h>
+	<sys/sysmacros.h>
+	<bits/pthreadtypes.h>
 	<features.h>
 	<bits/types.h>
 	<time.h>
@@ -230,7 +270,10 @@
 
 1301528677 eadtypes.h>
 
-1301528677 /usr/include/bits/types.h
+1302520068 /usr/include/bits/types.h
+	<features.h>
+	<bits/wordsize.h>
+	<bits/typesizes.h>
 	<features.h>
 	<bits/wordsize.h>
 	<bits/typesizes.h>
@@ -246,9 +289,18 @@
 
 1301528677 sizes.h>
 
-1301528677 /usr/include/bits/typesizes.h
+1302520068 /usr/include/bits/typesizes.h
 
-1301528673 /usr/include/time.h
+1302520067 /usr/include/time.h
+	<features.h>
+	<stddef.h>
+	<bits/time.h>
+	<bits/types.h>
+	<bits/types.h>
+	<bits/types.h>
+	<bits/types.h>
+	<bits/types.h>
+	<xlocale.h>
 	<features.h>
 	<stddef.h>
 	<bits/time.h>
@@ -288,7 +340,9 @@
 
 1228534332 >
 
-1301528673 /usr/include/bits/time.h
+1302520067 /usr/include/bits/time.h
+	<bits/types.h>
+	<bits/types.h>
 	<bits/types.h>
 	<bits/types.h>
 	<bits/types.h>
@@ -300,7 +354,7 @@
 
 989765248 s.h>
 
-1301528683 /usr/include/sys/select.h
+1302520070 /usr/include/sys/select.h
 	<features.h>
 	<bits/types.h>
 	<bits/select.h>
@@ -325,28 +379,37 @@
 	<bits/sigset.h>
 	<time.h>
 	<bits/time.h>
+	<features.h>
+	<bits/types.h>
+	<bits/select.h>
+	<bits/sigset.h>
+	<time.h>
+	<bits/time.h>
 
-1301528683 /usr/include/bits/select.h
+1302520070 /usr/include/bits/select.h
+	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 
-1301528657 /usr/include/bits/sigset.h
+1302520061 /usr/include/bits/sigset.h
 
-1301528677 /usr/include/sys/sysmacros.h
+1302520068 /usr/include/sys/sysmacros.h
 	<features.h>
 	<features.h>
 	<features.h>
 	<features.h>
+	<features.h>
 
-1301528677 /usr/include/bits/pthreadtypes.h
+1302520068 /usr/include/bits/pthreadtypes.h
+	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 
-1301528658 /usr/include/alloca.h
+1302520061 /usr/include/alloca.h
 	<features.h>
 	<stddef.h>
 	<features.h>
@@ -355,12 +418,14 @@
 	<stddef.h>
 	<features.h>
 	<stddef.h>
+	<features.h>
+	<stddef.h>
 
-1301528658 /usr/include/bits/stdlib.h
+1302520061 /usr/include/bits/stdlib.h
 
-1301528658 /usr/include/bits/stdlib-ldbl.h
+1302520061 /usr/include/bits/stdlib-ldbl.h
 
-1285865967 /usr/include/GL/glext.h
+1303210370 /usr/include/GL/glext.h
 	<windows.h>
 	<stddef.h>
 	<inttypes.h>
@@ -393,8 +458,16 @@
 	<stdint.h>
 	<stdint.h>
 	<inttypes.h>
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
 
-1301528658 /usr/include/inttypes.h
+1302520061 /usr/include/inttypes.h
 	<features.h>
 	<stdint.h>
 	<stddef.h>
@@ -407,8 +480,11 @@
 	<features.h>
 	<stdint.h>
 	<stddef.h>
+	<features.h>
+	<stdint.h>
+	<stddef.h>
 
-1301528658 /usr/include/stdint.h
+1302520061 /usr/include/stdint.h
 	<features.h>
 	<bits/wchar.h>
 	<bits/wordsize.h>
@@ -421,10 +497,15 @@
 	<features.h>
 	<bits/wchar.h>
 	<bits/wordsize.h>
+	<features.h>
+	<bits/wchar.h>
+	<bits/wordsize.h>
 
-1301528667 /usr/include/bits/wchar.h
+1302520065 /usr/include/bits/wchar.h
 
-1285865964 /usr/include/GL/glu.h
+1303210360 /usr/include/GL/glu.h
+	"glu_mangle.h"
+	<GL/gl.h>
 	"glu_mangle.h"
 	<GL/gl.h>
 	"glu_mangle.h"
@@ -434,7 +515,7 @@
 	"glu_mangle.h"
 	<GL/gl.h>
 
-1285865964 /usr/include/GL/glu_mangle.h
+1303210360 /usr/include/GL/glu_mangle.h
 
 1301880189 /home/tarpeyd12/Desktop/engne/pogel/pogel.h
 	<time.h>
@@ -494,7 +575,18 @@
 
 1305657210 .h"
 
-1301528653 /usr/include/math.h
+1302520060 /usr/include/math.h
+	<features.h>
+	<bits/huge_val.h>
+	<bits/huge_valf.h>
+	<bits/huge_vall.h>
+	<bits/inf.h>
+	<bits/nan.h>
+	<bits/mathdef.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls.h>
+	<bits/mathinline.h>
 	<features.h>
 	<bits/huge_val.h>
 	<bits/huge_valf.h>
@@ -542,33 +634,37 @@
 
 1301528653 inline.h>
 
-1301528653 /usr/include/bits/huge_val.h
+1302520060 /usr/include/bits/huge_val.h
 	<endian.h>
-	<endian.h>
-	<endian.h>
-	<endian.h>
-
-1301528653 /usr/include/bits/huge_valf.h
-
-1301528653 /usr/include/bits/huge_vall.h
-
-1301528653 /usr/include/bits/inf.h
-
-1301528653 /usr/include/bits/nan.h
 	<endian.h>
 	<endian.h>
 	<endian.h>
 	<endian.h>
 
-1301528653 /usr/include/bits/mathdef.h
+1302520060 /usr/include/bits/huge_valf.h
+
+1302520060 /usr/include/bits/huge_vall.h
+
+1302520060 /usr/include/bits/inf.h
+
+1302520060 /usr/include/bits/nan.h
+	<endian.h>
+	<endian.h>
+	<endian.h>
+	<endian.h>
+	<endian.h>
+
+1302520060 /usr/include/bits/mathdef.h
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
+	<bits/wordsize.h>
 
-1301528653 /usr/include/bits/mathcalls.h
+1302520060 /usr/include/bits/mathcalls.h
 
-1301528653 /usr/include/bits/mathinline.h
+1302520060 /usr/include/bits/mathinline.h
+	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
@@ -613,7 +709,18 @@
 
 1305657208 internals.h"
 
-1301528662 /usr/include/stdio.h
+1302520063 /usr/include/stdio.h
+	<features.h>
+	<stddef.h>
+	<bits/types.h>
+	<libio.h>
+	<stdarg.h>
+	<bits/stdio_lim.h>
+	<bits/sys_errlist.h>
+	<getopt.h>
+	<bits/stdio.h>
+	<bits/stdio2.h>
+	<bits/stdio-ldbl.h>
 	<features.h>
 	<stddef.h>
 	<bits/types.h>
@@ -661,7 +768,13 @@
 
 1301528662 o-ldbl.h>
 
-1301528662 /usr/include/libio.h
+1302520063 /usr/include/libio.h
+	<_G_config.h>
+	<stdarg.h>
+	<sys/cdefs.h>
+	<bits/stdio-lock.h>
+	<shlib-compat.h>
+	<bits/libio-ldbl.h>
 	<_G_config.h>
 	<stdarg.h>
 	<sys/cdefs.h>
@@ -687,7 +800,11 @@
 	<shlib-compat.h>
 	<bits/libio-ldbl.h>
 
-1301528662 /usr/include/_G_config.h
+1302520063 /usr/include/_G_config.h
+	<bits/types.h>
+	<stddef.h>
+	<wchar.h>
+	<gconv.h>
 	<bits/types.h>
 	<stddef.h>
 	<wchar.h>
@@ -705,7 +822,19 @@
 	<wchar.h>
 	<gconv.h>
 
-1301528667 /usr/include/wchar.h
+1302520065 /usr/include/wchar.h
+	<features.h>
+	<stdio.h>
+	<stdarg.h>
+	<bits/wchar.h>
+	<stddef.h>
+	<wctype.h>
+	<xlocale.h>
+	<xlocale.h>
+	<xlocale.h>
+	<wctype.h>
+	<bits/wchar2.h>
+	<bits/wchar-ldbl.h>
 	<features.h>
 	<stdio.h>
 	<stdarg.h>
@@ -757,7 +886,12 @@
 
 1301528667 r-ldbl.h>
 
-1301528689 /usr/include/wctype.h
+1302520072 /usr/include/wctype.h
+	<features.h>
+	<bits/types.h>
+	<wchar.h>
+	<endian.h>
+	<xlocale.h>
 	<features.h>
 	<bits/types.h>
 	<wchar.h>
@@ -779,11 +913,14 @@
 	<endian.h>
 	<xlocale.h>
 
-1301528667 /usr/include/bits/wchar2.h
+1302520065 /usr/include/bits/wchar2.h
 
-1301528667 /usr/include/bits/wchar-ldbl.h
+1302520065 /usr/include/bits/wchar-ldbl.h
 
-1301528618 /usr/include/gconv.h
+1302520046 /usr/include/gconv.h
+	<features.h>
+	<wchar.h>
+	<stddef.h>
 	<features.h>
 	<wchar.h>
 	<stddef.h>
@@ -797,7 +934,9 @@
 	<wchar.h>
 	<stddef.h>
 
-1301528662 /usr/include/bits/stdio-lock.h
+1302520063 /usr/include/bits/stdio-lock.h
+	<bits/libc-lock.h>
+	<lowlevellock.h>
 	<bits/libc-lock.h>
 	<lowlevellock.h>
 	<bits/libc-lock.h>
@@ -809,7 +948,15 @@
 
 1301528662 ock.h>
 
-1301528615 /usr/include/bits/libc-lock.h
+1302520045 /usr/include/bits/libc-lock.h
+	<pthread.h>
+	<stddef.h>
+	<lowlevellock.h>
+	<tls.h>
+	<pthread-functions.h>
+	<errno.h>
+	<gnu/option-groups.h>
+	<bp-sym.h>
 	<pthread.h>
 	<stddef.h>
 	<lowlevellock.h>
@@ -843,7 +990,14 @@
 	<gnu/option-groups.h>
 	<bp-sym.h>
 
-1301528697 /usr/include/pthread.h
+1302520075 /usr/include/pthread.h
+	<features.h>
+	<endian.h>
+	<sched.h>
+	<time.h>
+	<bits/pthreadtypes.h>
+	<bits/setjmp.h>
+	<bits/wordsize.h>
 	<features.h>
 	<endian.h>
 	<sched.h>
@@ -873,7 +1027,12 @@
 	<bits/setjmp.h>
 	<bits/wordsize.h>
 
-1301528677 /usr/include/sched.h
+1302520068 /usr/include/sched.h
+	<features.h>
+	<bits/types.h>
+	<stddef.h>
+	<time.h>
+	<bits/sched.h>
 	<features.h>
 	<bits/types.h>
 	<stddef.h>
@@ -897,15 +1056,18 @@
 
 1301528677 d.h>
 
-1301528677 /usr/include/bits/sched.h
+1302520068 /usr/include/bits/sched.h
 
-1301528656 /usr/include/bits/setjmp.h
+1302520061 /usr/include/bits/setjmp.h
+	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 
-1301528658 /usr/include/errno.h
+1302520061 /usr/include/errno.h
+	<features.h>
+	<bits/errno.h>
 	<features.h>
 	<bits/errno.h>
 	<features.h>
@@ -917,7 +1079,8 @@
 
 1301528658 o.h>
 
-1301528658 /usr/include/bits/errno.h
+1302520061 /usr/include/bits/errno.h
+	<linux/errno.h>
 	<linux/errno.h>
 	<linux/errno.h>
 	<linux/errno.h>
@@ -925,13 +1088,15 @@
 
 1301528658 no.h>
 
-1302913316 /usr/include/linux/errno.h
+1304031019 /usr/include/linux/errno.h
+	<asm/errno.h>
 	<asm/errno.h>
 	<asm/errno.h>
 	<asm/errno.h>
 	<asm/errno.h>
 
 1302913318 /usr/include/asm/errno.h
+	<asm-generic/errno.h>
 	<asm-generic/errno.h>
 	<asm-generic/errno.h>
 	<asm-generic/errno.h>
@@ -944,26 +1109,28 @@
 	<asm-generic/errno-base.h>
 	<asm-generic/errno-base.h>
 	<asm-generic/errno-base.h>
+	<asm-generic/errno-base.h>
 
 1302913313 ic/errno-base.h>
 
 1302913313 /usr/include/asm-generic/errno-base.h
 
-1301528723 /usr/include/gnu/option-groups.h
+1302520085 /usr/include/gnu/option-groups.h
 
-1301528662 /usr/include/bits/libio-ldbl.h
+1302520063 /usr/include/bits/libio-ldbl.h
 
-1301528660 /usr/include/bits/stdio_lim.h
+1302520062 /usr/include/bits/stdio_lim.h
 
-1301528662 /usr/include/bits/sys_errlist.h
+1302520063 /usr/include/bits/sys_errlist.h
 
-1301528677 /usr/include/getopt.h
+1302520068 /usr/include/getopt.h
 	<ctype.h>
 	<ctype.h>
 	<ctype.h>
 	<ctype.h>
+	<ctype.h>
 
-1301528648 /usr/include/ctype.h
+1302520058 /usr/include/ctype.h
 	<features.h>
 	<bits/types.h>
 	<endian.h>
@@ -980,12 +1147,16 @@
 	<bits/types.h>
 	<endian.h>
 	<xlocale.h>
+	<features.h>
+	<bits/types.h>
+	<endian.h>
+	<xlocale.h>
 
-1301528662 /usr/include/bits/stdio.h
+1302520063 /usr/include/bits/stdio.h
 
-1301528662 /usr/include/bits/stdio2.h
+1302520063 /usr/include/bits/stdio2.h
 
-1301528662 /usr/include/bits/stdio-ldbl.h
+1302520063 /usr/include/bits/stdio-ldbl.h
 
 1296958502 /home/tarpeyd12/Desktop/engne/pogel/classes/misc_class.h
 	<GL/gl.h>
@@ -1000,7 +1171,13 @@
 	<iostream>
 	<string>
 
-1301528666 /usr/include/string.h
+1302520064 /usr/include/string.h
+	<features.h>
+	<stddef.h>
+	<xlocale.h>
+	<bits/string.h>
+	<bits/string2.h>
+	<bits/string3.h>
 	<features.h>
 	<stddef.h>
 	<xlocale.h>
@@ -1028,9 +1205,12 @@
 
 1301528666 ng3.h>
 
-1301528666 /usr/include/bits/string.h
+1302520064 /usr/include/bits/string.h
 
-1301528666 /usr/include/bits/string2.h
+1302520064 /usr/include/bits/string2.h
+	<endian.h>
+	<bits/types.h>
+	<stdlib.h>
 	<endian.h>
 	<bits/types.h>
 	<stdlib.h>
@@ -1044,7 +1224,7 @@
 	<bits/types.h>
 	<stdlib.h>
 
-1301528666 /usr/include/bits/string3.h
+1302520064 /usr/include/bits/string3.h
 
 1302212002 /home/tarpeyd12/Desktop/engne/pogel/classes/physics/solid_class.h
 	<iostream>
@@ -1122,7 +1302,15 @@
 	<unistd.h>
 	<stdio.h>
 
-1301528677 /usr/include/unistd.h
+1302520068 /usr/include/unistd.h
+	<features.h>
+	<bits/posix_opt.h>
+	<bits/environments.h>
+	<bits/types.h>
+	<stddef.h>
+	<bits/confname.h>
+	<getopt.h>
+	<bits/unistd.h>
 	<features.h>
 	<bits/posix_opt.h>
 	<bits/environments.h>
@@ -1158,17 +1346,18 @@
 
 1301528677 td.h>
 
-1301528677 /usr/include/bits/posix_opt.h
+1302520068 /usr/include/bits/posix_opt.h
 
-1301528677 /usr/include/bits/environments.h
+1302520068 /usr/include/bits/environments.h
+	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 
-1301528677 /usr/include/bits/confname.h
+1302520068 /usr/include/bits/confname.h
 
-1301528677 /usr/include/bits/unistd.h
+1302520068 /usr/include/bits/unistd.h
 
 1300055221 /home/tarpeyd12/Desktop/engne/pogel/classes/view_class.h
 	"../pogel_internals.h"
@@ -1336,7 +1525,12 @@
 
 1284567510 /usr/include/python2.6//pymacconfig.h
 
-1301528615 /usr/include/limits.h
+1302520045 /usr/include/limits.h
+	<features.h>
+	<bits/wordsize.h>
+	<bits/posix1_lim.h>
+	<bits/posix2_lim.h>
+	<bits/xopen_lim.h>
 	<features.h>
 	<bits/wordsize.h>
 	<bits/posix1_lim.h>
@@ -1360,7 +1554,8 @@
 
 1301528615 n_lim.h>
 
-1301528677 /usr/include/bits/posix1_lim.h
+1302520068 /usr/include/bits/posix1_lim.h
+	<bits/local_lim.h>
 	<bits/local_lim.h>
 	<bits/local_lim.h>
 	<bits/local_lim.h>
@@ -1368,7 +1563,8 @@
 
 1301528677 l_lim.h>
 
-1301528677 /usr/include/bits/local_lim.h
+1302520068 /usr/include/bits/local_lim.h
+	<linux/limits.h>
 	<linux/limits.h>
 	<linux/limits.h>
 	<linux/limits.h>
@@ -1376,11 +1572,13 @@
 
 1301528677 its.h>
 
-1302913316 /usr/include/linux/limits.h
+1304031020 /usr/include/linux/limits.h
 
-1301528677 /usr/include/bits/posix2_lim.h
+1302520068 /usr/include/bits/posix2_lim.h
 
-1301528615 /usr/include/bits/xopen_lim.h
+1302520045 /usr/include/bits/xopen_lim.h
+	<bits/stdio_lim.h>
+	<bits/wordsize.h>
 	<bits/stdio_lim.h>
 	<bits/wordsize.h>
 	<bits/stdio_lim.h>
@@ -1390,7 +1588,8 @@
 	<bits/stdio_lim.h>
 	<bits/wordsize.h>
 
-1301528647 /usr/include/assert.h
+1302520058 /usr/include/assert.h
+	<features.h>
 	<features.h>
 	<features.h>
 	<features.h>
@@ -1418,7 +1617,12 @@
 	<ctype.h>
 	<wctype.h>
 
-1301528673 /usr/include/sys/time.h
+1302520067 /usr/include/sys/time.h
+	<features.h>
+	<bits/types.h>
+	<time.h>
+	<bits/time.h>
+	<sys/select.h>
 	<features.h>
 	<bits/types.h>
 	<time.h>
@@ -1442,7 +1646,11 @@
 
 1301528673 t.h>
 
-1301528679 /usr/include/sys/stat.h
+1302520069 /usr/include/sys/stat.h
+	<features.h>
+	<bits/types.h>
+	<time.h>
+	<bits/stat.h>
 	<features.h>
 	<bits/types.h>
 	<time.h>
@@ -1460,9 +1668,13 @@
 	<time.h>
 	<bits/stat.h>
 
-1301528679 /usr/include/bits/stat.h
+1302520069 /usr/include/bits/stat.h
 
-1301528681 /usr/include/termios.h
+1302520069 /usr/include/termios.h
+	<features.h>
+	<bits/types.h>
+	<bits/termios.h>
+	<sys/ttydefaults.h>
 	<features.h>
 	<bits/types.h>
 	<bits/termios.h>
@@ -1482,9 +1694,9 @@
 
 1301528681 faults.h>
 
-1301528681 /usr/include/bits/termios.h
+1302520069 /usr/include/bits/termios.h
 
-1301528681 /usr/include/sys/ttydefaults.h
+1302520069 /usr/include/sys/ttydefaults.h
 
 1284567510 /usr/include/python2.6//pymath.h
 	"pyconfig.h"
@@ -1607,7 +1819,20 @@
 	<setjmp.h>
 	<math.h>
 
-1301528657 /usr/include/signal.h
+1302520061 /usr/include/signal.h
+	<features.h>
+	<bits/sigset.h>
+	<bits/types.h>
+	<bits/signum.h>
+	<time.h>
+	<bits/siginfo.h>
+	<bits/sigaction.h>
+	<bits/sigcontext.h>
+	<stddef.h>
+	<bits/sigstack.h>
+	<sys/ucontext.h>
+	<bits/pthreadtypes.h>
+	<bits/sigthread.h>
 	<features.h>
 	<bits/sigset.h>
 	<bits/types.h>
@@ -1663,25 +1888,31 @@
 
 1301528657 hread.h>
 
-1301528657 /usr/include/bits/signum.h
+1302520061 /usr/include/bits/signum.h
 
-1301528657 /usr/include/bits/siginfo.h
+1302520061 /usr/include/bits/siginfo.h
 	<bits/wordsize.h>
-	<bits/wordsize.h>
-	<bits/wordsize.h>
-	<bits/wordsize.h>
-
-1301528657 /usr/include/bits/sigaction.h
-
-1301528657 /usr/include/bits/sigcontext.h
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 	<bits/wordsize.h>
 
-1301528657 /usr/include/bits/sigstack.h
+1302520061 /usr/include/bits/sigaction.h
 
-1301528658 /usr/include/sys/ucontext.h
+1302520061 /usr/include/bits/sigcontext.h
+	<bits/wordsize.h>
+	<bits/wordsize.h>
+	<bits/wordsize.h>
+	<bits/wordsize.h>
+	<bits/wordsize.h>
+
+1302520061 /usr/include/bits/sigstack.h
+
+1302520061 /usr/include/sys/ucontext.h
+	<features.h>
+	<signal.h>
+	<bits/wordsize.h>
+	<bits/sigcontext.h>
 	<features.h>
 	<signal.h>
 	<bits/wordsize.h>
@@ -1701,9 +1932,13 @@
 
 1301528658 ontext.h>
 
-1301528657 /usr/include/bits/sigthread.h
+1302520061 /usr/include/bits/sigthread.h
 
-1301528656 /usr/include/setjmp.h
+1302520061 /usr/include/setjmp.h
+	<features.h>
+	<bits/setjmp.h>
+	<bits/sigset.h>
+	<bits/setjmp2.h>
 	<features.h>
 	<bits/setjmp.h>
 	<bits/sigset.h>
@@ -1723,7 +1958,7 @@
 
 1301528656 mp2.h>
 
-1301528656 /usr/include/bits/setjmp2.h
+1302520061 /usr/include/bits/setjmp2.h
 
 1304696899 /home/tarpeyd12/Desktop/engne/scriptengine/executor.h
 	"scriptengine.h"
@@ -3171,6 +3406,70 @@
 	"pystrcmp.h"
 	"pyfpe.h"
 	<pth.h>
+	"patchlevel.h"
+	"pyconfig.h"
+	"pymacconfig.h"
+	<limits.h>
+	<stdio.h>
+	<string.h>
+	<errno.h>
+	<stdlib.h>
+	<unistd.h>
+	<stddef.h>
+	<assert.h>
+	"pyport.h"
+	"pymath.h"
+	"pymem.h"
+	"object.h"
+	"objimpl.h"
+	"pydebug.h"
+	"unicodeobject.h"
+	"intobject.h"
+	"boolobject.h"
+	"longobject.h"
+	"floatobject.h"
+	"complexobject.h"
+	"rangeobject.h"
+	"stringobject.h"
+	"bufferobject.h"
+	"bytesobject.h"
+	"bytearrayobject.h"
+	"tupleobject.h"
+	"listobject.h"
+	"dictobject.h"
+	"enumobject.h"
+	"setobject.h"
+	"methodobject.h"
+	"moduleobject.h"
+	"funcobject.h"
+	"classobject.h"
+	"fileobject.h"
+	"cobject.h"
+	"traceback.h"
+	"sliceobject.h"
+	"cellobject.h"
+	"iterobject.h"
+	"genobject.h"
+	"descrobject.h"
+	"warnings.h"
+	"weakrefobject.h"
+	"codecs.h"
+	"pyerrors.h"
+	"pystate.h"
+	"pyarena.h"
+	"modsupport.h"
+	"pythonrun.h"
+	"ceval.h"
+	"sysmodule.h"
+	"intrcheck.h"
+	"import.h"
+	"abstract.h"
+	"compile.h"
+	"eval.h"
+	"pystrtod.h"
+	"pystrcmp.h"
+	"pyfpe.h"
+	<pth.h>
 
 1284567510 /usr/include/python2.6/patchlevel.h
 
@@ -3239,8 +3538,30 @@
 	<osreldate.h>
 	<ctype.h>
 	<wctype.h>
+	"pyconfig.h"
+	<stdint.h>
+	<stdlib.h>
+	<math.h>
+	<sys/time.h>
+	<time.h>
+	<sys/time.h>
+	<time.h>
+	<sys/select.h>
+	<sys/types.h>
+	"unixstuff.h"
+	<sys/types.h>
+	<sys/stat.h>
+	<stat.h>
+	<sys/types.h>
+	<sys/termio.h>
+	<termios.h>
+	<osreldate.h>
+	<ctype.h>
+	<wctype.h>
 
 1284567510 /usr/include/python2.6/pymath.h
+	"pyconfig.h"
+	<stdint.h>
 	"pyconfig.h"
 	<stdint.h>
 	"pyconfig.h"
@@ -3252,6 +3573,7 @@
 	"pyport.h"
 	"pyport.h"
 	"pyport.h"
+	"pyport.h"
 
 1284567510 /usr/include/python2.6/object.h
 
@@ -3259,10 +3581,16 @@
 	"pymem.h"
 	"pymem.h"
 	"pymem.h"
+	"pymem.h"
 
 1284567510 /usr/include/python2.6/pydebug.h
 
 1284567510 /usr/include/python2.6/unicodeobject.h
+	<stdarg.h>
+	<ctype.h>
+	<time.h>
+	<wchar.h>
+	<wctype.h>
 	<stdarg.h>
 	<ctype.h>
 	<time.h>
@@ -3295,12 +3623,14 @@
 	<stdarg.h>
 	<stdarg.h>
 	<stdarg.h>
+	<stdarg.h>
 
 1284567510 /usr/include/python2.6/bufferobject.h
 
 1284567510 /usr/include/python2.6/bytesobject.h
 
 1284567510 /usr/include/python2.6/bytearrayobject.h
+	<stdarg.h>
 	<stdarg.h>
 	<stdarg.h>
 	<stdarg.h>
@@ -3349,12 +3679,14 @@
 	<stdarg.h>
 	<stdarg.h>
 	<stdarg.h>
+	<stdarg.h>
 
 1284567510 /usr/include/python2.6/pystate.h
 
 1284567510 /usr/include/python2.6/pyarena.h
 
 1284567510 /usr/include/python2.6/modsupport.h
+	<stdarg.h>
 	<stdarg.h>
 	<stdarg.h>
 	<stdarg.h>
@@ -3375,6 +3707,7 @@
 	"code.h"
 	"code.h"
 	"code.h"
+	"code.h"
 
 1284567510 /usr/include/python2.6/code.h
 
@@ -3385,6 +3718,9 @@
 1284567510 /usr/include/python2.6/pystrcmp.h
 
 1284567510 /usr/include/python2.6/pyfpe.h
+	<signal.h>
+	<setjmp.h>
+	<math.h>
 	<signal.h>
 	<setjmp.h>
 	<math.h>
@@ -4760,10 +5096,11 @@
 
 1305570230 c:\users\tarpeyd12\desktop\pylon\pylon\window\version.h
 
-1305657228 source:c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\scriptthread.cpp
+1306180258 source:c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\scriptthread.cpp
 	"main.h"
+	"mainscriptdefs.h"
 
-1305657228 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\main.h
+1306180258 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\main.h
 	<Python.h>
 	<GLUT/glut.h>
 	<GL/glut.h>
@@ -5043,7 +5380,7 @@
 1305657213 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\renderer\physics.h
 	"renderer.h"
 
-1305657246 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\scriptengine\scriptengine.h
+1306180260 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\scriptengine\scriptengine.h
 	<Python.h>
 	"../fileloader/fileloader.h"
 	"../threads/threads.h"
@@ -5059,7 +5396,7 @@
 	<iostream>
 	<sstream>
 
-1305657251 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogelscriptinterface\pogelscriptinterface.h
+1306180277 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogelscriptinterface\pogelscriptinterface.h
 	<Python.h>
 	"../pogel/pogel.h"
 	"../scriptengine/scriptengine.h"
@@ -5070,27 +5407,41 @@
 1305657250 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogelscriptinterface\objects.h
 	"pogelscriptinterface.h"
 
-1305657252 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\objectloader\objectloader.h
-	"../pogel/pogel.h"
+1306180265 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\objectloader\objectloader.h
 	"../scriptengine/scriptengine.h"
+	"../pogel/pogel.h"
 	"../fileloader/fileloader.h"
 	"keyframe.h"
+	"keyframelist.h"
 	"camera.h"
+	"light.h"
+	"object_platonic.h"
 
-1305657252 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\objectloader\keyframe.h
-	"objectloader.h"
+1306180265 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\objectloader\keyframe.h
+	"../scriptengine/scriptengine.h"
+	"../pogel/pogel.h"
+	"../fileloader/fileloader.h"
 
-1305666960 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\objectloader\camera.h
-	"objectloader.h"
+1306180266 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\objectloader\camera.h
+	"../scriptengine/scriptengine.h"
+	"../pogel/pogel.h"
+	"../fileloader/fileloader.h"
 
 1305657228 source:c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\calcthread.cpp
 	"main.h"
 
-1305743675 source:c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\main.cpp
+1306180258 source:c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\main.cpp
 	"main.h"
 	"version.h"
+	"../pogel/version.h"
+	"../fileloader/version.h"
+	"../scriptengine/version.h"
+	"../renderer/version.h"
+	"../threads/version.h"
+	"../pogelscriptinterface/version.h"
+	"../objectloader/version.h"
 
-1305657228 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\version.h
+1306180258 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\version.h
 
 1305736822 source:c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\pylonicon.rc
 
@@ -5109,668 +5460,6 @@
 	"../scriptengine/scriptengine.h"
 	"../pogelscriptinterface/pogelscriptinterface.h"
 	"../objectloader/objectloader.h"
-
-1284567510 /usr/include/python2.6/Python.h
-	"patchlevel.h"
-	"pyconfig.h"
-	"pymacconfig.h"
-	<limits.h>
-	<stdio.h>
-	<string.h>
-	<errno.h>
-	<stdlib.h>
-	<unistd.h>
-	<stddef.h>
-	<assert.h>
-	"pyport.h"
-	"pymath.h"
-	"pymem.h"
-	"object.h"
-	"objimpl.h"
-	"pydebug.h"
-	"unicodeobject.h"
-	"intobject.h"
-	"boolobject.h"
-	"longobject.h"
-	"floatobject.h"
-	"complexobject.h"
-	"rangeobject.h"
-	"stringobject.h"
-	"bufferobject.h"
-	"bytesobject.h"
-	"bytearrayobject.h"
-	"tupleobject.h"
-	"listobject.h"
-	"dictobject.h"
-	"enumobject.h"
-	"setobject.h"
-	"methodobject.h"
-	"moduleobject.h"
-	"funcobject.h"
-	"classobject.h"
-	"fileobject.h"
-	"cobject.h"
-	"traceback.h"
-	"sliceobject.h"
-	"cellobject.h"
-	"iterobject.h"
-	"genobject.h"
-	"descrobject.h"
-	"warnings.h"
-	"weakrefobject.h"
-	"codecs.h"
-	"pyerrors.h"
-	"pystate.h"
-	"pyarena.h"
-	"modsupport.h"
-	"pythonrun.h"
-	"ceval.h"
-	"sysmodule.h"
-	"intrcheck.h"
-	"import.h"
-	"abstract.h"
-	"compile.h"
-	"eval.h"
-	"pystrtod.h"
-	"pystrcmp.h"
-	"pyfpe.h"
-	<pth.h>
-
-1284567510 /usr/include/python2.6/patchlevel.h
-
-1284567510 /usr/include/python2.6/pyconfig.h
-
-1284567510 /usr/include/python2.6/pymacconfig.h
-
-1302520045 /usr/include/limits.h
-	<features.h>
-	<bits/wordsize.h>
-	<bits/posix1_lim.h>
-	<bits/posix2_lim.h>
-	<bits/xopen_lim.h>
-
-1302520045 /usr/include/features.h
-	<bits/predefs.h>
-	<sys/cdefs.h>
-	<gnu/stubs.h>
-
-1302520045 /usr/include/bits/predefs.h
-
-1302520070 /usr/include/sys/cdefs.h
-	<features.h>
-	<bits/wordsize.h>
-
-1302520061 /usr/include/bits/wordsize.h
-
-1302520045 /usr/include/gnu/stubs.h
-	<bits/wordsize.h>
-	<gnu/stubs-32.h>
-	<gnu/stubs-64.h>
-
-1302519875 /usr/include/gnu/stubs-32.h
-
-1302520068 /usr/include/bits/posix1_lim.h
-	<bits/local_lim.h>
-
-1302520068 /usr/include/bits/local_lim.h
-	<linux/limits.h>
-
-1304031020 /usr/include/linux/limits.h
-
-1302520068 /usr/include/bits/posix2_lim.h
-
-1302520045 /usr/include/bits/xopen_lim.h
-	<bits/stdio_lim.h>
-	<bits/wordsize.h>
-
-1302520062 /usr/include/bits/stdio_lim.h
-
-1302520063 /usr/include/stdio.h
-	<features.h>
-	<stddef.h>
-	<bits/types.h>
-	<libio.h>
-	<stdarg.h>
-	<bits/stdio_lim.h>
-	<bits/sys_errlist.h>
-	<getopt.h>
-	<bits/stdio.h>
-	<bits/stdio2.h>
-	<bits/stdio-ldbl.h>
-
-1302520068 /usr/include/bits/types.h
-	<features.h>
-	<bits/wordsize.h>
-	<bits/typesizes.h>
-
-1302520068 /usr/include/bits/typesizes.h
-
-1302520063 /usr/include/libio.h
-	<_G_config.h>
-	<stdarg.h>
-	<sys/cdefs.h>
-	<bits/stdio-lock.h>
-	<shlib-compat.h>
-	<bits/libio-ldbl.h>
-
-1302520063 /usr/include/_G_config.h
-	<bits/types.h>
-	<stddef.h>
-	<wchar.h>
-	<gconv.h>
-
-1302520065 /usr/include/wchar.h
-	<features.h>
-	<stdio.h>
-	<stdarg.h>
-	<bits/wchar.h>
-	<stddef.h>
-	<wctype.h>
-	<xlocale.h>
-	<xlocale.h>
-	<xlocale.h>
-	<wctype.h>
-	<bits/wchar2.h>
-	<bits/wchar-ldbl.h>
-
-1302520065 /usr/include/bits/wchar.h
-
-1302520072 /usr/include/wctype.h
-	<features.h>
-	<bits/types.h>
-	<wchar.h>
-	<endian.h>
-	<xlocale.h>
-
-1302520064 /usr/include/endian.h
-	<features.h>
-	<bits/endian.h>
-	<bits/byteswap.h>
-
-1302520064 /usr/include/bits/endian.h
-
-1302520064 /usr/include/bits/byteswap.h
-	<bits/wordsize.h>
-
-1302520046 /usr/include/xlocale.h
-
-1302520065 /usr/include/bits/wchar2.h
-
-1302520065 /usr/include/bits/wchar-ldbl.h
-
-1302520046 /usr/include/gconv.h
-	<features.h>
-	<wchar.h>
-	<stddef.h>
-
-1302520063 /usr/include/bits/stdio-lock.h
-	<bits/libc-lock.h>
-	<lowlevellock.h>
-
-1302520045 /usr/include/bits/libc-lock.h
-	<pthread.h>
-	<stddef.h>
-	<lowlevellock.h>
-	<tls.h>
-	<pthread-functions.h>
-	<errno.h>
-	<gnu/option-groups.h>
-	<bp-sym.h>
-
-1302520075 /usr/include/pthread.h
-	<features.h>
-	<endian.h>
-	<sched.h>
-	<time.h>
-	<bits/pthreadtypes.h>
-	<bits/setjmp.h>
-	<bits/wordsize.h>
-
-1302520068 /usr/include/sched.h
-	<features.h>
-	<bits/types.h>
-	<stddef.h>
-	<time.h>
-	<bits/sched.h>
-
-1302520067 /usr/include/time.h
-	<features.h>
-	<stddef.h>
-	<bits/time.h>
-	<bits/types.h>
-	<bits/types.h>
-	<bits/types.h>
-	<bits/types.h>
-	<bits/types.h>
-	<xlocale.h>
-
-1302520067 /usr/include/bits/time.h
-	<bits/types.h>
-	<bits/types.h>
-
-1302520068 /usr/include/bits/sched.h
-
-1302520068 /usr/include/bits/pthreadtypes.h
-	<bits/wordsize.h>
-
-1302520061 /usr/include/bits/setjmp.h
-	<bits/wordsize.h>
-
-1302520061 /usr/include/errno.h
-	<features.h>
-	<bits/errno.h>
-
-1302520061 /usr/include/bits/errno.h
-	<linux/errno.h>
-
-1304031019 /usr/include/linux/errno.h
-	<asm/errno.h>
-
-1302913318 /usr/include/asm/errno.h
-	<asm-generic/errno.h>
-
-1302913313 /usr/include/asm-generic/errno.h
-	<asm-generic/errno-base.h>
-
-1302913313 /usr/include/asm-generic/errno-base.h
-
-1302520085 /usr/include/gnu/option-groups.h
-
-1302520063 /usr/include/bits/libio-ldbl.h
-
-1302520063 /usr/include/bits/sys_errlist.h
-
-1302520068 /usr/include/getopt.h
-	<ctype.h>
-
-1302520058 /usr/include/ctype.h
-	<features.h>
-	<bits/types.h>
-	<endian.h>
-	<xlocale.h>
-
-1302520063 /usr/include/bits/stdio.h
-
-1302520063 /usr/include/bits/stdio2.h
-
-1302520063 /usr/include/bits/stdio-ldbl.h
-
-1302520064 /usr/include/string.h
-	<features.h>
-	<stddef.h>
-	<xlocale.h>
-	<bits/string.h>
-	<bits/string2.h>
-	<bits/string3.h>
-
-1302520064 /usr/include/bits/string.h
-
-1302520064 /usr/include/bits/string2.h
-	<endian.h>
-	<bits/types.h>
-	<stdlib.h>
-
-1302520061 /usr/include/stdlib.h
-	<features.h>
-	<stddef.h>
-	<bits/waitflags.h>
-	<bits/waitstatus.h>
-	<xlocale.h>
-	<sys/types.h>
-	<alloca.h>
-	<bits/stdlib.h>
-	<bits/stdlib-ldbl.h>
-
-1302520068 /usr/include/bits/waitflags.h
-
-1302520068 /usr/include/bits/waitstatus.h
-	<endian.h>
-
-1302520068 /usr/include/sys/types.h
-	<features.h>
-	<bits/types.h>
-	<time.h>
-	<stddef.h>
-	<endian.h>
-	<sys/select.h>
-	<sys/sysmacros.h>
-	<bits/pthreadtypes.h>
-
-1302520070 /usr/include/sys/select.h
-	<features.h>
-	<bits/types.h>
-	<bits/select.h>
-	<bits/sigset.h>
-	<time.h>
-	<bits/time.h>
-
-1302520070 /usr/include/bits/select.h
-	<bits/wordsize.h>
-
-1302520061 /usr/include/bits/sigset.h
-
-1302520068 /usr/include/sys/sysmacros.h
-	<features.h>
-
-1302520061 /usr/include/alloca.h
-	<features.h>
-	<stddef.h>
-
-1302520061 /usr/include/bits/stdlib.h
-
-1302520061 /usr/include/bits/stdlib-ldbl.h
-
-1302520064 /usr/include/bits/string3.h
-
-1302520068 /usr/include/unistd.h
-	<features.h>
-	<bits/posix_opt.h>
-	<bits/environments.h>
-	<bits/types.h>
-	<stddef.h>
-	<bits/confname.h>
-	<getopt.h>
-	<bits/unistd.h>
-
-1302520068 /usr/include/bits/posix_opt.h
-
-1302520068 /usr/include/bits/environments.h
-	<bits/wordsize.h>
-
-1302520068 /usr/include/bits/confname.h
-
-1302520068 /usr/include/bits/unistd.h
-
-1302520058 /usr/include/assert.h
-	<features.h>
-
-1284567510 /usr/include/python2.6/pyport.h
-	"pyconfig.h"
-	<stdint.h>
-	<stdlib.h>
-	<math.h>
-	<sys/time.h>
-	<time.h>
-	<sys/time.h>
-	<time.h>
-	<sys/select.h>
-	<sys/types.h>
-	"unixstuff.h"
-	<sys/types.h>
-	<sys/stat.h>
-	<stat.h>
-	<sys/types.h>
-	<sys/termio.h>
-	<termios.h>
-	<osreldate.h>
-	<ctype.h>
-	<wctype.h>
-
-1302520061 /usr/include/stdint.h
-	<features.h>
-	<bits/wchar.h>
-	<bits/wordsize.h>
-
-1302520060 /usr/include/math.h
-	<features.h>
-	<bits/huge_val.h>
-	<bits/huge_valf.h>
-	<bits/huge_vall.h>
-	<bits/inf.h>
-	<bits/nan.h>
-	<bits/mathdef.h>
-	<bits/mathcalls.h>
-	<bits/mathcalls.h>
-	<bits/mathcalls.h>
-	<bits/mathinline.h>
-
-1302520060 /usr/include/bits/huge_val.h
-	<endian.h>
-
-1302520060 /usr/include/bits/huge_valf.h
-
-1302520060 /usr/include/bits/huge_vall.h
-
-1302520060 /usr/include/bits/inf.h
-
-1302520060 /usr/include/bits/nan.h
-	<endian.h>
-
-1302520060 /usr/include/bits/mathdef.h
-	<bits/wordsize.h>
-
-1302520060 /usr/include/bits/mathcalls.h
-
-1302520060 /usr/include/bits/mathinline.h
-	<bits/wordsize.h>
-
-1302520067 /usr/include/sys/time.h
-	<features.h>
-	<bits/types.h>
-	<time.h>
-	<bits/time.h>
-	<sys/select.h>
-
-1302520069 /usr/include/sys/stat.h
-	<features.h>
-	<bits/types.h>
-	<time.h>
-	<bits/stat.h>
-
-1302520069 /usr/include/bits/stat.h
-
-1302520069 /usr/include/termios.h
-	<features.h>
-	<bits/types.h>
-	<bits/termios.h>
-	<sys/ttydefaults.h>
-
-1302520069 /usr/include/bits/termios.h
-
-1302520069 /usr/include/sys/ttydefaults.h
-
-1284567510 /usr/include/python2.6/pymath.h
-	"pyconfig.h"
-	<stdint.h>
-
-1284567510 /usr/include/python2.6/pymem.h
-	"pyport.h"
-
-1284567510 /usr/include/python2.6/object.h
-
-1284567510 /usr/include/python2.6/objimpl.h
-	"pymem.h"
-
-1284567510 /usr/include/python2.6/pydebug.h
-
-1284567510 /usr/include/python2.6/unicodeobject.h
-	<stdarg.h>
-	<ctype.h>
-	<time.h>
-	<wchar.h>
-	<wctype.h>
-
-1284567510 /usr/include/python2.6/intobject.h
-
-1284567510 /usr/include/python2.6/boolobject.h
-
-1284567510 /usr/include/python2.6/longobject.h
-
-1284567510 /usr/include/python2.6/floatobject.h
-
-1284567510 /usr/include/python2.6/complexobject.h
-
-1284567510 /usr/include/python2.6/rangeobject.h
-
-1284567510 /usr/include/python2.6/stringobject.h
-	<stdarg.h>
-
-1284567510 /usr/include/python2.6/bufferobject.h
-
-1284567510 /usr/include/python2.6/bytesobject.h
-
-1284567510 /usr/include/python2.6/bytearrayobject.h
-	<stdarg.h>
-
-1284567510 /usr/include/python2.6/tupleobject.h
-
-1284567510 /usr/include/python2.6/listobject.h
-
-1284567510 /usr/include/python2.6/dictobject.h
-
-1284567510 /usr/include/python2.6/enumobject.h
-
-1284567510 /usr/include/python2.6/setobject.h
-
-1284567510 /usr/include/python2.6/methodobject.h
-
-1284567510 /usr/include/python2.6/moduleobject.h
-
-1284567510 /usr/include/python2.6/funcobject.h
-
-1284567510 /usr/include/python2.6/classobject.h
-
-1284567510 /usr/include/python2.6/fileobject.h
-
-1284567510 /usr/include/python2.6/cobject.h
-
-1284567510 /usr/include/python2.6/traceback.h
-
-1284567510 /usr/include/python2.6/sliceobject.h
-
-1284567510 /usr/include/python2.6/cellobject.h
-
-1284567510 /usr/include/python2.6/iterobject.h
-
-1284567510 /usr/include/python2.6/genobject.h
-
-1284567510 /usr/include/python2.6/descrobject.h
-
-1284567510 /usr/include/python2.6/warnings.h
-
-1284567510 /usr/include/python2.6/weakrefobject.h
-
-1284567510 /usr/include/python2.6/codecs.h
-
-1284567510 /usr/include/python2.6/pyerrors.h
-	<stdarg.h>
-
-1284567510 /usr/include/python2.6/pystate.h
-
-1284567510 /usr/include/python2.6/pyarena.h
-
-1284567510 /usr/include/python2.6/modsupport.h
-	<stdarg.h>
-
-1284567510 /usr/include/python2.6/pythonrun.h
-
-1284567510 /usr/include/python2.6/ceval.h
-
-1284567510 /usr/include/python2.6/sysmodule.h
-
-1284567510 /usr/include/python2.6/intrcheck.h
-
-1284567510 /usr/include/python2.6/import.h
-
-1284567510 /usr/include/python2.6/abstract.h
-
-1284567510 /usr/include/python2.6/compile.h
-	"code.h"
-
-1284567510 /usr/include/python2.6/code.h
-
-1284567510 /usr/include/python2.6/eval.h
-
-1284567510 /usr/include/python2.6/pystrtod.h
-
-1284567510 /usr/include/python2.6/pystrcmp.h
-
-1284567510 /usr/include/python2.6/pyfpe.h
-	<signal.h>
-	<setjmp.h>
-	<math.h>
-
-1302520061 /usr/include/signal.h
-	<features.h>
-	<bits/sigset.h>
-	<bits/types.h>
-	<bits/signum.h>
-	<time.h>
-	<bits/siginfo.h>
-	<bits/sigaction.h>
-	<bits/sigcontext.h>
-	<stddef.h>
-	<bits/sigstack.h>
-	<sys/ucontext.h>
-	<bits/pthreadtypes.h>
-	<bits/sigthread.h>
-
-1302520061 /usr/include/bits/signum.h
-
-1302520061 /usr/include/bits/siginfo.h
-	<bits/wordsize.h>
-
-1302520061 /usr/include/bits/sigaction.h
-
-1302520061 /usr/include/bits/sigcontext.h
-	<bits/wordsize.h>
-
-1302520061 /usr/include/bits/sigstack.h
-
-1302520061 /usr/include/sys/ucontext.h
-	<features.h>
-	<signal.h>
-	<bits/wordsize.h>
-	<bits/sigcontext.h>
-
-1302520061 /usr/include/bits/sigthread.h
-
-1302520061 /usr/include/setjmp.h
-	<features.h>
-	<bits/setjmp.h>
-	<bits/sigset.h>
-	<bits/setjmp2.h>
-
-1302520061 /usr/include/bits/setjmp2.h
-
-1295411577 /usr/include/GL/glut.h
-	"freeglut_std.h"
-
-1295411577 /usr/include/GL/freeglut_std.h
-	<Windows.h>
-	<GL/gl.h>
-	<GL/glu.h>
-	<stdlib.h>
-
-1303210370 /usr/include/GL/gl.h
-	"gl_mangle.h"
-	<stdlib.h>
-	<windows.h>
-	<GL/mesa_wgl.h>
-	<GL/glext.h>
-
-1303210370 /usr/include/GL/gl_mangle.h
-
-1303210370 /usr/include/GL/glext.h
-	<windows.h>
-	<stddef.h>
-	<inttypes.h>
-	<inttypes.h>
-	<inttypes.h>
-	<stdint.h>
-	<stdint.h>
-	<inttypes.h>
-
-1302520061 /usr/include/inttypes.h
-	<features.h>
-	<stdint.h>
-	<stddef.h>
-
-1303210360 /usr/include/GL/glu.h
-	"glu_mangle.h"
-	<GL/gl.h>
-
-1303210360 /usr/include/GL/glu_mangle.h
 
 1305747230 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogel/pogel.h
 	<time.h>
@@ -6371,4 +6060,45 @@
 	"../pogel/pogel.h"
 	"../fileloader/fileloader.h"
 	"keyframelist.h"
+
+1306180265 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\objectloader\keyframelist.h
+	"keyframe.h"
+
+1306180265 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\objectloader\light.h
+	"../scriptengine/scriptengine.h"
+	"../pogel/pogel.h"
+	"../fileloader/fileloader.h"
+
+1306180265 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\objectloader\object_platonic.h
+	"../scriptengine/scriptengine.h"
+	"../pogel/pogel.h"
+	"../fileloader/fileloader.h"
+	"keyframelist.h"
+
+1306180270 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogel\version.h
+
+1306180275 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\fileloader\version.h
+
+1306181522 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\scriptengine\version.h
+
+1306180272 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\renderer\version.h
+
+1306180276 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\threads\version.h
+
+1306180277 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\pogelscriptinterface\version.h
+
+1306180266 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\objectloader\version.h
+
+1306180258 source:c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\mainscriptdefs.cpp
+	"main.h"
+	"mainscriptdefs.h"
+	"../pogel/version.h"
+	"../fileloader/version.h"
+	"../scriptengine/version.h"
+	"../renderer/version.h"
+	"../threads/version.h"
+	"../pogelscriptinterface/version.h"
+	"../objectloader/version.h"
+
+1306180258 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\mainscriptdefs.h
 

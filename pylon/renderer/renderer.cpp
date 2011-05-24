@@ -39,8 +39,8 @@ namespace Renderer
     {
         using namespace Renderer;
         glClearColor(0,0,0,0);
-        //glEnable(GL_CULL_FACE);
-        //glCullFace(GL_BACK);
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
 
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
@@ -65,7 +65,7 @@ namespace Renderer
         glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
         glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 
-        std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectPlatonic","Data/Default.wld");
+        std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectSphere","Data/bob.wld");
         gr = new ObjectLoader::Object::Platonic(ojdat);
         bob = gr->toObject();
 
@@ -100,9 +100,9 @@ namespace Renderer
 
         Renderer::Window::toFrustum();
 
-        //glBlendFunc(GL_SRC_ALPHA,GL_ONE);
-        //glEnable(GL_BLEND);
-        //glDisable(GL_DEPTH_TEST);
+        glBlendFunc(GL_SRC_ALPHA,GL_ONE);
+        glEnable(GL_BLEND);
+        glDisable(GL_DEPTH_TEST);
 
         glTranslatef(campos.x,campos.y,campos.z);
         glRotatef( Renderer::camrot.x,  1.0f, 0.0f, 0.0f );
@@ -135,7 +135,7 @@ namespace Renderer
                 {
                     POGEL::lstimg(i)->build();
                     if(POGEL::hasproperty(POGEL_DEBUG))
-                        cout << " building unbuilt image: " << POGEL::lstimg(i)->toString() << endl;
+                        cout << "\nbuilding unbuilt image: " << POGEL::lstimg(i)->toString() << endl;
                 }
     }
 

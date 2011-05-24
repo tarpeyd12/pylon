@@ -20,6 +20,7 @@
 		</Project>
 		<Project filename="renderer/renderer.cbp">
 			<Depends filename="pogel/pogel.cbp" />
+			<Depends filename="objectloader/objectloader.cbp" />
 		</Project>
 		<Project filename="threads/threads.cbp" />
 		<Project filename="pogelscriptinterface/pogelscriptinterface.cbp">

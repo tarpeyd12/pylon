@@ -71,6 +71,28 @@ void printVersion()
     cout << "http://pylon.googlecode.com/" << endl;
 }
 
+void printHelp()
+{
+    cout << "Ussage:" << endl;
+    std::string cmds = "[args]";
+    #if defined(WINDOWS) || defined(_WIN32)
+    cout << "  pylon.exe " + cmds << endl;
+    #else
+    cout << "  ./pylon " + cmds << endl;
+    #endif
+    cout << "  args:" << endl;
+    cout << "    -f [filename]            forces the archive to filename" << endl;
+    cout << "    -dir [directory]         forces the search directory" << endl;
+    cout << "    -usedirdata              uses the data in the directory specified by -dir instead of the pylon archive file" << endl;
+    #if defined(PYLON_DEBUG_VERSION) || defined(PYLON_DEV_VERSION)
+    cout << "    -dnrm                    forces no-removal of data temporaries" << endl;
+    cout << "    -usedir [directory]      sets -dir with directory, -dnrm and -usedirdata" << endl;
+    #endif
+    cout << "    -version                 prints the versions" << endl;
+    cout << "    ?                        this help menu" << endl;
+    cout << endl;
+}
+
 bool calcLock = false;
 
 Thread *calcThread;
@@ -78,8 +100,11 @@ Thread *scriptThread;
 
 int main(int argc, char *argv[])
 {
-    #ifdef PYLON_DEBUG_VERSION
+    #if defined(PYLON_DEBUG_VERSION)
     VersionString += "_debug";
+    #endif
+    #if defined(PYLON_DEV_VERSION)
+    VersionString += "_dev";
     #endif
 
     Renderer::CMD::get(argc, argv);
@@ -95,12 +120,14 @@ int main(int argc, char *argv[])
             pylon_archive = std::string(argv[i]);
             continue;
         }
+        #if defined(PYLON_DEBUG_VERSION) || defined(PYLON_DEV_VERSION)
         else
         if(curarg.compare("-dnrm") == 0)
         {
             dontremove = true;
             continue;
         }
+        #endif
         else
         if(curarg.compare("-forcedir") == 0 || curarg.compare("-dir") == 0)
         {
@@ -115,6 +142,7 @@ int main(int argc, char *argv[])
             dontremove = true;
             continue;
         }
+        #if defined(PYLON_DEBUG_VERSION) || defined(PYLON_DEV_VERSION)
         else
         if(curarg.compare("-usedir") == 0)
         {
@@ -124,10 +152,20 @@ int main(int argc, char *argv[])
             dontremove = true;
             continue;
         }
+        #endif
         else
-        if(curarg.compare("-version") == 0)
+        if(
+            curarg.compare("-version") == 0 ||
+            curarg.compare("?") == 0 ||
+            curarg.compare("help") == 0 ||
+            curarg.compare("-help") == 0 ||
+            curarg.compare("-about") == 0
+        )
         {
             printVersion();
+            cout << endl;
+            if(curarg.compare("?") == 0 || curarg.compare("help") == 0 || curarg.compare("-help") == 0)
+                printHelp();
             exit(0);
         }
     }
@@ -144,9 +182,9 @@ int main(int argc, char *argv[])
     if(POGEL::hasproperty(POGEL_DEBUG))
         printVersion();
 
-    std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectPlatonic","Data/Default.wld");
-    std::string bob = ScriptEngine::Parse::getLabeledSection(ojdat,"CAnimKeyFrame","{<",">}");
-    ObjectLoader::AnimKeyFrame key(bob);
+    //std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectPlatonic","Data/Default.wld");
+    //std::string bob = ScriptEngine::Parse::getLabeledSection(ojdat,"CAnimKeyFrame","{<",">}");
+    //ObjectLoader::AnimKeyFrame key(bob);
 
     //std::cout << key.toString() << std::endl;
 
@@ -180,6 +218,7 @@ int main(int argc, char *argv[])
     }
     else
         Renderer::Window::Create("Pylon_" + VersionString);
+
     Renderer::Init();
 
     scriptThread = new Thread(Scripts);

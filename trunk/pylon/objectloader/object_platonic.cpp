@@ -64,13 +64,13 @@ namespace ObjectLoader
             csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
             sscanf(csrtmp,"%f",&Radius);
 
-            tmp = ScriptEngine::Parse::getLabeledSection(dat,"Segments","<",">");
+            /*tmp = ScriptEngine::Parse::getLabeledSection(dat,"Segments","<",">");
             csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
             sscanf(csrtmp,"%u",&Segments);
 
             tmp = ScriptEngine::Parse::getLabeledSection(dat,"Type","<",">");
             csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-            sscanf(csrtmp,"%u",&Type);
+            sscanf(csrtmp,"%u",&Type);*/
 
             tmp = ScriptEngine::Parse::getLabeledSection(dat,"Smooth","<",">");
             csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
@@ -142,7 +142,8 @@ namespace ObjectLoader
             }
 
             //s_Triangle_Groups ScriptEngine::Parse::getLabeledSection(in,"C3dTriangleGroups","{","}")
-            __TriangleGroups += TriangleGroup(ScriptEngine::Parse::getLabeledSection(dat,"C3dTriangleGroups","{","}"));
+            if(s_Triangle_Groups.length() > 50)
+                __TriangleGroups += TriangleGroup(ScriptEngine::Parse::getLabeledSection(dat,"C3dTriangleGroups","{","}"));
 
             dat = ScriptEngine::Parse::getStringComponentLevelNoMore("{",false,"}",false,in,"0");
 
@@ -227,12 +228,18 @@ namespace ObjectLoader
             tmp = ScriptEngine::Parse::getLabeledSection(dat,"GLSL Shader","<",">");
             GLSLShader = tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1));
 
-            _Animation_stuff = AnimKeyFrame(ScriptEngine::Parse::getLabeledSection(in,"CAnimKeyFrame","{","}"));
+            if(s_Animation_Procedures.length() > 50)
+                _Animation_stuff = AnimKeyFrame(ScriptEngine::Parse::getLabeledSection(s_Animation_Procedures,"CAnimKeyFrame","{","}"));
         }
 
         Platonic::~Platonic()
         {
-
+            _Verticies.clear();
+            _Normals.clear();
+            _Colors.clear();
+            _Triangles.clear();
+            _ui_Triangles.clear();
+            __TriangleGroups.clear();
         }
 
         POGEL::OBJECT* Platonic::toObject()
@@ -243,10 +250,7 @@ namespace ObjectLoader
             ret->rotation = Rotation;
 
             for(unsigned int i = 0; i < _Triangles.length(); i++)
-            {
-                //_Triangles[i].texture = POGEL::requestImage("{[Data/default_2.bmp],[32],[32],[1]}");
                 ret->addtriangle(_Triangles[i]);
-            }
             return ret;
         }
     }

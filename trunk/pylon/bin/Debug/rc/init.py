@@ -68,9 +68,9 @@ except IOError:
 	print pylon.requestfile_ar('Data/log125.txt','resources.pylon')
 	print pylon.requestfile_ar('Data/particle.bmp','resources.pylon')
 	print sim.addfile('Data/log125.txt')
-	print sim.addfile('Data/default_2.bmp')
-	print sim.addfile('Data/bob.wld')
-	print sim.addfile('Data/Default.wld')
+	print pylon.requestfile_ar('Data/default_2.bmp','resources.pylon')
+	print pylon.requestfile_ar('Data/bob.wld','resources.pylon')
+	print pylon.requestfile_ar('Data/Default.wld','resources.pylon')
 
 sim2 = Simulation("sim2",True)
 

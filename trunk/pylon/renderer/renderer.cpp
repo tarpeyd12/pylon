@@ -39,8 +39,8 @@ namespace Renderer
     {
         using namespace Renderer;
         glClearColor(0,0,0,0);
-        glEnable(GL_CULL_FACE);
-        glCullFace(GL_BACK);
+        //glEnable(GL_CULL_FACE);
+        //glCullFace(GL_BACK);
 
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
@@ -64,10 +64,10 @@ namespace Renderer
         glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
         glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
         glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
-
-        std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectSphere","Data/bob.wld");
-        gr = new ObjectLoader::Object::Platonic(ojdat);
-        bob = gr->toObject();
+        bob = NULL;
+        //std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectSphere","Data/bob.wld");
+        //gr = new ObjectLoader::Object::Platonic(ojdat);
+        //bob = gr->toObject();
 
         POGEL::InitFps();
         lastdur = POGEL::GetTimePassed();
@@ -108,9 +108,11 @@ namespace Renderer
         glRotatef( Renderer::camrot.x,  1.0f, 0.0f, 0.0f );
         glRotatef( Renderer::camrot.y,  0.0f, 1.0f, 0.0f );
         glRotatef( Renderer::camrot.z,  0.0f, 0.0f, 1.0f );
-
-        bob->position = POGEL::POINT();
-        bob->draw();
+        if(bob != NULL)
+        {
+            bob->position = POGEL::POINT();
+            bob->draw();
+        }
 
         if(!drawLock)
             for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
@@ -124,19 +126,24 @@ namespace Renderer
             usleep(1000000/60.0-(curdur - lastdur));
         else if(curdur == lastdur)
             usleep(1000000/60.0);
-        //cout << 1/(curdur-lastdur) << endl;
         lastdur = POGEL::GetTimePassed();
 
         glutSwapBuffers();
 
         if(POGEL::frames % 1000 == 0 || POGEL::frames < 100)
+        {
+            bool bob = false;
             for(unsigned int i = 0; i < POGEL::imglstlen(); i++)
                 if(!POGEL::lstimg(i)->isbuilt())
                 {
                     POGEL::lstimg(i)->build();
                     if(POGEL::hasproperty(POGEL_DEBUG))
-                        cout << "\nbuilding unbuilt image: " << POGEL::lstimg(i)->toString() << endl;
+                        cout << endl << "building unbuilt image: " << POGEL::lstimg(i)->toString();
+                    bob = true;
                 }
+            if(bob && POGEL::hasproperty(POGEL_DEBUG))
+                cout << endl;
+        }
     }
 
     void Incriment()

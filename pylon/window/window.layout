@@ -5,7 +5,7 @@
 		<Cursor position="565" topLine="0" />
 	</File>
 	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="7496" topLine="199" />
+		<Cursor position="7374" topLine="205" />
 	</File>
 	<File name="main.h" open="0" top="0" tabpos="17">
 		<Cursor position="328" topLine="0" />
@@ -16,7 +16,7 @@
 	<File name="scriptthread.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="1611" topLine="1" />
 	</File>
-	<File name="version.h" open="1" top="0" tabpos="7">
-		<Cursor position="589" topLine="7" />
+	<File name="version.h" open="0" top="0" tabpos="2">
+		<Cursor position="589" topLine="6" />
 	</File>
 </CodeBlocks_layout_file>

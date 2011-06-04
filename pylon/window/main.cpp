@@ -83,8 +83,8 @@ void printHelp()
     cout << "  args:" << endl;
     cout << "    -f [filename]            forces the archive to filename" << endl;
     cout << "    -dir [directory]         forces the search directory" << endl;
-    cout << "    -usedirdata              uses the data in the directory specified by -dir instead of the pylon archive file" << endl;
     #if defined(PYLON_DEBUG_VERSION) || defined(PYLON_DEV_VERSION)
+    cout << "    -usedirdata              uses the data in the directory specified by -dir instead of the pylon archive file" << endl;
     cout << "    -dnrm                    forces no-removal of data temporaries" << endl;
     cout << "    -usedir [directory]      sets -dir with directory, -dnrm and -usedirdata" << endl;
     #endif
@@ -135,6 +135,7 @@ int main(int argc, char *argv[])
             forced_dir = std::string(argv[++i]);
             continue;
         }
+        #if defined(PYLON_DEBUG_VERSION) || defined(PYLON_DEV_VERSION)
         else
         if(curarg.compare("-usedirdata") == 0)
         {
@@ -142,7 +143,6 @@ int main(int argc, char *argv[])
             dontremove = true;
             continue;
         }
-        #if defined(PYLON_DEBUG_VERSION) || defined(PYLON_DEV_VERSION)
         else
         if(curarg.compare("-usedir") == 0)
         {
@@ -168,6 +168,7 @@ int main(int argc, char *argv[])
                 printHelp();
             exit(0);
         }
+        else { }
     }
 
     FileLoader::__ar_extract_init(noarchiving,dontremove,forcedir,forced_dir);
@@ -209,11 +210,9 @@ int main(int argc, char *argv[])
     std::string winname = ini.getvalue("window","name");
     if(winname.length())
     {
-        std::string n = "";
+        std::string n = winname;
         if(POGEL::hasproperty(POGEL_DEBUG))
-            n = "Pylon_" + VersionString + ": '"+winname+"' in " + (!forcedir?"archive: '" + pylon_archive:"folder: '" + forced_dir) + "'";
-        else
-            n = winname;
+            n = "Pylon_"+VersionString+": '"+winname+"' in "+(!forcedir?"archive: '"+pylon_archive:"folder: '"+forced_dir)+"'";
         Renderer::Window::Create(n);
     }
     else

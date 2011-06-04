@@ -11,7 +11,7 @@
 		<Cursor position="0" topLine="24" />
 	</File>
 	<File name="classes/matrix_class.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="656" topLine="0" />
+		<Cursor position="656" topLine="259" />
 	</File>
 	<File name="classes/object_class.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="11310" topLine="461" />
@@ -33,6 +33,9 @@
 	</File>
 	<File name="classes/physics/simulation_class.h" open="0" top="0" tabpos="0">
 		<Cursor position="1101" topLine="37" />
+	</File>
+	<File name="classes/physics/simulation_class_collisions.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="4029" topLine="0" />
 	</File>
 	<File name="classes/physics/solid_class.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="3999" topLine="73" />

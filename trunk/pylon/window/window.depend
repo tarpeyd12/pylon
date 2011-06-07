@@ -6245,7 +6245,7 @@
 1302520068 /usr/include/bits/local_lim.h
 	<linux/limits.h>
 
-1304031020 /usr/include/linux/limits.h
+1307057774 /usr/include/linux/limits.h
 
 1302520068 /usr/include/bits/posix2_lim.h
 
@@ -6393,7 +6393,7 @@
 1302520061 /usr/include/bits/errno.h
 	<linux/errno.h>
 
-1304031019 /usr/include/linux/errno.h
+1307057773 /usr/include/linux/errno.h
 	<asm/errno.h>
 
 1302520085 /usr/include/gnu/option-groups.h

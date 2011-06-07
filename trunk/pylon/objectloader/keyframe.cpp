@@ -36,7 +36,7 @@ namespace ObjectLoader
 
         tmp = ScriptEngine::Parse::getLabeledSection(dat,"Origin","<",">");
         csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%f %f %f %f",&Origin.x,&Origin.y,&Origin.z,&ftmp);
+        sscanf(csrtmp,"%f %f %f %f",&Origin.x,&Origin.z,&Origin.y,&ftmp); //////////////// z up conversion ARGGG!
 
         tmp = ScriptEngine::Parse::getLabeledSection(dat,"Rotation","<",">");
         csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
@@ -109,18 +109,18 @@ namespace ObjectLoader
             TimeRef = t;
             t = t - prev.TimeRef;
             t /= (next.TimeRef - prev.TimeRef);
-            Color = POGEL::COLOR((next.Color.r - prev.Color.r)*t,(next.Color.g - prev.Color.g)*t,(next.Color.b - prev.Color.b)*t,(next.Color.a - prev.Color.a)*t);
+            Color = POGEL::COLOR((next.Color.r - prev.Color.r)*t+prev.Color.r,(next.Color.g - prev.Color.g)*t+prev.Color.g,(next.Color.b - prev.Color.b)*t+prev.Color.b,(next.Color.a - prev.Color.a)*t+prev.Color.a);
             Ambient = POGEL::COLOR((next.Ambient.r - prev.Ambient.r)*t,(next.Ambient.g - prev.Ambient.g)*t,(next.Ambient.b - prev.Ambient.b)*t,(next.Ambient.a - prev.Ambient.a)*t);
             Diffuse = POGEL::COLOR((next.Diffuse.r - prev.Diffuse.r)*t,(next.Diffuse.g - prev.Diffuse.g)*t,(next.Diffuse.b - prev.Diffuse.b)*t,(next.Diffuse.a - prev.Diffuse.a)*t);
             Specular = POGEL::COLOR((next.Specular.r - prev.Specular.r)*t,(next.Specular.g - prev.Specular.g)*t,(next.Specular.b - prev.Specular.b)*t,(next.Specular.a - prev.Specular.a)*t);
-            Origin = (next.Origin-prev.Origin)*t;
-            Rotation = (next.Rotation-prev.Rotation)*t;
-            Scale = (next.Scale-prev.Scale)*t;
-            Translate = (next.Translate-prev.Translate)*t;
-            SpotAngle = (next.SpotAngle-prev.SpotAngle)*t;
-            EyePos = (next.EyePos-prev.EyePos)*t;
-            LookatPos = (next.LookatPos-prev.LookatPos)*t;
-            FocalLength = (next.FocalLength-prev.FocalLength)*t;
+            Origin = (next.Origin-prev.Origin)*t+prev.Origin;
+            Rotation = (next.Rotation-prev.Rotation)*t+prev.Rotation;
+            Scale = (next.Scale-prev.Scale)*t+prev.Scale;
+            Translate = (next.Translate-prev.Translate)*t+prev.Translate;
+            SpotAngle = (next.SpotAngle-prev.SpotAngle)*t+prev.SpotAngle;
+            EyePos = (next.EyePos-prev.EyePos)*t+prev.EyePos;
+            LookatPos = (next.LookatPos-prev.LookatPos)*t+prev.LookatPos;
+            FocalLength = (next.FocalLength-prev.FocalLength)*t+prev.FocalLength;
         }
     }
 

@@ -51,9 +51,7 @@ namespace ObjectLoader
             return KeyFrame();
         float maxtime = _Frames[_Frames.length()-1]->gettime();
         if(!true) // looping
-        {
             t = fmod(t,maxtime);
-        }
         else if(!false) // ocilating
         {
             t = fmod(t,maxtime*2);
@@ -65,11 +63,13 @@ namespace ObjectLoader
             float ftime = _Frames[i]->gettime();
             if(ftime == t)
                 return *_Frames[i];
-            if(i+1 < _Frames.length())
+            if(i+1 < _Frames.length() && t > ftime)
             {
                 float nftime = _Frames[i+1]->gettime();
                 if(t < nftime && t > ftime)
                     return KeyFrame(*_Frames[i+1],*_Frames[i],t);
+                else if(nftime == t)
+                    return *_Frames[i+1];
             }
         }
         return KeyFrame();

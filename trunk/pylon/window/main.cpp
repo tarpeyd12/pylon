@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
 
     Renderer::CMD::get(argc, argv);
 
-    pylon_archive = "resources.pylon";
+    pylon_archive = "rc.pylon";
 
     for(int i = 0; i < argc; i++)
     {
@@ -191,13 +191,33 @@ int main(int argc, char *argv[])
 
     //cout << key.toString() << endl;
 
-    FileLoader::extractfile(pylon_archive,".conf",true,false,"",false,"");
-    FileLoader::Ini ini(".conf");
+    int exret = -1, i = -1;
+    std::string ininames[] = {
+        ".conf",
+        "conf.ini",
+        ".config",
+        "config.ini",
+        "conf.txt",
+        "config.txt"
+    };
+    std::string ininame = "conf.ini";
+    while(i++ < 6 && exret != 0)
+    {
+        exret = FileLoader::extractfile(pylon_archive,ininames[i],true,false,"",false,"");
+        if(exret == 0)
+            ininame = ininames[i];
+        else if(exret == -1234)
+        {
+            ininame = ininames[0];
+            break;
+        }
+    }
+    FileLoader::Ini ini(ininame);
     if(!dontremove)
     #ifdef _WIN32
-        system("del /Q .conf");
+        system((std::string("del /Q ") + ininame).c_str());
     #else
-        { int ret = system("rm .conf"); ret = 0; }
+        { int ret = system((std::string("rm ") + ininame).c_str()); ret = 0; }
     #endif
 
     main_py = ini.getvalue("pylon","main");

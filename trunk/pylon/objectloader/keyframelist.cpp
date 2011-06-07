@@ -28,7 +28,7 @@ namespace ObjectLoader
             for(unsigned int s = 0; s < dat.length(); s++)
                 if(dat[s] == ' ' || dat[s] == '\t' || dat[s] == '\n')
                     len++;
-            _Frames += new KeyFrame(frame);
+            _Frames.add(new KeyFrame(frame));
             if(i+1 < NumKeyFrames)
             {
                 p = 0;
@@ -43,6 +43,36 @@ namespace ObjectLoader
         for(unsigned int i = 0; i < _Frames.length(); i++)
             delete _Frames[i];
         _Frames.clear();
+    }
+
+    KeyFrame KeyFrameList::keyAt(float t)
+    {
+        if(!_Frames.length())
+            return KeyFrame();
+        float maxtime = _Frames[_Frames.length()-1]->gettime();
+        if(!true) // looping
+        {
+            t = fmod(t,maxtime);
+        }
+        else if(!false) // ocilating
+        {
+            t = fmod(t,maxtime*2);
+            if(t > maxtime)
+                t = maxtime - (t - maxtime);
+        }
+        for(unsigned int i = 0; i < _Frames.length(); i++)
+        {
+            float ftime = _Frames[i]->gettime();
+            if(ftime == t)
+                return *_Frames[i];
+            if(i+1 < _Frames.length())
+            {
+                float nftime = _Frames[i+1]->gettime();
+                if(t < nftime && t > ftime)
+                    return KeyFrame(*_Frames[i+1],*_Frames[i],t);
+            }
+        }
+        return KeyFrame();
     }
 
     AnimKeyFrame::AnimKeyFrame()
@@ -87,5 +117,10 @@ namespace ObjectLoader
     std::string AnimKeyFrame::toString()
     {
         return "";
+    }
+
+    KeyFrame AnimKeyFrame::keyAt(float t)
+    {
+        return KFList->keyAt(t);
     }
 }

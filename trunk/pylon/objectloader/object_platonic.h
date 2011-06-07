@@ -188,12 +188,13 @@ namespace ObjectLoader
                 unsigned int NumTextures;
                 //CLASSLIST<> _Textures;
                 std::string GLSLShader;
-                AnimKeyFrame _Animation_stuff;
+                AnimKeyFrame *_Animation_stuff;
             public:
                 Platonic(std::string);
                 virtual ~Platonic();
 
                 POGEL::OBJECT* toObject();
+                KeyFrame frame(float);
         };
     }
 }

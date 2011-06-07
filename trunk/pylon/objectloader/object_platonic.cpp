@@ -229,7 +229,7 @@ namespace ObjectLoader
             GLSLShader = tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1));
 
             if(s_Animation_Procedures.length() > 50)
-                _Animation_stuff = AnimKeyFrame(ScriptEngine::Parse::getLabeledSection(s_Animation_Procedures,"CAnimKeyFrame","{","}"));
+                _Animation_stuff = new AnimKeyFrame(ScriptEngine::Parse::getLabeledSection(s_Animation_Procedures,"CAnimKeyFrame","{","}"));
         }
 
         Platonic::~Platonic()
@@ -240,6 +240,7 @@ namespace ObjectLoader
             _Triangles.clear();
             _ui_Triangles.clear();
             __TriangleGroups.clear();
+            delete _Animation_stuff;
         }
 
         POGEL::OBJECT* Platonic::toObject()
@@ -252,6 +253,11 @@ namespace ObjectLoader
             for(unsigned int i = 0; i < _Triangles.length(); i++)
                 ret->addtriangle(_Triangles[i]);
             return ret;
+        }
+
+        KeyFrame Platonic::frame(float t)
+        {
+            return _Animation_stuff->keyAt(t);
         }
     }
 }

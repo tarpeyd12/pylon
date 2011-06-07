@@ -65,9 +65,9 @@ namespace Renderer
         glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
         glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
         bob = NULL;
-        //std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectSphere","Data/bob.wld");
-        //gr = new ObjectLoader::Object::Platonic(ojdat);
-        //bob = gr->toObject();
+        std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectPlatonic","Data/Default.wld");
+        gr = new ObjectLoader::Object::Platonic(ojdat);
+        bob = gr->toObject();
 
         POGEL::InitFps();
         lastdur = POGEL::GetTimePassed();
@@ -110,7 +110,8 @@ namespace Renderer
         glRotatef( Renderer::camrot.z,  0.0f, 0.0f, 1.0f );
         if(bob != NULL)
         {
-            bob->position = POGEL::POINT();
+            //bob->position = POGEL::POINT();
+            bob->position = gr->frame(POGEL::GetTimePassed()).getpos();
             bob->draw();
         }
 

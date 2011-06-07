@@ -7,17 +7,17 @@
 	<File name="camera.h" open="0" top="0" tabpos="5">
 		<Cursor position="126" topLine="0" />
 	</File>
-	<File name="keyframe.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="1785" topLine="33" />
+	<File name="keyframe.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="473" topLine="6" />
 	</File>
-	<File name="keyframe.h" open="0" top="0" tabpos="2">
-		<Cursor position="129" topLine="0" />
+	<File name="keyframe.h" open="1" top="1" tabpos="4">
+		<Cursor position="1181" topLine="30" />
 	</File>
-	<File name="keyframelist.cpp" open="0" top="0" tabpos="9">
-		<Cursor position="2183" topLine="57" />
+	<File name="keyframelist.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="1693" topLine="42" />
 	</File>
-	<File name="keyframelist.h" open="0" top="0" tabpos="1">
-		<Cursor position="107" topLine="0" />
+	<File name="keyframelist.h" open="1" top="0" tabpos="6">
+		<Cursor position="2489" topLine="58" />
 	</File>
 	<File name="light.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="14974" topLine="260" />
@@ -25,11 +25,11 @@
 	<File name="light.h" open="0" top="0" tabpos="4">
 		<Cursor position="124" topLine="0" />
 	</File>
-	<File name="object_platonic.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="3791" topLine="123" />
+	<File name="object_platonic.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="13515" topLine="232" />
 	</File>
 	<File name="object_platonic.h" open="1" top="0" tabpos="2">
-		<Cursor position="4868" topLine="150" />
+		<Cursor position="6218" topLine="174" />
 	</File>
 	<File name="objectloader.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="80" topLine="0" />

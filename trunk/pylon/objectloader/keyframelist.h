@@ -59,6 +59,8 @@ namespace ObjectLoader
             KeyFrameList();
             KeyFrameList(std::string);
             virtual ~KeyFrameList();
+
+            KeyFrame keyAt(float);
     };
 
     class AnimKeyFrame
@@ -76,6 +78,9 @@ namespace ObjectLoader
             virtual ~AnimKeyFrame();
 
             std::string toString();
+
+            KeyFrame keyAt(float);
+            //POGEL::POINT getPos(float);
     };
 }
 

@@ -68,7 +68,7 @@
 				<Option object_output="obj/Development/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-usedir rc" />
+				<Option parameters="-usedir rc -debug" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-DPYLON_DEV_VERSION" />

@@ -44,11 +44,15 @@ namespace ObjectLoader
             POGEL::POINT LookatPos;
             float FocalLength;
         public:
+            KeyFrame();
             KeyFrame(std::string);
             KeyFrame(KeyFrame,KeyFrame,float);
             virtual ~KeyFrame();
 
             std::string toString();
+
+            float gettime();
+            POGEL::POINT getpos();
     };
 }
 

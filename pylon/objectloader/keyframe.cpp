@@ -2,6 +2,11 @@
 
 namespace ObjectLoader
 {
+    KeyFrame::KeyFrame()
+    {
+
+    }
+
     KeyFrame::KeyFrame(std::string dat)
     {
         //std::cout << "hello" << std::endl;
@@ -62,19 +67,60 @@ namespace ObjectLoader
         sscanf(csrtmp,"%f",&FocalLength);
     }
 
-    KeyFrame::KeyFrame(KeyFrame next, KeyFrame prev, float time)
+    KeyFrame::KeyFrame(KeyFrame next, KeyFrame prev, float t)
     {
-        if(next.TimeRef == time)
+        if(next.TimeRef == t)
         {
             // make this equal to the next keyframe
+            TimeRef = next.TimeRef;
+            Color = next.Color;
+            Ambient = next.Ambient;
+            Diffuse = next.Diffuse;
+            Specular = next.Specular;
+            Origin = next.Origin;
+            Rotation = next.Rotation;
+            Scale = next.Scale;
+            Translate = next.Translate;
+            SpotAngle = next.SpotAngle;
+            EyePos = next.EyePos;
+            LookatPos = next.LookatPos;
+            FocalLength = next.FocalLength;
         }
-        else if(prev.TimeRef == time)
+        else if(prev.TimeRef == t)
         {
             // make this equal to the previous keyframe
+            TimeRef = prev.TimeRef;
+            Color = prev.Color;
+            Ambient = prev.Ambient;
+            Diffuse = prev.Diffuse;
+            Specular = prev.Specular;
+            Origin = prev.Origin;
+            Rotation = prev.Rotation;
+            Scale = prev.Scale;
+            Translate = prev.Translate;
+            SpotAngle = prev.SpotAngle;
+            EyePos = prev.EyePos;
+            LookatPos = prev.LookatPos;
+            FocalLength = prev.FocalLength;
         }
         else
         {
             // create a keyframe inbetween the two with refference time
+            TimeRef = t;
+            t = t - prev.TimeRef;
+            t /= (next.TimeRef - prev.TimeRef);
+            Color = POGEL::COLOR((next.Color.r - prev.Color.r)*t,(next.Color.g - prev.Color.g)*t,(next.Color.b - prev.Color.b)*t,(next.Color.a - prev.Color.a)*t);
+            Ambient = POGEL::COLOR((next.Ambient.r - prev.Ambient.r)*t,(next.Ambient.g - prev.Ambient.g)*t,(next.Ambient.b - prev.Ambient.b)*t,(next.Ambient.a - prev.Ambient.a)*t);
+            Diffuse = POGEL::COLOR((next.Diffuse.r - prev.Diffuse.r)*t,(next.Diffuse.g - prev.Diffuse.g)*t,(next.Diffuse.b - prev.Diffuse.b)*t,(next.Diffuse.a - prev.Diffuse.a)*t);
+            Specular = POGEL::COLOR((next.Specular.r - prev.Specular.r)*t,(next.Specular.g - prev.Specular.g)*t,(next.Specular.b - prev.Specular.b)*t,(next.Specular.a - prev.Specular.a)*t);
+            Origin = (next.Origin-prev.Origin)*t;
+            Rotation = (next.Rotation-prev.Rotation)*t;
+            Scale = (next.Scale-prev.Scale)*t;
+            Translate = (next.Translate-prev.Translate)*t;
+            SpotAngle = (next.SpotAngle-prev.SpotAngle)*t;
+            EyePos = (next.EyePos-prev.EyePos)*t;
+            LookatPos = (next.LookatPos-prev.LookatPos)*t;
+            FocalLength = (next.FocalLength-prev.FocalLength)*t;
         }
     }
 
@@ -86,5 +132,15 @@ namespace ObjectLoader
     std::string KeyFrame::toString()
     {
         return Color.toString();
+    }
+
+    float KeyFrame::gettime()
+    {
+        return TimeRef;
+    }
+
+    POGEL::POINT KeyFrame::getpos()
+    {
+        return Origin;
     }
 }

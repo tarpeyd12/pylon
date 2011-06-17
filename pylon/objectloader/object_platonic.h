@@ -7,6 +7,7 @@
 #include "../fileloader/fileloader.h"
 
 #include "keyframelist.h"
+#include "object_base.h"
 
 /*
 C3dObjectPlatonic {
@@ -129,66 +130,13 @@ C3dObjectPlatonic {
 
 namespace ObjectLoader
 {
-    class TriangleGroup
-    {
-        private:
-            std::string Name;
-			POGEL::COLOR Color;
-			std::string MaterialName;
-			unsigned int NumTextures;
-            std::string GLSLShader;
-			unsigned int NumTriangles;
-			unsigned int Sequential;
-			unsigned int MinMaxRange[2];
-        public:
-            TriangleGroup();
-            TriangleGroup(std::string);
-            virtual ~TriangleGroup();
-    };
-
     namespace Object
     {
-        class Platonic
+        class Platonic : public _BaseObject
         {
             private:
-                float Radius;
                 unsigned int Segments;
                 unsigned int Type;
-                unsigned int Smooth;
-                float SmoothAngle;
-                unsigned int NumVertices;
-                CLASSLIST<POGEL::POINT> _Verticies;
-                unsigned int NumNormals;
-                CLASSLIST<POGEL::VECTOR> _Normals;
-                unsigned int VertexColors;
-                CLASSLIST<POGEL::COLOR> _Colors;
-                unsigned int Triangles;
-                CLASSLIST<POGEL::TRIANGLE> _Triangles;
-                CLASSLIST<unsigned int*> _ui_Triangles;
-                CLASSLIST<TriangleGroup> __TriangleGroups;
-                std::string Name;
-                POGEL::COLOR Color;
-                POGEL::POINT Origin;
-                POGEL::POINT Rotation;
-                POGEL::POINT Scale;
-                POGEL::POINT Translate;
-                unsigned int Constraints;
-                POGEL::POINT OrgnLimitsNeg;
-                POGEL::POINT OrgnLimitsPos;
-                POGEL::POINT RotnLimitsNeg;
-                POGEL::POINT RotnLimitsPos;
-                unsigned int DisplayMode;
-                unsigned int ShowObject;
-                unsigned int SolidColor;
-                unsigned int RenderMode;
-                unsigned int CastsShadows;
-                unsigned int ReceivesShadows;
-                unsigned int EnableLighting;
-                std::string MaterialName;
-                unsigned int NumTextures;
-                //CLASSLIST<> _Textures;
-                std::string GLSLShader;
-                AnimKeyFrame *_Animation_stuff;
             public:
                 Platonic(std::string);
                 virtual ~Platonic();

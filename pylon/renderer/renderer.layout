@@ -25,11 +25,11 @@
 	<File name="physics.h" open="0" top="0" tabpos="0">
 		<Cursor position="339" topLine="0" />
 	</File>
-	<File name="renderer.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="3367" topLine="100" />
+	<File name="renderer.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="4743" topLine="137" />
 	</File>
-	<File name="renderer.h" open="1" top="0" tabpos="2">
-		<Cursor position="243" topLine="9" />
+	<File name="renderer.h" open="0" top="0" tabpos="2">
+		<Cursor position="421" topLine="9" />
 	</File>
 	<File name="window.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="236" topLine="0" />

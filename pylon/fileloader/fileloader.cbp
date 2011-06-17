@@ -38,6 +38,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="archivehandler.cpp" />
+		<Unit filename="archivehandler.h" />
 		<Unit filename="fileloader.cpp" />
 		<Unit filename="fileloader.h" />
 		<Unit filename="ini.cpp" />
@@ -126,6 +128,7 @@
 		<Unit filename="simpleini/SimpleIni.h" />
 		<Unit filename="unzip.cpp" />
 		<Unit filename="unzip.h" />
+		<Unit filename="unzip_backend.h" />
 		<Unit filename="version.h" />
 		<Extensions>
 			<envvars />

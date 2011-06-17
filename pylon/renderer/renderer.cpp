@@ -18,7 +18,7 @@ namespace Renderer
     POGEL::POINT ppos;
 
     POGEL::OBJECT* bob;
-    ObjectLoader::Object::Platonic* gr;
+    ObjectLoader::Object::_BaseObject* gr;
 
     float lastdur;
 
@@ -66,7 +66,7 @@ namespace Renderer
         glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
         bob = NULL;
         std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectPlatonic","Data/Default.wld");
-        gr = new ObjectLoader::Object::Platonic(ojdat);
+        gr = new ObjectLoader::Object::_BaseObject(ojdat);
         bob = gr->toObject();
 
         POGEL::InitFps();
@@ -116,11 +116,13 @@ namespace Renderer
         }
 
         if(!drawLock)
+        {
             for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
                 if(Renderer::Physics::simulations[i]->isdyn())
                     static_cast<POGEL::PHYSICS::DYNAMICS*>(Renderer::Physics::simulations[i]->getSim())->draw();
                 else
                     static_cast<POGEL::PHYSICS::SIMULATION*>(Renderer::Physics::simulations[i]->getSim())->draw();
+        }
 
         float curdur = POGEL::GetTimePassed();
         if(1.0/(curdur-lastdur) > 60)

@@ -193,8 +193,8 @@ int main(int argc, char *argv[])
 
     int exret = -1, i = -1;
     std::string ininames[] = {
-        ".conf",
         "conf.ini",
+        ".conf",
         ".config",
         "config.ini",
         "conf.txt",
@@ -205,11 +205,17 @@ int main(int argc, char *argv[])
     {
         exret = FileLoader::extractfile(pylon_archive,ininames[i],true,false,"",false,"");
         if(exret == 0)
-            ininame = ininames[i];
-        else if(exret == -1234)
         {
-            ininame = ininames[0];
+            ininame = ininames[i];
             break;
+        }
+        else if(exret < 0)
+        {
+            if(FileLoader::checkfile(ininames[i]))
+            {
+                ininame = ininames[i];
+                break;
+            }
         }
     }
     FileLoader::Ini ini(ininame);
@@ -237,6 +243,22 @@ int main(int argc, char *argv[])
     }
     else
         Renderer::Window::Create("Pylon_" + VersionString);
+
+    if(ini.hasSection("archives"))
+    {
+        CLASSLIST<std::string> * keynames = ini.keysinsection("archives");
+        if(keynames && keynames->length())
+        {
+            for(unsigned int i = 0; i < keynames->length(); i++)
+            {
+                std::string key = keynames->get(i);
+                std::string alias = "{" + key + "}";
+                FileLoader::ArchiveHandler::addArchiveLink(alias, ini.getvalue("archives",key));
+            }
+        }
+        if(keynames)
+            delete keynames;
+    }
 
     Renderer::Init();
 

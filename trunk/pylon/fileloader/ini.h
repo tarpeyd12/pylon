@@ -22,6 +22,8 @@ namespace FileLoader
             virtual ~Ini();
 
             std::string getvalue(std::string,std::string);
+            bool hasSection(std::string);
+            CLASSLIST<std::string> * keysinsection(std::string);
     };
 }
 

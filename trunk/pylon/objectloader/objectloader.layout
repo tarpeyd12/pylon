@@ -1,41 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="camera.cpp" open="0" top="0" tabpos="10">
+	<File name="base.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="393" topLine="0" />
+	</File>
+	<File name="base.h" open="1" top="0" tabpos="9">
+		<Cursor position="215" topLine="13" />
+	</File>
+	<File name="camera.cpp" open="1" top="0" tabpos="2">
 		<Cursor position="1401" topLine="0" />
 	</File>
-	<File name="camera.h" open="0" top="0" tabpos="5">
+	<File name="camera.h" open="1" top="0" tabpos="10">
 		<Cursor position="126" topLine="0" />
 	</File>
 	<File name="keyframe.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="473" topLine="6" />
+		<Cursor position="4736" topLine="65" />
 	</File>
-	<File name="keyframe.h" open="1" top="1" tabpos="4">
-		<Cursor position="1181" topLine="30" />
+	<File name="keyframe.h" open="1" top="0" tabpos="11">
+		<Cursor position="1181" topLine="21" />
 	</File>
-	<File name="keyframelist.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="1693" topLine="42" />
+	<File name="keyframelist.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="1569" topLine="45" />
 	</File>
-	<File name="keyframelist.h" open="1" top="0" tabpos="6">
+	<File name="keyframelist.h" open="1" top="0" tabpos="12">
 		<Cursor position="2489" topLine="58" />
 	</File>
-	<File name="light.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="14974" topLine="260" />
+	<File name="light.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="3357" topLine="105" />
 	</File>
-	<File name="light.h" open="0" top="0" tabpos="4">
-		<Cursor position="124" topLine="0" />
+	<File name="light.h" open="1" top="0" tabpos="13">
+		<Cursor position="3674" topLine="119" />
 	</File>
-	<File name="object_platonic.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="13515" topLine="232" />
+	<File name="object_base.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="2692" topLine="46" />
 	</File>
-	<File name="object_platonic.h" open="1" top="0" tabpos="2">
-		<Cursor position="6218" topLine="174" />
+	<File name="object_base.h" open="1" top="0" tabpos="14">
+		<Cursor position="1575" topLine="29" />
 	</File>
-	<File name="objectloader.cpp" open="0" top="0" tabpos="7">
+	<File name="object_platonic.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="1153" topLine="9" />
+	</File>
+	<File name="object_platonic.h" open="1" top="0" tabpos="15">
+		<Cursor position="4199" topLine="123" />
+	</File>
+	<File name="objectloader.cpp" open="1" top="0" tabpos="8">
 		<Cursor position="80" topLine="0" />
 	</File>
-	<File name="objectloader.h" open="0" top="0" tabpos="3">
-		<Cursor position="200" topLine="0" />
+	<File name="objectloader.h" open="1" top="0" tabpos="16">
+		<Cursor position="501" topLine="0" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="0">
 		<Cursor position="52" topLine="0" />

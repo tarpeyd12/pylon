@@ -106,7 +106,7 @@ namespace ObjectLoader
 
     }
 
-    Light::Light(std::string in)
+    Light::Light(std::string in) : ObjectLoader::_Base(in)
     {
         SDepthMap = ShadowDepthMap(ScriptEngine::Parse::getLabeledSection(in,"CShadowDepthMap","{","}"));
         TShadowMap_1 = TransparentShadowMap(ScriptEngine::Parse::getLabeledSection(in,"CTransparentShadowMap","{","}"));
@@ -116,7 +116,7 @@ namespace ObjectLoader
 
         char* csrtmp;
         std::string tmp;
-        float ftmp;
+        //float ftmp;
 
         tmp = ScriptEngine::Parse::getLabeledSection(dat,"Radius","<",">");
         csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
@@ -209,89 +209,6 @@ namespace ObjectLoader
         tmp = ScriptEngine::Parse::getLabeledSection(dat,"Enable Lens flare depth test","<",">");
         csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
         sscanf(csrtmp,"%u",&EnableLensflaredepthtest);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"Name","<",">");
-        Name = tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1));
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"Color","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%f %f %f %f",&Color.r,&Color.g,&Color.b,&Color.a);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"Origin","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%f %f %f %f",&Origin.x,&Origin.y,&Origin.z,&ftmp);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"Rotation","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%f %f %f",&Rotation.x,&Rotation.y,&Rotation.z);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"Scale","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%f %f %f",&Scale.x,&Scale.y,&Scale.z);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"Translate","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%f %f %f",&Translate.x,&Translate.y,&Translate.z);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"Constraints","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%u",&Constraints);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"OrgnLimitsNeg","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%f %f %f",&OrgnLimitsNeg.x,&OrgnLimitsNeg.y,&OrgnLimitsNeg.z);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"OrgnLimitsPos","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%f %f %f",&OrgnLimitsPos.x,&OrgnLimitsPos.y,&OrgnLimitsPos.z);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"RotnLimitsNeg","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%f %f %f",&RotnLimitsNeg.x,&RotnLimitsNeg.y,&RotnLimitsNeg.z);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"RotnLimitsPos","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%f %f %f",&RotnLimitsPos.x,&RotnLimitsPos.y,&RotnLimitsPos.z);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"DisplayMode","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%u",&DisplayMode);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"ShowObject","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%u",&ShowObject);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"Solid Color","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%u",&SolidColor);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"RenderMode","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%u",&RenderMode);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"Casts Shadows","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%u",&CastsShadows);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"Receives Shadows","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%u",&ReceivesShadows);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"Enable Lighting","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%u",&EnableLighting);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"Material Name","<",">");
-        MaterialName = tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1));
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"Num Textures","<",">");
-        csrtmp = (char*)tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1)).c_str();
-        sscanf(csrtmp,"%u",&NumTextures);
-
-        tmp = ScriptEngine::Parse::getLabeledSection(dat,"GLSL Shader","<",">");
-        GLSLShader = tmp.substr((tmp[0] == ' '?1:0),tmp.length()-(tmp[tmp.length()-1] == ' '?2:1));
-
-        // animation stuff
     }
 
     Light::~Light()

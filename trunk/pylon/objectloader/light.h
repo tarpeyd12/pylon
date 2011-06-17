@@ -7,6 +7,8 @@
 #include "../pogel/pogel.h"
 #include "../fileloader/fileloader.h"
 
+#include "base.h"
+
 /*
 C3dObjectLight {
 	Radius        < 2.000000 >
@@ -126,7 +128,7 @@ namespace ObjectLoader
             virtual ~FlareArray();
     };
 
-    class Light
+    class Light : private ObjectLoader::_Base
     {
         private:
             float Radius;
@@ -156,29 +158,6 @@ namespace ObjectLoader
             unsigned int NumParticleEmitterShadowCasters;
             FlareArray FArray;
             unsigned int EnableLensflaredepthtest;
-            std::string Name;
-            POGEL::COLOR Color;
-            POGEL::POINT Origin;
-            POGEL::POINT Rotation;
-            POGEL::POINT Scale;
-            POGEL::POINT Translate;
-            unsigned int Constraints;
-            POGEL::POINT OrgnLimitsNeg;
-            POGEL::POINT OrgnLimitsPos;
-            POGEL::POINT RotnLimitsNeg;
-            POGEL::POINT RotnLimitsPos;
-            unsigned int DisplayMode;
-            unsigned int ShowObject;
-            unsigned int SolidColor;
-            unsigned int RenderMode;
-            unsigned int CastsShadows;
-            unsigned int ReceivesShadows;
-            unsigned int EnableLighting;
-            std::string MaterialName;
-            unsigned int NumTextures;
-            std::string GLSLShader;
-
-            // animation stuff
         public:
             Light(std::string);
             virtual ~Light();

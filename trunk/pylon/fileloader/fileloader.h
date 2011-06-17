@@ -4,6 +4,8 @@
 #include <string>
 #include <fstream>
 
+#include "../pogel/pogel.h"
+
 namespace FileLoader
 {
     std::string getline(std::string filename, int line);
@@ -13,5 +15,6 @@ namespace FileLoader
 
 #include "unzip.h"
 #include "ini.h"
+#include "archivehandler.h"
 
 #endif // FILELOADER_H_INCLUDED

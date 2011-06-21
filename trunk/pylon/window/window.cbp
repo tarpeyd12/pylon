@@ -13,7 +13,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug -usedir rc -label" />
+				<Option parameters="-debug -usedir rc -label -version" />
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-L../bin/Debug" />
@@ -109,6 +109,11 @@
 		</Linker>
 		<Unit filename="calcthread.cpp" />
 		<Unit filename="calcthread.h" />
+		<Unit filename="cmd.cpp" />
+		<Unit filename="globals.cpp" />
+		<Unit filename="globals.h" />
+		<Unit filename="info.cpp" />
+		<Unit filename="init.cpp" />
 		<Unit filename="main.cpp">
 			<Option weight="0" />
 		</Unit>
@@ -118,6 +123,7 @@
 		<Unit filename="scriptthread.cpp" />
 		<Unit filename="scriptthread.h" />
 		<Unit filename="version.h" />
+		<Unit filename="versionheaders.h" />
 		<Extensions>
 			<envvars />
 			<code_completion />

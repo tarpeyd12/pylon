@@ -41,6 +41,8 @@
 		<Linker>
 			<Add library="pthread" />
 		</Linker>
+		<Unit filename="exthread.cpp" />
+		<Unit filename="exthread.h" />
 		<Unit filename="threads.cpp" />
 		<Unit filename="threads.h" />
 		<Unit filename="version.h" />

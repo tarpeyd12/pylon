@@ -28,20 +28,20 @@
 
 ScriptEngine::MethodInterface::Object* lockCalculations( ScriptEngine::MethodInterface::Object* )
 {
-    if(!calcLock)
+    if(!Main::calcLock)
     {
-        calcLock = true;
-        calcThread->joinThread();
+        Main::calcLock = true;
+        Main::calcThread->joinThread();
     }
     Py_RETURN_NONE;
 }
 
 ScriptEngine::MethodInterface::Object* unlockCalculations( ScriptEngine::MethodInterface::Object* )
 {
-    if(calcLock)
+    if(Main::calcLock)
     {
-        calcLock = false;
-        calcThread->startThread();
+        Main::calcLock = false;
+        Main::calcThread->startThread();
     }
     Py_RETURN_NONE;
 }
@@ -80,7 +80,7 @@ ScriptEngine::MethodInterface::MethodDef drawLockMethods[] =
 
 ScriptEngine::MethodInterface::Object* getVersion( ScriptEngine::MethodInterface::Object* )
 {
-    return Py_BuildValue("s", VersionStringNoOS.c_str());
+    return Py_BuildValue("s", Main::VersionStringNoOS.c_str());
 }
 
 ScriptEngine::MethodInterface::Object* getPluginVersion(ScriptEngine::MethodInterface::Object* self, ScriptEngine::MethodInterface::Object* args)

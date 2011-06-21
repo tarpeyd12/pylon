@@ -13,7 +13,7 @@
 class Thread {
     private:
         void* (*thread_function)(void* arg);
-        void *data;
+        void* data;
 
         pthread_t thread;
         pthread_attr_t attr;
@@ -36,5 +36,7 @@ class Thread {
         //void detachThread();
 };
 
+
+#include "exthread.h"
 
 #endif // THREADS_H_INCLUDED

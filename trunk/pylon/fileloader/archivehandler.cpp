@@ -40,31 +40,66 @@ namespace FileLoader
 
         // *********
 
+        int _sortFileLinksByFile(fileLink** a, fileLink** b)
+        {
+            return (*a)->getFileName().compare((*b)->getFileName());
+        }
+
+        int _sortFileLinksByLink(fileLink** a, fileLink** b)
+        {
+            return (*a)->getArchiveName().compare((*b)->getArchiveName());
+        }
+
+        void sortFileLinksByFile()
+        {
+            fileList.sort(_sortFileLinksByFile);
+        }
+
+        void sortFileLinksByLink()
+        {
+            fileList.sort(_sortFileLinksByLink);
+        }
+
         void addArchiveLink(std::string archiveAlias, std::string archiveFileName)
         {
             archiveList += new archiveLink(archiveAlias, archiveFileName);
             //archiveList += new archiveLink(archiveFileName, archiveFileName);
 
-            CLASSLIST<std::string> * filesinar = FileLoader::filesList(archiveFileName);
-            if(filesinar == NULL)
+            CLASSLIST<std::string> * filesInArchive = FileLoader::filesList(archiveFileName);
+            if(filesInArchive == NULL)
             {
                 return;
             }
-            if(!filesinar->length())
+            if(!filesInArchive->length())
             {
-                delete filesinar;
+                delete filesInArchive;
                 return;
             }
 
-            for(unsigned int i = 0; i < filesinar->length(); i++)
-                addFileLink(filesinar->get(i), archiveFileName);
+            for(unsigned int i = 0; i < filesInArchive->length(); i++)
+            {
+                addFileLink(filesInArchive->get(i), archiveFileName);
+            }
 
-            delete filesinar;
+            sortFileLinksByFile();
+
+            delete filesInArchive;
         }
 
         void addFileLink(std::string fileName, std::string archiveFileName)
         {
             fileList += new fileLink(archiveFileName, fileName);
+        }
+
+        int extractKnownFile(std::string fn)
+        {
+            FileLoader::ArchiveHandler::fileLink ** fLink = NULL;
+            FileLoader::ArchiveHandler::fileLink * frLink = new FileLoader::ArchiveHandler::fileLink("",fn);
+            fLink = FileLoader::ArchiveHandler::fileList.search( frLink );
+            if(  fLink  == NULL) return -1; // not found
+            if((*fLink) == NULL) return -2; // found but corrupted
+            delete frLink;
+            return FileLoader::extractfile( (*fLink)->getArchiveName(), fn);
         }
     }
 }

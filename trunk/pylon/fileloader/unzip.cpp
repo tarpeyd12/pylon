@@ -15,6 +15,11 @@ namespace FileLoader
         forcedir = fdir;
     }
 
+    /// \brief opens an archive.
+    /// \param a string to the exact filename of the archive.
+    /// \return a unzFile file handle to the archive.
+    ///
+    /// opens the actual archive ar
     unzFile __openArchive(std::string ar)
     {
         #ifdef USEWIN32IOAPI
@@ -26,44 +31,45 @@ namespace FileLoader
         #endif
     }
 
+    /// \brief opens a pylon archive.
+    /// \param a string to the archive.
+    /// \return a unzFile file handle to the archive.
+    ///
+    /// the path to the archive can be with or without the filetype at the end.
     unzFile __initArchive(std::string ar)
     {
         unzFile uf = NULL;
         if (ar.length())
         {
             uf = __openArchive(ar);
-
             if (uf == NULL)
-            {
                 uf = __openArchive(ar+".zip");
-            }
-
             if (uf == NULL)
-            {
                 uf = __openArchive(ar+".pylon");
-            }
-
             if (uf == NULL)
-            {
                 uf = __openArchive(ar+".pylon.zip");
-            }
         }
 
         if (uf == NULL)
         {
             cout << "Unable to open " + ar + ", " + ar + ".zip, " + ar + ".pylon, nor " + ar + ".pylon.zip" << endl;
             __closeArchive(uf);
-            //return NULL;
         }
 
         return uf;
     }
 
+    /// \brief cluzes an archive file handle.
+    /// \param a unzFile handle to the opened archive.
     void __closeArchive(unzFile uf)
     {
         unzClose(uf);
     }
 
+    /// \brief extracts a file from a pylon archive
+    /// \param a string to the archive file
+    /// \param a string with the name of the file in the archive to extract
+    /// \return an int 0 is good -1234 is that archiving is disabled, otherwise an error
     int extractfile(std::string ar, std::string fn)
     {
         return extractfile(ar,fn,true,false,"",false,"");

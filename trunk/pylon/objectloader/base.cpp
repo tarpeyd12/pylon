@@ -2,10 +2,20 @@
 
 namespace ObjectLoader
 {
+    /// \brief _Base class generic blind constructor
+    /// \return an unusable _Base object
+    /// do not use, is only so the compiler would stop complaning
     _Base::_Base()
     {
 
     }
+
+    /// \brief _Base class specific constructor
+    ///
+    /// \param a string that contains the data to be parsed
+    /// \return a new _Base object
+    ///
+    /// should not be used other than to create a new class for 3d data loading.
 
     _Base::_Base(std::string in)
     {

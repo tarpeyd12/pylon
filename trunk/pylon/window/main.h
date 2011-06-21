@@ -27,25 +27,20 @@
 #include "../pogelscriptinterface/pogelscriptinterface.h"
 #include "../objectloader/objectloader.h"
 
-extern std::string pylon_archive;
-extern std::string config_data;
-extern std::string init_py;
-extern std::string main_py;
-extern std::string ext_dir;
-extern bool dontremove;
-extern bool forcedir;
-extern bool noarchiving;
-extern std::string forced_dir;
+#include "scriptthread.h"
+#include "calcthread.h"
 
-extern std::string VersionStringNoOS;
-extern std::string VersionString;
+#include "globals.h"
 
-extern bool calcLock;
+namespace Main
+{
+    void printVersion();
+    void printHelp();
+    void findVersion();
 
-extern Thread *calcThread;
-extern Thread *scriptThread;
+    void getCMD(int argc, char *argv[]);
 
-void* Scripts(void* arg);
-void* Calculations(void* arg);
+    void Init();
+}
 
 #endif // MAIN_H_INCLUDED

@@ -36,7 +36,7 @@ namespace FileLoader
         CLASSLIST<std::string> * ret = new CLASSLIST<std::string>();
 
         CSimpleIniA::TNamesDepend::iterator it;
-        for ( it=keys.begin() ; it != keys.end(); it++ )
+        for ( it = keys.begin(); it != keys.end(); it++ )
             ret->add(std::string(it->pItem));
 
         return ret;

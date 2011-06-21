@@ -35,7 +35,7 @@ void Thread::setPriority(int priority)
     param.__sched_priority = priority;
     int ret = pthread_setschedparam(thread, SCHED_FIFO, &param);
     if( ret )
-        printf("thread priprity setting failed: %d\n", ret);*/
+        printf("thread priority setting failed: %d\n", ret);*/
 }
 
 void Thread::setThread(void* (*func)(void* arg))

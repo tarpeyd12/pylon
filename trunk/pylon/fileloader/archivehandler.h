@@ -9,6 +9,10 @@ namespace FileLoader
 {
     namespace ArchiveHandler
     {
+        /// \class archiveLink
+        /// \brief aliases for pylon archive files
+        ///
+        /// is ment to make accessing archive files in the python scripts faster.
         class archiveLink
         {
             private:
@@ -31,6 +35,10 @@ namespace FileLoader
 
         void addArchiveLink(std::string,std::string);
         void addFileLink(std::string,std::string);
+
+        void sortFileLinksByFile();
+        void sortFileLinksByLink();
+
         int extractKnownFile(std::string);
     }
 }

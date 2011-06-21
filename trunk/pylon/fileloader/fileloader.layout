@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="archivehandler.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="1149" topLine="40" />
+	<File name="archivehandler.cpp" open="1" top="1" tabpos="4">
+		<Cursor position="1296" topLine="43" />
 	</File>
 	<File name="archivehandler.h" open="1" top="0" tabpos="5">
 		<Cursor position="243" topLine="0" />
@@ -67,7 +67,7 @@
 	<File name="simpleini/SimpleIni.h" open="1" top="0" tabpos="1">
 		<Cursor position="13835" topLine="328" />
 	</File>
-	<File name="unzip.cpp" open="1" top="1" tabpos="8">
+	<File name="unzip.cpp" open="1" top="0" tabpos="8">
 		<Cursor position="985" topLine="37" />
 	</File>
 	<File name="unzip.h" open="1" top="0" tabpos="7">

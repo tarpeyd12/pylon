@@ -1,20 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="calcthread.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="565" topLine="0" />
+	<File name="calcthread.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="129" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="7713" topLine="210" />
+	<File name="calcthread.h" open="1" top="0" tabpos="4">
+		<Cursor position="94" topLine="0" />
 	</File>
-	<File name="main.h" open="0" top="0" tabpos="17">
-		<Cursor position="328" topLine="0" />
+	<File name="globals.cpp" open="1" top="0" tabpos="11">
+		<Cursor position="42" topLine="0" />
 	</File>
-	<File name="mainscriptdefs.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="704" topLine="1" />
+	<File name="globals.h" open="1" top="0" tabpos="10">
+		<Cursor position="74" topLine="0" />
 	</File>
-	<File name="scriptthread.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1611" topLine="1" />
+	<File name="info.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="46" topLine="0" />
+	</File>
+	<File name="init.cpp" open="1" top="1" tabpos="14">
+		<Cursor position="2119" topLine="58" />
+	</File>
+	<File name="main.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="221" topLine="0" />
+	</File>
+	<File name="main.h" open="1" top="0" tabpos="9">
+		<Cursor position="919" topLine="19" />
+	</File>
+	<File name="mainscriptdefs.cpp" open="1" top="0" tabpos="13">
+		<Cursor position="2722" topLine="78" />
+	</File>
+	<File name="mainscriptdefs.h" open="1" top="0" tabpos="12">
+		<Cursor position="70" topLine="0" />
+	</File>
+	<File name="scriptthread.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="1947" topLine="44" />
+	</File>
+	<File name="scriptthread.h" open="1" top="0" tabpos="2">
+		<Cursor position="98" topLine="0" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="2">
 		<Cursor position="589" topLine="6" />

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="archivehandler.cpp" open="1" top="1" tabpos="4">
+	<File name="archivehandler.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="1296" topLine="43" />
 	</File>
-	<File name="archivehandler.h" open="1" top="0" tabpos="5">
+	<File name="archivehandler.h" open="0" top="0" tabpos="5">
 		<Cursor position="243" topLine="0" />
 	</File>
-	<File name="fileloader.cpp" open="1" top="0" tabpos="9">
+	<File name="fileloader.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="1208" topLine="30" />
 	</File>
-	<File name="fileloader.h" open="1" top="0" tabpos="6">
+	<File name="fileloader.h" open="0" top="0" tabpos="6">
 		<Cursor position="274" topLine="0" />
 	</File>
-	<File name="ini.cpp" open="1" top="0" tabpos="3">
+	<File name="ini.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="243" topLine="0" />
 	</File>
-	<File name="ini.h" open="1" top="0" tabpos="2">
+	<File name="ini.h" open="0" top="0" tabpos="2">
 		<Cursor position="571" topLine="3" />
 	</File>
 	<File name="minizip/ioapi.h" open="0" top="0" tabpos="0">
@@ -64,13 +64,13 @@
 	<File name="simpleini/ConvertUTF.h" open="0" top="0" tabpos="0">
 		<Cursor position="0" topLine="53" />
 	</File>
-	<File name="simpleini/SimpleIni.h" open="1" top="0" tabpos="1">
+	<File name="simpleini/SimpleIni.h" open="0" top="0" tabpos="1">
 		<Cursor position="13835" topLine="328" />
 	</File>
-	<File name="unzip.cpp" open="1" top="0" tabpos="8">
+	<File name="unzip.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="985" topLine="37" />
 	</File>
-	<File name="unzip.h" open="1" top="0" tabpos="7">
+	<File name="unzip.h" open="0" top="0" tabpos="7">
 		<Cursor position="615" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

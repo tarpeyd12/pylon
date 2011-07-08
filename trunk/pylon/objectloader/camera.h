@@ -7,6 +7,8 @@
 #include "../pogel/pogel.h"
 #include "../fileloader/fileloader.h"
 
+#include "keyframelist.h"
+
 /*
 C3dCamera {
 	LookAt    < -7.927460 -16.687195 4.024653 >
@@ -36,6 +38,7 @@ namespace ObjectLoader
             float FarClipPlane;
             unsigned int ViewType;
             // animationstuffs
+            AnimKeyFrame *_Animation_stuff;
         public:
             Camera(std::string);
             virtual ~Camera();

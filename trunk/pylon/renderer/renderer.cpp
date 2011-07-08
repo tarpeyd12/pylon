@@ -6,6 +6,7 @@
 #ifdef _XOPEN_SOURCE
 #undef _XOPEN_SOURCE
 #endif
+
 #include "../objectloader/objectloader.h"
 
 namespace Renderer
@@ -20,11 +21,12 @@ namespace Renderer
     POGEL::OBJECT* bob;
     ObjectLoader::Object::_BaseObject* gr;
 
-    float lastdur;
+    Renderer::Timer *timer30;
 
     // do not tamper with drawLock
     bool drawLock = false;
 
+    // TODO: make flexable/dynamic lighting in scripting/modeling
     const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
     const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
     const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -38,7 +40,8 @@ namespace Renderer
     void Init()
     {
         using namespace Renderer;
-        glClearColor(0,0,0,0);
+
+        glClearColor(.5,.5,.5,.5);
         //glEnable(GL_CULL_FACE);
         //glCullFace(GL_BACK);
 
@@ -64,13 +67,15 @@ namespace Renderer
         glMaterialfv(GL_FRONT, GL_DIFFUSE,   mat_diffuse);
         glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
         glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
+
         bob = NULL;
-        std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectPlatonic","Data/Default.wld");
-        gr = new ObjectLoader::Object::_BaseObject(ojdat);
-        bob = gr->toObject();
+        //std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectPlatonic","Data/Default.wld");
+        //gr = new ObjectLoader::Object::_BaseObject(ojdat);
+        //bob = gr->toObject();
 
         POGEL::InitFps();
-        lastdur = POGEL::GetTimePassed();
+
+        Renderer::timer30 = new Timer(30); // 30 fps
     }
 
     void Idle()
@@ -100,9 +105,9 @@ namespace Renderer
 
         Renderer::Window::toFrustum();
 
-        glBlendFunc(GL_SRC_ALPHA,GL_ONE);
-        glEnable(GL_BLEND);
-        glDisable(GL_DEPTH_TEST);
+        //glBlendFunc(GL_SRC_ALPHA,GL_ONE);
+        //glEnable(GL_BLEND);
+        //glDisable(GL_DEPTH_TEST);
 
         glTranslatef(campos.x,campos.y,campos.z);
         glRotatef( Renderer::camrot.x,  1.0f, 0.0f, 0.0f );
@@ -124,16 +129,11 @@ namespace Renderer
                     static_cast<POGEL::PHYSICS::SIMULATION*>(Renderer::Physics::simulations[i]->getSim())->draw();
         }
 
-        float curdur = POGEL::GetTimePassed();
-        if(1.0/(curdur-lastdur) > 60)
-            usleep(1000000/60.0-(curdur - lastdur));
-        else if(curdur == lastdur)
-            usleep(1000000/60.0);
-        lastdur = POGEL::GetTimePassed();
+        Renderer::timer30->sleep();
 
         glutSwapBuffers();
 
-        if(POGEL::frames % 1000 == 0 || POGEL::frames < 100)
+        if(POGEL::frames % 100 == 0 || POGEL::frames < 100)
         {
             bool bob = false;
             for(unsigned int i = 0; i < POGEL::imglstlen(); i++)

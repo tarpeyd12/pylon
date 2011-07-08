@@ -4,6 +4,8 @@ namespace ObjectLoader
 {
     Camera::Camera(std::string dat)
     {
+        std::string s_Animation_Procedures = ScriptEngine::Parse::getLabeledSection(dat,"CAnimation Procedures","{","}");
+
         char* csrtmp;
         std::string tmp;
         //float ftmp;
@@ -41,6 +43,10 @@ namespace ObjectLoader
         sscanf(csrtmp,"%u",&ViewType);
 
         // animation stuffs
+        if(s_Animation_Procedures.length() > 50)
+            _Animation_stuff = new AnimKeyFrame(ScriptEngine::Parse::getLabeledSection(s_Animation_Procedures,"CAnimKeyFrame","{","}"));
+        else
+            _Animation_stuff = NULL;
     }
 
     Camera::~Camera()

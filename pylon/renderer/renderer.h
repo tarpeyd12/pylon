@@ -12,6 +12,10 @@
 #include "../pogel/pogel.h"
 #include "../fileloader/fileloader.h"
 
+#ifndef TIMER_H_INCLUDED
+#include "timer.h"
+#endif // TIMER_H_INCLUDED
+
 namespace Renderer
 {
     extern POGEL::POINT camrot;
@@ -19,7 +23,7 @@ namespace Renderer
     extern POGEL::POINT campos;
     extern POGEL::POINT ppos;
 
-    extern float lastdur;
+    extern Timer *timer30;
 
     extern bool drawLock;
 

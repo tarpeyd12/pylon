@@ -56,6 +56,7 @@ namespace pogelInterface
 
     Object* getline(Object*,Object*);
     Object* requestfile_ar(Object*,Object*);
+    Object* requestfile(Object*,Object*);
 }
 
 #include "objects.h"

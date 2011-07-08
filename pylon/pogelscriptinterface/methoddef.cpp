@@ -42,6 +42,7 @@ namespace pogelInterface
         { "window_width",       (CFunction)window_width,      VarArgs, NULL },
         { "getline",            (CFunction)getline,           VarArgs, NULL },
         { "requestfile_ar",     (CFunction)requestfile_ar,    VarArgs, NULL },
+        { "requestfile",        (CFunction)requestfile,       VarArgs, NULL },
         { NULL }
     };
 

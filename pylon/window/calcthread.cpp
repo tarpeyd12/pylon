@@ -9,22 +9,16 @@ CalcThread::CalcThread()
 
 CalcThread::~CalcThread()
 {
-
+    this->joinThread();
 }
 
 void CalcThread::run()
 {
-    float lastdur = POGEL::GetTimePassed();
+    Renderer::Timer *timer15 = new Renderer::Timer(15); // 15 cycles per second
     while(!Main::calcLock)
     {
         Renderer::Incriment();
-
-        float curdur = POGEL::GetTimePassed();
-        if(1/(curdur-lastdur) > 15)
-            usleep(1000000/15-(curdur - lastdur));
-        else if(curdur == lastdur)
-            usleep(1000000/15);
-        lastdur = POGEL::GetTimePassed();
-
+        timer15->sleep();
     }
+    delete timer15;
 }

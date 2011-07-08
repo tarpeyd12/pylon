@@ -13,7 +13,7 @@ try:
 		try:
 			from pylonclasses import *
 		except ImportError:
-			print pylon.requestfile_ar('Data/pylonclasses.py','rc.pylon')
+			print pylon.requestfile('Data/pylonclasses.py')
 			from pylonclasses import *
 
 except ImportError:
@@ -61,12 +61,12 @@ cam = Camera(0,0,-10,0,0,0)
 
 sim = Simulation("sim",True)
 #print 'Data/log125.txt not found importing from database pylon'
-print pylon.requestfile_ar('Data/log125.txt','rc.pylon')
-print pylon.requestfile_ar('Data/particle.bmp','rc.pylon')
+print pylon.requestfile('Data/log125.txt')
+print pylon.requestfile('Data/particle.bmp')
 print sim.addfile('Data/log125.txt')
-print pylon.requestfile_ar('Data/default_2.bmp','rc.pylon')
-print pylon.requestfile_ar('Data/bob.wld','rc.pylon')
-print pylon.requestfile_ar('Data/Default.wld','rc.pylon')
+print pylon.requestfile('Data/default_2.bmp')
+print pylon.requestfile('Data/bob.wld')
+print pylon.requestfile('Data/Default.wld')
 
 sim2 = Simulation("sim2",True)
 

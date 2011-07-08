@@ -6112,7 +6112,7 @@
 
 1306180258 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\mainscriptdefs.h
 
-1308634348 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/main.cpp
+1310140167 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/main.cpp
 	"main.h"
 	"versionheaders.h"
 
@@ -6241,7 +6241,7 @@
 1302520068 /usr/include/bits/local_lim.h
 	<linux/limits.h>
 
-1307057774 /usr/include/linux/limits.h
+1309300918 /usr/include/linux/limits.h
 
 1302520068 /usr/include/bits/posix2_lim.h
 
@@ -6389,7 +6389,7 @@
 1302520061 /usr/include/bits/errno.h
 	<linux/errno.h>
 
-1307057773 /usr/include/linux/errno.h
+1309300917 /usr/include/linux/errno.h
 	<asm/errno.h>
 
 1302520085 /usr/include/gnu/option-groups.h
@@ -7043,12 +7043,13 @@
 
 1305747240 /home/tarpeyd12/Desktop/pylon/trunk/pylon/fileloader/simpleini/ConvertUTF.h
 
-1306171507 /home/tarpeyd12/Desktop/pylon/trunk/pylon/renderer/renderer.h
+1310147942 /home/tarpeyd12/Desktop/pylon/trunk/pylon/renderer/renderer.h
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<stdlib.h>
 	"../pogel/pogel.h"
 	"../fileloader/fileloader.h"
+	"timer.h"
 	"mouse.h"
 	"window.h"
 	"key.h"
@@ -7086,7 +7087,7 @@
 	<iostream>
 	<sstream>
 
-1305920922 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogelscriptinterface/pogelscriptinterface.h
+1308638580 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogelscriptinterface/pogelscriptinterface.h
 	<Python.h>
 	"../pogel/pogel.h"
 	"../scriptengine/scriptengine.h"
@@ -7115,10 +7116,11 @@
 1307429359 /home/tarpeyd12/Desktop/pylon/trunk/pylon/objectloader/keyframelist.h
 	"keyframe.h"
 
-1305921003 /home/tarpeyd12/Desktop/pylon/trunk/pylon/objectloader/camera.h
+1308863374 /home/tarpeyd12/Desktop/pylon/trunk/pylon/objectloader/camera.h
 	"../scriptengine/scriptengine.h"
 	"../pogel/pogel.h"
 	"../fileloader/fileloader.h"
+	"keyframelist.h"
 
 1307660790 /home/tarpeyd12/Desktop/pylon/trunk/pylon/objectloader/light.h
 	"../scriptengine/scriptengine.h"
@@ -7133,7 +7135,7 @@
 	"keyframelist.h"
 	"object_base.h"
 
-1308634350 /home/tarpeyd12/Desktop/pylon/trunk/pylon/window/version.h
+1310165076 /home/tarpeyd12/Desktop/pylon/trunk/pylon/window/version.h
 
 1308615381 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogel/version.h
 
@@ -7147,26 +7149,20 @@
 
 1305758784 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogelscriptinterface/version.h
 
-1308254071 /home/tarpeyd12/Desktop/pylon/trunk/pylon/objectloader/version.h
+1308863376 /home/tarpeyd12/Desktop/pylon/trunk/pylon/objectloader/version.h
 
-1308632623 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/calcthread.cpp
+1310165073 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/calcthread.cpp
 	"main.h"
 	"calcthread.h"
 
-1308632698 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/mainscriptdefs.cpp
+1308637234 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/mainscriptdefs.cpp
 	"main.h"
 	"mainscriptdefs.h"
-	"../pogel/version.h"
-	"../fileloader/version.h"
-	"../scriptengine/version.h"
-	"../renderer/version.h"
-	"../threads/version.h"
-	"../pogelscriptinterface/version.h"
-	"../objectloader/version.h"
+	"versionheaders.h"
 
-1305758409 /home/tarpeyd12/Desktop/pylon/trunk/pylon/window/mainscriptdefs.h
+1308636201 /home/tarpeyd12/Desktop/pylon/trunk/pylon/window/mainscriptdefs.h
 
-1308632766 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/scriptthread.cpp
+1310148158 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/scriptthread.cpp
 	"main.h"
 	"mainscriptdefs.h"
 	"scriptthread.h"
@@ -7215,7 +7211,7 @@
 1308634109 /home/tarpeyd12/Desktop/pylon/trunk/pylon/window/scriptthread.h
 	"../threads/threads.h"
 
-1308634106 /home/tarpeyd12/Desktop/pylon/trunk/pylon/window/calcthread.h
+1310144080 /home/tarpeyd12/Desktop/pylon/trunk/pylon/window/calcthread.h
 	"../threads/threads.h"
 
 1308634130 /home/tarpeyd12/Desktop/pylon/trunk/pylon/window/globals.h
@@ -7247,6 +7243,10 @@
 1308633915 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/load.cpp
 	"main.h"
 
-1308634335 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/init.cpp
+1308634808 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/init.cpp
 	"main.h"
+
+1310145990 /home/tarpeyd12/Desktop/pylon/trunk/pylon/renderer/timer.h
+	<stdlib.h>
+	"../pogel/pogel.h"
 

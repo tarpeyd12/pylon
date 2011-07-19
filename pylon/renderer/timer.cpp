@@ -26,6 +26,7 @@ namespace Renderer
             usleep( (1000000/FPS) - (curentDuration - lastDuration) );
         else if(curentDuration == lastDuration)
             usleep(1000000/FPS);
+        //else cout << "Warning: cyclerate to slow." << endl;
         lastDuration = POGEL::GetTimePassed();
     }
 

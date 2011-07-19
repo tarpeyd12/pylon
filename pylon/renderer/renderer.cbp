@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="window handler" />
+		<Option title="renderer" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
@@ -63,12 +63,16 @@
 		</Linker>
 		<Unit filename="cmd.cpp" />
 		<Unit filename="cmd.h" />
+		<Unit filename="hud.cpp" />
+		<Unit filename="hud.h" />
 		<Unit filename="key.cpp" />
 		<Unit filename="key.h" />
 		<Unit filename="mouse.cpp" />
 		<Unit filename="mouse.h" />
 		<Unit filename="physics.cpp" />
 		<Unit filename="physics.h" />
+		<Unit filename="quad.cpp" />
+		<Unit filename="quad.h" />
 		<Unit filename="renderer.cpp" />
 		<Unit filename="renderer.h" />
 		<Unit filename="timer.cpp" />

@@ -18,8 +18,39 @@ POGEL::IMAGE* POGEL::lstimg(unsigned int i) {
 };
 
 POGEL::IMAGE* POGEL::requestImage(std::string s) {
-	if(s.compare("{IMAGE_NULL}") == 0)
+	if(s.length() == 0 || s.compare("{IMAGE_NULL}") == 0)
 		return (POGEL::IMAGE*)NULL;
+    if(POGEL::getOccurrencesInString(',',s) == 0) {
+        if(s[0] == '[' || s[0] == '{') s = s.substr(1);
+        if(s[0] == '[' || s[0] == '{') s = s.substr(1);
+        if(s[s.length()-1] == ']' || s[s.length()-1] == '}') s = s.substr(0,s.length()-1);
+        if(s[s.length()-1] == ']' || s[s.length()-1] == '}') s = s.substr(0,s.length()-1);
+        for(unsigned int i = 0; i < imageList.length(); i++) {
+            std::string sr = POGEL::getStringComponentLevel('[',false,']',false,imageList[i]->toString(),"0");
+            if(s.compare(sr) == 0)
+                return imageList[i];
+        }
+        imageList.add(new POGEL::IMAGE(s.c_str()));
+        return imageList.last();
+    }
+    if(POGEL::getOccurrencesInString(',',s) == 1 || (POGEL::getOccurrencesInString('[',s) == 2 && POGEL::getOccurrencesInString(']',s) == 2)) {
+        std::string imgname = POGEL::getStringComponentLevel('[',false,']',false,s,"0");
+        std::string filter  = POGEL::getStringComponentLevel('[',false,']',false,s,"1");
+        if(imgname[imgname.length()-1] == ']') imgname = imgname.substr(0,imgname.length()-1);
+        if(filter[filter.length()-1] == ']') filter = filter.substr(0,filter.length()-1);
+        int filtertype = 0; sscanf(filter.c_str(),"%d",&filtertype);
+        for(unsigned int i = 0; i < imageList.length(); i++) {
+            std::string cimg = imageList[i]->toString();
+            std::string in = POGEL::getStringComponentLevel('[',false,']',false,cimg,"0");
+            std::string fl = POGEL::getStringComponentLevel('[',false,']',false,cimg,"3");
+            if(in[in.length()-1] == ']') in = in.substr(0,in.length()-1);
+            if(fl[fl.length()-1] == ']') fl = fl.substr(0,fl.length()-1);
+            if(imgname.compare(in) == 0 && filter.compare(fl) == 0)
+                return imageList[i];
+        }
+        imageList.add(new POGEL::IMAGE(imgname.c_str(), filtertype));
+        return imageList.last();
+    }
 	for(unsigned int i = 0; i < imageList.length(); i++)
 		if(s.compare(imageList[i]->toString()) == 0)
 			return imageList[i];

@@ -41,5 +41,7 @@ namespace Renderer
 #include "key.h"
 #include "cmd.h"
 #include "physics.h"
+#include "quad.h"
+#include "hud.h"
 
 #endif // RENDERER_H_INCLUDED

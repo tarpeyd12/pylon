@@ -9,6 +9,9 @@
 
 #include "../objectloader/objectloader.h"
 
+//#include "quad.h"
+#include "hud.h"
+
 namespace Renderer
 {
     // do not tamper with camrot, prot, campos nor ppos.
@@ -21,7 +24,7 @@ namespace Renderer
     POGEL::OBJECT* bob;
     ObjectLoader::Object::_BaseObject* gr;
 
-    Renderer::Timer *timer30;
+    Renderer::Timer* timer30;
 
     // do not tamper with drawLock
     bool drawLock = false;
@@ -73,6 +76,12 @@ namespace Renderer
         //gr = new ObjectLoader::Object::_BaseObject(ojdat);
         //bob = gr->toObject();
 
+        Renderer::HUD::Init();
+
+        //int qd = Renderer::HUD::addQuad(new Renderer::Quad(0,0,0,0,NULL));
+        //Renderer::HUD::removeQuad(qd);
+        //cout << "**********" << qd << endl;
+
         POGEL::InitFps();
 
         Renderer::timer30 = new Timer(30); // 30 fps
@@ -94,15 +103,6 @@ namespace Renderer
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
 
-        Renderer::Window::toOrtho();
-        if(Renderer::Mouse::state == GLUT_DOWN)
-        {
-            POGEL::LINE(
-                        POGEL::POINT(Renderer::Mouse::X,Renderer::Mouse::Y,0),
-                        POGEL::POINT(Renderer::Mouse::static_x,Renderer::Mouse::static_y,0)
-                        ).draw();
-        }
-
         Renderer::Window::toFrustum();
 
         //glBlendFunc(GL_SRC_ALPHA,GL_ONE);
@@ -113,6 +113,7 @@ namespace Renderer
         glRotatef( Renderer::camrot.x,  1.0f, 0.0f, 0.0f );
         glRotatef( Renderer::camrot.y,  0.0f, 1.0f, 0.0f );
         glRotatef( Renderer::camrot.z,  0.0f, 0.0f, 1.0f );
+        //glTranslatef(campos.x,campos.y,campos.z);
         if(bob != NULL)
         {
             //bob->position = POGEL::POINT();
@@ -129,24 +130,48 @@ namespace Renderer
                     static_cast<POGEL::PHYSICS::SIMULATION*>(Renderer::Physics::simulations[i]->getSim())->draw();
         }
 
-        Renderer::timer30->sleep();
+        Renderer::Window::toOrtho();
+
+        /*if(Renderer::Mouse::state == GLUT_DOWN)
+        {
+            POGEL::LINE(
+                        POGEL::POINT(Renderer::Mouse::X,Renderer::Mouse::Y,0),
+                        POGEL::POINT(Renderer::Mouse::static_x,Renderer::Mouse::static_y,0)
+                        ).draw();
+        }*/
+
+
+        //Renderer::Quad(0,0,128,128,POGEL::requestImage("{[Data/default_2.bmp],[2]}")).draw();
+
+        //int qd = -1;
+        //if(POGEL::frames%2==0) qd = Renderer::HUD::addQuad(new Renderer::Quad(0,0,128,128,POGEL::requestImage("{[Data/default_2.bmp],[2]}")));
+        //else qd = Renderer::HUD::addQuad(new Renderer::Quad(128,128,128*2,128*2,POGEL::requestImage("{[Data/default_2.bmp],[1]}")));
+        //cout << "*****************" << qd << endl;
+        Renderer::HUD::draw();
+        //if(qd >= 0) Renderer::HUD::removeQuad(qd);
+        Renderer::HUD::removeQuadCycle();
+        if(Renderer::HUD::clearNextCycle)
+        {
+            Renderer::HUD::Clear();
+            Renderer::HUD::clearNextCycle = false;
+        }
 
         glutSwapBuffers();
 
-        if(POGEL::frames % 100 == 0 || POGEL::frames < 100)
+        Renderer::Window::toFrustum();
+
+        if(POGEL::imglstlen() > 0)
         {
-            bool bob = false;
-            for(unsigned int i = 0; i < POGEL::imglstlen(); i++)
-                if(!POGEL::lstimg(i)->isbuilt())
-                {
-                    POGEL::lstimg(i)->build();
-                    if(POGEL::hasproperty(POGEL_DEBUG))
-                        cout << endl << "building unbuilt image: " << POGEL::lstimg(i)->toString();
-                    bob = true;
-                }
-            if(bob && POGEL::hasproperty(POGEL_DEBUG))
-                cout << endl;
+            unsigned int i = POGEL::frames%POGEL::imglstlen();
+            if(!POGEL::lstimg(i)->isbuilt())
+            {
+                POGEL::lstimg(i)->build();
+                if(POGEL::hasproperty(POGEL_DEBUG))
+                    cout << endl << "building unbuilt image: " << POGEL::lstimg(i)->toString() << endl;
+            }
         }
+
+        Renderer::timer30->sleep();
     }
 
     void Incriment()

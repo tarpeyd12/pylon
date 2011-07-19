@@ -7,11 +7,11 @@
 	<File name="cmd.h" open="0" top="0" tabpos="0">
 		<Cursor position="296" topLine="0" />
 	</File>
-	<File name="hud.cpp" open="1" top="1" tabpos="4">
-		<Cursor position="113" topLine="0" />
+	<File name="hud.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="1998" topLine="44" />
 	</File>
-	<File name="hud.h" open="1" top="0" tabpos="3">
-		<Cursor position="258" topLine="0" />
+	<File name="hud.h" open="0" top="0" tabpos="3">
+		<Cursor position="583" topLine="0" />
 	</File>
 	<File name="key.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="306" topLine="0" />
@@ -31,14 +31,17 @@
 	<File name="physics.h" open="0" top="0" tabpos="0">
 		<Cursor position="373" topLine="0" />
 	</File>
+	<File name="quad.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="0" topLine="15" />
+	</File>
 	<File name="renderer.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="4887" topLine="131" />
+		<Cursor position="4806" topLine="136" />
 	</File>
 	<File name="renderer.h" open="0" top="0" tabpos="2">
-		<Cursor position="465" topLine="7" />
+		<Cursor position="686" topLine="9" />
 	</File>
-	<File name="timer.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="348" topLine="0" />
+	<File name="timer.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="630" topLine="0" />
 	</File>
 	<File name="window.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="236" topLine="0" />

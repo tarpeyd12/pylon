@@ -6112,7 +6112,7 @@
 
 1306180258 c:\users\tarpeyd12\desktop\pylon_svn_root\trunk\pylon\window\mainscriptdefs.h
 
-1310140167 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/main.cpp
+1310330284 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/main.cpp
 	"main.h"
 	"versionheaders.h"
 
@@ -7043,7 +7043,7 @@
 
 1305747240 /home/tarpeyd12/Desktop/pylon/trunk/pylon/fileloader/simpleini/ConvertUTF.h
 
-1310147942 /home/tarpeyd12/Desktop/pylon/trunk/pylon/renderer/renderer.h
+1311019581 /home/tarpeyd12/Desktop/pylon/trunk/pylon/renderer/renderer.h
 	<GLUT/glut.h>
 	<GL/glut.h>
 	<stdlib.h>
@@ -7055,6 +7055,8 @@
 	"key.h"
 	"cmd.h"
 	"physics.h"
+	"quad.h"
+	"hud.h"
 
 1305747230 /home/tarpeyd12/Desktop/pylon/trunk/pylon/renderer/mouse.h
 	"renderer.h"
@@ -7087,13 +7089,14 @@
 	<iostream>
 	<sstream>
 
-1308638580 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogelscriptinterface/pogelscriptinterface.h
+1310935756 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogelscriptinterface/pogelscriptinterface.h
 	<Python.h>
 	"../pogel/pogel.h"
 	"../scriptengine/scriptengine.h"
 	"../renderer/renderer.h"
 	"../fileloader/fileloader.h"
 	"objects.h"
+	"hud.h"
 
 1305747265 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogelscriptinterface/objects.h
 	"pogelscriptinterface.h"
@@ -7135,7 +7138,7 @@
 	"keyframelist.h"
 	"object_base.h"
 
-1310165076 /home/tarpeyd12/Desktop/pylon/trunk/pylon/window/version.h
+1310330329 /home/tarpeyd12/Desktop/pylon/trunk/pylon/window/version.h
 
 1308615381 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogel/version.h
 
@@ -7143,15 +7146,15 @@
 
 1305758744 /home/tarpeyd12/Desktop/pylon/trunk/pylon/scriptengine/version.h
 
-1307681796 /home/tarpeyd12/Desktop/pylon/trunk/pylon/renderer/version.h
+1310934730 /home/tarpeyd12/Desktop/pylon/trunk/pylon/renderer/version.h
 
 1308626438 /home/tarpeyd12/Desktop/pylon/trunk/pylon/threads/version.h
 
-1305758784 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogelscriptinterface/version.h
+1311020045 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogelscriptinterface/version.h
 
 1308863376 /home/tarpeyd12/Desktop/pylon/trunk/pylon/objectloader/version.h
 
-1310165073 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/calcthread.cpp
+1310274749 source:/home/tarpeyd12/Desktop/pylon/trunk/pylon/window/calcthread.cpp
 	"main.h"
 	"calcthread.h"
 
@@ -7249,4 +7252,13 @@
 1310145990 /home/tarpeyd12/Desktop/pylon/trunk/pylon/renderer/timer.h
 	<stdlib.h>
 	"../pogel/pogel.h"
+
+1310418683 /home/tarpeyd12/Desktop/pylon/trunk/pylon/renderer/quad.h
+	"../pogel/pogel.h"
+
+1311019777 /home/tarpeyd12/Desktop/pylon/trunk/pylon/renderer/hud.h
+	"quad.h"
+
+1311019855 /home/tarpeyd12/Desktop/pylon/trunk/pylon/pogelscriptinterface/hud.h
+	"pogelscriptinterface.h"
 

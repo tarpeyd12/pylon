@@ -60,5 +60,6 @@ namespace pogelInterface
 }
 
 #include "objects.h"
+#include "hud.h"
 
 #endif // POGELSCRIPTINTERFACE_H_INCLUDED

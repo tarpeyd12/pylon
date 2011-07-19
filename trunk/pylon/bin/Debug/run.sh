@@ -1,1 +1,1 @@
-LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./:/usr/lib:/usr/lib/python2.7 ./pylon -usedir rc -debug
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./:/usr/lib:/usr/lib/python2.7 ./pylon -usedir menutest -debug

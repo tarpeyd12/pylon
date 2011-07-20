@@ -31,8 +31,8 @@
 	<File name="mainscriptdefs.h" open="0" top="0" tabpos="12">
 		<Cursor position="301" topLine="0" />
 	</File>
-	<File name="scriptthread.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="1506" topLine="38" />
+	<File name="scriptthread.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="1507" topLine="45" />
 	</File>
 	<File name="scriptthread.h" open="0" top="0" tabpos="2">
 		<Cursor position="256" topLine="0" />

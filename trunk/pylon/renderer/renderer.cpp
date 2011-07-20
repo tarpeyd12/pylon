@@ -78,6 +78,8 @@ namespace Renderer
 
         Renderer::HUD::Init();
 
+        glutSetCursor(GLUT_CURSOR_NONE);
+
         //int qd = Renderer::HUD::addQuad(new Renderer::Quad(0,0,0,0,NULL));
         //Renderer::HUD::removeQuad(qd);
         //cout << "**********" << qd << endl;
@@ -147,14 +149,20 @@ namespace Renderer
         //if(POGEL::frames%2==0) qd = Renderer::HUD::addQuad(new Renderer::Quad(0,0,128,128,POGEL::requestImage("{[Data/default_2.bmp],[2]}")));
         //else qd = Renderer::HUD::addQuad(new Renderer::Quad(128,128,128*2,128*2,POGEL::requestImage("{[Data/default_2.bmp],[1]}")));
         //cout << "*****************" << qd << endl;
-        Renderer::HUD::draw();
-        //if(qd >= 0) Renderer::HUD::removeQuad(qd);
+        glEnable( GL_BLEND );
+        glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+        glEnable( GL_ALPHA_TEST );
+        glAlphaFunc( GL_GREATER, 0.1f );
+
         Renderer::HUD::removeQuadCycle();
+
         if(Renderer::HUD::clearNextCycle)
         {
             Renderer::HUD::Clear();
             Renderer::HUD::clearNextCycle = false;
         }
+
+        Renderer::HUD::draw();
 
         glutSwapBuffers();
 

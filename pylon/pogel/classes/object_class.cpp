@@ -5,6 +5,8 @@
 #include "object_class.h"
 #include "../pogel_internals.h"
 
+#include "../templates/templates.h"
+
 POGEL::OBJECT::OBJECT() {
 	POGEL::POINT p(0.0f,0.0f,0.0f);
 	face=NULL;
@@ -362,6 +364,17 @@ POGEL::MATRIX POGEL::OBJECT::getancestorialmatrix() {
 	return POGEL::MATRIX();
 };
 
+int _sortTrianglesByImageChannels(POGEL::TRIANGLE* a, POGEL::TRIANGLE* b)
+{
+    POGEL::TRIANGLE* triA = (POGEL::TRIANGLE*)a;
+    POGEL::TRIANGLE* triB = (POGEL::TRIANGLE*)b;
+    if(triA == NULL || triA->texture == NULL)
+        return -1;
+    if(triB == NULL || triB->texture == NULL)
+        return 1;
+    return triA->texture->numchannels() - triB->texture->numchannels();
+}
+
 void POGEL::OBJECT::build() {
 
 	if(hasproperty(OBJECT_DRAW_DISPLAYLIST)) {
@@ -380,6 +393,9 @@ void POGEL::OBJECT::build() {
 		if(getdecendant(this->getname(),false) == this) { // if the object with the same name as this object is this object, does not sheck self
 			POGEL::fatality(POGEL_FATALITY_CIRCULAR_HIERARCHY_RETNUM,"%s of object: \"%s\"",POGEL_FATALITY_CIRCULAR_HIERARCHY_STRING,this->getname()); // BADDNESS, complain, and exit the program
 		}
+    CLASSLIST<POGEL::TRIANGLE> triList(face, numfaces);
+    triList.sort(_sortTrianglesByImageChannels);
+    triList.nullify();
 };
 
 void POGEL::OBJECT::draw() {

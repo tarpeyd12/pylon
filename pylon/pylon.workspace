@@ -3,6 +3,7 @@
 	<Workspace title="Pylon Engine">
 		<Project filename="pogel/pogel.cbp">
 			<Depends filename="threads/threads.cbp" />
+			<Depends filename="soil/soil.cbp" />
 		</Project>
 		<Project filename="fileloader/fileloader.cbp" />
 		<Project filename="window/window.cbp" active="1">
@@ -34,5 +35,6 @@
 			<Depends filename="fileloader/fileloader.cbp" />
 			<Depends filename="scriptengine/scriptengine.cbp" />
 		</Project>
+		<Project filename="soil/soil.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

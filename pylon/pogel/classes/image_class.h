@@ -57,6 +57,8 @@ class IMAGE {
 
 		bool isbuilt();
 
+		int numchannels() { return int(channels); }
+
 		std::string toString();
 };
 }

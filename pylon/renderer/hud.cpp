@@ -20,7 +20,7 @@ namespace Renderer
                 quadDeletionQueue[i] = -1;
                 quadList[i] = NULL;
             }
-            Renderer::HUD::addQuad(new Renderer::Quad(0,0,0,0,NULL));
+            //Renderer::HUD::addQuad(new Renderer::Quad(0,0,0,0,NULL));
         }
 
         void Clear()
@@ -35,7 +35,7 @@ namespace Renderer
                     quadList[i] = NULL;
                 }
             }
-            Renderer::HUD::addQuad(new Renderer::Quad(0,0,0,0,NULL));
+            //Renderer::HUD::addQuad(new Renderer::Quad(0,0,0,0,NULL));
         }
 
         int addQuad(Renderer::Quad* quad)
@@ -43,7 +43,11 @@ namespace Renderer
             if(lastKnownQuad >= NUM_QUAD_SLOTS) // out of range
                 return -1;
             if(quadList[lastKnownQuad] != NULL) // slot taken
-                return -3;
+            {
+                lastKnownQuad++;
+                return addQuad(quad);
+                //return -3;
+            }
             quadList[lastKnownQuad] = quad;
             //cout << "added quad to slot: " << lastKnownQuad << endl;
             return lastKnownQuad++;
@@ -57,11 +61,13 @@ namespace Renderer
                 return -2;
             if(quadDeletionQueue[lastQuadDeletionQueue] >= 0) // destination slot taken
             {
-                return -3;
+                lastQuadDeletionQueue++;
+                return removeQuad(quadIndex);
+                //return -3;
             }
-            quadDeletionQueue[lastQuadDeletionQueue++] = quadIndex;
+            quadDeletionQueue[lastQuadDeletionQueue] = quadIndex;
             //return 0; // ok
-            return lastQuadDeletionQueue-1;
+            return lastQuadDeletionQueue++;
         }
 
         int checkQuad(unsigned int quadIndex)
@@ -83,15 +89,9 @@ namespace Renderer
                     quadDeletionQueue[i] = -1;
                     delete tmp;
                 }
-            bool broke = false;
-            for(unsigned int i = lastKnownQuad; i >= 0; i--) if(quadList[i-0] != NULL)
-            {
-                lastKnownQuad = i+1;
-                broke = true;
-                break;
-            }
-            if(!broke)
-                lastKnownQuad = 0;
+            for(unsigned int i = 0; i < NUM_QUAD_SLOTS; i++)
+                if(quadList[i] != NULL)
+                    lastKnownQuad = i+1;
             lastQuadDeletionQueue = 0;
             return 0; // ok
         }

@@ -28,6 +28,7 @@ class CLASSLIST {
 		void clear() { if(list!=NULL)delete[]list; list=NULL; len=0; }
 		/// deletes the list pointer to all the data in the list
 		void safeclear() { if(list!=NULL)delete list; list=NULL; len=0; }
+		void nullify() { list=NULL; len=0; }
 
         /// returns the number of items in the list
 		unsigned int length() { return len; }

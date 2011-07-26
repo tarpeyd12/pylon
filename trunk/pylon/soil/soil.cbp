@@ -34,7 +34,15 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
+			<Add directory="$(#base.lib)" />
+			<Add directory="$(#base.include)" />
 		</Compiler>
+		<Linker>
+			<Add library="$(#glu.lflags)" />
+			<Add library="$(#glut.lflags)" />
+			<Add library="$(#opengl.lflags)" />
+			<Add directory="$(#base.lib)" />
+		</Linker>
 		<Unit filename="SOIL.c">
 			<Option compilerVar="CC" />
 		</Unit>

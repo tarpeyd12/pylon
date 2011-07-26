@@ -61,9 +61,9 @@ cam = Camera(0,0,-10,0,0,0)
 
 sim = Simulation("sim",True)
 #print 'Data/log125.txt not found importing from database pylon'
-print pylon.requestfile('Data/log125.txt')
+print pylon.requestfile('Data/log125_tga.txt')
 print pylon.requestfile('Data/particle.bmp')
-print sim.addfile('Data/log125.txt')
+print sim.addfile('Data/log125_tga.txt')
 print pylon.requestfile('Data/default_2.bmp')
 print pylon.requestfile('Data/bob.wld')
 print pylon.requestfile('Data/Default.wld')

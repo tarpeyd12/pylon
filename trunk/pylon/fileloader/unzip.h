@@ -9,6 +9,11 @@
 
 namespace FileLoader
 {
+    extern bool noremoval;
+    extern bool noarchive;
+    extern bool forcedir;
+    extern std::string forced_dir;
+
     void __ar_extract_init(bool noar, bool nrm, bool fdir, std::string dir);
 
     unzFile __openArchive(std::string ar);

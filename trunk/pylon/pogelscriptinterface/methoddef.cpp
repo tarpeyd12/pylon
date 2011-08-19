@@ -13,6 +13,8 @@ namespace pogelInterface
         // pogel simulations
         { "addsimulation",      (CFunction)addsimulation,     VarArgs, NULL },
         { "togglesim",          (CFunction)togglesimulation,  VarArgs, NULL },
+        { "togglesimweight",    (CFunction)togglesimweight,   VarArgs, NULL },
+        { "clearsimulation",    (CFunction)clearsimulation,   VarArgs, NULL },
         // object controll
         { "addobject",          (CFunction)addobject,         VarArgs, NULL },
         { "object_move_s",      (CFunction)object_move_s,     VarArgs, NULL },
@@ -53,6 +55,7 @@ namespace pogelInterface
         { "requestfile",        (CFunction)requestfile,       VarArgs, NULL },
         // HUD controll
         { "addquad",            (CFunction)addquad,           VarArgs, NULL },
+        { "updatequad",         (CFunction)updatequad,        VarArgs, NULL },
         { "removequad",         (CFunction)removequad,        VarArgs, NULL },
         { "clearquads",         (CFunction)clearquads,        VarArgs, NULL },
         { "maxquads",           (CFunction)maxquads,          VarArgs, NULL },

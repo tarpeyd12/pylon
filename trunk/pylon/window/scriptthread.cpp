@@ -59,7 +59,7 @@ void ScriptThread::run()
 
         ScriptEngine::Executor mainScript(mainScriptData);
 
-        Renderer::Timer *timer25 = new Renderer::Timer(250); // 25 cycles per second
+        Renderer::Timer *timer25 = new Renderer::Timer(25); // 25 cycles per second
 
         while(true)
         {

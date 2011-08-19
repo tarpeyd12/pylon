@@ -236,7 +236,7 @@ namespace pogelInterface
         else if(ret == -1234)
             return Py_BuildValue("s", "Sucessful file retrival from resource directory");
         else
-            return Py_BuildValue("s", "File retrival from resource pylon unsucessful");
+            return Py_BuildValue("s", std::string("File retrival from resource pylon unsucessful, "+std::string(filename)).c_str());
     }
 
 }

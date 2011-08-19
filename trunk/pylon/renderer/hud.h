@@ -22,6 +22,7 @@ namespace Renderer
         void Clear();
 
         int addQuad(Renderer::Quad*);
+        int updateQuad(Renderer::Quad*,int);
         int removeQuad(unsigned int);
 
         int removeQuadCycle();

@@ -7,6 +7,9 @@
 	<File name="calcthread.h" open="0" top="0" tabpos="4">
 		<Cursor position="133" topLine="0" />
 	</File>
+	<File name="cmd.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="1364" topLine="43" />
+	</File>
 	<File name="globals.cpp" open="0" top="0" tabpos="11">
 		<Cursor position="42" topLine="0" />
 	</File>
@@ -14,10 +17,10 @@
 		<Cursor position="74" topLine="0" />
 	</File>
 	<File name="info.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="46" topLine="0" />
+		<Cursor position="1102" topLine="21" />
 	</File>
 	<File name="init.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="2511" topLine="35" />
+		<Cursor position="679" topLine="13" />
 	</File>
 	<File name="main.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="16" topLine="0" />
@@ -26,18 +29,18 @@
 		<Cursor position="299" topLine="3" />
 	</File>
 	<File name="mainscriptdefs.cpp" open="0" top="0" tabpos="13">
-		<Cursor position="2304" topLine="65" />
+		<Cursor position="2797" topLine="76" />
 	</File>
 	<File name="mainscriptdefs.h" open="0" top="0" tabpos="12">
 		<Cursor position="301" topLine="0" />
 	</File>
 	<File name="scriptthread.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="1507" topLine="43" />
+		<Cursor position="1014" topLine="36" />
 	</File>
 	<File name="scriptthread.h" open="0" top="0" tabpos="2">
 		<Cursor position="256" topLine="0" />
 	</File>
-	<File name="version.h" open="0" top="0" tabpos="2">
-		<Cursor position="589" topLine="6" />
+	<File name="version.h" open="1" top="0" tabpos="2">
+		<Cursor position="786" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

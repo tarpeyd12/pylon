@@ -93,6 +93,8 @@ namespace FileLoader
 
         int extractKnownFile(std::string fn)
         {
+            if(FileLoader::noarchive)
+                return 0;
             FileLoader::ArchiveHandler::fileLink ** fLink = NULL;
             FileLoader::ArchiveHandler::fileLink * frLink = new FileLoader::ArchiveHandler::fileLink("",fn);
             fLink = FileLoader::ArchiveHandler::fileList.search( frLink );

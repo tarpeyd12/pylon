@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="bloopApp.cpp" open="0" top="0" tabpos="8">
+		<Cursor position="608" topLine="0" />
+	</File>
+	<File name="bloopApp.h" open="0" top="0" tabpos="3">
+		<Cursor position="318" topLine="0" />
+	</File>
+	<File name="bloopMain.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="5133" topLine="128" />
+	</File>
+	<File name="bloopMain.h" open="0" top="0" tabpos="6">
+		<Cursor position="858" topLine="19" />
+	</File>
+	<File name="files.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="315" topLine="0" />
+	</File>
+	<File name="filesindir.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="751" topLine="0" />
+	</File>
+	<File name="run.cpp" open="0" top="0" tabpos="7">
+		<Cursor position="2615" topLine="77" />
+	</File>
+</CodeBlocks_layout_file>

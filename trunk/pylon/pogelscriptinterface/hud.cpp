@@ -24,6 +24,23 @@ namespace pogelInterface
         return Py_BuildValue("i",ret);
     }
 
+    Object* updatequad(Object* self, Object* args)
+    {
+        int corners[4];
+        char* c_image;
+        int quadID = -5;
+        if(!PyArg_ParseTuple(args, "iiiisi:updatequad", &corners[0], &corners[1], &corners[2], &corners[3], &c_image, &quadID))
+            return NULL;
+        POGEL::IMAGE* image = POGEL::requestImage(std::string(c_image));
+        Renderer::Quad* quad = new Renderer::Quad(corners[0], corners[1], corners[2], corners[3], image);
+        int ret = Renderer::HUD::updateQuad(quad, quadID);
+        if(ret < 0)
+        {
+            delete quad;
+        }
+        return Py_BuildValue("i",ret);
+    }
+
     Object* removequad(Object* self, Object* args)
     {
         int quadID = -5;

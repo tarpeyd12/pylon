@@ -72,32 +72,33 @@ POGEL::VECTOR POGEL::PHYSICS::DYNAMICS::getpull(POGEL::PHYSICS::SOLID* obj) {
 	POGEL::PHYSICS::GRAVITYCLUSTER pulls;
 
 	if(hasproperty(DYNAMICS_HAS_MAGNETIC_OBJECT)) // TODO: get the real magnetic physics ...
-	for(unsigned long a=0;a<numobjects;a++) {
-		//pulls.addsingularity(POGEL::PHYSICS::SINGULARITY(objects[a]->position, objects[a]->behavior.mass));
-		// the magnetic charge attraction
-		if(obj != objects[a] && obj->behavior.magnetic && objects[a]->behavior.magnetic) {
-			//pull += POGEL::VECTOR(obj->position,objects[a]->position).normal()*(-obj->behavior.charge-objects[a]->behavior.charge);
+        for(unsigned long a=0;a<numobjects;a++) {
+            //pulls.addsingularity(POGEL::PHYSICS::SINGULARITY(objects[a]->position, objects[a]->behavior.mass));
+            // the magnetic charge attraction
+            if(obj != objects[a] && obj->behavior.magnetic && objects[a]->behavior.magnetic) {
+                //pull += POGEL::VECTOR(obj->position,objects[a]->position).normal()*(-obj->behavior.charge-objects[a]->behavior.charge);
 
-			if((obj->behavior.charge < 0.0f && objects[a]->behavior.charge > 0.0f) || \
-				(obj->behavior.charge > 0.0f && objects[a]->behavior.charge < 0.0f))
-				pull += (POGEL::VECTOR(obj->position, objects[a]->position).normal()*(fabs(obj->behavior.charge) + \
-					fabs(objects[a]->behavior.charge)))/(objects[a]->position.distance(obj->position));
+                if((obj->behavior.charge < 0.0f && objects[a]->behavior.charge > 0.0f) || \
+                    (obj->behavior.charge > 0.0f && objects[a]->behavior.charge < 0.0f))
+                    pull += (POGEL::VECTOR(obj->position, objects[a]->position).normal()*(fabs(obj->behavior.charge) + \
+                        fabs(objects[a]->behavior.charge)))/(objects[a]->position.distance(obj->position));
 
-			else if((obj->behavior.charge < 0.0f && objects[a]->behavior.charge < 0.0f) || \
-				 (obj->behavior.charge > 0.0f && objects[a]->behavior.charge > 0.0f))
-				pull += (POGEL::VECTOR(objects[a]->position, obj->position).normal()*(fabs(obj->behavior.charge) + \
-					fabs(objects[a]->behavior.charge)))/(objects[a]->position.distance(obj->position));
+                else if((obj->behavior.charge < 0.0f && objects[a]->behavior.charge < 0.0f) || \
+                     (obj->behavior.charge > 0.0f && objects[a]->behavior.charge > 0.0f))
+                    pull += (POGEL::VECTOR(objects[a]->position, obj->position).normal()*(fabs(obj->behavior.charge) + \
+                        fabs(objects[a]->behavior.charge)))/(objects[a]->position.distance(obj->position));
 
-			else
-				{}
-		}
-	}
+                else
+                    {}
+            }
+        }
 
 	pull += gusts.getpull(obj->position, obj->behavior.mass);
 	pull += singularities.getpull(obj->position, obj->behavior.mass);
 	pull += gravity*obj->behavior.mass;
-	//pull += objectmasses.getpull(obj->position, obj->behavior.mass);
-	pull += ot->getpull(obj->position, obj->behavior.mass);
+	if(!hasproperty(DYNAMICS_LIGHTWEIGHT_ONLY)) // *******************************************************
+        //pull += objectmasses.getpull(obj->position, obj->behavior.mass);
+        pull += ot->getpull(obj->position, obj->behavior.mass);
 	return pull/PARTICLE_SLOWDOWN*(POGEL::hasproperty(POGEL_TIMEBASIS) ? PARTICLE_SLOWDOWN_RATIO : 1);
 };
 

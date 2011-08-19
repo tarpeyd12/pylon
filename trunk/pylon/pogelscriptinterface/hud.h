@@ -11,6 +11,7 @@ namespace pogelInterface
 {
     Object* addquad(Object*,Object*);
     Object* removequad(Object*,Object*);
+    Object* updatequad(Object*,Object*);
     Object* clearquads(Object*,Object*);
     Object* maxquads(Object*,Object*);
     Object* checkquad(Object*,Object*);

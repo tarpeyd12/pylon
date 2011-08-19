@@ -11,6 +11,8 @@ namespace pogelInterface
 {
     Object* addsimulation(Object*,Object*);
     Object* togglesimulation(Object*,Object*);
+    Object* togglesimweight(Object*,Object*);
+    Object* clearsimulation(Object*,Object*);
     Object* addobject(Object*,Object*);
 
     Object* object_move_s(Object*,Object*);

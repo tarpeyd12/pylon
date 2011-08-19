@@ -53,6 +53,22 @@ namespace Renderer
             return lastKnownQuad++;
         }
 
+        int updateQuad(Renderer::Quad* quad, int quadID)
+        {
+            if(quadID >= NUM_QUAD_SLOTS || quadID < 0) // out of range
+                return -1;
+            if(quadList[quadID] != NULL) // slot taken
+            {
+                Renderer::Quad* quadTmp = quadList[quadID];
+                quadList[quadID] = quad;
+                delete quadTmp;
+            }
+            else
+                quadList[quadID] = quad;
+            //cout << "added quad to slot: " << lastKnownQuad << endl;
+            return quadID;
+        }
+
         int removeQuad(unsigned int quadIndex)
         {
             if(quadIndex >= NUM_QUAD_SLOTS) // out of range

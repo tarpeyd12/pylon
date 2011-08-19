@@ -52,7 +52,8 @@ namespace FileLoader
 
         if (uf == NULL)
         {
-            cout << "Unable to open " + ar + ", " + ar + ".zip, " + ar + ".pylon, nor " + ar + ".pylon.zip" << endl;
+            if(!noarchive)
+                cout << "Unable to open " + ar + ", " + ar + ".zip, " + ar + ".pylon, nor " + ar + ".pylon.zip" << endl;
             __closeArchive(uf);
         }
 

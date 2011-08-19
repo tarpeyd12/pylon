@@ -31,6 +31,43 @@ namespace pogelInterface
         return Py_BuildValue("s", "Toggled simulation.");
     }
 
+    Object* togglesimweight(Object* self, Object* args)
+    {
+        char* simname;
+        int col;
+        if(!PyArg_ParseTuple(args, "si:togglesimweight", &simname, &col))
+            return NULL;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("s", "Simulation does not exists.");
+        if(sim->isdyn())
+        {
+            POGEL::PHYSICS::DYNAMICS* dyn = static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim());
+            if(bool(col))
+                dyn->addproperty(DYNAMICS_LIGHTWEIGHT_ONLY);
+            else
+                dyn->removeproperty(DYNAMICS_LIGHTWEIGHT_ONLY);
+        }
+        else
+            return Py_BuildValue("s", "Cannot toggle simulation weight, wrong type.");
+        return Py_BuildValue("s", "Toggled simulation weight.");
+    }
+
+    Object* clearsimulation(Object* self, Object* args)
+    {
+        char* simname;
+        if(!PyArg_ParseTuple(args, "s:clearsimulation", &simname))
+            return NULL;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("s", "Simulation does not exists.");
+        if(sim->isdyn())
+            static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->clearAllSolids();
+        else
+            static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->clearAllSolids();
+        return Py_BuildValue("s", "Cleared simulation.");
+    }
+
     Object* addobject(Object* self, Object* args)
     {
         char* data;
@@ -46,7 +83,7 @@ namespace pogelInterface
             static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->addSolid(obj);
         else
             static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->addSolid(obj);
-        return Py_BuildValue("s", "added object.");
+        return Py_BuildValue("s", std::string("Added object: "+obj->getsname()).c_str());
     }
 
     Object* object_move_s(Object* self, Object* args)

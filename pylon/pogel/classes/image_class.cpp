@@ -52,7 +52,7 @@ POGEL::IMAGE* POGEL::requestImage(std::string s) {
             if(imgname.compare(in) == 0 && filter.compare(fl) == 0)
                 return imageList[i];
         }
-        imageList.add(new POGEL::IMAGE("{["+imgname+"],[0],[0],["+filter+"]}"));
+        imageList.add(new POGEL::IMAGE(std::string("{["+imgname+"],[0],[0],["+filter+"]}")));
         return imageList.last();
     }
 	for(unsigned int i = 0; i < imageList.length(); i++)

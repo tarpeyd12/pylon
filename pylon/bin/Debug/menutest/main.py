@@ -14,7 +14,8 @@ if(refresh or pylon.window_width() != bg.x2 or pylon.window_height() != bg.y2):
 	bg.makeVisable()
 
 mouseScale = .1
-if(refresh or pylon.mouse_pos_x() != Mouse.x1+int(4/mouseScale) or pylon.mouse_pos_y() != Mouse.y1+int(6/mouseScale)):
+#if(refresh or pylon.mouse_pos_x() != Mouse.x1+int(4/mouseScale) or pylon.mouse_pos_y() != Mouse.y1+int(6/mouseScale)):
+if(True):
 	if(refresh):
 		Mouse = Quad(0,0,0,0,'{[Data/mouse_pointer.png],[1]}',False)
 	else:

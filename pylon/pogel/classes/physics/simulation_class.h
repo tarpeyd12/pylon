@@ -15,6 +15,9 @@ class SIMULATION;
 
 #define				THREADSOK					1
 
+
+#define     SIMULATION_LIGHTWEIGHT_ONLY     DYNAMICS_LIGHTWEIGHT_ONLY
+
 /*class coll {
 	POGEL::POINT p;
 	POGEL::VECTOR v[2];

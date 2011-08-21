@@ -25,6 +25,9 @@ namespace Renderer
 
     extern Timer *timer30;
 
+    extern bool SingleThreaded;
+    extern void (*SciptCall)(void);
+
     extern bool drawLock;
 
     void Init();

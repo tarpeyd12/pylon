@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="executor.cpp" open="1" top="1" tabpos="10">
+	<File name="executor.cpp" open="1" top="0" tabpos="3">
 		<Cursor position="1714" topLine="73" />
 	</File>
-	<File name="executor.h" open="1" top="0" tabpos="11">
+	<File name="executor.h" open="1" top="0" tabpos="4">
 		<Cursor position="942" topLine="13" />
 	</File>
-	<File name="scriptengine.cpp" open="1" top="0" tabpos="9">
+	<File name="scriptengine.cpp" open="1" top="0" tabpos="2">
 		<Cursor position="881" topLine="8" />
 	</File>
 	<File name="scriptengine.h" open="0" top="0" tabpos="1">
 		<Cursor position="1048" topLine="17" />
 	</File>
-	<File name="stringparser.cpp" open="1" top="0" tabpos="8">
+	<File name="stringparser.cpp" open="1" top="0" tabpos="1">
 		<Cursor position="2540" topLine="14" />
 	</File>
 	<File name="stringparser.h" open="0" top="0" tabpos="1">

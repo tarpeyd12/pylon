@@ -11,9 +11,20 @@ ScriptThread::ScriptThread()
     this->startThread();
 }
 
+ScriptThread::ScriptThread(bool st)
+{
+    firstRun = true;
+    if(st)
+    {
+        Renderer::SciptCall = ScriptCallFunction;
+    }
+    this->FirstRun();
+}
+
 ScriptThread::~ScriptThread()
 {
-    this->joinThread();
+    if(Main::SingleThreaded)
+        this->joinThread();
     firstRun = false;
 }
 
@@ -21,55 +32,11 @@ void ScriptThread::run()
 {
     if(firstRun)
     {
-        firstRun = false;
-
-        ScriptEngine::Begin();
-
-        ScriptEngine::MethodInterface::Add( "calc", Main::calcLockMethods );
-        ScriptEngine::MethodInterface::Add( "draw", Main::drawLockMethods );
-        ScriptEngine::MethodInterface::Add( "_pylon", Main::getVersionMethod );
-
-        pogelInterface::Init();
-
-        ScriptEngine::Execute(FileLoader::totalfile(Main::init_py));
-
-        if(!Main::dontremove)
-        #ifdef _WIN32
-            system(("del /Q " + Main::init_py).c_str());
-        #else
-            { int ret = system(("rm " + Main::init_py).c_str()); ret = 0; }
-        #endif
+        this->FirstRun();
     }
     else
     {
-        std::string mainScriptData = FileLoader::totalfile(Main::main_py);
-
-        if(!Main::dontremove)
-        #ifdef _WIN32
-            system(("del /Q " + Main::main_py).c_str());
-        #else
-            { int ret = system(("rm " + Main::main_py).c_str()); ret = 0; }
-        #endif
-
-        if(mainScriptData.length() == 0)
-        {
-            cout << "no main data." << endl;
-            exit(-1);
-        }
-
-        ScriptEngine::Executor mainScript(mainScriptData);
-
-        Renderer::Timer *timer25 = new Renderer::Timer(25); // 25 cycles per second
-
-        while(true)
-        {
-            ScriptEngine::Execute((const ScriptEngine::Executor)mainScript);
-            timer25->sleep();
-        }
-
-        ScriptEngine::End();
-
-        delete timer25;
+        this->MainRun();
     }
 
     if(!Main::dontremove)
@@ -78,4 +45,70 @@ void ScriptThread::run()
     #else
         { int ret = system(("cd " + Main::ext_dir + " && rm *.* && cd ..").c_str()); ret = 0; }
     #endif
+}
+
+void ScriptThread::FirstRun()
+{
+    firstRun = false;
+
+    ScriptEngine::Begin();
+
+    ScriptEngine::MethodInterface::Add( "calc", Main::calcLockMethods );
+    ScriptEngine::MethodInterface::Add( "draw", Main::drawLockMethods );
+    ScriptEngine::MethodInterface::Add( "_pylon", Main::getVersionMethod );
+
+    pogelInterface::Init();
+
+    ScriptEngine::Execute(FileLoader::totalfile(Main::init_py));
+
+    if(!Main::dontremove)
+    #ifdef _WIN32
+        system(("del /Q " + Main::init_py).c_str());
+    #else
+        { int ret = system(("rm " + Main::init_py).c_str()); ret = 0; }
+    #endif
+
+    mainScriptData = FileLoader::totalfile(Main::main_py);
+
+    if(!Main::dontremove)
+    #ifdef _WIN32
+        system(("del /Q " + Main::main_py).c_str());
+    #else
+        { int ret = system(("rm " + Main::main_py).c_str()); ret = 0; }
+    #endif
+
+    if(mainScriptData.length() == 0)
+    {
+        cout << "no main data." << endl;
+        exit(-1);
+    }
+
+    mainScript = new ScriptEngine::Executor(mainScriptData);
+}
+
+void ScriptThread::MainRun()
+{
+
+    Renderer::Timer *timer25 = new Renderer::Timer(25); // 25 cycles per second
+
+    while(true)
+    {
+        ScriptEngine::Execute((const ScriptEngine::Executor)*mainScript);
+        timer25->sleep();
+    }
+
+    ScriptEngine::End();
+
+    delete timer25;
+}
+
+void ScriptThread::SingleCall()
+{
+    ScriptEngine::Execute((const ScriptEngine::Executor)*mainScript);
+}
+
+void ScriptCallFunction()
+{
+    if(Main::scriptThread)
+        Main::scriptThread->SingleCall();
 }

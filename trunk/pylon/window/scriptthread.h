@@ -7,10 +7,21 @@ class ScriptThread : public ExThread
 {
     private:
         bool firstRun;
+
+        std::string mainScriptData;
+        ScriptEngine::Executor *mainScript;
     public:
         ScriptThread();
+        ScriptThread(bool);
         ~ScriptThread();
         void run();
+
+        void FirstRun();
+        void MainRun();
+
+        void SingleCall();
 };
+
+void ScriptCallFunction();
 
 #endif // SCRIPTTHREAD_H_INCLUDED

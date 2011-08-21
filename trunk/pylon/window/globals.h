@@ -29,6 +29,8 @@ namespace Main
 
     extern CalcThread *calcThread;
     extern ScriptThread *scriptThread;
+
+    extern bool SingleThreaded;
 }
 
 #endif // GLOBALS_H_INCLUDED

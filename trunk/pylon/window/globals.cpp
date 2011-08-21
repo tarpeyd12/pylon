@@ -37,4 +37,6 @@ namespace Main
 
     CalcThread *calcThread;
     ScriptThread *scriptThread;
+
+    bool SingleThreaded = false;
 }

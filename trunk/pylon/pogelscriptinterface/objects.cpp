@@ -49,7 +49,13 @@ namespace pogelInterface
                 dyn->removeproperty(DYNAMICS_LIGHTWEIGHT_ONLY);
         }
         else
-            return Py_BuildValue("s", "Cannot toggle simulation weight, wrong type.");
+        {
+            POGEL::PHYSICS::SIMULATION* dyn = static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim());
+            if(bool(col))
+                dyn->addproperty(SIMULATION_LIGHTWEIGHT_ONLY);
+            else
+                dyn->removeproperty(SIMULATION_LIGHTWEIGHT_ONLY);
+        }
         return Py_BuildValue("s", "Toggled simulation weight.");
     }
 

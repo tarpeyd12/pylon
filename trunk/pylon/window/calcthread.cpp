@@ -14,7 +14,7 @@ CalcThread::~CalcThread()
 
 void CalcThread::run()
 {
-    Renderer::Timer *timer15 = new Renderer::Timer(15); // 15 cycles per second
+    Renderer::Timer *timer15 = new Renderer::Timer(25); // 15 cycles per second
     while(!Main::calcLock)
     {
         Renderer::Incriment();

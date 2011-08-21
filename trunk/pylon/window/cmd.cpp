@@ -63,6 +63,12 @@ namespace Main
                     Main::printHelp();
                 exit(0);
             }
+            else
+            if(curarg.compare("-forcesingle") == 0)
+            {
+                Main::SingleThreaded = Renderer::SingleThreaded = true;
+                continue;
+            }
             else { }
         }
 

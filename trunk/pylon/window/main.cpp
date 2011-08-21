@@ -21,11 +21,18 @@ int main(int argc, char *argv[])
     // initialize the renderer
     Renderer::Init();
 
-    // start the script thread
-    Main::scriptThread = new ScriptThread();
+    if(Main::SingleThreaded)
+    {
+        Main::scriptThread = new ScriptThread(true);
+    }
+    else
+    {
+        // start the script thread
+        Main::scriptThread = new ScriptThread();
 
-    // start the physics thread
-    Main::calcThread = new CalcThread();
+        // start the physics thread
+        Main::calcThread = new CalcThread();
+    }
 
     // and start the renderer on theis thread
     glutMainLoop();

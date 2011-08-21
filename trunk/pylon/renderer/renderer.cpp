@@ -13,7 +13,8 @@
 
 namespace Renderer
 {
-    // do not tamper with camrot, prot, campos nor ppos.
+    // do not edit
+    // *******************************
     POGEL::POINT camrot;
     POGEL::POINT prot;
 
@@ -25,8 +26,13 @@ namespace Renderer
 
     Renderer::Timer* timer30;
 
+    bool SingleThreaded = false;
+    void (*SciptCall)(void) = NULL;
+
     // do not tamper with drawLock
     bool drawLock = false;
+
+    // *******************************
 
     void Idle()
     {

@@ -15,6 +15,15 @@ namespace Renderer
 {
     void Display()
     {
+        if(Renderer::SingleThreaded)
+        {
+            Renderer::Incriment();
+            //if(Renderer::SciptCall != NULL)
+                Renderer::SciptCall();
+            //else
+              //  exit(-1);
+        }
+
         POGEL::IncrementFps();
         if(POGEL::frames%10 == 0)
             POGEL::PrintFps();
@@ -54,21 +63,6 @@ namespace Renderer
 
         Renderer::Window::toOrtho();
 
-        /*if(Renderer::Mouse::state == GLUT_DOWN)
-        {
-            POGEL::LINE(
-                        POGEL::POINT(Renderer::Mouse::X,Renderer::Mouse::Y,0),
-                        POGEL::POINT(Renderer::Mouse::static_x,Renderer::Mouse::static_y,0)
-                        ).draw();
-        }*/
-
-
-        //Renderer::Quad(0,0,128,128,POGEL::requestImage("{[Data/default_2.bmp],[2]}")).draw();
-
-        //int qd = -1;
-        //if(POGEL::frames%2==0) qd = Renderer::HUD::addQuad(new Renderer::Quad(0,0,128,128,POGEL::requestImage("{[Data/default_2.bmp],[2]}")));
-        //else qd = Renderer::HUD::addQuad(new Renderer::Quad(128,128,128*2,128*2,POGEL::requestImage("{[Data/default_2.bmp],[1]}")));
-        //cout << "*****************" << qd << endl;
         glEnable( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
         //glEnable( GL_ALPHA_TEST );

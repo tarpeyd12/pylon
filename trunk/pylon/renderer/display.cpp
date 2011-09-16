@@ -68,7 +68,9 @@ namespace Renderer
         //glEnable( GL_ALPHA_TEST );
         //glAlphaFunc( GL_GREATER, 0.5f );
 
+        Renderer::HUD::updateQuadCycle();
         Renderer::HUD::removeQuadCycle();
+        Renderer::HUD::addQuadCycle();
 
         if(Renderer::HUD::clearNextCycle)
         {

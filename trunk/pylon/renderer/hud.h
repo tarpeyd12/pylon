@@ -15,6 +15,11 @@ namespace Renderer
         extern int quadDeletionQueue[NUM_QUAD_SLOTS];
         extern unsigned int lastQuadDeletionQueue; // = 0
 
+        extern Renderer::Quad* quadInsertQueue[NUM_QUAD_SLOTS];
+        extern unsigned int lastQuadInsertQueue; // = 0
+
+        extern Renderer::Quad* quadUpdateQueue[NUM_QUAD_SLOTS];
+
         extern bool clearNextCycle; // = false
 
         void Init();
@@ -26,6 +31,8 @@ namespace Renderer
         int removeQuad(unsigned int);
 
         int removeQuadCycle();
+        int addQuadCycle();
+        int updateQuadCycle();
 
         int checkQuad(unsigned int);
 

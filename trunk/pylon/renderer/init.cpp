@@ -55,18 +55,9 @@ namespace Renderer
         glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
         glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 
-        //bob = NULL;
-        //std::string ojdat = ObjectLoader::getobjectformfile("Platonic 0","C3dObjectPlatonic","Data/Default.wld");
-        //gr = new ObjectLoader::Object::_BaseObject(ojdat);
-        //bob = gr->toObject();
-
         Renderer::HUD::Init();
 
         glutSetCursor(GLUT_CURSOR_NONE);
-
-        //int qd = Renderer::HUD::addQuad(new Renderer::Quad(0,0,0,0,NULL));
-        //Renderer::HUD::removeQuad(qd);
-        //cout << "**********" << qd << endl;
 
         POGEL::InitFps();
 

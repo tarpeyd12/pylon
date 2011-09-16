@@ -75,11 +75,7 @@ namespace Main
         FileLoader::__ar_extract_init(noarchiving,dontremove,forcedir,forced_dir);
 
         if(forcedir)
-        #ifdef _WIN32
-            _chdir(forced_dir.c_str());
-        #else
-            { int ret = chdir(forced_dir.c_str()); ret = 0; }
-        #endif
+            FileLoader::System::Dir::changeDir(forced_dir);
 
         if(POGEL::hasproperty(POGEL_DEBUG))
             Main::printVersion();

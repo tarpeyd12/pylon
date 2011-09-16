@@ -10,14 +10,14 @@
 	<File name="fileloader.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="1208" topLine="19" />
 	</File>
-	<File name="fileloader.h" open="0" top="0" tabpos="6">
-		<Cursor position="291" topLine="0" />
+	<File name="fileloader.h" open="1" top="0" tabpos="1">
+		<Cursor position="379" topLine="0" />
 	</File>
 	<File name="ini.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="243" topLine="0" />
 	</File>
 	<File name="ini.h" open="0" top="0" tabpos="2">
-		<Cursor position="571" topLine="3" />
+		<Cursor position="234" topLine="0" />
 	</File>
 	<File name="minizip/ioapi.h" open="0" top="0" tabpos="0">
 		<Cursor position="1248" topLine="176" />
@@ -66,6 +66,12 @@
 	</File>
 	<File name="simpleini/SimpleIni.h" open="0" top="0" tabpos="1">
 		<Cursor position="13835" topLine="328" />
+	</File>
+	<File name="system.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="436" topLine="9" />
+	</File>
+	<File name="system.h" open="1" top="0" tabpos="3">
+		<Cursor position="496" topLine="0" />
 	</File>
 	<File name="unzip.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="55" topLine="0" />

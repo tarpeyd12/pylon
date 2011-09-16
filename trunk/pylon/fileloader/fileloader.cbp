@@ -126,6 +126,8 @@
 		</Unit>
 		<Unit filename="simpleini/ConvertUTF.h" />
 		<Unit filename="simpleini/SimpleIni.h" />
+		<Unit filename="system.cpp" />
+		<Unit filename="system.h" />
 		<Unit filename="unzip.cpp" />
 		<Unit filename="unzip.h" />
 		<Unit filename="unzip_backend.h" />

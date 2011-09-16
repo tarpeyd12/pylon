@@ -25,7 +25,7 @@
 	<File name="classes/object_funcs.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="classes/physics/dynamics_class.cpp" open="1" top="0" tabpos="1">
+	<File name="classes/physics/dynamics_class.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="4280" topLine="87" />
 	</File>
 	<File name="classes/physics/dynamics_class.h" open="0" top="0" tabpos="0">
@@ -61,17 +61,17 @@
 	<File name="classes/view_class.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="1583" topLine="39" />
 	</File>
-	<File name="pogel.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="10557" topLine="302" />
+	<File name="pogel.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="8691" topLine="233" />
 	</File>
-	<File name="pogel.h" open="0" top="0" tabpos="0">
-		<Cursor position="0" topLine="64" />
+	<File name="pogel.h" open="1" top="0" tabpos="2">
+		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="pogel_classes.h" open="0" top="0" tabpos="0">
 		<Cursor position="103" topLine="0" />
 	</File>
-	<File name="pogel_internals.h" open="1" top="0" tabpos="2">
-		<Cursor position="536" topLine="13" />
+	<File name="pogel_internals.h" open="0" top="0" tabpos="2">
+		<Cursor position="299" topLine="0" />
 	</File>
 	<File name="templates/arraylist.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="4535" topLine="111" />

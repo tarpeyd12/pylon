@@ -216,6 +216,7 @@ class Quad:
 			idtmp = pylon.addquad(self.x1,self.y1,self.x2,self.y2,self.image)
 			if(idtmp >= 0):
 				self.quadID = idtmp
+				self.visable = True
 				if pylon.hasproperty(2):
 					print 'new quad with ID: ',idtmp
 			else:
@@ -242,15 +243,13 @@ class Quad:
 				if pylon.hasproperty(2):
 					print 'quad to be removed next cycle: ',self.quadID,':',rettmp
 				self.quadID = -5
+				self.visable = False
 			return rettmp
 		return 'ok'
 
 	def update(self):
-		state = self.visable
 		idtmp = -2
-		if state:
-			idtmp = pylon.updatequad(self.x1,self.y1,self.x2,self.y2,self.image,self.quadID)
-		else:
+		if self.visable:
 			idtmp = pylon.updatequad(self.x1,self.y1,self.x2,self.y2,self.image,self.quadID)
 		return idtmp
 

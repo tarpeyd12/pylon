@@ -17,4 +17,6 @@ namespace FileLoader
 #include "ini.h"
 #include "archivehandler.h"
 
+#include "system.h"
+
 #endif // FILELOADER_H_INCLUDED

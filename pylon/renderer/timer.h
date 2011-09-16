@@ -6,6 +6,7 @@
 //#endif // RENDERER_H_INCLUDED
 
 #include <stdlib.h>
+#include <unistd.h>
 
 #include "../pogel/pogel.h"
 

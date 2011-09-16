@@ -2,8 +2,7 @@
 
 #include "versionheaders.h"
 
-/* Program entry point */
-
+// Program entry point
 int main(int argc, char *argv[])
 {
     // setup the version identifications
@@ -23,6 +22,7 @@ int main(int argc, char *argv[])
 
     if(Main::SingleThreaded)
     {
+        // create scripting callbacks
         Main::scriptThread = new ScriptThread(true);
     }
     else

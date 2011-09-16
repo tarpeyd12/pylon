@@ -3,6 +3,9 @@ try:
 	import draw
 	import pylon
 	import shlex
+	"""import pygame
+	from pygame import Rect
+	from pygame.locals import *"""
 	
 except ImportError:
 	print 'Importing failure for the required modules in \"pylonclasses.py\".'
@@ -23,6 +26,9 @@ def getposcoord(pos,cord):
 	my_splitter.whitespace_split = True
 	axis = list(my_splitter)
 	return float(axis[cord])
+
+def makepos(x,y,z):
+	return '{['+str(x)+'],['+str(y)+'],['+str(z)+']}'
 
 class Camera:
 	def __init__(self,ax,ay,az,bx,by,bz):
@@ -111,7 +117,8 @@ class Simulation:
 		line = 0
 		for obj in lines:
 			line = line + 1
-			res = self.addobject(obj)
+			#res = self.addobject(obj)
+			res = pylon.addobject(self.name,obj)
 			# avoid thrashing
 			a = 0
 			while a < 100000:
@@ -122,7 +129,10 @@ class Simulation:
 		return line
 			
 	def addobject(self,objstr):
-		return pylon.addobject(self.name,objstr)
+		self.stop()
+		ret = pylon.addobject(self.name,objstr)
+		self.restart()
+		return ret
 		
 	def obj(self,objname):
 		return Object(objname,self.name)
@@ -154,4 +164,92 @@ class Object:
 	def setdir(self,x,y,z):
 		return pylon.object_set_dir_3f(self.simname,self.name,x,y,z)
 
+	"""class XboxController:
+	def __init__(self,joynum):
+		if joynum >= pygame.joystick.get_count():
+			print 'not a valid joystick.'
+		self.joystickNumber = joynum
+		self.joy = pygame.joystick.Joystick(self.joystickNumber)
+		self.joy.init()
+		
+	def getAxisList(self):
+		return [self.joy.get_axis(i) for i in [0, 1, 2, 3, 4, 5]]
+	
+	def getAxis(self, axis):
+		return self.joy.get_axis(axis)
+	
+	def getLeftX(self):
+		return self.joy.get_axis(0)
+		
+	def getLeftY(self):
+		return self.joy.get_axis(1)
+	
+	def getRightX(self):
+		return self.joy.get_axis(3)
+		
+	def getRightY(self):
+		return self.joy.get_axis(4)
+	
+	def getLeftTrigger(self):
+		return self.joy.get_axis(2)
+	
+	def getRightTrigger(self):
+		return self.joy.get_axis(5)
+	
+	def getButton(self, button):
+		return self.joy.get_button(button)"""
+
+class Quad:
+	def __init__(self,x_1,y_1,x_2,y_2,im,vis):
+		self.visable = vis
+		self.x1 = x_1
+		self.y1 = y_1
+		self.x2 = x_2
+		self.y2 = y_2
+		self.image = im
+		self.quadID = -5
+		if(self.visable == True):
+			self.makeVisable()
+
+	def makeVisable(self):
+		if(self.quadID < 0):
+			idtmp = pylon.addquad(self.x1,self.y1,self.x2,self.y2,self.image)
+			if(idtmp >= 0):
+				self.quadID = idtmp
+				self.visable = True
+				if pylon.hasproperty(2):
+					print 'new quad with ID: ',idtmp
+			else:
+				self.quadID = -5
+				if pylon.hasproperty(2):
+					if(idtmp == -1):
+						print 'not a valid quad slot ',idtmp
+					elif(idtmp == -3):
+						print 'destination slot taken ',idtmp
+			return idtmp
+		else:
+			if pylon.hasproperty(2):
+				print 'quad ',self.quadID,' already visable'
+		return self.quadID
+	
+	def makeInvisable(self):
+		if(self.quadID >= 0):
+			rettmp = pylon.removequad(self.quadID)
+			#pylon.removequad(self.quadID)
+			if(rettmp < 0):
+				if pylon.hasproperty(2):
+					print 'cannot remove quad',self.quadID,' for some reason ',rettmp
+			else:
+				if pylon.hasproperty(2):
+					print 'quad to be removed next cycle: ',self.quadID,':',rettmp
+				self.quadID = -5
+				self.visable = False
+			return rettmp
+		return 'ok'
+
+	def update(self):
+		idtmp = -2
+		if self.visable:
+			idtmp = pylon.updatequad(self.x1,self.y1,self.x2,self.y2,self.image,self.quadID)
+		return idtmp
 

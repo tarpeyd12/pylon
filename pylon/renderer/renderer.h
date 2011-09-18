@@ -25,6 +25,8 @@ namespace Renderer
 
     extern Timer *timer30;
 
+    extern bool HaltPhysics;
+
     extern bool SingleThreaded;
     extern void (*SciptCall)(void);
 

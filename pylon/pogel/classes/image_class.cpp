@@ -12,6 +12,8 @@
 
 CLASSLIST<POGEL::IMAGE*> imageList;
 
+POGEL::IMAGE* NullImage = (POGEL::IMAGE*)NULL;
+
 unsigned int POGEL::imglstlen() {
     return imageList.length();
 };
@@ -20,9 +22,17 @@ POGEL::IMAGE* POGEL::lstimg(unsigned int i) {
     return imageList[i];
 };
 
+POGEL::IMAGE* POGEL::getNullImage() {
+    return NullImage;
+};
+
+void POGEL::setNullImage(std::string img) {
+    NullImage = POGEL::requestImage(img);
+};
+
 POGEL::IMAGE* POGEL::requestImage(std::string s) {
-	if(s.length() == 0 || s.compare("{IMAGE_NULL}") == 0)
-		return (POGEL::IMAGE*)NULL;
+	if(s.length() == 0 || s.compare("{IMAGE_NULL}") == 0 || s.compare("{image_null}") == 0 || s.compare("{NULL}") == 0 || s.compare("{null}") == 0)
+		return POGEL::getNullImage();
     if(POGEL::getOccurrencesInString(',',s) == 0) {
         if(s[0] == '[' || s[0] == '{') s = s.substr(1);
         if(s[0] == '[' || s[0] == '{') s = s.substr(1);
@@ -95,7 +105,8 @@ POGEL::IMAGE::IMAGE(std::string s) {
 };
 
 POGEL::IMAGE::~IMAGE() {
-	delete[] data;
+    if(data != NULL)
+        delete[] data;
 	base=(unsigned int)NULL;
 };
 

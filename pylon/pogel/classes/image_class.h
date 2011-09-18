@@ -15,6 +15,9 @@ class IMAGE;
 
 namespace POGEL {
 
+POGEL::IMAGE* getNullImage();
+void setNullImage(std::string);
+
 POGEL::IMAGE* requestImage(std::string);
 unsigned int imglstlen();
 POGEL::IMAGE* lstimg(unsigned int);

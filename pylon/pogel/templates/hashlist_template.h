@@ -9,7 +9,7 @@ class HASHLIST {
 	private:
 		CLASSLIST<arraylist<T>*> list;
 		/*  if insize is one, then this is just as effient as using CLASSLIST<T>.
-		 *  if insize is greater than the maximum desired length of the list, then 
+		 *  if insize is greater than the maximum desired length of the list, then
 		 *    it is just as effient as using arraylist<T>.
 		 */
 		unsigned int insize;
@@ -37,23 +37,24 @@ class HASHLIST {
 			}
 			pos+=lstln;
 		}
-		
-		~HASHLIST() { 
+
+		~HASHLIST() {
 			for(unsigned int i=0;i<list.length();i++) { delete list[i]; list -= i; }
 			list.clear(); pos = 0; insize = 256;
 		}
-		
+
 		unsigned int length() { return pos; }
-		
+
 		void clear() {
 			for(unsigned int i = 0; i < list.length(); i++) {
 				list[i]->empty(); delete list[i];
 			}
 			list.clear();
+			pos = 0;
 		}
-		
+
 		void add(T l) { if(pos%insize==0)list+=new arraylist<T>(); list[pos/insize]->add(l); pos++; }
-		
+
 		void add(HASHLIST<T> l) { for(unsigned int i = 0; i < l.length(); i++) add(l[i]); }
 		void add(HASHLIST<T> *l) {
 			unsigned int g = 0;
@@ -74,13 +75,13 @@ class HASHLIST {
 			}
 			pos+=lstln;
 		}
-		
+
 		void steal(HASHLIST<T> *l) { add(l); while(l->length()) l->remove(0); }
 		void faststeal(HASHLIST<T> *l) { add(l); while(l->length()) l->remove(l->length()-1); }
 		void pillage(HASHLIST<T> *l) { add(l); delete l; }
-		
+
 		T get(unsigned int l) { return list[ l/insize ]->operator[]( l%insize ); }
-		
+
 		void insert(T l, unsigned int c) {
 			if(pos == 0 || c >= pos) { add(l); return; }
 			unsigned int out = c/insize, in = c%insize;
@@ -102,7 +103,7 @@ class HASHLIST {
 			}
 			pos++;
 		}
-		
+
 		void remove(unsigned int l) {
 			unsigned int out=l/insize, in=l%insize;
 			list[out]->remove(in);
@@ -112,15 +113,15 @@ class HASHLIST {
 			if(list.length() && list[list.length()-1]->length()==0) { delete list[list.length()-1]; list-=list.length()-1; }
 			pos--;
 		}
-		
+
 		void FORCEresizeInternalList(unsigned int s) {
 			HASHLIST<T> tmp; tmp.faststeal(this);
 			insize = s;
 			faststeal(&tmp);
 		}
-		
+
 		T operator[] (unsigned int l) { return get(l); }
-		
+
 		HASHLIST<T>& operator+= (T l) { add(l); return *this; }
 };
 

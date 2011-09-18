@@ -11,7 +11,10 @@ namespace Main
         if(!Main::calcLock)
         {
             Main::calcLock = true;
-            Main::calcThread->joinThread();
+            if(!Main::SingleThreaded)
+                Main::calcThread->joinThread();
+            else
+                Renderer::HaltPhysics = true;
         }
         Py_RETURN_NONE;
     }
@@ -21,7 +24,10 @@ namespace Main
         if(Main::calcLock)
         {
             Main::calcLock = false;
-            Main::calcThread->startThread();
+            if(!Main::SingleThreaded)
+                Main::calcThread->startThread();
+            else
+                Renderer::HaltPhysics = false;
         }
         Py_RETURN_NONE;
     }

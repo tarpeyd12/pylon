@@ -11,13 +11,15 @@ namespace Renderer
             //POGEL::TRIANGLE triangles[2];
             POGEL::IMAGE *image;
             POGEL::VERTEX verticies[4];
-            CLASSLIST<Renderer::Quad*> children;
+            CLASSLIST<Renderer::Quad*> *children;
         public:
 
             Quad();
             Quad(int,int,int,int,POGEL::IMAGE*);
             //Quad(float,float,float,float,POGEL::IMAGE*);
             ~Quad();
+
+            void set(Renderer::Quad*);
 
             void draw();
     };

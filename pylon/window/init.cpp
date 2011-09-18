@@ -14,7 +14,8 @@ namespace Main
             "config.txt"
         };
         std::string ininame = "conf.ini";
-        while(i++ < 6 && exret != 0)
+        // i starts as -1 so this while loop is ok
+        while(++i < 6 && exret != 0)
         {
             exret = FileLoader::extractfile(pylon_archive,ininames[i],true,false,"",false,"");
             if(exret == 0)
@@ -32,16 +33,12 @@ namespace Main
             }
         }
         FileLoader::Ini ini(ininame);
-        if(!dontremove)
-        #ifdef _WIN32
-            system((std::string("del /Q ") + ininame).c_str());
-        #else
-            { int ret = system((std::string("rm ") + ininame).c_str()); ret = 0; }
-        #endif
+        if(!Main::dontremove)
+            FileLoader::System::Files::remove(ininame);
 
-        main_py = ini.getvalue("pylon","main");
-        init_py = ini.getvalue("pylon","init");
-        ext_dir = ini.getvalue("pylon","extractiondir");
+        Main::main_py = ini.getvalue("pylon","main");
+        Main::init_py = ini.getvalue("pylon","init");
+        Main::ext_dir = ini.getvalue("pylon","extractiondir");
 
         FileLoader::extractfile(pylon_archive,main_py,true,false,ext_dir,false,"");
         FileLoader::extractfile(pylon_archive,init_py,true,false,ext_dir,false,"");

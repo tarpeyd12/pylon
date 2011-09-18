@@ -3,7 +3,6 @@ if counter == 0.0:
 	print 'Pylon Engine started:',ctime(time())
 #	calc.lock()
 
-
 count = counter
 count = count % 20
 goin = False
@@ -107,7 +106,6 @@ if pylon.mouse_ispressed():
 else:
 	if ClickLine.visable:
 		ClickLine.makeInvisable()
-		print 'removing ClickLine'
 
 cam.mouserot()
 cam.turnby(0,.1,0)
@@ -131,9 +129,9 @@ if pylon.key_ispressed(' ') or pylon.key_ispressed('j'):
 	bob = 0
 	while bob < 1:
 		sc1 = 1.0
-		sc2 = 0.0
-		sc3 = 0.0
-		sc4 = 0.0
+		sc2 = 1.0
+		sc3 = 1.0
+		sc4 = 1.0
 		vect1 = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1)
 		vect2 = makepos(rnd_n1p1()*sc2, rnd_n1p1()*sc2, rnd_n1p1()*sc2)
 		vect3 = makepos(rnd_n1p1()*sc3, rnd_n1p1()*sc3, rnd_n1p1()*sc3)
@@ -143,7 +141,12 @@ if pylon.key_ispressed(' ') or pylon.key_ispressed('j'):
 		bob = bob + 1
 
 if pylon.key_ispressed('m'):
-	sim.addfile('Data/objectdata/log125_tga.txt')
+	try:
+		sim.addfile('Data/objectdata/log125_tga.txt')
+	except IOError as steve:
+		print type(steve)
+		print pylon.requestfile('Data/objectdata/log125_tga.txt')
+		sim.addfile('Data/objectdata/log125_tga.txt')
 
 if pylon.key_ispressed(','):
 	sim2.stop()

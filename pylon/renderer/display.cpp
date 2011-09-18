@@ -17,11 +17,12 @@ namespace Renderer
     {
         if(Renderer::SingleThreaded)
         {
-            Renderer::Incriment();
-            //if(Renderer::SciptCall != NULL)
+            if(!Renderer::HaltPhysics)
+                Renderer::Incriment();
+            if(Renderer::SciptCall != NULL)
                 Renderer::SciptCall();
-            //else
-              //  exit(-1);
+            else
+                exit(-1);
         }
 
         POGEL::IncrementFps();
@@ -74,6 +75,8 @@ namespace Renderer
 
         if(Renderer::HUD::clearNextCycle)
         {
+            if(POGEL::hasproperty(POGEL_DEBUG))
+                cout << "Hud cleared at frame:" << POGEL::frames << endl;
             Renderer::HUD::Clear();
             Renderer::HUD::clearNextCycle = false;
         }

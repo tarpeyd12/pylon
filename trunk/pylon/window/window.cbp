@@ -13,7 +13,6 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="--usedir rc -debug --forcesingle" />
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-L../bin/Debug" />
@@ -45,7 +44,7 @@
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
-				<Option parameters="-usedir rc" />
+				<Option parameters="--usedir rc" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add directory="../bin/Release" />
@@ -76,7 +75,7 @@
 				<Option object_output="obj/Development/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-usedir rc -debug" />
+				<Option parameters="--usedir rc -debug" />
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-DPYLON_DEV_VERSION" />

@@ -23,8 +23,9 @@ ScriptThread::ScriptThread(bool st)
 
 ScriptThread::~ScriptThread()
 {
-    if(Main::SingleThreaded)
+    if(!Main::SingleThreaded)
         this->joinThread();
+    ScriptEngine::Finalize();
     firstRun = false;
 }
 
@@ -40,18 +41,14 @@ void ScriptThread::run()
     }
 
     if(!Main::dontremove)
-    #ifdef _WIN32
-        system(("del /S /Q " + Main::ext_dir + "\\*.*").c_str());
-    #else
-        { int ret = system(("cd " + Main::ext_dir + " && rm *.* && cd ..").c_str()); ret = 0; }
-    #endif
+        FileLoader::System::Dir::clearDir(Main::ext_dir);
 }
 
 void ScriptThread::FirstRun()
 {
     firstRun = false;
 
-    ScriptEngine::Begin();
+    ScriptEngine::Initialize();
 
     ScriptEngine::MethodInterface::Add( "calc", Main::calcLockMethods );
     ScriptEngine::MethodInterface::Add( "draw", Main::drawLockMethods );
@@ -59,36 +56,28 @@ void ScriptThread::FirstRun()
 
     pogelInterface::Init();
 
-    ScriptEngine::Execute(FileLoader::totalfile(Main::init_py));
+    std::string initScriptData = FileLoader::totalfile(Main::init_py);
 
     if(!Main::dontremove)
-    #ifdef _WIN32
-        system(("del /Q " + Main::init_py).c_str());
-    #else
-        { int ret = system(("rm " + Main::init_py).c_str()); ret = 0; }
-    #endif
+        FileLoader::System::Files::remove(Main::init_py);
 
     mainScriptData = FileLoader::totalfile(Main::main_py);
 
     if(!Main::dontremove)
-    #ifdef _WIN32
-        system(("del /Q " + Main::main_py).c_str());
-    #else
-        { int ret = system(("rm " + Main::main_py).c_str()); ret = 0; }
-    #endif
-
+        FileLoader::System::Files::remove(Main::main_py);
     if(mainScriptData.length() == 0)
     {
         cout << "no main data." << endl;
         exit(-1);
     }
 
+    ScriptEngine::Execute(ScriptEngine::Executor(initScriptData));
+
     mainScript = new ScriptEngine::Executor(mainScriptData);
 }
 
 void ScriptThread::MainRun()
 {
-
     Renderer::Timer *timer25 = new Renderer::Timer(25); // 25 cycles per second
 
     while(true)
@@ -97,7 +86,7 @@ void ScriptThread::MainRun()
         timer25->sleep();
     }
 
-    ScriptEngine::End();
+    ScriptEngine::Finalize();
 
     delete timer25;
 }

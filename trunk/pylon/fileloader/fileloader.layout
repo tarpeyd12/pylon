@@ -2,7 +2,7 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="archivehandler.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="2382" topLine="69" />
+		<Cursor position="2091" topLine="61" />
 	</File>
 	<File name="archivehandler.h" open="0" top="0" tabpos="2">
 		<Cursor position="1187" topLine="18" />
@@ -10,14 +10,17 @@
 	<File name="fileloader.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="1208" topLine="19" />
 	</File>
-	<File name="fileloader.h" open="1" top="0" tabpos="1">
-		<Cursor position="379" topLine="0" />
+	<File name="fileloader.h" open="0" top="0" tabpos="1">
+		<Cursor position="210" topLine="0" />
 	</File>
 	<File name="ini.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="243" topLine="0" />
+		<Cursor position="163" topLine="0" />
 	</File>
 	<File name="ini.h" open="0" top="0" tabpos="2">
 		<Cursor position="234" topLine="0" />
+	</File>
+	<File name="minizip/ioapi.c" open="0" top="0" tabpos="0">
+		<Cursor position="1057" topLine="31" />
 	</File>
 	<File name="minizip/ioapi.h" open="0" top="0" tabpos="0">
 		<Cursor position="1248" topLine="176" />
@@ -29,7 +32,7 @@
 		<Cursor position="465" topLine="0" />
 	</File>
 	<File name="minizip/unzip.c" open="0" top="0" tabpos="0">
-		<Cursor position="53360" topLine="2099" />
+		<Cursor position="26234" topLine="812" />
 	</File>
 	<File name="minizip/unzip.h" open="0" top="0" tabpos="0">
 		<Cursor position="1764" topLine="48" />
@@ -65,21 +68,21 @@
 		<Cursor position="0" topLine="53" />
 	</File>
 	<File name="simpleini/SimpleIni.h" open="0" top="0" tabpos="1">
-		<Cursor position="13835" topLine="328" />
+		<Cursor position="52541" topLine="1266" />
 	</File>
-	<File name="system.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="436" topLine="9" />
+	<File name="system.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="533" topLine="0" />
 	</File>
-	<File name="system.h" open="1" top="0" tabpos="3">
-		<Cursor position="496" topLine="0" />
+	<File name="system.h" open="0" top="0" tabpos="3">
+		<Cursor position="521" topLine="3" />
 	</File>
 	<File name="unzip.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="55" topLine="0" />
+		<Cursor position="4040" topLine="136" />
 	</File>
 	<File name="unzip.h" open="0" top="0" tabpos="7">
 		<Cursor position="203" topLine="0" />
 	</File>
 	<File name="unzip_backend.h" open="0" top="0" tabpos="0">
-		<Cursor position="10476" topLine="394" />
+		<Cursor position="10118" topLine="388" />
 	</File>
 </CodeBlocks_layout_file>

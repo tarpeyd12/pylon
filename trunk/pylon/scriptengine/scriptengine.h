@@ -30,6 +30,7 @@ namespace ScriptEngine
 
     void Begin();
     void End();
+    bool HasBegun();
 
     void Initialize();
     void Finalize();

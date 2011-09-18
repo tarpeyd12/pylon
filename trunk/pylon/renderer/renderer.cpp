@@ -26,6 +26,8 @@ namespace Renderer
 
     Renderer::Timer* timer30;
 
+    bool HaltPhysics = false;
+
     bool SingleThreaded = false;
     void (*SciptCall)(void) = NULL;
 
@@ -46,9 +48,17 @@ namespace Renderer
             if(!Renderer::Physics::simulations[i]->inc())
                 continue;
             if(Renderer::Physics::simulations[i]->isdyn())
-                static_cast<POGEL::PHYSICS::DYNAMICS*>(Renderer::Physics::simulations[i]->getSim())->increment();
+            {
+                POGEL::PHYSICS::DYNAMICS* sim = static_cast<POGEL::PHYSICS::DYNAMICS*>(Renderer::Physics::simulations[i]->getSim());
+                if(sim->numobjs())
+                    sim->increment();
+            }
             else
-                static_cast<POGEL::PHYSICS::SIMULATION*>(Renderer::Physics::simulations[i]->getSim())->increment();
+            {
+                POGEL::PHYSICS::SIMULATION* sim = static_cast<POGEL::PHYSICS::SIMULATION*>(Renderer::Physics::simulations[i]->getSim());
+                if(sim->numobjs())
+                    sim->increment();
+            }
         }
     }
 }

@@ -215,11 +215,11 @@ namespace pogelInterface
             return NULL;
         int ret = FileLoader::extractfile(std::string(archive),std::string(filename),true,false,"",false,"");
         if(ret == 0)
-            return Py_BuildValue("s", "Sucessful file retrival from resource pylon");
+            return Py_BuildValue("s", std::string("Sucessful file retrival from resource pylon, "+std::string(filename)).c_str());
         else if(ret == -1234)
             return Py_BuildValue("s", "Sucessful file retrival from resource directory");
         else
-            return Py_BuildValue("s", "File retrival from resource pylon unsucessful");
+            return Py_BuildValue("s", std::string("File retrival from resource pylon unsucessful, "+std::string(filename)).c_str());
     }
 
     ScriptEngine::MethodInterface::Object*
@@ -232,7 +232,7 @@ namespace pogelInterface
             return NULL;
         int ret = FileLoader::ArchiveHandler::extractKnownFile(std::string(filename));
         if(ret == 0)
-            return Py_BuildValue("s", "Sucessful file retrival from resource pylon");
+            return Py_BuildValue("s", std::string("Sucessful file retrival from resource pylon, "+std::string(filename)).c_str());
         else if(ret == -1234)
             return Py_BuildValue("s", "Sucessful file retrival from resource directory");
         else

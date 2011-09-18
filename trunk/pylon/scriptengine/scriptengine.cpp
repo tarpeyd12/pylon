@@ -32,15 +32,20 @@ namespace ScriptEngine
         Py_Finalize();
     }
 
+    bool HasBegun()
+    {
+        return started;
+    }
+
     void Initialize()
     {
-        if(!ScriptEngine::started)
+        if(!ScriptEngine::HasBegun())
             Py_Initialize();
     }
 
     void Finalize()
     {
-        if(!ScriptEngine::started)
+        if(ScriptEngine::HasBegun())
             Py_Finalize();
     }
 }

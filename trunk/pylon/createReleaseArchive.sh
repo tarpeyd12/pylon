@@ -1,1 +1,3 @@
-zip ../bin/Release/rc.pylon -r ../archiveCode
+rm ../bin/Release/rc.pylon
+cd ../archiveCode
+zip -r ../bin/Release/rc.pylon . -x \*.svn/*

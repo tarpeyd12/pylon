@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
         Main::calcThread = new CalcThread();
     }
 
-    // and start the renderer on theis thread
+    // and start the renderer on this thread
     glutMainLoop();
 
     // goodby and good riddance

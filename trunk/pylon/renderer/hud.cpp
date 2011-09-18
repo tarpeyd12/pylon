@@ -36,8 +36,10 @@ namespace Renderer
                 quadDeletionQueue[i] = -1;
                 if(quadList[i] != NULL)
                 {
-                    delete quadList[i];
+                    Renderer::Quad* tmp = quadList[i];
                     quadList[i] = NULL;
+                    delete tmp;
+
                 }
             }
             //Renderer::HUD::addQuad(new Renderer::Quad(0,0,0,0,NULL));
@@ -75,9 +77,9 @@ namespace Renderer
                 return -1;
             if(quadUpdateQueue[quadID] != NULL) // slot taken
             {
-                Renderer::Quad* quadTmp = quadUpdateQueue[quadID];
+                /*Renderer::Quad* quadTmp = quadUpdateQueue[quadID];
                 quadUpdateQueue[quadID] = quad;
-                delete quadTmp;
+                delete quadTmp;*/
             }
             else
                 quadUpdateQueue[quadID] = quad;
@@ -117,10 +119,10 @@ namespace Renderer
                 {
                     Renderer::Quad* tmp = quadList[quadDeletionQueue[i]];
                     quadList[quadDeletionQueue[i]] = NULL;
-                    cout << "removed quad" << quadDeletionQueue[i] << endl;
+                    if(POGEL::hasproperty(POGEL_DEBUG))
+                        cout << "removed quad" << quadDeletionQueue[i] << endl;
                     quadDeletionQueue[i] = -1;
                     delete tmp;
-
                 }
             for(unsigned int i = 0; i < NUM_QUAD_SLOTS; i++)
                 if(quadList[i] != NULL)

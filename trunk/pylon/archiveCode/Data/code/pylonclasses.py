@@ -3,6 +3,8 @@ try:
 	import draw
 	import pylon
 	import shlex
+	import thread
+	from threading import *
 	"""import pygame
 	from pygame import Rect
 	from pygame.locals import *"""
@@ -11,12 +13,21 @@ except ImportError:
 	print 'Importing failure for the required modules in \"pylonclasses.py\".'
 	quit()	
 
+lastkey = chr(0)
+lastkeycount = 0
 def getstrthing(st):
-	if pylon.key_ispressed(pylon.key_last()):
+	global lastkey
+	global lastkeycount
+	if pylon.key_ispressed(pylon.key_last()) and (not lastkey == pylon.key_last() or (lastkey == pylon.key_last() and lastkeycount > 5)):
 		st = st + str(pylon.key_last())
-		a = 0
-		while a < 10000000:
-			a = a + 1
+		if not lastkey == pylon.key_last():
+			lastkeycount = 0
+			lastkey = pylon.key_last()
+		#a = 0
+		#while a < 500:
+			#a = a + 1
+	if lastkey == pylon.key_last():
+		lastkeycount = lastkeycount + 1
 	return st
 
 
@@ -98,36 +109,69 @@ class Camera:
 		self.getcamstrs()
 		return self.rotstr
 
+
+class RunFunctionAsThread(Thread):
+	def __init__(self,function, args):
+		Thread.__init__(self)
+		self.func = function
+		self.args = args
+	def run(self):
+		arguments = self.args
+		self.func(*arguments)
+
 class Simulation:
 	def __init__(self,name,col):
 		self.name = name
 		self.collisions = col
+		self.adding = False
 		pylon.addsimulation(self.name,col)
+		print pylon.togglesimweight(self.name,True)
+		self.start()
 		
 	def addfile(self,filename):
+		self.adding = True
 		objfile = open(filename,'r')
 		objfile.seek(0,0)
 		lines = objfile.readlines()
 		# avoid thrashing
 		self.stop()
 		a = 0
-		while a < 1000000:
+		while a < 1000:
 			a = a + 1
 		#get the objects
 		line = 0
 		for obj in lines:
 			line = line + 1
-			#res = self.addobject(obj)
 			res = pylon.addobject(self.name,obj)
 			# avoid thrashing
 			a = 0
-			while a < 100000:
+			while a < 1000:
 				a = a + 1
 			if pylon.hasproperty(2):
 				print res,line
+		a = 0
+		while a < 1000:
+			a = a + 1
 		self.restart()
+		self.adding = False
 		return line
-			
+	
+	def _thrd(self,string,filename):
+		try:
+			self.addfile(filename)
+		except IOError as steve:
+			print type(steve)
+			print pylon.requestfile(filename)
+			try:
+				self.addfile(filename)
+			except:
+				print 'Failed!'
+	
+	def addfilehere(self,filename):
+		if not self.adding:
+			thrd = RunFunctionAsThread(self._thrd,("thrd",filename))
+			thrd.start()
+	
 	def addobject(self,objstr):
 		self.stop()
 		ret = pylon.addobject(self.name,objstr)

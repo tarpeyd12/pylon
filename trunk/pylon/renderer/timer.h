@@ -12,20 +12,25 @@
 
 namespace Renderer
 {
-    class Timer
+    namespace Timing
     {
-        private:
-            float lastDuration;
-            float curentDuration;
-            unsigned int FPS;
-        public:
-            Timer();
-            Timer(unsigned int fps);
-            ~Timer();
+        extern bool noTiming;
 
-            void sleep();
-            void step();
-    };
+        class Timer
+        {
+            private:
+                float lastDuration;
+                float curentDuration;
+                unsigned int FPS;
+            public:
+                Timer();
+                Timer(unsigned int fps);
+                ~Timer();
+
+                void sleep();
+                void step();
+        };
+    }
 }
 
 #endif // TIMER_H_INCLUDED

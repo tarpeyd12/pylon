@@ -97,8 +97,8 @@ POGEL::VECTOR POGEL::PHYSICS::DYNAMICS::getpull(POGEL::PHYSICS::SOLID* obj) {
 	pull += singularities.getpull(obj->position, obj->behavior.mass);
 	pull += gravity*obj->behavior.mass;
 	if(!hasproperty(DYNAMICS_LIGHTWEIGHT_ONLY)) // *******************************************************
-        //pull += objectmasses.getpull(obj->position, obj->behavior.mass);
-        pull += ot->getpull(obj->position, obj->behavior.mass);
+        pull += objectmasses.getpull(obj->position, obj->behavior.mass);
+        //pull += ot->getpull(obj->position, obj->behavior.mass);
 	return pull/PARTICLE_SLOWDOWN*(POGEL::hasproperty(POGEL_TIMEBASIS) ? PARTICLE_SLOWDOWN_RATIO : 1);
 };
 

@@ -15,27 +15,14 @@ namespace Renderer
 {
     void Display()
     {
-        if(Renderer::SingleThreaded)
-        {
-            if(!Renderer::HaltPhysics)
-                Renderer::Incriment();
-            if(Renderer::SciptCall != NULL)
-                Renderer::SciptCall();
-            else
-                exit(-1);
-        }
-
-        POGEL::IncrementFps();
-        if(POGEL::frames%10 == 0)
-            POGEL::PrintFps();
-
-        //Renderer::Mouse::Rotation();
-        //Renderer::Mouse::Translation();
-
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
 
         Renderer::Window::toFrustum();
+
+        POGEL::IncrementFps();
+        if(POGEL::frames%10 == 0)
+            POGEL::PrintFps();
 
         //glBlendFunc(GL_SRC_ALPHA,GL_ONE);
         //glEnable(GL_BLEND);
@@ -46,20 +33,27 @@ namespace Renderer
         glRotatef( Renderer::camrot.y,  0.0f, 1.0f, 0.0f );
         glRotatef( Renderer::camrot.z,  0.0f, 0.0f, 1.0f );
         //glTranslatef(campos.x,campos.y,campos.z);
-        /*if(bob != NULL)
+
+        if(Renderer::SingleThreaded)
         {
-            //bob->position = POGEL::POINT();
-            bob->position = gr->frame(POGEL::GetTimePassed()).getpos();
-            bob->draw();
-        }*/
+            if(!Renderer::HaltPhysics)
+                Renderer::Incriment();
+            if(Renderer::SciptCall != NULL)
+                Renderer::SciptCall();
+            else
+                exit(-1);
+        }
 
         if(!drawLock)
         {
             for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
-                if(Renderer::Physics::simulations[i]->isdyn())
-                    static_cast<POGEL::PHYSICS::DYNAMICS*>(Renderer::Physics::simulations[i]->getSim())->draw();
-                else
-                    static_cast<POGEL::PHYSICS::SIMULATION*>(Renderer::Physics::simulations[i]->getSim())->draw();
+                if(Renderer::Physics::simulations[i]->canDraw())
+                {
+                    if(Renderer::Physics::simulations[i]->isdyn())
+                        static_cast<POGEL::PHYSICS::DYNAMICS*>(Renderer::Physics::simulations[i]->getSim())->draw();
+                    else
+                        static_cast<POGEL::PHYSICS::SIMULATION*>(Renderer::Physics::simulations[i]->getSim())->draw();
+                }
         }
 
         Renderer::Window::toOrtho();
@@ -87,14 +81,23 @@ namespace Renderer
 
         Renderer::Window::toFrustum();
 
+        // TODO: make the image building mechanism into a function.
         if(POGEL::imglstlen() > 0)
         {
             unsigned int i = POGEL::frames%POGEL::imglstlen();
             if(!POGEL::lstimg(i)->isbuilt())
             {
-                POGEL::lstimg(i)->build();
-                if(POGEL::hasproperty(POGEL_DEBUG))
-                    cout << "\n"/*endl*/ << "building unbuilt image: " << POGEL::lstimg(i)->toString() << "\n";
+                if(!FileLoader::checkfile(POGEL::lstimg(i)->getFileID())) {
+                    if(POGEL::hasproperty(POGEL_DEBUG))
+                        cout << "extracting " << POGEL::lstimg(i)->getFileID() << endl;
+                    FileLoader::ArchiveHandler::extractKnownFile(POGEL::lstimg(i)->getFileID());
+                }
+                if(FileLoader::checkfile(POGEL::lstimg(i)->getFileID()))
+                {
+                    if(POGEL::hasproperty(POGEL_DEBUG))
+                        cout << endl << "building unbuilt image: " << POGEL::lstimg(i)->toString() << endl;
+                    POGEL::lstimg(i)->loadandbuild();
+                }
             }
         }
 

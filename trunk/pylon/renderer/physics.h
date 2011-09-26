@@ -16,11 +16,14 @@ namespace Renderer
                 POGEL::PHYSICS::SIMULATION* sim;
                 POGEL::PHYSICS::DYNAMICS* dyn;
                 bool incrementable;
+                bool drawable;
             public:
+                Simulation(std::string);
                 Simulation(std::string,POGEL::PHYSICS::SIMULATION*);
                 Simulation(std::string,POGEL::PHYSICS::DYNAMICS*);
                 ~Simulation();
                 void setinc(bool);
+                bool canDraw();
                 bool isdyn();
                 bool inc();
                 void* getSim();

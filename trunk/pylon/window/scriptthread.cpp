@@ -18,7 +18,7 @@ ScriptThread::ScriptThread(bool st)
     {
         Renderer::SciptCall = ScriptCallFunction;
     }
-    this->FirstRun();
+    this->run();
 }
 
 ScriptThread::~ScriptThread()
@@ -71,6 +71,15 @@ void ScriptThread::FirstRun()
         exit(-1);
     }
 
+    // I am calling this the 'StoneBug'
+    // start StoneBug fix
+
+    // this is to compensate for a bug in Code::Blocks, and when pylon is called within another program
+    ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation',False)"));
+    ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation2',False)"));
+
+    // end StoneBug fix
+
     ScriptEngine::Execute(ScriptEngine::Executor(initScriptData));
 
     mainScript = new ScriptEngine::Executor(mainScriptData);
@@ -78,7 +87,7 @@ void ScriptThread::FirstRun()
 
 void ScriptThread::MainRun()
 {
-    Renderer::Timer *timer25 = new Renderer::Timer(25); // 25 cycles per second
+    Renderer::Timing::Timer *timer25 = new Renderer::Timing::Timer(25); // 25 cycles per second
 
     while(true)
     {

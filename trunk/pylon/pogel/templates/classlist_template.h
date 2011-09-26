@@ -1,8 +1,8 @@
 #ifndef _CLASSLIST_TEMPLATE_H
 #define _CLASSLIST_TEMPLATE_H
 
-#include <iostream>
-#include <vector>
+//#include <iostream>
+//#include <vector>
 using namespace std;
 
 template<typename T>

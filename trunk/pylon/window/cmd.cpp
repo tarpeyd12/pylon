@@ -22,15 +22,6 @@ namespace Main
                 dontremove = true;
                 continue;
             }
-            #endif
-            else
-            if(curarg.compare("-forcedir") == 0 || curarg.compare("-dir") == 0)
-            {
-                forcedir = true;
-                forced_dir = std::string(argv[++i]);
-                continue;
-            }
-            #if defined(PYLON_DEBUG_VERSION) || defined(PYLON_DEV_VERSION)
             else
             if(curarg.compare("-usedirdata") == 0)
             {
@@ -47,7 +38,20 @@ namespace Main
                 dontremove = true;
                 continue;
             }
+            else
+            if(curarg.compare("-nolimit") == 0)
+            {
+                Renderer::Timing::noTiming = true;
+                continue;
+            }
             #endif
+            else
+            if(curarg.compare("-forcedir") == 0 || curarg.compare("-dir") == 0)
+            {
+                forcedir = true;
+                forced_dir = std::string(argv[++i]);
+                continue;
+            }
             else
             if(
                 curarg.compare("-version") == 0 ||

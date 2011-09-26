@@ -61,6 +61,6 @@ namespace Renderer
 
         POGEL::InitFps();
 
-        Renderer::timer30 = new Timer(30); // 30 fps
+        Renderer::timer30 = new Timing::Timer(30); // 30 fps
     }
 }

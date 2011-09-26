@@ -28,6 +28,8 @@ namespace pogelInterface
     Object* getproperties(Object*,Object*);
     Object* setproperties(Object*,Object*);
     Object* hasproperty(Object*,Object*);
+    Object* addproperty(Object*,Object*);
+    Object* removeproperty(Object*,Object*);
 
     // the mouse and keyboard stuff
 

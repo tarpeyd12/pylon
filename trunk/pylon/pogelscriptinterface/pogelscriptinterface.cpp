@@ -47,6 +47,30 @@ namespace pogelInterface
     }
 
     ScriptEngine::MethodInterface::Object*
+    addproperty(
+        ScriptEngine::MethodInterface::Object* self,
+        ScriptEngine::MethodInterface::Object* args)
+    {
+        int p;
+        if(!PyArg_ParseTuple(args, "i:addproperty", &p))
+            return NULL;
+        POGEL::addproperty(p);
+        return Py_BuildValue("i", (int)POGEL::getproperties());
+    }
+
+    ScriptEngine::MethodInterface::Object*
+    removeproperty(
+        ScriptEngine::MethodInterface::Object* self,
+        ScriptEngine::MethodInterface::Object* args)
+    {
+        int p;
+        if(!PyArg_ParseTuple(args, "i:removeproperty", &p))
+            return NULL;
+        POGEL::removeproperty(p);
+        return Py_BuildValue("i", (int)POGEL::getproperties());
+    }
+
+    ScriptEngine::MethodInterface::Object*
     key_ispressed(
         ScriptEngine::MethodInterface::Object* self,
         ScriptEngine::MethodInterface::Object* args)

@@ -26,19 +26,19 @@ class POGEL::PHYSICS::SINGULARITY {
 		float *pintencity;
 		POGEL::POINT center;
 		float intencity;
-		
+
 		bool notpointing;
-		
+
 		SINGULARITY() { center=POGEL::POINT(); intencity=0.0f; active=true; notpointing=true; }
 		SINGULARITY(POGEL::POINT p, float i) { center=p; intencity=i; active=true; notpointing=true; }
 		SINGULARITY(POGEL::POINT *p, float *i) { pcenter=p; pintencity=i; active=true; notpointing=false; }
 		SINGULARITY(float x, float y, float z, float i) { center=POGEL::POINT(x,y,z); intencity=i; active=true; notpointing=true; }
-		
+
 		//~SINGULARITY() { if(notpointing) { delete pcenter; delete pintencity; } }
-		
+
 		POGEL::POINT getCenter() { if(notpointing) return center; return *pcenter; }
 		float getIntencity() { if(notpointing) return intencity; return *pintencity; }
-		
+
 		POGEL::POINT getposition() { return getCenter(); }
 		POGEL::BOUNDING getbounding() {
 			return POGEL::BOUNDING( 0,
@@ -46,7 +46,7 @@ class POGEL::PHYSICS::SINGULARITY {
 				getposition().y,getposition().y,
 				getposition().z,getposition().z);
 		}
-		
+
 		virtual POGEL::VECTOR getpull(POGEL::POINT p, float mass) {
 			if(active) {
 				if(p==getCenter()) return POGEL::VECTOR();
@@ -69,15 +69,15 @@ class POGEL::PHYSICS::FAN : public POGEL::PHYSICS::SINGULARITY {
 	public:
 		POGEL::VECTOR direction;
 		POGEL::VECTOR *pdirection;
-		
+
 		FAN() : SINGULARITY() { direction=POGEL::VECTOR(); }
 		FAN(POGEL::POINT p, POGEL::VECTOR v, float i) : SINGULARITY(p,i) { direction=v; }
 		FAN(float x, float y, float z, POGEL::VECTOR v, float i) : SINGULARITY(x,y,z,i) { direction=v; }
 		FAN(POGEL::POINT p, float x, float y, float z, float i) : SINGULARITY(p,i) { direction=POGEL::VECTOR(x,y,z); }
 		FAN(float x, float y, float z, float vx, float vy, float vz, float i) : SINGULARITY(x,y,z,i) { direction=POGEL::VECTOR(vx,vy,vz); }
-		
+
 		POGEL::VECTOR getDirection() { if(notpointing) return direction; return *pdirection; }
-		
+
 		POGEL::VECTOR getpull(POGEL::POINT p, float mass) {
 			if(active) return ((getDirection()*getIntencity())/p.distance(getCenter()))/(mass+1.0f);
 			return POGEL::VECTOR();
@@ -88,32 +88,34 @@ class POGEL::PHYSICS::GRAVITYCLUSTER {
 		CLASSLIST<POGEL::PHYSICS::SINGULARITY>* singularities;
 		unsigned long numsingularities;
 	public:
-		
+
 		GRAVITYCLUSTER()
 			{  numsingularities = 0; singularities = new CLASSLIST<POGEL::PHYSICS::SINGULARITY>(); }
 		~GRAVITYCLUSTER()
 			{ singularities->clear(); if(singularities) delete singularities; }
-		
+
 		unsigned long addsingularity(POGEL::PHYSICS::SINGULARITY);
 		void addsingularities(POGEL::PHYSICS::SINGULARITY*,unsigned long);
-		
+
 		void remove(unsigned long i) { singularities->remove(i); numsingularities--; }
-		
+
+		void clearAll() { numsingularities = 0; delete singularities; singularities = new CLASSLIST<POGEL::PHYSICS::SINGULARITY>(); }
+
 		POGEL::VECTOR getpull(POGEL::POINT p, float mass) {
 			if(numsingularities==0) return POGEL::VECTOR();
 			POGEL::VECTOR v;
 			for(unsigned int i=0;i<numsingularities;i++) v+=singularities->get(i).getpull(p, mass);
 			return v;
 		}
-		
+
 		/*POGEL::VECTOR fgetpull(POGEL::POINT p, float mass, HASHLIST<POGEL::OCTREE<POGEL::PHYSICS::SOLID>*> *otlst) {
-			
+
 			if(numsingularities==0) return POGEL::VECTOR();
 			POGEL::VECTOR v;
 			for(unsigned int i=0;i<numsingularities;i++) v+=singularities[i].getpull(p, mass);
 			return v;
 		}*/
-		
+
 		POGEL::PHYSICS::GRAVITYCLUSTER& operator = (POGEL::PHYSICS::GRAVITYCLUSTER g) {
 			singularities->clear();
 			if(singularities)
@@ -128,18 +130,18 @@ class POGEL::PHYSICS::FLOW {
 		CLASSLIST<POGEL::PHYSICS::FAN> gusts;
 		unsigned long numgusts;
 	public:
-		
+
 		FLOW() { numgusts = 0; }
 		FLOW(POGEL::POINT* waypoints,unsigned long num,bool forwards) {generatecurve(waypoints,num,forwards);}
 		~FLOW() { gusts.clear(); }
-		
+
 		unsigned long addfan(POGEL::PHYSICS::FAN);
 		void addfans(POGEL::PHYSICS::FAN*,unsigned long);
-		
+
 		void remove(unsigned long i) { gusts.remove(i); numgusts--; }
-		
+
 		void generatecurve(POGEL::POINT*,unsigned long,bool);
-		
+
 		POGEL::VECTOR getpull(POGEL::POINT p, float mass) {
 			if(numgusts==0) return POGEL::VECTOR();
 			POGEL::VECTOR v;

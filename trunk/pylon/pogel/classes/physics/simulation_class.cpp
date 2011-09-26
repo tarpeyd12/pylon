@@ -20,7 +20,7 @@ void POGEL::PHYSICS::SIMULATION::addpulls(unsigned long s, unsigned long e) {
 	float r = (POGEL::hasproperty(POGEL_TIMEBASIS) ? POGEL::GetSecondsPerFrame() : 1);
 	for(unsigned long a = s; a < e && a < numobjs(); a++) {
 		if(objects[a]->hasOption(PHYSICS_SOLID_VOLITAL) && !objects[a]->hasOption(PHYSICS_SOLID_STATIONARY)) {
-			
+
 			if(
 				(
 					deactivation
@@ -28,14 +28,14 @@ void POGEL::PHYSICS::SIMULATION::addpulls(unsigned long s, unsigned long e) {
 					(
 						(
 							(objects[a]->direction+objects[a]->force).getdistance() <= precision*r
-							&& 
+							&&
 							objects[a]->sameposlegacy(precision*r, inactive_index)
 						)
-						&& 
+						&&
 						objects[a]->stepstaken > objects[a]->trailsize
-						&& 
+						&&
 						stepstaken > 100
-						&& 
+						&&
 						objects[a]->stepstaken > inactive_index
 					)
 					//||
@@ -54,7 +54,7 @@ void POGEL::PHYSICS::SIMULATION::addpulls(unsigned long s, unsigned long e) {
 				objects[a]->direction += getpull(objects[a]);
 				if(objects[a]->napping()) objects[a]->wake();
 			}
-			
+
 			// TODO: get the air friction to work with timing
 			float airslowdown = ( ( objects[a]->behavior.air_friction * air_dencity ) / PARTICLE_SLOWDOWN ) + 1.0f;
 			objects[a]->spin /= airslowdown;
@@ -125,7 +125,7 @@ inline void objectIntersectionProcessing(POGEL::PHYSICS::SIMULATION* sim, unsign
 			if(sim->objs(a)->napping()) sim->objs(a)->wake();
 			if(sim->objs(b)->napping()) sim->objs(b)->wake();
 		}
-		
+
 		if(POGEL::hasproperty(POGEL_PAIRS) && b > a) {
 			if(sim->objs(a)->hasOption(PHYSICS_SOLID_CONCAVE) && sim->objs(a)->hasOption(PHYSICS_SOLID_SPHERE)) {
 				POGEL::VECTOR vr(sim->objs(a)->position, sim->objs(a)->position);
@@ -142,10 +142,10 @@ inline void objectIntersectionProcessing(POGEL::PHYSICS::SIMULATION* sim, unsign
 				POGEL::LINE(sim->objs(a)->position,vr.topoint(),1,POGEL::COLOR(1,.75,.75,1)).draw();
 			}
 			else if(sim->objs(a)->hasOption(PHYSICS_SOLID_CONCAVE)) {
-				
+
 			}
 			else if(sim->objs(b)->hasOption(PHYSICS_SOLID_CONCAVE)) {
-				
+
 			}
 			else {
 				POGEL::LINE(sim->objs(a)->position,sim->objs(b)->position,1,POGEL::COLOR(1,.75,.75,1)).draw();
@@ -218,11 +218,10 @@ void POGEL::PHYSICS::SIMULATION::collincrement() {
 void POGEL::PHYSICS::SIMULATION::increment() {
 	destroyot();
 	buildot();
-	
+
 	addpulls();
 	collincrement();
 	stepobjs();
 	stepstaken++;
-	
 };
 

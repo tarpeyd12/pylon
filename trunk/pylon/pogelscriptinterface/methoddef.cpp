@@ -10,6 +10,8 @@ namespace pogelInterface
         { "getproperties",      (CFunction)getproperties,     VarArgs, NULL },
         { "setproperties",      (CFunction)setproperties,     VarArgs, NULL },
         { "hasproperty",        (CFunction)hasproperty,       VarArgs, NULL },
+        { "addproperty",        (CFunction)addproperty,       VarArgs, NULL },
+        { "removeproperty",     (CFunction)removeproperty,    VarArgs, NULL },
         // pogel simulations
         { "addsimulation",      (CFunction)addsimulation,     VarArgs, NULL },
         { "togglesim",          (CFunction)togglesimulation,  VarArgs, NULL },

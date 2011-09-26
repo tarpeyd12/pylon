@@ -48,11 +48,11 @@ namespace Main
         {
             std::string n = winname;
             if(POGEL::hasproperty(POGEL_DEBUG))
-                n = "Pylon_"+VersionString+": '"+winname+"' in "+(!forcedir?"archive: '"+pylon_archive:"folder: '"+forced_dir)+"'";
+                n = "Pylon."+VersionString+": '"+winname+"' in "+(!forcedir?"archive: '"+pylon_archive:"folder: '"+forced_dir)+"'";
             Renderer::Window::Create(n);
         }
         else
-            Renderer::Window::Create("Pylon_" + VersionString);
+            Renderer::Window::Create("Pylon." + VersionString);
 
         if(ini.hasSection("archives"))
         {

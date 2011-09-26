@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="classes/image_class.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="481" topLine="6" />
+	<File name="classes/image_class.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="3484" topLine="99" />
 	</File>
-	<File name="classes/image_class.h" open="1" top="0" tabpos="1">
-		<Cursor position="257" topLine="0" />
+	<File name="classes/image_class.h" open="1" top="0" tabpos="2">
+		<Cursor position="475" topLine="24" />
 	</File>
 	<File name="classes/line_class.h" open="0" top="0" tabpos="0">
 		<Cursor position="0" topLine="24" />
@@ -25,35 +25,35 @@
 	<File name="classes/object_funcs.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="classes/physics/dynamics_class.cpp" open="1" top="0" tabpos="27">
-		<Cursor position="4747" topLine="96" />
+	<File name="classes/physics/dynamics_class.cpp" open="0" top="0" tabpos="27">
+		<Cursor position="4448" topLine="96" />
 	</File>
-	<File name="classes/physics/dynamics_class.h" open="1" top="0" tabpos="29">
-		<Cursor position="1895" topLine="70" />
+	<File name="classes/physics/dynamics_class.h" open="0" top="0" tabpos="29">
+		<Cursor position="1872" topLine="70" />
 	</File>
-	<File name="classes/physics/simulation_class.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="0" topLine="3" />
+	<File name="classes/physics/simulation_class.cpp" open="0" top="0" tabpos="18">
+		<Cursor position="6287" topLine="186" />
 	</File>
-	<File name="classes/physics/simulation_class.h" open="1" top="0" tabpos="28">
+	<File name="classes/physics/simulation_class.h" open="0" top="0" tabpos="28">
 		<Cursor position="462" topLine="12" />
 	</File>
 	<File name="classes/physics/simulation_class_collisions.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="4029" topLine="0" />
 	</File>
-	<File name="classes/physics/simulation_class_collisions_reaction.cpp" open="1" top="0" tabpos="3">
+	<File name="classes/physics/simulation_class_collisions_reaction.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="104" topLine="0" />
 	</File>
 	<File name="classes/physics/solid_class.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="2849" topLine="64" />
+		<Cursor position="5214" topLine="110" />
 	</File>
 	<File name="classes/physics/solid_class.h" open="0" top="0" tabpos="0">
 		<Cursor position="3819" topLine="6" />
 	</File>
-	<File name="classes/point_class.cpp" open="1" top="0" tabpos="4">
+	<File name="classes/point_class.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="1995" topLine="75" />
 	</File>
 	<File name="classes/point_class.h" open="0" top="0" tabpos="0">
-		<Cursor position="4976" topLine="110" />
+		<Cursor position="3767" topLine="77" />
 	</File>
 	<File name="classes/threads.h" open="0" top="0" tabpos="0">
 		<Cursor position="265" topLine="2" />
@@ -79,20 +79,20 @@
 	<File name="pogel_internals.h" open="0" top="0" tabpos="2">
 		<Cursor position="299" topLine="0" />
 	</File>
-	<File name="templates/arraylist.cpp" open="1" top="0" tabpos="20">
-		<Cursor position="5508" topLine="251" />
+	<File name="templates/arraylist.cpp" open="0" top="0" tabpos="20">
+		<Cursor position="11409" topLine="372" />
 	</File>
 	<File name="templates/arraylist.h" open="0" top="0" tabpos="0">
 		<Cursor position="4063" topLine="63" />
 	</File>
 	<File name="templates/arraylist.operators.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="3416" topLine="60" />
+		<Cursor position="4165" topLine="64" />
 	</File>
-	<File name="templates/classlist_template.h" open="1" top="0" tabpos="24">
-		<Cursor position="2983" topLine="72" />
+	<File name="templates/classlist_template.h" open="0" top="0" tabpos="1">
+		<Cursor position="2159" topLine="54" />
 	</File>
-	<File name="templates/hashlist_template.h" open="1" top="0" tabpos="21">
-		<Cursor position="2453" topLine="82" />
+	<File name="templates/hashlist_template.h" open="0" top="0" tabpos="2">
+		<Cursor position="430" topLine="6" />
 	</File>
 	<File name="templates/octree_template.h" open="0" top="0" tabpos="0">
 		<Cursor position="0" topLine="180" />
@@ -100,7 +100,7 @@
 	<File name="templates/octree_template_protected.h" open="0" top="0" tabpos="0">
 		<Cursor position="264" topLine="0" />
 	</File>
-	<File name="templates/octree_template_public.h" open="1" top="0" tabpos="5">
+	<File name="templates/octree_template_public.h" open="0" top="0" tabpos="5">
 		<Cursor position="263" topLine="0" />
 	</File>
 	<File name="templates/templates.h" open="0" top="0" tabpos="0">

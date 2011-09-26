@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <fstream>
 #include "image_class.h"
 #ifdef OPENGL
 #include <GL/gl.h>
@@ -33,49 +34,29 @@ void POGEL::setNullImage(std::string img) {
 POGEL::IMAGE* POGEL::requestImage(std::string s) {
 	if(s.length() == 0 || s.compare("{IMAGE_NULL}") == 0 || s.compare("{image_null}") == 0 || s.compare("{NULL}") == 0 || s.compare("{null}") == 0)
 		return POGEL::getNullImage();
-    if(POGEL::getOccurrencesInString(',',s) == 0) {
-        if(s[0] == '[' || s[0] == '{') s = s.substr(1);
-        if(s[0] == '[' || s[0] == '{') s = s.substr(1);
-        if(s[s.length()-1] == ']' || s[s.length()-1] == '}') s = s.substr(0,s.length()-1);
-        if(s[s.length()-1] == ']' || s[s.length()-1] == '}') s = s.substr(0,s.length()-1);
-        for(unsigned int i = 0; i < imageList.length(); i++) {
-            std::string sr = POGEL::getStringComponentLevel('[',false,']',false,imageList[i]->toString(),"0");
-            if(s.compare(sr) == 0)
-                return imageList[i];
-        }
-        imageList.add(new POGEL::IMAGE(s.c_str()));
-        return imageList.last();
-    }
-    if(POGEL::getOccurrencesInString(',',s) == 1 || (POGEL::getOccurrencesInString('[',s) == 2 && POGEL::getOccurrencesInString(']',s) == 2)) {
-        std::string imgname = POGEL::getStringComponentLevel('[',false,']',false,s,"0");
-        std::string filter  = POGEL::getStringComponentLevel('[',false,']',false,s,"1");
-        if(imgname[imgname.length()-1] == ']') imgname = imgname.substr(0,imgname.length()-1);
-        if(filter[filter.length()-1] == ']') filter = filter.substr(0,filter.length()-1);
-        int filtertype = 0; sscanf(filter.c_str(),"%d",&filtertype);
-        for(unsigned int i = 0; i < imageList.length(); i++) {
-            std::string cimg = imageList[i]->toString();
-            std::string in = POGEL::getStringComponentLevel('[',false,']',false,cimg,"0");
-            std::string fl = POGEL::getStringComponentLevel('[',false,']',false,cimg,"3");
-            if(in[in.length()-1] == ']') in = in.substr(0,in.length()-1);
-            if(fl[fl.length()-1] == ']') fl = fl.substr(0,fl.length()-1);
-            //cout << "{[" << in << "],[" << fl << "]}" << endl << "{[" << imgname << "],[" << filter << "]}" << endl;
-            if(imgname.compare(in) == 0 && filter.compare(fl) == 0)
-                return imageList[i];
-        }
-        imageList.add(new POGEL::IMAGE(std::string("{["+imgname+"],[0],[0],["+filter+"]}")));
-        return imageList.last();
-    }
 	for(unsigned int i = 0; i < imageList.length(); i++)
-		if(s.compare(imageList[i]->toString()) == 0)
+	{
+	    POGEL::IMAGE* tmp = new POGEL::IMAGE(s,false);
+	    //if(imageList[i]->getFileID().compare("") == 0) {imageList-=i--;continue;}
+	    //cout << imageList[i]->toString() << "\t:::\t" << s;
+	    if(tmp->compare(imageList[i]))
+	    {
+            delete tmp;
+            //cout << "*****" << endl;
 			return imageList[i];
-	imageList.add(new POGEL::IMAGE(s));
+	    }
+	    //cout << endl;
+	    delete tmp;
+	}
+	cout << "new Image: " << s << endl;
+	imageList.add(new POGEL::IMAGE(s,true));
 	return imageList.last();
 };
 
 POGEL::IMAGE::IMAGE() {
 	data=(char*)NULL;
 	base=(unsigned int)NULL;
-	fileid = "";
+	tstr = fileid = "";
 	sizeX = sizeY = 0;
 	channels = 0;
 	setfilter(IMAGE_LINEAR);
@@ -90,23 +71,62 @@ POGEL::IMAGE::IMAGE(const char *filename, int filter) {
 	loadandbuild(filename);
 };
 
+void get_things(std::string s, std::string *name, unsigned int *x, unsigned int *y, int* filter)
+{
+    if(POGEL::getOccurrencesInString(',',s) == 0)
+    {
+        if(POGEL::getOccurrencesInString('[',s) == 1 && POGEL::getOccurrencesInString(']',s) == 1)
+            *name = POGEL::getStringSection('[',1,false,']',1,false, s);
+        else if(POGEL::getOccurrencesInString('{',s) == 1 && POGEL::getOccurrencesInString('}',s) == 1)
+            *name = POGEL::getStringSection('{',1,false,'}',1,false, s);
+        else
+            *name = s;
+    }
+    else if(POGEL::getOccurrencesInString(',',s) == 1)
+    {
+        std::string filename = POGEL::getStringSection('[',1,false,']',1,false, s);
+        sscanf(s.c_str(),std::string("{["+filename+"],[%d]}").c_str(), filter);
+        *name = filename;
+    }
+    else
+    {
+        std::string filename = POGEL::getStringSection('[',1,false,']',1,false, s);
+        sscanf(s.c_str(),std::string("{["+filename+"],[%u],[%u],[%d]}").c_str(), x, y, filter);
+        *name = filename;
+    }
+}
+
 POGEL::IMAGE::IMAGE(std::string s) {
-	std::string filename = POGEL::getStringSection('[',1,false,']',1,false, s);
-	unsigned int x, y; int filter;
-	sscanf(s.c_str(), std::string("{["+filename+"],[%u],[%u],[%d]}").c_str(), &x, &y, &filter);
-	setfilter(filter); //loadandbuild(filename.c_str());
-	load(filename.c_str());
+    tstr = s;
+	fileid = POGEL::getStringSection('[',1,false,']',1,false, s);
+	unsigned int x, y; int filter=0;
+	std::string fileid="";
+    get_things(s,&fileid,&x,&y,&filter);
+	setfilter(filter);
+	std::ifstream ifs ( fileid.c_str(), std::ifstream::in ); bool ret = ifs.good(); ifs.close();
+    if(ret) load(fileid.c_str());
 	base = (unsigned int) NULL;
-	/*bool inlist = false;
-	for(unsigned int i = 0; i < imageList.length(); i++)
-		if(imageList[i] == this) { inlist = true; break; }
-	if(!inlist)
-		imageList.add(this);*/
+};
+
+POGEL::IMAGE::IMAGE(std::string s,bool bob) {
+    tstr = s;
+	fileid = POGEL::getStringSection('[',1,false,']',1,false, s);
+	unsigned int x, y; int filter=0;
+	std::string fileid="";
+    get_things(s,&fileid,&x,&y,&filter);
+	setfilter(filter);
+	std::ifstream ifs ( fileid.c_str(), std::ifstream::in ); bool ret = ifs.good(); ifs.close();
+    if(ret && bob) load(fileid.c_str());
+    else data = NULL;
+	base = (unsigned int) NULL;
 };
 
 POGEL::IMAGE::~IMAGE() {
     if(data != NULL)
-        delete[] data;
+    {
+        free(data);
+        data = NULL;
+    }
 	base=(unsigned int)NULL;
 };
 
@@ -115,7 +135,7 @@ int POGEL::IMAGE::load(const char *filename) {
     int sizex, sizey, ch;
     data = (char*)SOIL_load_image(filename, &sizex, &sizey, &ch, SOIL_LOAD_AUTO);
     sizeX = sizex; sizeY = sizey; channels = ch;
-    fileid = filename;
+    fileid = std::string(filename);
     if(data)
         return true;
     else
@@ -145,13 +165,39 @@ bool POGEL::IMAGE::isbuilt() {
 };
 
 unsigned int POGEL::IMAGE::loadandbuild(const char *filename) {
-	load(filename); return build();
+    load(filename); return build();
+};
+
+unsigned int POGEL::IMAGE::loadandbuild() {
+    if(data==NULL)
+        load(getFileID().c_str());
+    return build();
 };
 
 std::string POGEL::IMAGE::toString() {
+    if(tstr.length())
+        return tstr;
 	char *szx = POGEL::string("%u",sizeX), *szy = POGEL::string("%u",sizeY), *sft = POGEL::string("%d",filtertype);
 	std::string s =  "{[" + fileid + "],[" + std::string(szx) + "],[" + std::string(szy) + "],[" + std::string(sft) + "]}";
 	free(szx); free(szy); free(sft);
 	return s;
 };
+
+bool POGEL::IMAGE::operator == (POGEL::IMAGE other)
+{
+    unsigned int x1=0, y1=0; int filter1 = 0; std::string name1="";
+    unsigned int x2=0, y2=0; int filter2 = 0; std::string name2="";
+    get_things(this->toString(),&name1,&x1,&y1,&filter1);
+    get_things(other.toString(),&name2,&x2,&y2,&filter2);
+    return x1==x2 && y1==y2 && filter1==filter2 && name1.compare(name2)==0;
+}
+
+bool POGEL::IMAGE::compare(POGEL::IMAGE *other)
+{
+    unsigned int x1=0, y1=0; int filter1 = 0; std::string name1="";
+    unsigned int x2=0, y2=0; int filter2 = 0; std::string name2="";
+    get_things(this->toString(),&name1,&x1,&y1,&filter1);
+    get_things(other->toString(),&name2,&x2,&y2,&filter2);
+    return x1==x2 && y1==y2 && filter1==filter2 && name1.compare(name2)==0;
+}
 

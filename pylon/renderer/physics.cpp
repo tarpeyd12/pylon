@@ -6,6 +6,24 @@ namespace Renderer
     {
         CLASSLIST<Simulation*> simulations;
 
+        Simulation::Simulation(std::string n)
+        {
+            name = n;
+            sim = NULL;
+            dyn = NULL;
+            incrementable = false;
+            drawable = false;
+            bool in = false;
+            for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
+                if(Renderer::Physics::simulations[i] == this)
+                {
+                    in = true;
+                    break;
+                }
+            if(!in)
+                simulations.add(this);
+        }
+
         Simulation::Simulation(std::string n, POGEL::PHYSICS::SIMULATION* s)
         {
             sim = s;
@@ -13,6 +31,7 @@ namespace Renderer
             dyn = NULL;
             name = n;
             incrementable = true;
+            drawable = true;
             bool in = false;
             for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
                 if(Renderer::Physics::simulations[i] == this)
@@ -31,6 +50,7 @@ namespace Renderer
             dyn->FORCEfastAccessList();
             name = n;
             incrementable = true;
+            drawable = true;
             bool in = false;
             for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
                 if(Renderer::Physics::simulations[i] == this)
@@ -44,6 +64,8 @@ namespace Renderer
 
         Simulation::~Simulation()
         {
+            incrementable = false;
+            drawable = false;
             if(sim)
                 delete sim;
             if(dyn)
@@ -61,9 +83,19 @@ namespace Renderer
             incrementable = i;
         }
 
+        bool Simulation::canDraw()
+        {
+            return drawable;
+        }
+
         bool Simulation::isdyn()
         {
-            return dyn != NULL && sim == NULL;
+            if(dyn != NULL && sim == NULL)
+                return true;
+            if(dyn == NULL && sim != NULL)
+                return false;
+            cout << "Simulation Type Handleing ERROR!" << endl;
+            return false;
         }
 
         bool Simulation::inc()
@@ -100,5 +132,6 @@ namespace Renderer
             else
                 new Renderer::Physics::Simulation(name,new POGEL::PHYSICS::DYNAMICS());
         }
+
     }
 }

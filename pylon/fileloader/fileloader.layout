@@ -31,11 +31,14 @@
 	<File name="minizip/iowin32.h" open="0" top="0" tabpos="0">
 		<Cursor position="465" topLine="0" />
 	</File>
-	<File name="minizip/unzip.c" open="0" top="0" tabpos="0">
-		<Cursor position="26234" topLine="812" />
+	<File name="minizip/unzip.c" open="0" top="0" tabpos="17">
+		<Cursor position="4322" topLine="0" />
 	</File>
 	<File name="minizip/unzip.h" open="0" top="0" tabpos="0">
 		<Cursor position="1764" topLine="48" />
+	</File>
+	<File name="minizip/zip.c" open="0" top="0" tabpos="16">
+		<Cursor position="426" topLine="0" />
 	</File>
 	<File name="minizip/zlib/compress.c" open="0" top="0" tabpos="0">
 		<Cursor position="183" topLine="60" />
@@ -70,8 +73,8 @@
 	<File name="simpleini/SimpleIni.h" open="0" top="0" tabpos="1">
 		<Cursor position="52541" topLine="1266" />
 	</File>
-	<File name="system.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="533" topLine="0" />
+	<File name="system.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="533" topLine="33" />
 	</File>
 	<File name="system.h" open="0" top="0" tabpos="3">
 		<Cursor position="521" topLine="3" />

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Development" />
-	<File name="calcthread.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="322" topLine="0" />
+	<File name="calcthread.cpp" open="0" top="0" tabpos="19">
+		<Cursor position="240" topLine="0" />
 	</File>
 	<File name="calcthread.h" open="0" top="0" tabpos="4">
 		<Cursor position="133" topLine="0" />
 	</File>
-	<File name="cmd.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="2406" topLine="57" />
+	<File name="cmd.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="1203" topLine="20" />
 	</File>
 	<File name="globals.cpp" open="0" top="0" tabpos="11">
 		<Cursor position="225" topLine="0" />
@@ -16,28 +16,28 @@
 	<File name="globals.h" open="0" top="0" tabpos="10">
 		<Cursor position="74" topLine="0" />
 	</File>
-	<File name="info.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="1367" topLine="8" />
+	<File name="info.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="2635" topLine="26" />
 	</File>
-	<File name="init.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1512" topLine="45" />
+	<File name="init.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="1512" topLine="9" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="276" topLine="4" />
+	<File name="main.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="161" topLine="0" />
 	</File>
 	<File name="main.h" open="0" top="0" tabpos="1">
 		<Cursor position="299" topLine="3" />
 	</File>
-	<File name="mainscriptdefs.cpp" open="1" top="0" tabpos="5">
+	<File name="mainscriptdefs.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="422" topLine="3" />
 	</File>
 	<File name="mainscriptdefs.h" open="0" top="0" tabpos="12">
 		<Cursor position="301" topLine="0" />
 	</File>
-	<File name="scriptthread.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="1603" topLine="65" />
+	<File name="scriptthread.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="1460" topLine="64" />
 	</File>
-	<File name="scriptthread.h" open="1" top="0" tabpos="3">
+	<File name="scriptthread.h" open="0" top="0" tabpos="3">
 		<Cursor position="391" topLine="0" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="4">

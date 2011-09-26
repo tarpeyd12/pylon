@@ -177,8 +177,10 @@ void POGEL::TRIANGLE::draw() {
 	#ifdef OPENGL
 	//if(POGEL::hasproperty(POGEL_BOUNDING))
 		//bounding.draw(POGEL::POINT());
-	if(texture!=NULL)
+	if(texture!=NULL && texture->getbase()!=NULL)
 		texture->set();
+    else if(POGEL::getNullImage()!=NULL)
+        POGEL::getNullImage()->set();
 	if(((hasproperty(TRIANGLE_LIT)) || (hasproperty(TRIANGLE_VERTEX_NORMALS))) /*&& !POGEL::hasproperty(POGEL_WIREFRAME)*/)
 		glEnable(GL_LIGHTING);
 	else

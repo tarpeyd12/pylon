@@ -23,7 +23,7 @@ namespace Renderer
     extern POGEL::POINT campos;
     extern POGEL::POINT ppos;
 
-    extern Timer *timer30;
+    extern Timing::Timer *timer30;
 
     extern bool HaltPhysics;
 

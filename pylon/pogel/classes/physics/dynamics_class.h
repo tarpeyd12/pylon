@@ -111,6 +111,7 @@ class POGEL::PHYSICS::DYNAMICS {
 		void clearAllSolids() {
             numobjects = 0;
             objects.clear();
+            objectmasses.clearAll();
 		}
 
 		virtual POGEL::VECTOR getpull(POGEL::PHYSICS::SOLID*);

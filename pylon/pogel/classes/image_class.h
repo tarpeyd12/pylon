@@ -26,6 +26,7 @@ class IMAGE {
 	protected:
 		/* properties */
 		std::string fileid;
+		std::string tstr;
 		int filtertype;
 		char *data; // the bytes of data in the pixels
 		unsigned short int channels; // the number of bytes per pixel
@@ -39,6 +40,7 @@ class IMAGE {
 		IMAGE(const char*);
 		IMAGE(const char*,int);
 		IMAGE(std::string);
+		IMAGE(std::string,bool);
 
 		/* deconstructor */
 		~IMAGE();
@@ -47,6 +49,7 @@ class IMAGE {
 		int load(const char*);
 		unsigned int build();
 		unsigned int loadandbuild(const char*);
+		unsigned int loadandbuild();
 		unsigned int getbase() {return base;}
 		void set() {
 			#ifdef OPENGL
@@ -62,7 +65,12 @@ class IMAGE {
 
 		int numchannels() { return int(channels); }
 
+        std::string getFileID() { return fileid; }
+
 		std::string toString();
+
+		bool operator == (POGEL::IMAGE);
+		bool compare(POGEL::IMAGE*);
 };
 }
 

@@ -14,7 +14,7 @@ namespace pogelInterface
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim != NULL)
             return Py_BuildValue("s", "Simulation already exists.");
-        Renderer::Physics::addSimulation(simname, (bool)col);
+        Renderer::Physics::addSimulation(std::string(simname), (bool)col);
         return Py_BuildValue("s", "Added simulation.");
     }
 
@@ -43,20 +43,20 @@ namespace pogelInterface
         if(sim->isdyn())
         {
             POGEL::PHYSICS::DYNAMICS* dyn = static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim());
-            if(bool(col))
+            if(!bool(col) && !dyn->hasproperty(DYNAMICS_LIGHTWEIGHT_ONLY))
                 dyn->addproperty(DYNAMICS_LIGHTWEIGHT_ONLY);
-            else
+            else if(dyn->hasproperty(DYNAMICS_LIGHTWEIGHT_ONLY))
                 dyn->removeproperty(DYNAMICS_LIGHTWEIGHT_ONLY);
         }
         else
         {
             POGEL::PHYSICS::SIMULATION* dyn = static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim());
-            if(bool(col))
+            if(!bool(col) && !dyn->hasproperty(DYNAMICS_LIGHTWEIGHT_ONLY))
                 dyn->addproperty(SIMULATION_LIGHTWEIGHT_ONLY);
-            else
+            else if(dyn->hasproperty(DYNAMICS_LIGHTWEIGHT_ONLY))
                 dyn->removeproperty(SIMULATION_LIGHTWEIGHT_ONLY);
         }
-        return Py_BuildValue("s", "Toggled simulation weight.");
+        return Py_BuildValue("s", (std::string("Toggled simulation weight: ")+std::string(!bool(col)?"Off ":"On ")+std::string(simname)).c_str() );
     }
 
     Object* clearsimulation(Object* self, Object* args)

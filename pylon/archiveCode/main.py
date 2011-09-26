@@ -1,7 +1,6 @@
 if counter == 0.0:
 	print ''
 	print 'Pylon Engine started:',ctime(time())
-#	calc.lock()
 
 count = counter
 count = count % 20
@@ -52,40 +51,36 @@ if pylon.key_ispressed('p') or pylon.key_ispressed('P'):
 if pylon.key_ispressed('q') or pylon.key_ispressed('Q'):
 	quit()
 
-if pylon.key_ispressed('\r'):
+if pylon.key_ispressed('\r') or pylon.key_ispressed('\n'):
 	if going:
 		print "Stopping Physics Calculation Thread"
 		going = False
 		calc.lock()
 		# gives time to the calculation thread to catch up
-		waitcalc(10000000)
+		waitcalc(100000)
 	else:
 		print "Starting Physics Calculation Thread"
 		going = True
 		# gives time to the calculation thread to catch up
-		waitcalc(10000000)
+		waitcalc(100000)
 		calc.unlock()
 
 counter = counter + 0.1
 
 #st = getstrthing(st)
-
 #print st
 
 if pylon.key_ispressed(';'):
 	sphere8.move(rnd()*3,rnd()*3,rnd()*3)
 	sphere0.move(rnd()*3,rnd()*3,rnd()*3)
 
-#if pylon.key_ispressed('q') or pylon.key_ispressed('Q'):
-#	quit()
-
 if pylon.key_ispressed('g'):
 	sim2.stop()
-	waitcalc(1000000)
+	waitcalc(100000)
 
 if pylon.key_ispressed('G'):
 	sim2.restart()
-	waitcalc(1000000)
+	waitcalc(100000)
 
 if ( pylon.mouse_ispressed() and pylon.mouse_getbutton() == 1 ) or ( pylon.key_ispressed('z') or pylon.key_ispressed('Z') ):
 	x = pylon.mouse_pos_x()/640.0
@@ -108,7 +103,7 @@ else:
 		ClickLine.makeInvisable()
 
 cam.mouserot()
-cam.turnby(0,.1,0)
+#cam.turnby(0,.1,0)
 cam.mousepos()
 
 mouseScale = 1
@@ -126,29 +121,36 @@ if(pylon.key_ispressed('/') or int(counter*10) % 100 == 0):
 	pylon.clearquads()
 
 if pylon.key_ispressed(' ') or pylon.key_ispressed('j'):
+#	print pylon.requestfile('Data/images/particle.bmp')
 	bob = 0
 	while bob < 1:
-		sc1 = 1.0
-		sc2 = 1.0
-		sc3 = 1.0
-		sc4 = 1.0
+		sc1 = 0.1
+		sc2 = 0.0
+		sc3 = 0.0
+		sc4 = 0.0
 		vect1 = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1)
 		vect2 = makepos(rnd_n1p1()*sc2, rnd_n1p1()*sc2, rnd_n1p1()*sc2)
 		vect3 = makepos(rnd_n1p1()*sc3, rnd_n1p1()*sc3, rnd_n1p1()*sc3)
 		vect4 = makepos(rnd_n1p1()*sc4, rnd_n1p1()*sc4, rnd_n1p1()*sc4)
-		newobjdat = '{[obj'+str(int(counter*10))+'.'+str(bob)+'],[22],[136],[0],[0],'+vect1+','+vect2+','+vect3+','+vect4+',{[1.000000],[0.750000],[0.000000],[1.000000],[1.000000],[1.000000],[0],[-1.000000]},<'+objtridat+'>}'
+		newobjdat = '{[obj'+str(int(counter*10))+'.'+str(bob)+'],[22],[136],[0],[0],'+vect1+','+vect2+','+vect3+','+vect4+',{[1.000000],[0.000000],[50000.000000],[1.000000],[1.000000],[1.000000],[0],[-1.000000]},<'+objtridat+'>}'
 		print sim2.addobject(newobjdat)
 		bob = bob + 1
 
 if pylon.key_ispressed('m'):
-	try:
-		sim.addfile('Data/objectdata/log125_tga.txt')
-	except IOError as steve:
-		print type(steve)
-		print pylon.requestfile('Data/objectdata/log125_tga.txt')
-		sim.addfile('Data/objectdata/log125_tga.txt')
+#	print pylon.requestfile('Data/images/particle.tga')
+	sim.addfilehere('Data/objectdata/log125_tga.txt')
+
+if pylon.key_ispressed('4'):
+	if pylon.hasproperty(16):
+		pylon.removeproperty(16)
+	else:
+		pylon.addproperty(16)
 
 if pylon.key_ispressed(','):
 	sim2.stop()
+	waitcalc(1000000)
 	pylon.clearsimulation(sim2.name)
-
+	waitcalc(1000000)
+	sim2.restart()
+	waitcalc(100000)
+#sim.restart()

@@ -37,6 +37,14 @@ int main(int argc, char *argv[])
     // and start the renderer on this thread
     glutMainLoop();
 
+    // cleanup
+    delete Main::scriptThread;
+
+    if(!Main::SingleThreaded)
+    {
+        delete Main::calcThread;
+    }
+
     // goodby and good riddance
     return EXIT_SUCCESS;
 }

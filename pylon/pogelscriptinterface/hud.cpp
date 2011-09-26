@@ -12,7 +12,6 @@ namespace pogelInterface
         if(!PyArg_ParseTuple(args, "iiiis:addquad", &corners[0], &corners[1], &corners[2], &corners[3], &c_image))
             return NULL;
         POGEL::IMAGE* image = POGEL::requestImage(std::string(c_image));
-        //delete c_image;
         Renderer::Quad* quad = new Renderer::Quad(corners[0], corners[1], corners[2], corners[3], image);
         int ret = Renderer::HUD::addQuad(quad);
         if(ret < 0)

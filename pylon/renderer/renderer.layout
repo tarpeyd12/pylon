@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
-	<File name="cmd.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="220" topLine="0" />
+	<ActiveTarget name="Unitary Release" />
+	<File name="camera.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="409" topLine="0" />
+	</File>
+	<File name="cmd.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="287" topLine="0" />
 	</File>
 	<File name="cmd.h" open="0" top="0" tabpos="13">
 		<Cursor position="296" topLine="0" />
 	</File>
-	<File name="display.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="2445" topLine="78" />
+	<File name="display.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="1392" topLine="34" />
 	</File>
-	<File name="hud.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="2665" topLine="66" />
+	<File name="hud.cpp" open="1" top="0" tabpos="11">
+		<Cursor position="112" topLine="0" />
 	</File>
-	<File name="hud.h" open="0" top="0" tabpos="3">
-		<Cursor position="652" topLine="16" />
+	<File name="hud.h" open="0" top="0" tabpos="5">
+		<Cursor position="873" topLine="7" />
 	</File>
-	<File name="init.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1925" topLine="40" />
+	<File name="init.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="1580" topLine="17" />
 	</File>
-	<File name="key.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="62" topLine="0" />
+	<File name="key.cpp" open="1" top="0" tabpos="12">
+		<Cursor position="385" topLine="0" />
 	</File>
 	<File name="key.h" open="0" top="0" tabpos="0">
 		<Cursor position="218" topLine="0" />
@@ -34,29 +37,29 @@
 	<File name="mouse.h" open="0" top="0" tabpos="2">
 		<Cursor position="53" topLine="0" />
 	</File>
-	<File name="physics.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="3846" topLine="111" />
+	<File name="physics.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="7029" topLine="184" />
 	</File>
-	<File name="physics.h" open="0" top="0" tabpos="1">
-		<Cursor position="1041" topLine="12" />
+	<File name="physics.h" open="0" top="0" tabpos="3">
+		<Cursor position="901" topLine="4" />
 	</File>
-	<File name="quad.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="1350" topLine="31" />
+	<File name="quad.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="1430" topLine="0" />
 	</File>
 	<File name="quad.h" open="0" top="0" tabpos="8">
 		<Cursor position="279" topLine="0" />
 	</File>
-	<File name="renderer.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="431" topLine="13" />
+	<File name="renderer.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="1516" topLine="44" />
 	</File>
-	<File name="renderer.h" open="0" top="0" tabpos="6">
-		<Cursor position="460" topLine="12" />
+	<File name="renderer.h" open="1" top="0" tabpos="6">
+		<Cursor position="182" topLine="3" />
 	</File>
-	<File name="timer.cpp" open="0" top="0" tabpos="11">
-		<Cursor position="538" topLine="17" />
+	<File name="timer.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="1223" topLine="25" />
 	</File>
-	<File name="timer.h" open="0" top="0" tabpos="12">
-		<Cursor position="274" topLine="3" />
+	<File name="timer.h" open="1" top="0" tabpos="9">
+		<Cursor position="614" topLine="0" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="0">
 		<Cursor position="728" topLine="0" />

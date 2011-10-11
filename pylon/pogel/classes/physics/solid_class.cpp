@@ -354,29 +354,29 @@ void POGEL::PHYSICS::SOLID::draw() {
 				glLineStipple(2, 0x1111);
 			#endif /* SOLID_DISPLAY_STIPPLED_NEGATIVE_ROTATION_TRAIL */
 		#endif /* SOLID_DISPLAY_ROTATION_TRAIL */
-
-		for(unsigned int i = 0 ; i < trailsize-1 && i < stepstaken /*&& i < 64*/; i++) {
+        unsigned trailSkip = PHYSICS_SOLID_TRAILSKIP;
+		for(unsigned int i = 0 ; i < trailsize-1 && i < stepstaken && i < 64; i+=trailSkip) {
 			float color = 1.0f;
 			#ifdef SOLID_DISPLAY_TRAIL_FADING
 				//if(trailsize - 1 < 64)
 				if(trailsize - 1 < stepstaken)
 					color = ((float)(( trailsize-1 )-i)/(float)( trailsize-1 ));
-				else
-					color = ((float)(( stepstaken-1 )-i)/(float)( stepstaken-1 ));
 				//else
-					//color = ((float)(( 64 )-i)/(float)( 64 ));
+					//color = ((float)(( stepstaken-1 )-i)/(float)( stepstaken-1 ));
+				else
+					color = ((float)(( 64 )-i)/(float)( 64 ));
 			#endif /* SOLID_DISPLAY_TRAIL_FADING */
 
 			//if((stepstaken-i)%16==0) trail[i].draw(3, POGEL::COLOR(1,1,0,color));
 
-			if(trail[i].distance(trail[i+1]) > 1) continue;
+			//if(trail[i].distance(trail[i+trailSkip]) > 1) continue;
 
-			POGEL::LINE(trail[i], trail[i+1], 1, POGEL::COLOR(1,1,0,color)).draw(); // draw the position trail
+			POGEL::LINE(trail[i], trail[i+trailSkip], 1, POGEL::COLOR(1,1,0,color)).draw(); // draw the position trail
 
 			#ifdef SOLID_DISPLAY_ROTATION_TRAIL // draw the rotation trail
 			if(!hasproperty(OBJECT_ROTATE_TOCAMERA)) {
 				mat[0] = mat[1];
-				mat[1] = POGEL::MATRIX(rots[i+1], MATRIX_CONSTRUCT_ROTATION);
+				mat[1] = POGEL::MATRIX(rots[i+trailSkip], MATRIX_CONSTRUCT_ROTATION);
 				POGEL::POINT x[3], y[3], z[3];
 				x[0] = y[0] = z[0] = POGEL::POINT();
 
@@ -450,7 +450,8 @@ void POGEL::PHYSICS::SOLID::closest(POGEL::POINT point, POGEL::POINT* objpt, POG
 	origdist = point_triangle_distance(point, mat.transformTriangle(gettriangle(0)), NULL);
 
 	point_triangle_distance(point, mat.transformTriangle(gettriangle(0)), objpt);
-	*tri = mat.transformTriangle(gettriangle(0));
+	if(tri != NULL)
+        *tri = mat.transformTriangle(gettriangle(0));
 
 	float dist = origdist;
 	for(unsigned long a = 0; a < getnumfaces(); a++) {
@@ -460,8 +461,10 @@ void POGEL::PHYSICS::SOLID::closest(POGEL::POINT point, POGEL::POINT* objpt, POG
 		float d = point_triangle_distance(point, tritmp, &p);
 		if(d < dist) {
 			dist = d;
-			*objpt = p;
-			*tri = tritmp;
+			if(objpt != NULL)
+                *objpt = p;
+            if(tri != NULL)
+                *tri = tritmp;
 		}
 	}
 	//POGEL::LINE(*objpt, point, POGEL::COLOR(1,0,0,0.5)).draw();

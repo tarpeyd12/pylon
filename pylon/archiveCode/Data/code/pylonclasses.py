@@ -4,6 +4,7 @@ try:
 	import pylon
 	import shlex
 	import thread
+	import math
 	from threading import *
 	"""import pygame
 	from pygame import Rect
@@ -41,6 +42,11 @@ def getposcoord(pos,cord):
 def makepos(x,y,z):
 	return '{['+str(x)+'],['+str(y)+'],['+str(z)+']}'
 
+def rtd(r):
+	return float(r/math.pi)*float(180.0)
+def dtr(d):
+	return float(d/180.0)*float(math.pi)
+
 class Camera:
 	def __init__(self,ax,ay,az,bx,by,bz):
 		self.posstr = pylon.camera_set_pos_3f( ax, ay, az )
@@ -54,32 +60,73 @@ class Camera:
 		self.prevx = 0.0
 		self.prevy = 0.0
 		self.prevz = 0.0
-
+		
+		self.anglex = 0.0
+		self.angley = 0.0
+		self.panglex = 0.0
+		self.pangley = 0.0
+		self.radus = 1.0
+		self.pradus = 0.0
+	
+	def mradus(self,amt):
+		self.radus = self.radus + amt
+	
+	def setforcenter(self,x,y,z,r,ax,ay):
+		self.posx = x+float( (self.radus+r) * math.sin(dtr(ax)) * math.sin(dtr(ay)) )
+		self.posz = z+float( (self.radus+r) * math.sin(dtr(ax)) * math.cos(dtr(ay)) )
+		self.posy = y+float( (self.radus+r) * math.cos(dtr(ax)) )
+		self.rotx = ax-90
+		self.roty = 180-ay
+		self.rotz = 0.0
+	
+	def centerset(self):
+		self.setforcenter(0,0,0,self.radus,self.anglex-90+180,360-(self.angley+180))
+	
 	def getcamstrs(self):
 		self.posstr = pylon.camera_set_pos_3f( self.posx, self.posy, self.posz )
 		self.rotstr = pylon.camera_set_rot_3f( self.rotx, self.roty, self.rotz )
-		
+	
 	def mouserot(self):
 		if pylon.mouse_ispressed():
 			if pylon.mouse_getbutton() == 0:
 				difx = ( pylon.mouse_pos_sx() - pylon.mouse_pos_x() ) * -1
 				dify = ( pylon.mouse_pos_sy() - pylon.mouse_pos_y() ) * -1
-				self.rotx = ( ( float(dify) / float(pylon.window_height()) ) * 180.0 ) + self.prevx
-				self.roty = ( ( float(difx) / float(pylon.window_width())  ) * 360.0 ) + self.prevy
+				self.anglex = ( ( float(dify) / float(pylon.window_height()) ) * 180.0 ) + self.panglex
+				self.angley = ( ( float(difx) / float(pylon.window_width())  ) * 360.0 ) + self.pangley
+				self.setforcenter(0,0,0,self.radus,self.anglex-90+180,360-(self.angley+180))
 		else:
-			self.prevx = self.rotx
-			self.prevy = self.roty
+			self.panglex = self.anglex
+			self.pangley = self.angley
 		self.getcamstrs()
 		return self.rotstr
+		#if pylon.mouse_ispressed():
+		#	if pylon.mouse_getbutton() == 0:
+		#		difx = ( pylon.mouse_pos_sx() - pylon.mouse_pos_x() ) * -1
+		#		dify = ( pylon.mouse_pos_sy() - pylon.mouse_pos_y() ) * -1
+		#		self.rotx = ( ( float(dify) / float(pylon.window_height()) ) * 180.0 ) + self.prevx
+		#		self.roty = ( ( float(difx) / float(pylon.window_width())  ) * 360.0 ) + self.prevy
+		#else:
+		#	self.prevx = self.rotx
+		#	self.prevy = self.roty
+		#self.getcamstrs()
+		#return self.rotstr
 		
 	def mousepos(self):
 		if pylon.mouse_ispressed():
 			if pylon.mouse_getbutton() == 2:
-				self.posz = float(pylon.mouse_pos_sy() - pylon.mouse_pos_y()) / float(pylon.window_height()) * 100 + self.prevz
+				self.radus = float(pylon.mouse_pos_sy() - pylon.mouse_pos_y()) / float(pylon.window_height()) * -100 + self.pradus
+				self.setforcenter(0,0,0,self.radus,self.anglex-90+180,360-(self.angley+180))
 		else:
-			self.prevz = self.posz
+			self.pradus = self.radus
 		self.getcamstrs()
 		return self.posstr
+		#if pylon.mouse_ispressed():
+		#	if pylon.mouse_getbutton() == 2:
+		#		self.posz = float(pylon.mouse_pos_sy() - pylon.mouse_pos_y()) / float(pylon.window_height()) * 100 + self.prevz
+		#else:
+		#	self.prevz = self.posz
+		#self.getcamstrs()
+		#return self.posstr
 	
 	def moveto(self,x,y,z):
 		self.posx = x

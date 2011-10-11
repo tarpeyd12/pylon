@@ -19,12 +19,14 @@ namespace Renderer
         class Timer
         {
             private:
+                std::string timerName;
                 float lastDuration;
                 float curentDuration;
                 unsigned int FPS;
             public:
                 Timer();
                 Timer(unsigned int fps);
+                Timer(unsigned int fps, std::string name);
                 ~Timer();
 
                 void sleep();

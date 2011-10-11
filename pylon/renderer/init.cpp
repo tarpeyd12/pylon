@@ -18,6 +18,7 @@ namespace Renderer
         using namespace Renderer;
 
         glClearColor(.5,.5,.5,.5);
+        //glClearColor(0,0,0,0);
         //glEnable(GL_CULL_FACE);
         //glCullFace(GL_BACK);
 
@@ -30,9 +31,9 @@ namespace Renderer
         glEnable(GL_TEXTURE_2D);
         glEnable(GL_LIGHTING);
 
-        glBlendFunc(GL_SRC_ALPHA,GL_ONE);
-        glEnable(GL_BLEND);
-        glDisable(GL_DEPTH_TEST);
+        //glBlendFunc(GL_SRC_ALPHA,GL_ONE);
+        //glEnable(GL_BLEND);
+        //glDisable(GL_DEPTH_TEST);
 
         // TODO: make flexable/dynamic lighting in scripting/modeling
         const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
@@ -61,6 +62,6 @@ namespace Renderer
 
         POGEL::InitFps();
 
-        Renderer::timer30 = new Timing::Timer(30); // 30 fps
+        Renderer::timer30 = new Timing::Timer(25,"Renderer"); // 30 fps
     }
 }

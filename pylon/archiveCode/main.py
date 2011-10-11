@@ -57,12 +57,12 @@ if pylon.key_ispressed('\r') or pylon.key_ispressed('\n'):
 		going = False
 		calc.lock()
 		# gives time to the calculation thread to catch up
-		waitcalc(100000)
+		waitcalc(1000000)
 	else:
 		print "Starting Physics Calculation Thread"
 		going = True
 		# gives time to the calculation thread to catch up
-		waitcalc(100000)
+		waitcalc(1000000)
 		calc.unlock()
 
 counter = counter + 0.1
@@ -102,10 +102,6 @@ else:
 	if ClickLine.visable:
 		ClickLine.makeInvisable()
 
-cam.mouserot()
-#cam.turnby(0,.1,0)
-cam.mousepos()
-
 mouseScale = 1
 if pylon.mouse_ispressed():
 	mouseScale = 1.5
@@ -132,7 +128,7 @@ if pylon.key_ispressed(' ') or pylon.key_ispressed('j'):
 		vect2 = makepos(rnd_n1p1()*sc2, rnd_n1p1()*sc2, rnd_n1p1()*sc2)
 		vect3 = makepos(rnd_n1p1()*sc3, rnd_n1p1()*sc3, rnd_n1p1()*sc3)
 		vect4 = makepos(rnd_n1p1()*sc4, rnd_n1p1()*sc4, rnd_n1p1()*sc4)
-		newobjdat = '{[obj'+str(int(counter*10))+'.'+str(bob)+'],[22],[136],[0],[0],'+vect1+','+vect2+','+vect3+','+vect4+',{[1.000000],[0.000000],[50000.000000],[1.000000],[1.000000],[1.000000],[0],[-1.000000]},<'+objtridat+'>}'
+		newobjdat = '{[obj'+str(int(counter*10))+'.'+str(bob)+'],[22],[136],[0],[0],'+vect1+','+vect2+','+vect3+','+vect4+',{[1.000000],[0.000000],[1000.000000],[1.000000],[1.000000],[1.000000],[0],[-1.000000]},<'+objtridat+'>}'
 		print sim2.addobject(newobjdat)
 		bob = bob + 1
 
@@ -154,3 +150,26 @@ if pylon.key_ispressed(','):
 	sim2.restart()
 	waitcalc(100000)
 #sim.restart()
+
+if False:
+	if pylon.key_ispressed('r'):
+		cam.mradus(-0.01)
+	if pylon.key_ispressed('f'):
+		cam.mradus(0.01)
+	if pylon.key_ispressed('a'):
+		cam.angley = cam.angley + 1
+	if pylon.key_ispressed('d'):
+		cam.angley = cam.angley - 1
+	if pylon.key_ispressed('w'):
+		cam.anglex = cam.anglex - 1
+	if pylon.key_ispressed('s'):
+		cam.anglex = cam.anglex + 1
+
+	cam.getcamstrs()
+	print cam.radus
+
+cam.mouserot()
+#cam.angley = cam.angley + .1
+cam.mousepos()
+cam.centerset()
+cam.getcamstrs()

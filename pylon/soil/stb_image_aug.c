@@ -443,7 +443,7 @@ static void getn(stbi *s, stbi_uc *buffer, int n)
 {
 #ifndef STBI_NO_STDIO
    if (s->img_file) {
-      fread(buffer, 1, n, s->img_file);
+      int ret = fread(buffer, 1, n, s->img_file); ret = 0;
       return;
    }
 #endif

@@ -76,7 +76,7 @@ namespace Main
             return NULL;
         std::string pname(pluginName);
         if(!pname.compare("pogel"))
-            return Py_BuildValue("s", PogelAutoVersion::FULLVERSION_STRING);
+            return Py_BuildValue("s", PogelAutoVersion::_FULLVERSION_STRING);
         else
         if(!pname.compare("fileloader"))
             return Py_BuildValue("s", FileLoaderAutoVersion::FULLVERSION_STRING);

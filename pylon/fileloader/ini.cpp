@@ -25,7 +25,7 @@ namespace FileLoader
         return ini.GetSection(sec.c_str()) != NULL;
     }
 
-    CLASSLIST<std::string> * Ini::keysinsection(std::string sec)
+    ClassList<std::string> * Ini::keysinsection(std::string sec)
     {
         if(!hasSection(sec))
             return NULL;
@@ -33,7 +33,7 @@ namespace FileLoader
         CSimpleIniA::TNamesDepend keys;
         ini.GetAllKeys(sec.c_str(), keys);
 
-        CLASSLIST<std::string> * ret = new CLASSLIST<std::string>();
+        ClassList<std::string> * ret = new ClassList<std::string>();
 
         CSimpleIniA::TNamesDepend::iterator it;
         for ( it = keys.begin(); it != keys.end(); it++ )

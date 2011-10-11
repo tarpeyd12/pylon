@@ -1,41 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="Pylon Engine">
+		<Project filename="threads/threads.cbp" />
+		<Project filename="soil/soil.cbp" />
+		<Project filename="lists/lists.cbp" />
 		<Project filename="pogel/pogel.cbp">
 			<Depends filename="threads/threads.cbp" />
 			<Depends filename="soil/soil.cbp" />
+			<Depends filename="lists/lists.cbp" />
 		</Project>
-		<Project filename="fileloader/fileloader.cbp" />
-		<Project filename="window/window.cbp" active="1">
-			<Depends filename="pogel/pogel.cbp" />
-			<Depends filename="fileloader/fileloader.cbp" />
-			<Depends filename="scriptengine/scriptengine.cbp" />
-			<Depends filename="renderer/renderer.cbp" />
-			<Depends filename="threads/threads.cbp" />
-			<Depends filename="pogelscriptinterface/pogelscriptinterface.cbp" />
-			<Depends filename="objectloader/objectloader.cbp" />
+		<Project filename="fileloader/fileloader.cbp">
+			<Depends filename="lists/lists.cbp" />
 		</Project>
 		<Project filename="scriptengine/scriptengine.cbp">
 			<Depends filename="fileloader/fileloader.cbp" />
 			<Depends filename="threads/threads.cbp" />
 		</Project>
+		<Project filename="objectloader/objectloader.cbp">
+			<Depends filename="lists/lists.cbp" />
+			<Depends filename="pogel/pogel.cbp" />
+			<Depends filename="fileloader/fileloader.cbp" />
+			<Depends filename="scriptengine/scriptengine.cbp" />
+		</Project>
 		<Project filename="renderer/renderer.cbp">
 			<Depends filename="pogel/pogel.cbp" />
 			<Depends filename="objectloader/objectloader.cbp" />
 		</Project>
-		<Project filename="threads/threads.cbp" />
 		<Project filename="pogelscriptinterface/pogelscriptinterface.cbp">
 			<Depends filename="pogel/pogel.cbp" />
 			<Depends filename="fileloader/fileloader.cbp" />
 			<Depends filename="scriptengine/scriptengine.cbp" />
 			<Depends filename="renderer/renderer.cbp" />
 		</Project>
-		<Project filename="objectloader/objectloader.cbp">
+		<Project filename="window/window.cbp" active="1">
+			<Depends filename="threads/threads.cbp" />
+			<Depends filename="soil/soil.cbp" />
+			<Depends filename="lists/lists.cbp" />
 			<Depends filename="pogel/pogel.cbp" />
 			<Depends filename="fileloader/fileloader.cbp" />
 			<Depends filename="scriptengine/scriptengine.cbp" />
+			<Depends filename="objectloader/objectloader.cbp" />
+			<Depends filename="renderer/renderer.cbp" />
+			<Depends filename="pogelscriptinterface/pogelscriptinterface.cbp" />
 		</Project>
-		<Project filename="soil/soil.cbp" />
 		<Project filename="bloop/bloop.cbp">
 			<Depends filename="window/window.cbp" />
 		</Project>

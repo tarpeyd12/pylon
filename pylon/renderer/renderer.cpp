@@ -7,7 +7,9 @@
 #undef _XOPEN_SOURCE
 #endif
 
-#include "../objectloader/objectloader.h"
+//#include "../objectloader/objectloader.h"
+
+//#include "../pogel/pogel.h"
 
 #include "hud.h"
 
@@ -15,14 +17,8 @@ namespace Renderer
 {
     // do not edit
     // *******************************
-    POGEL::POINT camrot;
-    POGEL::POINT prot;
-
-    POGEL::POINT campos;
-    POGEL::POINT ppos;
-
     POGEL::OBJECT* bob;
-    ObjectLoader::Object::_BaseObject* gr;
+    //ObjectLoader::Object::_BaseObject* gr;
 
     Renderer::Timing::Timer* timer30;
 
@@ -58,6 +54,28 @@ namespace Renderer
                     POGEL::PHYSICS::SIMULATION* sim = static_cast<POGEL::PHYSICS::SIMULATION*>(Renderer::Physics::simulations[i]->getSim());
                     if(sim->numobjs())
                         sim->increment();
+                }
+            }
+        }
+    }
+
+    void BuildImages()
+    {
+        if(POGEL::imglstlen() > 0)
+        {
+            unsigned int i = POGEL::frames%POGEL::imglstlen();
+            if(!POGEL::lstimg(i)->isbuilt())
+            {
+                if(!FileLoader::checkfile(POGEL::lstimg(i)->getFileID())) {
+                    if(POGEL::hasproperty(POGEL_DEBUG))
+                        cout << "extracting " << POGEL::lstimg(i)->getFileID() << endl;
+                    FileLoader::ArchiveHandler::extractKnownFile(POGEL::lstimg(i)->getFileID());
+                }
+                if(FileLoader::checkfile(POGEL::lstimg(i)->getFileID()))
+                {
+                    if(POGEL::hasproperty(POGEL_DEBUG))
+                        cout << endl << "building unbuilt image: " << POGEL::lstimg(i)->toString() << endl;
+                    POGEL::lstimg(i)->loadandbuild();
                 }
             }
         }

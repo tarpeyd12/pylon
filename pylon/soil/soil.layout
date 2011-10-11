@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="Unitary Debug" />
 	<File name="SOIL.c" open="0" top="0" tabpos="0">
-		<Cursor position="30354" topLine="1029" />
+		<Cursor position="30354" topLine="21" />
 	</File>
 	<File name="SOIL.h" open="0" top="0" tabpos="0">
-		<Cursor position="14070" topLine="354" />
+		<Cursor position="15518" topLine="412" />
 	</File>
 	<File name="image_helper.c" open="0" top="0" tabpos="0">
 		<Cursor position="0" topLine="397" />
 	</File>
 	<File name="stb_image_aug.c" open="0" top="0" tabpos="0">
-		<Cursor position="46904" topLine="1371" />
+		<Cursor position="13567" topLine="428" />
 	</File>
 </CodeBlocks_layout_file>

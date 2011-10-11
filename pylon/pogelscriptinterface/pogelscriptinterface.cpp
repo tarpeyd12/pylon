@@ -156,8 +156,8 @@ namespace pogelInterface
         char* newpos;
         if(!PyArg_ParseTuple(args, "s:camera_set_pos_s", &newpos))
             return NULL;
-        Renderer::campos = POGEL::POINT(std::string(newpos));
-        return Py_BuildValue("s", Renderer::campos.toString().c_str());
+        Renderer::Camera::campos = POGEL::POINT(std::string(newpos));
+        return Py_BuildValue("s", Renderer::Camera::campos.toString().c_str());
     }
 
     ScriptEngine::MethodInterface::Object*
@@ -168,8 +168,8 @@ namespace pogelInterface
         float x, y, z;
         if(!PyArg_ParseTuple(args, "fff:camera_set_pos_3f", &x, &y, &z))
             return NULL;
-        Renderer::campos = POGEL::POINT(x,y,z);
-        return Py_BuildValue("s", Renderer::campos.toString().c_str());
+        Renderer::Camera::campos = POGEL::POINT(x,y,z);
+        return Py_BuildValue("s", Renderer::Camera::campos.toString().c_str());
     }
 
     ScriptEngine::MethodInterface::Object*
@@ -180,8 +180,8 @@ namespace pogelInterface
         char* newpos;
         if(!PyArg_ParseTuple(args, "s:camera_set_rot_s", &newpos))
             return NULL;
-        Renderer::camrot = POGEL::POINT(std::string(newpos));
-        return Py_BuildValue("s", Renderer::camrot.toString().c_str());
+        Renderer::Camera::camrot = POGEL::POINT(std::string(newpos));
+        return Py_BuildValue("s", Renderer::Camera::camrot.toString().c_str());
     }
 
     ScriptEngine::MethodInterface::Object*
@@ -192,8 +192,8 @@ namespace pogelInterface
         float x, y, z;
         if(!PyArg_ParseTuple(args, "fff:camera_set_rot_3f", &x, &y, &z))
             return NULL;
-        Renderer::camrot = POGEL::POINT(x,y,z);
-        return Py_BuildValue("s", Renderer::camrot.toString().c_str());
+        Renderer::Camera::camrot = POGEL::POINT(x,y,z);
+        return Py_BuildValue("s", Renderer::Camera::camrot.toString().c_str());
     }
 
     ScriptEngine::MethodInterface::Object*

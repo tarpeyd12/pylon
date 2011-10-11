@@ -13,11 +13,9 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug" />
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
-					<Add option="-L../bin/Debug" />
 					<Add option="-DPYLON_DEBUG_VERSION" />
 					<Add directory="../bin/Debug" />
 				</Compiler>
@@ -25,14 +23,14 @@
 					<Add directory="../bin/Debug/Data" />
 				</ResourceCompiler>
 				<Linker>
-					<Add option="-L./bin/Debug" />
-					<Add library="pogel" />
-					<Add library="fileloader" />
 					<Add library="pogelscriptinterface" />
 					<Add library="renderer" />
-					<Add library="scriptengine" />
-					<Add library="threads" />
 					<Add library="objectloader" />
+					<Add library="scriptengine" />
+					<Add library="fileloader" />
+					<Add library="pogel" />
+					<Add library="lists" />
+					<Add library="threads" />
 					<Add directory="../bin/Debug" />
 				</Linker>
 				<ExtraCommands>
@@ -55,14 +53,14 @@
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-s" />
-					<Add option="-L./bin/Release" />
-					<Add library="pogel" />
-					<Add library="fileloader" />
-					<Add library="renderer" />
-					<Add library="threads" />
-					<Add library="scriptengine" />
 					<Add library="pogelscriptinterface" />
+					<Add library="renderer" />
 					<Add library="objectloader" />
+					<Add library="scriptengine" />
+					<Add library="fileloader" />
+					<Add library="pogel" />
+					<Add library="lists" />
+					<Add library="threads" />
 					<Add directory="../bin/Release" />
 				</Linker>
 				<ExtraCommands>
@@ -86,18 +84,111 @@
 				</ResourceCompiler>
 				<Linker>
 					<Add option="-s" />
-					<Add option="-L./bin/Release" />
-					<Add library="pogel" />
-					<Add library="fileloader" />
-					<Add library="renderer" />
-					<Add library="threads" />
-					<Add library="scriptengine" />
 					<Add library="pogelscriptinterface" />
+					<Add library="renderer" />
 					<Add library="objectloader" />
+					<Add library="scriptengine" />
+					<Add library="fileloader" />
+					<Add library="pogel" />
+					<Add library="lists" />
+					<Add library="threads" />
 					<Add directory="../bin/Release" />
 				</Linker>
 				<ExtraCommands>
 					<Add after="$sh ../createReleaseArchive.sh" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="Unitary Debug">
+				<Option output="../bin/UnitaryDebug/pylon" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/UnitaryDebug" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option parameters="-nolimit" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add option="-DPYLON_DEBUG_VERSION" />
+					<Add directory="../bin/UnitaryDebug/" />
+				</Compiler>
+				<Linker>
+					<Add library="pogelscriptinterface" />
+					<Add library="renderer" />
+					<Add library="objectloader" />
+					<Add library="scriptengine" />
+					<Add library="fileloader" />
+					<Add library="pogel" />
+					<Add library="lists" />
+					<Add library="soil" />
+					<Add library="threads" />
+					<Add directory="../bin/UnitaryDebug/" />
+				</Linker>
+				<ExtraCommands>
+					<Add after="$sh ../createUnitaryDebugArchive.sh" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="Unitary Release">
+				<Option output="../bin/UnitaryRelease/pylon" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/UnitaryRelease" />
+				<Option object_output="obj/Release/" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-s -O3 -Os -fexpensive-optimizations -fomit-frame-pointer" />
+					<Add directory="../bin/UnitaryRelease" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../bin/UnitaryRelease/Data" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="pogelscriptinterface" />
+					<Add library="renderer" />
+					<Add library="objectloader" />
+					<Add library="scriptengine" />
+					<Add library="fileloader" />
+					<Add library="pogel" />
+					<Add library="lists" />
+					<Add library="soil" />
+					<Add library="threads" />
+					<Add directory="../bin/UnitaryRelease" />
+				</Linker>
+				<ExtraCommands>
+					<Add after="$sh ../createUnitaryReleaseArchive.sh" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="Unitary Development">
+				<Option output="../bin/UnitaryRelease/pylon_dev" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/UnitaryRelease" />
+				<Option object_output="obj/UnitaryDevelopment/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-s -O3 -Os -fexpensive-optimizations -fomit-frame-pointer" />
+					<Add option="-DPYLON_DEV_VERSION" />
+					<Add directory="../bin/UnitaryRelease" />
+				</Compiler>
+				<ResourceCompiler>
+					<Add directory="../bin/Release/Data" />
+				</ResourceCompiler>
+				<Linker>
+					<Add library="pogelscriptinterface" />
+					<Add library="renderer" />
+					<Add library="objectloader" />
+					<Add library="scriptengine" />
+					<Add library="fileloader" />
+					<Add library="pogel" />
+					<Add library="lists" />
+					<Add library="soil" />
+					<Add library="threads" />
+					<Add directory="../bin/UnitaryRelease" />
+				</Linker>
+				<ExtraCommands>
+					<Add after="$sh ../createUnitaryReleaseArchive.sh" />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>

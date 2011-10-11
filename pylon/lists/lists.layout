@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Unitary Debug" />
+	<File name="arraylist.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="3572" topLine="89" />
+	</File>
+	<File name="arraylist.h" open="0" top="0" tabpos="7">
+		<Cursor position="6070" topLine="105" />
+	</File>
+	<File name="arraylist.operators.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="12741" topLine="405" />
+	</File>
+	<File name="classlist_template.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="98" topLine="0" />
+	</File>
+	<File name="classlist_template.h" open="1" top="0" tabpos="1">
+		<Cursor position="181" topLine="0" />
+	</File>
+	<File name="hashlist_template.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="279" topLine="2" />
+	</File>
+	<File name="hashlist_template.h" open="1" top="0" tabpos="2">
+		<Cursor position="185" topLine="0" />
+	</File>
+	<File name="lists.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="40" topLine="0" />
+	</File>
+	<File name="lists.h" open="0" top="0" tabpos="1">
+		<Cursor position="74" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

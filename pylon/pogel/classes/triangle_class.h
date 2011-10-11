@@ -16,6 +16,7 @@ class TRIANGLE;
 #define			TRIANGLE_COLORED			4
 #define			TRIANGLE_VERTEX_NORMALS		8
 #define			TRIANGLE_INVERT_NORMALS		16
+#define			TRIANGLE_TRANSPARENT		32
 
 namespace POGEL {
 class TRIANGLE {
@@ -26,7 +27,7 @@ class TRIANGLE {
 		POGEL::VERTEX vertex[3]; // the 3 verticies of the triangle
 		POGEL::IMAGE *texture; // a pointer to the image to use as the texture
 		POGEL::VECTOR normal; // the normal vector
-		
+
 		TRIANGLE()
 			{texture=NULL;}
 		TRIANGLE(POGEL::POINT a,POGEL::POINT b,POGEL::POINT c)
@@ -37,22 +38,22 @@ class TRIANGLE {
 			{load(POGEL::VERTEX(a),POGEL::VERTEX(b),POGEL::VERTEX(c),tex,prop);}
 		TRIANGLE(POGEL::VERTEX* verts,POGEL::IMAGE *tex,unsigned int prop)
 			{load(verts,tex,prop);}
-		
+
 		TRIANGLE(std::string, POGEL::IMAGE*);
 		TRIANGLE(std::string);
-		
+
 		void load(POGEL::VERTEX,POGEL::VERTEX,POGEL::VERTEX,POGEL::IMAGE*,unsigned int);
 		void load(POGEL::VERTEX*,POGEL::IMAGE*,unsigned int);
-		
+
 		void settexture(POGEL::IMAGE *tex) {texture=tex;}
 		POGEL::IMAGE *gettexture() {return texture;}
-		
+
 		PROPERTIES_METHODS;
-		
+
 		std::string toString()
 		{
 			char *p = POGEL::string("%u",properties);
-			std::string s = 
+			std::string s =
 				"{"
 					"[" + std::string(p)       + "],"
 					""  + vertex[0].toString() + ","
@@ -64,9 +65,9 @@ class TRIANGLE {
 			free(p);
 			return s;
 		}
-		
+
 		void scroll_tex_values(float,float);
-		
+
 		void print() {
 			printf("\n");
 			vertex[0].topoint().print();
@@ -76,7 +77,7 @@ class TRIANGLE {
 			vertex[2].topoint().print();
 			printf("\n");
 		}
-		
+
 		POGEL::LINE getEdge(unsigned int l) {
 			if(l > 2) {
 				POGEL::error("Tried to access vertex 4 in triangle.\n");
@@ -84,22 +85,24 @@ class TRIANGLE {
 			}
 			return POGEL::LINE(vertex[l].topoint(), vertex[(l+1)%3].topoint());
 		}
-		
+
 		POGEL::TRIANGLE transform(POGEL::MATRIX*);
 
 		POGEL::POINT middle();
-		
+
 		bool isinfront(POGEL::POINT);
-		
+
 		bool distcheck(POGEL::POINT, float);
-		
+
 		float distance(POGEL::POINT);
-		
+
 		void makebounding();
-		
+
 		POGEL::POINT getposition() { return middle(); }
 		POGEL::BOUNDING getbounding() { return bounding; }
-		
+
+		bool isClear();
+
 		void draw();
 };
 }

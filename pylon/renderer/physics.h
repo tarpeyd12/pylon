@@ -30,10 +30,12 @@ namespace Renderer
                 std::string getName();
         };
 
-        extern CLASSLIST<Simulation*> simulations;
+        extern ClassList<Simulation*> simulations;
 
         Renderer::Physics::Simulation* getSimulation(std::string);
         void addSimulation(std::string,bool);
+
+        void Draw();
     }
 }
 

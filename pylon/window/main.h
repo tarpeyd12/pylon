@@ -19,13 +19,15 @@
 
 #include <stdlib.h>
 
+#include "../lists/classlist_template.h"
+#include "../threads/threads.h"
 #include "../pogel/pogel.h"
 #include "../fileloader/fileloader.h"
-#include "../renderer/renderer.h"
-#include "../threads/threads.h"
 #include "../scriptengine/scriptengine.h"
-#include "../pogelscriptinterface/pogelscriptinterface.h"
 #include "../objectloader/objectloader.h"
+#include "../renderer/renderer.h"
+#include "../pogelscriptinterface/pogelscriptinterface.h"
+
 
 #include "scriptthread.h"
 #include "calcthread.h"

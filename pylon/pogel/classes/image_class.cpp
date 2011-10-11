@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <fstream>
+
 #include "image_class.h"
+
 #ifdef OPENGL
 #include <GL/gl.h>
 #include <GL/glu.h>
@@ -17,35 +19,36 @@ POGEL::IMAGE* NullImage = (POGEL::IMAGE*)NULL;
 
 unsigned int POGEL::imglstlen() {
     return imageList.length();
-};
+}
 
 POGEL::IMAGE* POGEL::lstimg(unsigned int i) {
     return imageList[i];
-};
+}
 
 POGEL::IMAGE* POGEL::getNullImage() {
     return NullImage;
-};
+}
 
 void POGEL::setNullImage(std::string img) {
     NullImage = POGEL::requestImage(img);
-};
+}
 
 POGEL::IMAGE* POGEL::requestImage(std::string s) {
-	if(s.length() == 0 || s.compare("{IMAGE_NULL}") == 0 || s.compare("{image_null}") == 0 || s.compare("{NULL}") == 0 || s.compare("{null}") == 0)
+	if(
+        s.length() == 0 ||
+        s.compare("{IMAGE_NULL}") == 0 ||
+        s.compare("{image_null}") == 0 ||
+        s.compare("{NULL}") == 0 ||
+        s.compare("{null}") == 0)
 		return POGEL::getNullImage();
 	for(unsigned int i = 0; i < imageList.length(); i++)
 	{
 	    POGEL::IMAGE* tmp = new POGEL::IMAGE(s,false);
-	    //if(imageList[i]->getFileID().compare("") == 0) {imageList-=i--;continue;}
-	    //cout << imageList[i]->toString() << "\t:::\t" << s;
 	    if(tmp->compare(imageList[i]))
 	    {
             delete tmp;
-            //cout << "*****" << endl;
 			return imageList[i];
 	    }
-	    //cout << endl;
 	    delete tmp;
 	}
 	cout << "new Image: " << s << endl;
@@ -177,8 +180,14 @@ unsigned int POGEL::IMAGE::loadandbuild() {
 std::string POGEL::IMAGE::toString() {
     if(tstr.length())
         return tstr;
-	char *szx = POGEL::string("%u",sizeX), *szy = POGEL::string("%u",sizeY), *sft = POGEL::string("%d",filtertype);
-	std::string s =  "{[" + fileid + "],[" + std::string(szx) + "],[" + std::string(szy) + "],[" + std::string(sft) + "]}";
+	char *szx = POGEL::string("%u",sizeX);
+	char *szy = POGEL::string("%u",sizeY);
+	char *sft = POGEL::string("%d",filtertype);
+	std::string s =  "{";
+	s += "[" + fileid + "],";
+	s += "[" + std::string(szx) + "],";
+	s += "[" + std::string(szy) + "],";
+	s += "[" + std::string(sft) + "]}";
 	free(szx); free(szy); free(sft);
 	return s;
 };

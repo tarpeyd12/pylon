@@ -3,11 +3,11 @@
 
 #include "version.h"
 
-#undef RC_FILEVERSION
-#undef RC_FILEVERSION_STRING
+#undef _RC_FILEVERSION
+#undef _RC_FILEVERSION_STRING
 #include "../pogel/version.h"
-#undef RC_FILEVERSION
-#undef RC_FILEVERSION_STRING
+#undef _RC_FILEVERSION
+#undef _RC_FILEVERSION_STRING
 #include "../fileloader/version.h"
 #undef RC_FILEVERSION
 #undef RC_FILEVERSION_STRING

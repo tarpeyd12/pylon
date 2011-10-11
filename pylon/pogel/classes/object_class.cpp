@@ -389,6 +389,13 @@ void POGEL::OBJECT::build() {
 	}
 	matrix.get();
 
+    int clr = 0, sld = 0;
+    for(unsigned int i=0;i<numfaces;i++)
+        if(face[i].isClear()) clr++;
+        else sld++;
+    if(clr > 1 && sld > 0)
+        addproperty(OBJECT_SORT_TRIANGLES);
+
 	if(getdecendant(this->getname(),false) != NULL) // if this object has a decendant with the same name, does not check self
 		if(getdecendant(this->getname(),false) == this) { // if the object with the same name as this object is this object, does not sheck self
 			POGEL::fatality(POGEL_FATALITY_CIRCULAR_HIERARCHY_RETNUM,"%s of object: \"%s\"",POGEL_FATALITY_CIRCULAR_HIERARCHY_STRING,this->getname()); // BADDNESS, complain, and exit the program
@@ -435,9 +442,11 @@ void POGEL::OBJECT::draw() {
 		unsigned long i;
 		if(hasproperty(OBJECT_DRAW_DISPLAYLIST))
 			glCallList(base);
-		else {
+		else if(!hasproperty(OBJECT_DRAW_NOFACES))
+		{
 			for(i=0;i<numfaces;i++)
-				face[i].draw();}
+				face[i].draw();
+        }
 		if(hasproperty(OBJECT_DRAW_CHILDREN))
 			for(i=0;i<numchildren;i++) {
 				if(POGEL::hasproperty(POGEL_ANCESTORY))

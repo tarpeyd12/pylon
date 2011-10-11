@@ -66,7 +66,7 @@ inline unsigned int bool_child_num(bool a, bool b, bool c) {
 
 /* NOTE:
 		the generic class T for the template must be like this:
-		
+
 		class T {
 			public:
 				POGEL::POINT getposition();
@@ -81,23 +81,23 @@ class OCTREE {
 		HASHLIST<T*>* allobjects;
 		HASHLIST<T*> objects;
 		HASHLIST<unsigned int> indicies;
-		
+
 		HASHLIST<OCTREE<T>*> children;
 		POGEL::OCTREE<T>* parent;
-		
+
 		POGEL::POINT position;
 		POGEL::BOUNDING bounding;
-		
+
 		unsigned int level;
 		unsigned int leastobjs;
-		
+
 		bool addboundings;
 	protected:
-		
+
 		#include "octree_template_protected.h"
-		
+
 	public:
-		
+
 		float getDencity() {
 			if(getbounding().min != getbounding().max) {
 				POGEL::VECTOR v(getbounding().max, getbounding().min);
@@ -105,7 +105,7 @@ class OCTREE {
 			}
 			return 0.0;
 		}
-		
+
 		OCTREE() {
 			leastobjs = defleastobjs;
 			parent = NULL;
@@ -113,7 +113,7 @@ class OCTREE {
 			level = 0;
 			addboundings = true;
 		}
-		
+
 		OCTREE(OCTREE<T>* p, unsigned int lvl) {
 			leastobjs = p->leastobjs;
 			allobjects = p->allobjects;
@@ -121,7 +121,7 @@ class OCTREE {
 			level = lvl;
 			addboundings = true;
 		}
-		
+
 		OCTREE(OCTREE<T>* p) {
 			leastobjs = p->leastobjs;
 			allobjects = p->allobjects;
@@ -129,7 +129,7 @@ class OCTREE {
 			parent = p;
 			level = p->level+1;
 		}
-		
+
 		OCTREE(HASHLIST<T*>* l, unsigned int lobj) {
 			addboundings = true;
 			leastobjs = (lobj > 1 ? lobj : 1);
@@ -149,7 +149,7 @@ class OCTREE {
 			}
 			position = (getbounding().max+getbounding().min)/2;
 		}
-		
+
 		OCTREE(HASHLIST<T*>* l, unsigned int lobj, bool addbounds) {
 			addboundings = addbounds;
 			leastobjs = (lobj > 1 ? lobj : 1);
@@ -169,7 +169,7 @@ class OCTREE {
 			}
 			position = (getbounding().max+getbounding().min)/2;
 		}
-		
+
 		OCTREE(HASHLIST<T*>* l) {
 			addboundings = true;
 			leastobjs = defleastobjs;
@@ -189,7 +189,7 @@ class OCTREE {
 			}
 			position = (getbounding().max+getbounding().min)/2;
 		}
-		
+
 		void grow() {
 			if(!(objects.length() > leastobjs && level+1 <= maxlevels && children.length() < maxchildren))
 				return;
@@ -203,7 +203,7 @@ class OCTREE {
 			for(unsigned int i = 0; i < objects.length(); i++)
 				relevent_child(getposition(), objects[i]->getposition())->place(objects[i], indicies[i]);
 		}
-		
+
 		#include "octree_template_public.h"
 };
 }
@@ -216,26 +216,26 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 		HASHLIST<T*>* allobjects;
 		HASHLIST<T*> objects;
 		HASHLIST<unsigned int> indicies;
-		
+
 		HASHLIST<OCTREE<T>*> children;
 		POGEL::OCTREE<T>* parent;
-		
+
 		POGEL::POINT position;
 		POGEL::BOUNDING bounding;
-		
+
 		unsigned int level;
 		unsigned int leastobjs;
-		
+
 		bool addboundings;
-		
+
 		float mass;
 		bool masscenter_good, mass_good;
 		POGEL::POINT masscenter;
 		float theta;
 	protected:
-		
+
 		#include "octree_template_protected.h"
-		
+
 		float avgside() {
 			POGEL::VECTOR v(getbounding().max, getbounding().min);
 			if(fabs(v.x) >= fabs(v.y) && fabs(v.x) >= fabs(v.z))
@@ -245,9 +245,9 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 			else
 				return v.z;
 		}
-		
+
 	public:
-		
+
 		OCTREE() {
 			leastobjs = defleastobjs;
 			parent = NULL;
@@ -258,7 +258,7 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 			masscenter = position;
 			mass_good = masscenter_good = false;
 		}
-		
+
 		OCTREE(OCTREE<T>* p, unsigned int lvl) {
 			leastobjs = p->leastobjs;
 			allobjects = p->allobjects;
@@ -269,7 +269,7 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 			masscenter = position;
 			mass_good = masscenter_good = false;
 		}
-		
+
 		OCTREE(OCTREE<T>* p) {
 			leastobjs = p->leastobjs;
 			allobjects = p->allobjects;
@@ -280,7 +280,7 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 			masscenter = position;
 			mass_good = masscenter_good = false;
 		}
-		
+
 		OCTREE(HASHLIST<T*>* l, unsigned int lobj) {
 			addboundings = true;
 			leastobjs = (lobj > 1 ? lobj : 1);
@@ -303,7 +303,7 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 			masscenter = position;
 			mass_good = masscenter_good = false;
 		}
-		
+
 		OCTREE(HASHLIST<T*>* l, unsigned int lobj, bool addbounds) {
 			addboundings = addbounds;
 			leastobjs = (lobj > 1 ? lobj : 1);
@@ -326,7 +326,7 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 			masscenter = position;
 			mass_good = masscenter_good = false;
 		}
-		
+
 		OCTREE(HASHLIST<T*>* l) {
 			addboundings = true;
 			leastobjs = defleastobjs;
@@ -349,7 +349,7 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 			masscenter = position;
 			mass_good = masscenter_good = false;
 		}
-		
+
 		float getMass() {
 			if(mass_good)
 				return mass;
@@ -364,7 +364,7 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 			mass_good = true;
 			return ret;
 		}
-		
+
 		float getDencity() {
 			if(getbounding().min != getbounding().max) {
 				POGEL::VECTOR v(getbounding().max, getbounding().min);
@@ -372,19 +372,19 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 			}
 			return 0.0;
 		}
-		
+
 		void boolgrvs(bool* b) {
 			for(unsigned int i = 0; i < objects.length(); i++)
 				b[indicies[i]] = true;
 		}
-		
+
 		void uintgrvs(unsigned int* b) {
 			for(unsigned int i = 0; i < objects.length(); i++)
 				b[indicies[i]] = level;
 		}
-		
+
 		#include "octree_template_public.h"
-		
+
 		POGEL::POINT getmasscenter() {
 			if(masscenter_good)
 				return masscenter;
@@ -399,7 +399,7 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 			masscenter_good = true;
 			return masscenter;
 		}
-		
+
 		void grow() {
 			if(!(objects.length() > leastobjs && level+1 <= maxlevels && children.length() < maxchildren))
 				return;
@@ -425,14 +425,14 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 				if(child(i)->numobjs() > leastobjs)
 					child(i)->grow();*/
 		}
-		
+
 		bool objhaspos(POGEL::POINT p) {
 			for(unsigned int i = 0; i < objects.length(); i++)
 				if(object(i)->position == p)
 					return true;
 			return false;
 		}
-		
+
 		virtual POGEL::VECTOR getpull(POGEL::POINT p, float m) {
 			if((numobjs() <= leastobjs && !objhaspos(p)) || bounding.min.distance(bounding.max)/getmasscenter().distance(p) < theta)
 				return POGEL::PHYSICS::SINGULARITY(getmasscenter(), getMass()).getpull(p, m);
@@ -442,7 +442,7 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 					ret += child(i)->getpull(p, m);
 			return ret;
 		}
-		
+
 		POGEL::VECTOR drawgetpull(POGEL::POINT p, float m) {
 			if(numobjs() <= leastobjs || bounding.min.distance(bounding.max)/getmasscenter().distance(p) < theta) {
 				bounding.color = POGEL::COLOR(.25,.25,.25,getMass()/progen()->getMass());
@@ -457,9 +457,9 @@ class OCTREE < POGEL::PHYSICS::SOLID > {
 					ret += child(i)->drawgetpull(p, m);
 			return ret;
 		}
-		
+
 		// http://arborjs.org/docs/barnes-hut
-		
+
 };
 #ifdef T
 #undef T

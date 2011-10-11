@@ -67,7 +67,7 @@ void POGEL::VECTOR::anglenormalize() {
 	while(x >=  180.0) x -= 180.0;
 	while(y >=  180.0) y -= 180.0;
 	while(z >=  180.0) z -= 180.0;
-	
+
 	while(x <= -180.0) x += 180.0;
 	while(y <= -180.0) y += 180.0;
 	while(z <= -180.0) z += 180.0;
@@ -99,9 +99,7 @@ float POGEL::VECTOR::getangle(POGEL::VECTOR other, POGEL::VECTOR ref) {
 
 POGEL::VECTOR& POGEL::VECTOR::dodotproduct(POGEL::VECTOR in) {
 	POGEL::VECTOR a(x,y,z), b(in.x,in.y,in.z);
-	//a.set_values(x,y,z);
-	//b.set_values(in.x,in.y,in.z);
-	
+
 	x=((a.y*b.z)-(a.z*b.y));
 	y=((a.z*b.x)-(a.x*b.z));
 	z=((a.x*b.y)-(a.y*b.x));

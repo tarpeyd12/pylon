@@ -74,9 +74,15 @@ void ScriptThread::FirstRun()
     // I am calling this the 'StoneBug'
     // start StoneBug fix
 
-    // this is to compensate for a bug in Code::Blocks, and when pylon is called within another program
-    ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation',False)"));
-    ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation2',False)"));
+    /* this is to compensate for a bug in Code::Blocks, and when pylon is called
+     * within another program. May also be a bug in pogel, or how pylon uses
+     * pogel this is somewhat tricky, somne times no dummy simulations are
+     * needed because they cause the problem, some times two are needed, maby
+     * even one, I have only tested up to 2 dummy's
+     */
+
+    //ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation',False)"));
+    //ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation2',False)"));
 
     // end StoneBug fix
 
@@ -87,7 +93,7 @@ void ScriptThread::FirstRun()
 
 void ScriptThread::MainRun()
 {
-    Renderer::Timing::Timer *timer25 = new Renderer::Timing::Timer(25); // 25 cycles per second
+    Renderer::Timing::Timer *timer25 = new Renderer::Timing::Timer(25,"Scripts"); // 25 cycles per second
 
     while(true)
     {

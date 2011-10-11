@@ -56,7 +56,7 @@ namespace Main
 
         if(ini.hasSection("archives"))
         {
-            CLASSLIST<std::string> * keynames = ini.keysinsection("archives");
+            ClassList<std::string> * keynames = ini.keysinsection("archives");
             if(keynames && keynames->length())
             {
                 for(unsigned int i = 0; i < keynames->length(); i++)

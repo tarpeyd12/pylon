@@ -16,12 +16,13 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="../bin/Debug/" />
 				</Compiler>
 				<Linker>
-					<Add option="-L./bin/Debug" />
-					<Add library="threads" />
+					<Add library="lists" />
 					<Add library="soil" />
-					<Add directory="../bin/Debug" />
+					<Add library="threads" />
+					<Add directory="../bin/Debug/" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -37,16 +38,49 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add option="-L./bin/Release" />
-					<Add library="threads" />
+					<Add library="lists" />
 					<Add library="soil" />
+					<Add library="threads" />
 					<Add directory="../bin/Release" />
 				</Linker>
 			</Target>
+			<Target title="Unitary Debug">
+				<Option output="../bin/UnitaryDebug/libpogel" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="../bin/UnitaryDebug/" />
+				</Compiler>
+				<Linker>
+					<Add library="lists" />
+					<Add library="soil" />
+					<Add library="threads" />
+					<Add directory="../bin/UnitaryDebug/" />
+				</Linker>
+			</Target>
+			<Target title="Unitary Release">
+				<Option output="../bin/UnitaryRelease/libpogel" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-s -O3 -Os -fexpensive-optimizations -fomit-frame-pointer" />
+					<Add directory="../bin/UnitaryRelease/" />
+				</Compiler>
+				<Linker>
+					<Add library="lists" />
+					<Add library="soil" />
+					<Add library="threads" />
+					<Add directory="../bin/UnitaryRelease/" />
+				</Linker>
+			</Target>
 		</Build>
-		<VirtualTargets>
-			<Add alias="window_debug" targets="Debug;" />
-		</VirtualTargets>
 		<Compiler>
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
@@ -107,13 +141,7 @@
 		<Unit filename="pogel.h" />
 		<Unit filename="pogel_classes.h" />
 		<Unit filename="pogel_internals.h" />
-		<Unit filename="templates/arraylist.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Unit filename="templates/arraylist.h" />
-		<Unit filename="templates/arraylist.operators.cpp">
-			<Option target="&lt;{~None~}&gt;" />
-		</Unit>
 		<Unit filename="templates/classlist_template.h" />
 		<Unit filename="templates/hashlist_template.h" />
 		<Unit filename="templates/octree_template.h" />
@@ -130,9 +158,9 @@
 			<debugger />
 			<AutoVersioning>
 				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
-				<Settings autoincrement="1" date_declarations="1" do_auto_increment="1" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
+				<Settings autoincrement="1" date_declarations="1" do_auto_increment="1" ask_to_increment="0" language="C++" svn="0" svn_directory=" " header_path="version.h" />
 				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
-				<Code header_guard="POGEL_VERSION_H" namespace="PogelAutoVersion" prefix="" />
+				<Code header_guard="POGEL_VERSION_H" namespace="PogelAutoVersion" prefix=" " />
 			</AutoVersioning>
 		</Extensions>
 	</Project>

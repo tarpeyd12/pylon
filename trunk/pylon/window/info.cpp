@@ -7,7 +7,7 @@ namespace Main
     void printVersion()
     {
         cout << "Pylon." << VersionString << "\n";//endl;
-        cout << "  Pogel." << std::string(PogelAutoVersion::FULLVERSION_STRING) + "." + std::string(PogelAutoVersion::STATUS_SHORT) << "\n";//endl;
+        cout << "  Pogel." << std::string(PogelAutoVersion::_FULLVERSION_STRING) + "." + std::string(PogelAutoVersion::_STATUS_SHORT) << "\n";//endl;
         cout << "  FileLoader." << std::string(FileLoaderAutoVersion::FULLVERSION_STRING) + "." + std::string(FileLoaderAutoVersion::STATUS_SHORT) << "\n";//endl;
         cout << "  ScriptEngine." << std::string(ScriptEngineAutoVersion::FULLVERSION_STRING) + "." + std::string(ScriptEngineAutoVersion::STATUS_SHORT) << "\n";//endl;
         cout << "  Renderer." << std::string(RendererAutoVersion::FULLVERSION_STRING) + "." + std::string(RendererAutoVersion::STATUS_SHORT) << "\n";//endl;

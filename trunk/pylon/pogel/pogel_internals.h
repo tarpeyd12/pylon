@@ -29,7 +29,7 @@
 									void addproperty(unsigned int prop) {properties|=prop;} \
 									void removeproperty(unsigned int prop) {properties^=prop;} \
 									bool hasproperty(unsigned int prop) {return (properties & prop);}
-									
+
 #define		CUSTOM_PROPERTIES_METHODS(p)		unsigned int getproperties() {return p;} \
 												void setproperties(unsigned int prop) {p=prop;} \
 												void addproperty(unsigned int prop) {p|=prop;} \
@@ -84,7 +84,7 @@
 #define				POGEL_TIMEBASIS									512
 
 // pogel global constants
-#define				PARTICLE_SLOWDOWN_RATIO							1000.0f
+#define				PARTICLE_SLOWDOWN_RATIO						    1000.0f
 #define				PARTICLE_SLOWDOWN								PARTICLE_SLOWDOWN_RATIO * (POGEL::hasproperty(POGEL_TIMEBASIS) ? POGEL::GetSecondsPerFrame() : 1)
 
 //* PARTICLE_SLOWDOWN_FRAMERATECORRECTION
@@ -94,38 +94,38 @@ namespace POGEL {
 	// pogel global variables
 	extern char *logfilefilename;
 	extern unsigned int properties;
-	
+
 	extern float start, finish, start_long, finish_long;
 	extern unsigned long frames;
 	extern float duration, fps, fps_long;
-	
+
 	extern float framerate_throtling_correction;
-	
+
 	// pogel global functions
 	extern unsigned int getproperties();
 	extern void setproperties(unsigned int prop);
 	extern void addproperty(unsigned int prop);
 	extern void removeproperty(unsigned int prop);
 	extern bool hasproperty(unsigned int prop);
-	
+
 	extern char* string(const char* fmt, ...);
 	extern void fatality(int,const char* fmt, ...);
 	extern void error(const char* fmt, ...);
 	extern void warning(const char* fmt, ...);
 	extern void message(const char* fmt, ...);
 	extern void logtofile(const char* fmt, ...);
-	
+
 	extern float FloatRand(float);
-	
+
 	extern bool about(float,float,float);
-	
+
 	extern void InitFps();
 	extern void IncrementFps();
 	extern float GetFps();
 	extern float GetSecondsPerFrame();
 	extern float GetTimePassed();
 	extern void PrintFps();
-	
+
 	extern unsigned int getOccurrencesInString(char, std::string);
 	extern std::string getStringSection(char, unsigned int, bool, char, unsigned int, bool, std::string);
 	extern std::string getStringComponentLevel(char, bool, char, bool, std::string, std::string);

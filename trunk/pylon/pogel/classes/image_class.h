@@ -22,6 +22,7 @@ POGEL::IMAGE* requestImage(std::string);
 unsigned int imglstlen();
 POGEL::IMAGE* lstimg(unsigned int);
 
+
 class IMAGE {
 	protected:
 		/* properties */
@@ -71,6 +72,12 @@ class IMAGE {
 
 		bool operator == (POGEL::IMAGE);
 		bool compare(POGEL::IMAGE*);
+
+		bool isClear() {
+            if(numchannels() == 2 || numchannels() == 4)
+                return true;
+            return false;
+		}
 };
 }
 

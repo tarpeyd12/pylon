@@ -170,6 +170,18 @@ namespace Renderer
             return 0; // ok
         }
 
+        int clearQuadsCycle()
+        {
+            if(Renderer::HUD::clearNextCycle)
+            {
+                if(POGEL::hasproperty(POGEL_DEBUG))
+                    cout << "Hud cleared at frame:" << POGEL::frames << endl;
+                Renderer::HUD::Clear();
+                Renderer::HUD::clearNextCycle = false;
+            }
+            return 0; // ok
+        }
+
         void draw()
         {
             for(unsigned int i = 0; i < NUM_QUAD_SLOTS /*&& i < lastKnownQuad*/; i++)

@@ -19,9 +19,9 @@ namespace Renderer
         {
             if(Renderer::Mouse::state == GLUT_DOWN && Renderer::Mouse::button == GLUT_LEFT_BUTTON)
             {
-                float x = ((float(-1*(Renderer::Mouse::static_y-Renderer::Mouse::Y))/float(Renderer::Window::Size::height))*180 + Renderer::prot.x);
-                float y = ((float(-1*(Renderer::Mouse::static_x-Renderer::Mouse::X))/float(Renderer::Window::Size::width))*360 + Renderer::prot.y);
-                Renderer::camrot = POGEL::POINT(x,y,camrot.z);
+                float x = ((float(-1*(Renderer::Mouse::static_y-Renderer::Mouse::Y))/float(Renderer::Window::Size::height))*180 + Renderer::Camera::prot.x);
+                float y = ((float(-1*(Renderer::Mouse::static_x-Renderer::Mouse::X))/float(Renderer::Window::Size::width))*360 + Renderer::Camera::prot.y);
+                Renderer::Camera::camrot = POGEL::POINT(x,y,Renderer::Camera::camrot.z);
             }
         }
 
@@ -29,8 +29,8 @@ namespace Renderer
         {
             if(Renderer::Mouse::state == GLUT_DOWN && Renderer::Mouse::button == GLUT_RIGHT_BUTTON)
             {
-                float z = float(Renderer::Mouse::static_y-Renderer::Mouse::Y) + Renderer::ppos.z;
-                Renderer::campos = POGEL::POINT(campos.x,campos.y, z);
+                float z = float(Renderer::Mouse::static_y-Renderer::Mouse::Y) + Renderer::Camera::ppos.z;
+                Renderer::Camera::campos = POGEL::POINT(Renderer::Camera::campos.x,Renderer::Camera::campos.y, z);
             }
         }
 
@@ -49,8 +49,8 @@ namespace Renderer
             }
             if(state == GLUT_DOWN)
             {
-                Renderer::prot = Renderer::camrot;
-                Renderer::ppos = Renderer::campos;
+                Renderer::Camera::prot = Renderer::Camera::camrot;
+                Renderer::Camera::ppos = Renderer::Camera::campos;
                 Renderer::Mouse::static_x = Renderer::Mouse::X = x;
                 Renderer::Mouse::static_y = Renderer::Mouse::Y = y;
             }

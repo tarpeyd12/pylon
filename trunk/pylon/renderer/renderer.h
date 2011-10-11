@@ -10,6 +10,7 @@
 #include <stdlib.h>
 
 #include "../pogel/pogel.h"
+#include "../lists/lists.h"
 #include "../fileloader/fileloader.h"
 
 #ifndef TIMER_H_INCLUDED
@@ -18,11 +19,6 @@
 
 namespace Renderer
 {
-    extern POGEL::POINT camrot;
-    extern POGEL::POINT prot;
-    extern POGEL::POINT campos;
-    extern POGEL::POINT ppos;
-
     extern Timing::Timer *timer30;
 
     extern bool HaltPhysics;
@@ -39,8 +35,11 @@ namespace Renderer
     void Display();
 
     void Incriment();
+
+    void BuildImages();
 }
 
+#include "camera.h"
 #include "mouse.h"
 #include "window.h"
 #include "key.h"

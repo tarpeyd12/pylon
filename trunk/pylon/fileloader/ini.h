@@ -23,7 +23,7 @@ namespace FileLoader
 
             std::string getvalue(std::string,std::string);
             bool hasSection(std::string);
-            CLASSLIST<std::string> * keysinsection(std::string);
+            ClassList<std::string> * keysinsection(std::string);
     };
 }
 

@@ -34,6 +34,8 @@ namespace Renderer
         int addQuadCycle();
         int updateQuadCycle();
 
+        int clearQuadsCycle();
+
         int checkQuad(unsigned int);
 
         void draw();

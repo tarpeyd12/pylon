@@ -16,9 +16,9 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="../bin/Debug/" />
 				</Compiler>
 				<Linker>
-					<Add option="-L./bin/Debug" />
 					<Add library="pogel" />
 					<Add library="objectloader" />
 					<Add directory="../bin/Debug" />
@@ -34,6 +34,7 @@
 				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="../bin/Release/" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -41,6 +42,40 @@
 					<Add library="pogel" />
 					<Add library="objectloader" />
 					<Add directory="../bin/Release" />
+				</Linker>
+			</Target>
+			<Target title="Unitary Debug">
+				<Option output="../bin/UnitaryDebug/librenderer" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Debug/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-g" />
+					<Add directory="../bin/UnitaryDebug/" />
+				</Compiler>
+				<Linker>
+					<Add library="pogel" />
+					<Add library="objectloader" />
+					<Add directory="../bin/UnitaryDebug/" />
+				</Linker>
+			</Target>
+			<Target title="Unitary Release">
+				<Option output="../bin/UnitaryRelease/librenderer" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="obj/Release/" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-s -O3 -Os -fexpensive-optimizations -fomit-frame-pointer" />
+					<Add directory="../bin/UnitaryRelease/" />
+				</Compiler>
+				<Linker>
+					<Add library="pogel" />
+					<Add library="objectloader" />
+					<Add directory="../bin/UnitaryRelease/" />
 				</Linker>
 			</Target>
 		</Build>
@@ -61,6 +96,8 @@
 			<Add directory="$(#base.lib)" />
 			<Add directory="$(#python.lib)" />
 		</Linker>
+		<Unit filename="camera.cpp" />
+		<Unit filename="camera.h" />
 		<Unit filename="cmd.cpp" />
 		<Unit filename="cmd.h" />
 		<Unit filename="display.cpp" />
@@ -91,9 +128,9 @@
 			<debugger />
 			<AutoVersioning>
 				<Scheme minor_max="10" build_max="0" rev_max="0" rev_rand_max="10" build_times_to_increment_minor="100" />
-				<Settings autoincrement="1" date_declarations="1" do_auto_increment="1" ask_to_increment="0" language="C++" svn="0" svn_directory="" header_path="version.h" />
+				<Settings autoincrement="1" date_declarations="1" do_auto_increment="1" ask_to_increment="0" language="C++" svn="0" svn_directory=" " header_path="version.h" />
 				<Changes_Log show_changes_editor="0" app_title="released version %M.%m.%b of %p" changeslog_path="ChangesLog.txt" />
-				<Code header_guard="RENDERER_VERSION_H" namespace="RendererAutoVersion" prefix="" />
+				<Code header_guard="RENDERER_VERSION_H" namespace="RendererAutoVersion" prefix=" " />
 			</AutoVersioning>
 		</Extensions>
 	</Project>

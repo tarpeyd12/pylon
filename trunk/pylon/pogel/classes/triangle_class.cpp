@@ -173,53 +173,111 @@ void POGEL::TRIANGLE::makebounding() {
 	bounding.fin();
 };
 
-void POGEL::TRIANGLE::draw() {
-	#ifdef OPENGL
-	//if(POGEL::hasproperty(POGEL_BOUNDING))
-		//bounding.draw(POGEL::POINT());
-	if(texture!=NULL && texture->getbase()!=NULL)
-		texture->set();
-    else if(POGEL::getNullImage()!=NULL)
-        POGEL::getNullImage()->set();
-	if(((hasproperty(TRIANGLE_LIT)) || (hasproperty(TRIANGLE_VERTEX_NORMALS))) /*&& !POGEL::hasproperty(POGEL_WIREFRAME)*/)
-		glEnable(GL_LIGHTING);
-	else
-		glDisable(GL_LIGHTING);
-
-	if(POGEL::hasproperty(POGEL_WIREFRAME))
-		glBegin(GL_LINES);
-	else
-		glBegin(GL_TRIANGLES);
-
-		if((hasproperty(TRIANGLE_LIT)) && !(hasproperty(TRIANGLE_VERTEX_NORMALS))) {
-			//if(hasproperty(TRIANGLE_INVERT_NORMALS))
-				//glNormal3f(-normal.x,-normal.y,-normal.z);
-			//else
-				glNormal3f( normal.x, normal.y, normal.z);
-		}
-		unsigned int max = ( POGEL::hasproperty(POGEL_WIREFRAME) ? 4 : 3 );
-		for(
-			unsigned int i = hasproperty(TRIANGLE_INVERT_NORMALS) ? max : 0 ;
-			hasproperty(TRIANGLE_INVERT_NORMALS) ? i > 0 : i < max ;
-			hasproperty(TRIANGLE_INVERT_NORMALS) ? i-- : i++
-		) {
-			if(vertex[i%3].usable) {
-				if(hasproperty(TRIANGLE_COLORED)) // the triangle will not be colored if GL_LIGHTING is enabled, dont know why.
-					vertex[i%3].color.set();
-				else
-					POGEL::COLOR(1,1,1,1).set();
-				if(!(hasproperty(TRIANGLE_LIT)) && (hasproperty(TRIANGLE_VERTEX_NORMALS))) {
-					//if(hasproperty(TRIANGLE_INVERT_NORMALS))
-						//glNormal3f(-vertex[i%3].normal.x,-vertex[i%3].normal.y,-vertex[i%3].normal.z);
-					//else
-						glNormal3f( vertex[i%3].normal.x, vertex[i%3].normal.y, vertex[i%3].normal.z);
-				}
-				if(texture!=NULL)
-					glTexCoord2f(vertex[i%3].u,vertex[i%3].v);
-				glVertex3f(vertex[i%3].x,vertex[i%3].y,vertex[i%3].z);
-			}
-		}
-	glEnd();
-	#endif
+bool POGEL::TRIANGLE::isClear() {
+    if( texture != NULL )
+        return texture->isClear() || hasproperty(TRIANGLE_TRANSPARENT);
+    else if(POGEL::getNullImage() != NULL)
+        return POGEL::getNullImage()->isClear() || hasproperty(TRIANGLE_TRANSPARENT);
+    return hasproperty(TRIANGLE_TRANSPARENT);
 };
 
+void POGEL::TRIANGLE::draw()
+{
+    #ifdef OPENGL
+
+    // draw the triangle's bounding box
+    if ( POGEL::hasproperty(POGEL_BOUNDING) )
+        bounding.draw( POGEL::POINT() );
+
+    // set up the texture to use.
+    POGEL::IMAGE* nullImage = POGEL::getNullImage();
+    bool usingTexture = true;
+    if ( texture != NULL && texture->getbase() != (unsigned int)NULL )
+        texture->set();
+    else if ( nullImage != NULL && nullImage->getbase() != (unsigned int)NULL )
+        nullImage->set();
+    else
+        usingTexture = false;
+
+    // enable or disable lighting
+    if (
+        ( hasproperty(TRIANGLE_LIT) || hasproperty(TRIANGLE_VERTEX_NORMALS) ) &&
+        !POGEL::hasproperty(POGEL_WIREFRAME)
+    )
+        glEnable(GL_LIGHTING);
+    else
+        glDisable(GL_LIGHTING);
+
+    // set the transparency
+    bool blendEnabled = false;
+    if ( hasproperty(TRIANGLE_TRANSPARENT) )
+    {
+        blendEnabled = glIsEnabled( GL_BLEND );
+        glBlendFunc( GL_SRC_ALPHA, GL_ONE );
+        glEnable( GL_BLEND );
+    }
+
+    // begin either a solid face or lines for wireframe
+    if ( POGEL::hasproperty(POGEL_WIREFRAME) )
+        glBegin(GL_LINES);
+    else
+        glBegin(GL_TRIANGLES);
+
+    // if using triangles flat normal set it
+    if ( hasproperty(TRIANGLE_LIT) && !hasproperty(TRIANGLE_VERTEX_NORMALS) )
+        glNormal3f( normal.x, normal.y, normal.z );
+
+    // this for loop is somehwat confusing, 4 times for wireframe, 3 for solid
+    unsigned int max = POGEL::hasproperty(POGEL_WIREFRAME) ? 4 : 3;
+    // loop from 3:4 to 0 or 0 to 3:4, because opengl uses CW or CCW to
+    //  determine the front/back of the triangle.
+    for (
+        unsigned int i = hasproperty(TRIANGLE_INVERT_NORMALS) ? max : 0 ;
+        hasproperty(TRIANGLE_INVERT_NORMALS) ? i > 0 : i < max ;
+        hasproperty(TRIANGLE_INVERT_NORMALS) ? i-- : i++
+    )
+    {
+        // depretiated but might still be relevent later ...
+        if ( vertex[i%3].usable )
+        {
+            // the triangle will not be colored if GL_LIGHTING is enabled,
+            //  don't know why.
+            // set the color
+            if ( hasproperty(TRIANGLE_COLORED) )
+                vertex[i%3].color.set();
+            else
+                POGEL::COLOR( 1, 1, 1, 1 ).set();
+
+            // light the verticies
+            if (
+                !hasproperty(TRIANGLE_LIT) &&
+                hasproperty(TRIANGLE_VERTEX_NORMALS)
+            )
+                glNormal3f(
+                           vertex[i%3].normal.x,
+                           vertex[i%3].normal.y,
+                           vertex[i%3].normal.z
+                );
+
+            // set the verticies' texture coordanates
+            if ( usingTexture )
+                glTexCoord2f( vertex[i%3].u, vertex[i%3].v );
+
+            // set the vertex
+            glVertex3f( vertex[i%3].x, vertex[i%3].y, vertex[i%3].z );
+        }
+    }
+
+    // end GL_TRIANGLES or GL_LINES
+    glEnd();
+
+    // disable the transparency
+    if ( hasproperty(TRIANGLE_TRANSPARENT) )
+    {
+        glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
+        if( !blendEnabled )
+            glDisable( GL_BLEND );
+    }
+
+    #endif
+};

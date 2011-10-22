@@ -8,12 +8,14 @@ ScriptThread::ScriptThread()
 {
     firstRun = true;
     this->run();
+    running = true;
     this->startThread();
 }
 
 ScriptThread::ScriptThread(bool st)
 {
     firstRun = true;
+    running = true;
     if(st)
     {
         Renderer::SciptCall = ScriptCallFunction;
@@ -24,9 +26,23 @@ ScriptThread::ScriptThread(bool st)
 ScriptThread::~ScriptThread()
 {
     if(!Main::SingleThreaded)
-        this->joinThread();
+    {
+        try
+        {
+            this->joinThread();
+        }
+        catch(int e)
+        {
+            cout << "Unable to Join the Scripting Thread. err:" << e << endl;
+        }
+    }
     ScriptEngine::Finalize();
     firstRun = false;
+    if( !Main::dontremove )
+    {
+        cout << "Cleaning Up ..." << endl;
+        FileLoader::System::Dir::clearDir(Main::ext_dir);
+    }
 }
 
 void ScriptThread::run()
@@ -40,8 +56,10 @@ void ScriptThread::run()
         this->MainRun();
     }
 
-    if(!Main::dontremove)
+    if( !Main::dontremove )
+    {
         FileLoader::System::Dir::clearDir(Main::ext_dir);
+    }
 }
 
 void ScriptThread::FirstRun()
@@ -58,6 +76,12 @@ void ScriptThread::FirstRun()
 
     std::string initScriptData = FileLoader::totalfile(Main::init_py);
 
+    if(initScriptData.length() == 0)
+    {
+        cout << "no init data." << endl;
+        exit(-1);
+    }
+
     if(!Main::dontremove)
         FileLoader::System::Files::remove(Main::init_py);
 
@@ -65,6 +89,7 @@ void ScriptThread::FirstRun()
 
     if(!Main::dontremove)
         FileLoader::System::Files::remove(Main::main_py);
+
     if(mainScriptData.length() == 0)
     {
         cout << "no main data." << endl;
@@ -93,17 +118,19 @@ void ScriptThread::FirstRun()
 
 void ScriptThread::MainRun()
 {
-    Renderer::Timing::Timer *timer25 = new Renderer::Timing::Timer(25,"Scripts"); // 25 cycles per second
+    Renderer::Timing::Timer *timer = new Renderer::Timing::Timer(25,"Scripts"); // 25 cycles per second
 
-    while(true)
+    while(running)
     {
+        timer->sleep();
         ScriptEngine::Execute((const ScriptEngine::Executor)*mainScript);
-        timer25->sleep();
     }
 
-    ScriptEngine::Finalize();
+    delete timer;
 
-    delete timer25;
+    running = false;
+
+    //ScriptEngine::Finalize();
 }
 
 void ScriptThread::SingleCall()
@@ -114,5 +141,7 @@ void ScriptThread::SingleCall()
 void ScriptCallFunction()
 {
     if(Main::scriptThread)
+    {
         Main::scriptThread->SingleCall();
+    }
 }

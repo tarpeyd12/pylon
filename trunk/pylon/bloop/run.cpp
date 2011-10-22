@@ -9,6 +9,9 @@ void redirectStdoutFromCommand(string cmd);
 void printert(std::string str);
 
 int pipe_id[2];
+bool OK = false;
+
+#define _BUFFER_SIZE 4096
 
 void bloopFrame::OnbuttonRUNClick(wxCommandEvent& event)
 {
@@ -47,9 +50,10 @@ void bloopFrame::OnbuttonRUNClick(wxCommandEvent& event)
     clear_output();
 
     print("Executing Pylon with the Command:");
-    print("     <font color='#FF8844'>" + cmmd + "</font>");
+    print("<font color='#FF8844'>" + cmmd + "</font>");
 
     /*pipe(pipe_id);
+
     if(fork() == 0) {
         close(pipe_id[0]);
         redirectStdoutFromCommand(cmmd);
@@ -57,24 +61,38 @@ void bloopFrame::OnbuttonRUNClick(wxCommandEvent& event)
         exit(0);
     }
     else
-    //if(fork() == 0)
+    //if(fork() != 0)
     {
         close(pipe_id[1]);
-        char dat[2];
+        char dat[_BUFFER_SIZE];
         std::string buff = "";
         Notebook1->ChangeSelection(3);
-        while(read(pipe_id[0], dat, sizeof(dat)) != 0)
+        print_ai("<pre><tt>");
+        memset(dat,'\0',sizeof(dat));
+        usleep(1000000);
+        unsigned int datsize = sizeof(dat);
+        //string data = "";
+        while( read(pipe_id[0], dat, datsize) != 0 )
         {
-            std::string sdat(dat);
-            for(unsigned int i = 0; i < sdat.length(); i++)
+            for(unsigned int i = 0; i < _BUFFER_SIZE; i++)
             {
-                if(dat[i] == '\n' || dat[i] == '\r') { printert("<br>"+buff+"</ul>");  buff = "";  }
-                else if(dat[i] == '\t') buff += "_   ";
+                if(dat[i] == '\n' || dat[i] == '\r')
+                {
+                    print_ai(buff+"\n");
+                    setStatus(buff);
+                    //data += buff+"\n";
+                    buff = "";
+                }
+                else if(dat[i] == '\r') buff = "";
                 else buff += dat[i];
                 dat[i] = '\0';
             }
+            //printert(std::string(dat));
         }
-        //exit(0);
+        print_ai("</tt></pre>");
+        usleep(1000000);
+        _exit(0);
+        exit(0);
     }*/
     /*{
         std::string buff = "";
@@ -88,14 +106,14 @@ void bloopFrame::OnbuttonRUNClick(wxCommandEvent& event)
         //_exit(0);
     }*/
     print_ai(getStdoutFromCommand(cmmd));
-    print("");
-    print("<font color='#008800'>Pylon exicution finished.</font>");
+    print_ai("<pre>\n</pre>");
+    print_ai("<br><font color='#008800'>Pylon exicution finished.</font></ul>");
 }
 
 string getStdoutFromCommand(string cmd) {
 	string data;
 	FILE *stream;
-	int MAX_BUFFER = 256;
+	int MAX_BUFFER = _BUFFER_SIZE;
 	char buffer[MAX_BUFFER];
 	cmd.append(" 2>&1");
 	stream = popen(cmd.c_str(), "r");
@@ -109,8 +127,14 @@ string getStdoutFromCommand(string cmd) {
 			string sdat(buffer);
             for(unsigned int i = 0; i < sdat.length(); i++)
             {
-                if(sdat[i] == '\n' || sdat[i] == '\r') { data += "<br>"+buff+"</ul>";  buff = "";  }
-                else if(sdat[i] == '\t') buff += "    ";
+                if(sdat[i] == '\n' || sdat[i] == '\r')
+                {
+                    data += buff+"\n";
+                    if(!buff.compare(0,5,"Frame"))
+                        setStatus(buff);
+                    buff = "";
+                }
+                //else if(sdat[i] == '\t') buff += "    ";
                 else buff += sdat[i];
             }
 		}
@@ -124,25 +148,23 @@ int overbuff_count = 0;
 
 void printert(std::string str)
 {
-    if(overbuff_count > 10)
+    if(overbuff_count > 100)
     {
         print_ai(over_buff);
         over_buff = "";
         overbuff_count = 0;
     }
-    else
-    {
+    //else {
         over_buff += str;
         overbuff_count++;
-    }
+    //}
 }
 
 void redirectStdoutFromCommand(string cmd) {
 	FILE *stream;
-	int MAX_BUFFER = 2;
+	int MAX_BUFFER = _BUFFER_SIZE;
 	char buffer[MAX_BUFFER];
-	for(int i = 0; i < MAX_BUFFER; i++)
-        buffer[i] = '\0';
+	memset(buffer,'\0',MAX_BUFFER);
 	cmd.append(" 2>&1");
 	stream = popen(cmd.c_str(), "r");
 	if (!stream){
@@ -150,8 +172,9 @@ void redirectStdoutFromCommand(string cmd) {
 	}
 	string buff = "";
 	while (!feof(stream)){
+	    memset(buffer,'\0',MAX_BUFFER);
 		if (fgets(buffer, MAX_BUFFER, stream) != NULL){
-            write(pipe_id[1], buffer, (strlen(buffer)+1));
+            write(pipe_id[1], buffer, (strlen(buffer)));
             //print(std::string(buffer));
             //int i=0;
             /*for(int i = 0; i < MAX_BUFFER; i++)

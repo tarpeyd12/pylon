@@ -56,6 +56,7 @@ void ClassList<T>::clear()
         delete[]list;
     list=NULL;
     len=0;
+    overhead=0;
 }
 
 template <typename T>
@@ -65,6 +66,7 @@ void ClassList<T>::safeclear()
         delete[]list;
     list=NULL;
     len=0;
+    overhead=0;
 }
 
 template <typename T>

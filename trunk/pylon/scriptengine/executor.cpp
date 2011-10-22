@@ -31,16 +31,16 @@ namespace ScriptEngine
 
     Execute::Execute(std::string instructions) : ScriptEngine::Executor()
     {
-        ScriptEngine::Initialize();
+        //ScriptEngine::Initialize();
         PyRun_SimpleString(instructions.c_str());
-        ScriptEngine::Finalize();
+        //ScriptEngine::Finalize();
     }
 
     Execute::Execute(const Executor& other) : ScriptEngine::Executor()
     {
-        ScriptEngine::Initialize();
+        //ScriptEngine::Initialize();
         PyRun_SimpleString(Executor(other).getInstructions().c_str());
-        ScriptEngine::Finalize();
+        //ScriptEngine::Finalize();
     }
 
     Execute::~Execute()
@@ -85,7 +85,7 @@ namespace ScriptEngine
         PyObject *pName, *pModule, *pFunc;
         PyObject *pArgs, *pValue = NULL;
 
-        ScriptEngine::Initialize();
+        //ScriptEngine::Initialize();
         pName = PyString_FromString(getInstructions().c_str());
         //pModule = PyImport_ImportModuleNoBlock(getInstructions().c_str());
         pModule = PyImport_Import(pName);
@@ -141,7 +141,7 @@ namespace ScriptEngine
             fprintf(stderr, "Failed to load \"%s\"\n", getInstructions().c_str());
             return;
         }
-        ScriptEngine::Finalize();
+        //ScriptEngine::Finalize();
     }
 
 }

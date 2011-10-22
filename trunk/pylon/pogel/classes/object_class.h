@@ -129,9 +129,14 @@ class OBJECT {
 			return face[i];
 		}
 
-		POGEL::TRIANGLE gettransformedtriangle(unsigned long i) {
-			return POGEL::MATRIX(position,rotation).transformTriangle(face[i]);
-		}
+        POGEL::TRIANGLE gettransformedtriangle(unsigned long i) {
+            POGEL::MATRIX mat(position,rotation);
+            if(hasproperty(OBJECT_ROTATE_TOCAMERA))
+                { }
+            POGEL::TRIANGLE tri = mat.transformTriangle(face[i]);
+            tri.makebounding();
+            return tri;
+        }
 
 		POGEL::TRIANGLE* gettrianglelist() {
 			return face;

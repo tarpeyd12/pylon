@@ -35,7 +35,7 @@ void Thread::setPriority(int priority)
     param.__sched_priority = priority;
     int ret = pthread_setschedparam(thread, SCHED_FIFO, &param);
     if( ret )
-        printf("thread priority setting failed: %d\n", ret);*/
+        std::cout << "Failed to set Thread priority, err: " << ret << std::endl;*/
 }
 
 void Thread::setThread(void* (*func)(void* arg))
@@ -53,14 +53,18 @@ void Thread::startThread()
     pthread_attr_init(&attr);
     pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
 
-    int ret;
-
-    ret = pthread_create( &thread, &attr, thread_function, data);
+    int ret = pthread_create( &thread, &attr, thread_function, data);
     if( ret )
     {
-        printf("*** THREAD START FAILURE: %d ***", ret);
-        exit(-1);
+        //std::cout << "*** THREAD START FAILURE: " << ret << " ***" << std::endl;
+        throw ret;//"*** THREAD START FAILURE:  ***";
+        //exit(-1);
     }
+}
+
+void Thread::start()
+{
+    this->startThread();
 }
 
 void Thread::joinThread()
@@ -68,8 +72,14 @@ void Thread::joinThread()
     int ret = pthread_join(thread, NULL);
     if( ret )
     {
-        printf("*** THREAD JOIN FAILURE: %d ***", ret);
-        exit(-1);
+        //std::cout << "*** THREAD JOIN FAILURE: " << ret << " ***" << std::endl;
+        throw ret;
+        //exit(-1);
     }
+}
+
+void Thread::join()
+{
+    this->joinThread();
 }
 

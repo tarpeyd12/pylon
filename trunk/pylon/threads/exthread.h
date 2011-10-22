@@ -14,7 +14,9 @@ class ExThread : private Thread
         ~ExThread();
 
         void startThread();
+        void start();
         void joinThread();
+        void join();
 
         virtual void run();
 

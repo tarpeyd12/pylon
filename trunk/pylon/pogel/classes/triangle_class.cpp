@@ -80,45 +80,9 @@ POGEL::POINT POGEL::TRIANGLE::middle() {
 };
 
 bool POGEL::TRIANGLE::isinfront(POGEL::POINT p) {
-	//float d = p.distance(middle());
-	//POGEL::POINT r;
-	//return !POGEL::PHYSICS::line_triangle_collision(p, p+normal.normal()*d, *this, &r, &r);
-	POGEL::POINT closest = middle();
-	POGEL::POINT points[] = {
-		vertex[0].topoint(), \
-		vertex[1].topoint(), \
-		vertex[2].topoint(), \
-		((vertex[0]+vertex[1])/2.0f).topoint(), \
-		((vertex[0]+vertex[2])/2.0f).topoint(), \
-		((vertex[1]+vertex[2])/2.0f).topoint(), \
-		(vertex[0].topoint()+closest)/2.0f, \
-		(vertex[1].topoint()+closest)/2.0f, \
-		(vertex[2].topoint()+closest)/2.0f
-	};
-
-	for(int i=0;i<9;i++) // go through all the refrence points on the triangle
-		// find the closest one, but one that is not too close
-		if(p.distance(points[i]) < p.distance(closest) && !( p.distance(points[i]) < normal.getdistance() ))
-			closest = points[i];
-
-	float distance_closest = p.distance(closest);
-	float distance_positive = p.distance(closest+normal.topoint());
-	float distance_negative = p.distance(closest-normal.topoint());
-
-
-	/*
-
-	if( distance_closest > normal.getdistance() )
-		return distance_positive <= distance_negative;
-	else
-		return ( distance_closest <= distance_negative || distance_closest >= distance_positive );
-
-	*/
-
-	return (	distance_closest > normal.getdistance() ? \
-				distance_positive <= distance_negative : \
-				( distance_closest <= distance_negative || distance_closest >= distance_positive ) \
-			);
+    POGEL::VECTOR vect;
+    vect = hasproperty(TRIANGLE_INVERT_NORMALS) ? normal*-1.0f : normal;
+    return vect.dotproduct(p+middle()) < 0.0f;
 };
 
 bool POGEL::TRIANGLE::distcheck(POGEL::POINT p, float dist) {

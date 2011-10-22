@@ -48,7 +48,8 @@ namespace Renderer
                 exit(-1);
         }
 
-        Renderer::Physics::Draw();
+        Renderer::Draw::Draw();
+        //Renderer::Draw::SimpleDraw();
 
         Renderer::Window::toOrtho();
 

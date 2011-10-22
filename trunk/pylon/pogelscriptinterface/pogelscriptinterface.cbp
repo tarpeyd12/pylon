@@ -34,7 +34,10 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-O3" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -73,10 +76,14 @@
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
-					<Add option="-s -O3 -Os -fexpensive-optimizations -fomit-frame-pointer" />
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-O3" />
 					<Add directory="../bin/UnitaryRelease/" />
 				</Compiler>
 				<Linker>
+					<Add option="-s" />
 					<Add library="pogel" />
 					<Add library="renderer" />
 					<Add library="scriptengine" />
@@ -109,6 +116,8 @@
 		<Unit filename="objects.h" />
 		<Unit filename="pogelscriptinterface.cpp" />
 		<Unit filename="pogelscriptinterface.h" />
+		<Unit filename="shapes.cpp" />
+		<Unit filename="shapes.h" />
 		<Unit filename="version.h" />
 		<Extensions>
 			<envvars />

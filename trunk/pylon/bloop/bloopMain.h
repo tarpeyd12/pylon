@@ -34,6 +34,7 @@ std::string str(wxString );
 
 void print(std::string s);
 void print_ai(std::string s);
+void setStatus(std::string s);
 void clear_output();
 
 #define s(a) str(a)
@@ -177,6 +178,7 @@ class bloopFrame: public wxFrame
         friend wxString str(const char* );
         friend void print(std::string s);
         friend void print_ai(std::string s);
+        friend void setStatus(std::string s);
         friend void clear_output();
         friend class outbuf;
 

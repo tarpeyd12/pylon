@@ -42,12 +42,12 @@ namespace Renderer
 
         void Clicked(int button, int state, int x, int y)
         {
-            if(state == GLUT_UP)
+            if( state == GLUT_UP )
             {
                 Renderer::Mouse::prev_x = x;
                 Renderer::Mouse::prev_y = y;
             }
-            if(state == GLUT_DOWN)
+            if( state == GLUT_DOWN )
             {
                 Renderer::Camera::prot = Renderer::Camera::camrot;
                 Renderer::Camera::ppos = Renderer::Camera::campos;

@@ -6,8 +6,8 @@
 
 inline void unocupyobjs(POGEL::PHYSICS::SOLID* obj1, POGEL::PHYSICS::SOLID* obj2, POGEL::VECTOR v, float d) {
 	v.normalize();
-	float p1 = 1;//obj2->bounding.maxdistance/(obj1->bounding.maxdistance + obj2->bounding.maxdistance);
-	float p2 = 1;//obj1->bounding.maxdistance/(obj1->bounding.maxdistance + obj2->bounding.maxdistance);
+	float p1 = 1.0 + obj1->bounding.maxdistance/PARTICLE_SLOWDOWN_RATIO;//obj2->bounding.maxdistance/(obj1->bounding.maxdistance + obj2->bounding.maxdistance);
+	float p2 = 1.0 + obj2->bounding.maxdistance/PARTICLE_SLOWDOWN_RATIO;//obj1->bounding.maxdistance/(obj1->bounding.maxdistance + obj2->bounding.maxdistance);
 	if(!obj1->hasOption(PHYSICS_SOLID_STATIONARY) && !obj2->hasOption(PHYSICS_SOLID_STATIONARY)) {
 		obj1->force += (v * d/2*p1);
 		obj2->force += (v *-d/2*p2);
@@ -15,12 +15,12 @@ inline void unocupyobjs(POGEL::PHYSICS::SOLID* obj1, POGEL::PHYSICS::SOLID* obj2
 		obj2->translate(v *-d/2*p2);
 	}
 	else if(!obj1->hasOption(PHYSICS_SOLID_STATIONARY) && obj2->hasOption(PHYSICS_SOLID_STATIONARY)) {
-		obj1->force += (v * d/1*p1);
-		obj1->translate(v * d/1*p1);
+		obj1->force += (v * d*p1);
+		obj1->translate(v * d*p1);
 	}
 	else if(obj1->hasOption(PHYSICS_SOLID_STATIONARY) && !obj2->hasOption(PHYSICS_SOLID_STATIONARY)) {
-		obj2->force += (v *-d/1*p2);
-		obj2->translate(v *-d/1*p2);
+		obj2->force += (v *-d*p2);
+		obj2->translate(v *-d*p2);
 	}
 };
 
@@ -303,6 +303,7 @@ bool POGEL::PHYSICS::SIMULATION::processSPHERE_CONCAVEGENERAL(POGEL::PHYSICS::SO
 
 bool POGEL::PHYSICS::SIMULATION::processCONCAVESPHERE_SPHERE(POGEL::PHYSICS::SOLID* obj1, POGEL::PHYSICS::SOLID* obj2) {
 
+    // make sure obj1 is the concave thing
 	if(obj2->hasOption(PHYSICS_SOLID_CONCAVE) && !obj1->hasOption(PHYSICS_SOLID_CONCAVE))
 		return processCONCAVESPHERE_SPHERE(obj2, obj1);
 
@@ -315,12 +316,9 @@ bool POGEL::PHYSICS::SIMULATION::processCONCAVESPHERE_SPHERE(POGEL::PHYSICS::SOL
 
 		float d = obj1->position.distance(obj2->position) - fabs(obj2->bounding.maxdistance - obj1->bounding.maxdistance);
 
-		//if((obj2->position + obj2->direction.normal().topoint()).distance(obj1->position) < obj1->position.distance(obj2->position))
-			//obj2->translate(v.normal() * d  );
-		//else if((obj2->position - obj2->direction.normal().topoint()).distance(obj1->position) < obj1->position.distance(obj2->position))
 		unocupyobjs(obj1,obj2,v,d);
 
-		reactcollision(obj1, obj2, POGEL::VECTOR(obj1->position, p).normal()*1, POGEL::VECTOR(obj2->position, p).normal()*1, p);
+		reactcollision(obj2, obj1, POGEL::VECTOR(obj1->position, obj2->position), POGEL::VECTOR(obj2->position, obj1->position), p);
 		return true;
 	}
 

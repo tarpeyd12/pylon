@@ -13,10 +13,11 @@ namespace pogelInterface
         { "addproperty",        (CFunction)addproperty,       VarArgs, NULL },
         { "removeproperty",     (CFunction)removeproperty,    VarArgs, NULL },
         // pogel simulations
-        { "addsimulation",      (CFunction)addsimulation,     VarArgs, NULL },
-        { "togglesim",          (CFunction)togglesimulation,  VarArgs, NULL },
-        { "togglesimweight",    (CFunction)togglesimweight,   VarArgs, NULL },
-        { "clearsimulation",    (CFunction)clearsimulation,   VarArgs, NULL },
+        { "addsimulation",           (CFunction)addsimulation,           VarArgs, NULL },
+        { "togglesim",               (CFunction)togglesimulation,        VarArgs, NULL },
+        { "togglesimweight",         (CFunction)togglesimweight,         VarArgs, NULL },
+        { "setsimulationgravity_3f", (CFunction)setsimulationgravity_3f, VarArgs, NULL },
+        { "clearsimulation",         (CFunction)clearsimulation,         VarArgs, NULL },
         // object controll
         { "addobject",          (CFunction)addobject,         VarArgs, NULL },
         { "object_move_s",      (CFunction)object_move_s,     VarArgs, NULL },
@@ -33,6 +34,16 @@ namespace pogelInterface
         { "object_get_rot_s",   (CFunction)object_get_rot_s,  VarArgs, NULL },
         { "object_get_dir_s",   (CFunction)object_get_dir_s,  VarArgs, NULL },
         { "object_get_spin_s",  (CFunction)object_get_spin_s, VarArgs, NULL },
+        { "object_build",       (CFunction)object_build,      VarArgs, NULL },
+        // object shapes
+        { "object_add_sphere",       (CFunction)object_add_sphere,       VarArgs, NULL },
+        { "object_add_sphere_mat",   (CFunction)object_add_sphere_mat,   VarArgs, NULL },
+        { "object_add_disk",         (CFunction)object_add_disk,         VarArgs, NULL },
+        { "object_add_disk_mat",     (CFunction)object_add_disk_mat,     VarArgs, NULL },
+        { "object_add_cylinder",     (CFunction)object_add_cylinder,     VarArgs, NULL },
+        { "object_add_cylinder_mat", (CFunction)object_add_cylinder_mat, VarArgs, NULL },
+        { "object_add_cube",         (CFunction)object_add_cube,         VarArgs, NULL },
+        { "object_add_cube_mat",     (CFunction)object_add_cube_mat,     VarArgs, NULL },
         // keyboard interface
         { "key_ispressed",      (CFunction)key_ispressed,     VarArgs, NULL },
         { "key_last",           (CFunction)key_last,          VarArgs, NULL },

@@ -2,6 +2,35 @@
 
 #include "versionheaders.h"
 
+void _atExit()
+{
+    // cleanup
+    Renderer::drawLock = true;
+
+    if(!Main::SingleThreaded)
+    {
+        if(Main::calcThread != NULL)
+        {
+            cout << "Stopping Physics Thread ...\t";
+            Main::calcLock = true;
+            sleep(1);
+            delete Main::calcThread;
+            Main::calcThread = NULL;
+            cout << "OK" << endl;
+        }
+    }
+
+    if(Main::scriptThread != NULL)
+    {
+        cout << "Stopping Scripting Thread ...\t";
+        Main::scriptThread->running = false;
+        sleep(1);
+        delete Main::scriptThread;
+        Main::scriptThread = NULL;
+        cout << "OK" << endl;
+    }
+}
+
 // Program entry point
 int main(int argc, char *argv[])
 {
@@ -20,6 +49,9 @@ int main(int argc, char *argv[])
     // initialize the renderer
     Renderer::Init();
 
+    // to clean stuff up at exit.
+    atexit(_atExit);
+
     if(Main::SingleThreaded)
     {
         // create scripting callbacks
@@ -37,13 +69,7 @@ int main(int argc, char *argv[])
     // and start the renderer on this thread
     glutMainLoop();
 
-    // cleanup
-    delete Main::scriptThread;
-
-    if(!Main::SingleThreaded)
-    {
-        delete Main::calcThread;
-    }
+    // cleanup is done with the atexit(_atExit); call to _atExit() above.
 
     // goodby and good riddance
     return EXIT_SUCCESS;

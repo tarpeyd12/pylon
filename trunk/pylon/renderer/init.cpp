@@ -56,6 +56,15 @@ namespace Renderer
         glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
         glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 
+        float fogcolor[] = {0.5,0.5,0.5,1.0};
+        glFogi(GL_FOG_MODE, GL_LINEAR);		// Fog Mode
+        glFogfv(GL_FOG_COLOR, fogcolor);			// Set Fog Color
+        glFogf(GL_FOG_DENSITY, 0.35f);				// How Dense Will The Fog Be
+        glHint(GL_FOG_HINT, GL_NICEST);			// Fog Hint Value
+        glFogf(GL_FOG_START, 10.0f);				// Fog Start Depth
+        glFogf(GL_FOG_END, 50.0f);				// Fog End Depth
+        //glEnable(GL_FOG);					// Enables GL_FOG
+
         Renderer::HUD::Init();
 
         glutSetCursor(GLUT_CURSOR_NONE);

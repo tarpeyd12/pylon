@@ -33,7 +33,10 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-O3" />
 					<Add directory="../bin/Release/" />
 				</Compiler>
 				<Linker>
@@ -69,10 +72,14 @@
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
-					<Add option="-s -O3 -Os -fexpensive-optimizations -fomit-frame-pointer" />
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-O3" />
 					<Add directory="../bin/UnitaryRelease/" />
 				</Compiler>
 				<Linker>
+					<Add option="-s" />
 					<Add library="pogel" />
 					<Add library="objectloader" />
 					<Add directory="../bin/UnitaryRelease/" />
@@ -101,6 +108,8 @@
 		<Unit filename="cmd.cpp" />
 		<Unit filename="cmd.h" />
 		<Unit filename="display.cpp" />
+		<Unit filename="draw.cpp" />
+		<Unit filename="draw.h" />
 		<Unit filename="hud.cpp" />
 		<Unit filename="hud.h" />
 		<Unit filename="init.cpp" />

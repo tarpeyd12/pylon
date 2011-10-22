@@ -20,7 +20,7 @@ void addSphere(POGEL::OBJECT *obj, float spacev, float spaceh, float R, POGEL::I
 	unsigned long cur_vert=0;
 	POGEL::VERTEX verts[4];
 	POGEL::TRIANGLE tri;
-	
+
 	spacev=180.0f/spacev;
 	spaceh=360.0f/spaceh;
 	unsigned long vertcount=(180 / spacev) * (360 / spaceh);
@@ -33,32 +33,32 @@ void addSphere(POGEL::OBJECT *obj, float spacev, float spaceh, float R, POGEL::I
 								R*(cos((b)/180.0f*PI))+center.y, \
 								R*(cos((a)/180.0f*PI)*sin((b)/180.0f*PI))+center.z, \
 								imgscaleh*(a)/360.0f, \
-								imgscalev*-(b)/180.0f);
-			
+								imgscalev*(b)/180.0f);
+
 			verts[1].set_values(R*(sin((a)/180.0f*PI)*sin((b+spacev)/180.0f*PI))+center.x, \
 								R*(cos((b+spacev)/180.0f*PI))+center.y, \
 								R*(cos((a)/180.0f*PI)*sin((b+spacev)/180.0f*PI))+center.z, \
 								imgscaleh*(a)/360.0f, \
-								imgscalev*-(b+spacev)/180.0f);
-			
+								imgscalev*(b+spacev)/180.0f);
+
 			verts[2].set_values(R*(sin((a+spaceh)/180.0f*PI)*sin((b)/180.0f*PI))+center.x, \
 								R*(cos((b)/180.0f*PI))+center.y, \
 								R*(cos((a+spaceh)/180.0f*PI)*sin((b)/180.0f*PI))+center.z, \
 								imgscaleh*(a+spaceh)/360.0f, \
-								imgscalev*-(b)/180.0f);
-			
+								imgscalev*(b)/180.0f);
+
 			verts[3].set_values(R*(sin((a+spaceh)/180.0f*PI)*sin((b+spacev)/180.0f*PI))+center.x, \
 								R*(cos((b+spacev)/180.0f*PI))+center.y, \
 								R*(cos((a+spaceh)/180.0f*PI)*sin((b+spacev)/180.0f*PI))+center.z, \
 								imgscaleh*(a+spaceh)/360.0f, \
-								imgscalev*-(b+spacev)/180.0f);
-			
+								imgscalev*(b+spacev)/180.0f);
+
 			for(int i=0;i<4;i++) {
 				mat.transformVertex(&verts[i]);
 				verts[i].normal.frompoints(mat.getposition(),verts[i].topoint());
 				verts[i].normal.normalize();
 			}
-			
+
 			tri.load(verts[0],verts[1],verts[2], img, triprop);
 			//mat.transformVector(&tri.normal);
 			obj->addtriangle(tri);
@@ -90,7 +90,7 @@ void addDisk(POGEL::OBJECT *obj, float divisions, float rings, float outer_radiu
 	unsigned long cur_vert=0;
 	POGEL::VERTEX verts[4];
 	POGEL::TRIANGLE tri;
-	
+
 	divisions=360.0f/divisions;
 	unsigned long vertcount=((360/divisions)*rings);
 	//obj->addtrianglespace(vertcount);
@@ -103,32 +103,32 @@ void addDisk(POGEL::OBJECT *obj, float divisions, float rings, float outer_radiu
 										(a)*cos((b)/180.0f*PI)+center.y, \
 										0.0f+center.z
 			);
-			
+
 			verts[1].set_point_values(	(a)*sin((b+divisions)/180.0f*PI)+center.x, \
 										(a)*cos((b+divisions)/180.0f*PI)+center.y, \
 										0.0f+center.z
 			);
-			
+
 			verts[2].set_point_values(	(a+rings)*sin((b)/180.0f*PI)+center.x, \
 										(a+rings)*cos((b)/180.0f*PI)+center.y, \
 										0.0f+center.z
 			);
-			
+
 			verts[3].set_point_values(	(a+rings)*sin((b+divisions)/180.0f*PI)+center.x, \
 										(a+rings)*cos((b+divisions)/180.0f*PI)+center.y, \
 										0.0f+center.z
 			);
-			
+
 			if(radial_tex) {
 				verts[0].set_tex_values(imgscalev*(b)/360.0f, \
 										imgscaleh*((a-inner_radius))/(outer_radius-inner_radius));
-				
+
 				verts[1].set_tex_values(imgscalev*(b+divisions)/360.0f, \
 										imgscaleh*((a-inner_radius))/(outer_radius-inner_radius));
-				
+
 				verts[2].set_tex_values(imgscalev*(b)/360.0f, \
 										imgscaleh*((a-inner_radius)+rings)/(outer_radius-inner_radius));
-				
+
 				verts[3].set_tex_values(imgscalev*(b+divisions)/360.0f, \
 										imgscaleh*((a-inner_radius)+rings)/(outer_radius-inner_radius));
 			}
@@ -147,7 +147,7 @@ void addDisk(POGEL::OBJECT *obj, float divisions, float rings, float outer_radiu
 				verts[i].normal.frompoints(mat.getposition(),verts[i].topoint());
 				verts[i].normal.normalize();
 			}
-			
+
 			tri.load(verts[0],verts[1],verts[2], img, triprop);
 			//mat.transformVector(&tri.normal);
 			obj->addtriangle(tri);
@@ -203,45 +203,45 @@ void addCylinder(POGEL::OBJECT *obj, float divisions, float rings_in, float heig
 										(c)+center.y, \
 										(a)*cos((b)/180.0f*PI)+center.z
 			);
-			
+
 			verts[1].set_point_values(	(a)*sin((b+divisions)/180.0f*PI)+center.x, \
 										(c)+center.y, \
 										(a)*cos((b+divisions)/180.0f*PI)+center.z
 			);
-			
+
 			verts[2].set_point_values(	(a+rings)*sin((b)/180.0f*PI)+center.x, \
 										(c+hinc)+center.y, \
 										(a+rings)*cos((b)/180.0f*PI)+center.z
 			);
-			
+
 			verts[3].set_point_values(	(a+rings)*sin((b+divisions)/180.0f*PI)+center.x, \
 										(c+hinc)+center.y, \
 										(a+rings)*cos((b+divisions)/180.0f*PI)+center.z
 			);
-			
-			
+
+
 			verts[0].set_tex_values(imgscalev*(b)/360.0f, \
 									//imgscaleh*((c-((height/2.0f)/imgscaleh)))/texdiv);
 									(imgscaleh/rings_in)*(((c)/*+hinc*/)/hinc)+(imgscaleh/2.0f));
-			
+
 			verts[1].set_tex_values(imgscalev*(b+divisions)/360.0f, \
 									//imgscaleh*((c-((height/2.0f)/imgscaleh)))/texdiv);
 									(imgscaleh/rings_in)*(((c)/*+hinc*/)/hinc)+(imgscaleh/2.0f));
-			
+
 			verts[2].set_tex_values(imgscalev*(b)/360.0f, \
 									//imgscaleh*((c-((height/2.0f)/imgscaleh))+hinc)/texdiv);
 									(imgscaleh/rings_in)*(((c)+hinc)/hinc)+(imgscaleh/2.0f));
-			
+
 			verts[3].set_tex_values(imgscalev*(b+divisions)/360.0f, \
 									//imgscaleh*((c-((height/2.0f)/imgscaleh))+hinc)/texdiv);
 									(imgscaleh/rings_in)*(((c)+hinc)/hinc)+(imgscaleh/2.0f));
-			
+
 			for(int i=0;i<4;i++) {
 				mat.transformVertex(&verts[i]);
 				verts[i].normal.frompoints(mat.getposition(),verts[i].topoint());
 				verts[i].normal.normalize();
 			}
-			
+
 			tri.load(verts[0],verts[1],verts[2], img, triprop);
 			//mat.transformVector(&tri.normal);
 			obj->addtriangle(tri);
@@ -260,12 +260,12 @@ void addCylinder(POGEL::OBJECT *obj, float divisions, float rings_in, float heig
 }
 
 void addFunctionShape( POGEL::OBJECT* obj, SHAPE_FUNCTION_RESULT (*function)(SHAPE_FUNCTION_ARGS), const char* axesToLoop, POGEL::IMAGE* img, unsigned int triprop, float xSize, float ySize, float zSize, unsigned long xRes, unsigned long yRes, unsigned long zRes) {
-	
+
 	if(axesToLoop == NULL || strlen(axesToLoop) < 2 || strlen(axesToLoop) > 3)
 		return;
-	
+
 	bool loopX = false, loopY = false, loopZ = false;
-	
+
 	unsigned int l = strlen(axesToLoop);
 	for(unsigned int i = 0; i < l; i++)
 		switch(axesToLoop[i]) {
@@ -273,7 +273,7 @@ void addFunctionShape( POGEL::OBJECT* obj, SHAPE_FUNCTION_RESULT (*function)(SHA
 			case 'y': case 'Y': loopY = true; break;
 			case 'z': case 'Z': loopZ = true; break;
 		}
-	
+
 	if( !loopX && !loopY && !loopZ)
 		return;
 	#ifdef DIPLAY_SHAPE_PROGRESS
@@ -281,28 +281,28 @@ void addFunctionShape( POGEL::OBJECT* obj, SHAPE_FUNCTION_RESULT (*function)(SHA
 	#endif
 	float xMax = xSize/2.0f, yMax = ySize/2.0f, zMax = zSize/2.0f;
 	float xMin = xMax*-1.0f, yMin = yMax*-1.0f, zMin = zMax*-1.0f;
-	
+
 	float xStep = xSize/float(xRes), yStep = ySize/float(yRes), zStep = zSize/float(zRes);
-	
+
 	if(!loopX) xRes = 1;
 	if(!loopY) yRes = 1;
 	if(!loopZ) zRes = 1;
-	
+
 	obj->addtrianglespace(xRes*yRes*zRes*2);
-	
+
 	unsigned long face_count = 0;
-	
+
 	unsigned long a = 0;
 	for(float xpos = xMin; ( /*(a>0 ? loopX : true) &&*/ a < xRes); a++, xpos += xStep) {
 		unsigned long b = 0;
 		for(float ypos = yMin; ( /*(b>0 ? loopY : true) &&*/ b < yRes); b++, ypos += yStep) {
 			unsigned long c = 0;
 			for(float zpos = zMin;( /*(c>0 ? loopZ : true) &&*/ c < zRes); c++, zpos += zStep) {
-				
+
 				POGEL::VERTEX verts[4];
 				POGEL::POINT tmp;
 				POGEL::TRIANGLE tri[2];
-				
+
 				if(loopX && loopY) {
 					tmp = function(xpos, ypos, 0, a, b, 0);
 					verts[0].set_values(tmp.x, tmp.y, tmp.z, xpos/xSize-0.5, ypos/ySize-0.5);
@@ -357,7 +357,7 @@ void addFunctionShape( POGEL::OBJECT* obj, SHAPE_FUNCTION_RESULT (*function)(SHA
 					obj->addtriangle(tri[0]);
 					obj->addtriangle(tri[1]);
 				}
-				
+
 				face_count++;
 				#ifdef DIPLAY_SHAPE_PROGRESS
 				if(POGEL::hasproperty(POGEL_DEBUG)) POGEL::message("%ld of %ld in graph of function.\r", face_count, xRes*yRes*zRes);
@@ -375,9 +375,9 @@ void addCube(POGEL::OBJECT *obj, float height, float width, float depth, POGEL::
 	if(POGEL::hasproperty(POGEL_DEBUG)) POGEL::message("Adding Cube to \"%s\" ...\n", obj->getname());
 	#endif
 	POGEL::VERTEX verts[4];
-	
+
 	//obj->addtrianglespace(12);
-	
+
 	//front
 	verts[0].set_values(-width/2.0f,-height/2.0f, depth/2.0f,       0.0f,      0.0f); // lowerleft
 	verts[1].set_values( width/2.0f,-height/2.0f, depth/2.0f, imgscale_w,      0.0f); // lowerright
@@ -467,7 +467,7 @@ void addCube(POGEL::OBJECT *obj, float height, float width, float depth, POGEL::
 	obj->addtriangle(POGEL::TRIANGLE(verts[3],verts[0],verts[2],img,triprop));
 	#ifdef DIPLAY_SHAPE_PROGRESS
 	if(POGEL::hasproperty(POGEL_DEBUG)) POGEL::message("6 of 6 faces complete in cube.\r");
-	
+
 	if(POGEL::hasproperty(POGEL_DEBUG)) POGEL::message("\n");
 	#endif
 };

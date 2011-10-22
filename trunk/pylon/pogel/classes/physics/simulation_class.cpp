@@ -158,7 +158,11 @@ inline void checkcollision(POGEL::PHYSICS::SIMULATION* sim, unsigned long s, uns
 	for( unsigned long a = s; a < e && a < sim->numobjs(); a++ ) {
 		if(!sim->objs(a)->napping() || sim->objs(a)->hasOption(PHYSICS_SOLID_STATIONARY)) {
 			HASHLIST<unsigned int> *objs = sim->getotree()->releventIndicies(sim->objs(a)->bounding);
-			if(objs != NULL) {
+			if(sim->objs(a)->hasOption(PHYSICS_SOLID_CONCAVE)) {
+				for( unsigned long b = 0; b < sim->numobjs(); b++ )
+					objectIntersectionProcessing(sim, a, b);
+			}
+			else if(objs != NULL) {
 				for( unsigned long b = 0; b < objs->length(); b++ )
 					if(objs->get(b) < sim->numobjs())
 						objectIntersectionProcessing(sim, a, objs->get(b));

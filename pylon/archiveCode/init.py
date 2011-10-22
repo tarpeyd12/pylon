@@ -82,7 +82,7 @@ def waitcalc(i):
 print pylon.requestfile('Data/images/particle.tga')
 print pylon.requestfile('Data/images/mouse_pointer.png')
 
-ClickLine = Quad(0,0,pylon.mouse_pos_x(),pylon.mouse_pos_y(),'{[Data/images/particle.tga],[2]}',True)
+ClickLine = Quad(0,0,pylon.mouse_pos_x(),pylon.mouse_pos_y(),'{[Data/images/default_2.bmp],[2]}',True)
 Mouse = Quad(0,0,pylon.mouse_pos_x(),pylon.mouse_pos_y(),'{[Data/images/mouse_pointer.png],[2]}',True)
 
 #print 'Data/log125.txt not found importing from database pylon'
@@ -140,4 +140,65 @@ if False:
 		print sim2.addobject(newobjdat)
 	#sim2.stop()
 
-cam.radus = 1
+cam.radus = 2
+
+def makeObjectString(vect1,vect2,vect3,vect4,name,p1,p2,mass,tridat):
+	return '{['+str(name)+'],['+str(p1)+'],['+str(p2)+'],[0],[0],'+vect1+','+vect2+','+vect3+','+vect4+',{[0.5],[0.25],['+str(float(mass))+'],[1.0],[1.0],[1.0],[0],[-1.0]},<'+tridat+'>}'
+
+TestSphereSim = Simulation("TestSphereSim",True)
+
+zeropos = makepos(0,0,0)
+
+possibleImages = '{[Data/images/earth.bmp],[2]}', '{[Data/images/Glass.bmp],[2]}', '{[Data/images/lava8.bmp],[2]}', '{[Data/images/mandel_2.png],[1]}', '{[Data/images/pogel_runner_galax_color_1.png],[2]}', '{[Data/images/default_2.bmp],[0]}', '{[Data/images/mouse_pointer.png],[0]}'
+possibleTriProps = 8, 8|32, 8, 8, 8, 2, 8|64
+loop = 0
+rnum = 0
+numOSpheres = 500
+while loop < numOSpheres:
+	sc1 = 0.1
+	#rpos = makepos(rnd_n1p1()*sc1*0, float(loop)/4.99+.000001-(numOSpheres/4.99/2), rnd_n1p1()*sc1*0)
+	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1*0)
+	rot = makepos(rnd_n1p1()*360,rnd_n1p1()*360,rnd_n1p1()*360)
+	print TestSphereSim.addobject( makeObjectString(rpos,rot,zeropos,zeropos,"Object"+str(loop),2|4|16,8,1,"") )
+	rnum = int(random.random()*7)
+	print pylon.object_add_sphere("TestSphereSim","Object"+str(loop),0.007,1,2,possibleImages[rnum],1,1,possibleTriProps[rnum])
+	print pylon.object_build("TestSphereSim","Object"+str(loop))
+	loop = loop + 1
+
+
+#print pylon.object_set_dir_3f("TestSphereSim","Object0",0,0.02,0)
+#print pylon.object_set_dir_3f("TestSphereSim","Object1",0,0.02,0)
+#print pylon.object_set_dir_3f("TestSphereSim","Object2",0,0.02,0)
+#print pylon.object_set_dir_3f("TestSphereSim","Object3",0,0.02,0)
+
+rnum = 5
+print TestSphereSim.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8|64,0,"") )
+print pylon.object_add_sphere("TestSphereSim","Outset",0.5,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|16)
+#if rnum!=6 and not False:
+#print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|32)
+#print pylon.object_add_sphere("TestSphereSim","Outset",2.1,20,20,'{[Data/images/earthcloudmap.png],[2]}',1,1,8|32)
+print pylon.object_build("TestSphereSim","Outset")
+
+#print TestSphereSim.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Aura",1|8|16,128,0,"") )
+#print pylon.object_add_disk("TestSphereSim","Aura",40,1,4.0,2.0,possibleImages[5],1,1,0,True)
+#print pylon.object_build("TestSphereSim","Aura")
+
+print pylon.setsimulationgravity_3f("TestSphereSim",0,-0.8,0)
+
+relocateobjscounter = 0
+
+def doOBJECTrelocate():
+	global relocateobjscounter
+	relocateobjscounter = relocateobjscounter + 1
+	if relocateobjscounter%2 == 1:
+		return
+	c = int((counter/2)*10.0)%numOSpheres
+	oname = "Object"+str(c)
+	sc1 = 0.025
+	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1*0)
+	pylon.object_set_pos_s("TestSphereSim",oname,rpos)
+	pylon.object_set_dir_3f("TestSphereSim",oname,0.002,0.02,0)
+
+waitcalc(10000)
+#TestSphereSim.stop()
+

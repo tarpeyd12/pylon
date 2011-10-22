@@ -40,12 +40,12 @@ namespace ScriptEngine
     void Initialize()
     {
         if(!ScriptEngine::HasBegun())
-            Py_Initialize();
+            Begin();
     }
 
     void Finalize()
     {
         if(ScriptEngine::HasBegun())
-            Py_Finalize();
+            End();
     }
 }

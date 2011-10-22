@@ -34,7 +34,10 @@
 				<Option createDefFile="1" />
 				<Option createStaticLib="1" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-O3" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -70,10 +73,14 @@
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
-					<Add option="-s -O3 -Os -fexpensive-optimizations -fomit-frame-pointer" />
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-O3" />
 					<Add directory="../bin/UnitaryRelease/" />
 				</Compiler>
 				<Linker>
+					<Add option="-s" />
 					<Add library="lists" />
 					<Add library="soil" />
 					<Add library="threads" />
@@ -132,6 +139,7 @@
 		<Unit filename="classes/quat_class.h" />
 		<Unit filename="classes/sprite_class.cpp" />
 		<Unit filename="classes/sprite_class.h" />
+		<Unit filename="classes/terrain_class.h" />
 		<Unit filename="classes/threads.h" />
 		<Unit filename="classes/triangle_class.cpp" />
 		<Unit filename="classes/triangle_class.h" />

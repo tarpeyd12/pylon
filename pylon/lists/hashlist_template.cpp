@@ -261,8 +261,9 @@ void HashList<T>::remove(unsigned int l)
 template <typename T>
 void HashList<T>::replace(unsigned int i, T l)
 {
-    list.get( i/insize )->remove( i%insize );
-    list.get( i/insize )->insert( l, i%insize );
+    list.get( i/insize )->operator[](i%insize) = l;
+    /*list.get( i/insize )->remove( i%insize );
+    list.get( i/insize )->insert( l, i%insize );*/
 }
 
 template <typename T>
@@ -346,13 +347,17 @@ void HashList<T>::quickSort(int left, int right)
 
     /* partition */
     while (i <= j) {
-        cout << "I: " << i << ", J: " << j << endl;
+        //cout << "I: " << i << ", J: " << j << endl;
         T pi = this->get(i);
         T pj = this->get(j);
-        while (sortFunction(&pi,&pivot) < 0)//(*this[i] < pivot)
-            i++;
-        while (sortFunction(&pj,&pivot) > 0)//(*this[j] > pivot)
-            j--;
+        while (sortFunction(&pi,&pivot) < 0 && i < right)//(*this[i] < pivot)
+        {
+            pi = this->get(++i);
+        }
+        while (sortFunction(&pj,&pivot) > 0 && j > left)//(*this[j] > pivot)
+        {
+            pj = this->get(--j);
+        }
         if (i <= j) {
             tmp = this->get(i);
             this->replace(i,this->get(j));

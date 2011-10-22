@@ -27,15 +27,15 @@ namespace Renderer
                 bool isdyn();
                 bool inc();
                 void* getSim();
+                POGEL::PHYSICS::SOLID* getObject(std::string);
                 std::string getName();
         };
 
         extern ClassList<Simulation*> simulations;
 
         Renderer::Physics::Simulation* getSimulation(std::string);
+        POGEL::PHYSICS::SOLID* getObject(std::string,std::string);
         void addSimulation(std::string,bool);
-
-        void Draw();
     }
 }
 

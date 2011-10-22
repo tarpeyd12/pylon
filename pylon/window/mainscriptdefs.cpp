@@ -79,19 +79,19 @@ namespace Main
             return Py_BuildValue("s", PogelAutoVersion::_FULLVERSION_STRING);
         else
         if(!pname.compare("fileloader"))
-            return Py_BuildValue("s", FileLoaderAutoVersion::FULLVERSION_STRING);
+            return Py_BuildValue("s", FileLoaderAutoVersion::_FULLVERSION_STRING);
         else
         if(!pname.compare("scriptengine"))
             return Py_BuildValue("s", ScriptEngineAutoVersion::FULLVERSION_STRING);
         else
         if(!pname.compare("renderer"))
-            return Py_BuildValue("s", RendererAutoVersion::FULLVERSION_STRING);
+            return Py_BuildValue("s", RendererAutoVersion::_FULLVERSION_STRING);
         else
         if(!pname.compare("threads"))
-            return Py_BuildValue("s", ThreadsAutoVersion::FULLVERSION_STRING);
+            return Py_BuildValue("s", ThreadsAutoVersion::_FULLVERSION_STRING);
         else
         if(!pname.compare("pogelinterface"))
-            return Py_BuildValue("s", pogelInterfaceAutoVersion::FULLVERSION_STRING);
+            return Py_BuildValue("s", pogelInterfaceAutoVersion::_FULLVERSION_STRING);
         else
         if(!pname.compare("objectloader"))
             return Py_BuildValue("s", ObjectLoaderAutoVersion::FULLVERSION_STRING);
@@ -102,7 +102,7 @@ namespace Main
     ScriptEngine::MethodInterface::MethodDef getVersionMethod[] =
     {
         { "version", (ScriptEngine::MethodInterface::CFunction)getVersion, ScriptEngine::MethodInterface::NoArgs, NULL },
-        { "pluginversion", (ScriptEngine::MethodInterface::CFunction)getPluginVersion, ScriptEngine::MethodInterface::VarArgs, NULL },
+        { "componentversion", (ScriptEngine::MethodInterface::CFunction)getPluginVersion, ScriptEngine::MethodInterface::VarArgs, NULL },
         { NULL }
     };
 }

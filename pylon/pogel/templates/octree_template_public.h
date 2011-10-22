@@ -1,5 +1,5 @@
-		
-		
+
+
 		~OCTREE() {
 			objects.clear();
 			indicies.clear();
@@ -13,7 +13,7 @@
 			children.clear();
 			addboundings = true;
 		}
-		
+
 		void FORCEresizelist(unsigned int s) {
 			objects.FORCEresizeInternalList(s);
 			indicies.FORCEresizeInternalList(s);
@@ -21,27 +21,27 @@
 			for(unsigned int i = 0; i < children.length(); i++)
 				children[i]->FORCEresizelist(s);
 		}
-		
+
 		void FORCEfastlist() {
 			FORCEresizelist(1);
 		}
-		
+
 		POGEL::POINT getposition() {
 			return position;
 		}
-		
+
 		POGEL::BOUNDING getbounding() {
 			return bounding;
 		}
-		
+
 		unsigned int numobjs() {
 			return objects.length();
 		}
-		
+
 		unsigned int getlevel() {
 			return level;
 		}
-		
+
 		void add(T* s) {
 			objects += s;
 			if(addboundings) {
@@ -51,7 +51,7 @@
 			else
 				bounding.addpoint(getposition(),s->getposition());
 		}
-		
+
 		void add(T* s, unsigned int i) {
 			objects += s;
 			indicies += i;
@@ -62,7 +62,7 @@
 			else
 				bounding.addpoint(getposition(),s->getposition());
 		}
-		
+
 		void place(T* s, unsigned int i) {
 			objects += s;
 			indicies += i;
@@ -79,7 +79,7 @@
 					grow();
 			}
 		}
-		
+
 		/*void grow() {
 			if(!(objects.length() > leastobjs && level+1 <= maxlevels && children.length() < maxchildren))
 				return;
@@ -93,7 +93,7 @@
 			for(unsigned int i = 0; i < objects.length(); i++)
 				relevent_child(getposition(), objects[i]->getposition())->place(objects[i], indicies[i]);
 		}*/
-		
+
 		void regrow() {
 			if(children.length()) {
 				for(unsigned int i = 0; i < children.length(); i++)
@@ -102,17 +102,17 @@
 			}
 			grow();
 		}
-		
+
 		HASHLIST<T*>* relevent(POGEL::POINT p, POGEL::BOUNDING b) {
 			HASHLIST<T*> *ret = new HASHLIST<T*>();
-			if((objects.length() <= leastobjs && getbounding().checkbounding(POGEL::POINT(), p, b)) || children.length() < maxchildren) {
-				for(unsigned int i = 0; i < objects.length(); i++)
-					if(objects[i]->getbounding().checkbounding(POGEL::POINT(), p, b))
-						ret->add(objects[i]);
-				return ret;
-			}
 			if(b.surrounds(p,POGEL::POINT(),getbounding())) {
 				ret->add(&objects);
+				return ret;
+			}
+			if((objects.length() <= leastobjs && getbounding().checkbounding(POGEL::POINT(), p, b)) || children.length() < maxchildren) {
+				for(unsigned int i = 0; i < objects.length(); i++)
+					if(objects[i]->getbounding().checkbounding(POGEL::POINT(), p, b) || objects[i]->hasOption(PHYSICS_SOLID_CONCAVE))
+						ret->add(objects[i]);
 				return ret;
 			}
 			for(unsigned int i = 0; i < children.length(); i++)
@@ -120,21 +120,21 @@
 					ret->pillage(children[i]->relevent(p,b));
 			return ret;
 		}
-		
+
 		HASHLIST<T*>* relevent(POGEL::BOUNDING b) {
 			return relevent(POGEL::POINT(), b);
 		}
-		
+
 		HASHLIST<unsigned int>* releventIndicies(POGEL::POINT p, POGEL::BOUNDING b) {
 			HASHLIST<unsigned int>* ret = new HASHLIST<unsigned int>();
-			if((objects.length() <= leastobjs && getbounding().checkbounding(POGEL::POINT(), p, b)) || children.length() < maxchildren) {
-				for(unsigned int i = 0; i < objects.length(); i++)
-					if(objects[i]->getbounding().checkbounding(POGEL::POINT(), p, b))
-						ret->add(indicies[i]);
-				return ret;
-			}
 			if(b.surrounds(p,POGEL::POINT(),getbounding())) {
 				ret->add(&indicies);
+				return ret;
+			}
+			if((objects.length() <= leastobjs && getbounding().checkbounding(POGEL::POINT(), p, b)) || children.length() < maxchildren) {
+				for(unsigned int i = 0; i < objects.length(); i++)
+					if(objects[i]->getbounding().checkbounding(POGEL::POINT(), p, b) || objects[i]->hasOption(PHYSICS_SOLID_CONCAVE))
+						ret->add(indicies[i]);
 				return ret;
 			}
 			for(unsigned int i = 0; i < children.length(); i++)
@@ -142,11 +142,11 @@
 					ret->pillage(children[i]->releventIndicies(p,b));
 			return ret;
 		}
-		
+
 		HASHLIST<unsigned int>* releventIndicies(POGEL::BOUNDING b) {
 			return releventIndicies(POGEL::POINT(),b);
 		}
-		
+
 		HASHLIST<OCTREE<T>*>* dencityReleventChildren(float dencity) {
 			HASHLIST<OCTREE<T>*>* ret = new HASHLIST<POGEL::OCTREE<T>*>();
 			if(getDencity() >= dencity) {
@@ -169,7 +169,7 @@
 					ret->pillage(children[i]->dencityReleventChildren(dencity));
 			return ret;
 		}
-		
+
 		unsigned int maxLevel() {
 			unsigned int max = level;
 			if(children.length())
@@ -180,7 +180,7 @@
 				}
 			return max;
 		}
-		
+
 		HASHLIST<OCTREE<T>*>* levelReleventChildren(unsigned int lvl_s, unsigned int lvl_e) {
 			HASHLIST<OCTREE<T>*>* ret = new HASHLIST<POGEL::OCTREE<T>*>();
 			if(level > lvl_e)
@@ -194,19 +194,19 @@
 			}
 			return ret;
 		}
-		
+
 		unsigned int numchildren() {
 			return children.length();
 		}
-		
+
 		T* object(unsigned int o) {
 			return objects[o];
 		}
-		
+
 		OCTREE<T>* child(unsigned int c) {
 			return children[c];
 		}
-		
+
 		void draw() {
 			//bounding.color = POGEL::COLOR(.05,.125,1,(float)getlevel()/(float)maxlevels);
 			if(children.length()) {

@@ -12,7 +12,7 @@ try:
 	
 except ImportError:
 	print 'Importing failure for the required modules in \"pylonclasses.py\".'
-	quit()	
+	quit()
 
 lastkey = chr(0)
 lastkeycount = 0

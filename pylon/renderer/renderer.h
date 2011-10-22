@@ -39,6 +39,7 @@ namespace Renderer
     void BuildImages();
 }
 
+#include "draw.h"
 #include "camera.h"
 #include "mouse.h"
 #include "window.h"

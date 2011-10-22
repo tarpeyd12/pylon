@@ -88,6 +88,7 @@ float POGEL::VECTOR::getdistance() {
 
 float POGEL::VECTOR::getangle(POGEL::VECTOR other, POGEL::VECTOR ref) {
 	POGEL::VECTOR tmp, tmp1;
+	ref = POGEL::VECTOR();
 	tmp = *this;
 	tmp.normalize();
 	other.normalize();

@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <iostream>
 
 #define		THREADTYPE		void*
 #define		THREADARGS		void*
@@ -31,7 +32,9 @@ class Thread {
         void setData(void * dat);
 
         void startThread();
+        void start();
         void joinThread();
+        void join();
 
         //void detachThread();
 };

@@ -15,17 +15,17 @@ namespace Main
         };
         std::string ininame = "conf.ini";
         // i starts as -1 so this while loop is ok
-        while(++i < 6 && exret != 0)
+        while( ++i < 6 && exret != 0 )
         {
-            exret = FileLoader::extractfile(pylon_archive,ininames[i],true,false,"",false,"");
-            if(exret == 0)
+            exret = FileLoader::extractfile( pylon_archive, ininames[i], true, false, "", false, "" );
+            if( exret == 0 )
             {
                 ininame = ininames[i];
                 break;
             }
-            else if(exret < 0)
+            else if( exret < 0 )
             {
-                if(FileLoader::checkfile(ininames[i]))
+                if( FileLoader::checkfile(ininames[i]) )
                 {
                     ininame = ininames[i];
                     break;
@@ -33,43 +33,43 @@ namespace Main
             }
         }
         FileLoader::Ini ini(ininame);
-        if(!Main::dontremove)
-            FileLoader::System::Files::remove(ininame);
+        if( !Main::dontremove )
+            FileLoader::System::Files::remove( ininame );
 
-        Main::main_py = ini.getvalue("pylon","main");
-        Main::init_py = ini.getvalue("pylon","init");
-        Main::ext_dir = ini.getvalue("pylon","extractiondir");
+        Main::main_py = ini.getvalue("pylon", "main");
+        Main::init_py = ini.getvalue("pylon", "init");
+        Main::ext_dir = ini.getvalue("pylon", "extractiondir");
 
-        FileLoader::extractfile(pylon_archive,main_py,true,false,ext_dir,false,"");
-        FileLoader::extractfile(pylon_archive,init_py,true,false,ext_dir,false,"");
+        FileLoader::extractfile(pylon_archive, main_py, true, false, ext_dir, false, "");
+        FileLoader::extractfile(pylon_archive, init_py, true, false, ext_dir, false, "");
 
-        std::string winname = ini.getvalue("window","name");
-        if(winname.length())
+        std::string winname = ini.getvalue("window", "name");
+        if( winname.length() )
         {
             std::string n = winname;
-            if(POGEL::hasproperty(POGEL_DEBUG))
+            if( POGEL::hasproperty(POGEL_DEBUG) )
                 n = "Pylon."+VersionString+": '"+winname+"' in "+(!forcedir?"archive: '"+pylon_archive:"folder: '"+forced_dir)+"'";
             Renderer::Window::Create(n);
         }
         else
             Renderer::Window::Create("Pylon." + VersionString);
 
-        if(ini.hasSection("archives"))
+        if( ini.hasSection("archives") )
         {
             ClassList<std::string> * keynames = ini.keysinsection("archives");
-            if(keynames && keynames->length())
+            if( keynames && keynames->length() )
             {
-                for(unsigned int i = 0; i < keynames->length(); i++)
+                for( unsigned int i = 0; i < keynames->length(); i++ )
                 {
                     std::string key = keynames->get(i);
                     std::string alias = "{" + key + "}";
-                    FileLoader::ArchiveHandler::addArchiveLink(alias, ini.getvalue("archives",key));
+                    FileLoader::ArchiveHandler::addArchiveLink(alias, ini.getvalue("archives", key));
                 }
             }
-            if(keynames)
+            if( keynames )
                 delete keynames;
         }
 
-        FileLoader::ArchiveHandler::addArchiveLink("{main}",pylon_archive);
+        FileLoader::ArchiveHandler::addArchiveLink("{main}", pylon_archive);
     }
 }

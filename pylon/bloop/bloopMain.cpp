@@ -133,7 +133,13 @@ void print(std::string s)
 void print_ai(std::string s)
 {
     ___bloopFrame->htmlOutput->AppendToPage(str(s));
+    //___bloopFrame->StatusBar->SetStatusText(str(s));
     ___bloopFrame->htmlOutput->Scroll(0,___bloopFrame->htmlOutput->GetScrollLines(0));
+}
+
+void setStatus(std::string s)
+{
+    ___bloopFrame->StatusBar->SetStatusText(str(s));
 }
 
 void clear_output()

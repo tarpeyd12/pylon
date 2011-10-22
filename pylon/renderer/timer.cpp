@@ -40,17 +40,23 @@ namespace Renderer
             curentDuration = POGEL::GetTimePassed();
             if(!Renderer::Timing::noTiming)
             {
-                double durationDifference = (curentDuration - lastDuration);
-                if( (1.0 / durationDifference) >= double(FPS) )
-                    usleep( (1000000/FPS) - (unsigned int)(durationDifference) );
+                double durationDifference = curentDuration - lastDuration;
+                double invDurDiff = 1.0f / durationDifference;
+                unsigned int waitTime = 1000000 / FPS;
+                if( invDurDiff >= double(FPS) )
+                {
+                    usleep( waitTime - (unsigned int)(durationDifference) );
+                }
                 else if(curentDuration <= lastDuration)
-                    usleep(1000000/FPS);
-                else
+                {
+                    usleep( waitTime );
+                }
+                else if( (unsigned int)invDurDiff+1 < FPS )
                 {
                     cout << "Warning: cyclerate to slow for timer: \"";
                     cout <<  timerName;
                     cout << "\" @ \t" << FPS << " : ";
-                    char* tmp = POGEL::string("%0.1lf",double(1.0/durationDifference));
+                    char* tmp = POGEL::string("%0.1lf", invDurDiff);
                     cout << std::string(tmp) << endl;
                     delete tmp;
                 }

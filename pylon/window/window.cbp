@@ -13,6 +13,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="-debug -label" />
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
@@ -45,7 +46,10 @@
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-O3" />
 					<Add directory="../bin/Release" />
 				</Compiler>
 				<ResourceCompiler>
@@ -75,7 +79,10 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-O3" />
 					<Add option="-DPYLON_DEV_VERSION" />
 					<Add directory="../bin/Release" />
 				</Compiler>
@@ -105,7 +112,6 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-nolimit" />
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
@@ -136,14 +142,17 @@
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-Wall" />
-					<Add option="-s -O3 -Os -fexpensive-optimizations -fomit-frame-pointer" />
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-O3" />
 					<Add directory="../bin/UnitaryRelease" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="../bin/UnitaryRelease/Data" />
 				</ResourceCompiler>
 				<Linker>
+					<Add option="-s" />
 					<Add library="pogelscriptinterface" />
 					<Add library="renderer" />
 					<Add library="objectloader" />
@@ -167,8 +176,10 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-Wall" />
-					<Add option="-s -O3 -Os -fexpensive-optimizations -fomit-frame-pointer" />
+					<Add option="-fomit-frame-pointer" />
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-Os" />
+					<Add option="-O3" />
 					<Add option="-DPYLON_DEV_VERSION" />
 					<Add directory="../bin/UnitaryRelease" />
 				</Compiler>
@@ -176,6 +187,7 @@
 					<Add directory="../bin/Release/Data" />
 				</ResourceCompiler>
 				<Linker>
+					<Add option="-s" />
 					<Add library="pogelscriptinterface" />
 					<Add library="renderer" />
 					<Add library="objectloader" />

@@ -26,7 +26,17 @@ void ExThread::startThread()
     Thread::startThread();
 }
 
+void ExThread::start()
+{
+    Thread::startThread();
+}
+
 void ExThread::joinThread()
+{
+    Thread::joinThread();
+}
+
+void ExThread::join()
 {
     Thread::joinThread();
 }

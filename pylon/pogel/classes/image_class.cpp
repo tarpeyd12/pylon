@@ -81,7 +81,10 @@ void get_things(std::string s, std::string *name, unsigned int *x, unsigned int 
         if(POGEL::getOccurrencesInString('[',s) == 1 && POGEL::getOccurrencesInString(']',s) == 1)
             *name = POGEL::getStringSection('[',1,false,']',1,false, s);
         else if(POGEL::getOccurrencesInString('{',s) == 1 && POGEL::getOccurrencesInString('}',s) == 1)
+        {
             *name = POGEL::getStringSection('{',1,false,'}',1,false, s);
+            get_things(s,name,x,y,filter);
+        }
         else
             *name = s;
     }
@@ -150,13 +153,13 @@ unsigned int POGEL::IMAGE::build() {
     switch(getfilter()) {
         default:
         case IMAGE_NEAREST:
-            base = SOIL_create_OGL_texture((const unsigned char*)data, sizeX, sizeY, channels, base, SOIL_FLAG_POWER_OF_TWO );
+            base = SOIL_create_OGL_texture((const unsigned char*)data, sizeX, sizeY, channels, base, SOIL_FLAG_TEXTURE_REPEATS | SOIL_FLAG_POWER_OF_TWO );
         break;
         case IMAGE_LINEAR:
-            base = SOIL_create_OGL_texture((const unsigned char*)data, sizeX, sizeY, channels, base, SOIL_FLAG_POWER_OF_TWO | SOIL_FLAG_LINEAR );
+            base = SOIL_create_OGL_texture((const unsigned char*)data, sizeX, sizeY, channels, base, SOIL_FLAG_TEXTURE_REPEATS | SOIL_FLAG_POWER_OF_TWO | SOIL_FLAG_LINEAR );
         break;
         case IMAGE_MIPMAP:
-            base = SOIL_create_OGL_texture((const unsigned char*)data, sizeX, sizeY, channels, base, SOIL_FLAG_POWER_OF_TWO | SOIL_FLAG_MIPMAPS );
+            base = SOIL_create_OGL_texture((const unsigned char*)data, sizeX, sizeY, channels, base, SOIL_FLAG_TEXTURE_REPEATS | SOIL_FLAG_POWER_OF_TWO | SOIL_FLAG_MIPMAPS );
         break;
     }
 	#endif

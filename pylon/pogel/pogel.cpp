@@ -137,7 +137,7 @@ void POGEL::fatality(int ret,const char* fmt, ...) {
 	memcpy(output, tmpstr, strlen(tmpstr)+1);
 	free(tmpstr);
 	//if(POGEL::hasproperty(POGEL_DEBUG))
-		printf("\n\n\t***\tFATALITY: %s\t***\n\n",output);
+		cout << "\n\n\t***\tFATALITY: " << output << "\t***\n\n";
 	if(POGEL::hasproperty(POGEL_LOGTOFILE))
 		POGEL::logtofile("\n\n\t***\tFATALITY: %s\t***\n\n",output);
 	free(output);
@@ -156,7 +156,7 @@ void POGEL::error(const char* fmt, ...) {
 	memcpy(output, tmpstr, strlen(tmpstr)+1);
 	free(tmpstr);
 	if(POGEL::hasproperty(POGEL_DEBUG))
-		printf("\n\tError: %s",output);
+		cout << "\n\tError: " << output;
 	if(POGEL::hasproperty(POGEL_LOGTOFILE))
 		POGEL::logtofile("Error: %s",output);
 	free(output);
@@ -174,7 +174,7 @@ void POGEL::warning(const char* fmt, ...) {
 	memcpy(output, tmpstr, strlen(tmpstr)+1);
 	free(tmpstr);
 	if(POGEL::hasproperty(POGEL_DEBUG))
-		printf("\n\tWarning: %s",output);
+		cout << "\n\tWarning: " << output;
 	if(POGEL::hasproperty(POGEL_LOGTOFILE))
 		POGEL::logtofile("Warning: %s",output);
 
@@ -193,10 +193,9 @@ void POGEL::message(const char* fmt, ...) {
 	memcpy(output, tmpstr, strlen(tmpstr)+1);
 	free(tmpstr);
 	if(POGEL::hasproperty(POGEL_DEBUG))
-		printf("%s",output);
+		cout << output;
 	if(POGEL::hasproperty(POGEL_LOGTOFILE))
 		POGEL::logtofile("%s",output);
-
 	free(output);
 };
 
@@ -308,7 +307,7 @@ void POGEL::PrintFps() {
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, (int)buffer[i]);
 	glEnable(GL_LIGHTING);*/
 	float timepassed = POGEL::GetTimePassed();
-	POGEL::message("\rFrame:%u,Fps:%6.2f(%5.2favg),Spf:%5.2f,Duration:%0.2fs(%d:%02d:%05.2f)",
+	POGEL::message("Frame:%u,Fps:%6.2f(%5.2favg),Spf:%5.2f,Duration:%0.2fs(%d:%02d:%05.2f)\n",
 		POGEL::frames,
 		(POGEL::GetFps()>999.99?999.99:POGEL::GetFps()),
 		POGEL::GetAverageFps(),

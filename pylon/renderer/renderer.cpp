@@ -68,13 +68,13 @@ namespace Renderer
             {
                 if(!FileLoader::checkfile(POGEL::lstimg(i)->getFileID())) {
                     if(POGEL::hasproperty(POGEL_DEBUG))
-                        cout << "extracting " << POGEL::lstimg(i)->getFileID() << endl;
+                        cout << "extracting: \"" << POGEL::lstimg(i)->getFileID() << "\"" << endl;
                     FileLoader::ArchiveHandler::extractKnownFile(POGEL::lstimg(i)->getFileID());
                 }
                 if(FileLoader::checkfile(POGEL::lstimg(i)->getFileID()))
                 {
                     if(POGEL::hasproperty(POGEL_DEBUG))
-                        cout << endl << "building unbuilt image: " << POGEL::lstimg(i)->toString() << endl;
+                        cout << endl << "building unbuilt image: \"" << POGEL::lstimg(i)->toString() << "\"" << endl;
                     POGEL::lstimg(i)->loadandbuild();
                 }
             }

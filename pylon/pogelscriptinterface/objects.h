@@ -13,6 +13,7 @@ namespace pogelInterface
     Object* togglesimulation(Object*,Object*);
     Object* togglesimweight(Object*,Object*);
     Object* clearsimulation(Object*,Object*);
+    Object* setsimulationgravity_3f(Object*,Object*);
     Object* addobject(Object*,Object*);
 
     Object* object_move_s(Object*,Object*);
@@ -32,6 +33,8 @@ namespace pogelInterface
     Object* object_set_pos_s(Object*,Object*);
     Object* object_set_rot_s(Object*,Object*);
     Object* object_set_spin_s(Object*,Object*);
+
+    Object* object_build(Object*,Object*);
 }
 
 #endif // OBJECTS_H_INCLUDED

@@ -180,7 +180,7 @@
 			<Target title="Unitary Development">
 				<Option output="../bin/UnitaryRelease/pylon_dev" prefix_auto="1" extension_auto="1" />
 				<Option working_dir="../bin/UnitaryRelease" />
-				<Option object_output="obj/UnitaryDevelopment/" />
+				<Option object_output="obj/Development/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />

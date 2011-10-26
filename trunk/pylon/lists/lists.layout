@@ -7,7 +7,7 @@
 	<File name="arraylist.h" open="0" top="0" tabpos="7">
 		<Cursor position="6070" topLine="105" />
 	</File>
-	<File name="arraylist.operators.cpp" open="1" top="0" tabpos="28">
+	<File name="arraylist.operators.cpp" open="1" top="0" tabpos="1">
 		<Cursor position="4309" topLine="86" />
 	</File>
 	<File name="classlist_template.cpp" open="0" top="0" tabpos="6">
@@ -16,7 +16,7 @@
 	<File name="classlist_template.h" open="0" top="0" tabpos="1">
 		<Cursor position="181" topLine="0" />
 	</File>
-	<File name="hashlist_template.cpp" open="1" top="0" tabpos="40">
+	<File name="hashlist_template.cpp" open="1" top="0" tabpos="2">
 		<Cursor position="3915" topLine="169" />
 	</File>
 	<File name="hashlist_template.h" open="0" top="0" tabpos="2">

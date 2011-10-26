@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Unitary Release" />
-	<File name="camera.cpp" open="1" top="0" tabpos="17">
+	<File name="camera.cpp" open="1" top="0" tabpos="9">
 		<Cursor position="221" topLine="0" />
 	</File>
-	<File name="cmd.cpp" open="1" top="0" tabpos="18">
+	<File name="cmd.cpp" open="1" top="0" tabpos="10">
 		<Cursor position="287" topLine="0" />
 	</File>
 	<File name="cmd.h" open="0" top="0" tabpos="13">
 		<Cursor position="296" topLine="0" />
 	</File>
-	<File name="display.cpp" open="1" top="0" tabpos="19">
+	<File name="display.cpp" open="1" top="0" tabpos="11">
 		<Cursor position="1815" topLine="28" />
 	</File>
-	<File name="draw.cpp" open="1" top="1" tabpos="3">
+	<File name="draw.cpp" open="1" top="0" tabpos="3">
 		<Cursor position="2603" topLine="133" />
 	</File>
 	<File name="hud.cpp" open="0" top="0" tabpos="11">
@@ -31,13 +31,13 @@
 	<File name="key.h" open="0" top="0" tabpos="0">
 		<Cursor position="218" topLine="0" />
 	</File>
-	<File name="light.cpp" open="1" top="0" tabpos="20">
+	<File name="light.cpp" open="1" top="0" tabpos="12">
 		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="light.h" open="0" top="0" tabpos="0">
 		<Cursor position="702" topLine="22" />
 	</File>
-	<File name="mouse.cpp" open="1" top="0" tabpos="16">
+	<File name="mouse.cpp" open="1" top="0" tabpos="8">
 		<Cursor position="1189" topLine="34" />
 	</File>
 	<File name="mouse.h" open="0" top="0" tabpos="2">
@@ -55,13 +55,13 @@
 	<File name="quad.h" open="0" top="0" tabpos="8">
 		<Cursor position="279" topLine="0" />
 	</File>
-	<File name="renderer.cpp" open="1" top="0" tabpos="14">
+	<File name="renderer.cpp" open="1" top="0" tabpos="6">
 		<Cursor position="1668" topLine="8" />
 	</File>
 	<File name="renderer.h" open="0" top="0" tabpos="6">
 		<Cursor position="182" topLine="3" />
 	</File>
-	<File name="timer.cpp" open="1" top="0" tabpos="13">
+	<File name="timer.cpp" open="1" top="0" tabpos="5">
 		<Cursor position="1500" topLine="45" />
 	</File>
 	<File name="timer.h" open="0" top="0" tabpos="9">
@@ -70,7 +70,7 @@
 	<File name="version.h" open="0" top="0" tabpos="0">
 		<Cursor position="625" topLine="9" />
 	</File>
-	<File name="window.cpp" open="1" top="0" tabpos="15">
+	<File name="window.cpp" open="1" top="0" tabpos="7">
 		<Cursor position="772" topLine="6" />
 	</File>
 	<File name="window.h" open="0" top="0" tabpos="0">

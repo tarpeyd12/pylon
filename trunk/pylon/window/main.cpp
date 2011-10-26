@@ -7,24 +7,21 @@ void _atExit()
     // cleanup
     Renderer::drawLock = true;
 
-    if(!Main::SingleThreaded)
+    if(!Main::SingleThreaded && Main::calcThread != NULL)
     {
-        if(Main::calcThread != NULL)
-        {
-            cout << "Stopping Physics Thread ...\t";
-            Main::calcLock = true;
-            sleep(1);
-            delete Main::calcThread;
-            Main::calcThread = NULL;
-            cout << "OK" << endl;
-        }
+        cout << "Stopping Physics Thread ...\t";
+        Main::calcLock = true;
+        usleep(1000000);
+        delete Main::calcThread;
+        Main::calcThread = NULL;
+        cout << "OK" << endl;
     }
 
     if(Main::scriptThread != NULL)
     {
         cout << "Stopping Scripting Thread ...\t";
         Main::scriptThread->running = false;
-        sleep(1);
+        usleep(1000000);
         delete Main::scriptThread;
         Main::scriptThread = NULL;
         cout << "OK" << endl;

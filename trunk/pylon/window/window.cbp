@@ -14,6 +14,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option parameters="-debug -label" />
+				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
@@ -31,6 +32,7 @@
 					<Add library="fileloader" />
 					<Add library="pogel" />
 					<Add library="lists" />
+					<Add library="soil" />
 					<Add library="threads" />
 					<Add directory="../bin/Debug" />
 				</Linker>
@@ -45,6 +47,7 @@
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
@@ -64,6 +67,7 @@
 					<Add library="fileloader" />
 					<Add library="pogel" />
 					<Add library="lists" />
+					<Add library="soil" />
 					<Add library="threads" />
 					<Add directory="../bin/Release" />
 				</Linker>
@@ -78,6 +82,7 @@
 				<Option object_output="obj/Development/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
@@ -98,6 +103,7 @@
 					<Add library="fileloader" />
 					<Add library="pogel" />
 					<Add library="lists" />
+					<Add library="soil" />
 					<Add library="threads" />
 					<Add directory="../bin/Release" />
 				</Linker>
@@ -112,6 +118,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
@@ -141,6 +148,7 @@
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
@@ -175,6 +183,7 @@
 				<Option object_output="obj/UnitaryDevelopment/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />

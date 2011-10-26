@@ -62,8 +62,19 @@ void ScriptThread::run()
     }
 }
 
+void _atAbruptScriptInitExit()
+{
+    if(FileLoader::checkfile(Main::init_py))
+        FileLoader::System::Files::remove(Main::init_py);
+    if(FileLoader::checkfile(Main::main_py))
+        FileLoader::System::Files::remove(Main::main_py);
+    FileLoader::System::Dir::clearDir(Main::ext_dir);
+}
+
 void ScriptThread::FirstRun()
 {
+    atexit(_atAbruptScriptInitExit);
+
     firstRun = false;
 
     ScriptEngine::Initialize();
@@ -101,7 +112,7 @@ void ScriptThread::FirstRun()
 
     /* this is to compensate for a bug in Code::Blocks, and when pylon is called
      * within another program. May also be a bug in pogel, or how pylon uses
-     * pogel this is somewhat tricky, somne times no dummy simulations are
+     * pogel this is somewhat tricky, some times no dummy simulations are
      * needed because they cause the problem, some times two are needed, maby
      * even one, I have only tested up to 2 dummy's
      */

@@ -173,7 +173,7 @@ while loop < numOSpheres:
 
 rnum = 5
 print TestSphereSim.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8|64,0,"") )
-print pylon.object_add_sphere("TestSphereSim","Outset",0.5,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|16)
+print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|16)
 #if rnum!=6 and not False:
 #print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|32)
 #print pylon.object_add_sphere("TestSphereSim","Outset",2.1,20,20,'{[Data/images/earthcloudmap.png],[2]}',1,1,8|32)
@@ -197,7 +197,7 @@ def doOBJECTrelocate():
 	sc1 = 0.025
 	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1*0)
 	pylon.object_set_pos_s("TestSphereSim",oname,rpos)
-	pylon.object_set_dir_3f("TestSphereSim",oname,0.002,0.02,0)
+	pylon.object_set_dir_3f("TestSphereSim",oname,0.005,0.05,0)
 
 waitcalc(10000)
 #TestSphereSim.stop()

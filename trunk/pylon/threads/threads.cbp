@@ -78,6 +78,8 @@
 		</Linker>
 		<Unit filename="exthread.cpp" />
 		<Unit filename="exthread.h" />
+		<Unit filename="thread.cpp" />
+		<Unit filename="thread.h" />
 		<Unit filename="threads.cpp" />
 		<Unit filename="threads.h" />
 		<Unit filename="version.h" />

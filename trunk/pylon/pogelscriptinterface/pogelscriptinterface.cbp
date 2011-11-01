@@ -121,6 +121,8 @@
 		<Unit filename="pogelscriptinterface.h" />
 		<Unit filename="shapes.cpp" />
 		<Unit filename="shapes.h" />
+		<Unit filename="simulation.cpp" />
+		<Unit filename="simulation.h" />
 		<Unit filename="version.h" />
 		<Extensions>
 			<envvars />

@@ -8,25 +8,31 @@
 		<Cursor position="128" topLine="0" />
 	</File>
 	<File name="methoddef.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="2999" topLine="17" />
+		<Cursor position="880" topLine="6" />
 	</File>
-	<File name="objects.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="17188" topLine="374" />
+	<File name="objects.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="125" topLine="0" />
 	</File>
 	<File name="objects.h" open="0" top="0" tabpos="7">
-		<Cursor position="1180" topLine="11" />
+		<Cursor position="339" topLine="6" />
 	</File>
-	<File name="pogelscriptinterface.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="1982" topLine="51" />
+	<File name="pogelscriptinterface.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="8732" topLine="231" />
 	</File>
-	<File name="pogelscriptinterface.h" open="0" top="0" tabpos="4">
-		<Cursor position="1763" topLine="40" />
+	<File name="pogelscriptinterface.h" open="0" top="0" tabpos="9">
+		<Cursor position="1766" topLine="27" />
 	</File>
-	<File name="shapes.cpp" open="1" top="0" tabpos="1">
+	<File name="shapes.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="856" topLine="15" />
 	</File>
 	<File name="shapes.h" open="0" top="0" tabpos="0">
 		<Cursor position="597" topLine="0" />
+	</File>
+	<File name="simulation.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="5199" topLine="96" />
+	</File>
+	<File name="simulation.h" open="0" top="0" tabpos="5">
+		<Cursor position="530" topLine="0" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="6">
 		<Cursor position="354" topLine="0" />

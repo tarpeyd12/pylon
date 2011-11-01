@@ -12,7 +12,7 @@
 #include "../../threads/threads.h"
 
 namespace POGEL {
-    class THREAD : public Thread
+    class THREAD : public Threads::Thread
     {
 
     };

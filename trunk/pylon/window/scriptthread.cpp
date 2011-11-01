@@ -10,6 +10,7 @@ ScriptThread::ScriptThread()
     this->run();
     running = true;
     this->startThread();
+    //this->setAffinity(1);
 }
 
 ScriptThread::ScriptThread(bool st)
@@ -38,11 +39,6 @@ ScriptThread::~ScriptThread()
     }
     ScriptEngine::Finalize();
     firstRun = false;
-    if( !Main::dontremove )
-    {
-        cout << "Cleaning Up ..." << endl;
-        FileLoader::System::Dir::clearDir(Main::ext_dir);
-    }
 }
 
 void ScriptThread::run()
@@ -64,11 +60,15 @@ void ScriptThread::run()
 
 void _atAbruptScriptInitExit()
 {
-    if(FileLoader::checkfile(Main::init_py))
-        FileLoader::System::Files::remove(Main::init_py);
-    if(FileLoader::checkfile(Main::main_py))
-        FileLoader::System::Files::remove(Main::main_py);
-    FileLoader::System::Dir::clearDir(Main::ext_dir);
+    if( !Main::dontremove )
+    {
+        cout << "Cleaning Up ..." << endl;
+        if(FileLoader::checkfile(Main::init_py))
+            FileLoader::System::Files::remove(Main::init_py);
+        if(FileLoader::checkfile(Main::main_py))
+            FileLoader::System::Files::remove(Main::main_py);
+        FileLoader::System::Dir::clearDir(Main::ext_dir);
+    }
 }
 
 void ScriptThread::FirstRun()

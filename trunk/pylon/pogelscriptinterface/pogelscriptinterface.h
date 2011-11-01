@@ -61,6 +61,7 @@ namespace pogelInterface
     Object* requestfile(Object*,Object*);
 }
 
+#include "simulation.h"
 #include "objects.h"
 #include "shapes.h"
 #include "hud.h"

@@ -41,7 +41,7 @@ namespace Renderer
         if(Renderer::SingleThreaded)
         {
             if(!Renderer::HaltPhysics)
-                Renderer::Incriment();
+                Renderer::Physics::Incriment();
             if(Renderer::SciptCall != NULL)
                 Renderer::SciptCall();
             else

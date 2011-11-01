@@ -3,7 +3,7 @@
 
 #include "../threads/threads.h"
 
-class ScriptThread : public ExThread
+class ScriptThread : public Threads::ExThread
 {
     private:
         bool firstRun;

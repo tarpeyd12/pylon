@@ -1,26 +1,39 @@
 #ifndef EXTHREAD_H_INCLUDED
 #define EXTHREAD_H_INCLUDED
 
-#ifndef THREADS_H_INCLUDED
-#include "threads.h"
-#endif
+#include <pthread.h>
+#include <sched.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <iostream>
 
-THREADTYPE _exThreadFunction(THREADARGS);
+#include "thread.h"
 
-class ExThread : private Thread
+namespace Threads
 {
-    public:
-        ExThread();
-        ~ExThread();
 
-        void startThread();
-        void start();
-        void joinThread();
-        void join();
+    THREADTYPE _exThreadFunction(THREADARGS);
 
-        virtual void run();
+    class ExThread : private Threads::Thread
+    {
+        public:
+            ExThread();
+            ~ExThread();
 
-        friend THREADTYPE _exThreadFunction(THREADARGS);
-};
+            void setPriority(int);
+            void setAffinity(int);
+
+            void startThread();
+            void start();
+            void joinThread();
+            void join();
+
+            virtual void run();
+
+            friend THREADTYPE Threads::_exThreadFunction(THREADARGS);
+    };
+
+}
 
 #endif // EXTHREAD_H_INCLUDED

@@ -42,7 +42,7 @@ class POGEL::PHYSICS::DYNAMICS {
 			#endif
 			#ifdef OPENGL
 			glLineWidth(2);
-			if(POGEL::hasproperty(POGEL_BOUNDING)) ot->draw();
+			if(POGEL::hasproperty(POGEL_BOUNDING) && POGEL::hasproperty(POGEL_ANCESTORY)) ot->draw();
 			glLineWidth(1);
 			#endif
 		}

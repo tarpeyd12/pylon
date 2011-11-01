@@ -4,13 +4,13 @@
 	<File name="SOIL.c" open="0" top="0" tabpos="0">
 		<Cursor position="30354" topLine="21" />
 	</File>
-	<File name="SOIL.h" open="1" top="0" tabpos="1">
+	<File name="SOIL.h" open="0" top="0" tabpos="1">
 		<Cursor position="2996" topLine="81" />
 	</File>
 	<File name="image_helper.c" open="0" top="0" tabpos="0">
 		<Cursor position="0" topLine="397" />
 	</File>
-	<File name="stb_image_aug.c" open="1" top="0" tabpos="2">
+	<File name="stb_image_aug.c" open="0" top="0" tabpos="2">
 		<Cursor position="105444" topLine="3242" />
 	</File>
 </CodeBlocks_layout_file>

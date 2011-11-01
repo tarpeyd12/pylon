@@ -10,7 +10,7 @@ POGEL::PHYSICS::SIMULATION::SIMULATION() : POGEL::PHYSICS::DYNAMICS() {
 	deactivation = false;
 	inactive_index = 25;
 	stepstaken = 0;
-	collitters = 1;
+	collitters = 2;
 	#ifdef THREADSOK
 	threads = 1;
 	#endif
@@ -105,80 +105,102 @@ void POGEL::PHYSICS::SIMULATION::addpulls() {
 		addpulls(0, numobjects);
 };
 
-inline void objectIntersectionProcessing(POGEL::PHYSICS::SIMULATION* sim, unsigned long a, unsigned long b) {
-	if( a!=b && boundingcheck(sim->objs(a), sim->objs(b)) ) {
-		if( sim->processcollision(sim->objs(a), sim->objs(b))) {
-			if(sim->objs(a)->callback != NULL) {
-				char* n = new char[strlen(sim->objs(b)->getname())+1];
-				memset(n, '\0', strlen(sim->objs(b)->getname())+1);
-				strcpy(n, sim->objs(b)->getname());
-				sim->objs(a)->callback(sim->objs(a), n);
+inline bool objectIntersectionProcessing(POGEL::PHYSICS::SIMULATION* sim, unsigned long a, unsigned long b) {
+	POGEL::PHYSICS::SOLID * obja = sim->objs(a);
+	POGEL::PHYSICS::SOLID * objb = sim->objs(b);
+	if( a!=b && boundingcheck(obja, objb) ) {
+		bool ret = false;
+		if( sim->processcollision(obja, objb)) {
+			if(obja->callback != NULL) {
+				char* n = new char[strlen(objb->getname())+1];
+				memset(n, '\0', strlen(objb->getname())+1);
+				strcpy(n, objb->getname());
+				obja->callback(obja, n);
 				delete[] n;
 			}
-			if(sim->objs(b)->callback != NULL) {
-				char* n = new char[strlen(sim->objs(a)->getname())+1];
-				memset(n, '\0', strlen(sim->objs(a)->getname())+1);
-				strcpy(n, sim->objs(a)->getname());
-				sim->objs(b)->callback(sim->objs(b), n);
+			if(objb->callback != NULL) {
+				char* n = new char[strlen(obja->getname())+1];
+				memset(n, '\0', strlen(obja->getname())+1);
+				strcpy(n, obja->getname());
+				objb->callback(objb, n);
 				delete[] n;
 			}
-			if(sim->objs(a)->napping()) sim->objs(a)->wake();
-			if(sim->objs(b)->napping()) sim->objs(b)->wake();
+			if(obja->napping()) obja->wake();
+			if(objb->napping()) objb->wake();
+
+			ret = true;
 		}
 
 		if(POGEL::hasproperty(POGEL_PAIRS) && b > a) {
-			if(sim->objs(a)->hasOption(PHYSICS_SOLID_CONCAVE) && sim->objs(a)->hasOption(PHYSICS_SOLID_SPHERE)) {
-				POGEL::VECTOR vr(sim->objs(a)->position, sim->objs(a)->position);
+			if(obja->hasOption(PHYSICS_SOLID_CONCAVE) && obja->hasOption(PHYSICS_SOLID_SPHERE)) {
+				POGEL::VECTOR vr(obja->position, objb->position);
 				vr.normalize();
-				vr *= sim->objs(a)->bounding.maxdistance;
-				vr += sim->objs(a)->position;
-				POGEL::LINE(vr.topoint(),sim->objs(b)->position,1,POGEL::COLOR(1,.75,.75,1)).draw();
+				vr *= obja->bounding.maxdistance;
+				vr += obja->position;
+				POGEL::LINE(vr.topoint(),objb->position,1,POGEL::COLOR(1,.75,.75,1)).draw();
 			}
-			else if(sim->objs(b)->hasOption(PHYSICS_SOLID_CONCAVE) && sim->objs(b)->hasOption(PHYSICS_SOLID_SPHERE)) {
-				POGEL::VECTOR vr(sim->objs(b)->position, sim->objs(a)->position);
+			else if(objb->hasOption(PHYSICS_SOLID_CONCAVE) && objb->hasOption(PHYSICS_SOLID_SPHERE)) {
+				POGEL::VECTOR vr(objb->position, obja->position);
 				vr.normalize();
-				vr *= sim->objs(b)->bounding.maxdistance;
-				vr += sim->objs(b)->position;
-				POGEL::LINE(sim->objs(a)->position,vr.topoint(),1,POGEL::COLOR(1,.75,.75,1)).draw();
+				vr *= objb->bounding.maxdistance;
+				vr += objb->position;
+				POGEL::LINE(obja->position,vr.topoint(),1,POGEL::COLOR(1,.75,.75,1)).draw();
 			}
-			else if(sim->objs(a)->hasOption(PHYSICS_SOLID_CONCAVE)) {
+			else if(obja->hasOption(PHYSICS_SOLID_CONCAVE)) {
 
 			}
-			else if(sim->objs(b)->hasOption(PHYSICS_SOLID_CONCAVE)) {
+			else if(objb->hasOption(PHYSICS_SOLID_CONCAVE)) {
 
 			}
 			else {
-				POGEL::LINE(sim->objs(a)->position,sim->objs(b)->position,1,POGEL::COLOR(1,.75,.75,1)).draw();
+				POGEL::LINE(obja->position,objb->position,1,POGEL::COLOR(1,.75,.75,1)).draw();
 			}
 		}
+
+		return ret;
 	}
+	return false;
 };
 
-inline void checkcollision(POGEL::PHYSICS::SIMULATION* sim, unsigned long s, unsigned long e) {
-	for( unsigned long a = s; a < e && a < sim->numobjs(); a++ ) {
-		if(!sim->objs(a)->napping() || sim->objs(a)->hasOption(PHYSICS_SOLID_STATIONARY)) {
-			HASHLIST<unsigned int> *objs = sim->getotree()->releventIndicies(sim->objs(a)->bounding);
-			if(sim->objs(a)->hasOption(PHYSICS_SOLID_CONCAVE)) {
-				for( unsigned long b = 0; b < sim->numobjs(); b++ )
-					objectIntersectionProcessing(sim, a, b);
+inline void checkcollision(POGEL::PHYSICS::SIMULATION* sim, unsigned long s, unsigned long e, unsigned long o, unsigned long recnum) {
+	if(recnum >= sim->getCollItters())
+		return;
+	unsigned long sim_numobjs = sim->numobjs();
+	for( unsigned long a = s; a < e && a < sim_numobjs; a++ ) {
+		POGEL::PHYSICS::SOLID* obj_a = sim->objs(a);
+		if(!obj_a->napping() || obj_a->hasOption(PHYSICS_SOLID_STATIONARY)) {
+			HASHLIST<unsigned int> *objs = sim->getotree()->releventIndicies(obj_a->bounding);
+			if(obj_a->hasOption(PHYSICS_SOLID_CONCAVE)) {
+				for( unsigned long b = 0; b < sim_numobjs; b++ )
+					if(o!=a&&o!=b && objectIntersectionProcessing(sim, a, b) && !sim->objs(b)->hasOption(PHYSICS_SOLID_STATIONARY)) {
+						obj_a->makebounding();
+						checkcollision(sim,b,b+1,a,recnum+1);
+					}
+				if(objs != NULL)
+					delete objs;
 			}
 			else if(objs != NULL) {
-				for( unsigned long b = 0; b < objs->length(); b++ )
-					if(objs->get(b) < sim->numobjs())
-						objectIntersectionProcessing(sim, a, objs->get(b));
+				unsigned int objs_length = objs->length();
+				for( unsigned long b = 0; b < objs_length; b++ ) {
+					unsigned int obj_b = objs->get(b);
+					if( o!=a&&o!=obj_b && obj_b < sim_numobjs && objectIntersectionProcessing(sim, a, obj_b) && !sim->objs(obj_b)->hasOption(PHYSICS_SOLID_STATIONARY)) {
+						sim->objs(obj_b)->makebounding();
+						checkcollision(sim,obj_b,obj_b+1,a,recnum+1);
+					}
+				}
 				delete objs;
 			}
 		}
 	}
 };
 
-inline void checkcollision(POGEL::PHYSICS::SIMULATION* sim) { checkcollision(sim, 0, sim->numobjs()); };
+inline void checkcollision(POGEL::PHYSICS::SIMULATION* sim) { checkcollision(sim, 0, sim->numobjs(),sim->numobjs(),0); };
 
 #ifdef THREADSOK
 THREADTYPE collrun(THREADARGS data) {
 	thdat *dat = (thdat*)data;
 	//printf("calculating: %u to %u\n", dat->itt*dat->nth, (dat->itt+1)*dat->nth);
-	checkcollision(dat->sim, dat->itt*dat->nth, (dat->itt+1)*dat->nth + (dat->itt==dat->sim->numThreads()-1?dat->sim->numobjs():0));
+	checkcollision(dat->sim, dat->itt*dat->nth, (dat->itt+1)*dat->nth + (dat->itt==dat->sim->numThreads()-1?dat->sim->numobjs():0),dat->sim->numobjs(),0);
 	delete dat;
 	return NULL;
 };
@@ -216,7 +238,8 @@ void POGEL::PHYSICS::SIMULATION::stepobjs() {
 };
 
 void POGEL::PHYSICS::SIMULATION::collincrement() {
-	for(int g = 0; g < collitters; g++) checkcollisions();
+	//for(int g = 0; g < collitters; g++)
+		checkcollisions();
 };
 
 void POGEL::PHYSICS::SIMULATION::increment() {

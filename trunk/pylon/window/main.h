@@ -11,6 +11,7 @@
 #endif
 #endif // Py_PYTHON_H
 
+// apple code unteasted ...
 #ifdef __APPLE__
 #include <GLUT/glut.h>
 #else

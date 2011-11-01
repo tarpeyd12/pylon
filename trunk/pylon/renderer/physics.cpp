@@ -150,5 +150,37 @@ namespace Renderer
                 new Renderer::Physics::Simulation(name,new POGEL::PHYSICS::DYNAMICS());
         }
 
+
+        void StopIncrimentation()
+        {
+            for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
+            {
+                Renderer::Physics::simulations[i]->setinc(false);
+            }
+        }
+
+        void Incriment()
+        {
+            for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
+            {
+                if(Renderer::Physics::simulations[i]->inc())
+                {
+                    void* vp_sim = Renderer::Physics::simulations[i]->getSim();
+                    if(Renderer::Physics::simulations[i]->isdyn())
+                    {
+                        POGEL::PHYSICS::DYNAMICS* sim = static_cast<POGEL::PHYSICS::DYNAMICS*>(vp_sim);
+                        if(sim->numobjs())
+                            sim->increment();
+                    }
+                    else
+                    {
+                        POGEL::PHYSICS::SIMULATION* sim = static_cast<POGEL::PHYSICS::SIMULATION*>(vp_sim);
+                        if(sim->numobjs())
+                            sim->increment();
+                    }
+                }
+            }
+        }
+
     }
 }

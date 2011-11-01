@@ -140,6 +140,8 @@ if False:
 		print sim2.addobject(newobjdat)
 	#sim2.stop()
 
+print pylon.setsimulationcollitters(sim2.name,2)
+
 cam.radus = 2
 
 def makeObjectString(vect1,vect2,vect3,vect4,name,p1,p2,mass,tridat):
@@ -153,15 +155,15 @@ possibleImages = '{[Data/images/earth.bmp],[2]}', '{[Data/images/Glass.bmp],[2]}
 possibleTriProps = 8, 8|32, 8, 8, 8, 2, 8|64
 loop = 0
 rnum = 0
-numOSpheres = 500
+numOSpheres = 100
 while loop < numOSpheres:
-	sc1 = 0.1
-	#rpos = makepos(rnd_n1p1()*sc1*0, float(loop)/4.99+.000001-(numOSpheres/4.99/2), rnd_n1p1()*sc1*0)
-	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1*0)
+	sc1 = 1.5
+	#rpos = makepos(rnd_n1p1()*sc1*0, float(loop)/5.0+.01-(numOSpheres/5.0/2), rnd_n1p1()*sc1*0)
+	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1)
 	rot = makepos(rnd_n1p1()*360,rnd_n1p1()*360,rnd_n1p1()*360)
-	print TestSphereSim.addobject( makeObjectString(rpos,rot,zeropos,zeropos,"Object"+str(loop),2|4|16,8,1,"") )
+	print TestSphereSim.addobject( makeObjectString(rpos,rot,zeropos,zeropos,"Object"+str(loop),2|4|16,8,30000,"") )
 	rnum = int(random.random()*7)
-	print pylon.object_add_sphere("TestSphereSim","Object"+str(loop),0.007,1,2,possibleImages[rnum],1,1,possibleTriProps[rnum])
+	print pylon.object_add_sphere("TestSphereSim","Object"+str(loop),0.07,6,10,possibleImages[rnum],1,1,possibleTriProps[rnum])
 	print pylon.object_build("TestSphereSim","Object"+str(loop))
 	loop = loop + 1
 
@@ -172,18 +174,20 @@ while loop < numOSpheres:
 #print pylon.object_set_dir_3f("TestSphereSim","Object3",0,0.02,0)
 
 rnum = 5
-print TestSphereSim.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8|64,0,"") )
-print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|16)
+#print TestSphereSim.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8|64,0,"") )
+#print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|16)
 #if rnum!=6 and not False:
 #print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|32)
 #print pylon.object_add_sphere("TestSphereSim","Outset",2.1,20,20,'{[Data/images/earthcloudmap.png],[2]}',1,1,8|32)
-print pylon.object_build("TestSphereSim","Outset")
+#print pylon.object_build("TestSphereSim","Outset")
 
 #print TestSphereSim.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Aura",1|8|16,128,0,"") )
 #print pylon.object_add_disk("TestSphereSim","Aura",40,1,4.0,2.0,possibleImages[5],1,1,0,True)
 #print pylon.object_build("TestSphereSim","Aura")
 
-print pylon.setsimulationgravity_3f("TestSphereSim",0,-0.8,0)
+#print pylon.setsimulationgravity_3f("TestSphereSim",0,-0.8,0)
+
+print pylon.setsimulationcollitters("TestSphereSim",2)
 
 relocateobjscounter = 0
 

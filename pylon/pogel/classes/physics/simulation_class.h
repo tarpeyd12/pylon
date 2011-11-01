@@ -45,7 +45,7 @@ class POGEL::PHYSICS::SIMULATION : public POGEL::PHYSICS::DYNAMICS {
 			#endif
 			#ifdef OPENGL
 			glLineWidth(2);
-			if(POGEL::hasproperty(POGEL_BOUNDING)) ot->draw();
+			if(POGEL::hasproperty(POGEL_BOUNDING) && POGEL::hasproperty(POGEL_ANCESTORY)) ot->draw();
 			glLineWidth(1);
 			#endif
 
@@ -60,6 +60,11 @@ class POGEL::PHYSICS::SIMULATION : public POGEL::PHYSICS::DYNAMICS {
 		void setCollItters(unsigned char i) {
 			collitters = i;
 			if(collitters < 1) collitters = 1;
+		}
+
+		unsigned char getCollItters() {
+			if(collitters < 1) return 1;
+			return collitters;
 		}
 
 		void setThreadsNum(unsigned int t) {

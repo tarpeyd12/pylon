@@ -3,7 +3,7 @@
 
 #include "../threads/threads.h"
 
-class CalcThread : public ExThread
+class CalcThread : public Threads::ExThread
 {
     public:
         CalcThread();

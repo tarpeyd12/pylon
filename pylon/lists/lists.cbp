@@ -20,12 +20,11 @@
 			</Target>
 			<Target title="Release">
 				<Option output="../bin/Release/liblists" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="../bin/Release" />
+				<Option working_dir="" />
 				<Option object_output="obj/Release/" />
-				<Option type="3" />
+				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
-				<Option createStaticLib="1" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />

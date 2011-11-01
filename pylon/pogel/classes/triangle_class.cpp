@@ -165,8 +165,8 @@ void POGEL::TRIANGLE::draw()
 
     // enable or disable lighting
     if (
-        ( hasproperty(TRIANGLE_LIT) || hasproperty(TRIANGLE_VERTEX_NORMALS) ) &&
-        !POGEL::hasproperty(POGEL_WIREFRAME)
+        ( hasproperty(TRIANGLE_LIT) || hasproperty(TRIANGLE_VERTEX_NORMALS) ) //&&
+        // !POGEL::hasproperty(POGEL_WIREFRAME)
     )
         glEnable(GL_LIGHTING);
     else

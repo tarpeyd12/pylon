@@ -1,42 +1,57 @@
 #include "exthread.h"
 
-THREADTYPE _exThreadFunction(THREADARGS thread)
-{
-    ((ExThread*)thread)->run();
-    return NULL;
-}
-
-ExThread::ExThread() : Thread(_exThreadFunction, (void*)this)
+namespace Threads
 {
 
-}
+    THREADTYPE _exThreadFunction(THREADARGS thread)
+    {
+        ((Threads::ExThread*)thread)->run();
+        return NULL;
+    }
 
-ExThread::~ExThread()
-{
+    ExThread::ExThread() : Threads::Thread(Threads::_exThreadFunction, (void*)this)
+    {
 
-}
+    }
 
-void ExThread::run()
-{
+    ExThread::~ExThread()
+    {
 
-}
+    }
 
-void ExThread::startThread()
-{
-    Thread::startThread();
-}
+    void ExThread::run()
+    {
 
-void ExThread::start()
-{
-    Thread::startThread();
-}
+    }
 
-void ExThread::joinThread()
-{
-    Thread::joinThread();
-}
+    void ExThread::setPriority(int p)
+    {
+        Threads::Thread::setPriority(p);
+    }
 
-void ExThread::join()
-{
-    Thread::joinThread();
+    void ExThread::setAffinity(int a)
+    {
+        Threads::Thread::setAffinity(a);
+    }
+
+    void ExThread::startThread()
+    {
+        Threads::Thread::startThread();
+    }
+
+    void ExThread::start()
+    {
+        Threads::Thread::startThread();
+    }
+
+    void ExThread::joinThread()
+    {
+        Threads::Thread::joinThread();
+    }
+
+    void ExThread::join()
+    {
+        Threads::Thread::joinThread();
+    }
+
 }

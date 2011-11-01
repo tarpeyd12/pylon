@@ -128,7 +128,7 @@ if pylon.key_ispressed(' ') or pylon.key_ispressed('j'):
 		vect2 = makepos(rnd_n1p1()*sc2, rnd_n1p1()*sc2, rnd_n1p1()*sc2)
 		vect3 = makepos(rnd_n1p1()*sc3, rnd_n1p1()*sc3, rnd_n1p1()*sc3)
 		vect4 = makepos(rnd_n1p1()*sc4, rnd_n1p1()*sc4, rnd_n1p1()*sc4)
-		newobjdat = '{[obj'+str(int(counter*10))+'.'+str(bob)+'],[22],[136],[0],[0],'+vect1+','+vect2+','+vect3+','+vect4+',{[1.000000],[0.000000],[1000.000000],[1.000000],[1.000000],[1.000000],[0],[-1.000000]},<'+objtridat+'>}'
+		newobjdat = '{[obj'+str(int(counter*10))+'.'+str(bob)+'],[22],[136],[0],[0],'+vect1+','+vect2+','+vect3+','+vect4+',{[1.000000],[0.000000],[2000.000000],[1.000000],[1.000000],[1.000000],[0],[-1.000000]},<'+objtridat+'>}'
 		print sim2.addobject(newobjdat)
 		pylon.object_build(sim2.name,'objobj'+str(int(counter*10))+'.'+str(bob))
 		bob = bob + 1
@@ -175,4 +175,4 @@ cam.mousepos()
 cam.centerset()
 cam.getcamstrs()
 
-doOBJECTrelocate()
+#doOBJECTrelocate()

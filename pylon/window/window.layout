@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Unitary Development" />
-	<File name="calcthread.cpp" open="1" top="0" tabpos="4">
-		<Cursor position="371" topLine="0" />
+	<ActiveTarget name="Release" />
+	<File name="calcthread.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="387" topLine="0" />
 	</File>
-	<File name="calcthread.h" open="0" top="0" tabpos="4">
-		<Cursor position="250" topLine="0" />
+	<File name="calcthread.h" open="1" top="0" tabpos="2">
+		<Cursor position="132" topLine="0" />
 	</File>
-	<File name="cmd.cpp" open="1" top="0" tabpos="7">
+	<File name="cmd.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="1799" topLine="57" />
 	</File>
-	<File name="globals.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="706" topLine="15" />
+	<File name="globals.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="812" topLine="20" />
 	</File>
 	<File name="globals.h" open="0" top="0" tabpos="10">
-		<Cursor position="760" topLine="12" />
+		<Cursor position="760" topLine="9" />
 	</File>
-	<File name="info.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="1441" topLine="21" />
+	<File name="info.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="2837" topLine="27" />
 	</File>
-	<File name="init.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="2095" topLine="48" />
+	<File name="init.cpp" open="0" top="0" tabpos="8">
+		<Cursor position="2095" topLine="0" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="376" topLine="3" />
+	<File name="main.cpp" open="1" top="1" tabpos="5">
+		<Cursor position="1490" topLine="46" />
 	</File>
 	<File name="main.h" open="0" top="0" tabpos="2">
-		<Cursor position="994" topLine="24" />
+		<Cursor position="925" topLine="22" />
 	</File>
 	<File name="mainscriptdefs.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="3847" topLine="84" />
@@ -34,14 +34,14 @@
 	<File name="mainscriptdefs.h" open="0" top="0" tabpos="12">
 		<Cursor position="1005" topLine="0" />
 	</File>
-	<File name="scriptthread.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="2918" topLine="111" />
+	<File name="scriptthread.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="195" topLine="0" />
 	</File>
-	<File name="scriptthread.h" open="1" top="0" tabpos="5">
-		<Cursor position="367" topLine="0" />
+	<File name="scriptthread.h" open="1" top="0" tabpos="1">
+		<Cursor position="138" topLine="0" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="4">
-		<Cursor position="891" topLine="9" />
+		<Cursor position="744" topLine="6" />
 	</File>
 	<File name="versionheaders.h" open="0" top="0" tabpos="0">
 		<Cursor position="807" topLine="6" />

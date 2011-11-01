@@ -5,11 +5,13 @@
 CalcThread::CalcThread()
 {
     this->startThread();
+    //this->setAffinity(0);
 }
 
 CalcThread::~CalcThread()
 {
     Main::calcLock = true;
+    Renderer::Physics::StopIncrimentation();
     this->joinThread();
     Main::calcLock = false;
 }
@@ -20,7 +22,7 @@ void CalcThread::run()
     while(!Main::calcLock)
     {
         timer->sleep();
-        Renderer::Incriment();
+        Renderer::Physics::Incriment();
     }
     delete timer;
 }

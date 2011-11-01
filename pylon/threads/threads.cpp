@@ -1,85 +1,38 @@
 #include "threads.h"
 
-Thread::Thread()
+namespace Threads
 {
-    thread_function = NULL;
-    data = NULL;
-    //setPriority(50);
-}
 
-Thread::Thread(void* (*func)(void* arg))
-{
-    thread_function = func;
-    data = NULL;
-    //setPriority(50);
-}
+    int getNumCores() {
+        #if defined(WINDOWS) || defined(_WIN32) || defined(_WIN64)
+            #include <windows.h>
+        #elif defined(APPLE) || defined(_APPLE) || defined(_APPLE_) || defined(__APPLE__)
+            #include <sys/param.h>
+            #include <sys/sysctl.h>
+        #else
+            #include <unistd.h>
+        #endif
 
-Thread::Thread(void* (*func)(void* arg), void* dat)
-{
-    thread_function = func;
-    data = dat;
-    //setPriority(50);
-}
+        #if defined(WINDOWS) || defined(_WIN32) || defined(_WIN64)
+            SYSTEM_INFO sysinfo;
+            GetSystemInfo(&sysinfo);
+            return sysinfo.dwNumberOfProcessors;
+        #elif defined(APPLE) || defined(_APPLE) || defined(_APPLE_) || defined(__APPLE__)
+            int nm[2];
+            size_t len = 4;
+            uint32_t count;
 
-Thread::~Thread()
-{
-    pthread_attr_destroy(&attr);
-    thread_function = NULL;
-    //data = NULL;
-}
+            nm[0] = CTL_HW; nm[1] = HW_AVAILCPU;
+            sysctl(nm, 2, &count, &len, NULL, 0);
 
-void Thread::setPriority(int priority)
-{
-    //pthread_setschedprio(thread,priority);
-    /*sched_param param;
-    param.__sched_priority = priority;
-    int ret = pthread_setschedparam(thread, SCHED_FIFO, &param);
-    if( ret )
-        std::cout << "Failed to set Thread priority, err: " << ret << std::endl;*/
-}
-
-void Thread::setThread(void* (*func)(void* arg))
-{
-    thread_function = func;
-}
-
-void Thread::setData(void * dat)
-{
-    data = dat;
-}
-
-void Thread::startThread()
-{
-    pthread_attr_init(&attr);
-    pthread_attr_setdetachstate(&attr, PTHREAD_CREATE_JOINABLE);
-
-    int ret = pthread_create( &thread, &attr, thread_function, data);
-    if( ret )
-    {
-        //std::cout << "*** THREAD START FAILURE: " << ret << " ***" << std::endl;
-        throw ret;//"*** THREAD START FAILURE:  ***";
-        //exit(-1);
+            if(count < 1) {
+                nm[1] = HW_NCPU;
+                sysctl(nm, 2, &count, &len, NULL, 0);
+                if(count < 1) { count = 1; }
+            }
+            return count;
+        #else
+            return sysconf(_SC_NPROCESSORS_ONLN);
+        #endif
     }
 }
-
-void Thread::start()
-{
-    this->startThread();
-}
-
-void Thread::joinThread()
-{
-    int ret = pthread_join(thread, NULL);
-    if( ret )
-    {
-        //std::cout << "*** THREAD JOIN FAILURE: " << ret << " ***" << std::endl;
-        throw ret;
-        //exit(-1);
-    }
-}
-
-void Thread::join()
-{
-    this->joinThread();
-}
-

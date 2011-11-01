@@ -35,28 +35,7 @@ namespace Renderer
     void Idle()
     {
         glutPostRedisplay();
-    }
-
-    void Incriment()
-    {
-        for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
-        {
-            if(Renderer::Physics::simulations[i]->inc())
-            {
-                if(Renderer::Physics::simulations[i]->isdyn())
-                {
-                    POGEL::PHYSICS::DYNAMICS* sim = static_cast<POGEL::PHYSICS::DYNAMICS*>(Renderer::Physics::simulations[i]->getSim());
-                    if(sim->numobjs())
-                        sim->increment();
-                }
-                else
-                {
-                    POGEL::PHYSICS::SIMULATION* sim = static_cast<POGEL::PHYSICS::SIMULATION*>(Renderer::Physics::simulations[i]->getSim());
-                    if(sim->numobjs())
-                        sim->increment();
-                }
-            }
-        }
+        //cout << "Idle at frame: " << POGEL::frames << endl;
     }
 
     void BuildImages()

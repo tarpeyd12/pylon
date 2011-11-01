@@ -34,8 +34,6 @@ namespace Renderer
 
     void Display();
 
-    void Incriment();
-
     void BuildImages();
 }
 

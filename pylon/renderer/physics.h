@@ -36,6 +36,9 @@ namespace Renderer
         Renderer::Physics::Simulation* getSimulation(std::string);
         POGEL::PHYSICS::SOLID* getObject(std::string,std::string);
         void addSimulation(std::string,bool);
+
+        void StopIncrimentation();
+        void Incriment();
     }
 }
 

@@ -17,6 +17,8 @@ namespace pogelInterface
         { "togglesim",               (CFunction)togglesimulation,        VarArgs, NULL },
         { "togglesimweight",         (CFunction)togglesimweight,         VarArgs, NULL },
         { "setsimulationgravity_3f", (CFunction)setsimulationgravity_3f, VarArgs, NULL },
+        { "setsimulationcollitters", (CFunction)setsimulationcollitters, VarArgs, NULL },
+        { "getsimulationcollitters", (CFunction)getsimulationcollitters, VarArgs, NULL },
         { "clearsimulation",         (CFunction)clearsimulation,         VarArgs, NULL },
         // object controll
         { "addobject",          (CFunction)addobject,         VarArgs, NULL },

@@ -220,9 +220,9 @@ class Simulation:
 			thrd.start()
 	
 	def addobject(self,objstr):
-		self.stop()
+		#self.stop()
 		ret = pylon.addobject(self.name,objstr)
-		self.restart()
+		#self.restart()
 		return ret
 		
 	def obj(self,objname):

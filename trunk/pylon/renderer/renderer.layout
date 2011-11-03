@@ -43,8 +43,8 @@
 	<File name="mouse.h" open="0" top="0" tabpos="2">
 		<Cursor position="53" topLine="0" />
 	</File>
-	<File name="physics.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="4514" topLine="150" />
+	<File name="physics.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="4705" topLine="150" />
 	</File>
 	<File name="physics.h" open="0" top="0" tabpos="5">
 		<Cursor position="1207" topLine="15" />
@@ -55,8 +55,8 @@
 	<File name="quad.h" open="0" top="0" tabpos="8">
 		<Cursor position="279" topLine="0" />
 	</File>
-	<File name="renderer.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="571" topLine="22" />
+	<File name="renderer.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="2004" topLine="38" />
 	</File>
 	<File name="renderer.h" open="0" top="0" tabpos="6">
 		<Cursor position="75" topLine="0" />

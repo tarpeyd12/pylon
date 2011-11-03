@@ -6,6 +6,7 @@ namespace Threads
     THREADTYPE _exThreadFunction(THREADARGS thread)
     {
         ((Threads::ExThread*)thread)->run();
+        pthread_exit(NULL);
         return NULL;
     }
 
@@ -52,6 +53,16 @@ namespace Threads
     void ExThread::join()
     {
         Threads::Thread::joinThread();
+    }
+
+    void ExThread::cancelThread()
+    {
+        Threads::Thread::cancelThread();
+    }
+
+    void ExThread::cancel()
+    {
+        Threads::Thread::cancelThread();
     }
 
 }

@@ -9,9 +9,8 @@ void _atExit()
 
     if(!Main::SingleThreaded && Main::calcThread != NULL)
     {
-        cout << "Stopping Physics Thread ...\t";
         Main::calcLock = true;
-        usleep(1000000);
+        cout << "Stopping Physics Thread ...\t";
         delete Main::calcThread;
         Main::calcThread = NULL;
         cout << "OK" << endl;
@@ -19,9 +18,8 @@ void _atExit()
 
     if(Main::scriptThread != NULL)
     {
-        cout << "Stopping Scripting Thread ...\t";
         Main::scriptThread->running = false;
-        usleep(1000000);
+        cout << "Stopping Scripting Thread ...\t";
         delete Main::scriptThread;
         Main::scriptThread = NULL;
         cout << "OK" << endl;
@@ -48,6 +46,8 @@ int main(int argc, char *argv[])
 
     // to clean stuff up at exit.
     atexit(_atExit);
+
+    std::cout << "Number of CPU's: " << Threads::getNumCores() << std::endl;
 
     if(Main::SingleThreaded)
     {

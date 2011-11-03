@@ -154,7 +154,7 @@ namespace FileLoader
                 err = unzGoToNextFile(uf);
                 if (err!=UNZ_OK)
                 {
-                    printf("error %d with zipfile in unzGoToNextFile\n",err);
+                    cout << "error " << err << " with zipfile in unzGoToNextFile" << endl;
                     break;
                 }
             }

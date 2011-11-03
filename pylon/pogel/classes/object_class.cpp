@@ -9,7 +9,7 @@
 
 POGEL::OBJECT::OBJECT() {
 	POGEL::POINT p(0.0f,0.0f,0.0f);
-	face=NULL;
+	face=new POGEL::TRIANGLE[1];
 	numfaces=0;
 	triangle_allocation_total=0;
 	base=(unsigned int)NULL;
@@ -26,7 +26,7 @@ POGEL::OBJECT::OBJECT() {
 
 POGEL::OBJECT::OBJECT(unsigned int prop) {
 	POGEL::POINT p(0.0f,0.0f,0.0f);
-	face=NULL;
+	face=new POGEL::TRIANGLE[1];
 	numfaces=0;
 	triangle_allocation_total=0;
 	base=(unsigned int)NULL;
@@ -77,7 +77,7 @@ POGEL::OBJECT::OBJECT(POGEL::TRIANGLE *tri, unsigned long num, unsigned int prop
 POGEL::OBJECT::OBJECT(const char* n) {
 	POGEL::POINT p(0.0f,0.0f,0.0f);
 	triangle_allocation_total=0;
-	face=NULL;
+	face=new POGEL::TRIANGLE[1];
 	numfaces=0;
 	base=(unsigned int)NULL;
 	position=p;
@@ -93,7 +93,7 @@ POGEL::OBJECT::OBJECT(const char* n) {
 
 POGEL::OBJECT::OBJECT(const char* n, unsigned int prop) {
 	POGEL::POINT p(0.0f,0.0f,0.0f);
-	face=NULL;
+	face=new POGEL::TRIANGLE[1];
 	triangle_allocation_total=0;
 	numfaces=0;
 	base=(unsigned int)NULL;
@@ -216,7 +216,7 @@ void POGEL::OBJECT::rotate(POGEL::VECTOR v, float s) {
 
 unsigned long POGEL::OBJECT::addtriangle(POGEL::TRIANGLE tri) {
 	if((tri.vertex[0].topoint()==tri.vertex[1].topoint()) || (tri.vertex[0].topoint()==tri.vertex[2].topoint()) || (tri.vertex[1].topoint()==tri.vertex[2].topoint()))
-		return (unsigned long)NULL;
+	    return (unsigned long)NULL;
 	if( numfaces >= triangle_allocation_total )
 		addtrianglespace(OBJECT_TRIAGLE_ALLOCATION_SKIP);
 	face[numfaces]=tri;
@@ -234,9 +234,12 @@ void POGEL::OBJECT::addtriangles(POGEL::TRIANGLE *tri, unsigned long num) {
 
 void POGEL::OBJECT::addtrianglespace(unsigned long num) {
 	POGEL::TRIANGLE *tmp = new POGEL::TRIANGLE[numfaces+num];
-	for(unsigned long i = 0; i < numfaces; i++) tmp[i] = face[i];
-	if(face) delete[] face;
-	face = NULL; face = tmp;
+	if(face!=NULL) {
+	    for(unsigned long i = 0; i < numfaces; i++) tmp[i] = face[i];
+        if(face!=NULL && numfaces!=0 && triangle_allocation_total!=0)delete[] face;
+        face = NULL;
+    }
+	face = tmp;
 	triangle_allocation_total += num;
 };
 

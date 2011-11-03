@@ -29,6 +29,12 @@ namespace FileLoader
 
             int clearDir(std::string dir)
             {
+                if(!dir.length())
+                {
+                    std::cout << "Cannot remove files from directory: \"\"" << std::endl;
+                    return -1;
+                }
+
                 #ifdef _WIN32
                     system(("del /S /Q " + dir + "\\*.*").c_str());
                     return 0;

@@ -28,6 +28,8 @@ namespace Threads
             void start();
             void joinThread();
             void join();
+            void cancelThread();
+            void cancel();
 
             virtual void run();
 

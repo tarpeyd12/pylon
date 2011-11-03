@@ -26,11 +26,7 @@ namespace pogelInterface
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("s", "Simulation not found.");
-        void* vsim = sim->getSim();
-        if(sim->isdyn())
-            obj = static_cast<POGEL::PHYSICS::DYNAMICS*>(vsim)->getSolid(name);
-        else
-            obj = static_cast<POGEL::PHYSICS::SIMULATION*>(vsim)->getSolid(name);
+        obj = sim->getObject(std::string(name));
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
         POGEL::IMAGE* image = POGEL::requestImage(std::string(img));
@@ -61,11 +57,7 @@ namespace pogelInterface
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("s", "Simulation not found.");
-        void* vsim = sim->getSim();
-        if(sim->isdyn())
-            obj = static_cast<POGEL::PHYSICS::DYNAMICS*>(vsim)->getSolid(name);
-        else
-            obj = static_cast<POGEL::PHYSICS::SIMULATION*>(vsim)->getSolid(name);
+        obj = sim->getObject(std::string(name));
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
         POGEL::IMAGE* image = POGEL::requestImage(std::string(img));
@@ -97,11 +89,7 @@ namespace pogelInterface
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("s", "Simulation not found.");
-        void* vsim = sim->getSim();
-        if(sim->isdyn())
-            obj = static_cast<POGEL::PHYSICS::DYNAMICS*>(vsim)->getSolid(name);
-        else
-            obj = static_cast<POGEL::PHYSICS::SIMULATION*>(vsim)->getSolid(name);
+        obj = sim->getObject(std::string(name));
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
         POGEL::IMAGE* image = POGEL::requestImage(std::string(img));
@@ -134,11 +122,7 @@ namespace pogelInterface
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("s", "Simulation not found.");
-        void* vsim = sim->getSim();
-        if(sim->isdyn())
-            obj = static_cast<POGEL::PHYSICS::DYNAMICS*>(vsim)->getSolid(name);
-        else
-            obj = static_cast<POGEL::PHYSICS::SIMULATION*>(vsim)->getSolid(name);
+        obj = sim->getObject(std::string(name));
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
         POGEL::IMAGE* image = POGEL::requestImage(std::string(img));
@@ -170,11 +154,7 @@ namespace pogelInterface
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("s", "Simulation not found.");
-        void* vsim = sim->getSim();
-        if(sim->isdyn())
-            obj = static_cast<POGEL::PHYSICS::DYNAMICS*>(vsim)->getSolid(name);
-        else
-            obj = static_cast<POGEL::PHYSICS::SIMULATION*>(vsim)->getSolid(name);
+        obj = sim->getObject(std::string(name));
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
         POGEL::IMAGE* image = POGEL::requestImage(std::string(img));
@@ -207,11 +187,7 @@ namespace pogelInterface
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("s", "Simulation not found.");
-        void* vsim = sim->getSim();
-        if(sim->isdyn())
-            obj = static_cast<POGEL::PHYSICS::DYNAMICS*>(vsim)->getSolid(name);
-        else
-            obj = static_cast<POGEL::PHYSICS::SIMULATION*>(vsim)->getSolid(name);
+        obj = sim->getObject(std::string(name));
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
         POGEL::IMAGE* image = POGEL::requestImage(std::string(img));

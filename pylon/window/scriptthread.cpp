@@ -10,7 +10,10 @@ ScriptThread::ScriptThread()
     this->run();
     running = true;
     this->startThread();
-    //this->setAffinity(1);
+    // if the computer has more than 2 cpu's
+    //  attempt to set the script thrads to cpu3
+    if(Threads::getNumCores() > 2)
+        this->setAffinity(3);
 }
 
 ScriptThread::ScriptThread(bool st)
@@ -28,6 +31,15 @@ ScriptThread::~ScriptThread()
 {
     if(!Main::SingleThreaded)
     {
+        try
+        {
+            this->cancelThread();
+        }
+        catch(int e)
+        {
+            cout << "Unable to Cancel the Scripting Thread. err:" << e << endl;
+        }
+
         try
         {
             this->joinThread();

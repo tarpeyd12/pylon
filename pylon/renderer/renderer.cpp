@@ -56,7 +56,13 @@ namespace Renderer
                         cout << endl << "building unbuilt image: \"" << POGEL::lstimg(i)->toString() << "\"" << endl;
                     POGEL::lstimg(i)->loadandbuild();
                 }
+                if( !FileLoader::noremoval && !FileLoader::checkfile(POGEL::lstimg(i)->getFileID()) ) {
+                    if(POGEL::hasproperty(POGEL_DEBUG))
+                        cout << "removing: \"" << POGEL::lstimg(i)->getFileID() << "\"" << endl;
+                    FileLoader::System::Files::remove(POGEL::lstimg(i)->getFileID());
+                }
             }
         }
     }
+
 }

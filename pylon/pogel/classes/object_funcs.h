@@ -5,7 +5,7 @@
 #include "triangle_class.h"
 #include "object_class.h"
 
-//#define DIPLAY_SHAPE_PROGRESS 0
+#define DIPLAY_SHAPE_PROGRESS 0
 
 #ifndef PI
 	#define PI 3.1415926535897

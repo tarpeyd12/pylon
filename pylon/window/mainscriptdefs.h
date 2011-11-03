@@ -15,6 +15,8 @@ namespace Main
 
     ScriptEngine::MethodInterface::Object* getVersion( ScriptEngine::MethodInterface::Object* );
     ScriptEngine::MethodInterface::Object* getPluginVersion(ScriptEngine::MethodInterface::Object* self, ScriptEngine::MethodInterface::Object* args);
+
+    ScriptEngine::MethodInterface::Object* Exit( ScriptEngine::MethodInterface::Object* );
 }
 
 

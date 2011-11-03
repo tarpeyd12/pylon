@@ -99,10 +99,21 @@ namespace Main
             return Py_BuildValue("s", "0.0.0.0");
     }
 
+    ScriptEngine::MethodInterface::Object* Exit(ScriptEngine::MethodInterface::Object* self, ScriptEngine::MethodInterface::Object* args)
+    {
+        int ret;
+        if(!PyArg_ParseTuple(args, "i:getPluginVersion", &ret))
+            return NULL;
+        exit(ret);
+        return Py_BuildValue("s", "Exiting ...");
+    }
+
     ScriptEngine::MethodInterface::MethodDef getVersionMethod[] =
     {
         { "version", (ScriptEngine::MethodInterface::CFunction)getVersion, ScriptEngine::MethodInterface::NoArgs, NULL },
         { "componentversion", (ScriptEngine::MethodInterface::CFunction)getPluginVersion, ScriptEngine::MethodInterface::VarArgs, NULL },
+        { "exit", (ScriptEngine::MethodInterface::CFunction)Exit, ScriptEngine::MethodInterface::VarArgs, NULL },
+        { "quit", (ScriptEngine::MethodInterface::CFunction)Exit, ScriptEngine::MethodInterface::VarArgs, NULL },
         { NULL }
     };
 }

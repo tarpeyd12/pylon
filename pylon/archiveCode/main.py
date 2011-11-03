@@ -49,7 +49,7 @@ if pylon.key_ispressed('p') or pylon.key_ispressed('P'):
 	print 'FPS: ', pylon.fps()
 
 if pylon.key_ispressed('q') or pylon.key_ispressed('Q'):
-	quit()
+	print _pylon.exit(0)
 
 if pylon.key_ispressed('\r') or pylon.key_ispressed('\n'):
 	if going:

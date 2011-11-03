@@ -39,6 +39,8 @@ except ImportError as bob:
 
 counter = 0
 
+print 'brains'
+
 def versioncompare_dig(ver,spot):
 	my_splitter = shlex.shlex(ver, posix = True)
 	my_splitter.whitespace += "_.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -155,16 +157,20 @@ possibleImages = '{[Data/images/earth.bmp],[2]}', '{[Data/images/Glass.bmp],[2]}
 possibleTriProps = 8, 8|32, 8, 8, 8, 2, 8|64
 loop = 0
 rnum = 0
-numOSpheres = 100
+numOSpheres = 15
 while loop < numOSpheres:
 	sc1 = 1.5
 	#rpos = makepos(rnd_n1p1()*sc1*0, float(loop)/5.0+.01-(numOSpheres/5.0/2), rnd_n1p1()*sc1*0)
 	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1)
 	rot = makepos(rnd_n1p1()*360,rnd_n1p1()*360,rnd_n1p1()*360)
+	print "\nstart Object"+str(loop)
 	print TestSphereSim.addobject( makeObjectString(rpos,rot,zeropos,zeropos,"Object"+str(loop),2|4|16,8,30000,"") )
+	print 'add'
 	rnum = int(random.random()*7)
 	print pylon.object_add_sphere("TestSphereSim","Object"+str(loop),0.07,6,10,possibleImages[rnum],1,1,possibleTriProps[rnum])
+	print 'ball'
 	print pylon.object_build("TestSphereSim","Object"+str(loop))
+	print 'build'
 	loop = loop + 1
 
 

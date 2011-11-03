@@ -1,7 +1,9 @@
 try:
-	import calc
-	import draw
 	import pylon
+	import _pylon
+	import _pylon_calc
+	import _pylon_draw
+	
 	import shlex
 	import thread
 	import math
@@ -12,6 +14,7 @@ try:
 	
 except ImportError:
 	print 'Importing failure for the required modules in \"pylonclasses.py\".'
+	print _pylon.exit(-1)
 	quit()
 
 lastkey = chr(0)

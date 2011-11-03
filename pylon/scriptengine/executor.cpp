@@ -29,18 +29,31 @@ namespace ScriptEngine
         return instructions;
     }
 
-    Execute::Execute(std::string instructions) : ScriptEngine::Executor()
+    Execute::Execute(std::string instructions) : ScriptEngine::Executor(instructions)
     {
-        //ScriptEngine::Initialize();
-        PyRun_SimpleString(instructions.c_str());
-        //ScriptEngine::Finalize();
+        bool is_init = ScriptEngine::HasBegun();
+        if(!is_init)
+            ScriptEngine::Initialize();
+
+        int ret = PyRun_SimpleString(getInstructions().c_str());
+        if(ret || PyErr_Occurred())
+            throw ret;
+
+        if(!is_init) ScriptEngine::Finalize();
     }
 
     Execute::Execute(const Executor& other) : ScriptEngine::Executor()
     {
-        //ScriptEngine::Initialize();
-        PyRun_SimpleString(Executor(other).getInstructions().c_str());
-        //ScriptEngine::Finalize();
+        bool is_init = ScriptEngine::HasBegun();
+        if(!is_init)
+            ScriptEngine::Initialize();
+
+        int ret = PyRun_SimpleString(Executor(other).getInstructions().c_str());
+        if(ret || PyErr_Occurred())
+            throw ret;
+
+        if(!is_init)
+            ScriptEngine::Finalize();
     }
 
     Execute::~Execute()
@@ -65,9 +78,16 @@ namespace ScriptEngine
 
     void FileExecutor::Execute()
     {
-        ScriptEngine::Initialize();
-        PyRun_AnyFile(stdout, getInstructions().c_str());
-        ScriptEngine::Finalize();
+        bool is_init = ScriptEngine::HasBegun();
+        if(!is_init)
+            ScriptEngine::Initialize();
+
+        int ret = PyRun_AnyFile(stdout, getInstructions().c_str());
+        if(ret || PyErr_Occurred())
+            throw ret;
+
+        if(!is_init)
+            ScriptEngine::Finalize();
     }
 
     FunctionCaller::FunctionCaller(std::string inst) : ScriptEngine::Executor(inst)
@@ -82,10 +102,13 @@ namespace ScriptEngine
 
     void FunctionCaller::call(std::string func, std::string* args, unsigned int numArgs)
     {
+        bool is_init = ScriptEngine::HasBegun();
+        if(!is_init)
+            ScriptEngine::Initialize();
+
         PyObject *pName, *pModule, *pFunc;
         PyObject *pArgs, *pValue = NULL;
 
-        //ScriptEngine::Initialize();
         pName = PyString_FromString(getInstructions().c_str());
         //pModule = PyImport_ImportModuleNoBlock(getInstructions().c_str());
         pModule = PyImport_Import(pName);
@@ -103,6 +126,32 @@ namespace ScriptEngine
                     if(type.compare("int") == 0)
                     {
                         pValue = PyInt_FromLong(atoi(data.c_str()));
+                    }
+                    else
+                    if(type.compare("bool") == 0)
+                    {
+                        if(!data.compare("true") || !data.compare("True"))
+                            pValue = PyBool_FromLong(1);
+                        else if(!data.compare("false") || !data.compare("False"))
+                            pValue = PyBool_FromLong(0);
+                        pValue = PyBool_FromLong(atoi(data.c_str()));
+                    }
+                    else
+                    if(type.compare("long") == 0)
+                    {
+                        pValue = PyLong_FromLong(atoi(data.c_str()));
+                    }
+                    else
+                    if(type.compare("float") == 0)
+                    {
+                        PyObject* s = PyString_FromString(data.c_str());
+                        pValue = PyFloat_FromString(s,NULL);
+                        // delete s;
+                    }
+                    else
+                    if(type.compare("str") == 0)
+                    {
+                        pValue = PyString_FromString(data.c_str());
                     }
 
                     if (!pValue) {
@@ -141,7 +190,9 @@ namespace ScriptEngine
             fprintf(stderr, "Failed to load \"%s\"\n", getInstructions().c_str());
             return;
         }
-        //ScriptEngine::Finalize();
+
+        if(!is_init)
+            ScriptEngine::Finalize();
     }
 
 }

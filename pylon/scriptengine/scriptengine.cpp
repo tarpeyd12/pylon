@@ -22,30 +22,33 @@ namespace ScriptEngine
 
     void Begin()
     {
-        started = true;
+        //started = true;
         Py_Initialize();
+        started = ScriptEngine::HasBegun();
     }
 
     void End()
     {
-        started = false;
+        //started = false;
         Py_Finalize();
+        started = ScriptEngine::HasBegun();
     }
 
     bool HasBegun()
     {
-        return started;
+        return (bool)Py_IsInitialized();
+        //return started;
     }
 
     void Initialize()
     {
         if(!ScriptEngine::HasBegun())
-            Begin();
+            ScriptEngine::Begin();
     }
 
     void Finalize()
     {
         if(ScriptEngine::HasBegun())
-            End();
+            ScriptEngine::End();
     }
 }

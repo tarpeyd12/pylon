@@ -50,12 +50,13 @@ if pylon.key_ispressed('p') or pylon.key_ispressed('P'):
 
 if pylon.key_ispressed('q') or pylon.key_ispressed('Q'):
 	print _pylon.exit(0)
+	quit()
 
 if pylon.key_ispressed('\r') or pylon.key_ispressed('\n'):
 	if going:
 		print "Stopping Physics Calculation Thread"
 		going = False
-		calc.lock()
+		_pylon_calc.lock()
 		# gives time to the calculation thread to catch up
 		waitcalc(1000000)
 	else:
@@ -63,7 +64,7 @@ if pylon.key_ispressed('\r') or pylon.key_ispressed('\n'):
 		going = True
 		# gives time to the calculation thread to catch up
 		waitcalc(1000000)
-		calc.unlock()
+		_pylon_calc.unlock()
 
 counter = counter + 0.1
 

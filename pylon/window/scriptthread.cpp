@@ -31,14 +31,14 @@ ScriptThread::~ScriptThread()
 {
     if(!Main::SingleThreaded)
     {
-        try
+        /*try
         {
             this->cancelThread();
         }
         catch(int e)
         {
             cout << "Unable to Cancel the Scripting Thread. err:" << e << endl;
-        }
+        }*/
 
         try
         {
@@ -91,8 +91,8 @@ void ScriptThread::FirstRun()
 
     ScriptEngine::Initialize();
 
-    ScriptEngine::MethodInterface::Add( "calc", Main::calcLockMethods );
-    ScriptEngine::MethodInterface::Add( "draw", Main::drawLockMethods );
+    ScriptEngine::MethodInterface::Add( "_pylon_calc", Main::calcLockMethods );
+    ScriptEngine::MethodInterface::Add( "_pylon_draw", Main::drawLockMethods );
     ScriptEngine::MethodInterface::Add( "_pylon", Main::getVersionMethod );
 
     pogelInterface::Init();
@@ -101,7 +101,7 @@ void ScriptThread::FirstRun()
 
     if(initScriptData.length() == 0)
     {
-        cout << "no init data." << endl;
+        cout << "ERROR: no init data." << endl;
         exit(-1);
     }
 
@@ -115,9 +115,14 @@ void ScriptThread::FirstRun()
 
     if(mainScriptData.length() == 0)
     {
-        cout << "no main data." << endl;
+        cout << "ERROR: no main data." << endl;
         exit(-1);
     }
+
+    ScriptEngine::Execute(ScriptEngine::Executor("import pylon\n"));
+    ScriptEngine::Execute(ScriptEngine::Executor("import _pylon\n"));
+    ScriptEngine::Execute(ScriptEngine::Executor("import _pylon_calc\n"));
+    ScriptEngine::Execute(ScriptEngine::Executor("import _pylon_draw\n"));
 
     // I am calling this the 'StoneBug'
     // start StoneBug fix
@@ -134,7 +139,15 @@ void ScriptThread::FirstRun()
 
     // end StoneBug fix
 
-    ScriptEngine::Execute(ScriptEngine::Executor(initScriptData));
+    try
+    {
+        ScriptEngine::Execute(ScriptEngine::Executor(initScriptData));
+    }
+    catch(int e)
+    {
+        cout << "ERROR: Initialization script failed: " << e << endl;
+        exit(e);
+    }
 
     mainScript = new ScriptEngine::Executor(mainScriptData);
 }
@@ -146,7 +159,16 @@ void ScriptThread::MainRun()
     while(running)
     {
         timer->sleep();
-        ScriptEngine::Execute((const ScriptEngine::Executor)*mainScript);
+
+        try
+        {
+            ScriptEngine::Execute((const ScriptEngine::Executor)*mainScript);
+        }
+        catch(int e)
+        {
+            cout << "ERROR: Main-Loop script failed: " << e << endl;
+            exit(e);
+        }
     }
 
     delete timer;

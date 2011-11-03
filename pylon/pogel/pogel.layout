@@ -1,100 +1,100 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="classes\bounding_class.cpp" open="0" top="0" tabpos="5">
+	<File name="classes/bounding_class.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="2752" topLine="44" />
 	</File>
-	<File name="classes\bounding_class.h" open="0" top="0" tabpos="38">
+	<File name="classes/bounding_class.h" open="0" top="0" tabpos="38">
 		<Cursor position="822" topLine="15" />
 	</File>
-	<File name="classes\fractal_class.cpp" open="0" top="0" tabpos="0">
+	<File name="classes/fractal_class.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="14" topLine="0" />
 	</File>
-	<File name="classes\fractal_class.h" open="0" top="0" tabpos="37">
+	<File name="classes/fractal_class.h" open="0" top="0" tabpos="37">
 		<Cursor position="739" topLine="10" />
 	</File>
-	<File name="classes\image_class.cpp" open="0" top="0" tabpos="9">
+	<File name="classes/image_class.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="3942" topLine="135" />
 	</File>
-	<File name="classes\image_class.h" open="0" top="0" tabpos="6">
+	<File name="classes/image_class.h" open="0" top="0" tabpos="6">
 		<Cursor position="1586" topLine="48" />
 	</File>
-	<File name="classes\line_class.h" open="0" top="0" tabpos="0">
+	<File name="classes/line_class.h" open="0" top="0" tabpos="0">
 		<Cursor position="0" topLine="24" />
 	</File>
-	<File name="classes\matrix_class.cpp" open="0" top="0" tabpos="0">
+	<File name="classes/matrix_class.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="13354" topLine="253" />
 	</File>
-	<File name="classes\matrix_class.h" open="0" top="0" tabpos="14">
+	<File name="classes/matrix_class.h" open="0" top="0" tabpos="14">
 		<Cursor position="2133" topLine="25" />
 	</File>
-	<File name="classes\misc_class.h" open="0" top="0" tabpos="0">
+	<File name="classes/misc_class.h" open="0" top="0" tabpos="0">
 		<Cursor position="778" topLine="6" />
 	</File>
-	<File name="classes\object_class.cpp" open="0" top="0" tabpos="11">
+	<File name="classes/object_class.cpp" open="0" top="0" tabpos="11">
 		<Cursor position="12073" topLine="403" />
 	</File>
-	<File name="classes\object_class.h" open="0" top="0" tabpos="10">
+	<File name="classes/object_class.h" open="0" top="0" tabpos="10">
 		<Cursor position="542" topLine="9" />
 	</File>
-	<File name="classes\object_funcs.cpp" open="0" top="0" tabpos="35">
+	<File name="classes/object_funcs.cpp" open="0" top="0" tabpos="35">
 		<Cursor position="812" topLine="0" />
 	</File>
-	<File name="classes\object_funcs.h" open="0" top="0" tabpos="34">
+	<File name="classes/object_funcs.h" open="0" top="0" tabpos="34">
 		<Cursor position="131" topLine="0" />
 	</File>
-	<File name="classes\physics\dynamics_class.cpp" open="0" top="0" tabpos="9">
+	<File name="classes/physics/dynamics_class.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="4206" topLine="108" />
 	</File>
-	<File name="classes\physics\dynamics_class.h" open="0" top="0" tabpos="7">
+	<File name="classes/physics/dynamics_class.h" open="0" top="0" tabpos="7">
 		<Cursor position="766" topLine="25" />
 	</File>
-	<File name="classes\physics\physics.cpp" open="0" top="0" tabpos="6">
+	<File name="classes/physics/physics.cpp" open="0" top="0" tabpos="6">
 		<Cursor position="14137" topLine="377" />
 	</File>
-	<File name="classes\physics\physics.h" open="0" top="0" tabpos="0">
+	<File name="classes/physics/physics.h" open="0" top="0" tabpos="0">
 		<Cursor position="1711" topLine="26" />
 	</File>
-	<File name="classes\physics\simulation_class.cpp" open="0" top="0" tabpos="5">
+	<File name="classes/physics/simulation_class.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="316" topLine="0" />
 	</File>
-	<File name="classes\physics\simulation_class.h" open="0" top="0" tabpos="6">
+	<File name="classes/physics/simulation_class.h" open="0" top="0" tabpos="6">
 		<Cursor position="1066" topLine="33" />
 	</File>
-	<File name="classes\physics\simulation_class_collisions.cpp" open="0" top="0" tabpos="8">
+	<File name="classes/physics/simulation_class_collisions.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="13018" topLine="309" />
 	</File>
-	<File name="classes\physics\simulation_class_collisions_reaction.cpp" open="0" top="0" tabpos="7">
+	<File name="classes/physics/simulation_class_collisions_reaction.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="3350" topLine="57" />
 	</File>
-	<File name="classes\physics\singularity_class.h" open="0" top="0" tabpos="2">
+	<File name="classes/physics/singularity_class.h" open="0" top="0" tabpos="2">
 		<Cursor position="1679" topLine="38" />
 	</File>
-	<File name="classes\physics\solid_class.cpp" open="0" top="0" tabpos="10">
+	<File name="classes/physics/solid_class.cpp" open="0" top="0" tabpos="10">
 		<Cursor position="3856" topLine="69" />
 	</File>
-	<File name="classes\physics\solid_class.h" open="0" top="0" tabpos="1">
+	<File name="classes/physics/solid_class.h" open="0" top="0" tabpos="1">
 		<Cursor position="4584" topLine="141" />
 	</File>
-	<File name="classes\point_class.cpp" open="0" top="0" tabpos="7">
+	<File name="classes/point_class.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="2115" topLine="0" />
 	</File>
-	<File name="classes\point_class.h" open="0" top="0" tabpos="12">
+	<File name="classes/point_class.h" open="0" top="0" tabpos="12">
 		<Cursor position="1035" topLine="24" />
 	</File>
-	<File name="classes\terrain_class.h" open="0" top="0" tabpos="36">
+	<File name="classes/terrain_class.h" open="0" top="0" tabpos="36">
 		<Cursor position="838" topLine="0" />
 	</File>
-	<File name="classes\threads.h" open="1" top="0" tabpos="1">
+	<File name="classes/threads.h" open="1" top="0" tabpos="1">
 		<Cursor position="274" topLine="0" />
 	</File>
-	<File name="classes\triangle_class.cpp" open="0" top="0" tabpos="4">
+	<File name="classes/triangle_class.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="4838" topLine="151" />
 	</File>
-	<File name="classes\triangle_class.h" open="0" top="0" tabpos="2">
+	<File name="classes/triangle_class.h" open="0" top="0" tabpos="2">
 		<Cursor position="454" topLine="0" />
 	</File>
-	<File name="classes\view_class.cpp" open="0" top="0" tabpos="0">
+	<File name="classes/view_class.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="1583" topLine="39" />
 	</File>
 	<File name="pogel.cpp" open="0" top="0" tabpos="10">
@@ -109,25 +109,25 @@
 	<File name="pogel_internals.h" open="0" top="0" tabpos="9">
 		<Cursor position="2998" topLine="73" />
 	</File>
-	<File name="templates\arraylist.h" open="0" top="0" tabpos="4">
+	<File name="templates/arraylist.h" open="0" top="0" tabpos="4">
 		<Cursor position="88" topLine="0" />
 	</File>
-	<File name="templates\classlist_template.h" open="0" top="0" tabpos="1">
+	<File name="templates/classlist_template.h" open="0" top="0" tabpos="1">
 		<Cursor position="349" topLine="0" />
 	</File>
-	<File name="templates\hashlist_template.h" open="0" top="0" tabpos="2">
+	<File name="templates/hashlist_template.h" open="0" top="0" tabpos="2">
 		<Cursor position="136" topLine="0" />
 	</File>
-	<File name="templates\octree_template.h" open="0" top="0" tabpos="0">
+	<File name="templates/octree_template.h" open="0" top="0" tabpos="0">
 		<Cursor position="119" topLine="0" />
 	</File>
-	<File name="templates\octree_template_protected.h" open="0" top="0" tabpos="0">
+	<File name="templates/octree_template_protected.h" open="0" top="0" tabpos="0">
 		<Cursor position="264" topLine="0" />
 	</File>
-	<File name="templates\octree_template_public.h" open="0" top="0" tabpos="8">
+	<File name="templates/octree_template_public.h" open="0" top="0" tabpos="8">
 		<Cursor position="4050" topLine="124" />
 	</File>
-	<File name="templates\templates.h" open="0" top="0" tabpos="3">
+	<File name="templates/templates.h" open="0" top="0" tabpos="3">
 		<Cursor position="114" topLine="0" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="0">

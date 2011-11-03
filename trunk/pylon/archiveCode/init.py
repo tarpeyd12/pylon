@@ -33,6 +33,7 @@ except ImportError as bob:
 	print '       Importing failure for the required modules in \"init.py\".'
 	print type(bob)
 	print 'Exiting ...'
+	print _pylon.exit(-1)
 	quit()
 
 # the main Initialization things ...

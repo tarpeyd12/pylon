@@ -176,4 +176,6 @@ cam.mousepos()
 cam.centerset()
 cam.getcamstrs()
 
-#doOBJECTrelocate()
+doOBJECTrelocate()
+
+

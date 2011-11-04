@@ -7,7 +7,7 @@
 	<File name="archivehandler.h" open="0" top="0" tabpos="2">
 		<Cursor position="1187" topLine="18" />
 	</File>
-	<File name="fileloader.cpp" open="1" top="0" tabpos="2">
+	<File name="fileloader.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="788" topLine="27" />
 	</File>
 	<File name="fileloader.h" open="0" top="0" tabpos="1">
@@ -73,16 +73,16 @@
 	<File name="simpleini/SimpleIni.h" open="0" top="0" tabpos="1">
 		<Cursor position="52541" topLine="1266" />
 	</File>
-	<File name="system.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="760" topLine="20" />
+	<File name="system.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="850" topLine="27" />
 	</File>
 	<File name="system.h" open="0" top="0" tabpos="3">
 		<Cursor position="521" topLine="3" />
 	</File>
-	<File name="unzip.cpp" open="1" top="0" tabpos="3">
+	<File name="unzip.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="69" topLine="0" />
 	</File>
-	<File name="unzip.h" open="1" top="0" tabpos="4">
+	<File name="unzip.h" open="0" top="0" tabpos="4">
 		<Cursor position="217" topLine="0" />
 	</File>
 	<File name="unzip_backend.h" open="0" top="0" tabpos="0">

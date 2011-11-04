@@ -2,29 +2,7 @@
 
 #include "versionheaders.h"
 
-void _atExit()
-{
-    // cleanup
-    Renderer::drawLock = true;
-
-    if(!Main::SingleThreaded && Main::calcThread != NULL)
-    {
-        Main::calcLock = true;
-        cout << "Stopping Physics Thread ...\t";
-        delete Main::calcThread;
-        Main::calcThread = NULL;
-        cout << "OK" << endl;
-    }
-
-    if(Main::scriptThread != NULL)
-    {
-        Main::scriptThread->running = false;
-        cout << "Stopping Scripting Thread ...\t";
-        delete Main::scriptThread;
-        Main::scriptThread = NULL;
-        cout << "OK" << endl;
-    }
-}
+void _atExit();
 
 // Program entry point
 int main(int argc, char *argv[])
@@ -66,8 +44,33 @@ int main(int argc, char *argv[])
     // and start the renderer on this thread
     glutMainLoop();
 
-    // cleanup is done with the atexit(_atExit); call to _atExit() above.
+    // cleanup is done with the atexit(_atExit); call to _atExit() below.
 
     // goodby and good riddance
     return EXIT_SUCCESS;
+}
+
+// main exit point
+void _atExit()
+{
+    // cleanup
+    Renderer::drawLock = true;
+
+    if(!Main::SingleThreaded && Main::calcThread != NULL)
+    {
+        Main::calcLock = true;
+        cout << "Stopping Physics Thread ...\t";
+        delete Main::calcThread;
+        Main::calcThread = NULL;
+        cout << "OK" << endl;
+    }
+
+    if(Main::scriptThread != NULL)
+    {
+        Main::scriptThread->running = false;
+        cout << "Stopping Scripting Thread ...\t";
+        delete Main::scriptThread;
+        Main::scriptThread = NULL;
+        cout << "OK" << endl;
+    }
 }

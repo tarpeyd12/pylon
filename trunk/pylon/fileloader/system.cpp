@@ -9,12 +9,13 @@ namespace FileLoader
 
             int changeDir(std::string dir)
             {
+                int ret = 0;
                 #ifdef _WIN32
-                    _chdir(dir.c_str());
+                    ret = _chdir(dir.c_str());
                 #else
-                    int ret = chdir(dir.c_str()); ret = 0;
+                    ret = chdir(dir.c_str());
                 #endif
-                return 0;
+                return ret;
             }
 
             int makeDir(std::string dir)
@@ -35,13 +36,19 @@ namespace FileLoader
                     return -1;
                 }
 
+                std::cout << "Clearing all contentents of the directory \"" << dir << "\" ..." << std::endl;
+
+                int ret = 0;
                 #ifdef _WIN32
-                    system(("del /S /Q " + dir + "\\*.*").c_str());
-                    return 0;
+                    ret = system(("del /S /Q " + dir + "\\*.*").c_str());
                 #else
-                    int ret = system(("cd " + dir + " && rm --recursive * && cd ..").c_str());
-                    return ret;
+                    // this is unsafe, it cd's to the dir but only cd's up one dir instead of back to working dir.
+                    //ret = system(("cd " + dir + " && rm --recursive * && cd ..").c_str());
+                    // this one is safe ...
+                    ret = system(("rm --recursive "+dir+"/*").c_str());
                 #endif
+
+                return ret;
             }
 
         }
@@ -51,13 +58,13 @@ namespace FileLoader
 
             int remove(std::string fileName)
             {
+                int ret = 0;
                 #ifdef _WIN32
-                    system((std::string("del /Q ") + fileName).c_str());
-                    return 0;
+                    ret = system((std::string("del /Q ") + fileName).c_str());
                 #else
-                    int ret = system((std::string("rm ") + fileName).c_str());
-                    return ret;
+                    ret = system((std::string("rm ") + fileName).c_str());
                 #endif
+                return ret;
             }
 
         }

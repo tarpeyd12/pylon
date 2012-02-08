@@ -4,8 +4,10 @@ namespace FileLoader
 {
     namespace ArchiveHandler
     {
-        CLASSLIST<archiveLink*> archiveList;
-        CLASSLIST<fileLink*> fileList;
+        ClassList<archiveLink*> archiveList;
+        ClassList<fileLink*> fileList;
+
+        ClassList<std::string> codeFiles;
 
         archiveLink::archiveLink(std::string n, std::string f)
         {
@@ -65,7 +67,7 @@ namespace FileLoader
             archiveList += new archiveLink(archiveAlias, archiveFileName);
             //archiveList += new archiveLink(archiveFileName, archiveFileName);
 
-            CLASSLIST<std::string> * filesInArchive = FileLoader::filesList(archiveFileName);
+            ClassList<std::string> * filesInArchive = FileLoader::filesList(archiveFileName);
             if(filesInArchive == NULL)
             {
                 return;
@@ -103,5 +105,101 @@ namespace FileLoader
             delete frLink;
             return FileLoader::extractfile( (*fLink)->getArchiveName(), fn);
         }
+
+        int extractKnownFiles(ClassList<std::string> list)
+        {
+            if(FileLoader::noarchive)
+                return -1234;
+            for(unsigned int i = 0; i < list.length(); i++)
+                if( extractKnownFile(list[i]) )
+                    throw int(i);
+            return 0;
+        }
+
+        ClassList<std::string> * getAllFilesOfType(std::string ft)
+        {
+            if( FileLoader::noarchive )
+                return new ClassList<std::string>(); // empty list
+            if( ft.length() == 0 )
+                return NULL; // null for when the file extension is empty
+            if( ft[0] != '.' )
+                ft =  "." + ft;
+            ClassList<std::string> * fList = new ClassList<std::string>();
+            FileLoader::ArchiveHandler::fileLink * pfLink = NULL;
+            unsigned int length = FileLoader::ArchiveHandler::fileList.length();
+            for(unsigned int i = 0; i < length; i++)
+            {
+                pfLink = FileLoader::ArchiveHandler::fileList[i];
+                std::string fName = pfLink->getFileName();
+                unsigned int pos = fName.rfind(ft);
+                if( pos >= fName.length() )
+                    continue;
+                std::string fExtension = fName.substr(pos);
+                if( fExtension.compare(ft) == 0 )
+                    fList->add(std::string(fName));
+            }
+            return fList;
+        }
+
+        ClassList<std::string> * getAllFilesInDir(std::string dir)
+        {
+            if( FileLoader::noarchive )
+                return new ClassList<std::string>(); // empty list
+            if( dir.length() == 0 )
+                return NULL; // null for when the dir name is empty
+            ClassList<std::string> * fList = new ClassList<std::string>();
+            FileLoader::ArchiveHandler::fileLink * pfLink = NULL;
+            unsigned int length = FileLoader::ArchiveHandler::fileList.length();
+            for(unsigned int i = 0; i < length; i++)
+            {
+                pfLink = FileLoader::ArchiveHandler::fileList[i];
+                std::string fName = pfLink->getFileName();
+                if( fName.compare(0, dir.length(), dir) == 0 )
+                    fList->add(std::string(fName));
+            }
+            return fList;
+        }
+
+        ClassList<std::string> * getFilesOfType(std::string ft, ClassList<std::string> * list)
+        {
+             if( FileLoader::noarchive || list->length() == 0 )
+                return new ClassList<std::string>(); // empty list
+            if( ft.length() == 0 )
+                return NULL; // null for when the file extension is empty
+            if( ft[0] != '.' )
+                ft =  "." + ft;
+            ClassList<std::string> * fList = new ClassList<std::string>();
+            unsigned int length = list->length();
+            for(unsigned int i = 0; i < length; i++)
+            {
+                std::string fName = list->get(i);
+                unsigned int pos = fName.rfind(ft);
+                if( pos >= fName.length() )
+                    continue;
+                std::string fExtension = fName.substr(pos);
+                if( fExtension.compare(ft) == 0 )
+                    fList->add(std::string(fName));
+            }
+            return fList;
+        }
+
+        ClassList<std::string> * getFilesInDir(std::string dir, ClassList<std::string> * list)
+        {
+            if( FileLoader::noarchive || list->length() == 0 )
+                return new ClassList<std::string>(); // empty list
+            if( dir.length() == 0 )
+                return NULL; // null for when the dir name is empty
+            ClassList<std::string> * fList = new ClassList<std::string>();
+            unsigned int length = list->length();
+            for(unsigned int i = 0; i < length; i++)
+            {
+                std::string fName = list->get(i);
+                if( fName.compare(0, dir.length(), dir) == 0 )
+                    fList->add(std::string(fName));
+            }
+            return fList;
+        }
+
+
     }
 }

@@ -30,8 +30,10 @@ namespace FileLoader
 
         typedef archiveLink fileLink;
 
-        extern CLASSLIST<archiveLink*> archiveList;
-        extern CLASSLIST<fileLink*> fileList;
+        extern ClassList<archiveLink*> archiveList;
+        extern ClassList<fileLink*> fileList;
+
+        extern ClassList<std::string> codeFiles;
 
         void addArchiveLink(std::string,std::string);
         void addFileLink(std::string,std::string);
@@ -40,6 +42,13 @@ namespace FileLoader
         void sortFileLinksByLink();
 
         int extractKnownFile(std::string);
+        int extractKnownFiles(ClassList<std::string>);
+
+        ClassList<std::string> * getAllFilesOfType(std::string);
+        ClassList<std::string> * getAllFilesInDir(std::string);
+
+        ClassList<std::string> * getFilesOfType(std::string, ClassList<std::string>*);
+        ClassList<std::string> * getFilesInDir(std::string, ClassList<std::string>);
     }
 }
 

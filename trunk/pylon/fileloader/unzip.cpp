@@ -117,7 +117,7 @@ namespace FileLoader
         return ret_value;
     }
 
-    CLASSLIST<std::string>* filesList(std::string ar)
+    ClassList<std::string>* filesList(std::string ar)
     {
         //if(noarchive)
             //return NULL;
@@ -136,7 +136,7 @@ namespace FileLoader
             printf("error %d with zipfile in unzGetGlobalInfo \n",err);
         }
 
-        CLASSLIST<std::string> * ret = new CLASSLIST<std::string>();
+        ClassList<std::string> * ret = new ClassList<std::string>();
 
         for (i=0; i<gi.number_entry; i++)
         {

@@ -65,25 +65,10 @@ namespace Threads
         if (s != 0)
             std::cout << "pthread_getaffinity_np " << s << std::endl;
 
-        std::cout << "Set returned by pthread_getaffinity_np() contained: " << std::endl;
+        std::cout << "Set Thread Affinity to: " << std::endl;
         for (j = 0; j < CPU_SETSIZE; j++)
             if (CPU_ISSET(j, &cpuset))
                 std::cout << "    CPU " << j << std::endl;
-        /*#else
-        unsigned long cpuset;
-        cpuset = 0;
-        cpuset = (unsigned long)affinity+1;
-        if ( pthread_setaffinity_np( thread, sizeof(unsigned long), &cpuset ) )
-            std::cout << "pthread_setaffinity_np failed" << std::endl;
-        int s = pthread_getaffinity_np(thread, sizeof(unsigned long), &cpuset);
-        int j;
-        if (s != 0)
-            std::cout << "pthread_getaffinity_np " << s << std::endl;
-
-        std::cout << "Set returned by pthread_getaffinity_np() contained: " << std::endl;
-        //for (j = 0; j < 5; j++)
-            //if (CPU_ISSET(j, &cpuset))
-                std::cout << "    CPU " << cpuset-1 << std::endl;*/
         #endif
     }
 

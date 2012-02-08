@@ -1,47 +1,45 @@
 # import the stuffs
-
 try:
 	from time import time,ctime
 	import random
 	import math
+	
+	# normal pylon interface
 	import pylon
+	# pylon versions interface
 	import _pylon
 	
-	try:
-		print pylon.requestfile('Data/code/pylonclasses.py')
-		from pylonclasses import *
-	except ImportError:
-		print 'Could not find \"pylonclasses.py\", adding data directory in an attempt to correct ...'
-		
-		# system import just cannot fail, if it did then I've got bigger problems to wory about
-		import sys
-		
-		sys.path.append('./Data/')
-		sys.path.append('./Data/code/')
-		
-		try:
-			from pylonclasses import *
-		except ImportError:
-			print 'correction failed attempting file request instead ...'
-			print 'requesting file: \"Data/code/pylonclasses.py\"'
-			print pylon.requestfile('Data/code/pylonclasses.py')
-			#print pylon.requestfile('Data/code/pylonclasses.pyc')
-			from pylonclasses import *
+	# for comparing the versions
+	import shlex
+	
+	import sys
+	
+	#sys.path.append('./Data/')
+	sys.path.append('./Data/code/')
+	
+	from pylonsupport.classes import *
+	from pylonsupport.classes.camera import *
+	from pylonsupport.classes.hud import *
+	from pylonsupport.classes.simulation import *
+	from pylonsupport.classes.objects import *
+	from pylonsupport.classes.pylonclasses import *
 			
 except ImportError as bob:
+	# complete failure:
 	print 'ERROR: Master import failure'
 	print '       Importing failure for the required modules in \"init.py\".'
-	print type(bob)
+	print bob
 	print 'Exiting ...'
+	# exit cleanly
 	print _pylon.exit(-1)
 	quit()
 
 # the main Initialization things ...
 
+#declare the 'counter' will be incrimented by 0.1 evert script cycle
 counter = 0
 
-print 'brains'
-
+# defien the version comparison functions
 def versioncompare_dig(ver,spot):
 	my_splitter = shlex.shlex(ver, posix = True)
 	my_splitter.whitespace += "_.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -56,6 +54,7 @@ def versioncompare(vera,verb):
 	d = bool(versioncompare_dig(vera,3) >= versioncompare_dig(verb,3))
 	return bool(a and b and c and d)
 
+# check for the appropriate version(s) of pylon and/or its components
 if versioncompare(_pylon.version(),'0.1.161.829'):
 	print 'Pylon version meets or exceeds minimum requirements ...'
 else:
@@ -65,59 +64,65 @@ else:
 	print 'Exiting program at time: ',ctime(time())
 	quit()
 
+# setup the camera
 cam = Camera(0,0,0,0,0,0)
 
+# declare the way in which the simple object movement example moves objects
 movestatetype = 0
 
+# a randomly placed variable
 going = True
 
+# random number from -1 to 1
 def rnd_n1p1():
 	return (random.random() * 2) - 1
 
+# random number from -0.2 to 0.2
 def rnd():
 	return rnd_n1p1() * 0.2
 
+# loop i number of times
 def waitcalc(i):
 	a = 0
 	while a < i:
 		a = a + 1
 
+# extract images for the mouse cursor and dragbox
 print pylon.requestfile('Data/images/particle.tga')
 print pylon.requestfile('Data/images/mouse_pointer.png')
 
+# create objects for the mouse cursor and dragbox
 ClickLine = Quad(0,0,pylon.mouse_pos_x(),pylon.mouse_pos_y(),'{[Data/images/default_2.bmp],[2]}',True)
 Mouse = Quad(0,0,pylon.mouse_pos_x(),pylon.mouse_pos_y(),'{[Data/images/mouse_pointer.png],[2]}',True)
 
-#print 'Data/log125.txt not found importing from database pylon'
+# extract some other files
 print pylon.requestfile('Data/objectdata/log125_tga.txt')
 print pylon.requestfile('Data/worlddata/bob.wld')
 print pylon.requestfile('Data/worlddata/Default.wld')
 
-#NullSim = Simulation("NULL",False)
-
+# declare a simulation
 sim2 = Simulation("simulation2",True)
 
+# pogel-formated triangle data for a small clear blue hexagon
 objtridat = '{[36],{[0.000000000000000000000000000],[0.025000000372529029846191406],[0.000000000000000000000000000],[0.500000],[1.000000],{[0.000000000000000000000000000],[1.000000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.000000000000000000000000000],[0.000000000000000000000000000],[0.000000000000000000000000000],[0.500000],[0.500000],{[0.000000000000000000000000000],[0.000000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.021650634706020355224609375],[0.012500000186264514923095703],[0.000000000000000000000000000],[0.933013],[0.750000],{[0.866025388240814208984375000],[0.500000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.000000000000000000000000000],[0.000000000000000000000000000],[1.000000000000000000000000000]},{[Data/images/particle.bmp],[32],[32],[1]}},{[36],{[0.021650634706020355224609375],[0.012500000186264514923095703],[0.000000000000000000000000000],[0.933013],[0.750000],{[0.866025388240814208984375000],[0.500000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.000000000000000000000000000],[0.000000000000000000000000000],[0.000000000000000000000000000],[0.500000],[0.500000],{[0.000000000000000000000000000],[0.000000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.021650634706020355224609375],[-0.012500000186264514923095703],[0.000000000000000000000000000],[0.933013],[0.250000],{[0.866025388240814208984375000],[-0.500000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.000000000000000000000000000],[0.000000000000000000000000000],[1.000000000000000000000000000]},{[Data/images/particle.bmp],[32],[32],[1]}},{[36],{[0.021650634706020355224609375],[-0.012500000186264514923095703],[0.000000000000000000000000000],[0.933013],[0.250000],{[0.866025388240814208984375000],[-0.500000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.000000000000000000000000000],[0.000000000000000000000000000],[0.000000000000000000000000000],[0.500000],[0.500000],{[0.000000000000000000000000000],[0.000000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.000000000000002334529952301],[-0.025000000372529029846191406],[0.000000000000000000000000000],[0.500000],[0.000000],{[0.000000000000093381194703895],[-1.000000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.000000000000000000000000000],[0.000000000000000000000000000],[1.000000000000000000000000000]},{[Data/images/particle.bmp],[32],[32],[1]}},{[36],{[0.000000000000002334529952301],[-0.025000000372529029846191406],[0.000000000000000000000000000],[0.500000],[0.000000],{[0.000000000000093381194703895],[-1.000000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.000000000000000000000000000],[0.000000000000000000000000000],[0.000000000000000000000000000],[0.500000],[0.500000],{[0.000000000000000000000000000],[0.000000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[-0.021650634706020355224609375],[-0.012500000186264514923095703],[0.000000000000000000000000000],[0.066987],[0.250000],{[-0.866025388240814208984375000],[-0.500000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.000000000000000000000000000],[0.000000000000000000000000000],[1.000000000000000000000000000]},{[Data/images/particle.bmp],[32],[32],[1]}},{[36],{[-0.021650634706020355224609375],[-0.012500000186264514923095703],[0.000000000000000000000000000],[0.066987],[0.250000],{[-0.866025388240814208984375000],[-0.500000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.000000000000000000000000000],[0.000000000000000000000000000],[0.000000000000000000000000000],[0.500000],[0.500000],{[0.000000000000000000000000000],[0.000000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[-0.021650634706020355224609375],[0.012500000186264514923095703],[0.000000000000000000000000000],[0.066987],[0.750000],{[-0.866025388240814208984375000],[0.500000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.000000000000000000000000000],[0.000000000000000000000000000],[1.000000000000000000000000000]},{[Data/images/particle.bmp],[32],[32],[1]}},{[36],{[-0.021650634706020355224609375],[0.012500000186264514923095703],[0.000000000000000000000000000],[0.066987],[0.750000],{[-0.866025388240814208984375000],[0.500000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[0.000000000000000000000000000],[0.000000000000000000000000000],[0.000000000000000000000000000],[0.500000],[0.500000],{[0.000000000000000000000000000],[0.000000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[-0.000000000000004669059904601],[0.025000000372529029846191406],[0.000000000000000000000000000],[0.500000],[1.000000],{[-0.000000000000186762389407791],[1.000000000000000000000000000],[0.000000000000000000000000000]},{[0.200000],[0.500000],[1.000000],[1.000000]}},{[-0.000000000000000000000000000],[0.000000000000000000000000000],[1.000000000000000000000000000]},{[Data/images/particle.bmp],[32],[32],[1]}}'
 
+# pogel-formated data for a solid object header with triangle data, without the name
 objdat = '],[22],[136],[0],[0],{[2.187638521194458007812500000],[-164.624237060546875000000000000],[-47.653999328613281250000000000]},{[179.100006103515625000000000000],[125.449783325195312500000000000],[0.000000000000000000000000000]},{[0.000212223967537283897399902],[-0.012018831446766853332519531],[-0.003399600507691502571105957]},{[0.000000000000000000000000000],[0.000000000000000000000000000],[0.000000000000000000000000000]},{[1.000000],[0.750000],[5000.000000],[1.000000],[1.000000],[1.000000],[0],[-1.000000]},<'+objtridat+'>}'
 
+# create an object data string with name: 'sphere0'
 sph0dat = '{[sphere0'+objdat
 
+# add object to  simulation sim2
 #sim2.addobject(sph0dat)
 
-
+# retreive object instance for object 'sphere0'
 sphere0 = sim2.obj("sphere0")
 
+# turn off object-to-object gravitation
 #print pylon.togglesimweight(sim2.name,False)
 
+# create collidable simulation 'sim'
 sim = Simulation("sim",True)
-#print sim.addfile('Data/objectdata/log125_tga.txt')
-#sim.addfilehere('Data/objectdata/log125_tga.txt')
-#sphere8 = sim.obj("sphere8")
-
-#cam.turnby(90,0,0)
-
-st = ''
 
 if False:
 	loop = 0
@@ -156,9 +161,10 @@ zeropos = makepos(0,0,0)
 
 possibleImages = '{[Data/images/earth.bmp],[2]}', '{[Data/images/Glass.bmp],[2]}', '{[Data/images/lava8.bmp],[2]}', '{[Data/images/mandel_2.png],[1]}', '{[Data/images/pogel_runner_galax_color_1.png],[2]}', '{[Data/images/default_2.bmp],[0]}', '{[Data/images/mouse_pointer.png],[0]}'
 possibleTriProps = 8, 8|32, 8, 8, 8, 2, 8|64
+
 loop = 0
 rnum = 0
-numOSpheres = 500
+numOSpheres = 100
 while loop < numOSpheres:
 	sc1 = 1.5
 	#rpos = makepos(rnd_n1p1()*sc1*0, float(loop)/5.0+.01-(numOSpheres/5.0/2), rnd_n1p1()*sc1*0)
@@ -168,7 +174,7 @@ while loop < numOSpheres:
 	print TestSphereSim.addobject( makeObjectString(rpos,rot,zeropos,zeropos,"Object"+str(loop),2|4|16,8,1,"") )
 	print 'add'
 	rnum = int(random.random()*7)
-	print pylon.object_add_sphere("TestSphereSim","Object"+str(loop),0.007,6,10,possibleImages[rnum],1,1,possibleTriProps[rnum])
+	print pylon.object_add_sphere("TestSphereSim","Object"+str(loop),0.007,2,4,possibleImages[rnum],1,1,possibleTriProps[rnum])
 	print 'ball'
 	print pylon.object_build("TestSphereSim","Object"+str(loop))
 	print 'build'
@@ -195,6 +201,7 @@ print pylon.object_build("TestSphereSim","Outset")
 print pylon.setsimulationgravity_3f("TestSphereSim",0,-0.8,0)
 
 print pylon.setsimulationcollitters("TestSphereSim",2)
+print pylon.togglesimweight("TestSphereSim",False)
 
 relocateobjscounter = 0
 
@@ -207,7 +214,7 @@ def doOBJECTrelocate():
 	c = int((counter/2)*10.0)%numOSpheres
 	oname = "Object"+str(c)
 	sc1 = 0.025
-	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1*0)
+	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1)
 	pylon.object_set_pos_s("TestSphereSim",oname,rpos)
 	pylon.object_set_dir_3f("TestSphereSim",oname,0.005,0.05,0)
 

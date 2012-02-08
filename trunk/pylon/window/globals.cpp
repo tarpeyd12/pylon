@@ -10,6 +10,7 @@ namespace Main
     std::string init_py;
     std::string main_py;
     std::string ext_dir;
+
     bool dontremove = false;
     bool forcedir = false;
     bool noarchiving = false;

@@ -38,31 +38,44 @@ namespace Renderer
         //cout << "Idle at frame: " << POGEL::frames << endl;
     }
 
+    void BuildImage(unsigned int i)
+    {
+        if( i >= POGEL::imglstlen() || !POGEL::lstimg(i) || POGEL::lstimg(i)->isbuilt() )
+            return;
+
+        POGEL::IMAGE* image = POGEL::lstimg(i);
+        std::string fileid = image->getFileID();
+
+        if( !FileLoader::checkfile( fileid ) )
+        {
+            if(POGEL::hasproperty(POGEL_DEBUG))
+                cout << "extracting: \"" << fileid << "\"" << endl;
+            FileLoader::ArchiveHandler::extractKnownFile( fileid );
+        }
+        if( FileLoader::checkfile( fileid ) )
+        {
+            if(POGEL::hasproperty(POGEL_DEBUG))
+                cout << "building unbuilt image: \"" << image->toString() << "\"" << endl;
+            image->loadandbuild();
+        }
+        if( !FileLoader::noremoval && FileLoader::checkfile( fileid ) )
+        {
+            if(POGEL::hasproperty(POGEL_DEBUG))
+                cout << "removing: \"" << fileid << "\"" << endl;
+            FileLoader::System::Files::remove( fileid );
+        }
+    }
+
     void BuildImages()
     {
-        if(POGEL::imglstlen() > 0)
-        {
-            unsigned int i = POGEL::frames%POGEL::imglstlen();
-            if(!POGEL::lstimg(i)->isbuilt())
-            {
-                if(!FileLoader::checkfile(POGEL::lstimg(i)->getFileID())) {
-                    if(POGEL::hasproperty(POGEL_DEBUG))
-                        cout << "extracting: \"" << POGEL::lstimg(i)->getFileID() << "\"" << endl;
-                    FileLoader::ArchiveHandler::extractKnownFile(POGEL::lstimg(i)->getFileID());
-                }
-                if(FileLoader::checkfile(POGEL::lstimg(i)->getFileID()))
-                {
-                    if(POGEL::hasproperty(POGEL_DEBUG))
-                        cout << endl << "building unbuilt image: \"" << POGEL::lstimg(i)->toString() << "\"" << endl;
-                    POGEL::lstimg(i)->loadandbuild();
-                }
-                if( !FileLoader::noremoval && !FileLoader::checkfile(POGEL::lstimg(i)->getFileID()) ) {
-                    if(POGEL::hasproperty(POGEL_DEBUG))
-                        cout << "removing: \"" << POGEL::lstimg(i)->getFileID() << "\"" << endl;
-                    FileLoader::System::Files::remove(POGEL::lstimg(i)->getFileID());
-                }
-            }
-        }
+        if( POGEL::imglstlen() )
+            BuildImage( POGEL::frames % POGEL::imglstlen() );
+    }
+
+    void BuildAllImages()
+    {
+        for(unsigned int i = 0; i < POGEL::imglstlen(); i++)
+            BuildImage( i );
     }
 
 }

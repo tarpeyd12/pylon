@@ -34,7 +34,9 @@ namespace Renderer
 
     void Display();
 
+    void BuildImage(unsigned int);
     void BuildImages();
+    void BuildAllImages();
 }
 
 #include "draw.h"

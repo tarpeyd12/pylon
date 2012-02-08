@@ -2,6 +2,7 @@
 
 namespace Main
 {
+
     void Init()
     {
         int exret = -1, i = -1;
@@ -54,6 +55,18 @@ namespace Main
         else
             Renderer::Window::Create("Pylon." + VersionString);
 
+
+        // add the main archive to the archive linkage system
+        FileLoader::ArchiveHandler::addArchiveLink("{main}", pylon_archive);
+
+        // extract all the pylon files in the main archive
+        ClassList<std::string> * tmpinternalarchivelist = FileLoader::ArchiveHandler::getAllFilesOfType(".pylon");
+        if( tmpinternalarchivelist )
+        {
+            FileLoader::ArchiveHandler::extractKnownFiles(*tmpinternalarchivelist);
+            delete tmpinternalarchivelist;
+        }
+
         if( ini.hasSection("archives") )
         {
             ClassList<std::string> * keynames = ini.keysinsection("archives");
@@ -63,13 +76,77 @@ namespace Main
                 {
                     std::string key = keynames->get(i);
                     std::string alias = "{" + key + "}";
-                    FileLoader::ArchiveHandler::addArchiveLink(alias, ini.getvalue("archives", key));
+                    std::string value = ini.getvalue("archives", key);
+                    FileLoader::ArchiveHandler::addArchiveLink(alias, value);
                 }
             }
             if( keynames )
                 delete keynames;
         }
 
-        FileLoader::ArchiveHandler::addArchiveLink("{main}", pylon_archive);
+        if( ini.hasSection("code") )
+        {
+            ClassList<std::string> codetypes;
+            if( ini.hasSection("codetypes") )
+            {
+                ClassList<std::string> * keynames = ini.keysinsection("codetypes");
+                if( keynames && keynames->length() )
+                {
+                    for( unsigned int i = 0; i < keynames->length(); i++ )
+                    {
+                        std::string key = keynames->get(i);
+                        std::string value = ini.getvalue("codetypes", key);
+                        if( !value.compare("true") || !value.compare("True") || !value.compare("TRUE") )
+                            codetypes += key;
+                    }
+                }
+                if( keynames )
+                    delete keynames;
+            }
+
+            std::string codeDir = ini.getvalue("code", "dir");
+            std::string codeExtract = ini.getvalue("code", "extract");
+            bool doCodeExtract = false;
+            if( !codeExtract.compare("true") || !codeExtract.compare("True") || !codeExtract.compare("TRUE") )
+                doCodeExtract = true;
+            //std::string codeExclude = ini.getvalue("code", "exclude");
+
+            ClassList<std::string> * filesInCodeDir = FileLoader::ArchiveHandler::getAllFilesInDir(codeDir);
+
+            if( filesInCodeDir )
+            {
+                if( codetypes.length() )
+                {
+                    for(unsigned int i = 0; i < codetypes.length(); i++)
+                    {
+                        ClassList<std::string> * tfiles = FileLoader::ArchiveHandler::getFilesOfType(codetypes[i], filesInCodeDir);
+                        if( tfiles && tfiles->length() )
+                            FileLoader::ArchiveHandler::codeFiles += tfiles;
+                        if( tfiles )
+                            delete tfiles;
+                    }
+                }
+                else
+                {
+                    FileLoader::ArchiveHandler::codeFiles += filesInCodeDir;
+                }
+
+                for(unsigned int i = 0; i < FileLoader::ArchiveHandler::codeFiles.length(); i++)
+                {
+                    if( !FileLoader::ArchiveHandler::codeFiles[i].compare(Main::main_py) || !FileLoader::ArchiveHandler::codeFiles[i].compare(Main::init_py) )
+                        FileLoader::ArchiveHandler::codeFiles -= i--;
+                }
+
+                if( doCodeExtract )
+                    FileLoader::ArchiveHandler::extractKnownFiles(FileLoader::ArchiveHandler::codeFiles);
+
+                filesInCodeDir->safeclear();
+                delete filesInCodeDir;
+            }
+        }
+
+
     }
+
+
 }

@@ -69,8 +69,10 @@ class ClassList {
 
         /// retruns a list that is the same as this but with all the items in list l appened to the end
 		ClassList<T>  operator + (ClassList<T> l);
+		ClassList<T>  operator + (ClassList<T> *l);
 		/// appends all items in the list l to this one
 		ClassList<T>& operator+= (ClassList<T> l);
+		ClassList<T>& operator+= (ClassList<T> *l);
 
         /// returnes a list that does not have the item in index l
 		ClassList<T>  operator - (unsigned int l);

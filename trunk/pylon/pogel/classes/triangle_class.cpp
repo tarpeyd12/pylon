@@ -126,7 +126,7 @@ float POGEL::TRIANGLE::distance(POGEL::POINT p) {
 		if(p.distance(points[i]) < dist)
 			dist = p.distance(points[i]);
 		//dist += p.distance(points[i]);
-	return dist/10.0f;
+	return dist;//10.0f;
 };
 
 void POGEL::TRIANGLE::makebounding() {

@@ -87,15 +87,13 @@ float POGEL::VECTOR::getdistance() {
 };
 
 float POGEL::VECTOR::getangle(POGEL::VECTOR other, POGEL::VECTOR ref) {
-	POGEL::VECTOR tmp, tmp1;
-	ref = POGEL::VECTOR();
-	tmp = *this;
-	tmp.normalize();
-	other.normalize();
-	float angle = POGEL::RadiansToDegrees(acos(tmp.dodotproduct(other).getdistance()));
-	tmp1 = *this;
-	tmp1.normalize();
-	return tmp1.dodotproduct(other).getdistance() < 0.0f ? -angle : angle;
+	ref.getdistance();
+	// http://en.wikipedia.org/wiki/Inner_product_space
+	return acos( this->dotproduct(other) / (this->getdistance() * other.getdistance()) );
+};
+
+float POGEL::VECTOR::getangle(POGEL::VECTOR other) {
+	return this->getangle(other,POGEL::VECTOR());
 };
 
 POGEL::VECTOR& POGEL::VECTOR::dodotproduct(POGEL::VECTOR in) {

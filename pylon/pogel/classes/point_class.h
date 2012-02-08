@@ -34,7 +34,7 @@ class POINT {
 		std::string toString() {
 			char *sx=POGEL::string("%0.27f",x), *sy=POGEL::string("%0.27f",y), *sz=POGEL::string("%0.27f",z);
 			std::string s = "{["+std::string(sx)+"],["+std::string(sy)+"],["+std::string(sz)+"]}";
-			free(sx); free(sy); free(sz);
+			delete[](sx); delete[](sy); delete[](sz);
 			return s;
 		}
 
@@ -87,6 +87,7 @@ class VECTOR: public POGEL::POINT {
 		POGEL::VECTOR anglenormal();
 		float getdistance();
 		float getangle(POGEL::VECTOR,POGEL::VECTOR);
+		float getangle(POGEL::VECTOR);
 		POGEL::VECTOR& dodotproduct(POGEL::VECTOR);
 		float dotproduct(POGEL::VECTOR);
 		void frompoints(POGEL::POINT,POGEL::POINT);

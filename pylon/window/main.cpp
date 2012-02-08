@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     // to clean stuff up at exit.
     atexit(_atExit);
 
-    std::cout << "Number of CPU's: " << Threads::getNumCores() << std::endl;
+    //std::cout << "Number of CPU's: " << Threads::getNumCores() << std::endl;
 
     if(Main::SingleThreaded)
     {

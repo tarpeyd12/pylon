@@ -121,7 +121,7 @@ char* POGEL::string(const char* fmt, ...) {
     output = new char[(strlen(tmpstr)+1)];
 	memcpy(output, tmpstr, strlen(tmpstr)+1);
 	//free(tmpstr);
-	delete tmpstr;
+	delete[] tmpstr;
 	return output;
 };
 

@@ -15,6 +15,9 @@ namespace Renderer
 {
     void Display()
     {
+        if(Renderer::drawLock)
+            return;
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
 
@@ -45,7 +48,10 @@ namespace Renderer
             if(Renderer::SciptCall != NULL)
                 Renderer::SciptCall();
             else
+            {
+                std::cout << "Renderer::SciptCall is derefferenced to NULL. Exiting..." << std::endl;
                 exit(-1);
+            }
         }
 
         Renderer::Draw::Draw();
@@ -69,8 +75,12 @@ namespace Renderer
 
         Renderer::Window::toFrustum();
 
-        Renderer::BuildImages();
+        //if( POGEL::frames > 1 )
+            //Renderer::BuildImages();
+        //else
+            Renderer::BuildAllImages();
 
-        Renderer::timer30->sleep();
+        if(!Renderer::drawLock)
+            Renderer::timer30->sleep();
     }
 }

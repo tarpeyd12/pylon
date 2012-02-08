@@ -37,7 +37,7 @@
 					<Add directory="../bin/Debug" />
 				</Linker>
 				<ExtraCommands>
-					<Add after="cd ../archiveCode &amp;&amp; zip -FS -r ../bin/Debug/rc.pylon . -x \*.svn/*" />
+					<Add after='[[ if (PLATFORM == PLATFORM_MSW) { print (_T(&quot;..\\createDebugArchive.bat&quot;)); } else { print (_T(&quot;../createDebugArchive&quot;)); } ]]' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -72,7 +72,7 @@
 					<Add directory="../bin/Release" />
 				</Linker>
 				<ExtraCommands>
-					<Add after="cd ../archiveCode &amp;&amp; zip -FS -r ../bin/Release/rc.pylon . -x \*.svn/*" />
+					<Add after='[[ if (PLATFORM == PLATFORM_MSW) { print (_T(&quot;..\\createReleaseArchive.bat&quot;)); } else { print (_T(&quot;../createReleaseArchive&quot;)); } ]]' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -108,7 +108,7 @@
 					<Add directory="../bin/Release" />
 				</Linker>
 				<ExtraCommands>
-					<Add after="cd ../archiveCode &amp;&amp; zip -FS -r ../bin/Release/rc.pylon . -x \*.svn/*" />
+					<Add after='[[ if (PLATFORM == PLATFORM_MSW) { print (_T(&quot;..\\createReleaseArchive.bat&quot;)); } else { print (_T(&quot;../createReleaseArchive&quot;)); } ]]' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -138,7 +138,7 @@
 					<Add directory="../bin/UnitaryDebug/" />
 				</Linker>
 				<ExtraCommands>
-					<Add after="cd ../archiveCode &amp;&amp; zip -FS -r ../bin/UnitaryDebug/rc.pylon . -x \*.svn/*" />
+					<Add after='[[ if (PLATFORM == PLATFORM_MSW) { print (_T(&quot;..\\createUnitaryDebugArchive.bat&quot;)); } else { print (_T(&quot;../createUnitaryDebugArchive&quot;)); } ]]' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -173,7 +173,7 @@
 					<Add directory="../bin/UnitaryRelease" />
 				</Linker>
 				<ExtraCommands>
-					<Add after="cd ../archiveCode &amp;&amp; zip -FS -r ../bin/UnitaryRelease/rc.pylon . -x \*.svn/*" />
+					<Add after='[[ if (PLATFORM == PLATFORM_MSW) { print (_T(&quot;..\\createUnitaryReleaseArchive.bat&quot;)); } else { print (_T(&quot;../createUnitaryReleaseArchive&quot;)); } ]]' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -210,7 +210,7 @@
 					<Add directory="../bin/UnitaryRelease" />
 				</Linker>
 				<ExtraCommands>
-					<Add after="cd ../archiveCode &amp;&amp; zip -FS -r ../bin/UnitaryRelease/rc.pylon . -x \*.svn/*" />
+					<Add after='[[ if (PLATFORM == PLATFORM_MSW) { print (_T(&quot;..\\createUnitaryReleaseArchive.bat&quot;)); } else { print (_T(&quot;../createUnitaryReleaseArchive&quot;)); } ]]' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>

@@ -23,7 +23,7 @@ namespace FileLoader
     int extractfile(std::string ar, std::string fn);
     int extractfile(std::string ar, std::string fn, bool o, bool bdirto, std::string dirto, bool bpw, std::string pw);
 
-    CLASSLIST<std::string>* filesList(std::string ar);
+    ClassList<std::string>* filesList(std::string ar);
 }
 
 #endif // UNZIP_H_INCLUDED

@@ -62,8 +62,13 @@ void ClassList<T>::clear()
 template <typename T>
 void ClassList<T>::safeclear()
 {
+
     if(list!=NULL)
-        delete[]list;
+    {
+        while(length())
+            remove(length()-1);
+        //delete[]list;
+    }
     list=NULL;
     len=0;
     overhead=0;
@@ -211,9 +216,25 @@ ClassList<T>  ClassList<T>::operator + (ClassList<T> l)
 }
 
 template <typename T>
+ClassList<T>  ClassList<T>::operator + (ClassList<T> *l)
+{
+    ClassList<T> v;
+    v.add(getList(),length());
+    v.add(l->getList(),l->length());
+    return v;
+}
+
+template <typename T>
 ClassList<T>& ClassList<T>::operator+= (ClassList<T> l)
 {
     add(l.getList(),l.length());
+    return*this;
+}
+
+template <typename T>
+ClassList<T>& ClassList<T>::operator+= (ClassList<T> *l)
+{
+    add(l->getList(),l->length());
     return*this;
 }
 

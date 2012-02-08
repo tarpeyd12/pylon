@@ -58,7 +58,7 @@ namespace Renderer
                     cout << "\" @ \t" << FPS << " : ";
                     char* tmp = POGEL::string("%0.1lf", invDurDiff);
                     cout << std::string(tmp) << endl;
-                    delete tmp;
+                    delete[] tmp;
                 }
             }
             lastDuration = POGEL::GetTimePassed();

@@ -9,7 +9,7 @@ namespace Renderer
         {
             POGEL::VECTOR av((*a)->position), bv((*b)->position);
             POGEL::VECTOR refpos = Renderer::Camera::GetCamDirection();
-            if(av.dotproduct(refpos) < bv.dotproduct(refpos))
+            if( av.dotproduct(refpos) < bv.dotproduct(refpos) )
                 return -1;
             return 1;
         }
@@ -17,55 +17,65 @@ namespace Renderer
         int __sorttris(POGEL::TRIANGLE* a, POGEL::TRIANGLE* b)
         {
             POGEL::VECTOR refpos = Renderer::Camera::GetCamDirection();
-            POGEL::VECTOR av(a->vertex[0]+Renderer::Camera::campos);
-            POGEL::VECTOR bv(b->vertex[0]+Renderer::Camera::campos);
-            //float amin, bmin;
-            for(int i = 1; i < 3; i++)
-            {
-                POGEL::VECTOR atmp(a->vertex[i]+Renderer::Camera::campos);
-                float adst = atmp.dotproduct(refpos);
-                if(av.dotproduct(refpos) < adst)
-                    av = atmp;
-                POGEL::VECTOR btmp(b->vertex[i]+Renderer::Camera::campos);
-                float bdst = btmp.dotproduct(refpos);
-                if(bv.dotproduct(refpos) < bdst)
-                    bv = btmp;
-            }
-            if(av.dotproduct(refpos) <= bv.dotproduct(refpos))
+            POGEL::VECTOR av(a->middle()+Renderer::Camera::campos);
+            POGEL::VECTOR bv(b->middle()+Renderer::Camera::campos);
+            if(av.dotproduct(refpos) < bv.dotproduct(refpos))
                 return -1;
             return 1;
         }
-
 
         template<class T>
         inline
         ClassList<POGEL::PHYSICS::SOLID*> __sortedDraw(T* sim)
         {
             POGEL::VECTOR refpos = Renderer::Camera::GetCamDirection();
+            POGEL::POINT campos = Renderer::Camera::campos;
+            POGEL::POINT invcampos = campos*-1.0;
+
             ClassList<POGEL::PHYSICS::SOLID*> closelist( sim->numobjs() );
-            for(unsigned int i = 0; i < sim->numobjs(); i++)
+
+            bool label = POGEL::hasproperty(POGEL_LABEL);
+            unsigned int numobjs = sim->numobjs();
+
+            for(unsigned int i = 0; i < numobjs; i++)
             {
                 POGEL::PHYSICS::SOLID* obj = sim->objs(i);
+
                 float objradius = obj->getbounding().maxdistance;
-                bool autoinclude = false;//objradius >= 10.0f || obj->hasOption(PHYSICS_SOLID_STATIONARY);// || obj->hasproperty(OBJECT_SORT_TRIANGLES);
-                float dst = refpos.dotproduct(obj->position + Renderer::Camera::campos);
+                float dst = refpos.dotproduct(obj->position + campos);
+
                 // if the object is in fornt of the camera
                 if( dst-objradius < 0.0f )
                 {
-                    if(autoinclude)
+                    if( false )
+                    {
+
+                        continue;
+                    }
+
+                    bool autoinclude = objradius >= 10.0f || obj->hasOption(PHYSICS_SOLID_STATIONARY);// || obj->hasproperty(OBJECT_SORT_TRIANGLES);
+
+                    if( autoinclude )
                     {
                         closelist += obj;
                         continue;
                     }
-                    float dst2 = (Renderer::Camera::campos*-1).distance(obj->position);
-                    if(dst2-objradius < 200.0f*objradius)
+
+                    float dst2 = obj->position.distance(invcampos);
+
+                    // if object is closer than 100 times its diamiter, recomend for sorting
+                    if(dst2-objradius < 100.0f*objradius*2.0f)
                         closelist += obj;
-                    else if(dst2-objradius < 500.0f*objradius)
+                    // otherwise if object is closer than 250 times its diamiter, just draw it
+                    else if(dst2-objradius < 250.0f*objradius*2.0f)
                         obj->draw();
-                    else if(POGEL::hasproperty(POGEL_LABEL))
+                    // otherwise if POGEL wants to draw center positions, do so.
+                    else if(label)
                         obj->position.draw(2,obj->getLabelColor());
                 }
             }
+            //closelist.sort(__sortobjs);
+            // return the list of recomended objects.
             return closelist;
         }
 
@@ -80,44 +90,46 @@ namespace Renderer
                 {
                     if(Renderer::Physics::simulations[i]->isdyn())
                     {
-                        POGEL::PHYSICS::DYNAMICS* sim = \
-                        static_cast<POGEL::PHYSICS::DYNAMICS*> \
-                        (Renderer::Physics::simulations[i]->getSim());
-                        closelist += \
-                        __sortedDraw<POGEL::PHYSICS::DYNAMICS>(sim);
+                        POGEL::PHYSICS::DYNAMICS* sim = static_cast<POGEL::PHYSICS::DYNAMICS*>(Renderer::Physics::simulations[i]->getSim());
+                        closelist += __sortedDraw<POGEL::PHYSICS::DYNAMICS>(sim);
                     }
                     else
                     {
-                        POGEL::PHYSICS::SIMULATION* sim = \
-                        static_cast<POGEL::PHYSICS::SIMULATION*> \
-                        (Renderer::Physics::simulations[i]->getSim());
-                        closelist += \
-                        __sortedDraw<POGEL::PHYSICS::SIMULATION>(sim);
+                        POGEL::PHYSICS::SIMULATION* sim = static_cast<POGEL::PHYSICS::SIMULATION*>(Renderer::Physics::simulations[i]->getSim());
+                        closelist += __sortedDraw<POGEL::PHYSICS::SIMULATION>(sim);
                     }
                 }
             }
             closelist.sort(__sortobjs);
-            ClassList<POGEL::TRIANGLE> trilist(closelist.length()*50);
+            ClassList<POGEL::TRIANGLE> trilist;
             for(unsigned int i = 0; i < closelist.length(); i++)
             {
                 POGEL::PHYSICS::SOLID* obj = closelist[i];
-                if(!obj->hasproperty(OBJECT_SORT_TRIANGLES) && obj->getbounding().maxdistance < 10.0f)// || POGEL::GetFps() < 15.0f)
+                float objradius = obj->getbounding().maxdistance;
+                if(!obj->hasproperty(OBJECT_SORT_TRIANGLES) && objradius < 10.0f)// || POGEL::GetFps() < 15.0f)
                 {
                     obj->draw();
                 }
                 else
                 {
-                    POGEL::TRIANGLE* tritmplst = new POGEL::TRIANGLE[obj->getnumfaces()];
+                    unsigned int numfaces = obj->getnumfaces();
+                    POGEL::TRIANGLE* tritmplst = new POGEL::TRIANGLE[numfaces];
                     unsigned int len = 0;
-                    for(unsigned int t = 0; t < obj->getnumfaces();t++)
+                    POGEL::VECTOR refpos = Renderer::Camera::GetCamDirection();
+                    POGEL::POINT campos = Renderer::Camera::campos;
+                    POGEL::POINT invcampos = campos*-1.0;
+                    for(unsigned int t = 0; t < numfaces;t++)
                     {
                         POGEL::TRIANGLE tri = obj->gettransformedtriangle(t);
-                        if(
-                           tri.hasproperty(TRIANGLE_DOUBLESIDED) ||
-                           tri.isinfront(Renderer::Camera::campos)
-                        )
+                        POGEL::POINT trimiddle = tri.middle();
+                        if( refpos.dotproduct(trimiddle + campos) < 0.0 )
                         {
-                            tritmplst[len++] = tri;
+                            if( tri.hasproperty(TRIANGLE_DOUBLESIDED) || tri.isinfront(campos) )
+                            {
+                                if( trimiddle.distance(invcampos) < objradius*50.0*2.0 )
+                                    tritmplst[len++] = tri;
+                                else tri.draw();
+                            }
                         }
                     }
                     trilist.add(tritmplst,len);
@@ -125,7 +137,8 @@ namespace Renderer
                 }
             }
             closelist.safeclear();
-            trilist.sort(__sorttris);
+            if(!POGEL::hasproperty(POGEL_WIREFRAME))
+                trilist.sort(__sorttris);
             for(unsigned int i = 0; i < trilist.length(); i++)
             {
                 trilist[i].draw();
@@ -143,16 +156,12 @@ namespace Renderer
                 {
                     if(Renderer::Physics::simulations[i]->isdyn())
                     {
-                        POGEL::PHYSICS::DYNAMICS* sim = \
-                        static_cast<POGEL::PHYSICS::DYNAMICS*> \
-                        (Renderer::Physics::simulations[i]->getSim());
+                        POGEL::PHYSICS::DYNAMICS* sim = static_cast<POGEL::PHYSICS::DYNAMICS*>(Renderer::Physics::simulations[i]->getSim());
                         sim->draw();
                     }
                     else
                     {
-                        POGEL::PHYSICS::SIMULATION* sim = \
-                        static_cast<POGEL::PHYSICS::SIMULATION*> \
-                        (Renderer::Physics::simulations[i]->getSim());
+                        POGEL::PHYSICS::SIMULATION* sim = static_cast<POGEL::PHYSICS::SIMULATION*>(Renderer::Physics::simulations[i]->getSim());
                         sim->draw();
                     }
                 }

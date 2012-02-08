@@ -1,3 +1,3 @@
-rm ../bin/UnitaryRelease/rc.pylon
+#rm ../bin/UnitaryRelease/rc.pylon
 cd ../archiveCode
-zip -r ../bin/UnitaryRelease/rc.pylon . -x \*.svn/*
+zip -FS -9 -r ../bin/UnitaryRelease/rc.pylon . -x \*.svn/*

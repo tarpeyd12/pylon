@@ -19,10 +19,8 @@ class POINT {
 		float z;
 
 		POINT() {x=0.0f; y=0.0f; z=0.0f;}
-		POINT(float a, float b, float c)
-			{ x=a; y=b; z=c; }
-        POINT(float a)
-			{ x=y=z=a; }
+		POINT(float a, float b, float c) { x=a; y=b; z=c; }
+        POINT(float a) { x=y=z=a; }
 
 		POINT(std::string s) { sscanf(s.c_str(), "{[%f],[%f],[%f]}", &x, &y, &z); }
 
@@ -45,7 +43,7 @@ class POINT {
 
 		void translate() {glTranslatef(x,y,z);}
 
-		float distance(POGEL::POINT p) { return (float)(sqrt( (p.x-x)*(p.x-x) + (p.y-y)*(p.y-y) + (p.z-z)*(p.z-z) )  ); }
+		float distance(POGEL::POINT p) { float _x=(p.x-x),_y=(p.y-y),_z=(p.z-z); return (float)(sqrt((_x*_x)+(_y*_y)+(_z*_z))); }
 
 		POGEL::POINT operator*(float a) { return POGEL::POINT(x*a, y*a, z*a); }
 		POGEL::POINT operator/(float a) { return POGEL::POINT(x/a, y/a, z/a); }
@@ -67,7 +65,7 @@ class POINT {
 		POGEL::POINT& operator-=(const POGEL::POINT& p) { x-=p.x; y-=p.y; z-=p.z; return (*this); }
 
 		bool operator==(POGEL::POINT p) { return (p.x==x && p.y==y && p.z==z); }
-		bool operator!=(POGEL::POINT p) { return !((*this)==p); }
+		bool operator!=(POGEL::POINT p) { return (p.x!=x || p.y!=y || p.z!=z); }
 
 		bool isbad() { return (isnan(x) || isnan(y) || isnan(z)); }
 };

@@ -160,26 +160,26 @@ TestSphereSim = Simulation("TestSphereSim",True)
 zeropos = makepos(0,0,0)
 
 possibleImages = '{[Data/images/earth.bmp],[2]}', '{[Data/images/Glass.bmp],[2]}', '{[Data/images/lava8.bmp],[2]}', '{[Data/images/mandel_2.png],[1]}', '{[Data/images/pogel_runner_galax_color_1.png],[2]}', '{[Data/images/default_2.bmp],[0]}', '{[Data/images/mouse_pointer.png],[0]}'
-possibleTriProps = 8, 8|32, 8, 8, 8, 2, 8|64
+#possibleTriProps = 8, 8|32, 8, 8, 8, 2, 8|64
+possibleTriProps = 8, 8, 8, 8, 8, 2, 8
 
 loop = 0
 rnum = 0
-numOSpheres = 100
+numOSpheres = 10
 while loop < numOSpheres:
 	sc1 = 1.5
 	#rpos = makepos(rnd_n1p1()*sc1*0, float(loop)/5.0+.01-(numOSpheres/5.0/2), rnd_n1p1()*sc1*0)
 	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1*0)
 	rot = makepos(rnd_n1p1()*360,rnd_n1p1()*360,rnd_n1p1()*360)
 	print "\nstart Object"+str(loop)
-	print TestSphereSim.addobject( makeObjectString(rpos,rot,zeropos,zeropos,"Object"+str(loop),2|4|16,8,1,"") )
+	print TestSphereSim.addobject( makeObjectString(rpos,rot,zeropos,zeropos,"Object"+str(loop),2|4|16,8,0.02,"") )
 	print 'add'
 	rnum = int(random.random()*7)
-	print pylon.object_add_sphere("TestSphereSim","Object"+str(loop),0.007,2,4,possibleImages[rnum],1,1,possibleTriProps[rnum])
+	print pylon.object_add_sphere("TestSphereSim","Object"+str(loop),0.07,8,8,possibleImages[rnum],1,1,possibleTriProps[rnum])
 	print 'ball'
 	print pylon.object_build("TestSphereSim","Object"+str(loop))
 	print 'build'
 	loop = loop + 1
-
 
 #print pylon.object_set_dir_3f("TestSphereSim","Object0",0,0.02,0)
 #print pylon.object_set_dir_3f("TestSphereSim","Object1",0,0.02,0)
@@ -198,9 +198,9 @@ print pylon.object_build("TestSphereSim","Outset")
 #print pylon.object_add_disk("TestSphereSim","Aura",40,1,4.0,2.0,possibleImages[5],1,1,0,True)
 #print pylon.object_build("TestSphereSim","Aura")
 
-print pylon.setsimulationgravity_3f("TestSphereSim",0,-0.8,0)
+print pylon.setsimulationgravity_3f("TestSphereSim",0,-9.8,0)
 
-print pylon.setsimulationcollitters("TestSphereSim",2)
+print pylon.setsimulationcollitters("TestSphereSim",1)
 print pylon.togglesimweight("TestSphereSim",False)
 
 relocateobjscounter = 0
@@ -208,15 +208,15 @@ relocateobjscounter = 0
 def doOBJECTrelocate():
 	#pass
 	global relocateobjscounter
-	relocateobjscounter = relocateobjscounter + 1
-	if relocateobjscounter%2 == 1:
+	relocateobjscounter += 1
+	if relocateobjscounter%100 == 1:
 		return
-	c = int((counter/2)*10.0)%numOSpheres
+	c = int((counter/2)*1.0)%numOSpheres
 	oname = "Object"+str(c)
 	sc1 = 0.025
 	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1)
 	pylon.object_set_pos_s("TestSphereSim",oname,rpos)
-	pylon.object_set_dir_3f("TestSphereSim",oname,0.005,0.05,0)
+	pylon.object_set_dir_3f("TestSphereSim",oname,0.025,0.15,0)
 
 waitcalc(10000)
 #TestSphereSim.stop()

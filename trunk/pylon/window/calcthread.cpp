@@ -5,8 +5,7 @@
 CalcThread::CalcThread()
 {
     this->startThread();
-    if(Threads::getNumCores() > 1)
-        this->setAffinity(0);
+    //if(Threads::getNumCores() > 1) this->setAffinity(0);
 }
 
 CalcThread::~CalcThread()

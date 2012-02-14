@@ -47,18 +47,6 @@ namespace Renderer
 
         int addQuad(Renderer::Quad* quad)
         {
-            /*if(lastKnownQuad >= NUM_QUAD_SLOTS) // out of range
-                return -1;
-            if(quadList[lastKnownQuad] != NULL) // slot taken
-            {
-                lastKnownQuad++;
-                return addQuad(quad);
-                //return -3;
-            }
-            quadList[lastKnownQuad] = quad;
-            //cout << "added quad to slot: " << lastKnownQuad << endl;
-            return lastKnownQuad++;*/
-
             if(lastQuadInsertQueue >= NUM_QUAD_SLOTS) // out of available add slots
                 return -1;
             if(quadInsertQueue[lastQuadInsertQueue] != NULL) // slot taken

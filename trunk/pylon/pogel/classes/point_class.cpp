@@ -93,12 +93,12 @@ float POGEL::VECTOR::getangle(POGEL::VECTOR other, POGEL::VECTOR ref) {
 };
 
 float POGEL::VECTOR::getangle(POGEL::VECTOR other) {
-	return this->getangle(other,POGEL::VECTOR());
+    // http://en.wikipedia.org/wiki/Inner_product_space
+	return acos( this->dotproduct(other) / (this->getdistance() * other.getdistance()) );
 };
 
 POGEL::VECTOR& POGEL::VECTOR::dodotproduct(POGEL::VECTOR in) {
 	POGEL::VECTOR a(x,y,z), b(in.x,in.y,in.z);
-
 	x=((a.y*b.z)-(a.z*b.y));
 	y=((a.z*b.x)-(a.x*b.z));
 	z=((a.x*b.y)-(a.y*b.x));

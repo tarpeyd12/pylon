@@ -12,8 +12,7 @@ ScriptThread::ScriptThread()
     this->startThread();
     // if the computer has more than 2 cpu's
     //  attempt to set the script thrads to cpu3
-    if(Threads::getNumCores() > 2)
-        this->setAffinity(3);
+    //if(Threads::getNumCores() > 2) this->setAffinity(3);
 }
 
 ScriptThread::ScriptThread(bool st)

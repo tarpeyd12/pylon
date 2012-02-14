@@ -51,7 +51,6 @@
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
-					<Add option="-Os" />
 					<Add option="-O3" />
 					<Add directory="../bin/Release" />
 				</Compiler>
@@ -86,7 +85,6 @@
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
-					<Add option="-Os" />
 					<Add option="-O3" />
 					<Add option="-DPYLON_DEV_VERSION" />
 					<Add directory="../bin/Release" />
@@ -152,7 +150,6 @@
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
-					<Add option="-Os" />
 					<Add option="-O3" />
 					<Add directory="../bin/UnitaryRelease" />
 				</Compiler>
@@ -188,7 +185,6 @@
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-fexpensive-optimizations" />
-					<Add option="-Os" />
 					<Add option="-O3" />
 					<Add option="-DPYLON_DEV_VERSION" />
 					<Add directory="../bin/UnitaryRelease" />

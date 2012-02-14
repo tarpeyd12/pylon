@@ -12,7 +12,10 @@ POGEL::PHYSICS::SIMULATION::SIMULATION() : POGEL::PHYSICS::DYNAMICS() {
 	stepstaken = 0;
 	collitters = 2;
 	#ifdef THREADSOK
-	threads = 1;
+	if(THREADSOK)
+        threads = THREADSOK;
+    else
+        threads = 1;
 	#endif
 };
 

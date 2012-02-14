@@ -14,6 +14,8 @@ namespace Renderer
 
         void Draw();
 
+        void PerfectDraw();
+
         void SimpleDraw();
 
     }

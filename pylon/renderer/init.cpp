@@ -19,27 +19,29 @@ namespace Renderer
 
         glClearColor(.5,.5,.5,.5);
         //glClearColor(0,0,0,0);
-        //glEnable(GL_CULL_FACE);
-        //glCullFace(GL_BACK);
+
+        glEnable(GL_CULL_FACE);
+        glCullFace(GL_BACK);
+
+        glEnable(GL_TEXTURE_2D);
+        glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_FASTEST);
 
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
 
-        glEnable(GL_LIGHT0);
         glEnable(GL_NORMALIZE);
-        //glEnable(GL_COLOR_MATERIAL);
-        glEnable(GL_TEXTURE_2D);
-        glEnable(GL_LIGHTING);
 
-        //glBlendFunc(GL_SRC_ALPHA,GL_ONE);
-        //glEnable(GL_BLEND);
-        //glDisable(GL_DEPTH_TEST);
+        //glEnable(GL_COLOR_MATERIAL);
+
+        glEnable(GL_LIGHTING);
 
         // TODO: make flexable/dynamic lighting in scripting/modeling
         const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
         const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
         const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
         const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
+
+        glEnable(GL_LIGHT0);
 
         glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
         glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
@@ -56,20 +58,14 @@ namespace Renderer
         glMaterialfv(GL_FRONT, GL_SPECULAR,  mat_specular);
         glMaterialfv(GL_FRONT, GL_SHININESS, high_shininess);
 
-        float fogcolor[] = {0.5,0.5,0.5,1.0};
-        glFogi(GL_FOG_MODE, GL_LINEAR);		// Fog Mode
-        glFogfv(GL_FOG_COLOR, fogcolor);			// Set Fog Color
-        glFogf(GL_FOG_DENSITY, 0.35f);				// How Dense Will The Fog Be
-        glHint(GL_FOG_HINT, GL_NICEST);			// Fog Hint Value
-        glFogf(GL_FOG_START, 10.0f);				// Fog Start Depth
-        glFogf(GL_FOG_END, 50.0f);				// Fog End Depth
-        //glEnable(GL_FOG);					// Enables GL_FOG
-
         Renderer::HUD::Init();
 
         glutSetCursor(GLUT_CURSOR_NONE);
 
         POGEL::InitFps();
+
+        if(Renderer::SingleThreaded)
+            POGEL::addproperty(POGEL_TIMEBASIS);
 
         Renderer::timer30 = new Timing::Timer(25,"Renderer"); // 30 fps
     }

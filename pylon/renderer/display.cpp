@@ -15,6 +15,20 @@ namespace Renderer
 {
     void Display()
     {
+
+        if(Renderer::SingleThreaded)
+        {
+            if(!Renderer::HaltPhysics)
+                Renderer::Physics::Incriment();
+            if(Renderer::SciptCall != NULL)
+                Renderer::SciptCall();
+            else
+            {
+                std::cout << "Renderer::SciptCall has derefferenced to NULL. Exiting..." << std::endl;
+                exit(-1);
+            }
+        }
+
         if(Renderer::drawLock)
             return;
 
@@ -27,10 +41,6 @@ namespace Renderer
         if(POGEL::frames%10 == 0)
             POGEL::PrintFps();
 
-        //glBlendFunc(GL_SRC_ALPHA,GL_ONE);
-        //glEnable(GL_BLEND);
-        //glDisable(GL_DEPTH_TEST);
-
         //glTranslatef(campos.x,campos.y,campos.z);
         glRotatef( Renderer::Camera::camrot.x,  1.0f, 0.0f, 0.0f );
         glRotatef( Renderer::Camera::camrot.y,  0.0f, 1.0f, 0.0f );
@@ -41,21 +51,10 @@ namespace Renderer
                      Renderer::Camera::campos.z
                      );
 
-        if(Renderer::SingleThreaded)
-        {
-            if(!Renderer::HaltPhysics)
-                Renderer::Physics::Incriment();
-            if(Renderer::SciptCall != NULL)
-                Renderer::SciptCall();
-            else
-            {
-                std::cout << "Renderer::SciptCall is derefferenced to NULL. Exiting..." << std::endl;
-                exit(-1);
-            }
-        }
-
-        Renderer::Draw::Draw();
         //Renderer::Draw::SimpleDraw();
+        Renderer::Draw::Draw();
+        //Renderer::Draw::PerfectDraw();
+
 
         Renderer::Window::toOrtho();
 
@@ -75,9 +74,9 @@ namespace Renderer
 
         Renderer::Window::toFrustum();
 
-        //if( POGEL::frames > 1 )
-            //Renderer::BuildImages();
-        //else
+        if( POGEL::frames > 1 )
+            Renderer::BuildImages();
+        else
             Renderer::BuildAllImages();
 
         if(!Renderer::drawLock)

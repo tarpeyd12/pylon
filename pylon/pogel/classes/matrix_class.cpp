@@ -28,29 +28,25 @@ POGEL::MATRIX::MATRIX(const POGEL::MATRIX& m) {
 POGEL::MATRIX::MATRIX(float rot, int axis) {
 	*this = POGEL::MATRIX(); // set as identity
 	rot=POGEL::DegreesToRadians(rot);
+	float cosrot = (float)cos(rot);
+	float sinrot = (float)sin(rot);
 	switch(axis) {
 		case MATRIX_CONSTRUCT_X_ROTATION:
 			// sets the matrix to the rotation matrix on the x
-			setvalue(1,1, (float)cos(rot));
-			setvalue(1,2, (float)sin(rot));
-			setvalue(2,1, (float)-sin(rot));
-			setvalue(2,2, (float)cos(rot));
+			matrix[ 5] = cosrot; matrix[ 6] = sinrot;
+			matrix[ 9] =-sinrot; matrix[10] = cosrot;
 		break;
-		
+
 		case MATRIX_CONSTRUCT_Y_ROTATION:
 			// sets the matrix to the rotation matrix on the y
-			setvalue(0,0, (float)cos(rot));
-			setvalue(2,0, (float)sin(rot));
-			setvalue(0,2, (float)-sin(rot));
-			setvalue(2,2, (float)cos(rot));
+			matrix[ 0] = cosrot; matrix[ 8] = sinrot;
+			matrix[ 2] =-sinrot; matrix[10] = cosrot;
 		break;
-		
+
 		case MATRIX_CONSTRUCT_Z_ROTATION:
 			// sets the matrix to the rotation matrix on the z
-			setvalue(0,0, (float)cos(rot));
-			setvalue(0,1, (float)sin(rot));
-			setvalue(1,0, (float)-sin(rot));
-			setvalue(1,1, (float)cos(rot));
+			matrix[ 0] = cosrot; matrix[ 1] = sinrot;
+			matrix[ 4] =-sinrot; matrix[ 5] = cosrot;
 		break;
 	}
 	//print();
@@ -62,13 +58,13 @@ POGEL::MATRIX::MATRIX(POGEL::POINT point, int i) {
 		case MATRIX_CONSTRUCT_ROTATION: // for constructing rotation
 			*this = POGEL::MATRIX(point.x, MATRIX_CONSTRUCT_X_ROTATION) * MATRIX(point.y, MATRIX_CONSTRUCT_Y_ROTATION) * MATRIX(point.z, MATRIX_CONSTRUCT_Z_ROTATION); // sets to the product of all the rotation matricies
 		break;
-		
+
 		case MATRIX_CONSTRUCT_TRANSLATION: // for constructing translation
 			matrix[12]=point.x; // sets the x translation of the matrix to the x value of POINT 'point'
 			matrix[13]=point.y; // sets the y translation of the matrix to the y value of POINT 'point'
 			matrix[14]=point.z; // sets the z translation of the matrix to the z value of POINT 'point'
 		break;
-		
+
 		case MATRIX_CONSTRUCT_SCALE: // for constructing scales
 			matrix[ 0]=point.x; // sets the x scale of the matrix to the x value of POINT 'point'
 			matrix[ 5]=point.y; // sets the y scale of the matrix to the y value of POINT 'point'
@@ -90,8 +86,15 @@ POGEL::MATRIX::MATRIX(POGEL::POINT position, POGEL::POINT rotation) {
 
 void POGEL::MATRIX::set(float* m) {
 	// sets the current matrix to the values in the array 'm'
-	if(m != NULL) for(int i=0;i<16;i++) matrix[i]=m[i];
-	else printf("matrix loading failed, null pointer to matrix array.\n");
+	if(m != NULL)
+	{
+        matrix[ 0] = m[ 0]; matrix[ 1] = m[ 1]; matrix[ 2] = m[ 2]; matrix[ 3] = m[ 3];
+        matrix[ 4] = m[ 4]; matrix[ 5] = m[ 5]; matrix[ 6] = m[ 6]; matrix[ 7] = m[ 7];
+        matrix[ 8] = m[ 8]; matrix[ 9] = m[ 9]; matrix[10] = m[10]; matrix[11] = m[11];
+        matrix[12] = m[12]; matrix[13] = m[13]; matrix[14] = m[14]; matrix[15] = m[15];
+	}
+	else
+        printf("matrix loading failed, null pointer to matrix array.\n");
 };
 
 void POGEL::MATRIX::set(POGEL::MATRIX m) {
@@ -103,9 +106,9 @@ POGEL::POINT POGEL::MATRIX::getrotation() {
 	// returnes the rotation of the matrx in a POINT object(don't know how it works)
 	float angle_x;
 	float angle_z;
-	
+
 	float tr_x, tr_y;
-	
+
 	float angle_y =  asin( matrix[2]);        /* Calculate Y-axis angle */
 	//float D = angle_y;
     float C           =  cos( angle_y );
@@ -141,34 +144,37 @@ POGEL::POINT POGEL::MATRIX::getposition() {
 
 float *POGEL::MATRIX::getcolumn(int i) {
 	// returnes an array of 4 floats that is the column 'i' of the matrix
-	float *ret=(float*)malloc(sizeof(float)*4);
-	//for(int i=0;i<4;i++) // columns
-		for(int c=0;c<4;c++) // rows
-			ret[c]=matrix[i*4+c];
+	float *ret=new float[4]; i*=4;
+    ret[0]=matrix[i+0]; ret[1]=matrix[i+1];
+    ret[2]=matrix[i+2]; ret[3]=matrix[i+3];
 	return ret;
 };
 
 float *POGEL::MATRIX::getrow(int c) {
 	// returnes an array of 4 floats that is the row 'c' of the matrix
-	float *ret=(float*)malloc(sizeof(float)*4);
-	for(int i=0;i<4;i++) // columns
-		//for(int c=0;c<4;c++) // rows
-			ret[i]=matrix[i*4+c];
+	float *ret=new float[4];
+    ret[0]=matrix[0+c]; ret[1]=matrix[4+c];
+    ret[2]=matrix[8+c]; ret[3]=matrix[12+c];
 	return ret;
 };
 
 void POGEL::MATRIX::multiplyby(float m) {
 	// multiplies the matrix by the value 'm'
-	for(int i=0;i<16;i++) matrix[i]*=m;
+	matrix[ 0]*=m; matrix[ 1]*=m; matrix[ 2]*=m; matrix[ 3]*=m;
+	matrix[ 4]*=m; matrix[ 5]*=m; matrix[ 6]*=m; matrix[ 7]*=m;
+	matrix[ 8]*=m; matrix[ 9]*=m; matrix[10]*=m; matrix[11]*=m;
+	matrix[12]*=m; matrix[13]*=m; matrix[14]*=m; matrix[15]*=m;
 };
 
 void POGEL::MATRIX::raistopower(int p) {
 	// raises the matrix to the power of 'p'
 	POGEL::MATRIX a, m(*this);
 	int i=p;
-	while(i<0) {
-		if(i%2) a=a*m;
-		i=i/2;
+	while(i<0)
+	{
+		if(i%2)
+			a=a*m;
+		i/=2;
 		m=m*m;
 	}
 	*this = a;
@@ -176,46 +182,47 @@ void POGEL::MATRIX::raistopower(int p) {
 
 float POGEL::MATRIX::determinant() {
 	// returnes the determinant of the matrix
-	float inv[16];
-	
-	inv[0] =   matrix[ 5]*matrix[10]*matrix[15] - matrix[ 5]*matrix[11]*matrix[14] - matrix[ 9]*matrix[ 6]*matrix[15] + matrix[ 9]*matrix[ 7]*matrix[14] + matrix[13]*matrix[ 6]*matrix[11] - matrix[13]*matrix[ 7]*matrix[10];
-	inv[4] =  -matrix[ 4]*matrix[10]*matrix[15] + matrix[ 4]*matrix[11]*matrix[14] + matrix[ 8]*matrix[ 6]*matrix[15] - matrix[ 8]*matrix[ 7]*matrix[14] - matrix[12]*matrix[ 6]*matrix[11] + matrix[12]*matrix[ 7]*matrix[10];
-	inv[8] =   matrix[ 4]*matrix[ 9]*matrix[15] - matrix[ 4]*matrix[11]*matrix[13] - matrix[ 8]*matrix[ 5]*matrix[15] + matrix[ 8]*matrix[ 7]*matrix[13] + matrix[12]*matrix[ 5]*matrix[11] - matrix[12]*matrix[ 7]*matrix[ 9];
-	inv[12] = -matrix[ 4]*matrix[ 9]*matrix[14] + matrix[ 4]*matrix[10]*matrix[13] + matrix[ 8]*matrix[ 5]*matrix[14] - matrix[ 8]*matrix[ 6]*matrix[13] - matrix[12]*matrix[ 5]*matrix[10] + matrix[12]*matrix[ 6]*matrix[ 9];
-	
-	return matrix[0]*inv[0] + matrix[1]*inv[4] + matrix[2]*inv[8] + matrix[3]*inv[12];
+	float inv[4];
+
+	inv[0] =  matrix[ 5]*matrix[10]*matrix[15] - matrix[ 5]*matrix[11]*matrix[14] - matrix[ 9]*matrix[ 6]*matrix[15] + matrix[ 9]*matrix[ 7]*matrix[14] + matrix[13]*matrix[ 6]*matrix[11] - matrix[13]*matrix[ 7]*matrix[10];
+	inv[1] = -matrix[ 4]*matrix[10]*matrix[15] + matrix[ 4]*matrix[11]*matrix[14] + matrix[ 8]*matrix[ 6]*matrix[15] - matrix[ 8]*matrix[ 7]*matrix[14] - matrix[12]*matrix[ 6]*matrix[11] + matrix[12]*matrix[ 7]*matrix[10];
+	inv[2] =  matrix[ 4]*matrix[ 9]*matrix[15] - matrix[ 4]*matrix[11]*matrix[13] - matrix[ 8]*matrix[ 5]*matrix[15] + matrix[ 8]*matrix[ 7]*matrix[13] + matrix[12]*matrix[ 5]*matrix[11] - matrix[12]*matrix[ 7]*matrix[ 9];
+	inv[3] = -matrix[ 4]*matrix[ 9]*matrix[14] + matrix[ 4]*matrix[10]*matrix[13] + matrix[ 8]*matrix[ 5]*matrix[14] - matrix[ 8]*matrix[ 6]*matrix[13] - matrix[12]*matrix[ 5]*matrix[10] + matrix[12]*matrix[ 6]*matrix[ 9];
+
+	return matrix[0]*inv[0] + matrix[1]*inv[1] + matrix[2]*inv[2] + matrix[3]*inv[3];
 };
 
 bool POGEL::MATRIX::invert() {
 	// inverts the matrix, if the matrix is not invertable, it returnes false
-	float inv[16], det;
-	int i;
-	
+	float inv[16];
+
 	// this baheamoth was pulled from: http://stackoverflow.com/questions/1148309/inverting-a-4x4-matrix
-	inv[0] =   matrix[ 5]*matrix[10]*matrix[15] - matrix[ 5]*matrix[11]*matrix[14] - matrix[ 9]*matrix[ 6]*matrix[15] + matrix[ 9]*matrix[ 7]*matrix[14] + matrix[13]*matrix[ 6]*matrix[11] - matrix[13]*matrix[ 7]*matrix[10];
-	inv[4] =  -matrix[ 4]*matrix[10]*matrix[15] + matrix[ 4]*matrix[11]*matrix[14] + matrix[ 8]*matrix[ 6]*matrix[15] - matrix[ 8]*matrix[ 7]*matrix[14] - matrix[12]*matrix[ 6]*matrix[11] + matrix[12]*matrix[ 7]*matrix[10];
-	inv[8] =   matrix[ 4]*matrix[ 9]*matrix[15] - matrix[ 4]*matrix[11]*matrix[13] - matrix[ 8]*matrix[ 5]*matrix[15] + matrix[ 8]*matrix[ 7]*matrix[13] + matrix[12]*matrix[ 5]*matrix[11] - matrix[12]*matrix[ 7]*matrix[ 9];
+	inv[ 0] =  matrix[ 5]*matrix[10]*matrix[15] - matrix[ 5]*matrix[11]*matrix[14] - matrix[ 9]*matrix[ 6]*matrix[15] + matrix[ 9]*matrix[ 7]*matrix[14] + matrix[13]*matrix[ 6]*matrix[11] - matrix[13]*matrix[ 7]*matrix[10];
+	inv[ 4] = -matrix[ 4]*matrix[10]*matrix[15] + matrix[ 4]*matrix[11]*matrix[14] + matrix[ 8]*matrix[ 6]*matrix[15] - matrix[ 8]*matrix[ 7]*matrix[14] - matrix[12]*matrix[ 6]*matrix[11] + matrix[12]*matrix[ 7]*matrix[10];
+	inv[ 8] =  matrix[ 4]*matrix[ 9]*matrix[15] - matrix[ 4]*matrix[11]*matrix[13] - matrix[ 8]*matrix[ 5]*matrix[15] + matrix[ 8]*matrix[ 7]*matrix[13] + matrix[12]*matrix[ 5]*matrix[11] - matrix[12]*matrix[ 7]*matrix[ 9];
 	inv[12] = -matrix[ 4]*matrix[ 9]*matrix[14] + matrix[ 4]*matrix[10]*matrix[13] + matrix[ 8]*matrix[ 5]*matrix[14] - matrix[ 8]*matrix[ 6]*matrix[13] - matrix[12]*matrix[ 5]*matrix[10] + matrix[12]*matrix[ 6]*matrix[ 9];
-	inv[1] =  -matrix[ 1]*matrix[10]*matrix[15] + matrix[ 1]*matrix[11]*matrix[14] + matrix[ 9]*matrix[ 2]*matrix[15] - matrix[ 9]*matrix[ 3]*matrix[14] - matrix[13]*matrix[ 2]*matrix[11] + matrix[13]*matrix[ 3]*matrix[10];
-	inv[5] =   matrix[ 0]*matrix[10]*matrix[15] - matrix[ 0]*matrix[11]*matrix[14] - matrix[ 8]*matrix[ 2]*matrix[15] + matrix[ 8]*matrix[ 3]*matrix[14] + matrix[12]*matrix[ 2]*matrix[11] - matrix[12]*matrix[ 3]*matrix[10];
-	inv[9] =  -matrix[ 0]*matrix[ 9]*matrix[15] + matrix[ 0]*matrix[11]*matrix[13] + matrix[ 8]*matrix[ 1]*matrix[15] - matrix[ 8]*matrix[ 3]*matrix[13] - matrix[12]*matrix[ 1]*matrix[11] + matrix[12]*matrix[ 3]*matrix[ 9];
+	float det = matrix[0]*inv[0] + matrix[1]*inv[4] + matrix[2]*inv[8] + matrix[3]*inv[12];
+	if (det == 0.0f) return false;
+	inv[ 1] = -matrix[ 1]*matrix[10]*matrix[15] + matrix[ 1]*matrix[11]*matrix[14] + matrix[ 9]*matrix[ 2]*matrix[15] - matrix[ 9]*matrix[ 3]*matrix[14] - matrix[13]*matrix[ 2]*matrix[11] + matrix[13]*matrix[ 3]*matrix[10];
+	inv[ 5] =  matrix[ 0]*matrix[10]*matrix[15] - matrix[ 0]*matrix[11]*matrix[14] - matrix[ 8]*matrix[ 2]*matrix[15] + matrix[ 8]*matrix[ 3]*matrix[14] + matrix[12]*matrix[ 2]*matrix[11] - matrix[12]*matrix[ 3]*matrix[10];
+	inv[ 9] = -matrix[ 0]*matrix[ 9]*matrix[15] + matrix[ 0]*matrix[11]*matrix[13] + matrix[ 8]*matrix[ 1]*matrix[15] - matrix[ 8]*matrix[ 3]*matrix[13] - matrix[12]*matrix[ 1]*matrix[11] + matrix[12]*matrix[ 3]*matrix[ 9];
 	inv[13] =  matrix[ 0]*matrix[ 9]*matrix[14] - matrix[ 0]*matrix[10]*matrix[13] - matrix[ 8]*matrix[ 1]*matrix[14] + matrix[ 8]*matrix[ 2]*matrix[13] + matrix[12]*matrix[ 1]*matrix[10] - matrix[12]*matrix[ 2]*matrix[ 9];
-	inv[2] =   matrix[ 1]*matrix[ 6]*matrix[15] - matrix[ 1]*matrix[ 7]*matrix[14] - matrix[ 5]*matrix[ 2]*matrix[15] + matrix[ 5]*matrix[ 3]*matrix[14] + matrix[13]*matrix[ 2]*matrix[ 7] - matrix[13]*matrix[ 3]*matrix[ 6];
-	inv[6] =  -matrix[ 0]*matrix[ 6]*matrix[15] + matrix[ 0]*matrix[ 7]*matrix[14] + matrix[ 4]*matrix[ 2]*matrix[15] - matrix[ 4]*matrix[ 3]*matrix[14] - matrix[12]*matrix[ 2]*matrix[ 7] + matrix[12]*matrix[ 3]*matrix[ 6];
+	inv[ 2] =  matrix[ 1]*matrix[ 6]*matrix[15] - matrix[ 1]*matrix[ 7]*matrix[14] - matrix[ 5]*matrix[ 2]*matrix[15] + matrix[ 5]*matrix[ 3]*matrix[14] + matrix[13]*matrix[ 2]*matrix[ 7] - matrix[13]*matrix[ 3]*matrix[ 6];
+	inv[ 6] = -matrix[ 0]*matrix[ 6]*matrix[15] + matrix[ 0]*matrix[ 7]*matrix[14] + matrix[ 4]*matrix[ 2]*matrix[15] - matrix[ 4]*matrix[ 3]*matrix[14] - matrix[12]*matrix[ 2]*matrix[ 7] + matrix[12]*matrix[ 3]*matrix[ 6];
 	inv[10] =  matrix[ 0]*matrix[ 5]*matrix[15] - matrix[ 0]*matrix[ 7]*matrix[13] - matrix[ 4]*matrix[ 1]*matrix[15] + matrix[ 4]*matrix[ 3]*matrix[13] + matrix[12]*matrix[ 1]*matrix[ 7] - matrix[12]*matrix[ 3]*matrix[ 5];
 	inv[14] = -matrix[ 0]*matrix[ 5]*matrix[14] + matrix[ 0]*matrix[ 6]*matrix[13] + matrix[ 4]*matrix[ 1]*matrix[14] - matrix[ 4]*matrix[ 2]*matrix[13] - matrix[12]*matrix[ 1]*matrix[ 6] + matrix[12]*matrix[ 2]*matrix[ 5];
-	inv[3] =  -matrix[ 1]*matrix[ 6]*matrix[11] + matrix[ 1]*matrix[ 7]*matrix[10] + matrix[ 5]*matrix[ 2]*matrix[11] - matrix[ 5]*matrix[ 3]*matrix[10] - matrix[ 9]*matrix[ 2]*matrix[ 7] + matrix[ 9]*matrix[ 3]*matrix[ 6];
-	inv[7] =   matrix[ 0]*matrix[ 6]*matrix[11] - matrix[ 0]*matrix[ 7]*matrix[10] - matrix[ 4]*matrix[ 2]*matrix[11] + matrix[ 4]*matrix[ 3]*matrix[10] + matrix[ 8]*matrix[ 2]*matrix[ 7] - matrix[ 8]*matrix[ 3]*matrix[ 6];
+	inv[ 3] = -matrix[ 1]*matrix[ 6]*matrix[11] + matrix[ 1]*matrix[ 7]*matrix[10] + matrix[ 5]*matrix[ 2]*matrix[11] - matrix[ 5]*matrix[ 3]*matrix[10] - matrix[ 9]*matrix[ 2]*matrix[ 7] + matrix[ 9]*matrix[ 3]*matrix[ 6];
+	inv[ 7] =  matrix[ 0]*matrix[ 6]*matrix[11] - matrix[ 0]*matrix[ 7]*matrix[10] - matrix[ 4]*matrix[ 2]*matrix[11] + matrix[ 4]*matrix[ 3]*matrix[10] + matrix[ 8]*matrix[ 2]*matrix[ 7] - matrix[ 8]*matrix[ 3]*matrix[ 6];
 	inv[11] = -matrix[ 0]*matrix[ 5]*matrix[11] + matrix[ 0]*matrix[ 7]*matrix[ 9] + matrix[ 4]*matrix[ 1]*matrix[11] - matrix[ 4]*matrix[ 3]*matrix[ 9] - matrix[ 8]*matrix[ 1]*matrix[ 7] + matrix[ 8]*matrix[ 3]*matrix[ 5];
 	inv[15] =  matrix[ 0]*matrix[ 5]*matrix[10] - matrix[ 0]*matrix[ 6]*matrix[ 9] - matrix[ 4]*matrix[ 1]*matrix[10] + matrix[ 4]*matrix[ 2]*matrix[ 9] + matrix[ 8]*matrix[ 1]*matrix[ 6] - matrix[ 8]*matrix[ 2]*matrix[ 5];
-	
-	det = matrix[0]*inv[0] + matrix[1]*inv[4] + matrix[2]*inv[8] + matrix[3]*inv[12];
-	if (det == 0.0f) return false;
-	
-	det = 1.0 / det;
-	
-	for (i = 0; i < 16; i++) matrix[i] = inv[i] * det;
-	
+
+    det = 1.0f/det;
+
+    matrix[ 0] = inv[ 0] * det; matrix[ 1] = inv[ 1] * det; matrix[ 2] = inv[ 2] * det; matrix[ 3] = inv[ 3] * det;
+    matrix[ 4] = inv[ 4] * det; matrix[ 5] = inv[ 5] * det; matrix[ 6] = inv[ 6] * det; matrix[ 7] = inv[ 7] * det;
+    matrix[ 8] = inv[ 8] * det; matrix[ 9] = inv[ 9] * det; matrix[10] = inv[10] * det; matrix[11] = inv[11] * det;
+    matrix[12] = inv[12] * det; matrix[13] = inv[13] * det; matrix[14] = inv[14] * det; matrix[15] = inv[15] * det;
+
 	return true;
 };
 
@@ -234,7 +241,11 @@ void POGEL::MATRIX::transformPoint(POGEL::POINT* p) {
 };
 
 POGEL::POINT POGEL::MATRIX::transformPoint(POGEL::POINT p) {
-	transformPoint(&p); return (p);
+	POGEL::POINT tmp=p;
+	p.x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0);
+	p.y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1);
+	p.z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2);
+	return p;
 };
 
 void POGEL::MATRIX::transformVector(POGEL::VECTOR* v) {
@@ -247,31 +258,46 @@ void POGEL::MATRIX::transformVector(POGEL::VECTOR* v) {
 
 POGEL::VECTOR POGEL::MATRIX::transformVector(POGEL::VECTOR v) {
 	// transforms the VECTOR 'v' by the rotation of the matrix
-	transformVector(&v); return (v);
+	POGEL::VECTOR tmp=v;
+	v.x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0);// + getvalue(3,0);
+	v.y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1);// + getvalue(3,1);
+	v.z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2);// + getvalue(3,2);
+	return v;
 };
 
 void POGEL::MATRIX::transformVertex(POGEL::VERTEX* v) {
-	// get the vector from center to vertex v, then get its length, 
-	// normalize it, transform it myltiply it by the vector length, 
+	// get the vector from center to vertex v, then get its length,
+	// normalize it, transform it myltiply it by the vector length,
 	// then use that as the new vertex. or do the same as converting a vector 'cause it's simpler
-	POGEL::VERTEX tmp=(*v);
+	POGEL::POINT tmp=(*v);
 	v->x = (tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0));// + getposition().x;
 	v->y = (tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1));// + getposition().y;
 	v->z = (tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2));// + getposition().z;
-	transformVector(&v->normal); // now transform the 
+	transformVector(&v->normal); // now transform the normal vector
 };
 
 POGEL::VERTEX POGEL::MATRIX::transformVertex(POGEL::VERTEX v) {
-	transformVertex(&v); return (v);
+    POGEL::POINT tmp=v;
+	v.x = (tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0));// + getposition().x;
+	v.y = (tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1));// + getposition().y;
+	v.z = (tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2));// + getposition().z;
+	transformVector(&v.normal); // now transform the normal vector
+	return v;
 };
 
 void POGEL::MATRIX::transformTriangle(POGEL::TRIANGLE* tri) {
-	for(int i=0;i<3;i++) transformVertex(&tri->vertex[i]);
+	transformVertex(&tri->vertex[0]);
+	transformVertex(&tri->vertex[1]);
+	transformVertex(&tri->vertex[2]);
 	transformVector(&tri->normal);
 };
 
 POGEL::TRIANGLE POGEL::MATRIX::transformTriangle(POGEL::TRIANGLE tri) {
-	transformTriangle(&tri); return tri;
+	transformVertex(&tri.vertex[0]);
+	transformVertex(&tri.vertex[1]);
+	transformVertex(&tri.vertex[2]);
+	transformVector(&tri.normal);
+	return tri;
 };
 
 POGEL::QUAT POGEL::MATRIX::toquat() {
@@ -287,14 +313,14 @@ POGEL::QUAT POGEL::MATRIX::toquat() {
 		return q;
 	}
 	else {
-		if ( matrix[0] > matrix[5] && matrix[0] > matrix[10] )  {	// Column 0: 
+		if ( matrix[0] > matrix[5] && matrix[0] > matrix[10] )  {	// Column 0:
 			float S  = sqrt( 1.0 + matrix[0] - matrix[5] - matrix[10] ) * 2;
 			q.x = 0.25 * S;
 			q.y = (matrix[4] + matrix[1] ) / S;
 			q.z = (matrix[2] + matrix[8] ) / S;
 			q.w = (matrix[9] - matrix[6] ) / S;
 			return q;
-		} else if ( matrix[5] > matrix[10] ) {			// Column 1: 
+		} else if ( matrix[5] > matrix[10] ) {			// Column 1:
 			float S  = sqrt( 1.0 + matrix[5] - matrix[0] - matrix[10] ) * 2;
 			q.x = (matrix[4] + matrix[1] ) / S;
 			q.y = 0.25 * S;
@@ -315,58 +341,96 @@ POGEL::QUAT POGEL::MATRIX::toquat() {
 //TODO: make this work
 void POGEL::MATRIX::fromaxis(POGEL::VECTOR axis, float angle) {
 	float u = axis.x, v = axis.y, w = axis.z;
-	
+
 	*this = POGEL::MATRIX();
-	
+
 	angle = POGEL::DegreesToRadians(angle);
-	
+
 	float rcos = cos(angle);
+	float nrcos = 1-rcos;
 	float rsin = sin(angle);
-	setvalue(0, 0,       rcos + u*u*(1-rcos));
-	setvalue(1, 0,   w * rsin + v*u*(1-rcos));
-	setvalue(2, 0,  -v * rsin + w*u*(1-rcos));
-	setvalue(0, 1,  -w * rsin + u*v*(1-rcos));
-	setvalue(1, 1,       rcos + v*v*(1-rcos));
-	setvalue(2, 1,   u * rsin + w*v*(1-rcos));
-	setvalue(0, 2,   v * rsin + u*w*(1-rcos));
-	setvalue(1, 2,  -u * rsin + v*w*(1-rcos));
-	setvalue(2, 2,       rcos + w*w*(1-rcos));
+	setvalue(0, 0,       rcos + u*u*(nrcos));
+	setvalue(1, 0,   w * rsin + v*u*(nrcos));
+	setvalue(2, 0,  -v * rsin + w*u*(nrcos));
+	setvalue(0, 1,  -w * rsin + u*v*(nrcos));
+	setvalue(1, 1,       rcos + v*v*(nrcos));
+	setvalue(2, 1,   u * rsin + w*v*(nrcos));
+	setvalue(0, 2,   v * rsin + u*w*(nrcos));
+	setvalue(1, 2,  -u * rsin + v*w*(nrcos));
+	setvalue(2, 2,       rcos + w*w*(nrcos));
 };
 
 POGEL::MATRIX POGEL::MATRIX::operator+(POGEL::MATRIX m) {
 	// simply adds the two matricies together
 	POGEL::MATRIX ret;
-	for(int i=0;i<16;i++) ret.matrix[i]=m.matrix[i]+matrix[i];
+	ret.matrix[ 0] = matrix[ 0] + m.matrix[ 0]; ret.matrix[ 1] = matrix[ 1] + m.matrix[ 1];
+	ret.matrix[ 2] = matrix[ 2] + m.matrix[ 2]; ret.matrix[ 3] = matrix[ 3] + m.matrix[ 3];
+	ret.matrix[ 4] = matrix[ 4] + m.matrix[ 4]; ret.matrix[ 5] = matrix[ 5] + m.matrix[ 5];
+	ret.matrix[ 6] = matrix[ 6] + m.matrix[ 6]; ret.matrix[ 7] = matrix[ 7] + m.matrix[ 7];
+	ret.matrix[ 8] = matrix[ 8] + m.matrix[ 8]; ret.matrix[ 9] = matrix[ 9] + m.matrix[ 9];
+	ret.matrix[10] = matrix[10] + m.matrix[10]; ret.matrix[11] = matrix[11] + m.matrix[11];
+	ret.matrix[12] = matrix[12] + m.matrix[12]; ret.matrix[13] = matrix[13] + m.matrix[13];
+	ret.matrix[14] = matrix[14] + m.matrix[14]; ret.matrix[15] = matrix[15] + m.matrix[15];
 	return ret;
 };
 
 POGEL::MATRIX POGEL::MATRIX::operator-(POGEL::MATRIX m) {
 	// simply subtracts the two matricies from each other
 	POGEL::MATRIX ret;
-	for(int i=0;i<16;i++) ret.matrix[i] = matrix[i] - m.matrix[i];
+	ret.matrix[ 0] = matrix[ 0] - m.matrix[ 0]; ret.matrix[ 1] = matrix[ 1] - m.matrix[ 1];
+	ret.matrix[ 2] = matrix[ 2] - m.matrix[ 2]; ret.matrix[ 3] = matrix[ 3] - m.matrix[ 3];
+	ret.matrix[ 4] = matrix[ 4] - m.matrix[ 4]; ret.matrix[ 5] = matrix[ 5] - m.matrix[ 5];
+	ret.matrix[ 6] = matrix[ 6] - m.matrix[ 6]; ret.matrix[ 7] = matrix[ 7] - m.matrix[ 7];
+	ret.matrix[ 8] = matrix[ 8] - m.matrix[ 8]; ret.matrix[ 9] = matrix[ 9] - m.matrix[ 9];
+	ret.matrix[10] = matrix[10] - m.matrix[10]; ret.matrix[11] = matrix[11] - m.matrix[11];
+	ret.matrix[12] = matrix[12] - m.matrix[12]; ret.matrix[13] = matrix[13] - m.matrix[13];
+	ret.matrix[14] = matrix[14] - m.matrix[14]; ret.matrix[15] = matrix[15] - m.matrix[15];
 	return ret;
 };
 
 POGEL::MATRIX POGEL::MATRIX::operator*(POGEL::MATRIX a) {
 	// multiplies the two matricies together
 	POGEL::MATRIX ret;
-	for(int i=0;i<4;i++) { // columns
-		for(int c=0;c<4;c++) { // rows
-			//ret.matrix[i*4+c] = 0.0f;
-			//for(int f=0;f<4;f++)
-				//ret.matrix[i*4+c]+=(this->getvalue(i, f))*(a.getvalue(f, c));
-			
-			ret.matrix[i*4+c] = (this->getvalue(i, 0))*(a.getvalue(0, c)) + (this->getvalue(i, 1))*(a.getvalue(1, c)) + (this->getvalue(i, 2))*(a.getvalue(2, c)) + (this->getvalue(i, 3))*(a.getvalue(3, c));
-			
-		}
-	}
-	//ret = ret - POGEL::MATRIX(); // subtract the identity matrix
+	ret.matrix[ 0] = matrix[ 0]*a.matrix[ 0] + matrix[ 1]*a.matrix[ 4] + matrix[ 2]*a.matrix[ 8] + matrix[ 3]*a.matrix[12];
+	ret.matrix[ 1] = matrix[ 0]*a.matrix[ 1] + matrix[ 1]*a.matrix[ 5] + matrix[ 2]*a.matrix[ 9] + matrix[ 3]*a.matrix[13];
+	ret.matrix[ 2] = matrix[ 0]*a.matrix[ 2] + matrix[ 1]*a.matrix[ 6] + matrix[ 2]*a.matrix[10] + matrix[ 3]*a.matrix[14];
+	ret.matrix[ 3] = matrix[ 0]*a.matrix[ 3] + matrix[ 1]*a.matrix[ 7] + matrix[ 2]*a.matrix[11] + matrix[ 3]*a.matrix[15];
+	ret.matrix[ 4] = matrix[ 4]*a.matrix[ 0] + matrix[ 5]*a.matrix[ 4] + matrix[ 6]*a.matrix[ 8] + matrix[ 7]*a.matrix[12];
+	ret.matrix[ 5] = matrix[ 4]*a.matrix[ 1] + matrix[ 5]*a.matrix[ 5] + matrix[ 6]*a.matrix[ 9] + matrix[ 7]*a.matrix[13];
+	ret.matrix[ 6] = matrix[ 4]*a.matrix[ 2] + matrix[ 5]*a.matrix[ 6] + matrix[ 6]*a.matrix[10] + matrix[ 7]*a.matrix[14];
+	ret.matrix[ 7] = matrix[ 4]*a.matrix[ 3] + matrix[ 5]*a.matrix[ 7] + matrix[ 6]*a.matrix[11] + matrix[ 7]*a.matrix[15];
+	ret.matrix[ 8] = matrix[ 8]*a.matrix[ 0] + matrix[ 9]*a.matrix[ 4] + matrix[10]*a.matrix[ 8] + matrix[11]*a.matrix[12];
+	ret.matrix[ 9] = matrix[ 8]*a.matrix[ 1] + matrix[ 9]*a.matrix[ 5] + matrix[10]*a.matrix[ 9] + matrix[11]*a.matrix[13];
+	ret.matrix[10] = matrix[ 8]*a.matrix[ 2] + matrix[ 9]*a.matrix[ 6] + matrix[10]*a.matrix[10] + matrix[11]*a.matrix[14];
+	ret.matrix[11] = matrix[ 8]*a.matrix[ 3] + matrix[ 9]*a.matrix[ 7] + matrix[10]*a.matrix[11] + matrix[11]*a.matrix[15];
+	ret.matrix[12] = matrix[12]*a.matrix[ 0] + matrix[13]*a.matrix[ 4] + matrix[14]*a.matrix[ 8] + matrix[15]*a.matrix[12];
+	ret.matrix[13] = matrix[12]*a.matrix[ 1] + matrix[13]*a.matrix[ 5] + matrix[14]*a.matrix[ 9] + matrix[15]*a.matrix[13];
+	ret.matrix[14] = matrix[12]*a.matrix[ 2] + matrix[13]*a.matrix[ 6] + matrix[14]*a.matrix[10] + matrix[15]*a.matrix[14];
+	ret.matrix[15] = matrix[12]*a.matrix[ 3] + matrix[13]*a.matrix[ 7] + matrix[14]*a.matrix[11] + matrix[15]*a.matrix[15];
 	return ret;
+};
+
+POGEL::MATRIX POGEL::MATRIX::operator*(float a) {
+	// returnes a matrix like this one but all values are multiplied by a
+	POGEL::MATRIX ret;
+	ret.matrix[ 0] = matrix[ 0] * a; ret.matrix[ 1] = matrix[ 1] * a; ret.matrix[ 2] = matrix[ 2] * a; ret.matrix[ 3] = matrix[ 3] * a;
+	ret.matrix[ 4] = matrix[ 4] * a; ret.matrix[ 5] = matrix[ 5] * a; ret.matrix[ 6] = matrix[ 6] * a; ret.matrix[ 7] = matrix[ 7] * a;
+	ret.matrix[ 8] = matrix[ 8] * a; ret.matrix[ 9] = matrix[ 9] * a; ret.matrix[10] = matrix[10] * a; ret.matrix[11] = matrix[11] * a;
+	ret.matrix[12] = matrix[12] * a; ret.matrix[13] = matrix[13] * a; ret.matrix[14] = matrix[14] * a; ret.matrix[15] = matrix[15] * a;
+	return ret;
+};
+
+POGEL::MATRIX POGEL::MATRIX::operator/(float a) {
+	// returnes a matrix like this one but all values are divided by a
+	return this->operator*(1.0f/a);
 };
 
 POGEL::MATRIX& POGEL::MATRIX::operator=(const POGEL::MATRIX& m) {
 	// assignes one matrix the value of another
-	for(int i=0;i<16;i++) matrix[i]=m.matrix[i];
+	matrix[ 0] = m.matrix[ 0]; matrix[ 1] = m.matrix[ 1]; matrix[ 2] = m.matrix[ 2]; matrix[ 3] = m.matrix[ 3];
+	matrix[ 4] = m.matrix[ 4]; matrix[ 5] = m.matrix[ 5]; matrix[ 6] = m.matrix[ 6]; matrix[ 7] = m.matrix[ 7];
+	matrix[ 8] = m.matrix[ 8]; matrix[ 9] = m.matrix[ 9]; matrix[10] = m.matrix[10]; matrix[11] = m.matrix[11];
+	matrix[12] = m.matrix[12]; matrix[13] = m.matrix[13]; matrix[14] = m.matrix[14]; matrix[15] = m.matrix[15];
 	return *this;
 };
 

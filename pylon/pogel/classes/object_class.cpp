@@ -482,14 +482,6 @@ void POGEL::OBJECT::draw() {
 			matrix.print();
 			POGEL::message("as quaternion: ");
 			matrix.toquat().print();
-			/*if(matrix.invert()) {
-				POGEL::message("\ninverted matrix: ");
-				matrix.print();
-				POGEL::message("\nrotation from inverted matrix: ");
-				matrix.getrotation().print();
-				POGEL::message("\nas quaternion: ");
-				matrix.toquat().print();
-			}*/
 			POGEL::message("\n\n");
 		}
 		#ifdef OBJECT_USE_OPNEGL_MATRIX_RECURSION
@@ -516,4 +508,3 @@ void POGEL::OBJECT::draw() {
 	if(POGEL::hasproperty(POGEL_LABEL)) position.draw(2, POGEL::COLOR(.2,.5,1,1));
 	#endif
 };
-

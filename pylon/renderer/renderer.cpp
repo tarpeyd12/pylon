@@ -57,12 +57,12 @@ namespace Renderer
             if(POGEL::hasproperty(POGEL_DEBUG))
                 cout << "building unbuilt image: \"" << image->toString() << "\"" << endl;
             image->loadandbuild();
-        }
-        if( !FileLoader::noremoval && FileLoader::checkfile( fileid ) )
-        {
-            if(POGEL::hasproperty(POGEL_DEBUG))
-                cout << "removing: \"" << fileid << "\"" << endl;
-            FileLoader::System::Files::remove( fileid );
+            if( !FileLoader::noremoval )
+            {
+                if(POGEL::hasproperty(POGEL_DEBUG))
+                    cout << "removing: \"" << fileid << "\"" << endl;
+                FileLoader::System::Files::remove( fileid );
+            }
         }
     }
 

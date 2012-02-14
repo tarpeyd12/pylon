@@ -42,14 +42,13 @@ void POGEL::TRIANGLE::load(POGEL::VERTEX a,POGEL::VERTEX b,POGEL::VERTEX c,POGEL
 	texture=tex;
 	properties=prop;
 
-	vct[0].frompoints(vertex[0].topoint(),vertex[1].topoint());
+	vct[0].frompoints(vertex[0],vertex[1]);
 	vct[0].normalize();
-	vct[1].frompoints(vertex[0].topoint(),vertex[2].topoint());
+	vct[1].frompoints(vertex[0],vertex[2]);
 	vct[1].normalize();
 
 	vct[0].dodotproduct(vct[1]);
-	normal=vct[0];
-	normal.normalize();
+	normal=vct[0].normal();
 	bounding = POGEL::BOUNDING(BOUNDING_TRIANGLE);
 	makebounding();
 };
@@ -61,7 +60,9 @@ void POGEL::TRIANGLE::load(POGEL::VERTEX* verts,POGEL::IMAGE *tex,unsigned int p
 };
 
 void POGEL::TRIANGLE::scroll_tex_values(float s, float t) {
-	for(int i=0;i<3;i++) vertex[i].scroll_tex_values(s,t);
+	vertex[0].scroll_tex_values(s,t);
+	vertex[1].scroll_tex_values(s,t);
+	vertex[2].scroll_tex_values(s,t);
 };
 
 POGEL::TRIANGLE POGEL::TRIANGLE::transform(POGEL::MATRIX* m) {
@@ -72,11 +73,7 @@ POGEL::TRIANGLE POGEL::TRIANGLE::transform(POGEL::MATRIX* m) {
 };
 
 POGEL::POINT POGEL::TRIANGLE::middle() {
-	POGEL::POINT p;
-	p.x=(vertex[0].x+vertex[1].x+vertex[2].x)/3;
-	p.y=(vertex[0].y+vertex[1].y+vertex[2].y)/3;
-	p.z=(vertex[0].z+vertex[1].z+vertex[2].z)/3;
-	return p;
+	return (vertex[0]+vertex[1]+vertex[2])/3.0f;
 };
 
 bool POGEL::TRIANGLE::isinfront(POGEL::POINT p) {
@@ -88,19 +85,19 @@ bool POGEL::TRIANGLE::isinfront(POGEL::POINT p) {
 bool POGEL::TRIANGLE::distcheck(POGEL::POINT p, float dist) {
 	POGEL::POINT closest = middle();
 	POGEL::POINT points[] = {
-		middle(), \
-		vertex[0].topoint(), \
-		vertex[1].topoint(), \
-		vertex[2].topoint(), \
-		((vertex[0]+vertex[1])/2.0f).topoint(), \
-		((vertex[0]+vertex[2])/2.0f).topoint(), \
-		((vertex[1]+vertex[2])/2.0f).topoint(), \
-		(vertex[0].topoint()+closest)/2.0f, \
-		(vertex[1].topoint()+closest)/2.0f, \
-		(vertex[2].topoint()+closest)/2.0f
+		closest, \
+		vertex[0], \
+		vertex[1], \
+		vertex[2], \
+		(vertex[0]+vertex[1])/2.0f, \
+		(vertex[0]+vertex[2])/2.0f, \
+		(vertex[1]+vertex[2])/2.0f, \
+		(vertex[0]+closest)/2.0f, \
+		(vertex[1]+closest)/2.0f, \
+		(vertex[2]+closest)/2.0f
 	};
 
-	for(int i=0;i<1;i++)
+	for(int i=0;i<10;i++)
 		if(p.distance(points[i]) <= dist)
 			return true;
 	return false;
@@ -111,15 +108,15 @@ float POGEL::TRIANGLE::distance(POGEL::POINT p) {
 	float dist = 0.0f;// p.distance(mid);
 	POGEL::POINT points[] = {
 		mid, \
-		vertex[0].topoint(), \
-		vertex[1].topoint(), \
-		vertex[2].topoint(), \
-		((vertex[0]+vertex[1])/2.0f).topoint(), \
-		((vertex[0]+vertex[2])/2.0f).topoint(), \
-		((vertex[1]+vertex[2])/2.0f).topoint(), \
-		(vertex[0].topoint()+mid)/2.0f, \
-		(vertex[1].topoint()+mid)/2.0f, \
-		(vertex[2].topoint()+mid)/2.0f
+		vertex[0], \
+		vertex[1], \
+		vertex[2], \
+		(vertex[0]+vertex[1])/2.0f, \
+		(vertex[0]+vertex[2])/2.0f, \
+		(vertex[1]+vertex[2])/2.0f, \
+		(vertex[0]+mid)/2.0f, \
+		(vertex[1]+mid)/2.0f, \
+		(vertex[2]+mid)/2.0f
 	};
 
 	for(int i=0;i<10;i++)
@@ -132,16 +129,21 @@ float POGEL::TRIANGLE::distance(POGEL::POINT p) {
 void POGEL::TRIANGLE::makebounding() {
 	bounding.clear();
 	POGEL::POINT mid = middle();
-	for(int i=0;i<3;i++)
-		bounding.addpoint(mid, vertex[i].topoint());
+	bounding.addpoint(mid, vertex[0]);
+	bounding.addpoint(mid, vertex[1]);
+	bounding.addpoint(mid, vertex[2]);
 	bounding.fin();
 };
 
 bool POGEL::TRIANGLE::isClear() {
     if( texture != NULL )
         return texture->isClear() || hasproperty(TRIANGLE_TRANSPARENT);
-    else if(POGEL::getNullImage() != NULL)
-        return POGEL::getNullImage()->isClear() || hasproperty(TRIANGLE_TRANSPARENT);
+    else
+    {
+        POGEL::IMAGE * nullImage = POGEL::getNullImage();
+        if(nullImage != NULL)
+            return nullImage->isClear() || hasproperty(TRIANGLE_TRANSPARENT);
+    }
     return hasproperty(TRIANGLE_TRANSPARENT);
 };
 
@@ -149,86 +151,127 @@ void POGEL::TRIANGLE::draw()
 {
     #ifdef OPENGL
 
+    bool b_bounding   = POGEL::hasproperty( POGEL_BOUNDING );
+    bool b_wireframe  = POGEL::hasproperty( POGEL_WIREFRAME );
+    bool b_lit         = this->hasproperty( TRIANGLE_LIT );
+    bool b_vertnorms   = this->hasproperty( TRIANGLE_VERTEX_NORMALS );
+    bool b_invertnorms = this->hasproperty( TRIANGLE_INVERT_NORMALS );
+    bool b_doublesided = this->hasproperty( TRIANGLE_DOUBLESIDED );
+    bool b_transparent = this->hasproperty( TRIANGLE_TRANSPARENT );
+    bool b_colorised   = this->hasproperty( TRIANGLE_COLORED );
+
     // draw the triangle's bounding box
-    if ( POGEL::hasproperty(POGEL_BOUNDING) )
+    if ( b_bounding )
+    {
         bounding.draw( POGEL::POINT() );
+    }
 
     // set up the texture to use.
-    POGEL::IMAGE* nullImage = POGEL::getNullImage();
     bool usingTexture = true;
     if ( texture != NULL && texture->getbase() != (unsigned int)NULL )
+    {
         texture->set();
-    else if ( nullImage != NULL && nullImage->getbase() != (unsigned int)NULL )
-        nullImage->set();
+    }
     else
-        usingTexture = false;
+    {
+        POGEL::IMAGE * nullImage = POGEL::getNullImage();
+        if ( nullImage != NULL && nullImage->getbase() != (unsigned int)NULL )
+        {
+            nullImage->set();
+            texture = nullImage;
+        }
+        else
+        {
+            usingTexture = false;
+            return;
+        }
+    }
 
     // enable or disable lighting
-    if (
-        ( hasproperty(TRIANGLE_LIT) || hasproperty(TRIANGLE_VERTEX_NORMALS) ) //&&
-        // !POGEL::hasproperty(POGEL_WIREFRAME)
-    )
-        glEnable(GL_LIGHTING);
+    if ( b_lit || b_vertnorms )
+    {
+        glEnable( GL_LIGHTING );
+    }
     else
-        glDisable(GL_LIGHTING);
+    {
+        glDisable( GL_LIGHTING );
+    }
+
+    if ( !b_doublesided )
+    {
+        glEnable( GL_CULL_FACE );
+        glCullFace( GL_BACK );
+    }
+    else if ( glIsEnabled( GL_CULL_FACE ) )
+    {
+        glDisable( GL_CULL_FACE );
+    }
 
     // set the transparency
     bool blendEnabled = false;
-    if ( hasproperty(TRIANGLE_TRANSPARENT) )
+    if ( b_transparent )
     {
         blendEnabled = glIsEnabled( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE );
-        glEnable( GL_BLEND );
+        if ( !blendEnabled )
+        {
+            glEnable( GL_BLEND );
+        }
     }
 
     // begin either a solid face or lines for wireframe
-    if ( POGEL::hasproperty(POGEL_WIREFRAME) )
-        glBegin(GL_LINES);
+    if ( b_wireframe )
+    {
+        glBegin( GL_LINES );
+    }
     else
-        glBegin(GL_TRIANGLES);
+    {
+        glBegin( GL_TRIANGLES );
+    }
 
-    // if using triangles flat normal set it
-    if ( hasproperty(TRIANGLE_LIT) && !hasproperty(TRIANGLE_VERTEX_NORMALS) )
+    // if using triangle's flat normal set it
+    if ( b_lit && !b_vertnorms )
+    {
         glNormal3f( normal.x, normal.y, normal.z );
+    }
 
     // this for loop is somehwat confusing, 4 times for wireframe, 3 for solid
-    unsigned int max = POGEL::hasproperty(POGEL_WIREFRAME) ? 4 : 3;
+    unsigned int max = b_wireframe ? 4 : 3;
     // loop from 3:4 to 0 or 0 to 3:4, because opengl uses CW or CCW to
     //  determine the front/back of the triangle.
-    for (
-        unsigned int i = hasproperty(TRIANGLE_INVERT_NORMALS) ? max : 0 ;
-        hasproperty(TRIANGLE_INVERT_NORMALS) ? i > 0 : i < max ;
-        hasproperty(TRIANGLE_INVERT_NORMALS) ? i-- : i++
-    )
+    for ( unsigned int i = b_invertnorms ? max : 0 ; b_invertnorms ? i > 0 : i < max ; b_invertnorms ? i-- : i++ )
     {
+        unsigned int ind = i % 3;
+
         // depretiated but might still be relevent later ...
-        if ( vertex[i%3].usable )
+        if ( vertex[ind].usable )
         {
             // the triangle will not be colored if GL_LIGHTING is enabled,
             //  don't know why.
             // set the color
-            if ( hasproperty(TRIANGLE_COLORED) )
-                vertex[i%3].color.set();
+            if ( b_colorised )
+            {
+                vertex[ind].color.set();
+            }
             else
+            {
                 POGEL::COLOR( 1, 1, 1, 1 ).set();
+            }
 
             // light the verticies
-            if (
-                !hasproperty(TRIANGLE_LIT) &&
-                hasproperty(TRIANGLE_VERTEX_NORMALS)
-            )
-                glNormal3f(
-                           vertex[i%3].normal.x,
-                           vertex[i%3].normal.y,
-                           vertex[i%3].normal.z
-                );
+            if ( !b_lit && b_vertnorms )
+            {
+                glNormal3f( vertex[ind].normal.x, vertex[ind].normal.y, vertex[ind].normal.z );
+            }
 
             // set the verticies' texture coordanates
             if ( usingTexture )
-                glTexCoord2f( vertex[i%3].u, vertex[i%3].v );
+            {
+                glTexCoord2f( vertex[ind].u, vertex[ind].v );
+            }
 
             // set the vertex
-            glVertex3f( vertex[i%3].x, vertex[i%3].y, vertex[i%3].z );
+            glVertex3f( vertex[ind].x, vertex[ind].y, vertex[ind].z );
         }
     }
 
@@ -236,11 +279,13 @@ void POGEL::TRIANGLE::draw()
     glEnd();
 
     // disable the transparency
-    if ( hasproperty(TRIANGLE_TRANSPARENT) )
+    if ( b_transparent )
     {
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
         if( !blendEnabled )
+        {
             glDisable( GL_BLEND );
+        }
     }
 
     #endif

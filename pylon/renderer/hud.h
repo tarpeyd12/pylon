@@ -3,7 +3,7 @@
 
 #include "quad.h"
 
-#define     NUM_QUAD_SLOTS      4096
+#define     NUM_QUAD_SLOTS      512
 
 namespace Renderer
 {

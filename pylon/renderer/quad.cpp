@@ -48,8 +48,8 @@ namespace Renderer
 
     void Quad::draw()
     {
-        POGEL::TRIANGLE(verticies[0],verticies[1],verticies[2],image,0).draw();
-        POGEL::TRIANGLE(verticies[2],verticies[1],verticies[3],image,0).draw();
+        POGEL::TRIANGLE(verticies[0],verticies[1],verticies[2],image,TRIANGLE_DOUBLESIDED).draw();
+        POGEL::TRIANGLE(verticies[2],verticies[1],verticies[3],image,TRIANGLE_DOUBLESIDED).draw();
         if(this->children != NULL)
             for(unsigned int i = 0; i < children->length(); i++)
                 children->get(i)->draw();

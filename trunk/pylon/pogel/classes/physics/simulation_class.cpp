@@ -5,18 +5,44 @@
 
 /* Just remember, in here, there is usualy no method to the madenss. */
 
+void POGEL::PHYSICS::SIMULATION::buildot()
+{
+    oltmp = new HASHLIST<POGEL::PHYSICS::SOLID*>();
+    oltmp->add(&objects);
+    ot = new POGEL::OCTREE<POGEL::PHYSICS::SOLID>(oltmp, 1, true);
+    ot->grow();
+    #ifdef THREADSOK
+        if(threads > 1)
+        {
+            ot->FORCEfastlist();
+        }
+    #endif
+    #ifdef OPENGL
+        glLineWidth(2);
+        if(POGEL::hasproperty(POGEL_BOUNDING) && POGEL::hasproperty(POGEL_ANCESTORY))
+        {
+            ot->draw();
+        }
+    glLineWidth(1);
+    #endif
+}
+
 POGEL::PHYSICS::SIMULATION::SIMULATION() : POGEL::PHYSICS::DYNAMICS() {
-	precision=0.01f;
-	deactivation = false;
-	inactive_index = 25;
-	stepstaken = 0;
-	collitters = 2;
-	#ifdef THREADSOK
-	if(THREADSOK)
+    precision=0.01f;
+    deactivation = false;
+    inactive_index = 25;
+    stepstaken = 0;
+    collitters = 2;
+    #ifdef THREADSOK
+    if(THREADSOK)
+    {
         threads = THREADSOK;
+    }
     else
+    {
         threads = 1;
-	#endif
+    }
+    #endif
 };
 
 void POGEL::PHYSICS::SIMULATION::addpulls(unsigned long s, unsigned long e) {

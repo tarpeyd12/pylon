@@ -421,7 +421,7 @@ void POGEL::PHYSICS::SOLID::draw() {
 };
 
 void POGEL::PHYSICS::SOLID::increment() {
-	float r = (POGEL::hasproperty(POGEL_TIMEBASIS) ? POGEL::GetSecondsPerFrame() : 1);
+	float r = PARTICLE_SLOWDOWN;
 	rotate(spin*r);
 	translate(direction*r);
 	//force = POGEL::VECTOR();

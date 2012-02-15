@@ -133,8 +133,11 @@ void ScriptThread::FirstRun()
      * even one, I have only tested up to 2 dummy's
      */
 
-    //ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation',False)"));
-    //ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation2',False)"));
+    if(POGEL::hasproperty(POGEL_DEBUG) || Main::scriptThread)
+    {
+        ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation',False)"));
+        ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation2',False)"));
+    }
 
     // end StoneBug fix
 

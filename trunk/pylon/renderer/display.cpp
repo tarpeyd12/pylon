@@ -18,6 +18,8 @@ namespace Renderer
 
         if(Renderer::SingleThreaded)
         {
+            POGEL::SetFramerateThrotle(POGEL::GetSecondsPerFrame());
+
             if(!Renderer::HaltPhysics)
                 Renderer::Physics::Incriment();
             if(Renderer::SciptCall != NULL)

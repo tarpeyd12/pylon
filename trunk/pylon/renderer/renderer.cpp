@@ -45,14 +45,15 @@ namespace Renderer
 
         POGEL::IMAGE* image = POGEL::lstimg(i);
         std::string fileid = image->getFileID();
-
-        if( !FileLoader::checkfile( fileid ) )
+        bool fileexists = FileLoader::checkfile( fileid );
+        if( !fileexists )
         {
             if(POGEL::hasproperty(POGEL_DEBUG))
                 cout << "extracting: \"" << fileid << "\"" << endl;
             FileLoader::ArchiveHandler::extractKnownFile( fileid );
+            fileexists = FileLoader::checkfile( fileid );
         }
-        if( FileLoader::checkfile( fileid ) )
+        if( fileexists )
         {
             if(POGEL::hasproperty(POGEL_DEBUG))
                 cout << "building unbuilt image: \"" << image->toString() << "\"" << endl;

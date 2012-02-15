@@ -65,8 +65,12 @@ namespace Renderer
         POGEL::InitFps();
 
         if(Renderer::SingleThreaded)
-            POGEL::addproperty(POGEL_TIMEBASIS);
+        {
+            //POGEL::addproperty(POGEL_TIMEBASIS);
+        }
 
-        Renderer::timer30 = new Timing::Timer(25,"Renderer"); // 30 fps
+        //POGEL::addproperty(POGEL_TIMEBASIS);
+
+        Renderer::timer30 = new Timing::Timer(25,"Renderer"); // 25 fps
     }
 }

@@ -48,10 +48,10 @@ namespace Renderer
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
 
-            gluPerspective(45.0, ar, 0.01, 1000.0);
+            gluPerspective(45.0f, ar, 0.01f, 100.0f);
 
             glMatrixMode(GL_MODELVIEW);
-            glLoadIdentity() ;
+            glLoadIdentity();
         }
 
         void toOrtho()

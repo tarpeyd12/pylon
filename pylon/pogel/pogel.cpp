@@ -334,14 +334,13 @@ float POGEL::GetTimePassed() {
 	float t = float(c-POGEL::curtime)/float(CLOCKS_PER_SEC);
 	if(t >= 1000.0f) { POGEL::curtime = c; POGEL::duration += t; t = 0.0f;}
 	return t + duration;
-	//return duration;
 };
 
 void POGEL::ThrotleFps(int desitredFramerate) {
 	float dfr = (float)desitredFramerate - (POGEL::fps*2-POGEL::fps_long);
 	if(dfr < 0.0f)
 		dfr = 1.0f/dfr;
-	POGEL::SetFramerateThrotle(1.0/fabs(dfr));
+	POGEL::SetFramerateThrotle(1.0f/fabs(dfr));
 };
 
 void POGEL::UnthrotleFps() {

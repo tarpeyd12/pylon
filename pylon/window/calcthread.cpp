@@ -40,6 +40,7 @@ void CalcThread::run()
     {
         timer->sleep();
         Renderer::Physics::Incriment();
+        POGEL::SetFramerateThrotle((timer->getLastStepTime()+1.0f/float(timer->getFPS()))/2.0f);
     }
     delete timer;
 }

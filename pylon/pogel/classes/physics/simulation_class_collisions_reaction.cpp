@@ -52,12 +52,12 @@ void POGEL::PHYSICS::SIMULATION::reactcollision(POGEL::PHYSICS::SOLID* obj1, POG
 
 			POGEL::POINT p;
 			p = POGEL::MATRIX(POGEL::POINT(),obj1->spin).transformPoint(col-obj1->position);
-			obj1->direction -= (POGEL::VECTOR(p)*obj1->spin.getdistance())/PARTICLE_SLOWDOWN;
+			obj1->direction -= (POGEL::VECTOR(p)*obj1->spin.getdistance());//PARTICLE_SLOWDOWN;
 			//if(obj1->spin.getdistance() != 0.0f)
 			//obj1->spin /= ((obj2->behavior.friction/1.0f)+(obj2->behavior.friction >= 0.0f ? 1.0f : -1.0f)); // compensate for friction
 
 			p = POGEL::MATRIX(POGEL::POINT(),obj2->spin).transformPoint(col-obj2->position);
-			obj2->direction -= (POGEL::VECTOR(p)*obj2->spin.getdistance())/PARTICLE_SLOWDOWN;
+			obj2->direction -= (POGEL::VECTOR(p)*obj2->spin.getdistance());//PARTICLE_SLOWDOWN;
 			//if(obj2->spin.getdistance() != 0.0f)
 			//obj2->spin /= ((obj1->behavior.friction/1.0f)+(obj1->behavior.friction >= 0.0f ? 1.0f : -1.0f)); // compensate for friction
 		}
@@ -73,7 +73,7 @@ void POGEL::PHYSICS::SIMULATION::reactcollision(POGEL::PHYSICS::SOLID* obj1, POG
 			}
 
 			POGEL::POINT p = POGEL::MATRIX(POGEL::POINT(),obj2->spin).transformPoint(col-obj2->position);
-			obj2->direction -= (POGEL::VECTOR(p)*obj2->spin.getdistance())/PARTICLE_SLOWDOWN;
+			obj2->direction -= (POGEL::VECTOR(p)*obj2->spin.getdistance());//PARTICLE_SLOWDOWN;
 			//if(obj2->spin.getdistance() != 0.0f)
 			//obj2->spin /= ((obj1->behavior.friction/1.0f)+(obj1->behavior.friction >= 0.0f ? 1.0f : -1.0f)); // compensate for friction
 		}
@@ -89,7 +89,7 @@ void POGEL::PHYSICS::SIMULATION::reactcollision(POGEL::PHYSICS::SOLID* obj1, POG
 			}
 
 			POGEL::POINT p = POGEL::MATRIX(POGEL::POINT(),obj1->spin).transformPoint(col-obj1->position);
-			obj1->direction -= (POGEL::VECTOR(p)*obj1->spin.getdistance())/PARTICLE_SLOWDOWN;
+			obj1->direction -= (POGEL::VECTOR(p)*obj1->spin.getdistance());//PARTICLE_SLOWDOWN;
 			//if(obj1->spin.getdistance() != 0.0f)
 			//obj1->spin /= ((obj2->behavior.friction/1.0f)+(obj2->behavior.friction >= 0.0f ? 1.0f : -1.0f)); // compensate for friction
 		}

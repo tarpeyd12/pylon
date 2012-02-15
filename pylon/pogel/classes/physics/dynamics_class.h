@@ -12,119 +12,85 @@ class DYNAMICS;
 #include "singularity_class.h"
 #include "solid_class.h"
 
-#define				DYNAMICS_HAS_MAGNETIC_OBJECT			1
+#define             DYNAMICS_HAS_MAGNETIC_OBJECT            1
 #define             DYNAMICS_LIGHTWEIGHT_ONLY               2
+#define             DYNAMICS_DRAW_BY_INDEX                  4
 
-class POGEL::PHYSICS::DYNAMICS {
-	private:
-		unsigned int properties; // the mushed properties
-	protected:
-		//POGEL::PHYSICS::SOLID** objects;
-		HASHLIST<POGEL::PHYSICS::SOLID*> objects;
-		unsigned long numobjects;
+class POGEL::PHYSICS::DYNAMICS
+{
+    private:
+        unsigned int properties; // the mushed properties
+    protected:
+        HASHLIST<POGEL::PHYSICS::SOLID*> objects;
+        unsigned long numobjects;
 
-		POGEL::PHYSICS::GRAVITYCLUSTER objectmasses;
+        POGEL::PHYSICS::GRAVITYCLUSTER objectmasses;
 
-		POGEL::PHYSICS::GRAVITYCLUSTER singularities;
-		POGEL::PHYSICS::FLOW gusts;
+        POGEL::PHYSICS::GRAVITYCLUSTER singularities;
+        POGEL::PHYSICS::FLOW gusts;
 
-		POGEL::OCTREE<POGEL::PHYSICS::SOLID> *ot;
-		HASHLIST<POGEL::PHYSICS::SOLID*> *oltmp;
+        POGEL::OCTREE<POGEL::PHYSICS::SOLID> *ot;
+        HASHLIST<POGEL::PHYSICS::SOLID*> *oltmp;
 
-		void buildot() {
-			oltmp = new HASHLIST<POGEL::PHYSICS::SOLID*>();
-			oltmp->add(&objects);
-			ot = new POGEL::OCTREE<POGEL::PHYSICS::SOLID>(oltmp, 1, true);
-			ot->grow();
-			#ifdef THREADSOK
-			if(threads > 1)
-				ot->FORCEfastlist();
-			#endif
-			#ifdef OPENGL
-			glLineWidth(2);
-			if(POGEL::hasproperty(POGEL_BOUNDING) && POGEL::hasproperty(POGEL_ANCESTORY)) ot->draw();
-			glLineWidth(1);
-			#endif
-		}
+        CLASSLIST<unsigned int> *objIndicies;
 
-		void destroyot() {
-			if(ot != NULL) {
-				delete ot;
-				ot = NULL;
-			}
-			if(oltmp != NULL) {
-				delete oltmp;
-				oltmp = NULL;
-			}
-		}
+        void buildot();
+        void destroyot();
 
-	public:
-		unsigned long boundingskips;
+    public:
+        unsigned long boundingskips;
 
-		POGEL::VECTOR gravity;
-		float air_dencity;
+        POGEL::VECTOR gravity;
+        float air_dencity;
 
-		DYNAMICS();
-		~DYNAMICS() {
-			//if(objects) delete[] objects;
-			objects.clear();
-			destroyot();
-		}
+        DYNAMICS();
+        ~DYNAMICS();
 
-		POGEL::OCTREE<POGEL::PHYSICS::SOLID>* getotree() {
-			return ot;
-		}
+        POGEL::OCTREE<POGEL::PHYSICS::SOLID>* getotree();
 
-		PROPERTIES_METHODS;
+        PROPERTIES_METHODS;
 
-		void FORCEfastAccessList() {
-			HASHLIST<POGEL::PHYSICS::SOLID*> l;
-			while(objects.length()) { l.add(objects[objects.length()-1]); objects.remove(objects.length()-1); }
-			objects.FORCEresizeInternalList(1);
-			while(l.length()) { objects.add(l[l.length()-1]); l.remove(l.length()-1); }
-		}
+        void FORCEfastAccessList();
 
-		unsigned long numobjs() { return objects.length(); }
-		POGEL::PHYSICS::SOLID* objs(unsigned long a) { return objects[a]; }
-		HASHLIST<POGEL::PHYSICS::SOLID*> objslst() { return objects; }
+        unsigned long numobjs();
+        POGEL::PHYSICS::SOLID* objs(unsigned long a);
+        HASHLIST<POGEL::PHYSICS::SOLID*> objslst();
 
-		unsigned long addsingularity(POGEL::PHYSICS::SINGULARITY sig) {return singularities.addsingularity(sig);}
-		void addsingularities(POGEL::PHYSICS::SINGULARITY* sig, unsigned long num) {singularities.addsingularities(sig,num);}
+        unsigned long addsingularity(POGEL::PHYSICS::SINGULARITY sig);
+        void addsingularities(POGEL::PHYSICS::SINGULARITY* sig, unsigned long num);
 
-		unsigned long addfan(POGEL::PHYSICS::FAN fan) {return gusts.addfan(fan);}
-		void addfans(POGEL::PHYSICS::FAN* fan, unsigned long num) {gusts.addfans(fan,num);}
+        unsigned long addfan(POGEL::PHYSICS::FAN fan);
+        void addfans(POGEL::PHYSICS::FAN* fan, unsigned long num);
 
-		POGEL::PHYSICS::SOLID* getSolid(char*);
+        POGEL::PHYSICS::SOLID* getSolid(char*);
 
-		unsigned long addSolid(POGEL::PHYSICS::SOLID*);
-		unsigned long addSolidHoldGravity(POGEL::PHYSICS::SOLID*);
-		void addSolids(POGEL::PHYSICS::SOLID**,unsigned long);
+        unsigned long addSolid(POGEL::PHYSICS::SOLID*);
+        unsigned long addSolidHoldGravity(POGEL::PHYSICS::SOLID*);
+        void addSolids(POGEL::PHYSICS::SOLID**,unsigned long);
 
-		void addSolidsGravity(POGEL::PHYSICS::SOLID*);
+        void addSolidsGravity(POGEL::PHYSICS::SOLID*);
 
-		void removeSolid(POGEL::PHYSICS::SOLID*);
-		void removeSolidKeepGravity(POGEL::PHYSICS::SOLID*);
-		void removeSolid(char* n) {
-			removeSolid(getSolid(n));
-		}
+        void removeSolid(POGEL::PHYSICS::SOLID*);
+        void removeSolidKeepGravity(POGEL::PHYSICS::SOLID*);
+        void removeSolid(char* n);
 
-		void clearAllSolids() {
-            numobjects = 0;
-            objects.clear();
-            objectmasses.clearAll();
-		}
+        void clearAllSolids();
 
-		virtual POGEL::VECTOR getpull(POGEL::PHYSICS::SOLID*);
+        virtual POGEL::VECTOR getpull(POGEL::PHYSICS::SOLID*);
 
-		virtual void increment();
+        virtual void increment();
 
-		virtual void draw();
+        virtual void draw();
 
-		void drawGravityGrid(float, float, POGEL::POINT, unsigned int);
+        void drawGravityGrid(float, float, POGEL::POINT, unsigned int);
 
-		//void build();
+        /*
+        // to be implimented later:
+        int cullReleventObjs();
+        int _objIndiciesComp(unsigned int * a, unsigned int * b);
+        */
 
-		friend class POGEL::PHYSICS::SIMULATION;
+        friend class POGEL::PHYSICS::SIMULATION;
 };
 
 #endif /* _SIMULATION_CLASS_H */

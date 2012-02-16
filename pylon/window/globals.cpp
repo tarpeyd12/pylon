@@ -16,7 +16,9 @@ namespace Main
     bool noarchiving = false;
     std::string forced_dir = "";
 
-    std::string VersionStringNoOS = std::string(AutoVersion::_FULLVERSION_STRING) + std::string(".") + std::string(AutoVersion::_STATUS_SHORT);
+    std::string VersionStringRaw = std::string(AutoVersion::_FULLVERSION_STRING);
+
+    std::string VersionStringNoOS = VersionStringRaw + std::string(".") + std::string(AutoVersion::_STATUS_SHORT);
 
     #if defined(WINDOWS) || defined(_WIN32) || defined(_WIN64)
         #if defined(_WIN64)

@@ -35,7 +35,25 @@ namespace Main
         }
         FileLoader::Ini ini(ininame);
         if( !Main::dontremove )
+        {
             FileLoader::System::Files::remove( ininame );
+        }
+
+        std::string requiredVersion = ini.getvalue("pylon", "version");
+        unsigned int ver1[4], ver2[4];
+        sscanf(requiredVersion.c_str(), "%d.%d.%d.%d", &ver1[0], &ver1[1], &ver1[2], &ver1[3]);
+        sscanf(Main::VersionStringRaw.c_str(), "%d.%d.%d.%d", &ver2[0], &ver2[1], &ver2[2], &ver2[3]);
+        for(unsigned int i = 0; i < 4; i++)
+        {
+            if(ver1[i]>ver2[i])
+            {
+                cout << "ERROR: cannot run pylon archive." << endl;
+                cout << "Program version too low, you may need to update:" << endl;
+                cout << "\trequired version \"" << requiredVersion << "\"" << endl;
+                cout << "\tcurrent version \"" << Main::VersionStringRaw << "\"" << endl;
+                exit(-1);
+            }
+        }
 
         Main::main_py = ini.getvalue("pylon", "main");
         Main::init_py = ini.getvalue("pylon", "init");
@@ -49,12 +67,15 @@ namespace Main
         {
             std::string n = winname;
             if( POGEL::hasproperty(POGEL_DEBUG) )
+            {
                 n = "Pylon."+VersionString+": '"+winname+"' in "+(!forcedir?"archive: '"+pylon_archive:"folder: '"+forced_dir)+"'";
+            }
             Renderer::Window::Create(n);
         }
         else
+        {
             Renderer::Window::Create("Pylon." + VersionString);
-
+        }
 
         // add the main archive to the archive linkage system
         FileLoader::ArchiveHandler::addArchiveLink("{main}", pylon_archive);
@@ -81,7 +102,9 @@ namespace Main
                 }
             }
             if( keynames )
+            {
                 delete keynames;
+            }
         }
 
         if( ini.hasSection("code") )
@@ -97,18 +120,24 @@ namespace Main
                         std::string key = keynames->get(i);
                         std::string value = ini.getvalue("codetypes", key);
                         if( !value.compare("true") || !value.compare("True") || !value.compare("TRUE") )
+                        {
                             codetypes += key;
+                        }
                     }
                 }
                 if( keynames )
+                {
                     delete keynames;
+                }
             }
 
             std::string codeDir = ini.getvalue("code", "dir");
             std::string codeExtract = ini.getvalue("code", "extract");
             bool doCodeExtract = false;
             if( !codeExtract.compare("true") || !codeExtract.compare("True") || !codeExtract.compare("TRUE") )
+            {
                 doCodeExtract = true;
+            }
             //std::string codeExclude = ini.getvalue("code", "exclude");
 
             ClassList<std::string> * filesInCodeDir = FileLoader::ArchiveHandler::getAllFilesInDir(codeDir);
@@ -121,9 +150,13 @@ namespace Main
                     {
                         ClassList<std::string> * tfiles = FileLoader::ArchiveHandler::getFilesOfType(codetypes[i], filesInCodeDir);
                         if( tfiles && tfiles->length() )
+                        {
                             FileLoader::ArchiveHandler::codeFiles += tfiles;
+                        }
                         if( tfiles )
+                        {
                             delete tfiles;
+                        }
                     }
                 }
                 else
@@ -134,11 +167,15 @@ namespace Main
                 for(unsigned int i = 0; i < FileLoader::ArchiveHandler::codeFiles.length(); i++)
                 {
                     if( !FileLoader::ArchiveHandler::codeFiles[i].compare(Main::main_py) || !FileLoader::ArchiveHandler::codeFiles[i].compare(Main::init_py) )
+                    {
                         FileLoader::ArchiveHandler::codeFiles -= i--;
+                    }
                 }
 
                 if( doCodeExtract )
+                {
                     FileLoader::ArchiveHandler::extractKnownFiles(FileLoader::ArchiveHandler::codeFiles);
+                }
 
                 filesInCodeDir->safeclear();
                 delete filesInCodeDir;

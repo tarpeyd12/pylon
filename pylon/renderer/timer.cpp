@@ -78,8 +78,8 @@ namespace Renderer
                 {
                     usleep( (unsigned int)waitTime );
                 }
-                else
-                if ( invDurDiff > 0.0f && (unsigned int)(invDurDiff) < FPS-1 )
+                //else
+                if ( isfinite(invDurDiff) && invDurDiff > 0.0f && (unsigned int)(invDurDiff) < FPS-1 )
                 {
                     cout << "Warning: cyclerate to slow for timer: \"";
                     cout <<  timerName;

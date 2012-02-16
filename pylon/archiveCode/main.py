@@ -7,7 +7,7 @@ if pylon.key_ispressed('q') or pylon.key_ispressed('Q'):
 # greeting
 if counter == 0.0:
 	print ''
-	print 'Pylon Engine started:',ctime(time())
+	print 'Pylon Engine started:',time.ctime(time.time())
 
 # simple object controll
 count = counter

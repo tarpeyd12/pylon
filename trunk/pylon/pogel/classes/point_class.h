@@ -13,171 +13,152 @@
 
 namespace POGEL {
 class POINT {
-	public:
-		float x;
-		float y;
-		float z;
+    public:
+        float x;
+        float y;
+        float z;
 
-		POINT() {x=0.0f; y=0.0f; z=0.0f;}
-		POINT(float a, float b, float c) { x=a; y=b; z=c; }
-        POINT(float a) { x=y=z=a; }
+        POINT();
+        POINT(float,float,float);
+        POINT(float);
 
-		POINT(std::string s) { sscanf(s.c_str(), "{[%f],[%f],[%f]}", &x, &y, &z); }
+        POINT(std::string s);
 
-		void get_values(float *a, float *b, float *c) { *a=x; *b=y; *c=z; }
-		void set_values(float a, float b, float c)    {  x=a;  y=b;  z=c; }
+        void get_values(float*,float*,float*);
+        void set_values(float,float,float);
 
-		void print() { POGEL::message(" %7.3f, %7.3f, %7.3f", x, y, z); }
+        void print();
 
-		std::string toString() {
-			char *sx=POGEL::string("%0.27f",x), *sy=POGEL::string("%0.27f",y), *sz=POGEL::string("%0.27f",z);
-			std::string s = "{["+std::string(sx)+"],["+std::string(sy)+"],["+std::string(sz)+"]}";
-			delete[](sx); delete[](sy); delete[](sz);
-			return s;
-		}
+        std::string toString();
 
-		void draw();
-		void draw(unsigned int);
-		void draw(unsigned int, POGEL::COLOR);
-		void drawto(POGEL::POINT);
+        void draw();
+        void draw(unsigned int);
+        void draw(unsigned int, POGEL::COLOR);
+        void drawto(POGEL::POINT);
 
-		void translate() {glTranslatef(x,y,z);}
+        void translate();
 
-		float distance(POGEL::POINT p) { float _x=(p.x-x),_y=(p.y-y),_z=(p.z-z); return (float)(sqrt((_x*_x)+(_y*_y)+(_z*_z))); }
+        float distance(POGEL::POINT p);
 
-		POGEL::POINT operator*(float a) { return POGEL::POINT(x*a, y*a, z*a); }
-		POGEL::POINT operator/(float a) { return POGEL::POINT(x/a, y/a, z/a); }
+        POGEL::POINT operator*(float a);
+        POGEL::POINT operator/(float a);
 
-		POGEL::POINT operator*(POGEL::POINT p) { return POGEL::POINT(x*p.x, y*p.y, z*p.z); }
-		POGEL::POINT operator/(POGEL::POINT p) { return POGEL::POINT(x/p.x, y/p.y, z/p.z); }
+        POGEL::POINT operator*(POGEL::POINT p);
+        POGEL::POINT operator/(POGEL::POINT p);
 
-		POGEL::POINT operator+(POGEL::POINT p) { return POGEL::POINT(x+p.x, y+p.y, z+p.z); }
-		POGEL::POINT operator-(POGEL::POINT p) { return POGEL::POINT(x-p.x, y-p.y, z-p.z); }
-		POGEL::POINT& operator=(const POGEL::POINT& p) { x=p.x; y=p.y; z=p.z; return (*this); }
+        POGEL::POINT operator+(POGEL::POINT p);
+        POGEL::POINT operator-(POGEL::POINT p);
+        POGEL::POINT& operator=(const POGEL::POINT& p);
 
-		POGEL::POINT& operator*=(const float& a) { x*=a; y*=a; z*=a; return (*this); }
-		POGEL::POINT& operator/=(const float& a) { x/=a; y/=a; z/=a; return (*this); }
+        POGEL::POINT& operator*=(const float& a);
+        POGEL::POINT& operator/=(const float& a);
 
-		POGEL::POINT& operator*=(const POGEL::POINT& p) { x*=p.z; y*=p.y; z*=p.z; return (*this); }
-		POGEL::POINT& operator/=(const POGEL::POINT& p) { x/=p.x; y/=p.y; z/=p.z; return (*this); }
+        POGEL::POINT& operator*=(const POGEL::POINT& p);
+        POGEL::POINT& operator/=(const POGEL::POINT& p);
 
-		POGEL::POINT& operator+=(const POGEL::POINT& p) { x+=p.x; y+=p.y; z+=p.z; return (*this); }
-		POGEL::POINT& operator-=(const POGEL::POINT& p) { x-=p.x; y-=p.y; z-=p.z; return (*this); }
+        POGEL::POINT& operator+=(const POGEL::POINT& p);
+        POGEL::POINT& operator-=(const POGEL::POINT& p);
 
-		bool operator==(POGEL::POINT p) { return (p.x==x && p.y==y && p.z==z); }
-		bool operator!=(POGEL::POINT p) { return (p.x!=x || p.y!=y || p.z!=z); }
+        bool operator==(POGEL::POINT p);
+        bool operator!=(POGEL::POINT p);
 
-		bool isbad() { return (isnan(x) || isnan(y) || isnan(z)); }
+        bool isbad();
 };
 
 class VECTOR: public POGEL::POINT {
-	public:
-		VECTOR() {x=0.0f; y=0.0f; z=0.0f;}
-		VECTOR(float a, float b, float c) {x=a; y=b; z=c;}
-		VECTOR(POGEL::POINT p) {x=p.x; y=p.y; z=p.z;}
-		VECTOR(POGEL::POINT,POGEL::POINT);
+    public:
+        VECTOR();
+        VECTOR(float,float,float);
+        VECTOR(POGEL::POINT);
+        VECTOR(POGEL::POINT,POGEL::POINT);
 
-		VECTOR(std::string s) { sscanf(s.c_str(), "{[%f],[%f],[%f]}", &x, &y, &z); }
+        VECTOR(std::string s);
 
-		void normalize();
-		POGEL::VECTOR normal();
-		void anglenormalize();
-		POGEL::VECTOR anglenormal();
-		float getdistance();
-		float getangle(POGEL::VECTOR,POGEL::VECTOR);
-		float getangle(POGEL::VECTOR);
-		POGEL::VECTOR& dodotproduct(POGEL::VECTOR);
-		float dotproduct(POGEL::VECTOR);
-		void frompoints(POGEL::POINT,POGEL::POINT);
+        void normalize();
+        POGEL::VECTOR normal();
+        void anglenormalize();
+        POGEL::VECTOR anglenormal();
+        float getdistance();
+        float getangle(POGEL::VECTOR,POGEL::VECTOR);
+        float getangle(POGEL::VECTOR);
+        POGEL::VECTOR& dodotproduct(POGEL::VECTOR);
+        float dotproduct(POGEL::VECTOR);
+        void frompoints(POGEL::POINT,POGEL::POINT);
 
-		POGEL::POINT topoint() {POGEL::POINT p(x,y,z); return p;}
+        POGEL::POINT topoint();
 
-		POGEL::VECTOR operator*(float a) { return POGEL::VECTOR(x*a, y*a, z*a); }
-		POGEL::VECTOR operator/(float a) { return POGEL::VECTOR(x/a, y/a, z/a); }
+        POGEL::VECTOR operator*(float a);
+        POGEL::VECTOR operator/(float a);
 
-		POGEL::VECTOR operator*(POGEL::VECTOR p) { return POGEL::VECTOR(x*p.x, y*p.y, z*p.z); }
-		POGEL::VECTOR operator/(POGEL::VECTOR p) { return POGEL::VECTOR(x/p.x, y/p.y, z/p.z); }
+        POGEL::VECTOR operator*(POGEL::VECTOR p);
+        POGEL::VECTOR operator/(POGEL::VECTOR p);
 
-		POGEL::VECTOR operator+(POGEL::VECTOR p) { return POGEL::VECTOR(x+p.x, y+p.y, z+p.z); }
-		POGEL::VECTOR operator-(POGEL::VECTOR p) { return POGEL::VECTOR(x-p.x, y-p.y, z-p.z); }
+        POGEL::VECTOR operator+(POGEL::VECTOR p);
+        POGEL::VECTOR operator-(POGEL::VECTOR p);
 
-		POGEL::VECTOR& operator=(const POGEL::VECTOR p) { x=p.x; y=p.y; z=p.z; return (*this); }
+        POGEL::VECTOR& operator=(const POGEL::VECTOR p);
 
-		POGEL::VECTOR& operator*=(const float& a) { x*=a; y*=a; z*=a; return (*this); }
-		POGEL::VECTOR& operator/=(const float& a) { x/=a; y/=a; z/=a; return (*this); }
+        POGEL::VECTOR& operator*=(const float& a);
+        POGEL::VECTOR& operator/=(const float& a);
 
-		POGEL::VECTOR& operator*=(const POGEL::VECTOR& p) { x*=p.z; y*=p.y; z*=p.z; return (*this); }
-		POGEL::VECTOR& operator/=(const POGEL::VECTOR& p) { x/=p.x; y/=p.y; z/=p.z; return (*this); }
+        POGEL::VECTOR& operator*=(const POGEL::VECTOR& p);
+        POGEL::VECTOR& operator/=(const POGEL::VECTOR& p);
 
-		POGEL::VECTOR& operator+=(const POGEL::VECTOR& p) { x+=p.x; y+=p.y; z+=p.z; return (*this); }
-		POGEL::VECTOR& operator-=(const POGEL::VECTOR& p) { x-=p.x; y-=p.y; z-=p.z; return (*this); }
+        POGEL::VECTOR& operator+=(const POGEL::VECTOR& p);
+        POGEL::VECTOR& operator-=(const POGEL::VECTOR& p);
 
-		bool operator==(POGEL::VECTOR p) { return (p.x==x && p.y==y && p.z==z); }
+        bool operator==(POGEL::VECTOR p);
+        bool operator!=(POGEL::VECTOR p);
 };
 
 class VERTEX: public POGEL::POINT {
-	public:
-		float u;
-		float v;
-		POGEL::COLOR color;
-		POGEL::VECTOR normal;
-		bool usable;
+    public:
+        float u;
+        float v;
+        POGEL::COLOR color;
+        POGEL::VECTOR normal;
+        bool usable;
 
-		VERTEX() {x=0.0f; y=0.0f; z=0.0f; u=0.0f; v=0.0f; usable=true;}
-		VERTEX(float a, float b, float c, float s, float t) {x=a; y=b; z=c; u=s; v=t; usable=true;}
-		VERTEX(float a, float b, float c) {x=a; y=b; z=c; u=0.0f; v=0.0f; usable=true;}
-		VERTEX(POGEL::POINT p) {x=p.x; y=p.y; z=p.z; u=0.0f; v=0.0f; usable=true;}
+        VERTEX();
+        VERTEX(float a, float b, float c, float s, float t);
+        VERTEX(float a, float b, float c);
+        VERTEX(POGEL::POINT p);
 
-		VERTEX(std::string s) {
-			std::string n = POGEL::getStringComponentLevel('{','}', s, "0 0");
-			std::string c = POGEL::getStringComponentLevel('{','}', s, "0 1");
-			std::string fmt = "{[%f],[%f],[%f],[%f],[%f],"+n+","+c+"}";
-			sscanf(s.c_str(), fmt.c_str(), &x, &y, &z, &u, &v);
-			normal = POGEL::VECTOR(n);
-			color = POGEL::COLOR(c);
-			usable=true;
-		}
+        VERTEX(std::string s);
 
-		std::string toString()
-		{
-			char *sx=POGEL::string("%0.27f",x), *sy=POGEL::string("%0.27f",y), *sz=POGEL::string("%0.27f",z);
-			char *su=POGEL::string("%f",u), *sv=POGEL::string("%f",v);
-			std::string s = "{["+std::string(sx)+"],["+std::string(sy)+"],["+std::string(sz)+"],["+std::string(su)+"],["+std::string(sv)+"],"+normal.toString()+","+color.toString()+"}";
-			free(sx); free(sy); free(sz); free(su); free(sv);
-			return s;
-		}
+        std::string toString();
 
-		void get_values(float *a, float *b, float *c, float *s, float *t) {*a=x; *b=y; *c=z; *s=u; *t=v;}
-		void set_values(float a, float b, float c, float s, float t) {x=a; y=b; z=c; u=s; v=t;}
+        void get_values(float *a, float *b, float *c, float *s, float *t);
+        void set_values(float a, float b, float c, float s, float t);
 
-		void get_point_values(float *a, float *b, float *c) {*a=x; *b=y; *c=z;}
-		void set_point_values(float a, float b, float c) {x=a; y=b; z=c;}
+        void get_point_values(float *a, float *b, float *c);
+        void set_point_values(float a, float b, float c);
 
-		void get_tex_values(float *s, float *t) {*s=u; *t=v;}
-		void set_tex_values(float s, float t) {u=s; v=t;}
+        void get_tex_values(float *s, float *t);
+        void set_tex_values(float s, float t);
 
-		void scroll_tex_values(float s, float t) {u+=s; v+=t;}
+        void scroll_tex_values(float s, float t);
 
-		POGEL::POINT topoint() {POGEL::POINT p(x,y,z); return p;}
+        POGEL::POINT topoint();
 
-		POGEL::VERTEX operator*(float a) { return POGEL::VERTEX(x*a, y*a, z*a); }
-		POGEL::VERTEX operator/(float a) { return POGEL::VERTEX(x/a, y/a, z/a); }
+        POGEL::VERTEX operator*(float a);
+        POGEL::VERTEX operator/(float a);
 
-		POGEL::VERTEX operator*(POGEL::VERTEX p) { return POGEL::VERTEX(x*p.x, y*p.y, z*p.z); }
-		POGEL::VERTEX operator/(POGEL::VERTEX p) { return POGEL::VERTEX(x/p.x, y/p.y, z/p.z); }
+        POGEL::VERTEX operator*(POGEL::VERTEX p);
+        POGEL::VERTEX operator/(POGEL::VERTEX p);
 
-		POGEL::VERTEX operator+(POGEL::VERTEX p) { return POGEL::VERTEX(x+p.x, y+p.y, z+p.z); }
-		POGEL::VERTEX operator-(POGEL::VERTEX p) { return POGEL::VERTEX(x-p.x, y-p.y, z-p.z); }
-		POGEL::VERTEX& operator=(const POGEL::VERTEX& p) { x=p.x; y=p.y; z=p.z; u=p.u; v=p.v; usable=p.usable; color=p.color; normal=p.normal; return (*this); }
+        POGEL::VERTEX operator+(POGEL::VERTEX p);
+        POGEL::VERTEX operator-(POGEL::VERTEX p);
+        POGEL::VERTEX& operator=(const POGEL::VERTEX& p);
 
-		POGEL::VERTEX& operator*=(const float& a) { x*=a; y*=a; z*=a; return (*this); }
-		POGEL::VERTEX& operator/=(const float& a) { x/=a; y/=a; z/=a; return (*this); }
+        POGEL::VERTEX& operator*=(const float& a);
+        POGEL::VERTEX& operator/=(const float& a);
 
-		POGEL::VERTEX& operator*=(const POGEL::VERTEX& p) { x*=p.z; y*=p.y; z*=p.z; return (*this); }
-		POGEL::VERTEX& operator/=(const POGEL::VERTEX& p) { x/=p.x; y/=p.y; z/=p.z; return (*this); }
+        POGEL::VERTEX& operator*=(const POGEL::VERTEX& p);
+        POGEL::VERTEX& operator/=(const POGEL::VERTEX& p);
 
-		POGEL::VERTEX& operator+=(const POGEL::VERTEX& p) { x+=p.x; y+=p.y; z+=p.z; usable=p.usable; color=p.color; normal=p.normal; return (*this); }
-		POGEL::VERTEX& operator-=(const POGEL::VERTEX& p) { x-=p.x; y-=p.y; z-=p.z; usable=p.usable; color=p.color; normal=p.normal; return (*this); }
+        POGEL::VERTEX& operator+=(const POGEL::VERTEX& p);
+        POGEL::VERTEX& operator-=(const POGEL::VERTEX& p);
 };
 }
 

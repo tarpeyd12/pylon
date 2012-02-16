@@ -1,6 +1,6 @@
 # import the stuffs
 try:
-	from time import time,ctime
+	import time
 	import random
 	import math
 	
@@ -39,31 +39,6 @@ except ImportError as bob:
 #declare the 'counter' will be incrimented by 0.1 evert script cycle
 counter = 0
 
-# defien the version comparison functions
-def versioncompare_dig(ver,spot):
-	my_splitter = shlex.shlex(ver, posix = True)
-	my_splitter.whitespace += "_.abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-	my_splitter.whitespace_split = True
-	dig = list(my_splitter)
-	return int(dig[spot])
-
-def versioncompare(vera,verb):
-	a = bool(versioncompare_dig(vera,0) >= versioncompare_dig(verb,0))
-	b = bool(versioncompare_dig(vera,1) >= versioncompare_dig(verb,1))
-	c = bool(versioncompare_dig(vera,2) >= versioncompare_dig(verb,2))
-	d = bool(versioncompare_dig(vera,3) >= versioncompare_dig(verb,3))
-	return bool(a and b and c and d)
-
-# check for the appropriate version(s) of pylon and/or its components
-if versioncompare(_pylon.version(),'0.1.161.829'):
-	print 'Pylon version meets or exceeds minimum requirements ...'
-else:
-	print 'ERROR: Version dose not meet minimum requirements,'
-	print '       this pylon archive cannot be executed for this reason.'
-	print ''
-	print 'Exiting program at time: ',ctime(time())
-	quit()
-
 # setup the camera
 cam = Camera(0,0,0,0,0,0)
 
@@ -83,9 +58,7 @@ def rnd():
 
 # loop i number of times
 def waitcalc(i):
-	a = 0
-	while a < i:
-		a = a + 1
+	time.sleep(i*0.001)
 
 # extract images for the mouse cursor and dragbox
 print pylon.requestfile('Data/images/particle.tga')
@@ -218,6 +191,6 @@ def doOBJECTrelocate():
 	pylon.object_set_pos_s("TestSphereSim",oname,rpos)
 	pylon.object_set_dir_3f("TestSphereSim",oname,0.025*20,0.15*20,0)
 
-waitcalc(10000)
+waitcalc(1000)
 #TestSphereSim.stop()
 

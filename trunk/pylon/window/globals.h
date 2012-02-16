@@ -22,6 +22,7 @@ namespace Main
     extern bool noarchiving;
     extern std::string forced_dir;
 
+    extern std::string VersionStringRaw;
     extern std::string VersionStringNoOS;
     extern std::string VersionString;
 

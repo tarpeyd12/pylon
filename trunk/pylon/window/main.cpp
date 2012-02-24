@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     // to clean stuff up at exit.
     atexit(_atExit);
 
-    //std::cout << "Number of CPU's: " << Threads::getNumCores() << std::endl;
+    cout << "Number of CPU's: " << Threads::getNumCores() << endl;
 
     if(Main::SingleThreaded)
     {
@@ -55,6 +55,15 @@ void _atExit()
 {
     // cleanup
     Renderer::drawLock = true;
+
+    // this list causes a segfault on exit, so nullify before the
+    //  deallocation function is automaitacally called
+    if(FileLoader::ArchiveHandler::codeFiles.length())
+    {
+        // drop the pointer to the internal list.
+        // it is a memmory leak, but it does not matter because pylon is exiting
+        FileLoader::ArchiveHandler::codeFiles.nullify();
+    }
 
     if(!Main::SingleThreaded)
     {

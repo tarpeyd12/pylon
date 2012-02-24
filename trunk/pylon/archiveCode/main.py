@@ -65,12 +65,12 @@ if pylon.key_ispressed('\r') or pylon.key_ispressed('\n'):
 		going = False
 		_pylon_calc.lock()
 		# gives time to the calculation thread to catch up
-		waitcalc(1000000)
+		waitcalc(1000)
 	else:
 		print "Starting Physics Calculation Thread"
 		going = True
 		# gives time to the calculation thread to catch up
-		waitcalc(1000000)
+		waitcalc(1000)
 		_pylon_calc.unlock()
 
 # increment the counter
@@ -84,10 +84,10 @@ if pylon.key_ispressed(';'):
 # specific simulation execution controll
 if pylon.key_ispressed('g'):
 	sim2.stop()
-	waitcalc(100000)
+	waitcalc(100)
 if pylon.key_ispressed('G'):
 	sim2.restart()
-	waitcalc(100000)
+	waitcalc(100)
 
 # moving an object with the mouse
 if ( pylon.mouse_ispressed() and pylon.mouse_getbutton() == 1 ) or ( pylon.key_ispressed('z') or pylon.key_ispressed('Z') ):

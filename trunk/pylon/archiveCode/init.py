@@ -133,8 +133,8 @@ TestSphereSim = Simulation("TestSphereSim",True)
 zeropos = makepos(0,0,0)
 
 possibleImages = '{[Data/images/earth.bmp],[2]}', '{[Data/images/Glass.bmp],[2]}', '{[Data/images/lava8.bmp],[2]}', '{[Data/images/mandel_2.png],[1]}', '{[Data/images/pogel_runner_galax_color_1.png],[2]}', '{[Data/images/default_2.bmp],[0]}', '{[Data/images/mouse_pointer.png],[0]}'
-#possibleTriProps = 8, 8|32, 8, 8, 8, 2, 8|64
-possibleTriProps = 8, 8, 8, 8, 8, 2, 8
+possibleTriProps = 8, 8|32, 8, 8, 8, 2, 8|64
+#possibleTriProps = 8, 8, 8, 8, 8, 2, 8
 
 loop = 0
 rnum = 0

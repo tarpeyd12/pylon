@@ -21,90 +21,59 @@ class TRIANGLE;
 
 namespace POGEL {
 class TRIANGLE {
-	private:
-		unsigned int properties; // the mushed options
-	public:
-		POGEL::BOUNDING bounding;
-		POGEL::VERTEX vertex[3]; // the 3 verticies of the triangle
-		POGEL::IMAGE *texture; // a pointer to the image to use as the texture
-		POGEL::VECTOR normal; // the normal vector
+    private:
+        unsigned int properties; // the mushed options
+        POGEL::POINT trimid;
+        bool usetrimid;
+    public:
+        POGEL::BOUNDING bounding;
+        POGEL::VERTEX vertex[3]; // the 3 verticies of the triangle
+        POGEL::IMAGE *texture; // a pointer to the image to use as the texture
+        POGEL::VECTOR normal; // the normal vector
 
-		TRIANGLE()
-			{texture=NULL;}
-		TRIANGLE(POGEL::POINT a,POGEL::POINT b,POGEL::POINT c)
-			{load(POGEL::VERTEX(a),POGEL::VERTEX(b),POGEL::VERTEX(c),NULL,0);}
-		TRIANGLE(POGEL::VERTEX a,POGEL::VERTEX b,POGEL::VERTEX c,POGEL::IMAGE *tex,unsigned int prop)
-			{load(a,b,c,tex,prop);}
-		TRIANGLE(POGEL::POINT a,POGEL::POINT b,POGEL::POINT c,POGEL::IMAGE *tex,unsigned int prop)
-			{load(POGEL::VERTEX(a),POGEL::VERTEX(b),POGEL::VERTEX(c),tex,prop);}
-		TRIANGLE(POGEL::VERTEX* verts,POGEL::IMAGE *tex,unsigned int prop)
-			{load(verts,tex,prop);}
+        TRIANGLE();
+        TRIANGLE(POGEL::POINT,POGEL::POINT,POGEL::POINT);
+        TRIANGLE(POGEL::VERTEX,POGEL::VERTEX,POGEL::VERTEX,POGEL::IMAGE*,unsigned int);
+        TRIANGLE(POGEL::POINT,POGEL::POINT,POGEL::POINT,POGEL::IMAGE*,unsigned int);
+        TRIANGLE(POGEL::VERTEX*,POGEL::IMAGE*,unsigned int);
 
-		TRIANGLE(std::string, POGEL::IMAGE*);
-		TRIANGLE(std::string);
+        TRIANGLE(std::string, POGEL::IMAGE*);
+        TRIANGLE(std::string);
 
-		void load(POGEL::VERTEX,POGEL::VERTEX,POGEL::VERTEX,POGEL::IMAGE*,unsigned int);
-		void load(POGEL::VERTEX*,POGEL::IMAGE*,unsigned int);
+        void load(POGEL::VERTEX,POGEL::VERTEX,POGEL::VERTEX,POGEL::IMAGE*,unsigned int);
+        void load(POGEL::VERTEX*,POGEL::IMAGE*,unsigned int);
 
-		void settexture(POGEL::IMAGE *tex) {texture=tex;}
-		POGEL::IMAGE *gettexture() {return texture;}
+        void settexture(POGEL::IMAGE*);
+        POGEL::IMAGE* gettexture();
 
-		PROPERTIES_METHODS;
+        PROPERTIES_METHODS;
 
-		std::string toString()
-		{
-			char *p = POGEL::string("%u",properties);
-			std::string s =
-				"{"
-					"[" + std::string(p)       + "],"
-					""  + vertex[0].toString() + ","
-					""  + vertex[1].toString() + ","
-					""  + vertex[2].toString() + ","
-					""  + normal.toString()    + ","
-					""  + (texture==NULL?"{IMAGE_NULL}":texture->toString()) + ""
-				"}";
-			free(p);
-			return s;
-		}
+        std::string toString();
 
-		void scroll_tex_values(float,float);
+        void scroll_tex_values(float,float);
 
-		void print() {
-			printf("\n");
-			vertex[0].topoint().print();
-			printf("\n");
-			vertex[1].topoint().print();
-			printf("\n");
-			vertex[2].topoint().print();
-			printf("\n");
-		}
+        void print();
 
-		POGEL::LINE getEdge(unsigned int l) {
-			if(l > 2) {
-				POGEL::error("Tried to access vertex 4 in triangle.\n");
-				return POGEL::LINE(POGEL::POINT(),POGEL::POINT());
-			}
-			return POGEL::LINE(vertex[l].topoint(), vertex[(l+1)%3].topoint());
-		}
+        POGEL::LINE getEdge(unsigned int l);
 
-		POGEL::TRIANGLE transform(POGEL::MATRIX*);
+        POGEL::TRIANGLE transform(POGEL::MATRIX*);
 
-		POGEL::POINT middle();
+        POGEL::POINT middle();
 
-		bool isinfront(POGEL::POINT);
+        bool isinfront(POGEL::POINT);
 
-		bool distcheck(POGEL::POINT, float);
+        bool distcheck(POGEL::POINT, float);
 
-		float distance(POGEL::POINT);
+        float distance(POGEL::POINT);
 
-		void makebounding();
+        void makebounding();
 
-		POGEL::POINT getposition() { return middle(); }
-		POGEL::BOUNDING getbounding() { return bounding; }
+        POGEL::POINT getposition();
+        POGEL::BOUNDING getbounding();
 
-		bool isClear();
+        bool isClear();
 
-		void draw();
+        void draw();
 };
 }
 

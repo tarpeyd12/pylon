@@ -9,12 +9,12 @@ void POGEL::PHYSICS::DYNAMICS::buildot()
     ot = new POGEL::OCTREE<POGEL::PHYSICS::SOLID>(oltmp, 1, true);
     ot->grow();
     #ifdef OPENGL
-        glLineWidth(2);
         if(POGEL::hasproperty(POGEL_BOUNDING) && POGEL::hasproperty(POGEL_ANCESTORY))
         {
+            glLineWidth(2);
             ot->draw();
+            glLineWidth(1);
         }
-    glLineWidth(1);
     #endif
 }
 

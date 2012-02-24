@@ -159,6 +159,7 @@ void ClassList<T>::insert(T c, unsigned int l)
 template <typename T>
 T ClassList<T>::get(unsigned int i)
 {
+    //if(i < length())
     return list[i];
 }
 
@@ -263,7 +264,7 @@ void ClassList<T>::setSortFunc(int (*sortFunc)(T*,T*))
 template <typename T>
 void ClassList<T>::sort()
 {
-    if(sortFunction!=NULL)
+    if(sortFunction)
         qsort((void*)list, len, sizeof(T), (int(*)(const void*,const void*))sortFunction);
 }
 
@@ -277,10 +278,9 @@ void ClassList<T>::sort(int (*sortFunc)(T*,T*))
 template <typename T>
 T* ClassList<T>::search(T ind)
 {
-    if(sortFunction!=NULL)
+    if(sortFunction)
         return (T*)bsearch((void*)&ind, (void*)list, len, sizeof(T), (int(*)(const void*,const void*))sortFunction);
-    else
-        return NULL;
+    return NULL;
 }
 
 template <typename T>

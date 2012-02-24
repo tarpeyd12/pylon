@@ -4,6 +4,9 @@ namespace Renderer
 {
     namespace Draw
     {
+        // these three variables are to 'simplify' the sorting process
+        //  they are only calculated once per frame, then set to these variables
+        //  instead of being calculated every time they are needed.
         POGEL::VECTOR globalTempRefpos;
         POGEL::POINT globalTempCampos;
         POGEL::POINT globalTempInvCampos;
@@ -143,7 +146,6 @@ namespace Renderer
             unsigned int trilistlength = trilist.length();
             if(trilistlength)
             {
-
                 if(!POGEL::hasproperty(POGEL_WIREFRAME))
                     trilist.sort(__sorttris);
                 for(unsigned int i = 0; i < trilistlength; i++)

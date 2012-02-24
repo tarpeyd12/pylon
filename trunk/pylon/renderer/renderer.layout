@@ -5,16 +5,16 @@
 		<Cursor position="444" topLine="0" />
 	</File>
 	<File name="cmd.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="161" topLine="0" />
+		<Cursor position="454" topLine="0" />
 	</File>
 	<File name="cmd.h" open="0" top="0" tabpos="13">
 		<Cursor position="296" topLine="0" />
 	</File>
 	<File name="display.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="350" topLine="60" />
+		<Cursor position="350" topLine="49" />
 	</File>
-	<File name="draw.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="9089" topLine="187" />
+	<File name="draw.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="4050" topLine="75" />
 	</File>
 	<File name="hud.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="1309" topLine="0" />
@@ -23,7 +23,7 @@
 		<Cursor position="103" topLine="0" />
 	</File>
 	<File name="init.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1970" topLine="47" />
+		<Cursor position="1970" topLine="38" />
 	</File>
 	<File name="key.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="325" topLine="0" />
@@ -44,25 +44,25 @@
 		<Cursor position="53" topLine="0" />
 	</File>
 	<File name="physics.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="5291" topLine="0" />
+		<Cursor position="5512" topLine="148" />
 	</File>
 	<File name="physics.h" open="0" top="0" tabpos="5">
 		<Cursor position="1207" topLine="15" />
 	</File>
 	<File name="quad.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1314" topLine="30" />
+		<Cursor position="1314" topLine="19" />
 	</File>
 	<File name="quad.h" open="0" top="0" tabpos="8">
 		<Cursor position="279" topLine="0" />
 	</File>
 	<File name="renderer.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="507" topLine="18" />
+		<Cursor position="507" topLine="44" />
 	</File>
 	<File name="renderer.h" open="0" top="0" tabpos="6">
 		<Cursor position="75" topLine="0" />
 	</File>
 	<File name="timer.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="1982" topLine="59" />
+		<Cursor position="2075" topLine="62" />
 	</File>
 	<File name="timer.h" open="0" top="0" tabpos="2">
 		<Cursor position="844" topLine="6" />
@@ -71,9 +71,9 @@
 		<Cursor position="625" topLine="9" />
 	</File>
 	<File name="window.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="1433" topLine="7" />
+		<Cursor position="281" topLine="3" />
 	</File>
 	<File name="window.h" open="0" top="0" tabpos="0">
-		<Cursor position="456" topLine="0" />
+		<Cursor position="441" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

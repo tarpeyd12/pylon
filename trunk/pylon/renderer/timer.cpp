@@ -79,13 +79,13 @@ namespace Renderer
                     usleep( (unsigned int)waitTime );
                 }
                 //else
-                if ( isfinite(invDurDiff) && invDurDiff > 0.0f && (unsigned int)(invDurDiff) < FPS-1 )
+                if (steps==9&& isfinite(invDurDiff) && invDurDiff > 0.0f && (unsigned int)(invDurDiff) < FPS-1 )
                 {
                     cout << "Warning: cyclerate to slow for timer: \"";
                     cout <<  timerName;
                     cout << "\" @ \t" << FPS << " : ";
                     char* tmp = POGEL::string("%0.1f", invDurDiff);
-                    cout << std::string(tmp) << endl;
+                    cout << tmp << endl;
                     delete[] tmp;
                 }
             }

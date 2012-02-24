@@ -133,7 +133,7 @@ void ScriptThread::FirstRun()
      * even one, I have only tested up to 2 dummy's
      */
 
-    if(POGEL::hasproperty(POGEL_DEBUG) || Main::scriptThread)
+    if(POGEL::hasproperty(POGEL_DEBUG) || Main::SingleThreaded || POGEL::hasproperty(POGEL_LABEL))
     {
         ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation',False)"));
         ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation2',False)"));

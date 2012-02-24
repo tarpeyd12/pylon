@@ -217,34 +217,94 @@ bool POGEL::PHYSICS::solid_collision(POGEL::PHYSICS::SOLID* obj1, POGEL::PHYSICS
 };
 
 // this is brute force
-// TODO: find a mathematical way to do this quickly and acuratly for huge lines
-float POGEL::PHYSICS::line_point_distance(POGEL::POINT point, POGEL::LINE line, POGEL::POINT* pol) {
-	POGEL::POINT start = line.getStart();
-	POGEL::POINT end = line.getEnd();
-	POGEL::POINT middle = line.getMiddle();
-	POGEL::POINT closest = middle;
+float POGEL::PHYSICS::line_point_distance_BRUTE(POGEL::POINT point, POGEL::LINE line, POGEL::POINT* pol)
+{
+    POGEL::POINT start = line.getStart();
+    POGEL::POINT end = line.getEnd();
+    POGEL::POINT middle = line.getMiddle();
+    POGEL::POINT closest = middle;
 
-	float pdist = 0, curdist = point.distance(middle);
-	unsigned int i = 0;
-	while( pdist != curdist && i++ < 10)
-		if(point.distance(start)+point.distance(middle) < point.distance(end)+point.distance(middle)) {
-			if(point.distance(start) < point.distance(closest)) closest = start;
-			else closest = middle;
-			pdist = curdist; curdist = point.distance(start)+point.distance(closest);
-			end = middle; middle = (start+end)/2;
-		}
-		else {
-			if(point.distance(end) < point.distance(closest)) closest = end;
-			else closest = middle;
-			pdist = curdist; curdist = point.distance(end)+point.distance(closest);
-			start = middle; middle = (start+end)/2;
-		}
-	if(pol != NULL) *pol = closest;
-	return point.distance(closest);
-};
+    float pdist = 0.0f;
+    float curdist = point.distance(middle);
+    unsigned int i = 0;
+    while( pdist != curdist && i++ < 10)
+    {
+        if(point.distance(start)+point.distance(middle) < point.distance(end)+point.distance(middle))
+        {
+            if(point.distance(start) < point.distance(closest))
+            {
+                closest = start;
+            }
+            else
+            {
+                closest = middle;
+            }
+            pdist = curdist;
+            curdist = point.distance(start)+point.distance(closest);
+            end = middle;
+            middle = (start+end)/2.0f;
+        }
+        else
+        {
+            if(point.distance(end) < point.distance(closest))
+            {
+                closest = end;
+            }
+            else
+            {
+                closest = middle;
+            }
+            pdist = curdist;
+            curdist = point.distance(end)+point.distance(closest);
+            start = middle;
+            middle = (start+end)/2.0f;
+        }
+    }
+    if(pol != NULL)
+    {
+        *pol = closest;
+    }
+    return point.distance(closest);
+}
+
+float POGEL::PHYSICS::line_point_distance(POGEL::POINT refpoint, POGEL::LINE line, POGEL::POINT* pol)
+{
+    POGEL::POINT start = line.getStart();
+    POGEL::POINT end = line.getEnd();
+    POGEL::POINT closest;
+
+    POGEL::VECTOR direction(start,end);
+    float length = direction.getdistance();
+
+    direction.normalize();
+
+    POGEL::POINT point = refpoint - start;
+
+    float dist = direction.dotproduct(point);
+
+    if(dist < 0.0f)
+    {
+        closest = start;
+    }
+    else if(dist > length)
+    {
+        closest = end;
+    }
+    else
+    {
+        closest = start+(direction*dist);
+    }
+
+    if(pol)
+    {
+        *pol = closest;
+    }
+
+    return refpoint.distance(closest);
+}
 
 // this is a brute force and direct way
-float POGEL::PHYSICS::point_triangle_distance(POGEL::POINT point, POGEL::TRIANGLE triangle, POGEL::POINT* pol) {
+float POGEL::PHYSICS::point_triangle_distance_BRUTE(POGEL::POINT point, POGEL::TRIANGLE triangle, POGEL::POINT* pol) {
 
 	POGEL::POINT pointtmp1 = point;
 	POGEL::POINT res2d, res3d;
@@ -286,6 +346,62 @@ float POGEL::PHYSICS::point_triangle_distance(POGEL::POINT point, POGEL::TRIANGL
 
 	return point.distance(triangle.middle());
 };
+
+float POGEL::PHYSICS::point_triangle_distance(POGEL::POINT point, POGEL::TRIANGLE triangle, POGEL::POINT* pol)
+{
+    POGEL::POINT res2d, res3d;
+
+    POGEL::POINT pointtmp = triangle.normal*triangle.middle().distance(point);
+    pointtmp *= triangle.isinfront(point) ? -1.0f : 1.0f;
+    pointtmp += point;
+
+    bool col = POGEL::PHYSICS::line_triangle_collision(
+        point,
+        pointtmp,
+        triangle,
+        &res2d,
+        &res3d
+    );
+
+    if(col)
+    {
+        if(pol)
+        {
+            *pol = res3d;
+        }
+        return res2d.z;
+    }
+
+    float distance;
+    POGEL::POINT tmppol;
+    float bestdistance = 0.0f;
+
+    for(unsigned int i = 0; i < 3; i++)
+    {
+        distance = POGEL::PHYSICS::line_point_distance(point, triangle.getEdge(i), &tmppol);
+        if(i)
+        {
+            if(distance < bestdistance)
+            {
+                bestdistance = distance;
+                if(pol)
+                {
+                    *pol = tmppol;
+                }
+            }
+        }
+        else
+        {
+            bestdistance = distance;
+            if(pol)
+            {
+                *pol = tmppol;
+            }
+        }
+    }
+
+    return bestdistance;
+}
 
 inline float POGEL::PHYSICS::getvprime(float m1, float m2, float v1, float v2) {
 	return ( v1 * (m1-m2) + (2.0f*m2*v2) ) / (m1+m2);
@@ -356,13 +472,14 @@ inline float POGEL::PHYSICS::getvf(float m1, float m2, float v1, float v2, float
 	return ( (cr*m2) * (v2-v1) + (m1*v1) + (m2*v2) ) / (m1+m2);
 };
 
-void POGEL::PHYSICS::calcInelasticDirections(POGEL::VECTOR vn, POGEL::PHYSICS::SOLID* s1, POGEL::PHYSICS::SOLID* s2, POGEL::VECTOR* v) {
+void POGEL::PHYSICS::calcInelasticDirections(POGEL::VECTOR vn, POGEL::PHYSICS::SOLID* s1, POGEL::PHYSICS::SOLID* s2, POGEL::VECTOR* v)
+{
 
 	// these next two lines of code are to compensate for a weard bug, that when the bounce of a solid object that is PHYSICS_SOLID_CONVEX, is 4, and the other objects bounce is 1, that then it is as if both were set to 1.
-	float b1 = s1->behavior.bounce *(s1->hasOption(PHYSICS_SOLID_CONCAVE) && s1->hasOption(PHYSICS_SOLID_SPHERE) ? 1 : 1);
-	float b2 = s2->behavior.bounce *(s2->hasOption(PHYSICS_SOLID_CONCAVE) && s2->hasOption(PHYSICS_SOLID_SPHERE) ? 1 : 1);
+	float b1 = s1->behavior.bounce;// *(s1->hasOption(PHYSICS_SOLID_CONCAVE) && s1->hasOption(PHYSICS_SOLID_SPHERE) ? 1 : 1);
+	float b2 = s2->behavior.bounce;// *(s2->hasOption(PHYSICS_SOLID_CONCAVE) && s2->hasOption(PHYSICS_SOLID_SPHERE) ? 1 : 1);
 
-	float cn = (b1+b2)/2;
+	float cn = (b1+b2)/2.0f;
 	float cn1 = cn;
 	float cn2 = cn;
 

@@ -17,6 +17,7 @@ namespace Renderer
                 POGEL::PHYSICS::DYNAMICS* dyn;
                 bool incrementable;
                 bool drawable;
+                bool clearobjects;
             public:
                 Simulation(std::string);
                 Simulation(std::string,POGEL::PHYSICS::SIMULATION*);
@@ -29,6 +30,9 @@ namespace Renderer
                 void* getSim();
                 POGEL::PHYSICS::SOLID* getObject(std::string);
                 std::string getName();
+                bool RequestToClearObjects();
+                bool ClearObjects();
+                bool ShouldClearObjects();
         };
 
         extern ClassList<Simulation*> simulations;

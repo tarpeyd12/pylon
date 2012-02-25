@@ -13,6 +13,7 @@ namespace Renderer
             dyn = NULL;
             incrementable = false;
             drawable = false;
+            clearobjects = false;
             bool in = false;
             for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
                 if(Renderer::Physics::simulations[i] == this)
@@ -32,6 +33,7 @@ namespace Renderer
             name = n;
             incrementable = true;
             drawable = true;
+            clearobjects = false;
             bool in = false;
             for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
                 if(Renderer::Physics::simulations[i] == this)
@@ -51,6 +53,7 @@ namespace Renderer
             name = n;
             incrementable = true;
             drawable = true;
+            clearobjects = false;
             bool in = false;
             for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
                 if(Renderer::Physics::simulations[i] == this)
@@ -66,6 +69,7 @@ namespace Renderer
         {
             incrementable = false;
             drawable = false;
+            clearobjects = false;
             if(sim)
                 delete sim;
             if(dyn)
@@ -100,7 +104,7 @@ namespace Renderer
 
         bool Simulation::inc()
         {
-            return incrementable;
+            return incrementable && !clearobjects;
         }
 
         void* Simulation::getSim()
@@ -112,6 +116,8 @@ namespace Renderer
 
         POGEL::PHYSICS::SOLID* Simulation::getObject(std::string s)
         {
+            if(clearobjects)
+                return NULL;
             if(this->isdyn())
                 return static_cast<POGEL::PHYSICS::DYNAMICS*>(this->getSim())->getSolid((char*)s.c_str());
             else
@@ -122,6 +128,29 @@ namespace Renderer
         std::string Simulation::getName()
         {
             return name;
+        }
+
+        bool Simulation::RequestToClearObjects()
+        {
+            drawable = false;
+            clearobjects = true;
+            return true;
+        }
+
+        bool Simulation::ClearObjects()
+        {
+            if(this->isdyn())
+                static_cast<POGEL::PHYSICS::DYNAMICS*>(this->getSim())->clearAllSolids();
+            else
+                static_cast<POGEL::PHYSICS::SIMULATION*>(this->getSim())->clearAllSolids();
+            drawable = true;
+            clearobjects = false;
+            return true;
+        }
+
+        bool Simulation::ShouldClearObjects()
+        {
+            return clearobjects;
         }
 
         Renderer::Physics::Simulation* getSimulation(std::string name)
@@ -178,6 +207,10 @@ namespace Renderer
                         if(sim->numobjs())
                             sim->increment();
                     }
+                }
+                else if(Renderer::Physics::simulations[i]->ShouldClearObjects())
+                {
+                    Renderer::Physics::simulations[i]->ClearObjects();
                 }
             }
         }

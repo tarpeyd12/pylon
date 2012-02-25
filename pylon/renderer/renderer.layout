@@ -43,11 +43,11 @@
 	<File name="mouse.h" open="0" top="0" tabpos="2">
 		<Cursor position="53" topLine="0" />
 	</File>
-	<File name="physics.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="5512" topLine="148" />
+	<File name="physics.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="3755" topLine="126" />
 	</File>
-	<File name="physics.h" open="0" top="0" tabpos="5">
-		<Cursor position="1207" topLine="15" />
+	<File name="physics.h" open="1" top="0" tabpos="3">
+		<Cursor position="1031" topLine="13" />
 	</File>
 	<File name="quad.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="1314" topLine="19" />

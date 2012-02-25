@@ -67,11 +67,10 @@ namespace pogelInterface
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("s", "Simulation does not exists.");
-        if(sim->isdyn())
-            static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->clearAllSolids();
+        if(sim->RequestToClearObjects())
+            return Py_BuildValue("s", "Simulation will be cleared next incrimentation.");
         else
-            static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->clearAllSolids();
-        return Py_BuildValue("s", "Cleared simulation.");
+            return Py_BuildValue("s", "Failed to clear simulation.");
     }
 
     Object* setsimulationgravity_3f(Object* self, Object* args)

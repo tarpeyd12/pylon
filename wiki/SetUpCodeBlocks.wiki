@@ -1,4 +1,5 @@
 #summary how to setup the code::blocks compiler for pylon compilation under windows.
+#labels Featured,Phase-Implementation
 
 = Introduction =
 
@@ -10,7 +11,7 @@
  # in the variable '`python`' the sections should be as follows:
    * *base* to "`C:\Python27`"
    * *include* to "`C:\Python27\include`"
-   * *lib* to "`C:\Python27\lib`"
+   * *lib* to "`C:\Python27\libs`"
    * *lflags* to "`python27`"
    it should look like this:
     http://pylon.googlecode.com/svn/wiki/images/pylon_setup_2_python.JPG

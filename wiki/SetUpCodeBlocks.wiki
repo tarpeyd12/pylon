@@ -1,7 +1,7 @@
 #summary how to setup the code::blocks compiler for pylon compilation under windows.
 #labels Featured,Phase-Implementation
 
-= Introduction =
+= Setting up Code::Blocks to develop Pylon =
 
  # Install Code::Blocks in the usual way.
  # when that is finished, do no open pylon. open the C::B IDE then go to "Settings" -> "Global Variables ..."
@@ -40,3 +40,6 @@
    * *include* to "`C:\Program Files\CodeBlocks\MinGW\include`"
    * *lib* to "`C:\Program Files\CodeBlocks\MinGW\lib`"
    * *lflags* to "`glut32`"
+
+== Troubleshooting ==
+ * Step 3 may be an issue, and is not really needed, so it is fine to ignore it.

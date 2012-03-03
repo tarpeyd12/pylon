@@ -26,13 +26,17 @@ class Quad:
 		self.x2 = x_2
 		self.y2 = y_2
 		self.image = im
+		self.properties = 0
 		self.quadID = -5
 		if(self.visable == True):
 			self.makeVisable()
-
+	
+	def setproperties(self,p):
+		self.properties = p
+	
 	def makeVisable(self):
 		if(self.quadID < 0):
-			idtmp = pylon.addquad(self.x1,self.y1,self.x2,self.y2,self.image)
+			idtmp = pylon.addquadi(self.x1,self.y1,self.x2,self.y2,self.image,self.properties)
 			if(idtmp >= 0):
 				self.quadID = idtmp
 				self.visable = True
@@ -69,6 +73,6 @@ class Quad:
 	def update(self):
 		idtmp = -2
 		if self.visable:
-			idtmp = pylon.updatequad(self.x1,self.y1,self.x2,self.y2,self.image,self.quadID)
+			idtmp = pylon.updatequadi(self.x1,self.y1,self.x2,self.y2,self.image,self.properties,self.quadID)
 		return idtmp
 

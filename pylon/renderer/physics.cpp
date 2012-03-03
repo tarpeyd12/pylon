@@ -199,13 +199,17 @@ namespace Renderer
                     {
                         POGEL::PHYSICS::DYNAMICS* sim = static_cast<POGEL::PHYSICS::DYNAMICS*>(vp_sim);
                         if(sim->numobjs())
+                        {
                             sim->increment();
+                        }
                     }
                     else
                     {
                         POGEL::PHYSICS::SIMULATION* sim = static_cast<POGEL::PHYSICS::SIMULATION*>(vp_sim);
                         if(sim->numobjs())
+                        {
                             sim->increment();
+                        }
                     }
                 }
                 else if(Renderer::Physics::simulations[i]->ShouldClearObjects())

@@ -36,6 +36,9 @@ GLuint POGEL::VIEW::build() {
 	data = (char*)new GLuint[((sizeX * sizeY)* 4 * sizeof(char))];
 	memset(data,'\0',((sizeX * sizeY)* 4 * sizeof(char)));
 
+	// release old texture
+	if(glIsTexture(base) == GL_TRUE)
+		glDeleteTextures(1,&base);
 	// Create Texture
 	glGenTextures(1, &base);
 	glBindTexture(GL_TEXTURE_2D, base);
@@ -88,15 +91,14 @@ void POGEL::VIEW::startrender() {
 	#endif
 };
 
-
 unsigned int POGEL::VIEW::endrender() {
 	#ifdef OPENGL
 	if(!hasproperty(VIEW_NORESET)) {
-		glBindTexture(GL_TEXTURE_2D,base);			// Bind To The Texture
+		// Bind To The Texture
+		glBindTexture(GL_TEXTURE_2D,base);
 
 		// Copy Our ViewPort To The Texture (From 0,0 To sizeX,sizeY... No Border)
 		glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, viewportX, viewportY, sizeX, sizeY, 0);
-
 
 		POGEL::VIEW::resetscreen();
 	}
@@ -107,10 +109,13 @@ unsigned int POGEL::VIEW::endrender() {
 
 void POGEL::VIEW::resetscreen() {
 	#ifdef OPENGL
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		// Clear The Screen And The Depth Buffer
-	glLoadIdentity();				// Reset The View
+	// Clear The Screen And The Depth Buffer
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	// Reset The View
+	glLoadIdentity();
 
-	glViewport(0, 0, *screensizeX ,*screensizeY);					// Set Viewport to what it *should* be
+	// Set Viewport to what it *should* be
+	glViewport(0, 0, *screensizeX ,*screensizeY);
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();

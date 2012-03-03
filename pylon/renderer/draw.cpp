@@ -15,8 +15,14 @@ namespace Renderer
         {
             POGEL::VECTOR refpos = globalTempRefpos;
             POGEL::VECTOR av((*a)->position), bv((*b)->position);
-            if( av.dotproduct(refpos) < bv.dotproduct(refpos) )
+            float adiff = (*a)->getbounding().maxdistance;
+            float bdiff = (*b)->getbounding().maxdistance;
+            float ar = av.dotproduct(refpos);
+            float br = bv.dotproduct(refpos);
+            if( ar-adiff < br-bdiff )
+            {
                 return -1;
+            }
             return 1;
         }
 
@@ -26,7 +32,9 @@ namespace Renderer
             float ar = POGEL::VECTOR(a->middle()+globalTempCampos).dotproduct(refpos);
             float br = POGEL::VECTOR(b->middle()+globalTempCampos).dotproduct(refpos);
             if(ar < br)
+            {
                 return -1;
+            }
             return 1;
         }
 
@@ -46,8 +54,13 @@ namespace Renderer
             {
                 POGEL::PHYSICS::SOLID* obj = sim->objs(i);
 
+                if(!obj->visable)
+                {
+                    continue;
+                }
+
                 float objradius = obj->getbounding().maxdistance;
-                float dst = refpos.dotproduct(obj->position + campos);
+                float dst = refpos.dotproduct(campos + obj->position);
 
                 // if the object is in fornt of the camera
                 if( dst-objradius < 0.0f )
@@ -60,13 +73,13 @@ namespace Renderer
                         continue;
                     }
 
-                    float dst2 = obj->position.distance(invcampos)-objradius;
+                    float dst2 = campos.distance(obj->position);
 
                     // if object is closer than 100 times its diamiter, recomend for sorting
-                    if(dst2 < 100.0f*objradius*2.0f)
+                    if(dst2-objradius < 100.0f*objradius*2.0f)
                         closelist += obj;
                     // otherwise if object is closer than 250 times its diamiter, just draw it
-                    else if(dst2 < 250.0f*objradius*2.0f)
+                    else if(dst2-objradius < 250.0f*objradius*2.0f)
                         obj->draw();
                     // otherwise if POGEL wants to draw center positions, do so.
                     else if(label)
@@ -109,24 +122,29 @@ namespace Renderer
             {
                 POGEL::PHYSICS::SOLID* obj = closelist[i];
                 float objradius = obj->getbounding().maxdistance;
-                if( /*trilist.length() >= 50 ||*/ (!obj->hasproperty(OBJECT_SORT_TRIANGLES) ))//&& objradius < 10.0f) )
+                if( /*trilist.length() >= 50 ||*/ (!obj->hasproperty(OBJECT_SORT_TRIANGLES) ) )//&& objradius < 10.0f) )
                 {
                     obj->draw();
                 }
                 else
                 {
+                    unsigned int p = obj->getproperties();
+                    obj->addproperty(OBJECT_DRAW_NOFACES);
+                    obj->draw();
+                    obj->setproperties(p);
                     unsigned int numfaces = obj->getnumfaces();
                     POGEL::TRIANGLE* tritmplst = new POGEL::TRIANGLE[numfaces];
+                    POGEL::POINT refpos2 = campos + obj->position;
                     unsigned int len = 0;
                     for(unsigned int t = 0; t < numfaces; t++)
                     {
                         POGEL::TRIANGLE tri = obj->gettransformedtriangle(t);
                         POGEL::POINT trimiddle = tri.middle();
-                        if( refpos.dotproduct(trimiddle + campos) < 0.0 )
+                        if( refpos.dotproduct(trimiddle + refpos2) < 0.0f )
                         {
-                            if( tri.hasproperty(TRIANGLE_DOUBLESIDED) || tri.isinfront(campos) )
+                            if( tri.hasproperty(TRIANGLE_DOUBLESIDED) || tri.isinfront(refpos2) )
                             {
-                                if( trimiddle.distance(invcampos) < objradius*50.0*2.0 )
+                                if( ( tri.hasproperty(TRIANGLE_TRANSPARENT) || tri.isClear() ) && trimiddle.distance(campos) < objradius*50.0*2.0 )
                                 {
                                     tritmplst[len++] = tri;
                                 }
@@ -205,7 +223,7 @@ namespace Renderer
                 {
                     POGEL::TRIANGLE tri = obj->gettransformedtriangle(t);
                     if( refpos.dotproduct(tri.middle() + campos) < 0.0 )
-                        if(tri.hasproperty(TRIANGLE_DOUBLESIDED) || tri.isinfront(campos) )
+                        if( (tri.hasproperty(TRIANGLE_DOUBLESIDED) || tri.isinfront(campos)) && tri.isClear() )
                             tritmplst[len++] = tri;
                 }
                 if(len)

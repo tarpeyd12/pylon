@@ -9,7 +9,7 @@ namespace Main
         cout << "Pylon." << VersionString << endl;
         cout << "  Pogel."          << std::string(PogelAutoVersion::_FULLVERSION_STRING)          + "." + std::string(PogelAutoVersion::_STATUS_SHORT)          << endl;
         cout << "  FileLoader."     << std::string(FileLoaderAutoVersion::_FULLVERSION_STRING)     + "." + std::string(FileLoaderAutoVersion::_STATUS_SHORT)     << endl;
-        cout << "  ScriptEngine."   << std::string(ScriptEngineAutoVersion::FULLVERSION_STRING)    + "." + std::string(ScriptEngineAutoVersion::STATUS_SHORT)    << endl;
+        cout << "  ScriptEngine."   << std::string(ScriptEngineAutoVersion::_FULLVERSION_STRING)    + "." + std::string(ScriptEngineAutoVersion::_STATUS_SHORT)    << endl;
         cout << "  Renderer."       << std::string(RendererAutoVersion::_FULLVERSION_STRING)       + "." + std::string(RendererAutoVersion::_STATUS_SHORT)       << endl;
         cout << "  Threads."        << std::string(ThreadsAutoVersion::_FULLVERSION_STRING)        + "." + std::string(ThreadsAutoVersion::_STATUS_SHORT)        << endl;
         cout << "  pogelInterface." << std::string(pogelInterfaceAutoVersion::_FULLVERSION_STRING) + "." + std::string(pogelInterfaceAutoVersion::_STATUS_SHORT) << endl;

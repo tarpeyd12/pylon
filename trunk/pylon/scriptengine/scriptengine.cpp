@@ -4,6 +4,8 @@ namespace ScriptEngine
 {
     bool started;
 
+    PyThreadState * mainState;
+
     namespace MethodInterface
     {
         const unsigned int OldArgs = METH_OLDARGS;
@@ -22,14 +24,19 @@ namespace ScriptEngine
 
     void Begin()
     {
-        //started = true;
         Py_Initialize();
+        PyEval_InitThreads();
+        mainState = PyThreadState_Swap(NULL);
+        PyThreadState_Swap(mainState);
+        PyEval_ReleaseLock();
         started = ScriptEngine::HasBegun();
     }
 
     void End()
     {
-        //started = false;
+        PyEval_AcquireLock();
+        PyThreadState_Swap(mainState);
+        PyEval_ReleaseLock();
         Py_Finalize();
         started = ScriptEngine::HasBegun();
     }
@@ -37,7 +44,6 @@ namespace ScriptEngine
     bool HasBegun()
     {
         return (bool)Py_IsInitialized();
-        //return started;
     }
 
     void Initialize()

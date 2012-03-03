@@ -5,33 +5,68 @@ using namespace ScriptEngine::MethodInterface;
 namespace pogelInterface
 {
 
-    Object* addquad(Object* self, Object* args)
+    Object* addquadi(Object* self, Object* args)
     {
         int corners[4];
         char* c_image;
-        if(!PyArg_ParseTuple(args, "iiiis:addquad", &corners[0], &corners[1], &corners[2], &corners[3], &c_image))
+        unsigned int p;
+        if(!PyArg_ParseTuple(args, "iiiisi:addquad", &corners[0], &corners[1], &corners[2], &corners[3], &c_image, &p))
             return NULL;
         POGEL::IMAGE* image = POGEL::requestImage(std::string(c_image));
-        Renderer::Quad* quad = new Renderer::Quad(corners[0], corners[1], corners[2], corners[3], image);
+        Renderer::Quad* quad = new Renderer::Quad(corners[0], corners[1], corners[2], corners[3], image, p);
         int ret = Renderer::HUD::addQuad(quad);
         if(ret < 0)
         {
             delete quad;
-            //return Py_BuildValue("s", "Unable to add Quad to HUD.");
         }
-        //return Py_BuildValue("s", "Added Quad to HUD.");
         return Py_BuildValue("i",ret);
     }
 
-    Object* updatequad(Object* self, Object* args)
+    Object* addquadf(Object* self, Object* args)
+    {
+        float corners[4];
+        char* c_image;
+        unsigned int p;
+        if(!PyArg_ParseTuple(args, "ffffsi:addquad", &corners[0], &corners[1], &corners[2], &corners[3], &c_image, &p))
+            return NULL;
+        POGEL::IMAGE* image = POGEL::requestImage(std::string(c_image));
+        Renderer::Quad* quad = new Renderer::Quad(corners[0], corners[1], corners[2], corners[3], image, p);
+        int ret = Renderer::HUD::addQuad(quad);
+        if(ret < 0)
+        {
+            delete quad;
+        }
+        return Py_BuildValue("i",ret);
+    }
+
+    Object* updatequadi(Object* self, Object* args)
     {
         int corners[4];
         char* c_image;
+        unsigned int p;
         int quadID = -5;
-        if(!PyArg_ParseTuple(args, "iiiisi:updatequad", &corners[0], &corners[1], &corners[2], &corners[3], &c_image, &quadID))
+        if(!PyArg_ParseTuple(args, "iiiisii:updatequad", &corners[0], &corners[1], &corners[2], &corners[3], &c_image, &p, &quadID))
             return NULL;
         POGEL::IMAGE* image = POGEL::requestImage(std::string(c_image));
-        Renderer::Quad* quad = new Renderer::Quad(corners[0], corners[1], corners[2], corners[3], image);
+        Renderer::Quad* quad = new Renderer::Quad(corners[0], corners[1], corners[2], corners[3], image, p);
+        int ret = Renderer::HUD::updateQuad(quad, quadID);
+        if(ret < 0)
+        {
+            delete quad;
+        }
+        return Py_BuildValue("i",ret);
+    }
+
+    Object* updatequadf(Object* self, Object* args)
+    {
+        float corners[4];
+        char* c_image;
+        unsigned int p;
+        int quadID = -5;
+        if(!PyArg_ParseTuple(args, "ffffsii:updatequad", &corners[0], &corners[1], &corners[2], &corners[3], &c_image, &p, &quadID))
+            return NULL;
+        POGEL::IMAGE* image = POGEL::requestImage(std::string(c_image));
+        Renderer::Quad* quad = new Renderer::Quad(corners[0], corners[1], corners[2], corners[3], image, p);
         int ret = Renderer::HUD::updateQuad(quad, quadID);
         if(ret < 0)
         {

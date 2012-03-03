@@ -82,7 +82,7 @@ namespace Main
             return Py_BuildValue("s", FileLoaderAutoVersion::_FULLVERSION_STRING);
         else
         if(!pname.compare("scriptengine"))
-            return Py_BuildValue("s", ScriptEngineAutoVersion::FULLVERSION_STRING);
+            return Py_BuildValue("s", ScriptEngineAutoVersion::_FULLVERSION_STRING);
         else
         if(!pname.compare("renderer"))
             return Py_BuildValue("s", RendererAutoVersion::_FULLVERSION_STRING);

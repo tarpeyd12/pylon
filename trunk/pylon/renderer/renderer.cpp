@@ -34,6 +34,10 @@ namespace Renderer
 
     void Idle()
     {
+        if( POGEL::frames > 1 )
+            Renderer::BuildImages();
+        else
+            Renderer::BuildAllImages();
         glutPostRedisplay();
         //cout << "Idle at frame: " << POGEL::frames << endl;
     }

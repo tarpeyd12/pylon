@@ -2,6 +2,7 @@
 #define QUAD_H_INCLUDED
 
 #include "../pogel/pogel.h"
+#include "../lists/lists.h"
 
 namespace Renderer
 {
@@ -11,13 +12,18 @@ namespace Renderer
             //POGEL::TRIANGLE triangles[2];
             POGEL::IMAGE *image;
             POGEL::VERTEX verticies[4];
-            CLASSLIST<Renderer::Quad*> *children;
+            unsigned int properties;
+            ClassList<Renderer::Quad*> *children;
         public:
 
             Quad();
             Quad(int,int,int,int,POGEL::IMAGE*);
-            //Quad(float,float,float,float,POGEL::IMAGE*);
+            Quad(int,int,int,int,POGEL::IMAGE*,unsigned int);
+            Quad(float,float,float,float,POGEL::IMAGE*);
+            Quad(float,float,float,float,POGEL::IMAGE*,unsigned int);
             ~Quad();
+
+            PROPERTIES_METHODS;
 
             void set(Renderer::Quad*);
 

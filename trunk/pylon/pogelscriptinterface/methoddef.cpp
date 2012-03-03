@@ -69,8 +69,10 @@ namespace pogelInterface
         { "requestfile_ar",     (CFunction)requestfile_ar,    VarArgs, NULL },
         { "requestfile",        (CFunction)requestfile,       VarArgs, NULL },
         // HUD controll
-        { "addquad",            (CFunction)addquad,           VarArgs, NULL },
-        { "updatequad",         (CFunction)updatequad,        VarArgs, NULL },
+        { "addquadi",           (CFunction)addquadi,          VarArgs, NULL },
+        { "addquadf",           (CFunction)addquadf,          VarArgs, NULL },
+        { "updatequadi",        (CFunction)updatequadi,       VarArgs, NULL },
+        { "updatequadf",        (CFunction)updatequadf,       VarArgs, NULL },
         { "removequad",         (CFunction)removequad,        VarArgs, NULL },
         { "clearquads",         (CFunction)clearquads,        VarArgs, NULL },
         { "maxquads",           (CFunction)maxquads,          VarArgs, NULL },
@@ -81,6 +83,6 @@ namespace pogelInterface
     void Init()
     {
         Add("pylon", pogelMethods);
-        //ScriptEngine::Execute("import pogel\n");
+        //ScriptEngine::Execute("import pylon\n");
     }
 }

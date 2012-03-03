@@ -156,6 +156,7 @@ POGEL::TRIANGLE POGEL::TRIANGLE::transform(POGEL::MATRIX* m)
     POGEL::TRIANGLE t(vertex, texture, properties);
     m->transformTriangle(&t);
     t.makebounding();
+    usetrimid = false;
     return t;
 }
 

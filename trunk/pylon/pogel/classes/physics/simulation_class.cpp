@@ -18,12 +18,12 @@ void POGEL::PHYSICS::SIMULATION::buildot()
         }
     #endif
     #ifdef OPENGL
-        glLineWidth(2);
         if(POGEL::hasproperty(POGEL_BOUNDING) && POGEL::hasproperty(POGEL_ANCESTORY))
         {
+            glLineWidth(2);
             ot->draw();
+            glLineWidth(1);
         }
-    glLineWidth(1);
     #endif
 }
 

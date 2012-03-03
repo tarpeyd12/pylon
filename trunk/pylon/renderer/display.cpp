@@ -57,7 +57,6 @@ namespace Renderer
         Renderer::Draw::Draw();
         //Renderer::Draw::PerfectDraw();
 
-
         Renderer::Window::toOrtho();
 
         glEnable( GL_BLEND );
@@ -75,11 +74,6 @@ namespace Renderer
         glutSwapBuffers();
 
         Renderer::Window::toFrustum();
-
-        if( POGEL::frames > 1 )
-            Renderer::BuildImages();
-        else
-            Renderer::BuildAllImages();
 
         if(!Renderer::drawLock)
             Renderer::timer30->sleep();

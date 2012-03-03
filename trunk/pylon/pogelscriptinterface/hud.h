@@ -9,9 +9,11 @@ using namespace ScriptEngine::MethodInterface;
 
 namespace pogelInterface
 {
-    Object* addquad(Object*,Object*);
+    Object* addquadi(Object*,Object*);
+    Object* addquadf(Object*,Object*);
+    Object* updatequadi(Object*,Object*);
+    Object* updatequadf(Object*,Object*);
     Object* removequad(Object*,Object*);
-    Object* updatequad(Object*,Object*);
     Object* clearquads(Object*,Object*);
     Object* maxquads(Object*,Object*);
     Object* checkquad(Object*,Object*);

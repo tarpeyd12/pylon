@@ -37,6 +37,12 @@ void POGEL::setNullImage(std::string img)
     NullImage = POGEL::requestImage(img);
 }
 
+unsigned int POGEL::addImage(POGEL::IMAGE* img)
+{
+    imageList += img;
+    return imageList.length()-1;
+}
+
 POGEL::IMAGE* POGEL::requestImage(std::string s)
 {
     if(
@@ -49,16 +55,16 @@ POGEL::IMAGE* POGEL::requestImage(std::string s)
     {
         return POGEL::getNullImage();
     }
+    POGEL::IMAGE* tmp = new POGEL::IMAGE(s,false);
     for(unsigned int i = 0; i < imageList.length(); i++)
     {
-        POGEL::IMAGE* tmp = new POGEL::IMAGE(s,false);
         if(tmp->compare(imageList[i]))
         {
             delete tmp;
             return imageList[i];
         }
-        delete tmp;
     }
+    delete tmp;
     cout << "new Image: " << s << endl;
     imageList.add(new POGEL::IMAGE(s,true));
     return imageList.last();

@@ -86,9 +86,9 @@ namespace Renderer
                 return removeQuad(quadIndex);
                 //return -3;
             }
-            quadDeletionQueue[lastQuadDeletionQueue] = quadIndex;
+            quadDeletionQueue[lastQuadDeletionQueue++] = quadIndex;
             //return 0; // ok
-            return lastQuadDeletionQueue++;
+            return lastQuadDeletionQueue;
         }
 
         int checkQuad(unsigned int quadIndex)

@@ -1,3 +1,5 @@
+#include <typeinfo>
+
 #include "renderer.h"
 
 #ifdef _POSIX_C_SOURCE
@@ -44,11 +46,17 @@ namespace Renderer
 
     void BuildImage(unsigned int i)
     {
-        if( i >= POGEL::imglstlen() || !POGEL::lstimg(i) || POGEL::lstimg(i)->isbuilt() )
+        if( i >= POGEL::imglstlen() || !POGEL::lstimg(i) )
             return;
 
         POGEL::IMAGE* image = POGEL::lstimg(i);
         std::string fileid = image->getFileID();
+        if(typeid(Renderer::SubRenderer*) == typeid(image) || fileid.compare("SubRenderer")==0)
+        {
+            return;
+        }
+        if( POGEL::lstimg(i)->isbuilt() )
+            return;
         bool fileexists = FileLoader::checkfile( fileid );
         if( !fileexists )
         {
@@ -81,6 +89,16 @@ namespace Renderer
     {
         for(unsigned int i = 0; i < POGEL::imglstlen(); i++)
             BuildImage( i );
+    }
+
+    POGEL::IMAGE* requestImage(std::string s)
+    {
+        Renderer::SubRenderer* subrend = Renderer::requestSubRenderer(s);
+        if(subrend == NULL)
+        {
+            return POGEL::requestImage(s);
+        }
+        return (POGEL::IMAGE*)subrend;
     }
 
 }

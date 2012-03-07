@@ -53,7 +53,7 @@ namespace Renderer
             float light_ambient[4]  = { ambient.r, ambient.g, ambient.b, ambient.a };
             float light_diffuse[4]  = { diffuse.r, diffuse.g, diffuse.b, diffuse.a };
             float light_specular[4] = { specular.r, specular.g, specular.b, specular.a };
-            float light_position[4] = { position.x, position.y, position.z, 0.0f };
+            float light_position[4] = { position.x, position.y, position.z, 1.0f };
 
             glLightfv(glLight(lightNumber), GL_AMBIENT,  light_ambient);
             glLightfv(glLight(lightNumber), GL_DIFFUSE,  light_diffuse);

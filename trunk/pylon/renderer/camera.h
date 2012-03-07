@@ -1,14 +1,25 @@
-#ifndef CAMERA_H_INCLUDED
-#define CAMERA_H_INCLUDED
+#ifndef RENDERER_CAMERA_H_INCLUDED
+#define RENDERER_CAMERA_H_INCLUDED
 
-#ifndef RENDERER_H_INCLUDED
-#include "renderer.h"
-#endif // RENDERER_H_INCLUDED
+#include "../pogel/pogel.h"
 
 namespace Renderer
 {
     namespace Camera
     {
+        class Viewpoint
+        {
+            public:
+                POGEL::POINT rotation;
+                POGEL::POINT position;
+
+                Viewpoint();
+                Viewpoint(POGEL::POINT,POGEL::POINT);
+
+                void set();
+                POGEL::VECTOR GetCamDirection();
+        };
+
         extern POGEL::POINT camrot;
         extern POGEL::POINT prot;
         extern POGEL::POINT campos;
@@ -18,4 +29,4 @@ namespace Renderer
     }
 }
 
-#endif // CAMERA_H_INCLUDED
+#endif // RENDERER_CAMERA_H_INCLUDED

@@ -121,6 +121,8 @@
 		<Unit filename="shapes.h" />
 		<Unit filename="simulation.cpp" />
 		<Unit filename="simulation.h" />
+		<Unit filename="subrender.cpp" />
+		<Unit filename="subrender.h" />
 		<Unit filename="version.h" />
 		<Extensions>
 			<envvars />

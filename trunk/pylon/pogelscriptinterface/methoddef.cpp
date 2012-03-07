@@ -77,6 +77,14 @@ namespace pogelInterface
         { "clearquads",         (CFunction)clearquads,        VarArgs, NULL },
         { "maxquads",           (CFunction)maxquads,          VarArgs, NULL },
         { "checkquad",          (CFunction)checkquad,         VarArgs, NULL },
+        // SubRender controll
+        { "subrender_new",         (CFunction)subrender_new,         VarArgs, NULL },
+        { "subrender_bind_sim",    (CFunction)subrender_bind_sim,    VarArgs, NULL },
+        { "subrender_release_sim", (CFunction)subrender_release_sim, VarArgs, NULL },
+        { "subrender_release_all", (CFunction)subrender_release_all, VarArgs, NULL },
+        { "subrender_set_light",   (CFunction)subrender_set_light,   VarArgs, NULL },
+        { "subrender_set_cam",     (CFunction)subrender_set_cam,     VarArgs, NULL },
+        { "subrender_set_ratio",   (CFunction)subrender_set_ratio,   VarArgs, NULL },
         { NULL }
     };
 

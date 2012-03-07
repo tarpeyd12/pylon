@@ -34,6 +34,10 @@ namespace Renderer
         if(Renderer::drawLock)
             return;
 
+        Renderer::RenderAllSubRenderers();
+
+        glClearColor(.5,.5,.5,.5);
+
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
 
@@ -64,10 +68,10 @@ namespace Renderer
         //glEnable( GL_ALPHA_TEST );
         //glAlphaFunc( GL_GREATER, 0.5f );
 
-        Renderer::HUD::updateQuadCycle();
         Renderer::HUD::removeQuadCycle();
         Renderer::HUD::addQuadCycle();
         Renderer::HUD::clearQuadsCycle();
+        Renderer::HUD::updateQuadCycle();
 
         Renderer::HUD::draw();
 

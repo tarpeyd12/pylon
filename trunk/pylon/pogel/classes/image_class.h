@@ -20,10 +20,10 @@ namespace POGEL
     POGEL::IMAGE* getNullImage();
     void setNullImage(std::string);
 
+    unsigned int addImage(POGEL::IMAGE*);
     POGEL::IMAGE* requestImage(std::string);
     unsigned int imglstlen();
     POGEL::IMAGE* lstimg(unsigned int);
-
 
     class IMAGE {
         protected:

@@ -98,44 +98,42 @@ sphere0 = sim2.obj("sphere0")
 # create collidable simulation 'sim'
 sim = Simulation("sim",True)
 
-if False:
-	loop = 0
-	loopmax = 500
-	mass = 5
-	maxrad = 1
-	minrad = 0.5
-	while loop < loopmax:
-		loop += 1
-		# position
-		rad = random.random()*(minrad+maxrad)/2+minrad
-		p1 = rnd_n1p1()*3.14159*2
-		p2 = rnd_n1p1()*3.14159*2
-		vect1 = makepos(math.sin(p1)*rad,math.cos(p1)*rad,0)
-		# Rotation
-		vect2 = makepos(0,0,0)
-		# Direction
-		spd = ((mass*loopmax)/(rad*rad)/1000)/1000
-		vect3 = makepos(math.sin(p1+3.14159/2)*spd,math.cos(p1+3.14159/2)*spd,0)
-		# Spin
-		vect4 = makepos(0,0,0)
-		newobjdat = '{[obj'+str(loop)+'],[22],[136],[0],[0],'+vect1+','+vect2+','+vect3+','+vect4+',{[1.000000],[0.000000],['+str(mass)+'],[1.000000],[1.000000],[1.000000],[0],[-1.000000]},<'+objtridat+'>}'
-		print sim2.addobject(newobjdat)
-	#sim2.stop()
-
-print pylon.setsimulationcollitters(sim2.name,2)
-
-cam.radus = 2
-
-def makeObjectString(vect1,vect2,vect3,vect4,name,p1,p2,mass,tridat):
-	return '{['+str(name)+'],['+str(p1)+'],['+str(p2)+'],[0],[0],'+vect1+','+vect2+','+vect3+','+vect4+',{[0.5],[0.25],['+str(float(mass))+'],[1.0],[1.0],[1.0],[0],[-1.0]},<'+tridat+'>}'
-
-TestSphereSim = Simulation("TestSphereSim",True)
-
 zeropos = makepos(0,0,0)
 
 possibleImages = '{[Data/images/earth.bmp],[2]}', '{[Data/images/Glass.bmp],[2]}', '{[Data/images/lava8.bmp],[2]}', '{[Data/images/mandel_2.png],[1]}', '{[Data/images/pogel_runner_galax_color_1.png],[2]}', '{[Data/images/default_2.bmp],[0]}', '{[Data/images/mouse_pointer.png],[0]}'
 possibleTriProps = 8, 8|32, 8, 8, 8, 2, 8|64
 #possibleTriProps = 8, 8, 8, 8, 8, 2, 8
+
+def makeObjectString(vect1,vect2,vect3,vect4,name,p1,p2,mass,tridat):
+	return '{['+str(name)+'],['+str(p1)+'],['+str(p2)+'],[0],[0],'+vect1+','+vect2+','+vect3+','+vect4+',{[0.5],[0.25],['+str(float(mass))+'],[1.0],[1.0],[1.0],[0],[-1.0]},<'+tridat+'>}'
+
+if True:
+	loop = 0
+	loopmax = 10
+	mass = 5
+	maxrad = 1
+	minrad = 0.5
+	numOSpheres = 10
+	while loop < numOSpheres:
+		sc1 = 1.5
+		#rpos = makepos(rnd_n1p1()*sc1*0, float(loop)/5.0+.01-(numOSpheres/5.0/2), rnd_n1p1()*sc1*0)
+		rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1)	
+		rot = makepos(rnd_n1p1()*360,rnd_n1p1()*360,rnd_n1p1()*360)
+		print "\nstart Object"+str(loop)
+		print sim2.addobject( makeObjectString(rpos,rot,zeropos,zeropos,"Object"+str(loop),2|4|16,8,20000,"") )
+		print 'add'
+		rnum = int(random.random()*7)
+		print pylon.object_add_sphere(sim2.name,"Object"+str(loop),.25,10,10,possibleImages[rnum],1,1,possibleTriProps[rnum])
+		print 'ball'
+		print pylon.object_build(sim2.name,"Object"+str(loop))
+		print 'build'
+		loop = loop + 1
+
+print pylon.setsimulationcollitters(sim2.name,1)
+
+cam.radus = 2
+
+TestSphereSim = Simulation("TestSphereSim",True)
 
 loop = 0
 rnum = 0
@@ -163,6 +161,7 @@ while loop < numOSpheres:
 rnum = 5
 print TestSphereSim.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8|64,0,"") )
 print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|16)
+#print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,subrenderer,1,1,possibleTriProps[rnum]|16)
 #if rnum!=6 and not False:
 #print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|32)
 #print pylon.object_add_sphere("TestSphereSim","Outset",2.1,20,20,'{[Data/images/earthcloudmap.png],[2]}',1,1,8|32)
@@ -191,6 +190,18 @@ def doOBJECTrelocate():
 	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1)
 	pylon.object_set_pos_s("TestSphereSim",oname,rpos)
 	pylon.object_set_dir_3f("TestSphereSim",oname,0.025*20,0.15*20,0)
+
+rnum = 3
+print sim2.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8|64,0,"") )
+print pylon.object_add_sphere(sim2.name,"Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|16)
+
+subrenderer1 = pylon.subrender_new("steve",float(pylon.window_width())/float(pylon.window_height()))
+pylon.subrender_bind_sim(subrenderer1, sim2.name)
+
+Bloop = Quad(0,pylon.window_height(),pylon.window_width(),0,subrenderer1,False)
+Bloop.setproperties(32)
+Bloop.makeVisable()
+
 
 waitcalc(1000)
 #TestSphereSim.stop()

@@ -11,8 +11,34 @@ namespace Renderer
 
         POGEL::VECTOR GetCamDirection()
         {
-            POGEL::MATRIX mat(POGEL::POINT(360,360,360)-Renderer::Camera::camrot,MATRIX_CONSTRUCT_ROTATION);
-            POGEL::VECTOR refpos = mat.transformVector(POGEL::VECTOR(0,0,1));
+            POGEL::MATRIX mat(Renderer::Camera::camrot*-1.0f,MATRIX_CONSTRUCT_ROTATION);
+            POGEL::VECTOR refpos = mat.transformVector(POGEL::VECTOR(0.0f,0.0f,-1.0f));
+            return refpos.normal();
+        }
+
+        Viewpoint::Viewpoint()
+        {
+            position = rotation = POGEL::POINT();
+        }
+
+        Viewpoint::Viewpoint(POGEL::POINT pos, POGEL::POINT rot)
+        {
+            position = pos;
+            rotation = rot;
+        }
+
+        void Viewpoint::set()
+        {
+            glRotatef( rotation.x,  1.0f, 0.0f, 0.0f );
+            glRotatef( rotation.y,  0.0f, 1.0f, 0.0f );
+            glRotatef( rotation.z,  0.0f, 0.0f, 1.0f );
+            glTranslatef( position.x, position.y, position.z );
+        }
+
+        POGEL::VECTOR Viewpoint::GetCamDirection()
+        {
+            POGEL::MATRIX mat(rotation*-1.0f,MATRIX_CONSTRUCT_ROTATION);
+            POGEL::VECTOR refpos = mat.transformVector(POGEL::VECTOR(0.0f,0.0f,-1.0f));
             return refpos.normal();
         }
 

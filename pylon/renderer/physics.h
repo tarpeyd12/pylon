@@ -1,9 +1,19 @@
 #ifndef PHYSICS_H_INCLUDED
 #define PHYSICS_H_INCLUDED
 
-#ifndef RENDERER_H_INCLUDED
+#include "../pogel/pogel.h"
+
+namespace Renderer
+{
+    namespace Physics
+    {
+        class Simulation;
+    }
+}
+
+#include "subrenderer.h"
+
 #include "renderer.h"
-#endif // RENDERER_H_INCLUDED
 
 namespace Renderer
 {
@@ -18,12 +28,15 @@ namespace Renderer
                 bool incrementable;
                 bool drawable;
                 bool clearobjects;
+            protected:
+                Renderer::SubRenderer* binding;
             public:
                 Simulation(std::string);
                 Simulation(std::string,POGEL::PHYSICS::SIMULATION*);
                 Simulation(std::string,POGEL::PHYSICS::DYNAMICS*);
                 ~Simulation();
                 void setinc(bool);
+                bool canDrawBound();
                 bool canDraw();
                 bool isdyn();
                 bool inc();
@@ -33,6 +46,8 @@ namespace Renderer
                 bool RequestToClearObjects();
                 bool ClearObjects();
                 bool ShouldClearObjects();
+                void draw();
+                friend class Renderer::SubRenderer;
         };
 
         extern ClassList<Simulation*> simulations;

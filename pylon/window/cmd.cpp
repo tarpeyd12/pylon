@@ -48,6 +48,12 @@ namespace Main
                 Renderer::Timing::noTiming = true;
                 continue;
             }
+            else
+            if( !curarg.compare("-benchmark") || !curarg.compare("-bench") )
+            {
+                Main::SingleThreaded = Renderer::SingleThreaded = Renderer::Timing::noTiming = true;
+                continue;
+            }
             #endif
             else
             if( !curarg.compare("-forcedir") || !curarg.compare("-dir") )

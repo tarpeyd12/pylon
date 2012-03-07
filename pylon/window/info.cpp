@@ -35,6 +35,7 @@ namespace Main
         cout << "    -dnrm                    forces no-removal of data temporaries" << endl;
         cout << "    -usedir [directory]      sets -dir with directory, -dnrm and -usedirdata" << endl;
         cout << "    -nolimit                 unlimits the thread cycleclock" << endl;
+        cout << "    -benchmark               for running benchmark tests, same as setting \"-nolimit\" and \"-forcesingle\"" << endl;
         #endif
         cout << "    -forcesingle             forces a one threaded environment, physics and scripts are in the renderer loop" << endl;
         cout << "    -version                 prints the versions" << endl;

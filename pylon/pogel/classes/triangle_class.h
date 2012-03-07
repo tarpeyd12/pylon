@@ -74,6 +74,8 @@ class TRIANGLE {
         bool isClear();
 
         void draw();
+
+        friend class POGEL::MATRIX;
 };
 }
 

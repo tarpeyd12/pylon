@@ -109,14 +109,16 @@ if pylon.mouse_ispressed():
 	else:
 		ClickLine.update()
 else:
-	if ClickLine.visable:
-		ClickLine.makeInvisable()
+	ClickLine.makeInvisable()
+	ClickLine.makeInvisable()
+	ClickLine.makeInvisable()
+	ClickLine.makeInvisable()
 
 	# Mouse Cursor:
 mouseScale = 1
 if pylon.mouse_ispressed():
 	mouseScale = 1.5
-if pylon.mouse_pos_x() != Mouse.x1+int(4*mouseScale) or pylon.mouse_pos_y() != Mouse.y1+int(6*mouseScale):
+if True or pylon.mouse_pos_x() != Mouse.x1+int(4*mouseScale) or pylon.mouse_pos_y() != Mouse.y1+int(6*mouseScale):
 	Mouse.x1 = pylon.mouse_pos_x() - int(3*mouseScale)
 	Mouse.y1 = pylon.mouse_pos_y() - int(5*mouseScale)
 	Mouse.x2 = Mouse.x1 + int(32*mouseScale)
@@ -124,8 +126,8 @@ if pylon.mouse_pos_x() != Mouse.x1+int(4*mouseScale) or pylon.mouse_pos_y() != M
 	Mouse.update()
 
 # just in case of HUD artifacts clear HUD every 100 script loops
-if(pylon.key_ispressed('/') or int(counter*10) % 100 == 0):
-	pylon.clearquads()
+#if(pylon.key_ispressed('/') or int(counter*10) % 100 == 0):
+#	pylon.clearquads()
 
 # convoluted way to add an object to a simulation
 if pylon.key_ispressed(' ') or pylon.key_ispressed('j'):
@@ -166,6 +168,12 @@ cam.mouserot()
 cam.mousepos()
 cam.centerset()
 cam.getcamstrs()
+
+pylon.subrender_set_cam(subrenderer1, cam.posx,cam.posy,cam.posz, cam.rotx,cam.roty,cam.rotz)
+pylon.subrender_set_ratio(subrenderer1, float(pylon.window_width())/float(pylon.window_height()))
+Bloop.y1 = pylon.window_height()
+Bloop.x2 = pylon.window_width()
+Bloop.update()
 
 # a function defined in init.py for controlling the 'flow' of objects/particles
 doOBJECTrelocate()

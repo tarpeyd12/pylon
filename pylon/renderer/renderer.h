@@ -13,9 +13,7 @@
 #include "../lists/lists.h"
 #include "../fileloader/fileloader.h"
 
-#ifndef TIMER_H_INCLUDED
 #include "timer.h"
-#endif // TIMER_H_INCLUDED
 
 namespace Renderer
 {
@@ -37,17 +35,21 @@ namespace Renderer
     void BuildImage(unsigned int);
     void BuildImages();
     void BuildAllImages();
+
+    POGEL::IMAGE* requestImage(std::string);
 }
 
-#include "draw.h"
 #include "camera.h"
+#include "draw.h"
 #include "mouse.h"
 #include "window.h"
 #include "key.h"
 #include "cmd.h"
-#include "physics.h"
 #include "quad.h"
 #include "hud.h"
 #include "light.h"
+#include "physics.h"
+#include "subrenderer.h"
+
 
 #endif // RENDERER_H_INCLUDED

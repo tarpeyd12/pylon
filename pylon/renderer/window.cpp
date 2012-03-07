@@ -67,6 +67,20 @@ namespace Renderer
 
         void toFrustum()
         {
+            int width = Renderer::Window::Size::width;
+            int height = Renderer::Window::Size::height;
+
+            const float ar = (float) width / (float) height;
+
+            glViewport(0, 0, width, height);
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+
+            gluPerspective(45.0f, ar, 0.01f, 100.0f);
+
+            glMatrixMode(GL_MODELVIEW);
+            glLoadIdentity();
+
             glEnable(GL_DEPTH_TEST);
             glMatrixMode(GL_PROJECTION);
             glPopMatrix();

@@ -5,14 +5,30 @@
 #include <vector>
 using namespace std;
 
-template <typename T>
-class ClassList {
+template < typename DataType, typename ComparisonType >
+class DataWraper
+{
+    public:
+        DataType data;
+        ComparisonType value;
+        DataWraper();
+        DataWraper(DataType d, ComparisonType v);
+};
+
+template < typename T, typename C = int (*)(T* a, T* b) >
+class ClassList
+{
 	private:
 		T *list;
 		unsigned int len;
 		unsigned int overhead;
 		bool sc;
-		int (*sortFunction)(T* a, T* b);
+
+		//typedef int (C::*FredMemFn)(T* a, T* b);
+
+		//int (*sortFunction)(T* a, T* b);
+
+		C sortFunction;
 	protected:
         /// returns the pointer to the actual data array
 		T* getList();
@@ -42,6 +58,9 @@ class ClassList {
         /// adds all the items form the pointer c to the index l past c
 		void add(T *c, unsigned int l);
 
+        ///
+		void replace(unsigned int l, T c);
+
         /// removes an item from the list
 		void remove(unsigned int l);
 
@@ -60,36 +79,37 @@ class ClassList {
 		T operator[] (unsigned int i);
 
         /// sets this list to the other list as quickly as possible, deleting all the list data that is currently stored in the destination list
-		ClassList<T>& operator = (ClassList<T> c);
+		ClassList<T,C>& operator = (ClassList<T,C> c);
 
         /// returns a list that is the same as this one but with item l appedned to the end
-		ClassList<T>  operator + (T l);
+		ClassList<T,C>  operator + (T l);
 		/// appends item l to the end of this list, same as add
-		ClassList<T>& operator+= (T l);
+		ClassList<T,C>& operator+= (T l);
 
         /// retruns a list that is the same as this but with all the items in list l appened to the end
-		ClassList<T>  operator + (ClassList<T> l);
-		ClassList<T>  operator + (ClassList<T> *l);
+		ClassList<T,C>  operator + (ClassList<T,C> l);
+		ClassList<T,C>  operator + (ClassList<T,C> *l);
 		/// appends all items in the list l to this one
-		ClassList<T>& operator+= (ClassList<T> l);
-		ClassList<T>& operator+= (ClassList<T> *l);
+		ClassList<T,C>& operator+= (ClassList<T,C> l);
+		ClassList<T,C>& operator+= (ClassList<T,C> *l);
 
         /// returnes a list that does not have the item in index l
-		ClassList<T>  operator - (unsigned int l);
+		ClassList<T,C>  operator - (unsigned int l);
 		/// removes the item in index l from this list
-		ClassList<T>& operator-= (unsigned int l);
+		ClassList<T,C>& operator-= (unsigned int l);
 
 		/// sets the sorting function
-		void setSortFunc(int (*sortFunc)(T*,T*));
+		void setSortFunc(C sortFunc);
 		/// sorts the list
 		void sort();
 		/// sets the sorting function and then sorts the list
-		void sort(int (*sortFunc)(T*,T*));
+		void sort(C sortFunc);
 		/// searches the list for item ind
 		T* search(T ind);
 		/// sets the sorting function then sorts(for the sorting function might have changed thus cannot search) then searches for item ind
-		T* search(T ind, int (*sortFunc)(T*,T*));
+		T* search(T ind, C sortFunc);
 };
+
 
 #include "classlist_template.cpp"
 

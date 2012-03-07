@@ -95,13 +95,16 @@
 		<Cursor position="274" topLine="0" />
 	</File>
 	<File name="classes/triangle_class.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="8996" topLine="351" />
+		<Cursor position="4528" topLine="162" />
 	</File>
 	<File name="classes/triangle_class.h" open="0" top="0" tabpos="3">
 		<Cursor position="384" topLine="2" />
 	</File>
 	<File name="classes/view_class.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="1583" topLine="39" />
+	</File>
+	<File name="classes/view_class.h" open="0" top="0" tabpos="0">
+		<Cursor position="1483" topLine="39" />
 	</File>
 	<File name="pogel.cpp" open="0" top="0" tabpos="10">
 		<Cursor position="10000" topLine="273" />

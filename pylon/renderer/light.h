@@ -1,11 +1,7 @@
 #ifndef RENDERER_LIGHT_H_INCLUDED
 #define RENDERER_LIGHT_H_INCLUDED
 
-#ifndef RENDERER_H_INCLUDED
-#include "renderer.h"
-#endif
-
-//#include "../pogel/pogel.h"
+#include "../pogel/pogel.h"
 
 #define glLight(n) ( GL_LIGHT0 + n )
 

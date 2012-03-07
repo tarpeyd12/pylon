@@ -173,6 +173,7 @@ POGEL::POINT POGEL::TRIANGLE::middle()
 bool POGEL::TRIANGLE::isinfront(POGEL::POINT p)
 {
     POGEL::VECTOR vect = !hasproperty(TRIANGLE_INVERT_NORMALS) ? normal : normal*-1.0f;
+    //return vect.getangle(POGEL::VECTOR(middle(),p).normal()) < 90.0f;
     return vect.dotproduct(p+middle()) < 0.0f;
 }
 

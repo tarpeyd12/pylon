@@ -4,14 +4,28 @@
 
 using namespace std;
 
-template <typename T>
-T* ClassList<T>::getList()
+template < typename DataType, typename ComparisonType >
+DataWraper<DataType,ComparisonType>::DataWraper()
+{
+
+}
+
+template < typename DataType, typename ComparisonType >
+DataWraper<DataType,ComparisonType>::DataWraper(DataType d, ComparisonType v)
+{
+    this->data = d;
+    this->value = v;
+}
+
+template < typename T, typename C >
+T*
+ClassList<T,C>::getList()
 {
     return list;
 }
 
-template <typename T>
-ClassList<T>::ClassList()
+template < typename T, typename C >
+ClassList<T,C>::ClassList()
 {
     list=NULL;
     overhead=0;
@@ -20,8 +34,8 @@ ClassList<T>::ClassList()
     sortFunction=NULL;
 }
 
-template <typename T>
-ClassList<T>::ClassList(T *c, unsigned int l)
+template < typename T, typename C >
+ClassList<T,C>::ClassList(T *c, unsigned int l)
 {
     list=c;
     overhead=0;
@@ -29,8 +43,8 @@ ClassList<T>::ClassList(T *c, unsigned int l)
     sortFunction=NULL;
 }
 
-template <typename T>
-ClassList<T>::ClassList(unsigned int i)
+template < typename T, typename C >
+ClassList<T,C>::ClassList(unsigned int i)
 {
      list=new T[i];
      overhead=i;
@@ -39,8 +53,8 @@ ClassList<T>::ClassList(unsigned int i)
      sortFunction=NULL;
 }
 
-template <typename T>
-ClassList<T>::~ClassList()
+template < typename T, typename C >
+ClassList<T,C>::~ClassList()
 {
     if(list!=NULL)
         delete[]list;
@@ -49,8 +63,9 @@ ClassList<T>::~ClassList()
     sortFunction=NULL;
 }
 
-template <typename T>
-void ClassList<T>::clear()
+template < typename T, typename C >
+void
+ClassList<T,C>::clear()
 {
     if(list!=NULL)
         delete[]list;
@@ -59,8 +74,9 @@ void ClassList<T>::clear()
     overhead=0;
 }
 
-template <typename T>
-void ClassList<T>::safeclear()
+template < typename T, typename C >
+void
+ClassList<T,C>::safeclear()
 {
 
     if(list!=NULL)
@@ -74,22 +90,25 @@ void ClassList<T>::safeclear()
     overhead=0;
 }
 
-template <typename T>
-void ClassList<T>::nullify()
+template < typename T, typename C >
+void
+ClassList<T,C>::nullify()
 {
     list=NULL;
     len=0;
     overhead=0;
 }
 
-template <typename T>
-unsigned int ClassList<T>::length()
+template < typename T, typename C >
+unsigned int
+ClassList<T,C>::length()
 {
     return len;
 }
 
-template <typename T>
-void ClassList<T>::add(T l)
+template < typename T, typename C >
+void
+ClassList<T,C>::add(T l)
 {
     if(len<overhead)
         list[len++]=l;
@@ -104,8 +123,9 @@ void ClassList<T>::add(T l)
     }
 }
 
-template <typename T>
-void ClassList<T>::add(T *c, unsigned int l)
+template < typename T, typename C >
+void
+ClassList<T,C>::add(T *c, unsigned int l)
 {
     if(c==NULL||l==0)
         return;
@@ -123,8 +143,18 @@ void ClassList<T>::add(T *c, unsigned int l)
     list=tmp;
 }
 
-template <typename T>
-void ClassList<T>::remove(unsigned int l)
+template < typename T, typename C >
+void
+ClassList<T,C>::replace(unsigned int l, T c)
+{
+    if(l>=length())
+        return;
+    list[l] = c;
+}
+
+template < typename T, typename C >
+void
+ClassList<T,C>::remove(unsigned int l)
 {
     if(l>=length())
         return;
@@ -139,8 +169,9 @@ void ClassList<T>::remove(unsigned int l)
     list=tmp;
 }
 
-template <typename T>
-void ClassList<T>::insert(T c, unsigned int l)
+template < typename T, typename C >
+void
+ClassList<T,C>::insert(T c, unsigned int l)
 {
     if(l>=length())
         return;
@@ -156,33 +187,38 @@ void ClassList<T>::insert(T c, unsigned int l)
     list=tmp;
 }
 
-template <typename T>
-T ClassList<T>::get(unsigned int i)
+template < typename T, typename C >
+T
+ClassList<T,C>::get(unsigned int i)
 {
     //if(i < length())
     return list[i];
 }
 
-template <typename T>
-T ClassList<T>::first()
+template < typename T, typename C >
+T
+ClassList<T,C>::first()
 {
     return get(0);
 }
 
-template <typename T>
-T ClassList<T>::last()
+template < typename T, typename C >
+T
+ClassList<T,C>::last()
 {
     return get(length()-1);
 }
 
-template <typename T>
-T ClassList<T>::operator[] (unsigned int i)
+template < typename T, typename C >
+T
+ClassList<T,C>::operator[] (unsigned int i)
 {
     return get(i);
 }
 
-template <typename T>
-ClassList<T>& ClassList<T>::operator = (ClassList<T> c)
+template < typename T, typename C >
+ClassList<T,C>&
+ClassList<T,C>::operator = (ClassList<T,C> c)
 {
     if(list!=NULL)
         delete[]list;
@@ -191,100 +227,113 @@ ClassList<T>& ClassList<T>::operator = (ClassList<T> c)
     return *this;
 }
 
-template <typename T>
-ClassList<T> ClassList<T>::operator + (T l)
+template < typename T, typename C >
+ClassList<T,C>
+ClassList<T,C>::operator + (T l)
 {
-    ClassList<T> v;
+    ClassList<T,C> v;
     v.add(getList(),length());
     v.add(l);
     return v;
 }
 
-template <typename T>
-ClassList<T>& ClassList<T>::operator+= (T l)
+template < typename T, typename C >
+ClassList<T,C>&
+ClassList<T,C>::operator+= (T l)
 {
     add(l);
     return*this;
 }
 
-template <typename T>
-ClassList<T>  ClassList<T>::operator + (ClassList<T> l)
+template < typename T, typename C >
+ClassList<T,C>
+ClassList<T,C>::operator + (ClassList<T,C> l)
 {
-    ClassList<T> v;
+    ClassList<T,C> v;
     v.add(getList(),length());
     v.add(l.getList(),l.length());
     return v;
 }
 
-template <typename T>
-ClassList<T>  ClassList<T>::operator + (ClassList<T> *l)
+template < typename T, typename C >
+ClassList<T,C>
+ClassList<T,C>::operator + (ClassList<T,C> *l)
 {
-    ClassList<T> v;
+    ClassList<T,C> v;
     v.add(getList(),length());
     v.add(l->getList(),l->length());
     return v;
 }
 
-template <typename T>
-ClassList<T>& ClassList<T>::operator+= (ClassList<T> l)
+template < typename T, typename C >
+ClassList<T,C>&
+ClassList<T,C>::operator+= (ClassList<T,C> l)
 {
     add(l.getList(),l.length());
     return*this;
 }
 
-template <typename T>
-ClassList<T>& ClassList<T>::operator+= (ClassList<T> *l)
+template < typename T, typename C >
+ClassList<T,C>&
+ClassList<T,C>::operator+= (ClassList<T,C> *l)
 {
     add(l->getList(),l->length());
     return*this;
 }
 
-template <typename T>
-ClassList<T>  ClassList<T>::operator - (unsigned int l)
+template < typename T, typename C >
+ClassList<T,C>
+ClassList<T,C>::operator - (unsigned int l)
 {
-    ClassList<T> v;
+    ClassList<T,C> v;
     v.add(getList(),length());
     v.remove(l);
     return v;
 }
 
-template <typename T>
-ClassList<T>& ClassList<T>::operator-= (unsigned int l)
+template < typename T, typename C >
+ClassList<T,C>&
+ClassList<T,C>::operator-= (unsigned int l)
 {
     remove(l);
     return*this;
 }
 
-template <typename T>
-void ClassList<T>::setSortFunc(int (*sortFunc)(T*,T*))
+template < typename T, typename C >
+void
+ClassList<T,C>::setSortFunc(C sortFunc)
 {
     sortFunction = sortFunc;
 }
 
-template <typename T>
-void ClassList<T>::sort()
+template < typename T, typename C >
+void
+ClassList<T,C>::sort()
 {
     if(sortFunction)
         qsort((void*)list, len, sizeof(T), (int(*)(const void*,const void*))sortFunction);
 }
 
-template <typename T>
-void ClassList<T>::sort(int (*sortFunc)(T*,T*))
+template < typename T, typename C >
+void
+ClassList<T,C>::sort(C sortFunc)
 {
     setSortFunc(sortFunc);
     sort();
 }
 
-template <typename T>
-T* ClassList<T>::search(T ind)
+template < typename T, typename C >
+T*
+ClassList<T,C>::search(T ind)
 {
     if(sortFunction)
         return (T*)bsearch((void*)&ind, (void*)list, len, sizeof(T), (int(*)(const void*,const void*))sortFunction);
     return NULL;
 }
 
-template <typename T>
-T* ClassList<T>::search(T ind, int (*sortFunc)(T*,T*))
+template < typename T, typename C >
+T*
+ClassList<T,C>::search(T ind, C sortFunc)
 {
     setSortFunc(sortFunc);
     sort();

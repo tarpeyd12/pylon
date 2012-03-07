@@ -28,45 +28,50 @@ class VIEW : public IMAGE {
 	protected:
 		static int* screensizeX;
 		static int* screensizeY;
-		
+
 		void (*renderfunc)(void);
 		void (*sceneinit)(void);
-		
+
 		unsigned long viewportX;
 		unsigned long viewportY;
+
+		float aspectratio;
 	public:
 		POGEL::COLOR imgbgcolor;
-		
+
 		VIEW();
 		~VIEW();
-		
+
 		void settexsize(unsigned long x, unsigned long y)
 			{ sizeX = x, sizeY = y; }
 		void setretscreensize(int* x, int* y)
 			{ screensizeX = x; screensizeY = y; }
 		void setviewoffset(unsigned long x, unsigned long y)
 			{ viewportX = x, viewportY = y; }
-			
+
 		void setviewport(unsigned long sx, unsigned long sy, unsigned long ex, unsigned long ey)
 			{ settexsize(ex-sx,ey-sy); setviewoffset(sx,sy); }
-		
+
 		void setrenderfunc(void (*f)(void))
 			{ renderfunc = f; }
 		void setsceneinitfunc(void (*f)(void))
 			{ sceneinit = f; }
-		
+
 		void setbgcolor(POGEL::COLOR c)
 			{ imgbgcolor = c; }
-		
+
+        void setaspectratio(float r)
+            { aspectratio = r; }
+
 		unsigned int build();
-		
+
 		void initscene()
 			{
 				scenesetup();
 				if(sceneinit != NULL)
 					sceneinit();
 			}
-		
+
 		unsigned int render()
 			{
 				startrender();
@@ -75,20 +80,20 @@ class VIEW : public IMAGE {
 					renderfunc();
 				return endrender();
 			}
-		
+
 		virtual void scenesetup()
 			{ }
-		
+
 		virtual void scene()
 			{ }
-		
+
 		void startrender();
 		unsigned int endrender();
-		
+
 		void resetscreen();
-		
+
 		void save(unsigned int, const char*);
-		
+
 		PROPERTIES_METHODS;
 };
 

@@ -8,6 +8,7 @@ namespace Renderer
 
         Simulation::Simulation(std::string n)
         {
+            binding = NULL;
             name = n;
             sim = NULL;
             dyn = NULL;
@@ -27,6 +28,7 @@ namespace Renderer
 
         Simulation::Simulation(std::string n, POGEL::PHYSICS::SIMULATION* s)
         {
+            binding = NULL;
             sim = s;
             sim->FORCEfastAccessList();
             dyn = NULL;
@@ -47,6 +49,7 @@ namespace Renderer
 
         Simulation::Simulation(std::string n, POGEL::PHYSICS::DYNAMICS* s)
         {
+            binding = NULL;
             sim = NULL;
             dyn = s;
             dyn->FORCEfastAccessList();
@@ -67,6 +70,7 @@ namespace Renderer
 
         Simulation::~Simulation()
         {
+            binding = NULL;
             incrementable = false;
             drawable = false;
             clearobjects = false;
@@ -87,9 +91,14 @@ namespace Renderer
             incrementable = i;
         }
 
-        bool Simulation::canDraw()
+        bool Simulation::canDrawBound()
         {
             return drawable;
+        }
+
+        bool Simulation::canDraw()
+        {
+            return drawable && NULL == binding;
         }
 
         bool Simulation::isdyn()
@@ -151,6 +160,14 @@ namespace Renderer
         bool Simulation::ShouldClearObjects()
         {
             return clearobjects;
+        }
+
+        void Simulation::draw()
+        {
+            if(this->isdyn())
+                static_cast<POGEL::PHYSICS::DYNAMICS*>(this->getSim())->draw();
+            else
+                static_cast<POGEL::PHYSICS::SIMULATION*>(this->getSim())->draw();
         }
 
         Renderer::Physics::Simulation* getSimulation(std::string name)

@@ -12,7 +12,7 @@ namespace pogelInterface
         unsigned int p;
         if(!PyArg_ParseTuple(args, "iiiisi:addquad", &corners[0], &corners[1], &corners[2], &corners[3], &c_image, &p))
             return NULL;
-        POGEL::IMAGE* image = POGEL::requestImage(std::string(c_image));
+        POGEL::IMAGE* image = Renderer::requestImage(std::string(c_image));
         Renderer::Quad* quad = new Renderer::Quad(corners[0], corners[1], corners[2], corners[3], image, p);
         int ret = Renderer::HUD::addQuad(quad);
         if(ret < 0)
@@ -29,7 +29,7 @@ namespace pogelInterface
         unsigned int p;
         if(!PyArg_ParseTuple(args, "ffffsi:addquad", &corners[0], &corners[1], &corners[2], &corners[3], &c_image, &p))
             return NULL;
-        POGEL::IMAGE* image = POGEL::requestImage(std::string(c_image));
+        POGEL::IMAGE* image = Renderer::requestImage(std::string(c_image));
         Renderer::Quad* quad = new Renderer::Quad(corners[0], corners[1], corners[2], corners[3], image, p);
         int ret = Renderer::HUD::addQuad(quad);
         if(ret < 0)
@@ -47,7 +47,7 @@ namespace pogelInterface
         int quadID = -5;
         if(!PyArg_ParseTuple(args, "iiiisii:updatequad", &corners[0], &corners[1], &corners[2], &corners[3], &c_image, &p, &quadID))
             return NULL;
-        POGEL::IMAGE* image = POGEL::requestImage(std::string(c_image));
+        POGEL::IMAGE* image = Renderer::requestImage(std::string(c_image));
         Renderer::Quad* quad = new Renderer::Quad(corners[0], corners[1], corners[2], corners[3], image, p);
         int ret = Renderer::HUD::updateQuad(quad, quadID);
         if(ret < 0)
@@ -65,7 +65,7 @@ namespace pogelInterface
         int quadID = -5;
         if(!PyArg_ParseTuple(args, "ffffsii:updatequad", &corners[0], &corners[1], &corners[2], &corners[3], &c_image, &p, &quadID))
             return NULL;
-        POGEL::IMAGE* image = POGEL::requestImage(std::string(c_image));
+        POGEL::IMAGE* image = Renderer::requestImage(std::string(c_image));
         Renderer::Quad* quad = new Renderer::Quad(corners[0], corners[1], corners[2], corners[3], image, p);
         int ret = Renderer::HUD::updateQuad(quad, quadID);
         if(ret < 0)

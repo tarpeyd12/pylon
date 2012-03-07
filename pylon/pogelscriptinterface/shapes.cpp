@@ -29,7 +29,7 @@ namespace pogelInterface
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
-        POGEL::IMAGE* image = POGEL::requestImage(std::string(img));
+        POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         addSphere(obj, wdiv, hdiv, radius, image, wsc, hsc, (unsigned int)triprop);
         return Py_BuildValue("s", "Added sphere to object.");
     }
@@ -60,7 +60,7 @@ namespace pogelInterface
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
-        POGEL::IMAGE* image = POGEL::requestImage(std::string(img));
+        POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         POGEL::MATRIX mat(POGEL::POINT(px,py,pz),POGEL::POINT(rx,ry,rz));
         addSphere(obj, wdiv, hdiv, radius, image, wsc, hsc, (unsigned int)triprop, mat);
         return Py_BuildValue("s", "Added sphere to object.");
@@ -92,7 +92,7 @@ namespace pogelInterface
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
-        POGEL::IMAGE* image = POGEL::requestImage(std::string(img));
+        POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         addDisk(obj, div, rings, orad, irad, image, wsc, hsc, (unsigned int)triprop, bool(rtex), POGEL::MATRIX());
         return Py_BuildValue("s", "Added disk to object.");
     }
@@ -125,7 +125,7 @@ namespace pogelInterface
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
-        POGEL::IMAGE* image = POGEL::requestImage(std::string(img));
+        POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         POGEL::MATRIX mat(POGEL::POINT(px,py,pz),POGEL::POINT(rx,ry,rz));
         addDisk(obj, div, rings, orad, irad, image, wsc, hsc, (unsigned int)triprop, bool(rtex), mat);
         return Py_BuildValue("s", "Added disk to object.");
@@ -157,7 +157,7 @@ namespace pogelInterface
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
-        POGEL::IMAGE* image = POGEL::requestImage(std::string(img));
+        POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         addCylinder(obj, div, rings, height, lrad, urad, image, wsc, hsc, (unsigned int)triprop, POGEL::MATRIX());
         return Py_BuildValue("s", "Added cylinder to object.");
     }
@@ -190,7 +190,7 @@ namespace pogelInterface
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
-        POGEL::IMAGE* image = POGEL::requestImage(std::string(img));
+        POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         POGEL::MATRIX mat(POGEL::POINT(px,py,pz),POGEL::POINT(rx,ry,rz));
         addCylinder(obj, div, rings, height, lrad, urad, image, wsc, hsc, (unsigned int)triprop, mat);
         return Py_BuildValue("s", "Added cylinder to object.");
@@ -223,7 +223,7 @@ namespace pogelInterface
             obj = static_cast<POGEL::PHYSICS::SIMULATION*>(vsim)->getSolid(name);
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
-        POGEL::IMAGE* image = POGEL::requestImage(std::string(img));
+        POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         addCube(obj, h, w, d, image, wsc, hsc, (unsigned int)triprop, POGEL::MATRIX());
         return Py_BuildValue("s", "Added cube to object.");
     }
@@ -257,7 +257,7 @@ namespace pogelInterface
             obj = static_cast<POGEL::PHYSICS::SIMULATION*>(vsim)->getSolid(name);
         if(obj == NULL)
             return Py_BuildValue("s", "Object not in simulation");
-        POGEL::IMAGE* image = POGEL::requestImage(std::string(img));
+        POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         POGEL::MATRIX mat(POGEL::POINT(px,py,pz),POGEL::POINT(rx,ry,rz));
         addCube(obj, h, w, d, image, wsc, hsc, (unsigned int)triprop, mat);
         return Py_BuildValue("s", "Added cube to object.");

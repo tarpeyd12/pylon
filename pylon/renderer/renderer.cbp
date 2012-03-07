@@ -130,6 +130,8 @@
 		<Unit filename="quad.h" />
 		<Unit filename="renderer.cpp" />
 		<Unit filename="renderer.h" />
+		<Unit filename="subrenderer.cpp" />
+		<Unit filename="subrenderer.h" />
 		<Unit filename="timer.cpp" />
 		<Unit filename="timer.h" />
 		<Unit filename="version.h" />

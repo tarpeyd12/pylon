@@ -17,15 +17,9 @@ namespace ScriptEngine
             virtual ~Executor();
             virtual Executor& operator=(const Executor& other);
 
-            std::string getInstructions();
-    };
+            void Execute();
 
-    class Execute : public Executor
-    {
-        public:
-            Execute(std::string);
-            Execute(const Executor&);
-            virtual ~Execute();
+            std::string getInstructions();
     };
 
     class FileExecutor : public Executor

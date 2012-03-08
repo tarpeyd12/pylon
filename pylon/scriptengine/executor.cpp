@@ -24,42 +24,30 @@ namespace ScriptEngine
         return *this;
     }
 
-    std::string Executor::getInstructions()
-    {
-        return instructions;
-    }
-
-    Execute::Execute(std::string instructions) : ScriptEngine::Executor(instructions)
+    void Executor::Execute()
     {
         bool is_init = ScriptEngine::HasBegun();
         if(!is_init)
             ScriptEngine::Initialize();
 
         int ret = PyRun_SimpleString(getInstructions().c_str());
-        if(ret || PyErr_Occurred())
+        PyObject* err = PyErr_Occurred();
+        if(ret || err)
+        {
+            if(err)
+                PyErr_Print();
             throw ret;
-
-        if(!is_init) ScriptEngine::Finalize();
-    }
-
-    Execute::Execute(const Executor& other) : ScriptEngine::Executor()
-    {
-        bool is_init = ScriptEngine::HasBegun();
-        if(!is_init)
-            ScriptEngine::Initialize();
-
-        int ret = PyRun_SimpleString(Executor(other).getInstructions().c_str());
-        if(ret || PyErr_Occurred())
-            throw ret;
+        }
 
         if(!is_init)
             ScriptEngine::Finalize();
     }
 
-    Execute::~Execute()
+    std::string Executor::getInstructions()
     {
-        //ScriptEngine::Executor::~Executor();
+        return instructions;
     }
+
 
     FileExecutor::FileExecutor(std::string file) : ScriptEngine::Executor(file)
     {
@@ -83,8 +71,13 @@ namespace ScriptEngine
             ScriptEngine::Initialize();
 
         int ret = PyRun_AnyFile(stdout, getInstructions().c_str());
-        if(ret || PyErr_Occurred())
+        PyObject* err = PyErr_Occurred();
+        if(ret || err)
+        {
+            if(err)
+                PyErr_Print();
             throw ret;
+        }
 
         if(!is_init)
             ScriptEngine::Finalize();

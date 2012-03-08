@@ -118,10 +118,10 @@ void ScriptThread::FirstRun()
         exit(-1);
     }
 
-    ScriptEngine::Execute(ScriptEngine::Executor("import pylon\n"));
-    ScriptEngine::Execute(ScriptEngine::Executor("import _pylon\n"));
-    ScriptEngine::Execute(ScriptEngine::Executor("import _pylon_calc\n"));
-    ScriptEngine::Execute(ScriptEngine::Executor("import _pylon_draw\n"));
+    ScriptEngine::Executor("import pylon\n").Execute();
+    ScriptEngine::Executor("import _pylon\n").Execute();
+    ScriptEngine::Executor("import _pylon_calc\n").Execute();
+    ScriptEngine::Executor("import _pylon_draw\n").Execute();
 
     // I am calling this the 'StoneBug'
     // start StoneBug fix
@@ -135,15 +135,15 @@ void ScriptThread::FirstRun()
 
     if(POGEL::hasproperty(POGEL_DEBUG) || Main::SingleThreaded || POGEL::hasproperty(POGEL_LABEL))
     {
-        ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation',False)"));
-        ScriptEngine::Execute(ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation2',False)"));
+        ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation',False)").Execute();
+        ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation2',False)").Execute();
     }
 
     // end StoneBug fix
 
     try
     {
-        ScriptEngine::Execute(ScriptEngine::Executor(initScriptData));
+        ScriptEngine::Executor(initScriptData).Execute();
     }
     catch(int e)
     {
@@ -164,7 +164,7 @@ void ScriptThread::MainRun()
 
         try
         {
-            ScriptEngine::Execute((const ScriptEngine::Executor)*mainScript);
+            mainScript->Execute();
         }
         catch(int e)
         {
@@ -182,7 +182,7 @@ void ScriptThread::MainRun()
 
 void ScriptThread::SingleCall()
 {
-    ScriptEngine::Execute((const ScriptEngine::Executor)*mainScript);
+    mainScript->Execute();
 }
 
 void ScriptCallFunction()

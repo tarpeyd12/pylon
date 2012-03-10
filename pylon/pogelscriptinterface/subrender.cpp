@@ -70,7 +70,8 @@ namespace pogelInterface
         char *amb;
         char *dif;
         char *spc;
-        if( !PyArg_ParseTuple( args, "sifffsssi:subrender_set_light", &name, &ltn, &pos.x,&pos.y,&pos.z, &amb, &dif, &spc) )
+        int op;
+        if( !PyArg_ParseTuple( args, "sifffsssi:subrender_set_light", &name, &ltn, &pos.x,&pos.y,&pos.z, &amb, &dif, &spc, &op) )
         {
             return NULL;
         }
@@ -80,7 +81,7 @@ namespace pogelInterface
         POGEL::COLOR ambient = POGEL::COLOR(std::string(amb));
         POGEL::COLOR diffuse = POGEL::COLOR(std::string(dif));
         POGEL::COLOR speculr = POGEL::COLOR(std::string(spc));
-        subrend->setLight(Renderer::Lighting::Light(pos,ambient,diffuse,speculr,(bool)spc),ltn);
+        subrend->setLight(Renderer::Lighting::Light(pos,ambient,diffuse,speculr,(bool)op),ltn);
         return Py_BuildValue("i",0);
     }
 

@@ -58,7 +58,7 @@ namespace Renderer
     {
         for(unsigned int i = 0; i < simulationBindings.length(); i++)
             simulationBindings[i]->binding = NULL;
-        simulationBindings.safeclear();
+        simulationBindings.clear();
         for(unsigned int i = 0; i < MAXNUMLIGHTS; i++)
             lights[i] = Renderer::Lighting::Light();
         for(unsigned int i = 0; i < subRenderers.length(); i++)
@@ -122,8 +122,8 @@ namespace Renderer
         for(unsigned int i = 0; i < simulationBindings.length(); i++)
         {
             simulationBindings[i]->binding = NULL;
-            simulationBindings -= i;
         }
+        simulationBindings.clear();
         return 0;
     }
 

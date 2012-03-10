@@ -36,7 +36,7 @@ namespace Renderer
 
         Renderer::RenderAllSubRenderers();
 
-        glClearColor(.5,.5,.5,.5);
+        glClearColor(.5,.5,.5,0.0);
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glLoadIdentity();
@@ -65,8 +65,8 @@ namespace Renderer
 
         glEnable( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-        //glEnable( GL_ALPHA_TEST );
-        //glAlphaFunc( GL_GREATER, 0.5f );
+        /*glEnable( GL_ALPHA_TEST );
+        glAlphaFunc( GL_GREATER, 0.5f );*/
 
         Renderer::HUD::removeQuadCycle();
         Renderer::HUD::addQuadCycle();

@@ -106,4 +106,32 @@ namespace pogelInterface
             return NULL;
         return Py_BuildValue("i", Renderer::HUD::checkQuad(quadID));
     }
+
+    Object* quadgetvis(Object* self, Object* args)
+    {
+        int quadID = -5;
+        if(!PyArg_ParseTuple(args, "i:quadgetvis", &quadID))
+            return NULL;
+        Renderer::Quad* quad = Renderer::HUD::getQuad(quadID);
+        if(quad == NULL)
+        {
+            return Py_BuildValue("i", -1);
+        }
+        return Py_BuildValue("i", int(quad->visable));
+    }
+
+    Object* quadsetvis(Object* self, Object* args)
+    {
+        int quadID = -5;
+        int vis;
+        if(!PyArg_ParseTuple(args, "ii:quadsetvis", &quadID, &vis))
+            return NULL;
+        Renderer::Quad* quad = Renderer::HUD::getQuad(quadID);
+        if(quad == NULL)
+        {
+            return Py_BuildValue("i", -1);
+        }
+        quad->visable = bool(vis);
+        return Py_BuildValue("i", 0);
+    }
 }

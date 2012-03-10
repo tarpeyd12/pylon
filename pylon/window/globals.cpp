@@ -47,4 +47,6 @@ namespace Main
     ScriptThread *scriptThread;
 
     bool SingleThreaded = false;
+
+    unsigned int numDummySimulations = 0;
 }

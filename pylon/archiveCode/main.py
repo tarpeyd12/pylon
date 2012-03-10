@@ -102,16 +102,12 @@ if ( pylon.mouse_ispressed() and pylon.mouse_getbutton() == 1 ) or ( pylon.key_i
 if pylon.mouse_ispressed():
 	ClickLine.x2 = pylon.mouse_pos_x()
 	ClickLine.y2 = pylon.mouse_pos_y()
-	if not ClickLine.visable:
+	if not ClickLine.visable():
 		ClickLine.x1 = pylon.mouse_pos_x()
 		ClickLine.y1 = pylon.mouse_pos_y()
 		ClickLine.makeVisable()
-	else:
-		ClickLine.update()
+	ClickLine.update()
 else:
-	ClickLine.makeInvisable()
-	ClickLine.makeInvisable()
-	ClickLine.makeInvisable()
 	ClickLine.makeInvisable()
 
 	# Mouse Cursor:
@@ -174,6 +170,8 @@ pylon.subrender_set_ratio(subrenderer1, float(pylon.window_width())/float(pylon.
 Bloop.y1 = pylon.window_height()
 Bloop.x2 = pylon.window_width()
 Bloop.update()
+
+pylon.object_move_3f(Sky.name,"Sky",-cam.posx,-cam.posy,-cam.posz)
 
 # a function defined in init.py for controlling the 'flow' of objects/particles
 doOBJECTrelocate()

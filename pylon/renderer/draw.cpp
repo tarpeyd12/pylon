@@ -154,10 +154,10 @@ namespace Renderer
         {
             if(drawLock)
                 return;
-            /*POGEL::VECTOR refpos = globalTempRefpos = Renderer::Camera::GetCamDirection();
+            POGEL::VECTOR refpos = globalTempRefpos = Renderer::Camera::GetCamDirection();
             POGEL::POINT campos = globalTempCampos = Renderer::Camera::campos;
             POGEL::POINT invcampos = globalTempInvCampos = campos*-1.0;
-            ClassList<POGEL::PHYSICS::SOLID*> closelist;
+            ClassList< DataWraper<POGEL::PHYSICS::SOLID*,float> > closelist;
             unsigned int numsimulations = Renderer::Physics::simulations.length();
             for(unsigned int i = 0; i < numsimulations; i++)
             {
@@ -170,8 +170,11 @@ namespace Renderer
                         for(unsigned int o = 0; o < numobjs; o++)
                         {
                             POGEL::PHYSICS::SOLID* obj = sim->objs(o);
-                            if( refpos.getangle(POGEL::VECTOR(campos,obj->position).normal()) < 90.0f )
-                                closelist += obj;
+                            if( refpos.dotproduct(campos + obj->position)+obj->getbounding().maxdistance > 0.0f )
+                            {
+                                float val = obj->getbounding().maxdistance + POGEL::VECTOR(obj->position).dotproduct(refpos);
+                                closelist += DataWraper<POGEL::PHYSICS::SOLID*,float>(obj,val);
+                            }
                         }
                     }
                     else
@@ -181,8 +184,11 @@ namespace Renderer
                         for(unsigned int o = 0; o < numobjs; o++)
                         {
                             POGEL::PHYSICS::SOLID* obj = sim->objs(o);
-                            if( refpos.getangle(POGEL::VECTOR(campos,obj->position).normal()) < 90.0f )
-                                closelist += obj;
+                            if( refpos.dotproduct(campos + obj->position)+obj->getbounding().maxdistance > 0.0f )
+                            {
+                                float val = obj->getbounding().maxdistance + POGEL::VECTOR(obj->position).dotproduct(refpos);
+                                closelist += DataWraper<POGEL::PHYSICS::SOLID*,float>(obj,val);
+                            }
                         }
                     }
                 }
@@ -190,26 +196,30 @@ namespace Renderer
             closelist.sort(__sortobjs);
             for(unsigned int i = 0; i < closelist.length(); i++)
             {
-                ClassList<POGEL::TRIANGLE> trilist;
-                POGEL::PHYSICS::SOLID* obj = closelist[i];
+                POGEL::PHYSICS::SOLID* obj = closelist[i].data;
                 unsigned int numfaces = obj->getnumfaces();
+                ClassList< DataWraper<POGEL::TRIANGLE,float> > trilist(numfaces);
                 for(unsigned int t = 0; t < numfaces;t++)
                 {
                     POGEL::TRIANGLE tri = obj->gettransformedtriangle(t);
                     if( tri.hasproperty(TRIANGLE_DOUBLESIDED) || tri.isinfront(campos) )
                     {
                         if( ( tri.hasproperty(TRIANGLE_TRANSPARENT) || tri.isClear() ) )
-                            trilist += tri;
+                        {
+                            trilist += DataWraper<POGEL::TRIANGLE,float>(tri,tri.middle().distance(campos));
+                        }
                         else
+                        {
                             tri.draw();
+                        }
                     }
                 }
                 trilist.sort(__sorttris);
                 for(unsigned int i = 0; i < trilist.length(); i++)
-                    trilist[i].draw();
-                trilist.safeclear();
+                    trilist[i].data.draw();
+                trilist.clear();
             }
-            closelist.safeclear();*/
+            closelist.clear();
         }
 
         void SimpleDraw()

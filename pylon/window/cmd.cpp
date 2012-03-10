@@ -84,6 +84,13 @@ namespace Main
                 continue;
             }
             else
+            // this is purposfully left out of the help
+            if( !curarg.compare("-numsim") )
+            {
+                sscanf(argv[++i], "%u", &Main::numDummySimulations);
+                continue;
+            }
+            else
             { }
         }
 

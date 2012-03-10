@@ -6,6 +6,7 @@ namespace Renderer
 {
     Quad::Quad()
     {
+        visable = true;
         properties = 0;
         image = NULL;
         for(unsigned int i = 0; i < 4; i++)
@@ -15,6 +16,7 @@ namespace Renderer
 
     Quad::Quad(int x1, int y1, int x2, int y2, POGEL::IMAGE* img)
     {
+        visable = true;
         properties = 0;
         image = img;
         verticies[0] = POGEL::VERTEX(x1,y1,0.0f, 0.0f,0.0f);
@@ -26,6 +28,7 @@ namespace Renderer
 
     Quad::Quad(int x1, int y1, int x2, int y2, POGEL::IMAGE* img, unsigned int p)
     {
+        visable = true;
         properties = p;
         image = img;
         verticies[0] = POGEL::VERTEX(x1,y1,0.0f, 0.0f,0.0f);
@@ -37,6 +40,7 @@ namespace Renderer
 
     Quad::Quad(float x1, float y1, float x2, float y2, POGEL::IMAGE* img)
     {
+        visable = true;
         properties = 0;
         image = img;
         float w = float(Renderer::Window::Size::width);
@@ -50,7 +54,8 @@ namespace Renderer
 
     Quad::Quad(float x1, float y1, float x2, float y2, POGEL::IMAGE* img, unsigned int p)
     {
-        properties = 0;
+        visable = true;
+        properties = p;
         image = img;
         float w = float(Renderer::Window::Size::width);
         float h = float(Renderer::Window::Size::height);
@@ -63,6 +68,8 @@ namespace Renderer
 
     Quad::~Quad()
     {
+        visable = false;
+        properties = 0;
         image = NULL;
         if(this->children != NULL)
         {
@@ -90,6 +97,8 @@ namespace Renderer
 
     void Quad::draw()
     {
+        if(!visable)
+            return;
         POGEL::TRIANGLE(verticies[0],verticies[1],verticies[2],image,properties|TRIANGLE_DOUBLESIDED).draw();
         POGEL::TRIANGLE(verticies[2],verticies[1],verticies[3],image,properties|TRIANGLE_DOUBLESIDED).draw();
         if(this->children != NULL)

@@ -105,8 +105,8 @@ unsigned int POGEL::VIEW::endrender()
         // Bind To The Texture
         glBindTexture(GL_TEXTURE_2D,base);
 
-        // Copy Our ViewPort To The Texture (From 0,0 To sizeX,sizeY... No Border)
-        glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, viewportX, viewportY, sizeX, sizeY, 0);
+        // Copy Our ViewPort To The Texture (From viewportX,viewportY To sizeX,sizeY... No Border)
+        glCopyTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, viewportX, viewportY, sizeX, sizeY, 0);
 
         POGEL::VIEW::resetscreen();
     }

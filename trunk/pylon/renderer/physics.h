@@ -52,6 +52,8 @@ namespace Renderer
 
         extern ClassList<Simulation*> simulations;
 
+        //void Init();
+
         Renderer::Physics::Simulation* getSimulation(std::string);
         POGEL::PHYSICS::SOLID* getObject(std::string,std::string);
         void addSimulation(std::string,bool);

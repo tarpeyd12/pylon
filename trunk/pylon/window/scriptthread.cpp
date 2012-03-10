@@ -129,14 +129,20 @@ void ScriptThread::FirstRun()
     /* this is to compensate for a bug in Code::Blocks, and when pylon is called
      * within another program. May also be a bug in pogel, or how pylon uses
      * pogel this is somewhat tricky, some times no dummy simulations are
-     * needed because they cause the problem, some times two are needed, maby
-     * even one, I have only tested up to 2 dummy's
+     * needed because they cause the problem, some times more are needed.
+     * the command line option "-numsim <num>" is used to set the number of
+     * simulations, default is 2, the command line option is undocumented.
      */
 
-    if(POGEL::hasproperty(POGEL_DEBUG) || Main::SingleThreaded || POGEL::hasproperty(POGEL_LABEL))
+    if(POGEL::hasproperty(POGEL_DEBUG) || Main::SingleThreaded || POGEL::hasproperty(POGEL_LABEL) || Main::numDummySimulations)
     {
-        ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation',False)").Execute();
-        ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation2',False)").Execute();
+        unsigned int max = Main::numDummySimulations ? Main::numDummySimulations : 2;
+        for(unsigned int i = 0; i < max; i++)
+        {
+            char *pcNum = POGEL::string("%u", i);
+            ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation_" + std::string(pcNum) + "',False)").Execute();
+            delete pcNum;
+        }
     }
 
     // end StoneBug fix

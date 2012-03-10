@@ -333,10 +333,7 @@ void POGEL::TRIANGLE::draw()
     {
         blendEnabled = glIsEnabled( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE );
-        if ( !blendEnabled )
-        {
-            glEnable( GL_BLEND );
-        }
+        glEnable( GL_BLEND );
     }
 
     // begin either a solid face or lines for wireframe

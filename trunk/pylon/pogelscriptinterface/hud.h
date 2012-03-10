@@ -17,6 +17,8 @@ namespace pogelInterface
     Object* clearquads(Object*,Object*);
     Object* maxquads(Object*,Object*);
     Object* checkquad(Object*,Object*);
+    Object* quadgetvis(Object*,Object*);
+    Object* quadsetvis(Object*,Object*);
 }
 
 #endif // SCRIPT_HUD_H_INCLUDED

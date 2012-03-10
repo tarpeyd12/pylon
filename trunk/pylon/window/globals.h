@@ -32,6 +32,8 @@ namespace Main
     extern ScriptThread *scriptThread;
 
     extern bool SingleThreaded;
+
+    extern unsigned int numDummySimulations;
 }
 
 #endif // GLOBALS_H_INCLUDED

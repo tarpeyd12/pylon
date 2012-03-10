@@ -9,6 +9,10 @@ using namespace ScriptEngine::MethodInterface;
 
 namespace pogelInterface
 {
+    Object* object_new(Object*,Object*);
+
+    Object* object_set_visibility(Object*,Object*);
+
     Object* object_move_s(Object*,Object*);
     Object* object_move_3f(Object*,Object*);
 
@@ -26,6 +30,17 @@ namespace pogelInterface
     Object* object_set_pos_s(Object*,Object*);
     Object* object_set_rot_s(Object*,Object*);
     Object* object_set_spin_s(Object*,Object*);
+
+    Object* object_options(Object*,Object*);
+
+    Object* object_set_mass(Object*,Object*);
+    Object* object_get_mass(Object*,Object*);
+
+    Object* object_set_bounce(Object*,Object*);
+    Object* object_get_bounce(Object*,Object*);
+
+    Object* object_set_friction(Object*,Object*);
+    Object* object_get_friction(Object*,Object*);
 
     Object* object_build(Object*,Object*);
 }

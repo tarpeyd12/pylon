@@ -30,6 +30,8 @@ namespace Renderer
         int updateQuad(Renderer::Quad*,int);
         int removeQuad(unsigned int);
 
+        Renderer::Quad* getQuad(int);
+
         int removeQuadCycle();
         int addQuadCycle();
         int updateQuadCycle();

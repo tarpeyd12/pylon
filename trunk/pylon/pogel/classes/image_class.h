@@ -52,6 +52,7 @@ namespace POGEL
             int load(const char*);
             unsigned int build();
             bool isbuilt();
+            bool isloaded();
             unsigned int loadandbuild(const char*);
             unsigned int loadandbuild();
             unsigned int getbase();

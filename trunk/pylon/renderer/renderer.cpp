@@ -58,19 +58,19 @@ namespace Renderer
         if( POGEL::lstimg(i)->isbuilt() )
             return;
         bool fileexists = FileLoader::checkfile( fileid );
-        if( !fileexists )
+        if( !fileexists && !image->isloaded())
         {
             if(POGEL::hasproperty(POGEL_DEBUG))
                 cout << "extracting: \"" << fileid << "\"" << endl;
             FileLoader::ArchiveHandler::extractKnownFile( fileid );
             fileexists = FileLoader::checkfile( fileid );
         }
-        if( fileexists )
+        if( fileexists || image->isloaded())
         {
             if(POGEL::hasproperty(POGEL_DEBUG))
                 cout << "building unbuilt image: \"" << image->toString() << "\"" << endl;
             image->loadandbuild();
-            if( !FileLoader::noremoval )
+            if( fileexists && !FileLoader::noremoval )
             {
                 if(POGEL::hasproperty(POGEL_DEBUG))
                     cout << "removing: \"" << fileid << "\"" << endl;
@@ -96,7 +96,24 @@ namespace Renderer
         Renderer::SubRenderer* subrend = Renderer::requestSubRenderer(s);
         if(subrend == NULL)
         {
-            return POGEL::requestImage(s);
+            POGEL::IMAGE* image = POGEL::requestImage(s);
+            if(image != NULL && !image->isloaded())
+            {
+                std::string fileid = image->getFileID();
+                bool fileexists = FileLoader::checkfile( fileid );
+                if( !fileexists )
+                {
+                    FileLoader::ArchiveHandler::extractKnownFile( fileid );
+                    fileexists = FileLoader::checkfile( fileid );
+                }
+                if( fileexists )
+                {
+                    image->load(fileid.c_str());
+                    if( !FileLoader::noremoval )
+                        FileLoader::System::Files::remove( fileid );
+                }
+            }
+            return image;
         }
         return (POGEL::IMAGE*)subrend;
     }

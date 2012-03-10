@@ -22,7 +22,7 @@ namespace Renderer
             Renderer::Window::Size::height = y;
             glutInitWindowSize(x,y);
             glutInitWindowPosition(pos_x,pos_y);
-            glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
+            glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_ALPHA);
 
             glutCreateWindow(name.c_str());
 

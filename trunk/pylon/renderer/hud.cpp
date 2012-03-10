@@ -91,6 +91,13 @@ namespace Renderer
             return lastQuadDeletionQueue;
         }
 
+        Renderer::Quad* getQuad(int quadIndex)
+        {
+            if( quadIndex >= NUM_QUAD_SLOTS || quadIndex < 0 ) // out of range
+                return NULL;
+            return quadList[quadIndex];
+        }
+
         int checkQuad(unsigned int quadIndex)
         {
             if(quadIndex >= NUM_QUAD_SLOTS) // out of range
@@ -172,9 +179,12 @@ namespace Renderer
 
         void draw()
         {
-            for(unsigned int i = 0; i < NUM_QUAD_SLOTS /*&& i < lastKnownQuad*/; i++)
+            for(unsigned int p = 0; p < NUM_QUAD_SLOTS /*&& p < lastKnownQuad*/; p++)
+            {
+                unsigned int i = NUM_QUAD_SLOTS - (p+1);
                 if(quadList[i] != NULL)
                     quadList[i]->draw();
+            }
         }
 
 

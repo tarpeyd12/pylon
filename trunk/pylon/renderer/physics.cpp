@@ -170,6 +170,12 @@ namespace Renderer
                 static_cast<POGEL::PHYSICS::SIMULATION*>(this->getSim())->draw();
         }
 
+
+        /*void Init()
+        {
+
+        }*/
+
         Renderer::Physics::Simulation* getSimulation(std::string name)
         {
             for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)

@@ -15,6 +15,7 @@ namespace Renderer
             unsigned int properties;
             ClassList<Renderer::Quad*> *children;
         public:
+            bool visable;
 
             Quad();
             Quad(int,int,int,int,POGEL::IMAGE*);

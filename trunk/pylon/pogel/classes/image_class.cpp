@@ -93,6 +93,12 @@ POGEL::IMAGE::IMAGE(const char *filename, int filter)
 
 void get_things(std::string s, std::string *name, unsigned int *x, unsigned int *y, int* filter)
 {
+    /* acceptable formats:
+     * "{filename}"
+     * "{[filename]}"
+     * "{[filename],[filternum]}"
+     * "{[filename],[sizex],[sizey],[filternum]}"
+     */
     if(POGEL::getOccurrencesInString(',',s) == 0)
     {
         if(POGEL::getOccurrencesInString('[',s) == 1 && POGEL::getOccurrencesInString(']',s) == 1)
@@ -135,6 +141,10 @@ POGEL::IMAGE::IMAGE(std::string s)
     {
         load(fileid.c_str());
     }
+    else
+    {
+        data = NULL;
+    }
     base = (unsigned int) NULL;
 }
 
@@ -175,9 +185,10 @@ int POGEL::IMAGE::load(const char *filename)
 {
     int sizex, sizey, ch;
     data = (char*)SOIL_load_image(filename, &sizex, &sizey, &ch, SOIL_LOAD_AUTO);
-    sizeX = sizex;
-    sizeY = sizey;
-    channels = ch;
+    sizeX = (unsigned long)sizex;
+    sizeY = (unsigned long)sizey;
+    channels = (unsigned short int)ch;
+    cout << "file: " << filename << " has " << ch << endl;
     fileid = std::string(filename);
     if(data)
     {
@@ -208,6 +219,11 @@ unsigned int POGEL::IMAGE::build()
 bool POGEL::IMAGE::isbuilt()
 {
     return base != (unsigned int)NULL;
+}
+
+bool POGEL::IMAGE::isloaded()
+{
+    return data != NULL;
 }
 
 unsigned int POGEL::IMAGE::loadandbuild(const char *filename)

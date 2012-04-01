@@ -10,6 +10,8 @@ using namespace ScriptEngine::MethodInterface;
 namespace pogelInterface
 {
     Object* object_new(Object*,Object*);
+    Object* object_new_fromfile(Object*,Object*);
+    Object* object_new_child(Object*,Object*);
 
     Object* object_set_visibility(Object*,Object*);
 
@@ -41,6 +43,8 @@ namespace pogelInterface
 
     Object* object_set_friction(Object*,Object*);
     Object* object_get_friction(Object*,Object*);
+
+    Object* object_add_key(Object*,Object*);
 
     Object* object_build(Object*,Object*);
 }

@@ -20,6 +20,56 @@ namespace pogelInterface
             static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->addSolid(obj);
         else
             static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->addSolid(obj);
+        //delete nm;
+        return Py_BuildValue("i", 0);
+    }
+
+    Object* object_new_fromfile(Object* self, Object* args)
+    {
+        char* simname;
+        char* objname;
+        char* filename;
+        char* filetype;
+        if(!PyArg_ParseTuple(args, "ssss:object_new_fromfile", &simname, &objname, &filename, &filetype))
+            return NULL;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("i", -1);
+        char *nm = new char[strlen(objname)];
+        POGEL::PHYSICS::SOLID * obj = new POGEL::PHYSICS::SOLID(nm);
+        POGEL::OBJECT * animobj = ObjectLoader::newFromFile( filename, filetype, strcpy(nm,objname), obj );
+        if( animobj == NULL)
+            return Py_BuildValue("i", -2);
+        if(sim->isdyn())
+            static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->addSolid(obj);
+        else
+            static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->addSolid(obj);
+        return Py_BuildValue("i", 0);
+    }
+
+    Object* object_new_child(Object* self, Object* args)
+    {
+        char* simname;
+        char* objname;
+        char* decendant;
+        char* childname;
+        if(!PyArg_ParseTuple(args, "ssss:object_new_child", &simname, &objname, &decendant, &childname))
+            return NULL;
+        Renderer::Physics::Simulation * sim = NULL;
+        sim = Renderer::Physics::getSimulation(std::string(simname));
+        if( sim == NULL )
+            return Py_BuildValue("i", -1);
+        POGEL::PHYSICS::SOLID * obj = NULL;
+        obj = sim->getObject(std::string(objname));
+        if( obj == NULL )
+            return Py_BuildValue("i", -2);
+        POGEL::OBJECT * dec = NULL;
+        dec = obj->getdecendant(decendant);
+        if( dec == NULL )
+            return Py_BuildValue("i", -3);
+        POGEL::OBJECT * child = NULL;
+        child = new POGEL::OBJECT( childname );
+        dec->addobject( child );
         return Py_BuildValue("i", 0);
     }
 
@@ -479,14 +529,54 @@ namespace pogelInterface
         return Py_BuildValue("f", obj->behavior.friction);
     }
 
+    Object* object_add_key(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        char* keytype;
+        POGEL::KEY key;
+        if( !PyArg_ParseTuple( args, "sssffff:object_add_key", &simname, &name, &keytype, &key.x, &key.y, &key.z, &key.time) )
+            return NULL;
+        POGEL::PHYSICS::SOLID * obj = NULL;
+        Renderer::Physics::Simulation * sim = NULL;
+        sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("i", -1);
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            return Py_BuildValue("i", -2);
+        std::string skeytype(keytype);
+        if( !skeytype.length() )
+        {
+            return Py_BuildValue("i", -3);
+        }
+        else if( !skeytype.compare("pos") )
+        {
+            obj->addPosKey(key);
+        }
+        else if( !skeytype.compare("rot") )
+        {
+            obj->addRotKey(key);
+        }
+        else if( !skeytype.compare("scale") )
+        {
+            obj->addScaleKey(key);
+        }
+        else
+        {
+            return Py_BuildValue("i", -4);
+        }
+        return Py_BuildValue("i", 0);
+    }
+
     Object* object_build(Object* self, Object* args)
     {
         char* name;
         char* simname;
         if( !PyArg_ParseTuple( args, "ss:object_build", &simname, &name) )
             return NULL;
-        POGEL::PHYSICS::SOLID* obj;
-        Renderer::Physics::Simulation * sim;
+        POGEL::PHYSICS::SOLID * obj = NULL;
+        Renderer::Physics::Simulation * sim = NULL;
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("s", "Simulation not found.");

@@ -128,9 +128,9 @@ namespace Renderer
             if(clearobjects)
                 return NULL;
             if(this->isdyn())
-                return static_cast<POGEL::PHYSICS::DYNAMICS*>(this->getSim())->getSolid((char*)s.c_str());
+                return static_cast<POGEL::PHYSICS::DYNAMICS*>(this->getSim())->getSolid(s);
             else
-                return static_cast<POGEL::PHYSICS::SIMULATION*>(this->getSim())->getSolid((char*)s.c_str());
+                return static_cast<POGEL::PHYSICS::SIMULATION*>(this->getSim())->getSolid(s);
             return NULL;
         }
 

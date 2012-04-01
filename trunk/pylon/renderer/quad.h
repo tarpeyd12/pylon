@@ -9,7 +9,7 @@ namespace Renderer
     class Quad
     {
         private:
-            //POGEL::TRIANGLE triangles[2];
+            POGEL::TRIANGLE triangles[2];
             POGEL::IMAGE *image;
             POGEL::VERTEX verticies[4];
             unsigned int properties;

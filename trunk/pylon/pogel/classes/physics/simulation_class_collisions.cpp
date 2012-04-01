@@ -173,15 +173,19 @@ bool POGEL::PHYSICS::SIMULATION::processSPHERE_GENERAL(POGEL::PHYSICS::SOLID* ob
 	if(obj2->hasOption(PHYSICS_SOLID_SPHERE) && !obj1->hasOption(PHYSICS_SOLID_SPHERE))
 		return processSPHERE_GENERAL(obj2, obj1);
 
-	POGEL::POINT tmp_1, tmp_2;
+	POGEL::POINT tmp_2;
 	POGEL::TRIANGLE tmptri;
 
-	obj2->closest(obj1->position, &tmp_2, &tmptri);
-	if(obj1->position.distance(tmp_2) <= (obj1->bounding.maxdistance)) {
-		if(POGEL::hasproperty(POGEL_COLLISIONS))
+	obj2->closest( obj1->position, &tmp_2, &tmptri );
+	float d = obj1->bounding.maxdistance - obj1->position.distance(tmp_2);
+	if( d >= 0.0f )
+	{
+		if( POGEL::hasproperty(POGEL_COLLISIONS) )
 			tmp_2.draw();
-		POGEL::VECTOR v = tmptri.normal * (tmptri.isinfront(obj1->position) ? 1 : -1);
-		reactcollision(obj1, obj2, POGEL::VECTOR(tmp_2, obj2->position).normal()*1, v.normal()*-1, tmp_2);
+		POGEL::VECTOR v( tmp_2, obj1->position );
+		v.normalize();
+		unocupyobjs( obj1, obj2, v, fabs(d) );
+		reactcollision( obj1, obj2, v, v*-1.0f, tmp_2 );
 		return true;
 	}
 
@@ -199,11 +203,11 @@ bool POGEL::PHYSICS::SIMULATION::processSPHERE_CONVEXGENERAL(POGEL::PHYSICS::SOL
 	POGEL::TRIANGLE tmptri_dist, tmptri_line;
 	POGEL::POINT c2d;
 
-	/*obj2->closest(
-		POGEL::VECTOR(obj1->position,obj2->position).normal()*50+obj1->position,
+	obj2->closest(
+		POGEL::VECTOR(obj1->position,obj2->position)+obj1->position,
 		&disttest, &tmptri_dist
-	);*/
-	//bool lc =
+	);
+	bool lc =
 	POGEL::PHYSICS::solid_line_collision(
 		PHYSICS_LINESOLID_COLLISION_GREATEST,
 		obj2, obj2->position, obj1->position,
@@ -233,13 +237,13 @@ bool POGEL::PHYSICS::SIMULATION::processSPHERE_CONVEXGENERAL(POGEL::PHYSICS::SOL
 		//tmptri_dist.isinfront(obj1->position) != tmptri_dist.isinfront(obj2->position)
 	) {
 		if(POGEL::hasproperty(POGEL_COLLISIONS))
-			(/*lc?linetest:*/disttest).draw();
-		v = POGEL::VECTOR(obj1->position, (/*lc?linetest:*/disttest));
-		d = obj1->position.distance(/*lc?linetest:*/disttest) - radius;
+			(lc?linetest:disttest).draw();
+		v = POGEL::VECTOR(obj1->position, (lc?linetest:disttest));
+		d = obj1->position.distance(lc?linetest:disttest) - radius;
 		unocupyobjs(obj1,obj2,v,d);
 		POGEL::POINT p = disttest;
 		if(obj2->hasOption(PHYSICS_SOLID_STATIONARY))
-			v = POGEL::VECTOR(obj1->position,obj2->position).normal()*0 + (/*lc?tmptri_line:*/tmptri_dist).normal*1;
+			v = POGEL::VECTOR(obj1->position,obj2->position).normal()*0 + (lc?tmptri_line:tmptri_dist).normal*1;
 		v.normalize();
 		reactcollision(obj1, obj2, v*-1, v, p);
 		return true;

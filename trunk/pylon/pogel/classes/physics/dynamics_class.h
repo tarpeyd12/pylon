@@ -21,7 +21,7 @@ class POGEL::PHYSICS::DYNAMICS
     private:
         unsigned int properties; // the mushed properties
     protected:
-        HASHLIST<POGEL::PHYSICS::SOLID*> objects;
+        CLASSLIST<POGEL::PHYSICS::SOLID*> objects;
         unsigned long numobjects;
 
         POGEL::PHYSICS::GRAVITYCLUSTER objectmasses;
@@ -54,7 +54,7 @@ class POGEL::PHYSICS::DYNAMICS
 
         unsigned long numobjs();
         POGEL::PHYSICS::SOLID* objs(unsigned long a);
-        HASHLIST<POGEL::PHYSICS::SOLID*> objslst();
+        CLASSLIST<POGEL::PHYSICS::SOLID*> objslst();
 
         unsigned long addsingularity(POGEL::PHYSICS::SINGULARITY sig);
         void addsingularities(POGEL::PHYSICS::SINGULARITY* sig, unsigned long num);
@@ -63,6 +63,7 @@ class POGEL::PHYSICS::DYNAMICS
         void addfans(POGEL::PHYSICS::FAN* fan, unsigned long num);
 
         POGEL::PHYSICS::SOLID* getSolid(char*);
+        POGEL::PHYSICS::SOLID* getSolid(std::string);
 
         unsigned long addSolid(POGEL::PHYSICS::SOLID*);
         unsigned long addSolidHoldGravity(POGEL::PHYSICS::SOLID*);

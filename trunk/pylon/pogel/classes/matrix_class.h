@@ -6,8 +6,9 @@
 #endif
 #include <math.h>
 
-namespace POGEL {
-class MATRIX;
+namespace POGEL
+{
+    class MATRIX;
 }
 
 #include "quat_class.h"
@@ -16,7 +17,7 @@ class MATRIX;
 #include "../pogel_internals.h"
 
 #ifndef PI
-	#define PI 3.1415926535897
+    #define PI 3.14159265358979323846
 #endif
 
 //#define				MATRIX_ROTATE_XYZ				2
@@ -32,84 +33,88 @@ class MATRIX;
 #define				MATRIX_CONSTRUCT_TRANSLATION	1
 #define				MATRIX_CONSTRUCT_SCALE			2
 
-namespace POGEL {
-float RadiansToDegrees(float);
-float DegreesToRadians(float);
+namespace POGEL
+{
+    float RadiansToDegrees(float);
+    float DegreesToRadians(float);
 
+    class MATRIX
+    {
+        public:
+            float matrix[16];
 
-class MATRIX {
-	public:
-		float matrix[16];
-		//unsigned int properties; // the mushed properties
+            MATRIX();
+            MATRIX(float*);
+            MATRIX(const POGEL::MATRIX&);
+            MATRIX(float,int);
+            MATRIX(POGEL::POINT,int);
+            MATRIX(POGEL::VECTOR,float);
+            MATRIX(POGEL::POINT,POGEL::POINT);
 
-		MATRIX();
-		MATRIX(float*);
-		MATRIX(const POGEL::MATRIX&);
-		MATRIX(float,int);
-		MATRIX(POGEL::POINT,int);
-		MATRIX(POGEL::VECTOR,float);
-		MATRIX(POGEL::POINT,POGEL::POINT);
+            ~MATRIX()
+            {
 
-		~MATRIX()
-			{/*delete[] matrix;*/}
+            }
 
-		//unsigned int getproperties() {return properties;}
-		//void setproperties(unsigned int prop) {properties=prop;}
+            void get()
+            {
+                #ifdef OPENGL
+                    glGetFloatv(GL_MODELVIEW_MATRIX,matrix);
+                #endif
+            }
 
-		void get() {
-			#ifdef OPENGL
-			glGetFloatv(GL_MODELVIEW_MATRIX,matrix);
-			#endif
-		}
+            void set(float*);
+            void set(POGEL::MATRIX);
 
-		void set(float*);
-		void set(POGEL::MATRIX);
+            POGEL::POINT getposition();
+            POGEL::POINT getrotation();
 
-		//void setRotation(POGEL::POINT);
-		//void setPosition(POGEL::POINT);
+            float *getcolumn(int);
+            float *getrow(int);
 
-		POGEL::POINT getposition();
-		POGEL::POINT getrotation();
+            inline float getvalue(int c, int r) const
+            {
+                return matrix[c*4+r];
+            }
 
-		float *getcolumn(int);
-		float *getrow(int);
+            inline void  setvalue(int c, int r, float v)
+            {
+                matrix[c*4+r]=v;
+            }
 
-		inline float getvalue(int c, int r) {return matrix[c*4+r];}
-		inline void  setvalue(int c, int r, float v) {matrix[c*4+r]=v;}
+            void multiplyby(float);
+            void raistopower(int);
 
-		void multiplyby(float);
-		void raistopower(int);
+            float determinant();
+            bool invert();
 
-		float determinant();
-		bool invert();
+            void print();
 
-		void print();
+            void transformPoint(POGEL::POINT*);
+            POGEL::POINT transformPoint(POGEL::POINT);
 
-		void transformPoint(POGEL::POINT*);
-		POGEL::POINT transformPoint(POGEL::POINT);
+            void transformVector(POGEL::VECTOR*);
+            POGEL::VECTOR transformVector(POGEL::VECTOR);
 
-		void transformVector(POGEL::VECTOR*);
-		POGEL::VECTOR transformVector(POGEL::VECTOR);
+            void transformVertex(POGEL::VERTEX*);
+            POGEL::VERTEX transformVertex(POGEL::VERTEX);
 
-		void transformVertex(POGEL::VERTEX*);
-		POGEL::VERTEX transformVertex(POGEL::VERTEX);
+            void transformTriangle(POGEL::TRIANGLE*);
+            POGEL::TRIANGLE transformTriangle(POGEL::TRIANGLE);
 
-		void transformTriangle(POGEL::TRIANGLE*);
-		POGEL::TRIANGLE transformTriangle(POGEL::TRIANGLE);
+            QUAT toquat();
 
-		QUAT toquat();
+            void fromaxis(POGEL::VECTOR,float);
 
-		void fromaxis(POGEL::VECTOR,float);
+            POGEL::MATRIX operator+(POGEL::MATRIX);
+            POGEL::MATRIX operator-(POGEL::MATRIX);
+            POGEL::MATRIX operator*(POGEL::MATRIX);
+            POGEL::MATRIX operator*(float a);
+            POGEL::MATRIX operator/(float a);
+            POGEL::MATRIX& operator=(const POGEL::MATRIX&);
 
-		POGEL::MATRIX operator+(POGEL::MATRIX);
-		POGEL::MATRIX operator-(POGEL::MATRIX);
-		POGEL::MATRIX operator*(POGEL::MATRIX);
-		POGEL::MATRIX operator*(float a);
-		POGEL::MATRIX operator/(float a);
-		POGEL::MATRIX& operator=(const POGEL::MATRIX&);
-
-		//friend class QUAT;
-};
+            //friend class QUAT;
+    };
 }
 
 #endif /* _MATRIX_CLASS_H */

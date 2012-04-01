@@ -76,7 +76,7 @@ namespace Renderer
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();
 
-            gluPerspective(45.0f, ar, 0.01f, 100.0f);
+            gluPerspective(45.0f, ar, 0.1f, 1000.0f);
 
             glMatrixMode(GL_MODELVIEW);
             glLoadIdentity();

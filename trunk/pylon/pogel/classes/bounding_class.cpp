@@ -5,26 +5,27 @@ void POGEL::BOUNDING::addpoint(POGEL::POINT middle, POGEL::POINT point) {
 		float dist = middle.distance(point);
 		if(dist > maxdistance) maxdistance = dist;
 	}
-	
+
 	if(numpoints==0) {
-		if(middle.x <= max.x) max.x = middle.x;
-		if(middle.y <= max.y) max.y = middle.y;
-		if(middle.z <= max.z) max.z = middle.z;
-		
-		if(middle.x >= min.x) min.x = middle.x;
-		if(middle.y >= min.y) min.y = middle.y;
-		if(middle.z >= min.z) min.z = middle.z;
+		/*if(middle.x < max.x) max.x = middle.x;
+		if(middle.y < max.y) max.y = middle.y;
+		if(middle.z < max.z) max.z = middle.z;
+
+		if(middle.x > min.x) min.x = middle.x;
+		if(middle.y > min.y) min.y = middle.y;
+		if(middle.z > min.z) min.z = middle.z;*/
+		min = max = middle;
 	}
-	
-	if(point.x >= max.x/* && point.x >= min.x*/) max.x = point.x;
-	if(point.x <= min.x/* && point.x <= max.x*/) min.x = point.x;
-	
-	if(point.y >= max.y/* && point.y >= min.y*/) max.y = point.y;
-	if(point.y <= min.y/* && point.y <= max.y*/) min.y = point.y;
-	
-	if(point.z >= max.z/* && point.z >= min.z*/) max.z = point.z;
-	if(point.z <= min.z/* && point.z <= max.z*/) min.z = point.z;
-	
+
+	if(point.x > max.x/* && point.x >= min.x*/) max.x = point.x;
+	if(point.x < min.x/* && point.x <= max.x*/) min.x = point.x;
+
+	if(point.y > max.y/* && point.y >= min.y*/) max.y = point.y;
+	if(point.y < min.y/* && point.y <= max.y*/) min.y = point.y;
+
+	if(point.z > max.z/* && point.z >= min.z*/) max.z = point.z;
+	if(point.z < min.z/* && point.z <= max.z*/) min.z = point.z;
+
 	numpoints++;
 };
 
@@ -32,7 +33,7 @@ void POGEL::BOUNDING::fin(float f) {
 	max.x+=f;
 	max.y+=f;
 	max.z+=f;
-	
+
 	min.x-=f;
 	min.y-=f;
 	min.z-=f;
@@ -86,12 +87,12 @@ void POGEL::BOUNDING::draw() {
 		glVertex3f(max.x,max.y,min.z); glVertex3f(min.x,max.y,min.z);
 		glVertex3f(min.x,min.y,max.z); glVertex3f(max.x,min.y,max.z);
 		glVertex3f(max.x,max.y,max.z); glVertex3f(min.x,max.y,max.z);
-		
+
 		glVertex3f(min.x,min.y,min.z); glVertex3f(max.x,min.y,min.z);
 		glVertex3f(max.x,min.y,max.z); glVertex3f(min.x,min.y,max.z);
 		glVertex3f(min.x,max.y,min.z); glVertex3f(max.x,max.y,min.z);
 		glVertex3f(max.x,max.y,max.z); glVertex3f(min.x,max.y,max.z);
-		
+
 		glVertex3f(min.x,min.y,min.z); glVertex3f(min.x,max.y,min.z);
 		glVertex3f(min.x,max.y,max.z); glVertex3f(min.x,min.y,max.z);
 		glVertex3f(max.x,min.y,min.z); glVertex3f(max.x,max.y,min.z);

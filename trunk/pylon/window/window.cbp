@@ -13,7 +13,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug" />
+				<Option parameters="-debug -bench -label -ancestory --boundingbox -forcesingle -numsim 4" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-Wall" />
@@ -47,7 +47,6 @@
 				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug -bench" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
@@ -82,7 +81,7 @@
 				<Option object_output="obj/Development/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug -bench" />
+				<Option parameters="-debug -bench --label --ancestory --boundingbox --forcesingle -numsim 4" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />

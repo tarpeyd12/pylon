@@ -18,9 +18,9 @@ void POGEL::PHYSICS::FLOW::generatecurve(POGEL::POINT* waypoints, unsigned long 
 		POGEL::fatality(POGEL_FATALITY_NULL_ARRAY_POINTER_RETNUM,"%s to Point(s).",POGEL_FATALITY_NULL_ARRAY_POINTER_STRING);
 	for(unsigned long i=0;i<num;i++) {
 		POGEL::VECTOR v;
-		v.frompoints(waypoints[abs(i+(forwards?0:1))%num],waypoints[abs(i+(forwards?1:0))%num]);
+		v.frompoints(waypoints[(i+(forwards?0:1))%num],waypoints[(i+(forwards?1:0))%num]);
 		v.normalize();
-		addfan(POGEL::PHYSICS::FAN(waypoints[i], v, waypoints[abs(i+(forwards?0:1))%num].distance(waypoints[abs(i+(forwards?1:0))%num])));
+		addfan(POGEL::PHYSICS::FAN(waypoints[i], v, waypoints[(i+(forwards?0:1))%num].distance(waypoints[(i+(forwards?1:0))%num])));
 	}
 };
 

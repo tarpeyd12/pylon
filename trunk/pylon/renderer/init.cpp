@@ -24,29 +24,30 @@ namespace Renderer
         glCullFace(GL_BACK);
 
         glEnable(GL_TEXTURE_2D);
-        glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_FASTEST);
+        //glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_FASTEST);
+        glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
 
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
 
         glEnable(GL_NORMALIZE);
 
-        //glEnable(GL_COLOR_MATERIAL);
+        glEnable(GL_COLOR_MATERIAL);
 
         glEnable(GL_LIGHTING);
 
         // TODO: make flexable/dynamic lighting in scripting/modeling
-        //const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
-        //const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
-        //const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-        //const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
+        const GLfloat light_ambient[]  = { 0.0f, 0.0f, 0.0f, 1.0f };
+        const GLfloat light_diffuse[]  = { 1.0f, 1.0f, 1.0f, 1.0f };
+        const GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+        const GLfloat light_position[] = { 2.0f, 5.0f, 5.0f, 0.0f };
 
-        //glEnable(GL_LIGHT0);
+        glEnable(GL_LIGHT0);
 
-        //glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
-        //glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
-        //glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-        //glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+        glLightfv(GL_LIGHT0, GL_AMBIENT,  light_ambient);
+        glLightfv(GL_LIGHT0, GL_DIFFUSE,  light_diffuse);
+        glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+        glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 
         const GLfloat mat_ambient[]    = { 0.7f, 0.7f, 0.7f, 1.0f };
         const GLfloat mat_diffuse[]    = { 0.8f, 0.8f, 0.8f, 1.0f };
@@ -65,8 +66,8 @@ namespace Renderer
 
         POGEL::InitFps();
 
-        glEnable( GL_MULTISAMPLE );
-        glSampleCoverage(0.5,GL_TRUE);
+        //glEnable( GL_MULTISAMPLE );
+        //glSampleCoverage(0.5,GL_TRUE);
 
         if(Renderer::SingleThreaded)
         {

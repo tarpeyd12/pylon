@@ -142,7 +142,7 @@ void arraylist<datatype>::add(datatype item)
   // We can't use the item supplied exactly, so we need
   // a struct to hold the value and the next item (pointer)
   arraylistnode<datatype> *dummy;
-  dummy = new(arraylistnode<datatype>);
+  dummy = new arraylistnode<datatype>();
 
   // Now set dummys value.
   dummy->value = item;

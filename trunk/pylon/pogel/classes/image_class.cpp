@@ -188,12 +188,13 @@ int POGEL::IMAGE::load(const char *filename)
     sizeX = (unsigned long)sizex;
     sizeY = (unsigned long)sizey;
     channels = (unsigned short int)ch;
-    cout << "file: " << filename << " has " << ch << endl;
+    cout << "file: " << filename << " has " << ch << " color channels" << endl;
     fileid = std::string(filename);
     if(data)
     {
         return true;
     }
+    cout << SOIL_last_result() << endl;
     return false;
 }
 

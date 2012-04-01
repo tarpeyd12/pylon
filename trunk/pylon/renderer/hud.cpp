@@ -68,6 +68,8 @@ namespace Renderer
                 /*Renderer::Quad* quadTmp = quadUpdateQueue[quadID];
                 quadUpdateQueue[quadID] = quad;
                 delete quadTmp;*/
+                quadUpdateQueue[quadID]->set(quad);
+                delete quad;
             }
             else
                 quadUpdateQueue[quadID] = quad;

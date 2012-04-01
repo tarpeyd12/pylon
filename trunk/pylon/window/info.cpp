@@ -13,7 +13,7 @@ namespace Main
         cout << "  Renderer."       << std::string(RendererAutoVersion::_FULLVERSION_STRING)       + "." + std::string(RendererAutoVersion::_STATUS_SHORT)       << endl;
         cout << "  Threads."        << std::string(ThreadsAutoVersion::_FULLVERSION_STRING)        + "." + std::string(ThreadsAutoVersion::_STATUS_SHORT)        << endl;
         cout << "  pogelInterface." << std::string(pogelInterfaceAutoVersion::_FULLVERSION_STRING) + "." + std::string(pogelInterfaceAutoVersion::_STATUS_SHORT) << endl;
-        cout << "  ObjectLoader."   << std::string(ObjectLoaderAutoVersion::FULLVERSION_STRING)    + "." + std::string(ObjectLoaderAutoVersion::STATUS_SHORT)    << endl;
+        cout << "  ObjectLoader."   << std::string(ObjectLoaderAutoVersion::_FULLVERSION_STRING)    + "." + std::string(ObjectLoaderAutoVersion::_STATUS_SHORT)    << endl;
         cout << "Created by Dean Tarpey" << endl;
         cout << "http://pylon.googlecode.com/" << endl;
     }

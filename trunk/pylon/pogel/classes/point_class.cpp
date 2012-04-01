@@ -453,6 +453,8 @@ bool POGEL::VECTOR::operator!=(POGEL::VECTOR p)
 POGEL::VERTEX::VERTEX()
 {
     x=y=z=u=v=0.0f;
+    boneID = boneIDs[0] = boneIDs[1] = boneIDs[2] = -1;
+    weights[0] = weights[1] = weights[2] = 0;
     usable=true;
 }
 
@@ -463,6 +465,8 @@ POGEL::VERTEX::VERTEX(float a, float b, float c, float s, float t)
     z=c;
     u=s;
     v=t;
+    boneID = boneIDs[0] = boneIDs[1] = boneIDs[2] = -1;
+    weights[0] = weights[1] = weights[2] = 0;
     usable=true;
 }
 
@@ -472,6 +476,8 @@ POGEL::VERTEX::VERTEX(float a, float b, float c)
     y=b;
     z=c;
     u = v = 0.0f;
+    boneID = boneIDs[0] = boneIDs[1] = boneIDs[2] = -1;
+    weights[0] = weights[1] = weights[2] = 0;
     usable = true;
 }
 
@@ -481,6 +487,8 @@ POGEL::VERTEX::VERTEX(POGEL::POINT p)
     y=p.y;
     z=p.z;
     u = v = 0.0f;
+    boneID = boneIDs[0] = boneIDs[1] = boneIDs[2] = -1;
+    weights[0] = weights[1] = weights[2] = 0;
     usable=true;
 }
 
@@ -492,6 +500,8 @@ POGEL::VERTEX::VERTEX(std::string s)
     sscanf(s.c_str(), fmt.c_str(), &x, &y, &z, &u, &v);
     normal = POGEL::VECTOR(n);
     color = POGEL::COLOR(c);
+    boneID = boneIDs[0] = boneIDs[1] = boneIDs[2] = -1;
+    weights[0] = weights[1] = weights[2] = 0;
     usable=true;
 }
 
@@ -606,6 +616,21 @@ POGEL::VERTEX& POGEL::VERTEX::operator=(const POGEL::VERTEX& p)
     usable=p.usable;
     color=p.color;
     normal=p.normal;
+    boneID = p.boneID;
+    boneIDs[0] = p.boneIDs[0];
+    boneIDs[1] = p.boneIDs[1];
+    boneIDs[2] = p.boneIDs[2];
+    weights[0] = p.weights[0];
+    weights[1] = p.weights[1];
+    weights[2] = p.weights[2];
+    return (*this);
+}
+
+POGEL::VERTEX& POGEL::VERTEX::operator=(const POGEL::POINT& p)
+{
+    x=p.x;
+    y=p.y;
+    z=p.z;
     return (*this);
 }
 
@@ -663,3 +688,26 @@ POGEL::VERTEX& POGEL::VERTEX::operator-=(const POGEL::VERTEX& p)
     return (*this);
 }
 
+POGEL::KEY::KEY()
+{
+    time = x = y = z = 0.0f;
+}
+
+POGEL::KEY::KEY(POGEL::POINT p, float t)
+{
+    time = t;
+    x = p.x;
+    y = p.y;
+    z = p.z;
+}
+
+POGEL::TANGENT::TANGENT()
+{
+    in = out = POGEL::POINT();
+}
+
+POGEL::TANGENT::TANGENT(POGEL::POINT i, POGEL::POINT o)
+{
+    in = i;
+    out = o;
+}

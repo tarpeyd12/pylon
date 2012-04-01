@@ -94,7 +94,7 @@ namespace Main
             return Py_BuildValue("s", pogelInterfaceAutoVersion::_FULLVERSION_STRING);
         else
         if(!pname.compare("objectloader"))
-            return Py_BuildValue("s", ObjectLoaderAutoVersion::FULLVERSION_STRING);
+            return Py_BuildValue("s", ObjectLoaderAutoVersion::_FULLVERSION_STRING);
         else
             return Py_BuildValue("s", "0.0.0.0");
     }

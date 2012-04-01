@@ -4,8 +4,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-namespace POGEL {
-class OBJECT;
+namespace POGEL
+{
+    class OBJECT;
 }
 
 #include "point_class.h"
@@ -14,171 +15,171 @@ class OBJECT;
 #include "../pogel_internals.h"
 #include "physics/physics.h"
 
-#define			OBJECT_DEBUG				1
-#define			OBJECT_DRAW_DISPLAYLIST		2
-#define			OBJECT_DRAW_COLORED_STRIP	4
-#define			OBJECT_DRAW_CHILDREN		8
-#define			OBJECT_ROTATE_XYZ			16
-#define			OBJECT_ROTATE_ZYX			32
-#define			OBJECT_SORT_TRIANGLES		64
-#define			OBJECT_ROTATE_TOCAMERA		128
-#define			OBJECT_DRAW_NOFACES 		256
+#include "../templates/classlist_template.h"
 
-#define			OBJECT_USE_OPNEGL_MATRIX_RECURSION
+#define         OBJECT_DEBUG                            1
+#define         OBJECT_DRAW_DISPLAYLIST                 2
+#define         OBJECT_DRAW_COLORED_STRIP               4
+#define         OBJECT_DRAW_CHILDREN                    8
+#define         OBJECT_ROTATE_XYZ                       16
+#define         OBJECT_ROTATE_ZYX                       32
+#define         OBJECT_SORT_TRIANGLES                   64
+#define         OBJECT_ROTATE_TOCAMERA                  128
+#define         OBJECT_DRAW_NOFACES                     256
 
-#define			OBJECT_TRIAGLE_ALLOCATION_SKIP	1000
+#define         OBJECT_USE_OPNEGL_MATRIX_RECURSION
 
-namespace POGEL {
-class OBJECT {
-	private:
-		unsigned int properties; // the mushed options
-	protected:
-		POGEL::TRIANGLE *face; // the array of triangle faces
-		unsigned long numfaces; // the number of triangles in the triangle array
-		POGEL::OBJECT **children; // the array of pointers to child objects
-		POGEL::OBJECT *parent; // the parent of this object if it is a child object
-		unsigned long numchildren; // the number of children objects
-		char* name; // the name of the object, used for identification in the tree of children objects
+#define         OBJECT_TRIAGLE_ALLOCATION_SKIP          1000
 
-		unsigned long triangle_allocation_total;
-	public:
-		POGEL::POINT position; // the center position of the object
-		POGEL::POINT rotation; // the rotation arround the center of the object
-		POGEL::VECTOR direction; // the movement vector
-		POGEL::VECTOR spin; // the spin vector
-		unsigned int base; // the pointer ot the compiled display list
-		POGEL::MATRIX matrix;
-		bool visable;
+namespace POGEL
+{
 
-		OBJECT();
-		OBJECT(unsigned int);
-		OBJECT(POGEL::TRIANGLE*,unsigned long,unsigned int);
-		OBJECT(POGEL::TRIANGLE*,unsigned long,unsigned int,POGEL::POINT,POGEL::POINT);
+    class OBJECT
+    {
+        private:
 
-		OBJECT(const char*);
-		OBJECT(const char*,unsigned int);
-		OBJECT(const char*,POGEL::TRIANGLE*,unsigned long,unsigned int);
-		OBJECT(const char*,POGEL::TRIANGLE*,unsigned long,unsigned int,POGEL::POINT,POGEL::POINT);
+            unsigned int properties; // the mushed options
 
-		OBJECT(POGEL::OBJECT* obj) {
-			face=obj->face;
-			numfaces=obj->numfaces;
-			triangle_allocation_total=obj->triangle_allocation_total;
-			children=obj->children;
-			parent=obj->parent;
-			numchildren=obj->numchildren;
-			name=obj->name;
-			properties=obj->properties;
-			position=obj->position;
-			rotation=obj->rotation;
-			base=obj->base;
-			matrix=obj->matrix;
-			visable=obj->visable;
-		}
+        protected:
 
-		~OBJECT();
-		void killchildren();
+            char* name; // the name of the object, used for identification in the tree of child objects
 
-		PROPERTIES_METHODS;
+            POGEL::TRIANGLE * face; // the array of triangle faces
+            unsigned long     numfaces; // the number of triangles in the triangle array
+            unsigned long     triangle_allocation_total; // the total number of triangles allocated
+            POGEL::OBJECT  ** children; // the array of pointers to child objects
+            unsigned long     numchildren; // the number of children objects
+            POGEL::OBJECT   * parent; // the parent of this object if it is a child object
+            POGEL::OBJECT   * root; // the parent of the entire object tree
 
-		void setname(const char *n) {
-			if(name!=NULL) delete[] name;
-			name = new char[strlen(n)];
-			strcpy(name, n);
-			//name=(char*)n;
-		}
-		char* getname() {return name;}
-		std::string getsname() {return std::string(name);}
-		unsigned long getchildslot();
+            // these CLASSLISTs are only used for animation:
+            CLASSLIST < POGEL::VERTEX >    verticies; // the untransformed verticies
+            CLASSLIST < POGEL::VERTEX >    verticiesTrans; // the transformed verticies, this is where stuff points
+            CLASSLIST < POGEL::OBJECT * >  joints; // a linear list of all the decendant objects, for animation
+            CLASSLIST < POGEL::KEY >       posKeys; // the position key values
+            CLASSLIST < POGEL::KEY >       rotKeys; // the rotation key values
+            CLASSLIST < POGEL::KEY >       scaleKeys; // the scalar key values
+            CLASSLIST < POGEL::TANGENT >   tangents; // the list of tangents
+            unsigned int numFrames; // the number of 'frames' in the animation
+            float animationFPS; // the speed of the animation
+            float currentAnimationFrame; // the current frame in the animation
+            float previousAnimationFrame; // the current frame in the animation
+            POGEL::MATRIX matLocal;
+            POGEL::MATRIX matGlobal;
+            POGEL::MATRIX matLocalSkeleton;
+            POGEL::MATRIX matGlobalSkeleton;
+        public:
 
-		void translate(POGEL::VECTOR);
-		void translate(POGEL::VECTOR,float);
-		void moveto(POGEL::POINT p) {position=p;}
+            POGEL::POINT position; // the center position of the object
+            POGEL::POINT rotation; // the rotation arround the center of the object
+            POGEL::VECTOR direction; // the movement vector
+            POGEL::VECTOR spin; // the spin vector
+            unsigned int base; // the pointer to the compiled display list
+            POGEL::MATRIX matrix; // a uesless matrix, but do not mess with it
+            bool visable; // the visibility flag for the object
 
-		void rotate(POGEL::VECTOR);
-		void rotate(POGEL::VECTOR,float);
-		void turnto(POGEL::POINT r) {rotation=r;}
+            OBJECT();
+            OBJECT( unsigned int );
+            OBJECT( POGEL::TRIANGLE *, unsigned long, unsigned int );
+            OBJECT( POGEL::TRIANGLE *, unsigned long, unsigned int, POGEL::POINT, POGEL::POINT );
 
-		unsigned long addtriangle(POGEL::TRIANGLE);
-		void addtriangles(POGEL::TRIANGLE*,unsigned long);
-		void addtrianglespace(unsigned long);
+            OBJECT( const char * );
+            OBJECT( const char *, unsigned int );
+            OBJECT( const char *, POGEL::TRIANGLE *, unsigned long, unsigned int );
+            OBJECT( const char *, POGEL::TRIANGLE *, unsigned long, unsigned int, POGEL::POINT, POGEL::POINT );
 
-		void cleartriangles();
+            OBJECT( POGEL::OBJECT * );
 
-		unsigned long addobject(POGEL::OBJECT*);
-		void addobjects(POGEL::OBJECT**,unsigned long);
+            ~OBJECT();
 
-		void scroll_all_tex_values(float,float);
+            void killchildren();
 
-		POGEL::OBJECT* getchild(const char*);
-		POGEL::OBJECT* getdecendant(const char*,bool);
-		POGEL::OBJECT* getdecendant(const char*);
+            void derefference();
 
-		POGEL::OBJECT* getancestor(const char*);
-		POGEL::OBJECT* getprogenitor();
-		char *getancestory();
-		char *getancestoryhash();
+            PROPERTIES_METHODS;
 
-		POGEL::MATRIX getancestorialmatrix();
+            void setname( const char * );
+            char * getname();
+            std::string getsname();
 
-		unsigned long getnumfaces() {
-			return numfaces;
-		}
+            void translate( POGEL::VECTOR );
+            void translate( POGEL::VECTOR, float );
+            void moveto( POGEL::POINT );
 
-		POGEL::TRIANGLE gettriangle(unsigned long i) {
-			return face[i];
-		}
+            void rotate( POGEL::VECTOR );
+            void rotate( POGEL::VECTOR, float );
+            void turnto( POGEL::POINT );
 
-        POGEL::TRIANGLE gettransformedtriangle(unsigned long i) {
-            POGEL::MATRIX mat(position,rotation);
-            if(hasproperty(OBJECT_ROTATE_TOCAMERA))
-                { }
-            POGEL::TRIANGLE tri = mat.transformTriangle(face[i]);
-            tri.makebounding();
-            return tri;
-        }
+            unsigned long addtriangle( POGEL::TRIANGLE );
+            void addtriangles( POGEL::TRIANGLE *, unsigned long );
+            void addtrianglespace( unsigned long );
 
-		POGEL::TRIANGLE* gettrianglelist() {
-			return face;
-		}
+            void cleartriangles();
 
-		void copytriangles(POGEL::OBJECT* o) {
-			this->addtriangles(o->gettrianglelist(), o->getnumfaces());
-		}
+            unsigned long addobject( POGEL::OBJECT * );
+            void addobjects( POGEL::OBJECT **, unsigned long );
 
-		void referencetriangles(POGEL::OBJECT* o) {
-			cleartriangles();
-			face = o->gettrianglelist();
-			numfaces = o->getnumfaces();
-			triangle_allocation_total = o->triangle_allocation_total;
-		}
+            void scroll_all_tex_values( float, float );
 
-		void settriangle(unsigned long i, POGEL::TRIANGLE t) {
-			face[i] = t;
-		}
+            POGEL::OBJECT * getchild( const char * );
+            POGEL::OBJECT * getdecendant( const char * , bool );
+            POGEL::OBJECT * getdecendant( const char * );
 
-		void increment() {
-			rotate(spin);
-			translate(direction);
-		}
+            POGEL::OBJECT * getancestor( const char * );
+            POGEL::OBJECT * getprogenitor();
+            char * getancestory();
+            char * getancestoryhash();
 
-		virtual void build();
-		virtual void draw();
+            unsigned long getchildslot();
 
-		virtual void stepFunc() {}
+            POGEL::MATRIX getancestorialmatrix();
+            POGEL::MATRIX getinternalancestorialmatrix();
 
-		virtual void step() {
-			increment();
-			stepFunc();
-		}
+            unsigned long getnumfaces();
+            POGEL::TRIANGLE gettriangle( unsigned long );
+            POGEL::TRIANGLE gettransformedtriangle( unsigned long );
+            POGEL::TRIANGLE * gettrianglelist();
 
-		virtual void create() {}
-		virtual void destroy() {}
+            void copytriangles( POGEL::OBJECT * );
+            void referencetriangles( POGEL::OBJECT * );
+            void settriangle( unsigned long, POGEL::TRIANGLE );
+            void settriangle( unsigned long, POGEL::TRIANGLE * );
 
-		//virtual void grow() {}
+            void setNumFrames( unsigned int );
+            void setAnimationFPS( float );
+            POGEL::VERTEX getTransformedVertex( POGEL::VERTEX, bool, bool );
+            unsigned int addVertex( POGEL::VERTEX );
+            POGEL::VERTEX * getVertexAddress( unsigned int ) const;
+            POGEL::VERTEX * getVertexListAddress();
+            unsigned int getNumVerticies();
+            unsigned int addPosKey( POGEL::KEY );
+            unsigned int addRotKey( POGEL::KEY );
+            unsigned int addScaleKey( POGEL::KEY );
+            unsigned int addTangent( POGEL::TANGENT );
+            unsigned int addJoint( POGEL::OBJECT * , const char * );
+            POGEL::OBJECT * getJoint( const char * );
+            float getAnimationFPS();
+            unsigned int getNumFrames();
 
-		friend bool POGEL::PHYSICS::solid_collision(POGEL::PHYSICS::SOLID*,POGEL::PHYSICS::SOLID*,POGEL::POINT*,POGEL::VECTOR*,POGEL::VECTOR*,float*);
-};
+            void copyAnimation( POGEL::OBJECT * );
+
+            void increment();
+
+            virtual void build();
+
+            void setAnimationTime( float );
+
+            virtual void draw();
+
+            virtual void stepFunc() { }
+
+            virtual void step();
+
+            virtual void create() { }
+            virtual void destroy() { }
+
+            friend bool POGEL::PHYSICS::solid_collision( POGEL::PHYSICS::SOLID *, POGEL::PHYSICS::SOLID *, POGEL::POINT *, POGEL::VECTOR *, POGEL::VECTOR *, float * );
+    };
 }
 
 #endif /* _OBJECT_CLASS_H */

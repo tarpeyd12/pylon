@@ -126,7 +126,7 @@ void ScriptThread::FirstRun()
     // I am calling this the 'StoneBug'
     // start StoneBug fix
 
-    /* this is to compensate for a bug in Code::Blocks, and when pylon is called
+    /* this is to compensate for a bug no clue where, mostly when pylon is called
      * within another program. May also be a bug in pogel, or how pylon uses
      * pogel this is somewhat tricky, some times no dummy simulations are
      * needed because they cause the problem, some times more are needed.

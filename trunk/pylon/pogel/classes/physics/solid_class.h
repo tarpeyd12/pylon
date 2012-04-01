@@ -161,6 +161,9 @@ class POGEL::PHYSICS::SOLID : public POGEL::OBJECT {
 		POGEL::COLOR getLabelColor();
 
 		void build();
+
+		void setAnimationTime( float );
+
 		void draw();
 
 		void increment();

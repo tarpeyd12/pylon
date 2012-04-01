@@ -90,9 +90,9 @@ void POGEL::VIEW::startrender()
     glLoadIdentity();
 
     if( aspectratio == 0.0f )
-        gluPerspective(45.0f,(float)sizeX/(float)sizeY,0.1f,100.0f);
+        gluPerspective(45.0f,(float)sizeX/(float)sizeY,0.1f,1000.0f);
     else
-        gluPerspective(45.0f,aspectratio,0.1f,100.0f);
+        gluPerspective(45.0f,aspectratio,0.1f,1000.0f);
     glMatrixMode(GL_MODELVIEW);
     #endif
 }
@@ -129,7 +129,7 @@ void POGEL::VIEW::resetscreen()
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    gluPerspective(45.0f,(float)*screensizeX/(float)*screensizeY,0.1f,100.0f);
+    gluPerspective(45.0f,(float)*screensizeX/(float)*screensizeY,0.1f,1000.0f);
     glMatrixMode(GL_MODELVIEW);
     #endif
 }

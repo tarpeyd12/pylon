@@ -347,12 +347,18 @@ float POGEL::PHYSICS::point_triangle_distance_BRUTE(POGEL::POINT point, POGEL::T
 	return point.distance(triangle.middle());
 };
 
-float POGEL::PHYSICS::point_triangle_distance(POGEL::POINT point, POGEL::TRIANGLE triangle, POGEL::POINT* pol)
+float
+POGEL::PHYSICS::point_triangle_distance(POGEL::POINT point, POGEL::TRIANGLE triangle, POGEL::POINT* pol)
 {
     POGEL::POINT res2d, res3d;
+    POGEL::POINT pointtmp;
 
-    POGEL::POINT pointtmp = triangle.normal*triangle.middle().distance(point);
-    pointtmp *= triangle.isinfront(point) ? -1.0f : 1.0f;
+    pointtmp = triangle.normal*(triangle.middle().distance(point));
+
+    if( !triangle.isinfront(point) )
+    {
+        pointtmp *= -1.0f;
+    }
     pointtmp += point;
 
     bool col = POGEL::PHYSICS::line_triangle_collision(
@@ -363,9 +369,9 @@ float POGEL::PHYSICS::point_triangle_distance(POGEL::POINT point, POGEL::TRIANGL
         &res3d
     );
 
-    if(col)
+    if( col )
     {
-        if(pol)
+        if( pol )
         {
             *pol = res3d;
         }
@@ -376,15 +382,15 @@ float POGEL::PHYSICS::point_triangle_distance(POGEL::POINT point, POGEL::TRIANGL
     POGEL::POINT tmppol;
     float bestdistance = 0.0f;
 
-    for(unsigned int i = 0; i < 3; i++)
+    for( unsigned int i = 0; i < 3; i++ )
     {
         distance = POGEL::PHYSICS::line_point_distance(point, triangle.getEdge(i), &tmppol);
-        if(i)
+        if( i )
         {
             if(distance < bestdistance)
             {
                 bestdistance = distance;
-                if(pol)
+                if( pol )
                 {
                     *pol = tmppol;
                 }
@@ -393,7 +399,7 @@ float POGEL::PHYSICS::point_triangle_distance(POGEL::POINT point, POGEL::TRIANGL
         else
         {
             bestdistance = distance;
-            if(pol)
+            if( pol )
             {
                 *pol = tmppol;
             }

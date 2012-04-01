@@ -298,14 +298,6 @@ float POGEL::GetFps() {
 };
 
 void POGEL::PrintFps() {
-	/*char buffer[32];
-	sprintf(buffer, "Fps: %14.10f", POGEL::GetFps());
-	int Nb = strlen(buffer);
-	glDisable(GL_LIGHTING);
-	glRasterPos2i(0,0);
-	for (int i = 0; i < Nb; i++)
-		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, (int)buffer[i]);
-	glEnable(GL_LIGHTING);*/
 	float timepassed = POGEL::GetTimePassed();
 	POGEL::message("Frame:%u,Fps:%6.2f(%5.2favg),Spf:%5.2f,Duration:%0.2fs(%d:%02d:%05.2f)\n",
 		POGEL::frames,

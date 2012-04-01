@@ -8,12 +8,12 @@ namespace pogelInterface
     Object* subrender_new(Object* self, Object* args)
     {
         char *name;
-        float ar;
-        if( !PyArg_ParseTuple( args, "sf:subrender_new", &name, &ar) )
+        float aspectratio;
+        if( !PyArg_ParseTuple( args, "sf:subrender_new", &name, &aspectratio) )
         {
             return NULL;
         }
-        POGEL::IMAGE* subrend = new Renderer::SubRenderer(std::string(name), ar);
+        POGEL::IMAGE* subrend = new Renderer::SubRenderer(std::string(name), aspectratio);
         POGEL::addImage(subrend);
         return Py_BuildValue("s", subrend->toString().c_str());
     }

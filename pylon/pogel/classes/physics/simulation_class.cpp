@@ -8,7 +8,9 @@
 void POGEL::PHYSICS::SIMULATION::buildot()
 {
     oltmp = new HASHLIST<POGEL::PHYSICS::SOLID*>();
-    oltmp->add(&objects);
+    while(oltmp->length() < objects.length())
+        oltmp->add(objects[oltmp->length()]);
+    //oltmp->add(&objects);
     ot = new POGEL::OCTREE<POGEL::PHYSICS::SOLID>(oltmp, 1, true);
     ot->grow();
     #ifdef THREADSOK

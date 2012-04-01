@@ -187,7 +187,10 @@ void HashList<T>::pillage(HashList<T> &l)
 template <typename T>
 T HashList<T>::get(unsigned int l)
 {
-    return list.get( l/insize )->operator[]( l%insize );
+    if(list.get( l/insize ))
+        return list.get( l/insize )->operator[]( l%insize );
+    else
+        throw -1;
 }
 
 template <typename T>

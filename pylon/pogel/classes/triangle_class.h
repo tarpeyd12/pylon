@@ -22,23 +22,34 @@ class TRIANGLE;
 namespace POGEL {
 class TRIANGLE {
     private:
-        unsigned int properties; // the mushed options
-        POGEL::POINT trimid;
-        bool usetrimid;
+        unsigned int properties;     // the mushed options
+        POGEL::POINT trimid;         // the middlo of the reiangle
+        bool usetrimid;              //
+
     public:
+
+        void updateVert();
+
         POGEL::BOUNDING bounding;
-        POGEL::VERTEX vertex[3]; // the 3 verticies of the triangle
-        POGEL::IMAGE *texture; // a pointer to the image to use as the texture
-        POGEL::VECTOR normal; // the normal vector
+        POGEL::VERTEX vertex[3];     // the 3 verticies of the triangle
+        int ivertex[3]; // pointers to 3 verticies used for animation
+        POGEL::VERTEX * pvertex;  // pointers to the list of verticies used for animation
+        unsigned int ivertlength; // number of things in the list of verticies
+        POGEL::IMAGE * texture;      // a pointer to the image to use as the texture
+        POGEL::VECTOR normal;        // the normal vector
+        POGEL::VECTOR vertnormals[3];
 
         TRIANGLE();
         TRIANGLE(POGEL::POINT,POGEL::POINT,POGEL::POINT);
         TRIANGLE(POGEL::VERTEX,POGEL::VERTEX,POGEL::VERTEX,POGEL::IMAGE*,unsigned int);
         TRIANGLE(POGEL::POINT,POGEL::POINT,POGEL::POINT,POGEL::IMAGE*,unsigned int);
         TRIANGLE(POGEL::VERTEX*,POGEL::IMAGE*,unsigned int);
+        TRIANGLE(POGEL::VERTEX*,unsigned int,int,int,int,POGEL::IMAGE*,unsigned int);
 
         TRIANGLE(std::string, POGEL::IMAGE*);
         TRIANGLE(std::string);
+
+        virtual ~TRIANGLE();
 
         void load(POGEL::VERTEX,POGEL::VERTEX,POGEL::VERTEX,POGEL::IMAGE*,unsigned int);
         void load(POGEL::VERTEX*,POGEL::IMAGE*,unsigned int);
@@ -74,6 +85,8 @@ class TRIANGLE {
         bool isClear();
 
         void draw();
+
+        POGEL::TRIANGLE& operator = (const POGEL::TRIANGLE&);
 
         friend class POGEL::MATRIX;
 };

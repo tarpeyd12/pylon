@@ -55,6 +55,11 @@ namespace Renderer
                 // if the object is in fornt of the camera
                 if( dst+objradius > 0.0f )
                 {
+                    if( obj->getNumFrames() )
+                    {
+                        obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
+                    }
+
                     bool autoinclude = /*objradius >= 10.0f ||*/ obj->hasOption(PHYSICS_SOLID_STATIONARY);// || obj->hasproperty(OBJECT_SORT_TRIANGLES);
 
                     if( autoinclude )
@@ -125,6 +130,8 @@ namespace Renderer
                 unsigned int numfaces = obj->getnumfaces();
                 float objradius = obj->getbounding().maxdistance;
                 ClassList< DataWraper<POGEL::TRIANGLE,float> > trilist(numfaces);
+                unsigned int prp = POGEL::getproperties();
+                if( POGEL::hasproperty(POGEL_BOUNDING) ) POGEL::removeproperty(POGEL_BOUNDING);
                 for(unsigned int t = 0; t < numfaces;t++)
                 {
                     POGEL::TRIANGLE tri = obj->gettransformedtriangle(t);
@@ -145,6 +152,7 @@ namespace Renderer
                 trilist.sort(__sorttris);
                 for(unsigned int i = 0; i < trilist.length(); i++)
                     trilist[i].data.draw();
+                POGEL::setproperties(prp);
                 trilist.clear();
             }
             closelist.clear();

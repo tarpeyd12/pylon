@@ -11,6 +11,8 @@ namespace Renderer
         image = NULL;
         for(unsigned int i = 0; i < 4; i++)
             verticies[i] = POGEL::VERTEX(0,0,0,0,0);
+        triangles[0] = POGEL::TRIANGLE(verticies[0],verticies[1],verticies[2],image,properties|TRIANGLE_DOUBLESIDED);
+        triangles[1] = POGEL::TRIANGLE(verticies[2],verticies[1],verticies[3],image,properties|TRIANGLE_DOUBLESIDED);
         children = NULL;//new CLASSLIST<Renderer::Quad*>();
     }
 
@@ -23,6 +25,8 @@ namespace Renderer
         verticies[1] = POGEL::VERTEX(x1,y2,0.0f, 0.0f,1.0f);
         verticies[2] = POGEL::VERTEX(x2,y1,0.0f, 1.0f,0.0f);
         verticies[3] = POGEL::VERTEX(x2,y2,0.0f, 1.0f,1.0f);
+        triangles[0] = POGEL::TRIANGLE(verticies[0],verticies[1],verticies[2],image,properties|TRIANGLE_DOUBLESIDED);
+        triangles[1] = POGEL::TRIANGLE(verticies[2],verticies[1],verticies[3],image,properties|TRIANGLE_DOUBLESIDED);
         children = NULL;//new CLASSLIST<Renderer::Quad*>();
     }
 
@@ -35,6 +39,8 @@ namespace Renderer
         verticies[1] = POGEL::VERTEX(x1,y2,0.0f, 0.0f,1.0f);
         verticies[2] = POGEL::VERTEX(x2,y1,0.0f, 1.0f,0.0f);
         verticies[3] = POGEL::VERTEX(x2,y2,0.0f, 1.0f,1.0f);
+        triangles[0] = POGEL::TRIANGLE(verticies[0],verticies[1],verticies[2],image,properties|TRIANGLE_DOUBLESIDED);
+        triangles[1] = POGEL::TRIANGLE(verticies[2],verticies[1],verticies[3],image,properties|TRIANGLE_DOUBLESIDED);
         children = NULL;//new CLASSLIST<Renderer::Quad*>();
     }
 
@@ -49,6 +55,8 @@ namespace Renderer
         verticies[1] = POGEL::VERTEX(x1*w,y2*h,0.0f, 0.0f,1.0f);
         verticies[2] = POGEL::VERTEX(x2*w,y1*h,0.0f, 1.0f,0.0f);
         verticies[3] = POGEL::VERTEX(x2*w,y2*h,0.0f, 1.0f,1.0f);
+        triangles[0] = POGEL::TRIANGLE(verticies[0],verticies[1],verticies[2],image,properties|TRIANGLE_DOUBLESIDED);
+        triangles[1] = POGEL::TRIANGLE(verticies[2],verticies[1],verticies[3],image,properties|TRIANGLE_DOUBLESIDED);
         children = NULL;//new CLASSLIST<Renderer::Quad*>();
     }
 
@@ -63,6 +71,8 @@ namespace Renderer
         verticies[1] = POGEL::VERTEX(x1*w,y2*h,0.0f, 0.0f,1.0f);
         verticies[2] = POGEL::VERTEX(x2*w,y1*h,0.0f, 1.0f,0.0f);
         verticies[3] = POGEL::VERTEX(x2*w,y2*h,0.0f, 1.0f,1.0f);
+        triangles[0] = POGEL::TRIANGLE(verticies[0],verticies[1],verticies[2],image,properties|TRIANGLE_DOUBLESIDED);
+        triangles[1] = POGEL::TRIANGLE(verticies[2],verticies[1],verticies[3],image,properties|TRIANGLE_DOUBLESIDED);
         children = NULL;//new CLASSLIST<Renderer::Quad*>();
     }
 
@@ -82,9 +92,12 @@ namespace Renderer
     void Quad::set(Renderer::Quad* other)
     {
         this->properties = other->properties;
+        this->visable = other->visable;
         this->image = other->image;
         for(int i = 0; i < 4; i++)
             this->verticies[i] = other->verticies[i];
+        triangles[0] = POGEL::TRIANGLE(verticies[0],verticies[1],verticies[2],image,properties|TRIANGLE_DOUBLESIDED);
+        triangles[1] = POGEL::TRIANGLE(verticies[2],verticies[1],verticies[3],image,properties|TRIANGLE_DOUBLESIDED);
         if(this->children != NULL)
         {
             for(unsigned int i = 0; i < this->children->length(); i++)
@@ -99,8 +112,8 @@ namespace Renderer
     {
         if(!visable)
             return;
-        POGEL::TRIANGLE(verticies[0],verticies[1],verticies[2],image,properties|TRIANGLE_DOUBLESIDED).draw();
-        POGEL::TRIANGLE(verticies[2],verticies[1],verticies[3],image,properties|TRIANGLE_DOUBLESIDED).draw();
+        for(unsigned int i = 0; i < 2; i++)
+            triangles[i].draw();
         if(this->children != NULL)
             for(unsigned int i = 0; i < children->length(); i++)
                 children->get(i)->draw();

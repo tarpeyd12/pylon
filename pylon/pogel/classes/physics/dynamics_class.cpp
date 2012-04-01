@@ -5,7 +5,9 @@
 void POGEL::PHYSICS::DYNAMICS::buildot()
 {
     oltmp = new HASHLIST<POGEL::PHYSICS::SOLID*>();
-    oltmp->add(&objects);
+    while(oltmp->length() < objects.length())
+        oltmp->add(objects[oltmp->length()]);
+    //oltmp->add(&objects);
     ot = new POGEL::OCTREE<POGEL::PHYSICS::SOLID>(oltmp, 1, true);
     ot->grow();
     #ifdef OPENGL
@@ -55,7 +57,7 @@ POGEL::OCTREE<POGEL::PHYSICS::SOLID>* POGEL::PHYSICS::DYNAMICS::getotree()
 
 void POGEL::PHYSICS::DYNAMICS::FORCEfastAccessList()
 {
-    HASHLIST<POGEL::PHYSICS::SOLID*> l;
+    /*HASHLIST<POGEL::PHYSICS::SOLID*> l;
     while(objects.length())
     {
         l.add(objects[objects.length()-1]);
@@ -66,7 +68,7 @@ void POGEL::PHYSICS::DYNAMICS::FORCEfastAccessList()
     {
         objects.add(l[l.length()-1]);
         l.remove(l.length()-1);
-    }
+    }*/
 }
 
 unsigned long POGEL::PHYSICS::DYNAMICS::numobjs()
@@ -79,7 +81,7 @@ POGEL::PHYSICS::SOLID* POGEL::PHYSICS::DYNAMICS::objs(unsigned long a)
     return objects[a];
 }
 
-HASHLIST<POGEL::PHYSICS::SOLID*> POGEL::PHYSICS::DYNAMICS::objslst()
+CLASSLIST<POGEL::PHYSICS::SOLID*> POGEL::PHYSICS::DYNAMICS::objslst()
 {
     return objects;
 }
@@ -109,6 +111,18 @@ POGEL::PHYSICS::SOLID* POGEL::PHYSICS::DYNAMICS::getSolid(char* n)
     for(unsigned int i = 0; i < objects.length(); i++)
     {
         if( strlen(n) == strlen(objects[i]->getname()) && !strncmp(objects[i]->getname(), n, strlen(n)) )
+        {
+            return objects[i];
+        }
+    }
+    return NULL;
+}
+
+POGEL::PHYSICS::SOLID* POGEL::PHYSICS::DYNAMICS::getSolid(std::string n)
+{
+    for(unsigned int i = 0; i < objects.length(); i++)
+    {
+        if( objects[i]->getsname().compare(n) == 0 )
         {
             return objects[i];
         }

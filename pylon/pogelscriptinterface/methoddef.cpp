@@ -23,6 +23,8 @@ namespace pogelInterface
         { "clearsimulation",         (CFunction)clearsimulation,         VarArgs, NULL },
         // object controll
         { "object_new",            (CFunction)object_new,            VarArgs, NULL },
+        { "object_new_fromfile",   (CFunction)object_new_fromfile,   VarArgs, NULL },
+        { "object_new_child",      (CFunction)object_new_child,      VarArgs, NULL },
         { "object_set_visibility", (CFunction)object_set_visibility, VarArgs, NULL },
         { "object_move_s",         (CFunction)object_move_s,         VarArgs, NULL },
         { "object_move_3f",        (CFunction)object_move_3f,        VarArgs, NULL },
@@ -45,6 +47,7 @@ namespace pogelInterface
         { "object_get_bounce",     (CFunction)object_get_bounce,     VarArgs, NULL },
         { "object_set_friction",   (CFunction)object_set_friction,   VarArgs, NULL },
         { "object_get_friction",   (CFunction)object_get_friction,   VarArgs, NULL },
+        { "object_add_key",        (CFunction)object_add_key,        VarArgs, NULL },
         { "object_build",          (CFunction)object_build,          VarArgs, NULL },
         // object shapes
         { "object_add_sphere",       (CFunction)object_add_sphere,       VarArgs, NULL },

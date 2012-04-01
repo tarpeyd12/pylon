@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
+
 using namespace std;
 
 template < typename DataType, typename ComparisonType >
@@ -29,7 +31,8 @@ class ClassList
 		//int (*sortFunction)(T* a, T* b);
 
 		C sortFunction;
-	protected:
+	//protected:
+	public:
         /// returns the pointer to the actual data array
 		T* getList();
 	public:
@@ -50,7 +53,7 @@ class ClassList
 		void nullify();
 
         /// returns the number of items in the list
-		unsigned int length();
+		unsigned int length() const;
 
         /// adds an item
 		void add(T l);
@@ -69,6 +72,9 @@ class ClassList
 
         /// get an item in the array
 		T get(unsigned int i);
+
+		/// get the internal address of an item in the list
+		T * getaddress(unsigned int i) const;
 
         /// get the first item in the array
 		T first();

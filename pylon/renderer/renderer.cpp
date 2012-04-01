@@ -19,8 +19,7 @@ namespace Renderer
 {
     // do not edit
     // *******************************
-    POGEL::OBJECT* bob;
-    //ObjectLoader::Object::_BaseObject* gr;
+    //POGEL::OBJECT * bob;
 
     Renderer::Timing::Timer* timer30;
 
@@ -69,7 +68,10 @@ namespace Renderer
         {
             if(POGEL::hasproperty(POGEL_DEBUG))
                 cout << "building unbuilt image: \"" << image->toString() << "\"" << endl;
-            image->loadandbuild();
+            if(image->isloaded())
+                image->build();
+            else
+                image->loadandbuild();
             if( fileexists && !FileLoader::noremoval )
             {
                 if(POGEL::hasproperty(POGEL_DEBUG))
@@ -108,9 +110,20 @@ namespace Renderer
                 }
                 if( fileexists )
                 {
-                    image->load(fileid.c_str());
+                    if( !image->load(fileid.c_str()) )
+                    {
+                        if( !FileLoader::noremoval )
+                            FileLoader::System::Files::remove( fileid );
+                        cout << "Error: " << fileid << " loading error" << endl;
+                        throw -1;
+                    }
                     if( !FileLoader::noremoval )
                         FileLoader::System::Files::remove( fileid );
+                }
+                else
+                {
+                    cout << "Error: " << fileid << " extracted, but nonexistant" << endl;
+                    throw -2;
                 }
             }
             return image;

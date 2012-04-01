@@ -57,6 +57,7 @@ namespace Renderer
                      Renderer::Camera::campos.z
                      );
 
+
         //Renderer::Draw::SimpleDraw();
         Renderer::Draw::Draw();
         //Renderer::Draw::PerfectDraw();
@@ -65,8 +66,8 @@ namespace Renderer
 
         glEnable( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-        /*glEnable( GL_ALPHA_TEST );
-        glAlphaFunc( GL_GREATER, 0.5f );*/
+        //glEnable( GL_ALPHA_TEST );
+        //glAlphaFunc( GL_GREATER, 0.5f );
 
         Renderer::HUD::removeQuadCycle();
         Renderer::HUD::addQuadCycle();

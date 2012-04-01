@@ -101,7 +101,7 @@ ClassList<T,C>::nullify()
 
 template < typename T, typename C >
 unsigned int
-ClassList<T,C>::length()
+ClassList<T,C>::length() const
 {
     return len;
 }
@@ -113,8 +113,9 @@ ClassList<T,C>::add(T l)
     if(len<overhead)
         list[len++]=l;
     else {
-        T *tmp = new T[length()+1];
-        for(unsigned int i=0;i<length();i++)
+        unsigned int nlen = len;
+        T *tmp = new T[nlen+1];
+        for(unsigned int i=0;i<nlen;i++)
             tmp[i]=list[i];
         tmp[len++]=l;
         if(list!=NULL)
@@ -193,6 +194,13 @@ ClassList<T,C>::get(unsigned int i)
 {
     //if(i < length())
     return list[i];
+}
+
+template < typename T, typename C >
+T *
+ClassList<T,C>::getaddress(unsigned int i) const
+{
+    return &list[i];
 }
 
 template < typename T, typename C >

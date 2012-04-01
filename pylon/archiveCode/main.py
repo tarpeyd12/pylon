@@ -169,11 +169,13 @@ pylon.subrender_set_cam(subrenderer1, cam.posx,cam.posy,cam.posz, cam.rotx,cam.r
 pylon.subrender_set_ratio(subrenderer1, float(pylon.window_width())/float(pylon.window_height()))
 Bloop.y1 = pylon.window_height()
 Bloop.x2 = pylon.window_width()
+#Bloop.makeInvisable()
 Bloop.update()
 
 pylon.object_move_3f(Sky.name,"Sky",-cam.posx,-cam.posy,-cam.posz)
 
 # a function defined in init.py for controlling the 'flow' of objects/particles
-doOBJECTrelocate()
+if going:
+	doOBJECTrelocate()
 
 

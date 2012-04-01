@@ -12,6 +12,7 @@
 #include "../pogel/pogel.h"
 #include "../lists/lists.h"
 #include "../fileloader/fileloader.h"
+#include "../objectloader/objectloader.h"
 
 #include "timer.h"
 
@@ -25,6 +26,8 @@ namespace Renderer
     extern void (*SciptCall)(void);
 
     extern bool drawLock;
+
+    //extern POGEL::OBJECT * bob;
 
     void Init();
 

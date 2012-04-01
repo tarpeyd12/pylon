@@ -148,6 +148,7 @@ while loop < numOSpheres:
 	print pylon.object_add_sphere("TestSphereSim","Object"+str(loop),0.07,10,10,possibleImages[rnum],1,1,possibleTriProps[rnum])
 	print 'ball'
 	print pylon.object_build("TestSphereSim","Object"+str(loop))
+	#pylon.object_set_visibility("TestSphereSim","Object"+str(loop),False)
 	print 'build'
 	loop = loop + 1
 
@@ -163,12 +164,12 @@ print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[
 #if rnum!=6 and not False:
 #print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|32)
 #print pylon.object_add_sphere("TestSphereSim","Outset",2.1,20,20,'{[Data/images/earthcloudmap.png],[2]}',1,1,8|32)
-pylon.object_set_spin_3f("TestSphereSim","Outset",0,10,0)
+#pylon.object_set_spin_3f("TestSphereSim","Outset",0,10,0)
 print pylon.object_build("TestSphereSim","Outset")
 
 Sky = Simulation("Sky",False)
 print Sky.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Sky",1|8|16,8|64,0,"") )
-print pylon.object_add_sphere(Sky.name,"Sky",50.0,20,20,"{[Data/images/CGSkies_0091_free.jpg],[0]}",1,1,0|16)
+print pylon.object_add_sphere(Sky.name,"Sky",750.0,20,20,"{[Data/images/sky/Sky_horiz_"+str(int(random.random()*11+1))+"_2048.jpg],[0]}",2,1,0|16)
 print pylon.object_build(Sky.name,"Sky")
 print pylon.setsimulationcollitters(Sky.name,0)
 print pylon.togglesimweight(Sky.name,False)
@@ -183,7 +184,68 @@ print pylon.setsimulationgravity_3f("TestSphereSim",0,-9.8,0)
 print pylon.setsimulationcollitters("TestSphereSim",3)
 print pylon.togglesimweight("TestSphereSim",False)
 
+rnum = 3
+print sim2.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8|64,0,"") )
+print pylon.object_add_sphere(sim2.name,"Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|16)
+print pylon.object_build(sim2.name,"Outset")
+pylon.object_set_visibility(sim2.name,"Outset",False)
+
+subrenderer1 = pylon.subrender_new("steve",float(pylon.window_width())/float(pylon.window_height()))
+pylon.subrender_bind_sim(subrenderer1, sim2.name)
+
+Bloop = Quad(0,pylon.window_height(),pylon.window_width(),0,subrenderer1)
+#Bloop.setproperties(32)
+#Bloop.makeInvisable()
+
+#print "setting light"
+#pylon.subrender_set_light(subrenderer1, 0, 0,0,-50, "{[0.28],[0.333],[0.38],[1.0]}","{[0.855],[0.55],[0.15],[1.0]}","{[0.925],[0.925],[0.0],[1.0]}",False)
+#print "light set"
+
+Animation = Simulation("anm",True)
+animationfilename = "Data/objectdata/beast.ms3d"
+pylon.requestfile(animationfilename)
+if pylon.object_new_fromfile( Animation.name, "Object", animationfilename, "ms3d bin") != 0:
+	print 'failed to load object file, exiting'
+	print _pylon.exit(0)
+	quit()
+pylon.object_add_key(Animation.name,"Object", "scale", 0.01,0.01,0.01,0.0)
+pylon.object_options(Animation.name,"Object","add property",64)
+pylon.object_options(Animation.name,"Object","add option",1)
+pylon.object_set_bounce(Animation.name,"Object",0.0)
+pylon.object_set_mass(Animation.name,"Object",0.1)
+print pylon.object_build(Animation.name,"Object")
+
+loop = 0
+rnum = 0
+numOSpheres = 10
+while loop < numOSpheres:
+	sc1 = 1.5
+	#rpos = makepos(rnd_n1p1()*sc1*0, float(loop)/5.0+.01-(numOSpheres/5.0/2), rnd_n1p1()*sc1*0)
+	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1-2, rnd_n1p1()*sc1)
+	rot = makepos(rnd_n1p1()*360,rnd_n1p1()*360,rnd_n1p1()*360)
+	print "\nstart Object"+str(loop)
+	print Animation.addobject( makeObjectString(rpos,rot,zeropos,zeropos,"Object"+str(loop),2|4|16,8,0.02,"") )
+	print 'add'
+	rnum = 5
+	print pylon.object_add_sphere(Animation.name,"Object"+str(loop),0.07,10,10,possibleImages[rnum],1,1,possibleTriProps[rnum])
+	print 'ball'
+	print pylon.object_build(Animation.name,"Object"+str(loop))
+	print 'build'
+	loop = loop + 1
+
+rnum = 3
+print Animation.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8|64,0,"") )
+print pylon.object_add_sphere(Animation.name,"Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|16)
+pylon.object_set_visibility(Animation.name,"Outset",False)
+print pylon.object_build(Animation.name,"Outset")
+
+print pylon.setsimulationgravity_3f(Animation.name,0,-9.8,0)
+print pylon.setsimulationcollitters(Animation.name,3)
+print pylon.togglesimweight(Animation.name,False)
+
 relocateobjscounter = 0
+
+numOSpheres = 10
 
 def doOBJECTrelocate():
 	#pass
@@ -197,24 +259,11 @@ def doOBJECTrelocate():
 	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1)
 	pylon.object_set_pos_s("TestSphereSim",oname,rpos)
 	pylon.object_set_dir_3f("TestSphereSim",oname,0.025*20,0.15*20,0)
-
-rnum = 3
-print sim2.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8|64,0,"") )
-print pylon.object_add_sphere(sim2.name,"Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|16)
-
-pylon.object_set_visibility(sim2.name,"Outset",False)
-
-subrenderer1 = pylon.subrender_new("steve",float(pylon.window_width())/float(pylon.window_height()))
-#pylon.subrender_bind_sim(subrenderer1, sim2.name)
-
-Bloop = Quad(0,pylon.window_height(),pylon.window_width(),0,subrenderer1)
-#Bloop.setproperties(32)
-
-print "setting light"
-pylon.subrender_set_light(subrenderer1, 0, 0,0,-50, "{[0.0],[0.0],[0.0],[1.0]}","{[0.75],[0.75],[0.75],[1.0]}","{[1.0],[1.0],[1.0],[1.0]}",False)
-print "light set"
-
+	
+	sc1 = 0.25
+	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1+1.5, rnd_n1p1()*sc1)
+	pylon.object_set_pos_s(Animation.name,oname,rpos)
+	pylon.object_set_dir_3f(Animation.name,oname,0,0,0)
 
 waitcalc(1000)
-#TestSphereSim.stop()
 

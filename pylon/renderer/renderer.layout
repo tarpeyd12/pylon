@@ -10,23 +10,23 @@
 	<File name="cmd.h" open="0" top="0" tabpos="13">
 		<Cursor position="296" topLine="0" />
 	</File>
-	<File name="display.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="1583" topLine="57" />
+	<File name="display.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="1626" topLine="48" />
 	</File>
-	<File name="draw.cpp" open="1" top="0" tabpos="2">
+	<File name="draw.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="9417" topLine="194" />
 	</File>
 	<File name="draw.h" open="0" top="0" tabpos="8">
 		<Cursor position="215" topLine="0" />
 	</File>
-	<File name="hud.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="2334" topLine="56" />
+	<File name="hud.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="5967" topLine="107" />
 	</File>
 	<File name="hud.h" open="0" top="0" tabpos="5">
 		<Cursor position="103" topLine="0" />
 	</File>
-	<File name="init.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1970" topLine="38" />
+	<File name="init.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="1952" topLine="55" />
 	</File>
 	<File name="key.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="325" topLine="0" />
@@ -53,19 +53,19 @@
 		<Cursor position="1031" topLine="13" />
 	</File>
 	<File name="quad.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1314" topLine="19" />
+		<Cursor position="4758" topLine="94" />
 	</File>
 	<File name="quad.h" open="0" top="0" tabpos="8">
-		<Cursor position="279" topLine="0" />
+		<Cursor position="204" topLine="5" />
 	</File>
-	<File name="renderer.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="507" topLine="44" />
+	<File name="renderer.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="3545" topLine="108" />
 	</File>
-	<File name="renderer.h" open="0" top="0" tabpos="6">
-		<Cursor position="75" topLine="0" />
+	<File name="renderer.h" open="0" top="0" tabpos="4">
+		<Cursor position="733" topLine="18" />
 	</File>
-	<File name="subrenderer.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="777" topLine="0" />
+	<File name="subrenderer.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="119" topLine="0" />
 	</File>
 	<File name="subrenderer.h" open="0" top="0" tabpos="5">
 		<Cursor position="555" topLine="21" />
@@ -79,8 +79,8 @@
 	<File name="version.h" open="0" top="0" tabpos="0">
 		<Cursor position="625" topLine="9" />
 	</File>
-	<File name="window.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="281" topLine="3" />
+	<File name="window.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="2140" topLine="57" />
 	</File>
 	<File name="window.h" open="0" top="0" tabpos="0">
 		<Cursor position="441" topLine="0" />

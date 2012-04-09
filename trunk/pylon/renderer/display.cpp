@@ -57,7 +57,6 @@ namespace Renderer
                      Renderer::Camera::campos.z
                      );
 
-
         //Renderer::Draw::SimpleDraw();
         Renderer::Draw::Draw();
         //Renderer::Draw::PerfectDraw();

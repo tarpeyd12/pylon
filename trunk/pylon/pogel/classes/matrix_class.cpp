@@ -20,10 +20,12 @@ POGEL::DegreesToRadians(float d)
 POGEL::MATRIX::MATRIX()
 {
     // default constructor that sets the brand new matrix as the identity matrix
-    matrix[ 0] = 1.0f;  matrix[ 4] = 0.0f;  matrix[ 8] = 0.0f;  matrix[12] = 0.0f;
+    /*matrix[ 0] = 1.0f;  matrix[ 4] = 0.0f;  matrix[ 8] = 0.0f;  matrix[12] = 0.0f;
     matrix[ 1] = 0.0f;  matrix[ 5] = 1.0f;  matrix[ 9] = 0.0f;  matrix[13] = 0.0f;
     matrix[ 2] = 0.0f;  matrix[ 6] = 0.0f;  matrix[10] = 1.0f;  matrix[14] = 0.0f;
-    matrix[ 3] = 0.0f;  matrix[ 7] = 0.0f;  matrix[11] = 0.0f;  matrix[15] = 1.0f;
+    matrix[ 3] = 0.0f;  matrix[ 7] = 0.0f;  matrix[11] = 0.0f;  matrix[15] = 1.0f;*/
+    memset(matrix,0.0f,16*sizeof(float));
+    matrix[0]=matrix[5]=matrix[10]=matrix[15]=1.0f;
 }
 
 POGEL::MATRIX::MATRIX(float* m)
@@ -45,7 +47,9 @@ POGEL::MATRIX::MATRIX(const POGEL::MATRIX& m)
 
 POGEL::MATRIX::MATRIX(float rot, int axis)
 {
-    *this = POGEL::MATRIX(); // set as identity
+    //*this = POGEL::MATRIX(); // set as identity
+    memset(matrix,0.0f,16*sizeof(float));
+    matrix[0]=matrix[5]=matrix[10]=matrix[15]=1.0f;
     rot=POGEL::DegreesToRadians(rot);
     float cosrot = (float)cos(rot);
     float sinrot = (float)sin(rot);
@@ -73,7 +77,9 @@ POGEL::MATRIX::MATRIX(float rot, int axis)
 
 POGEL::MATRIX::MATRIX(POGEL::POINT point, int i)
 {
-    *this = POGEL::MATRIX(); // set as identity
+    //*this = POGEL::MATRIX(); // set as identity
+    memset(matrix,0.0f,16*sizeof(float));
+    matrix[0]=matrix[5]=matrix[10]=matrix[15]=1.0f;
     switch(i) {
         case MATRIX_CONSTRUCT_ROTATION: // for constructing rotation
             // sets to the product of all the rotation matricies
@@ -96,7 +102,9 @@ POGEL::MATRIX::MATRIX(POGEL::POINT point, int i)
 
 POGEL::MATRIX::MATRIX(POGEL::VECTOR axis,float angle)
 {
-    *this = POGEL::MATRIX();
+    //*this = POGEL::MATRIX();
+    memset(matrix,0.0f,16*sizeof(float));
+    matrix[0]=matrix[5]=matrix[10]=matrix[15]=1.0f;
     fromaxis(axis, angle);
 }
 
@@ -134,7 +142,7 @@ POGEL::MATRIX::set(POGEL::MATRIX m)
 }
 
 POGEL::POINT
-POGEL::MATRIX::getrotation()
+POGEL::MATRIX::getrotation() const
 {
     // returnes the rotation of the matrx in a POINT object(don't know how it works)
     float angle_x;
@@ -171,14 +179,14 @@ POGEL::MATRIX::getrotation()
 }
 
 POGEL::POINT
-POGEL::MATRIX::getposition()
+POGEL::MATRIX::getposition() const
 {
     // returnes a POINT object of the translation of the matrix
     return POGEL::POINT(matrix[12], matrix[13], matrix[14]);
 }
 
 float *
-POGEL::MATRIX::getcolumn(int i)
+POGEL::MATRIX::getcolumn(int i) const
 {
     // returnes an array of 4 floats that is the column 'i' of the matrix
     float *ret=new float[4]; i*=4;
@@ -190,7 +198,7 @@ POGEL::MATRIX::getcolumn(int i)
 }
 
 float *
-POGEL::MATRIX::getrow(int c)
+POGEL::MATRIX::getrow(int c) const
 {
     // returnes an array of 4 floats that is the row 'c' of the matrix
     float *ret=new float[4];
@@ -228,7 +236,7 @@ POGEL::MATRIX::raistopower(int p)
 }
 
 float
-POGEL::MATRIX::determinant()
+POGEL::MATRIX::determinant() const
 {
     // returnes the determinant of the matrix
     float inv[4];
@@ -283,7 +291,7 @@ POGEL::MATRIX::invert()
 }
 
 void
-POGEL::MATRIX::print()
+POGEL::MATRIX::print() const
 {
     // prints the matrix out to the terminal
     POGEL::message("\n");
@@ -295,70 +303,6 @@ POGEL::MATRIX::print()
 }
 
 void
-POGEL::MATRIX::transformPoint(POGEL::POINT* p)
-{
-    POGEL::POINT tmp=(*p);
-    p->x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0);
-    p->y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1);
-    p->z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2);
-}
-
-POGEL::POINT
-POGEL::MATRIX::transformPoint(POGEL::POINT p)
-{
-    POGEL::POINT tmp=p;
-    p.x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0);
-    p.y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1);
-    p.z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2);
-    return p;
-}
-
-void
-POGEL::MATRIX::transformVector(POGEL::VECTOR* v)
-{
-    // transforms the VECTOR 'v' by the rotation of the matrix
-    POGEL::VECTOR tmp=(*v);
-    v->x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0);
-    v->y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1);
-    v->z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2);
-}
-
-POGEL::VECTOR
-POGEL::MATRIX::transformVector(POGEL::VECTOR v)
-{
-    // transforms the VECTOR 'v' by the rotation of the matrix
-    POGEL::VECTOR tmp=v;
-    v.x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0);
-    v.y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1);
-    v.z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2);
-    return v;
-}
-
-void
-POGEL::MATRIX::transformVertex(POGEL::VERTEX* v)
-{
-    // get the vector from center to vertex v, then get its length,
-    // normalize it, transform it myltiply it by the vector length,
-    // then use that as the new vertex. or do the same as converting a vector 'cause it's simpler
-    POGEL::POINT tmp=(*v);
-    v->x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0);
-    v->y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1);
-    v->z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2);
-    transformVector(&v->normal); // now transform the normal vector
-}
-
-POGEL::VERTEX
-POGEL::MATRIX::transformVertex(POGEL::VERTEX v)
-{
-    POGEL::POINT tmp=v;
-    v.x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0);
-    v.y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1);
-    v.z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2);
-    transformVector(&v.normal); // now transform the normal vector
-    return v;
-}
-
-void
 POGEL::MATRIX::transformTriangle(POGEL::TRIANGLE* tri)
 {
     transformVertex(&tri->vertex[0]);
@@ -366,23 +310,22 @@ POGEL::MATRIX::transformTriangle(POGEL::TRIANGLE* tri)
     transformVertex(&tri->vertex[2]);
     transformVector(&tri->normal);
     tri->usetrimid = false;
-    //tri->middle();
 }
 
 POGEL::TRIANGLE
-POGEL::MATRIX::transformTriangle(POGEL::TRIANGLE tri)
+POGEL::MATRIX::transformTriangle(const POGEL::TRIANGLE& tri) const
 {
-    transformVertex(&tri.vertex[0]);
-    transformVertex(&tri.vertex[1]);
-    transformVertex(&tri.vertex[2]);
-    transformVector(&tri.normal);
-    tri.usetrimid = false;
-    //tri.middle();
-    return tri;
+    POGEL::TRIANGLE tmp = tri;
+    tmp.vertex[0] = transformVertex(tri.vertex[0]);
+    tmp.vertex[1] = transformVertex(tri.vertex[1]);
+    tmp.vertex[2] = transformVertex(tri.vertex[2]);
+    tmp.normal = transformVector(tri.normal);
+    tmp.usetrimid = false;
+    return tmp;
 }
 
 POGEL::QUAT
-POGEL::MATRIX::toquat()
+POGEL::MATRIX::toquat() const
 {
     // converts the matrix to a Quatranation (dont know how it works)
     POGEL::QUAT q;
@@ -457,7 +400,7 @@ POGEL::MATRIX::fromaxis(POGEL::VECTOR axis, float angle)
 }
 
 POGEL::MATRIX
-POGEL::MATRIX::operator+(POGEL::MATRIX m)
+POGEL::MATRIX::operator+(const POGEL::MATRIX& m) const
 {
     // simply adds the two matricies together
     POGEL::MATRIX ret;
@@ -473,7 +416,7 @@ POGEL::MATRIX::operator+(POGEL::MATRIX m)
 }
 
 POGEL::MATRIX
-POGEL::MATRIX::operator-(POGEL::MATRIX m)
+POGEL::MATRIX::operator-(const POGEL::MATRIX& m) const
 {
     // simply subtracts the two matricies from each other
     POGEL::MATRIX ret;
@@ -489,7 +432,7 @@ POGEL::MATRIX::operator-(POGEL::MATRIX m)
 }
 
 POGEL::MATRIX
-POGEL::MATRIX::operator*(POGEL::MATRIX a)
+POGEL::MATRIX::operator*(const POGEL::MATRIX& a) const
 {
     // multiplies the two matricies together
     POGEL::MATRIX ret;
@@ -513,7 +456,7 @@ POGEL::MATRIX::operator*(POGEL::MATRIX a)
 }
 
 POGEL::MATRIX
-POGEL::MATRIX::operator*(float a)
+POGEL::MATRIX::operator*(float a) const
 {
     // returnes a matrix like this one but all values are multiplied by a
     POGEL::MATRIX ret;
@@ -525,7 +468,7 @@ POGEL::MATRIX::operator*(float a)
 }
 
 POGEL::MATRIX
-POGEL::MATRIX::operator/(float a)
+POGEL::MATRIX::operator/(float a) const
 {
     // returnes a matrix like this one but all values are divided by a
     return this->operator*(1.0f/a);

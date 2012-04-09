@@ -4,10 +4,11 @@
 
 void POGEL::PHYSICS::DYNAMICS::buildot()
 {
-    oltmp = new HASHLIST<POGEL::PHYSICS::SOLID*>();
-    while(oltmp->length() < objects.length())
-        oltmp->add(objects[oltmp->length()]);
-    //oltmp->add(&objects);
+    oltmp = new CLASSLIST<POGEL::PHYSICS::SOLID*>();
+    //while(oltmp->length() < objects.length())
+        //oltmp->add(objects[oltmp->length()]);
+    //oltmp->add(objects[oltmp->length()]);
+    oltmp->add(objects);
     ot = new POGEL::OCTREE<POGEL::PHYSICS::SOLID>(oltmp, 1, true);
     ot->grow();
     #ifdef OPENGL

@@ -8,7 +8,7 @@
 		<Cursor position="132" topLine="0" />
 	</File>
 	<File name="cmd.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="2340" topLine="59" />
+		<Cursor position="3378" topLine="93" />
 	</File>
 	<File name="globals.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="322" topLine="12" />
@@ -20,9 +20,9 @@
 		<Cursor position="2881" topLine="21" />
 	</File>
 	<File name="init.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="1437" topLine="39" />
+		<Cursor position="4677" topLine="112" />
 	</File>
-	<File name="main.cpp" open="1" top="1" tabpos="0">
+	<File name="main.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="500" topLine="0" />
 	</File>
 	<File name="main.h" open="0" top="0" tabpos="2">

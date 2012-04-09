@@ -54,9 +54,13 @@
 				<Option createDefFile="1" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-O3" />
+					<Add option="-pg" />
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
+					<Add option="-pg" />
 					<Add library="threads" />
 					<Add library="fileloader" />
 					<Add directory="../bin/UnitaryDebug" />
@@ -84,6 +88,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-Wextra" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add directory="$(#python.include)" />

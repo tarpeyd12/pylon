@@ -9,6 +9,7 @@ namespace ScriptEngine
 {
     namespace Parse
     {
+        bool endsWith(const std::string&, const std::string&);
         unsigned int getOccurrencesInString(char, std::string);
         std::string getStringSection(char, unsigned int, bool, char, unsigned int, bool, std::string);
         std::string getStringSection_sc(char, unsigned int, bool, char, unsigned int, bool, std::string);

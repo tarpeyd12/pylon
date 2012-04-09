@@ -7,10 +7,11 @@
 
 void POGEL::PHYSICS::SIMULATION::buildot()
 {
-    oltmp = new HASHLIST<POGEL::PHYSICS::SOLID*>();
-    while(oltmp->length() < objects.length())
-        oltmp->add(objects[oltmp->length()]);
-    //oltmp->add(&objects);
+    oltmp = new CLASSLIST<POGEL::PHYSICS::SOLID*>();
+    //while(oltmp->length() < objects.length())
+        //oltmp->add(objects[oltmp->length()]);
+    //oltmp->add(objects[oltmp->length()]);
+    oltmp->add(objects);
     ot = new POGEL::OCTREE<POGEL::PHYSICS::SOLID>(oltmp, 1, true);
     ot->grow();
     #ifdef THREADSOK
@@ -200,7 +201,7 @@ inline void checkcollision(POGEL::PHYSICS::SIMULATION* sim, unsigned long s, uns
 	for( unsigned long a = s; a < e && a < sim_numobjs; a++ ) {
 		POGEL::PHYSICS::SOLID* obj_a = sim->objs(a);
 		if(!obj_a->napping() || obj_a->hasOption(PHYSICS_SOLID_STATIONARY)) {
-			HASHLIST<unsigned int> *objs = sim->getotree()->releventIndicies(obj_a->bounding);
+			CLASSLIST<unsigned int> *objs = sim->getotree()->releventIndicies(obj_a->bounding);
 			if(obj_a->hasOption(PHYSICS_SOLID_CONCAVE)) {
 				for( unsigned long b = 0; b < sim_numobjs; b++ )
 					if(o!=a&&o!=b && objectIntersectionProcessing(sim, a, b) && !sim->objs(b)->hasOption(PHYSICS_SOLID_STATIONARY)) {

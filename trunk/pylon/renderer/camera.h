@@ -14,7 +14,7 @@ namespace Renderer
                 POGEL::POINT position;
 
                 Viewpoint();
-                Viewpoint(POGEL::POINT,POGEL::POINT);
+                Viewpoint( const POGEL::POINT&, const POGEL::POINT& );
 
                 void set();
                 POGEL::VECTOR GetCamDirection();

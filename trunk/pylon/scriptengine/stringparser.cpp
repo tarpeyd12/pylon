@@ -4,6 +4,25 @@ namespace ScriptEngine
 {
     namespace Parse
     {
+
+        // http://stackoverflow.com/questions/874134/find-if-string-endswith-another-string-in-c
+        bool endsWith( const std::string& fullString, const std::string& ending )
+        {
+            unsigned int lastMatchPos = fullString.rfind(ending);
+            bool isEnding = lastMatchPos != std::string::npos;
+
+            for( unsigned int i = lastMatchPos + ending.length(); (i < fullString.length()) && isEnding; ++i )
+            {
+                if( (fullString[i] != '\n') &&
+                    (fullString[i] != '\r') )
+                {
+                    isEnding = false;
+                }
+            }
+
+            return isEnding;
+        }
+
         unsigned int getOccurrencesInString(char c, std::string s) {
             unsigned int count = 0;
             for(unsigned int i = 0; i < s.length(); i++) if(s[i] == c) count++;

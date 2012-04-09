@@ -19,77 +19,157 @@ class TRIANGLE;
 #define			TRIANGLE_TRANSPARENT		32
 #define			TRIANGLE_DOUBLESIDED		64
 
-namespace POGEL {
-class TRIANGLE {
-    private:
-        unsigned int properties;     // the mushed options
-        POGEL::POINT trimid;         // the middlo of the reiangle
-        bool usetrimid;              //
+namespace POGEL
+{
+    class TRIANGLE
+    {
+        public:
+            POGEL::VERTEX vertex[3];     // the 3 verticies of the triangle
+            POGEL::VECTOR vertnormals[3];
+            POGEL::BOUNDING bounding;
+            POGEL::VECTOR normal;        // the normal vector
+        private:
+            POGEL::POINT trimid;         // the middle of the reiangle
+        public:
+            int ivertex[3]; // pointers to 3 verticies used for animation
+            unsigned int ivertlength; // number of things in the list of verticies
+            POGEL::VERTEX * pvertex;  // pointers to the list of verticies used for animation
+            POGEL::IMAGE * texture;      // a pointer to the image to use as the texture
+        private:
+            unsigned int properties;     // the mushed options
+            bool usetrimid;              //
+        public:
 
-    public:
+            TRIANGLE();
+            TRIANGLE( const POGEL::POINT&, const POGEL::POINT&, const POGEL::POINT& );
+            TRIANGLE( const POGEL::VERTEX&, const POGEL::VERTEX&, const POGEL::VERTEX&, POGEL::IMAGE*, unsigned int );
+            TRIANGLE( const POGEL::POINT&, const POGEL::POINT&, const POGEL::POINT&, POGEL::IMAGE*, unsigned int );
+            TRIANGLE( POGEL::VERTEX*, POGEL::IMAGE*, unsigned int );
+            TRIANGLE( POGEL::VERTEX*, unsigned int, int, int, int, POGEL::IMAGE*, unsigned int );
 
-        void updateVert();
+            TRIANGLE( const std::string&, POGEL::IMAGE* );
+            TRIANGLE( const std::string& );
 
-        POGEL::BOUNDING bounding;
-        POGEL::VERTEX vertex[3];     // the 3 verticies of the triangle
-        int ivertex[3]; // pointers to 3 verticies used for animation
-        POGEL::VERTEX * pvertex;  // pointers to the list of verticies used for animation
-        unsigned int ivertlength; // number of things in the list of verticies
-        POGEL::IMAGE * texture;      // a pointer to the image to use as the texture
-        POGEL::VECTOR normal;        // the normal vector
-        POGEL::VECTOR vertnormals[3];
+            ~TRIANGLE();
 
-        TRIANGLE();
-        TRIANGLE(POGEL::POINT,POGEL::POINT,POGEL::POINT);
-        TRIANGLE(POGEL::VERTEX,POGEL::VERTEX,POGEL::VERTEX,POGEL::IMAGE*,unsigned int);
-        TRIANGLE(POGEL::POINT,POGEL::POINT,POGEL::POINT,POGEL::IMAGE*,unsigned int);
-        TRIANGLE(POGEL::VERTEX*,POGEL::IMAGE*,unsigned int);
-        TRIANGLE(POGEL::VERTEX*,unsigned int,int,int,int,POGEL::IMAGE*,unsigned int);
+            void updateVert();
 
-        TRIANGLE(std::string, POGEL::IMAGE*);
-        TRIANGLE(std::string);
+            void load( const POGEL::VERTEX&, const POGEL::VERTEX&, const POGEL::VERTEX&, POGEL::IMAGE*, unsigned int );
+            void load( POGEL::VERTEX*, POGEL::IMAGE*, unsigned int );
 
-        virtual ~TRIANGLE();
+            void settexture( POGEL::IMAGE* );
+            POGEL::IMAGE* gettexture() const;
 
-        void load(POGEL::VERTEX,POGEL::VERTEX,POGEL::VERTEX,POGEL::IMAGE*,unsigned int);
-        void load(POGEL::VERTEX*,POGEL::IMAGE*,unsigned int);
+            PROPERTIES_METHODS;
 
-        void settexture(POGEL::IMAGE*);
-        POGEL::IMAGE* gettexture();
+            std::string toString();
 
-        PROPERTIES_METHODS;
+            void scroll_tex_values(float,float);
 
-        std::string toString();
+            void print() const;
 
-        void scroll_tex_values(float,float);
+            POGEL::LINE getEdge( unsigned int l ) const;
 
-        void print();
+            POGEL::TRIANGLE transform( POGEL::MATRIX* );
 
-        POGEL::LINE getEdge(unsigned int l);
+            POGEL::POINT middle();
+            POGEL::POINT middle() const;
 
-        POGEL::TRIANGLE transform(POGEL::MATRIX*);
+            bool isinfront( const POGEL::POINT& ) const;
 
-        POGEL::POINT middle();
+            bool distcheck( const POGEL::POINT&, float) const;
 
-        bool isinfront(POGEL::POINT);
+            float distance( const POGEL::POINT& ) const;
 
-        bool distcheck(POGEL::POINT, float);
+            void makebounding();
 
-        float distance(POGEL::POINT);
+            POGEL::POINT getposition();
+            POGEL::POINT getposition() const;
+            POGEL::BOUNDING getbounding() const;
 
-        void makebounding();
+            bool isClear() const;
 
-        POGEL::POINT getposition();
-        POGEL::BOUNDING getbounding();
+            inline void drawgeometry() const;
 
-        bool isClear();
+            void draw() const;
 
-        void draw();
+            POGEL::TRIANGLE& operator = ( const POGEL::TRIANGLE& );
 
-        POGEL::TRIANGLE& operator = (const POGEL::TRIANGLE&);
+            friend class POGEL::MATRIX;
+    };
 
-        friend class POGEL::MATRIX;
-};
+    void
+    TRIANGLE::drawgeometry() const
+    {
+        // if using triangle's flat normal set it
+        if ( properties & TRIANGLE_LIT && !( properties & TRIANGLE_VERTEX_NORMALS ) )
+        {
+            glNormal3f( normal.x, normal.y, normal.z );
+        }
+
+        if ( !properties & TRIANGLE_COLORED )
+        {
+            glColor4f( 1.0f, 1.0f, 1.0f, 1.0f );
+        }
+
+        if( properties & TRIANGLE_INVERT_NORMALS )
+        {
+            for ( unsigned int a = 3; a > 0; --a )
+            {
+                unsigned int i = a % 3;
+                // the triangle will not be colored if GL_LIGHTING is enabled,
+                //  don't know why.
+                // set the color
+                if ( properties & TRIANGLE_COLORED )
+                {
+                    glColor4f( vertex[ i ].color.r, vertex[ i ].color.g, vertex[ i ].color.b, vertex[ i ].color.a );
+                }
+
+                // light the verticies
+                if ( properties & TRIANGLE_VERTEX_NORMALS )
+                {
+                    glNormal3f( vertex[ i ].normal.x, vertex[ i ].normal.y, vertex[ i ].normal.z );
+                }
+
+                // set the verticies' texture coordanates
+                glTexCoord2f( vertex[ i ].u, vertex[ i ].v );
+
+                // set the vertex
+                glVertex3f( vertex[ i ].x, vertex[ i ].y, vertex[ i ].z );
+            }
+        }
+        else
+        {
+            for ( unsigned int i = 0; i < 3; ++i )
+            {
+                // the triangle will not be colored if GL_LIGHTING is enabled,
+                //  don't know why.
+                // set the color
+                if ( properties & TRIANGLE_COLORED )
+                {
+                    glColor4f( vertex[ i ].color.r, vertex[ i ].color.g, vertex[ i ].color.b, vertex[ i ].color.a );
+                }
+
+                // light the verticies
+                if ( properties & TRIANGLE_VERTEX_NORMALS )
+                {
+                    glNormal3f( vertex[ i ].normal.x, vertex[ i ].normal.y, vertex[ i ].normal.z );
+                }
+
+                // set the verticies' texture coordanates
+                glTexCoord2f( vertex[ i ].u, vertex[ i ].v );
+
+                // set the vertex
+                glVertex3f( vertex[ i ].x, vertex[ i ].y, vertex[ i ].z );
+            }
+        }
+
+        if ( properties & TRIANGLE_COLORED )
+        {
+            glColor4f( 1.0f, 1.0f, 1.0f, 1.0f );
+        }
+    }
+
 }
 
 #endif /* _TRIANGLE_CLASS_H */

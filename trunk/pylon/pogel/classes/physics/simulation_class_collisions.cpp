@@ -185,6 +185,8 @@ bool POGEL::PHYSICS::SIMULATION::processSPHERE_GENERAL(POGEL::PHYSICS::SOLID* ob
 		POGEL::VECTOR v( tmp_2, obj1->position );
 		v.normalize();
 		unocupyobjs( obj1, obj2, v, fabs(d) );
+		v += tmptri.normal;
+		v.normalize();
 		reactcollision( obj1, obj2, v, v*-1.0f, tmp_2 );
 		return true;
 	}

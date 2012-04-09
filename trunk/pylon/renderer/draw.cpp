@@ -52,15 +52,24 @@ namespace Renderer
                 float objradius = obj->getbounding().maxdistance;
                 float dst = refpos.dotproduct(campos + obj->position);
 
-                // if the object is in fornt of the camera
-                if( dst+objradius > 0.0f )
+                // if the object is not infornt of the camera
+                if( dst+objradius <= 0.0f )
+                {
+                    // skip it
+                    continue;
+                }
+
+                float dst2 = invcampos.distance(obj->position);
+
+                if( dst2+objradius < 50.0f*objradius*2.0f )
                 {
                     if( obj->getNumFrames() )
                     {
                         obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
+                        //obj->setAnimationTime(1.0f);
                     }
 
-                    bool autoinclude = /*objradius >= 10.0f ||*/ obj->hasOption(PHYSICS_SOLID_STATIONARY);// || obj->hasproperty(OBJECT_SORT_TRIANGLES);
+                    bool autoinclude = obj->hasOption(PHYSICS_SOLID_STATIONARY) || obj->hasproperty(OBJECT_SORT_TRIANGLES);
 
                     if( autoinclude )
                     {
@@ -68,23 +77,28 @@ namespace Renderer
                         closelist += DataWraper<POGEL::PHYSICS::SOLID*,float>(obj,val);
                         continue;
                     }
+                }
 
-                    float dst2 = invcampos.distance(obj->position);
+                // if object is closer than 100 times its diamiter, recomend for sorting
+                if( dst2+objradius < 100.0f*objradius*2.0f )
+                {
+                    float val = obj->getbounding().maxdistance + POGEL::VECTOR(obj->position).dotproduct(refpos);
+                    closelist += DataWraper<POGEL::PHYSICS::SOLID*,float>(obj,val);
+                }
 
-                    // if object is closer than 100 times its diamiter, recomend for sorting
-                    if(dst2+objradius < 100.0f*objradius*2.0f)
-                    {
-                        float val = obj->getbounding().maxdistance + POGEL::VECTOR(obj->position).dotproduct(refpos);
-                        closelist += DataWraper<POGEL::PHYSICS::SOLID*,float>(obj,val);
-                    }
-                    // otherwise if object is closer than 250 times its diamiter, just draw it
-                    else if(dst2+objradius < 250.0f*objradius*2.0f)
-                        obj->draw();
-                    // otherwise if POGEL wants to draw center positions, do so.
-                    else if(label)
-                        obj->position.draw(2,obj->getLabelColor());
+                // otherwise if object is closer than 250 times its diamiter, just draw it
+                else if( dst2+objradius < 250.0f*objradius*2.0f )
+                {
+                    obj->draw();
+                }
+
+                // otherwise if POGEL wants to draw center positions, do so.
+                else if(label)
+                {
+                    obj->position.draw(2,obj->getLabelColor());
                 }
             }
+
             // return the list of recomended objects.
             return closelist;
         }
@@ -95,7 +109,7 @@ namespace Renderer
                 return;
             POGEL::VECTOR refpos = globalTempRefpos = Renderer::Camera::GetCamDirection();
             POGEL::POINT campos = globalTempCampos = Renderer::Camera::campos;
-            POGEL::POINT invcampos = globalTempInvCampos = campos*-1.0;
+            POGEL::POINT invcampos = globalTempInvCampos = campos*-1.0f;
             ClassList< DataWraper<POGEL::PHYSICS::SOLID*,float> > closelist;
             unsigned int numsimulations = Renderer::Physics::simulations.length();
             for(unsigned int i = 0; i < numsimulations; i++)
@@ -139,7 +153,7 @@ namespace Renderer
                     if( tri.hasproperty(TRIANGLE_DOUBLESIDED) || tri.isinfront(campos) )
                     {
                         float tritocam = trimiddle.distance(campos);
-                        if( ( tri.hasproperty(TRIANGLE_TRANSPARENT) || tri.isClear() ) && tritocam < objradius*50.0*2.0 )
+                        if( ( tri.hasproperty(TRIANGLE_TRANSPARENT) || tri.isClear() ) && tritocam < objradius*50.0f*2.0f )
                         {
                             trilist += DataWraper<POGEL::TRIANGLE,float>(tri,tritocam);
                         }

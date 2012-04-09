@@ -13,9 +13,10 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug -bench -label -ancestory --boundingbox -forcesingle -numsim 4" />
+				<Option parameters="-debug -bench --label --ancestory --boundingbox -forcesingle -numsim 8 --wireframe" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
+					<Add option="-Wextra" />
 					<Add option="-Wall" />
 					<Add option="-g" />
 					<Add option="-DPYLON_DEBUG_VERSION" />
@@ -81,7 +82,7 @@
 				<Option object_output="obj/Development/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug -bench --label --ancestory --boundingbox --forcesingle -numsim 4" />
+				<Option parameters="-debug -bench --label --ancestory --boundingbox --forcesingle -numsim 8" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
@@ -117,14 +118,19 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option parameters="-debug -bench -numsim 4" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-O3" />
 					<Add option="-Wall" />
+					<Add option="-pg" />
 					<Add option="-g" />
 					<Add option="-DPYLON_DEBUG_VERSION" />
 					<Add directory="../bin/UnitaryDebug/" />
 				</Compiler>
 				<Linker>
+					<Add option="-pg" />
 					<Add library="pogelscriptinterface" />
 					<Add library="renderer" />
 					<Add library="objectloader" />
@@ -181,7 +187,7 @@
 				<Option object_output="obj/Development/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug -label" />
+				<Option parameters="-debug -bench -numsim 1" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />

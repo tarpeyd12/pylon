@@ -3,7 +3,7 @@
 #include <typeinfo>
 
 #define DEFAULTRESOLUTION   256
-#define DEFAULTFILTER       IMAGE_MIPMAP
+#define DEFAULTFILTER       IMAGE_NEAREST
 
 namespace Renderer
 {
@@ -174,34 +174,44 @@ namespace Renderer
             // if the object is in fornt of the camera
             if( dst+objradius > 0.0f )
             {
-                if( obj->getNumFrames() )
-                {
-                    obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
-                }
-
-                bool autoinclude = /*objradius >= 10.0f ||*/ obj->hasOption(PHYSICS_SOLID_STATIONARY) || obj->hasproperty(OBJECT_SORT_TRIANGLES);
-
-                if( autoinclude )
-                {
-                    float val = obj->getbounding().maxdistance + POGEL::VECTOR(obj->position).dotproduct(refpos);
-                    closelist += DataWraper<POGEL::PHYSICS::SOLID*,float>(obj,val);
-                    continue;
-                }
-
                 float dst2 = invcampos.distance(obj->position);
 
+                if( dst2+objradius < 50.0f*objradius*1.0f )
+                {
+                    if( obj->getNumFrames() )
+                    {
+                        obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
+                        //obj->setAnimationTime(1.0f);
+                    }
+
+                    bool autoinclude = obj->hasOption(PHYSICS_SOLID_STATIONARY) || obj->hasproperty(OBJECT_SORT_TRIANGLES);
+
+                    if( autoinclude )
+                    {
+                        float val = obj->getbounding().maxdistance + POGEL::VECTOR(obj->position).dotproduct(refpos);
+                        closelist += DataWraper<POGEL::PHYSICS::SOLID*,float>(obj,val);
+                        continue;
+                    }
+                }
+
                 // if object is closer than 100 times its diamiter, recomend for sorting
-                if(dst2+objradius < 100.0f*objradius*2.0f)
+                if( dst2+objradius < 100.0f*objradius*1.0f )
                 {
                     float val = obj->getbounding().maxdistance + POGEL::VECTOR(obj->position).dotproduct(refpos);
                     closelist += DataWraper<POGEL::PHYSICS::SOLID*,float>(obj,val);
                 }
+
                 // otherwise if object is closer than 250 times its diamiter, just draw it
-                else if(dst2+objradius < 250.0f*objradius*2.0f)
+                else if( dst2+objradius < 250.0f*objradius*1.0f )
+                {
                     obj->draw();
+                }
+
                 // otherwise if POGEL wants to draw center positions, do so.
                 else if(label)
+                {
                     obj->position.draw(2,obj->getLabelColor());
+                }
             }
         }
         // return the list of recomended objects.

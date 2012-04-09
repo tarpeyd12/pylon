@@ -167,14 +167,6 @@ print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[
 #pylon.object_set_spin_3f("TestSphereSim","Outset",0,10,0)
 print pylon.object_build("TestSphereSim","Outset")
 
-Sky = Simulation("Sky",False)
-print Sky.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Sky",1|8|16,8|64,0,"") )
-print pylon.object_add_sphere(Sky.name,"Sky",750.0,20,20,"{[Data/images/sky/Sky_horiz_"+str(int(random.random()*11+1))+"_2048.jpg],[0]}",2,1,0|16)
-print pylon.object_build(Sky.name,"Sky")
-print pylon.setsimulationcollitters(Sky.name,0)
-print pylon.togglesimweight(Sky.name,False)
-print Sky.stop()
-
 #print TestSphereSim.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Aura",1|8|16,128,0,"") )
 #print pylon.object_add_disk("TestSphereSim","Aura",40,1,4.0,2.0,possibleImages[5],1,1,0,True)
 #print pylon.object_build("TestSphereSim","Aura")
@@ -242,6 +234,14 @@ print pylon.object_build(Animation.name,"Outset")
 print pylon.setsimulationgravity_3f(Animation.name,0,-9.8,0)
 print pylon.setsimulationcollitters(Animation.name,3)
 print pylon.togglesimweight(Animation.name,False)
+
+Sky = Simulation("Sky",False)
+print Sky.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Sky",1|8|16,8|64,0,"") )
+print pylon.object_add_sphere(Sky.name,"Sky",750.0,20,20,"{[Data/images/sky/Sky_horiz_"+str(int(random.random()*11+1))+"_2048.jpg],[0]}",2,1,0|16)
+print pylon.object_build(Sky.name,"Sky")
+#print pylon.setsimulationcollitters(Sky.name,0)
+#print pylon.togglesimweight(Sky.name,False)
+print Sky.stop()
 
 relocateobjscounter = 0
 

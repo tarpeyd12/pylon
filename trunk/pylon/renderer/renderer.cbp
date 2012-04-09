@@ -58,10 +58,14 @@
 				<Option createDefFile="1" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-O3" />
+					<Add option="-pg" />
 					<Add option="-g" />
 					<Add directory="../bin/UnitaryDebug/" />
 				</Compiler>
 				<Linker>
+					<Add option="-pg" />
 					<Add library="pogel" />
 					<Add library="fileloader" />
 					<Add library="objectloader" />
@@ -92,6 +96,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-Wextra" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 			<Add directory="$(#base.include)" />

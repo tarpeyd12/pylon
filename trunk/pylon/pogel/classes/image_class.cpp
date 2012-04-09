@@ -9,7 +9,7 @@
 #include <GL/glu.h>
 #endif
 
-#include "../templates/templates.h"
+#include "../templates/classlist_template.h"
 
 #include "../../soil/SOIL.h"
 

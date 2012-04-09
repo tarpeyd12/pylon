@@ -57,10 +57,14 @@
 				<Option createDefFile="1" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
+					<Add option="-fexpensive-optimizations" />
+					<Add option="-O3" />
+					<Add option="-pg" />
 					<Add option="-g" />
 					<Add directory="../bin/UnitaryDebug/" />
 				</Compiler>
 				<Linker>
+					<Add option="-pg" />
 					<Add library="lists" />
 					<Add library="soil" />
 					<Add library="threads" />
@@ -106,6 +110,7 @@
 		</Linker>
 		<Unit filename="classes/bounding_class.cpp" />
 		<Unit filename="classes/bounding_class.h" />
+		<Unit filename="classes/bounding_class_inline.h" />
 		<Unit filename="classes/fractal_class.cpp" />
 		<Unit filename="classes/fractal_class.h" />
 		<Unit filename="classes/image_class.cpp" />
@@ -137,6 +142,7 @@
 		<Unit filename="classes/physics/solid_class.h" />
 		<Unit filename="classes/point_class.cpp" />
 		<Unit filename="classes/point_class.h" />
+		<Unit filename="classes/point_class_inline.h" />
 		<Unit filename="classes/quat_class.cpp" />
 		<Unit filename="classes/quat_class.h" />
 		<Unit filename="classes/sprite_class.cpp" />
@@ -155,8 +161,14 @@
 		<Unit filename="templates/classlist_template.h" />
 		<Unit filename="templates/hashlist_template.h" />
 		<Unit filename="templates/octree_template.h" />
-		<Unit filename="templates/octree_template_protected.h" />
-		<Unit filename="templates/octree_template_public.h" />
+		<Unit filename="templates/octree_template_general_definition.h" />
+		<Unit filename="templates/octree_template_general_implimentation.h" />
+		<Unit filename="templates/octree_template_general_public_definition.h" />
+		<Unit filename="templates/octree_template_general_public_implimentation.h" />
+		<Unit filename="templates/octree_template_protected_definition.h" />
+		<Unit filename="templates/octree_template_protected_implimentation.h" />
+		<Unit filename="templates/octree_template_solid_definition.h" />
+		<Unit filename="templates/octree_template_solid_implimentation.h" />
 		<Unit filename="templates/templates.h" />
 		<Unit filename="version.h" />
 		<Extensions>

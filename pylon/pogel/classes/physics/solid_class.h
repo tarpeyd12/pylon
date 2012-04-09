@@ -11,6 +11,8 @@ class SOLID;
 #include <iostream>
 #include <string>
 
+#include "../../templates/octree_template.h"
+//#include "../../templates/templates.h"
 #include "physics.h"
 #include "../point_class.h"
 #include "../object_class.h"
@@ -95,6 +97,9 @@ class POGEL::PHYSICS::SOLID : public POGEL::OBJECT {
 		unsigned long objboundingskips;
 		unsigned long stepstaken;
 		unsigned long stepsatboundingcheck;
+
+        POGEL::OCTREE<POGEL::TRIANGLE> *facetree;
+        CLASSLIST<POGEL::TRIANGLE*> facelist;
 
 		std::string trianglestring;
 	public:

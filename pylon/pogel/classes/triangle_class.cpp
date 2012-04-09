@@ -5,73 +5,58 @@
 #include "physics/physics.h"
 
 POGEL::TRIANGLE::TRIANGLE()
+ : ivertlength( 0 ), pvertex( NULL ), texture( NULL ), usetrimid( false )
 {
-    texture=NULL;
-    vertex[0] = vertex[1] = vertex[2] = POGEL::VECTOR();
-    trimid = POGEL::POINT();
-    usetrimid = false;
-    pvertex = NULL;
-    ivertex[0] = ivertex[1] = ivertex[2] = -1;
-    vertnormals[0] = vertnormals[1] = vertnormals[2] = normal = POGEL::VECTOR();
-    ivertlength = 0;
+    ivertex[ 0 ] = ivertex[ 1 ] = ivertex[ 2 ] = -1;
 }
 
-POGEL::TRIANGLE::TRIANGLE(POGEL::POINT a,POGEL::POINT b,POGEL::POINT c)
+POGEL::TRIANGLE::TRIANGLE( const POGEL::POINT& a, const POGEL::POINT& b, const POGEL::POINT& c )
+ : ivertlength( 0 ), pvertex( NULL )
 {
-    pvertex = NULL;
-    ivertex[0] = ivertex[1] = ivertex[2] = -1;
-    ivertlength = 0;
-    load(POGEL::VERTEX(a),POGEL::VERTEX(b),POGEL::VERTEX(c),NULL,0);
+    ivertex[ 0 ] = ivertex[ 1 ] = ivertex[ 2 ] = -1;
+    load( POGEL::VERTEX( a ), POGEL::VERTEX( b ), POGEL::VERTEX( c ), NULL, 0 );
 }
 
-POGEL::TRIANGLE::TRIANGLE(POGEL::VERTEX a,POGEL::VERTEX b,POGEL::VERTEX c,POGEL::IMAGE *tex,unsigned int prop)
+POGEL::TRIANGLE::TRIANGLE( const POGEL::VERTEX& a, const POGEL::VERTEX& b, const POGEL::VERTEX& c, POGEL::IMAGE* tex, unsigned int prop )
+ : ivertlength( 0 ), pvertex( NULL )
 {
-    pvertex = NULL;
-    ivertex[0] = ivertex[1] = ivertex[2] = -1;
-    ivertlength = 0;
-    load(a,b,c,tex,prop);
+    ivertex[ 0 ] = ivertex[ 1 ] = ivertex[ 2 ] = -1;
+    load( a, b, c, tex, prop );
 }
 
-POGEL::TRIANGLE::TRIANGLE(POGEL::POINT a,POGEL::POINT b,POGEL::POINT c,POGEL::IMAGE *tex,unsigned int prop)
+POGEL::TRIANGLE::TRIANGLE( const POGEL::POINT& a, const POGEL::POINT& b, const POGEL::POINT& c, POGEL::IMAGE* tex, unsigned int prop )
+ : ivertlength( 0 ), pvertex( NULL )
 {
-    pvertex = NULL;
-    ivertex[0] = ivertex[1] = ivertex[2] = -1;
-    ivertlength = 0;
-    load(POGEL::VERTEX(a),POGEL::VERTEX(b),POGEL::VERTEX(c),tex,prop);
+    ivertex[ 0 ] = ivertex[ 1 ] = ivertex[ 2 ] = -1;
+    load( POGEL::VERTEX( a ), POGEL::VERTEX( b ), POGEL::VERTEX( c ), tex, prop );
 }
 
-POGEL::TRIANGLE::TRIANGLE(POGEL::VERTEX* verts,POGEL::IMAGE *tex,unsigned int prop)
+POGEL::TRIANGLE::TRIANGLE( POGEL::VERTEX* verts, POGEL::IMAGE* tex, unsigned int prop )
+ : ivertlength( 0 ), pvertex( NULL )
 {
-    pvertex = NULL;
-    ivertex[0] = ivertex[1] = ivertex[2] = -1;
-    ivertlength = 0;
-    load(verts,tex,prop);
+    ivertex[ 0 ] = ivertex[ 1 ] = ivertex[ 2 ] = -1;
+    load( verts, tex, prop );
 }
 
-POGEL::TRIANGLE::TRIANGLE(POGEL::VERTEX * vertlist, unsigned int vl, int a, int b, int c, POGEL::IMAGE * tex, unsigned int prop)
+POGEL::TRIANGLE::TRIANGLE( POGEL::VERTEX * vertlist, unsigned int vl, int a, int b, int c, POGEL::IMAGE * tex, unsigned int prop )
+ : ivertlength( vl ), pvertex( vertlist )
 {
-    //if( vertlist == NULL ||  vl == 0 )
-        //throw -1;
-    ivertex[0] = a;
-    ivertex[1] = b;
-    ivertex[2] = c;
-    ivertlength = vl;
-    pvertex = vertlist;
-    POGEL::VERTEX p1 = a >= 0 && a < (int)vl ? vertlist[a] : POGEL::VERTEX();
-    POGEL::VERTEX p2 = b >= 0 && b < (int)vl ? vertlist[b] : POGEL::VERTEX();
-    POGEL::VERTEX p3 = c >= 0 && c < (int)vl ? vertlist[c] : POGEL::VERTEX();
-    load(p1,p2,p3,tex,prop);
+    ivertex[ 0 ] = a;
+    ivertex[ 1 ] = b;
+    ivertex[ 2 ] = c;
+    POGEL::VERTEX p1( a >= 0 && a < (int)vl ? vertlist[a] : POGEL::VERTEX() );
+    POGEL::VERTEX p2( b >= 0 && b < (int)vl ? vertlist[b] : POGEL::VERTEX() );
+    POGEL::VERTEX p3( c >= 0 && c < (int)vl ? vertlist[c] : POGEL::VERTEX() );
+    load( p1, p2, p3, tex, prop );
 }
 
 
-POGEL::TRIANGLE::TRIANGLE(std::string s, POGEL::IMAGE* im)
+POGEL::TRIANGLE::TRIANGLE( const std::string& s, POGEL::IMAGE* im )
+ : ivertlength( 0 ), pvertex( NULL ), texture( im ), usetrimid( true )
 {
-    pvertex = NULL;
-    ivertex[0] = ivertex[1] = ivertex[2] = -1;
-    ivertlength = 0;
-    texture = im;
+    ivertex[ 0 ] = ivertex[ 1 ] = ivertex[ 2 ] = -1;
     sscanf(s.c_str(), "{[%u],", &this->properties);
-    for(unsigned int i = 0; i < 3; i++)
+    for( unsigned int i = 0; i < 3; ++i )
     {
         char* vt = POGEL::string("0 %d",i);
         std::string v = POGEL::getStringComponentLevel('{','}', s, vt);
@@ -81,123 +66,107 @@ POGEL::TRIANGLE::TRIANGLE(std::string s, POGEL::IMAGE* im)
         #endif
     }
     normal = POGEL::VECTOR(POGEL::getStringComponentLevel('{','}', s, "0 3"));
-    trimid = (vertex[0]+vertex[1]+vertex[2])/3.0f;
-    usetrimid = true;
+    trimid = ( vertex[ 0 ] + vertex[ 1 ] + vertex[ 2 ] ) / 3.0f;
 }
 
-POGEL::TRIANGLE::TRIANGLE(std::string s)
+POGEL::TRIANGLE::TRIANGLE( const std::string& s )
+ : ivertlength( 0 ), pvertex( NULL ), usetrimid( true )
 {
-    pvertex = NULL;
-    ivertex[0] = ivertex[1] = ivertex[2] = -1;
-    ivertlength = 0;
+    ivertex[ 0 ] = ivertex[ 1 ] = ivertex[ 2 ] = -1;
     sscanf(s.c_str(), "{[%u],", &this->properties);
-    for(unsigned int i = 0; i < 3; i++)
+    for( unsigned int i = 0; i < 3; ++i )
     {
         char* vt = POGEL::string("0 %d",i);
         std::string v = POGEL::getStringComponentLevel('{','}', s, std::string(vt));
-        vertex[i] = POGEL::VERTEX(v);
+        vertex[ i ] = POGEL::VERTEX(v);
         #ifndef _WIN32
         free(vt);
         #endif
     }
     normal = POGEL::VECTOR(POGEL::getStringComponentLevel('{','}', s, "0 3"));
     texture = POGEL::requestImage(POGEL::getStringComponentLevel('{','}', s, "0 4"));
-    trimid = (vertex[0]+vertex[1]+vertex[2])/3.0f;
-    usetrimid = true;
+    trimid = ( vertex[ 0 ] + vertex[ 1 ] + vertex[ 2 ] ) / 3.0f;
 }
 
 POGEL::TRIANGLE::~TRIANGLE()
 {
     texture = NULL;
-    if(pvertex != NULL)
-    {
-        //pvertex = NULL;
-    }
-    //ivertlength = 0;
+    pvertex = NULL;
+    ivertlength = 0;
 }
 
-void POGEL::TRIANGLE::updateVert()
+void
+POGEL::TRIANGLE::updateVert()
 {
-    if(pvertex != NULL)
+    if( pvertex )
     {
-        /*int count = 0;
-        for(unsigned int i = 0; i < 3; i++)
-        {
-            int ind = ivertex[i];
-            if(ind >= 0 )
-            {
-                vertex[i].x = pvertex[ind].x;
-                vertex[i].y = pvertex[ind].y;
-                vertex[i].z = pvertex[ind].z;
-                count ++;
-            }
-        }
-        if( count )*/
-        {
-            //if( !hasproperty(TRIANGLE_VERTEX_NORMALS) && hasproperty(TRIANGLE_LIT) )
-            {
-                POGEL::VECTOR vct[2];
-                vct[0].frompoints(vertex[0],vertex[1]);
-                vct[0].normalize();
-                vct[1].frompoints(vertex[0],vertex[2]);
-                vct[1].normalize();
-                vct[0].dodotproduct(vct[1]);
-                normal=vct[0].normal();
-            }
-            bounding = POGEL::BOUNDING(BOUNDING_TRIANGLE);
-            trimid = (vertex[0]+vertex[1]+vertex[2])/3.0f;
-            usetrimid = true;
-            makebounding();
-        }
+        POGEL::VECTOR vct0( vertex[ 0 ], vertex[ 1 ] );
+        vct0.normalize();
+
+        POGEL::VECTOR vct1( vertex[ 0 ], vertex[ 2 ] );
+        vct1.normalize();
+
+        vct0.dodotproduct( vct1 );
+        normal = vct0.normal();
+
+        trimid = ( vertex[ 0 ] + vertex[ 1 ] + vertex[ 2 ] ) / 3.0f;
+        usetrimid = true;
+        makebounding();
     }
 }
 
-void POGEL::TRIANGLE::load(POGEL::VERTEX a,POGEL::VERTEX b,POGEL::VERTEX c,POGEL::IMAGE *tex,unsigned int prop)
+void
+POGEL::TRIANGLE::load( const POGEL::VERTEX& a, const POGEL::VERTEX& b, const POGEL::VERTEX& c, POGEL::IMAGE * tex, unsigned int prop )
 {
-    POGEL::VECTOR vct[2];
+    texture = tex;
+    properties = prop;
 
-    vertex[0]=a;
-    vertex[1]=b;
-    vertex[2]=c;
-    texture=tex;
-    properties=prop;
+    POGEL::VECTOR vct0( a, b );
+    vct0.normalize();
 
-    vct[0].frompoints(vertex[0],vertex[1]);
-    vct[0].normalize();
-    vct[1].frompoints(vertex[0],vertex[2]);
-    vct[1].normalize();
+    POGEL::VECTOR vct1( a, c );
+    vct1.normalize();
 
-    vct[0].dodotproduct(vct[1]);
-    normal=vct[0].normal();
-    bounding = POGEL::BOUNDING(BOUNDING_TRIANGLE);
-    trimid = (vertex[0]+vertex[1]+vertex[2])/3.0f;
+    vct0.dodotproduct( vct1 );
+    normal = vct0.normal();
+    bounding.color = BOUNDING_TRIANGLE_COLOR;
+    trimid = ( a + b + c ) / 3.0f;
     usetrimid = true;
+
+    vertex[ 0 ] = a;
+    vertex[ 1 ] = b;
+    vertex[ 2 ] = c;
+
     makebounding();
 }
 
-void POGEL::TRIANGLE::load(POGEL::VERTEX* verts,POGEL::IMAGE *tex,unsigned int prop)
+void
+POGEL::TRIANGLE::load( POGEL::VERTEX * verts,POGEL::IMAGE * tex,unsigned int prop )
 {
-    if(verts)
+    if( verts )
     {
-        load(verts[0],verts[1],verts[2],tex,prop);
+        load( verts[ 0 ], verts[ 1 ], verts[ 2 ], tex, prop );
     }
     else
     {
-        printf("triangle loading failed, null pointer to vertex array.\n");
+        printf( "triangle loading failed, null pointer to vertex array.\n" );
     }
 }
 
-void POGEL::TRIANGLE::settexture(POGEL::IMAGE *tex)
+void
+POGEL::TRIANGLE::settexture( POGEL::IMAGE* tex )
 {
-    texture=tex;
+    texture = tex;
 }
 
-POGEL::IMAGE* POGEL::TRIANGLE::gettexture()
+POGEL::IMAGE *
+POGEL::TRIANGLE::gettexture() const
 {
     return texture;
 }
 
-std::string POGEL::TRIANGLE::toString()
+std::string
+POGEL::TRIANGLE::toString()
 {
     updateVert();
     char *p = POGEL::string("%u",properties);
@@ -214,78 +183,100 @@ std::string POGEL::TRIANGLE::toString()
     return s;
 }
 
-void POGEL::TRIANGLE::scroll_tex_values(float s, float t)
+void
+POGEL::TRIANGLE::scroll_tex_values( float s, float t )
 {
-    vertex[0].scroll_tex_values(s,t);
-    vertex[1].scroll_tex_values(s,t);
-    vertex[2].scroll_tex_values(s,t);
+    vertex[ 0 ].scroll_tex_values( s, t );
+    vertex[ 1 ].scroll_tex_values( s, t );
+    vertex[ 2 ].scroll_tex_values( s, t );
 }
 
-void POGEL::TRIANGLE::print()
+void
+POGEL::TRIANGLE::print() const
 {
     //updateVert();
     printf("\n");
-    vertex[0].topoint().print();
+    vertex[ 0 ].print();
     printf("\n");
-    vertex[1].topoint().print();
+    vertex[ 1 ].print();
     printf("\n");
-    vertex[2].topoint().print();
+    vertex[ 2 ].print();
     printf("\n");
 }
 
-POGEL::LINE POGEL::TRIANGLE::getEdge(unsigned int l)
+POGEL::LINE
+POGEL::TRIANGLE::getEdge( unsigned int l ) const
 {
     //updateVert();
-    return POGEL::LINE(vertex[l%3].topoint(), vertex[(l+1)%3].topoint());
+    return POGEL::LINE( vertex[ l % 3 ], vertex[ ( l + 1 ) % 3 ] );
 }
 
-POGEL::TRIANGLE POGEL::TRIANGLE::transform(POGEL::MATRIX* m)
+POGEL::TRIANGLE
+POGEL::TRIANGLE::transform( POGEL::MATRIX* m )
 {
     //updateVert();
-    POGEL::TRIANGLE t(vertex, texture, properties);
-    m->transformTriangle(&t);
+    POGEL::TRIANGLE t( vertex, texture, properties );
+    m->transformTriangle( &t );
     t.makebounding();
     usetrimid = false;
     return t;
 }
 
-POGEL::POINT POGEL::TRIANGLE::middle()
+POGEL::POINT
+POGEL::TRIANGLE::middle()
 {
-    //updateVert();
-    if(!usetrimid)
+    if( !usetrimid )
     {
-        trimid = (vertex[0]+vertex[1]+vertex[2])/3.0f;
+        trimid = ( vertex[ 0 ] + vertex[ 1 ] + vertex[ 2 ] ) / 3.0f;
         usetrimid = true;
     }
     return trimid;
 }
 
-bool POGEL::TRIANGLE::isinfront(POGEL::POINT p)
+POGEL::POINT
+POGEL::TRIANGLE::middle() const
 {
-    POGEL::VECTOR vect = !hasproperty(TRIANGLE_INVERT_NORMALS) ? normal : normal*-1.0f;
-    //return vect.getangle(POGEL::VECTOR(middle(),p).normal()) < 90.0f;
-    return vect.dotproduct(p+middle()) < 0.0f;
+    if( usetrimid )
+    {
+        return trimid;
+    }
+    return ( vertex[ 0 ] + vertex[ 1 ] + vertex[ 2 ] ) / 3.0f;
 }
 
-bool POGEL::TRIANGLE::distcheck(POGEL::POINT p, float dist)
+bool
+POGEL::TRIANGLE::isinfront( const POGEL::POINT& p ) const
 {
-    POGEL::POINT closest = middle();
-    POGEL::POINT points[] = {
-        closest, \
-        vertex[0], \
-        vertex[1], \
-        vertex[2], \
-        (vertex[0]+vertex[1])/2.0f, \
-        (vertex[0]+vertex[2])/2.0f, \
-        (vertex[1]+vertex[2])/2.0f, \
-        (vertex[0]+closest)/2.0f, \
-        (vertex[1]+closest)/2.0f, \
-        (vertex[2]+closest)/2.0f
+    POGEL::VECTOR vect(normal);
+    if( properties & TRIANGLE_INVERT_NORMALS )
+    {
+        vect *= -1.0f;
+    }
+    //return vect.getangle(POGEL::VECTOR(middle(),p).normal()) < 90.0f;
+    return vect.dotproduct( p + middle() ) < 0.0f;
+}
+
+bool
+POGEL::TRIANGLE::distcheck( const POGEL::POINT& p, float dist ) const
+{
+    POGEL::POINT mid( middle() );
+    POGEL::POINT points[10] = {
+        mid, \
+        vertex[ 0 ], \
+        vertex[ 1 ], \
+        vertex[ 2 ], \
+        ( vertex[ 0 ] + vertex[ 1 ] ) * 0.5f, \
+        ( vertex[ 0 ] + vertex[ 2 ] ) * 0.5f, \
+        ( vertex[ 1 ] + vertex[ 2 ] ) * 0.5f, \
+        ( vertex[ 0 ] + mid ) * 0.5f, \
+        ( vertex[ 1 ] + mid ) * 0.5f, \
+        ( vertex[ 2 ] + mid ) * 0.5f
     };
 
-    for(int i=0;i<10;i++)
+    dist *= dist;
+
+    for( unsigned int i = 0; i < 10; ++i )
     {
-        if(p.distance(points[i]) <= dist)
+        if( p.distancesquared( points[ i ] ) <= dist )
         {
             return true;
         }
@@ -293,91 +284,108 @@ bool POGEL::TRIANGLE::distcheck(POGEL::POINT p, float dist)
     return false;
 }
 
-float POGEL::TRIANGLE::distance(POGEL::POINT p)
+float
+POGEL::TRIANGLE::distance( const POGEL::POINT& p) const
 {
-    POGEL::POINT mid = middle();
-    float dist = 0.0f;// p.distance(mid);
-    POGEL::POINT points[] = {
+    POGEL::POINT mid( middle() );
+    float dist( 0.0f );
+    POGEL::POINT points[10] = {
         mid, \
-        vertex[0], \
-        vertex[1], \
-        vertex[2], \
-        (vertex[0]+vertex[1])/2.0f, \
-        (vertex[0]+vertex[2])/2.0f, \
-        (vertex[1]+vertex[2])/2.0f, \
-        (vertex[0]+mid)/2.0f, \
-        (vertex[1]+mid)/2.0f, \
-        (vertex[2]+mid)/2.0f
+        vertex[ 0 ], \
+        vertex[ 1 ], \
+        vertex[ 2 ], \
+        ( vertex[ 0 ] + vertex[ 1 ] ) * 0.5f, \
+        ( vertex[ 0 ] + vertex[ 2 ] ) * 0.5f, \
+        ( vertex[ 1 ] + vertex[ 2 ] ) * 0.5f, \
+        ( vertex[ 0 ] + mid ) * 0.5f, \
+        ( vertex[ 1 ] + mid ) * 0.5f, \
+        ( vertex[ 2 ] + mid ) * 0.5f
     };
 
-    for(int i=0;i<10;i++)
+    for( unsigned int i = 0; i < 10; ++i )
     {
-        if(p.distance(points[i]) < dist)
+        float d = p.distancesquared( points[ i ] );
+        if( d < dist || !i )
         {
-            dist = p.distance(points[i]);
+            dist = d;
         }
     }
-    return dist;
+
+    if( dist > 0.0f )
+    {
+        return (float)sqrt( dist );
+    }
+
+    return 0.0f;
 }
 
-void POGEL::TRIANGLE::makebounding()
+void
+POGEL::TRIANGLE::makebounding()
 {
     bounding.clear();
-    POGEL::POINT mid = middle();
-    bounding.addpoint(mid, vertex[0]);
-    bounding.addpoint(mid, vertex[1]);
-    bounding.addpoint(mid, vertex[2]);
-    bounding.fin();
+    POGEL::POINT mid( middle() );
+    bounding.addpoint( mid, vertex[ 0 ] );
+    bounding.addpoint( mid, vertex[ 1 ] );
+    bounding.addpoint( mid, vertex[ 2 ] );
+    //bounding.fin();
 }
 
-POGEL::POINT POGEL::TRIANGLE::getposition()
+POGEL::POINT
+POGEL::TRIANGLE::getposition()
 {
     return middle();
 }
 
-POGEL::BOUNDING POGEL::TRIANGLE::getbounding()
+POGEL::POINT
+POGEL::TRIANGLE::getposition() const
+{
+    return middle();
+}
+
+POGEL::BOUNDING
+POGEL::TRIANGLE::getbounding() const
 {
     return bounding;
 }
 
-bool POGEL::TRIANGLE::isClear() {
-    bool b_transparent = hasproperty(TRIANGLE_TRANSPARENT);
-    if( texture != NULL )
+bool
+POGEL::TRIANGLE::isClear() const
+{
+    if( texture )
     {
-        return texture->isClear() || b_transparent;
+        return texture->isClear() || properties & TRIANGLE_TRANSPARENT;
     }
     else
     {
         POGEL::IMAGE * nullImage = POGEL::getNullImage();
-        if(nullImage != NULL)
+        if( nullImage )
         {
-            return nullImage->isClear() || b_transparent;
+            return nullImage->isClear() || properties & TRIANGLE_TRANSPARENT;
         }
     }
-    return b_transparent;
+    return properties & TRIANGLE_TRANSPARENT;
 }
 
-void POGEL::TRIANGLE::draw()
+void
+POGEL::TRIANGLE::draw() const
 {
     #ifdef OPENGL
 
     // set up the texture to use.
-    bool usingTexture = true;
-    if ( texture != NULL && texture->getbase() != (unsigned int)NULL && texture->isbuilt() )
+    if ( texture && texture->getbase() != (unsigned int)NULL && texture->isbuilt() )
     {
         texture->set();
     }
     else
     {
         POGEL::IMAGE * nullImage = POGEL::getNullImage();
-        if ( nullImage != NULL && nullImage->getbase() != (unsigned int)NULL && nullImage->isbuilt() )
+        if ( nullImage && nullImage->getbase() != (unsigned int)NULL && nullImage->isbuilt() )
         {
             nullImage->set();
             //texture = nullImage;
         }
         else
         {
-            usingTexture = false;
             return;
         }
     }
@@ -395,10 +403,8 @@ void POGEL::TRIANGLE::draw()
 
     bool b_lit         = this->hasproperty( TRIANGLE_LIT );
     bool b_vertnorms   = this->hasproperty( TRIANGLE_VERTEX_NORMALS );
-    bool b_invertnorms = this->hasproperty( TRIANGLE_INVERT_NORMALS );
     bool b_doublesided = this->hasproperty( TRIANGLE_DOUBLESIDED );
     bool b_transparent = this->hasproperty( TRIANGLE_TRANSPARENT );
-    bool b_colorised   = this->hasproperty( TRIANGLE_COLORED );
 
     // enable or disable lighting
     if ( b_lit || b_vertnorms )
@@ -441,51 +447,7 @@ void POGEL::TRIANGLE::draw()
         glBegin( GL_TRIANGLES );
     }
 
-    // if using triangle's flat normal set it
-    if ( b_lit && !b_vertnorms )
-    {
-        glNormal3f( normal.x, normal.y, normal.z );
-    }
-
-    // this for loop is somehwat confusing, 4 times for wireframe, 3 for solid
-    unsigned int max = b_wireframe ? 4 : 3;
-    // loop from 3:4 to 0 or 0 to 3:4, because opengl uses CW or CCW to
-    //  determine the front/back of the triangle.
-    for ( unsigned int i = b_invertnorms ? max : 0 ; b_invertnorms ? i > 0 : i < max ; b_invertnorms ? i-- : i++ )
-    {
-        unsigned int ind = i % 3;
-
-        // depretiated but might still be relevent later ...
-        if ( vertex[ind].usable )
-        {
-            // the triangle will not be colored if GL_LIGHTING is enabled,
-            //  don't know why.
-            // set the color
-            if ( b_colorised )
-            {
-                vertex[ind].color.set();
-            }
-            else
-            {
-                POGEL::COLOR( 1, 1, 1, 1 ).set();
-            }
-
-            // light the verticies
-            if ( b_vertnorms )
-            {
-                glNormal3f( vertex[ind].normal.x, vertex[ind].normal.y, vertex[ind].normal.z );
-            }
-
-            // set the verticies' texture coordanates
-            //if ( usingTexture )
-            {
-                glTexCoord2f( vertex[ind].u, vertex[ind].v );
-            }
-
-            // set the vertex
-            glVertex3f( vertex[ind].x, vertex[ind].y, vertex[ind].z );
-        }
-    }
+    drawgeometry();
 
     // end GL_TRIANGLES or GL_LINES
     glEnd();
@@ -504,9 +466,9 @@ void POGEL::TRIANGLE::draw()
 }
 
 POGEL::TRIANGLE&
-POGEL::TRIANGLE::operator = (const POGEL::TRIANGLE& t)
+POGEL::TRIANGLE::operator = ( const POGEL::TRIANGLE& t )
 {
-    properties = t.properties;
+    /*properties = t.properties;
     trimid = t.trimid;
     usetrimid = t.usetrimid;
     bounding = t.bounding;
@@ -522,6 +484,7 @@ POGEL::TRIANGLE::operator = (const POGEL::TRIANGLE& t)
     pvertex = t.pvertex;
     ivertlength = t.ivertlength;
     texture = t.texture;
-    normal = t.normal;
+    normal = t.normal;*/
+    memcpy( this, &t, sizeof( t ) );
     return *this;
 }

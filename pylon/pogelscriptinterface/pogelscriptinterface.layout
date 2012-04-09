@@ -10,11 +10,11 @@
 	<File name="methoddef.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="6732" topLine="78" />
 	</File>
-	<File name="objects.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="12847" topLine="311" />
+	<File name="objects.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="4673" topLine="109" />
 	</File>
-	<File name="objects.h" open="0" top="0" tabpos="7">
-		<Cursor position="339" topLine="6" />
+	<File name="objects.h" open="0" top="0" tabpos="2">
+		<Cursor position="506" topLine="6" />
 	</File>
 	<File name="pogelscriptinterface.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="8163" topLine="242" />

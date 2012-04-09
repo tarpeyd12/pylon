@@ -24,17 +24,17 @@
 #include <string>
 
 
-#define		PROPERTIES_METHODS		unsigned int getproperties() {return properties;} \
-									void setproperties(unsigned int prop) {properties=prop;} \
-									void addproperty(unsigned int prop) {properties|=prop;} \
-									void removeproperty(unsigned int prop) {properties^=prop;} \
-									bool hasproperty(unsigned int prop) {return (properties & prop);}
+#define		PROPERTIES_METHODS		inline unsigned int getproperties() const {return properties;} \
+									inline void setproperties(unsigned int prop) {properties=prop;} \
+									inline void addproperty(unsigned int prop) {properties|=prop;} \
+									inline void removeproperty(unsigned int prop) {properties^=prop;} \
+									inline bool hasproperty(unsigned int prop) const {return (properties & prop);}
 
-#define		CUSTOM_PROPERTIES_METHODS(p)		unsigned int getproperties() {return p;} \
-												void setproperties(unsigned int prop) {p=prop;} \
-												void addproperty(unsigned int prop) {p|=prop;} \
-												void removeproperty(unsigned int prop) {p^=prop;} \
-												bool hasproperty(unsigned int prop) {return (p & prop);}
+#define		CUSTOM_PROPERTIES_METHODS(p)		inline unsigned int getproperties() const {return p;} \
+												inline void setproperties(unsigned int prop) {p=prop;} \
+												inline void addproperty(unsigned int prop) {p|=prop;} \
+												inline void removeproperty(unsigned int prop) {p^=prop;} \
+												inline bool hasproperty(unsigned int prop) const {return (p & prop);}
 
 // the error return types
 #define				POGEL_FATALITY_NULL_OBJECT_POINTER_RETNUM		1

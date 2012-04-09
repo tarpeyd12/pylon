@@ -51,7 +51,7 @@ extern "C" {
 #include <errno.h>
 #include <fcntl.h>
 
-#ifdef unix
+#if defined(unix)
 # include <unistd.h>
 # include <utime.h>
 # include <sys/stat.h>

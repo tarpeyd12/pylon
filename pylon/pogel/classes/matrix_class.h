@@ -66,11 +66,11 @@ namespace POGEL
             void set(float*);
             void set(POGEL::MATRIX);
 
-            POGEL::POINT getposition();
-            POGEL::POINT getrotation();
+            POGEL::POINT getposition() const;
+            POGEL::POINT getrotation() const;
 
-            float *getcolumn(int);
-            float *getrow(int);
+            float *getcolumn(int) const;
+            float *getrow(int) const;
 
             inline float getvalue(int c, int r) const
             {
@@ -85,36 +85,123 @@ namespace POGEL
             void multiplyby(float);
             void raistopower(int);
 
-            float determinant();
+            float determinant() const;
             bool invert();
 
-            void print();
+            void print() const;
 
-            void transformPoint(POGEL::POINT*);
-            POGEL::POINT transformPoint(POGEL::POINT);
+            inline void transformPoint(POGEL::POINT*);
+            inline POGEL::POINT transformPoint(const POGEL::POINT&) const;
 
-            void transformVector(POGEL::VECTOR*);
-            POGEL::VECTOR transformVector(POGEL::VECTOR);
+            inline void transformVector(POGEL::VECTOR*);
+            inline POGEL::VECTOR transformVector(const POGEL::VECTOR&) const;
 
-            void transformVertex(POGEL::VERTEX*);
-            POGEL::VERTEX transformVertex(POGEL::VERTEX);
+            inline void transformVertex(POGEL::VERTEX*);
+            inline POGEL::VERTEX transformVertex(const POGEL::VERTEX&) const;
 
             void transformTriangle(POGEL::TRIANGLE*);
-            POGEL::TRIANGLE transformTriangle(POGEL::TRIANGLE);
+            POGEL::TRIANGLE transformTriangle(const POGEL::TRIANGLE&) const;
 
-            QUAT toquat();
+            QUAT toquat() const;
 
             void fromaxis(POGEL::VECTOR,float);
 
-            POGEL::MATRIX operator+(POGEL::MATRIX);
-            POGEL::MATRIX operator-(POGEL::MATRIX);
-            POGEL::MATRIX operator*(POGEL::MATRIX);
-            POGEL::MATRIX operator*(float a);
-            POGEL::MATRIX operator/(float a);
+            POGEL::MATRIX operator+(const POGEL::MATRIX&) const;
+            POGEL::MATRIX operator-(const POGEL::MATRIX&) const;
+            POGEL::MATRIX operator*(const POGEL::MATRIX&) const;
+            POGEL::MATRIX operator*(float a) const;
+            POGEL::MATRIX operator/(float a) const;
             POGEL::MATRIX& operator=(const POGEL::MATRIX&);
 
             //friend class QUAT;
     };
+}
+
+inline void
+POGEL::MATRIX::transformPoint(POGEL::POINT* p)
+{
+    POGEL::POINT tmp=(*p);
+    /*p->x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0);
+    p->y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1);
+    p->z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2);*/
+    p->x = tmp.x * matrix[ 0] + tmp.y * matrix[ 4] + tmp.z * matrix[ 8] + matrix[12];
+    p->y = tmp.x * matrix[ 1] + tmp.y * matrix[ 5] + tmp.z * matrix[ 9] + matrix[13];
+    p->z = tmp.x * matrix[ 2] + tmp.y * matrix[ 6] + tmp.z * matrix[10] + matrix[14];
+}
+
+inline POGEL::POINT
+POGEL::MATRIX::transformPoint(const POGEL::POINT& p) const
+{
+    POGEL::POINT tmp=p;
+    POGEL::POINT tmp2;
+    /*tmp2.x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0);
+    tmp2.y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1);
+    tmp2.z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2);*/
+    tmp2.x = tmp.x * matrix[ 0] + tmp.y * matrix[ 4] + tmp.z * matrix[ 8] + matrix[12];
+    tmp2.y = tmp.x * matrix[ 1] + tmp.y * matrix[ 5] + tmp.z * matrix[ 9] + matrix[13];
+    tmp2.z = tmp.x * matrix[ 2] + tmp.y * matrix[ 6] + tmp.z * matrix[10] + matrix[14];
+    return tmp2;
+}
+
+inline void
+POGEL::MATRIX::transformVector(POGEL::VECTOR* v)
+{
+    // transforms the VECTOR 'v' by the rotation of the matrix
+    POGEL::VECTOR tmp=(*v);
+    /*v->x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0);
+    v->y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1);
+    v->z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2);*/
+    v->x = tmp.x * matrix[ 0] + tmp.y * matrix[ 4] + tmp.z * matrix[ 8];
+    v->y = tmp.x * matrix[ 1] + tmp.y * matrix[ 5] + tmp.z * matrix[ 9];
+    v->z = tmp.x * matrix[ 2] + tmp.y * matrix[ 6] + tmp.z * matrix[10];
+}
+
+inline POGEL::VECTOR
+POGEL::MATRIX::transformVector(const POGEL::VECTOR& v) const
+{
+    // transforms the VECTOR 'v' by the rotation of the matrix
+    POGEL::VECTOR tmp=v;
+    POGEL::VECTOR tmp2;
+    /*tmp2.x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0);
+    tmp2.y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1);
+    tmp2.z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2);*/
+    tmp2.x = tmp.x * matrix[ 0] + tmp.y * matrix[ 4] + tmp.z * matrix[ 8];
+    tmp2.y = tmp.x * matrix[ 1] + tmp.y * matrix[ 5] + tmp.z * matrix[ 9];
+    tmp2.z = tmp.x * matrix[ 2] + tmp.y * matrix[ 6] + tmp.z * matrix[10];
+    return tmp2;
+}
+
+inline void
+POGEL::MATRIX::transformVertex(POGEL::VERTEX* v)
+{
+    // get the vector from center to vertex v, then get its length,
+    // normalize it, transform it myltiply it by the vector length,
+    // then use that as the new vertex. or do the same as converting a vector 'cause it's simpler
+    POGEL::POINT tmp=(*v);
+    /*v->x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0);
+    v->y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1);
+    v->z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2);*/
+    v->x = tmp.x * matrix[ 0] + tmp.y * matrix[ 4] + tmp.z * matrix[ 8] + matrix[12];
+    v->y = tmp.x * matrix[ 1] + tmp.y * matrix[ 5] + tmp.z * matrix[ 9] + matrix[13];
+    v->z = tmp.x * matrix[ 2] + tmp.y * matrix[ 6] + tmp.z * matrix[10] + matrix[14];
+    // now transform the normal vector
+    transformVector(&v->normal);
+}
+
+inline POGEL::VERTEX
+POGEL::MATRIX::transformVertex(const POGEL::VERTEX& v) const
+{
+    POGEL::POINT tmp=v;
+    POGEL::VERTEX tmp2;
+    /*tmp2.x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0);
+    tmp2.y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1);
+    tmp2.z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2);*/
+    tmp2.x = tmp.x * matrix[ 0] + tmp.y * matrix[ 4] + tmp.z * matrix[ 8] + matrix[12];
+    tmp2.y = tmp.x * matrix[ 1] + tmp.y * matrix[ 5] + tmp.z * matrix[ 9] + matrix[13];
+    tmp2.z = tmp.x * matrix[ 2] + tmp.y * matrix[ 6] + tmp.z * matrix[10] + matrix[14];
+    // now transform the normal vector
+    tmp2.normal=transformVector(v.normal);
+    return tmp2;
 }
 
 #endif /* _MATRIX_CLASS_H */

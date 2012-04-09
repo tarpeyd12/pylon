@@ -1,0 +1,474 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls  ms/call  ms/call  name    
+ 10.26     12.21    12.21 27137736     0.00     0.00  POGEL::MATRIX::transformTriangle(POGEL::TRIANGLE const&) const
+  8.17     21.94     9.73 10447030     0.00     0.00  POGEL::TRIANGLE::updateVert()
+  6.21     29.33     7.39 31303116     0.00     0.00  POGEL::OBJECT::getTransformedVertex(POGEL::VERTEX, bool, bool)
+  6.20     36.71     7.38   134148     0.06     0.07  POGEL::OCTREE<POGEL::PHYSICS::SOLID>::releventIndicies(POGEL::POINT const&, POGEL::BOUNDING const&) const
+  4.68     42.28     5.57 148682260     0.00     0.00  POGEL::VERTEX::VERTEX()
+  4.59     47.75     5.47     2831     1.93     9.89  POGEL::OBJECT::setAnimationTime(float)
+  4.42     53.01     5.26 60957712     0.00     0.00  POGEL::TRIANGLE::middle()
+  4.17     57.97     4.96 17833968     0.00     0.00  POGEL::TRIANGLE::makebounding()
+  4.14     62.90     4.93 208462776     0.00     0.00  POGEL::VERTEX::VERTEX(float, float, float)
+  3.64     67.23     4.33 27171500     0.00     0.00  POGEL::OBJECT::gettriangle(unsigned long)
+  3.54     71.45     4.22 42591438     0.00     0.00  POGEL::TRIANGLE::middle() const
+  2.91     74.91     3.46 24595037     0.00     0.00  POGEL::TRIANGLE::draw() const
+  2.81     78.26     3.35 30439051     0.00     0.00  POGEL::TRIANGLE::operator=(POGEL::TRIANGLE const&)
+  2.71     81.49     3.23 262179334     0.00     0.00  POGEL::VECTOR::VECTOR()
+  2.69     84.69     3.20 17833968     0.00     0.00  POGEL::MATRIX::transformTriangle(POGEL::TRIANGLE*)
+  2.64     87.83     3.14 17833968     0.00     0.00  POGEL::OBJECT::gettransformedtriangle(unsigned long)
+  2.47     90.77     2.94 243107838     0.00     0.00  POGEL::POINT::POINT()
+  2.32     93.53     2.76 42591438     0.00     0.00  POGEL::TRIANGLE::isinfront(POGEL::POINT const&) const
+  2.22     96.17     2.64     7134     0.37     5.35  POGEL::PHYSICS::SOLID::closest(POGEL::POINT, POGEL::POINT*, POGEL::TRIANGLE*)
+  1.99     98.54     2.37     2742     0.86    20.85  Renderer::Draw::Draw()
+  1.53    100.36     1.82    93262     0.02     0.03  POGEL::OCTREE<POGEL::PHYSICS::SOLID>::place(POGEL::PHYSICS::SOLID*, unsigned int)
+  1.38    102.00     1.64 110130029     0.00     0.00  POGEL::POINT::POINT(float, float, float)
+  1.29    103.53     1.53 27706938     0.00     0.00  POGEL::BOUNDING::BOUNDING()
+  1.21    104.97     1.44 104490940     0.00     0.00  POGEL::VECTOR::VECTOR(float, float, float)
+  1.18    106.38     1.41     2742     0.51     2.28  Renderer::SubRenderer::scene()
+  1.00    107.57     1.19 100906616     0.00     0.00  POGEL::TRIANGLE::~TRIANGLE()
+  0.95    108.70     1.13    49699     0.02     0.03  POGEL::PHYSICS::SOLID::forcegetbounding()
+  0.75    109.59     0.89 21016097     0.00     0.00  POGEL::TRIANGLE::TRIANGLE()
+  0.66    110.37     0.78  2244168     0.00     0.00  POGEL::PHYSICS::line_point_distance(POGEL::POINT, POGEL::LINE, POGEL::POINT*)
+  0.60    111.08     0.71 51013831     0.00     0.00  POGEL::VECTOR::VECTOR(POGEL::POINT)
+  0.45    111.62     0.54 24786738     0.00     0.00  POGEL::VECTOR::VECTOR(POGEL::POINT, POGEL::POINT)
+  0.44    112.14     0.52 24593897     0.00     0.00  POGEL::IMAGE::set()
+  0.41    112.63     0.49  2244168     0.00     0.00  POGEL::TRIANGLE::getEdge(unsigned int) const
+  0.36    113.06     0.43   752748     0.00     0.00  POGEL::PHYSICS::point_triangle_distance(POGEL::POINT, POGEL::TRIANGLE, POGEL::POINT*)
+  0.30    113.42     0.36 56486235     0.00     0.00  POGEL::hasproperty(unsigned int)
+  0.30    113.78     0.36  1920803     0.00     0.00  POGEL::MATRIX::operator*(POGEL::MATRIX const&) const
+  0.29    114.13     0.35        2   175.00   175.00  up_scale_image
+  0.29    114.47     0.34 18148504     0.00     0.00  POGEL::MATRIX::getposition() const
+  0.29    114.81     0.34     8226     0.04     0.04  POGEL::OCTREE<POGEL::PHYSICS::SOLID>::~OCTREE()
+  0.26    115.12     0.31 24599174     0.00     0.00  POGEL::IMAGE::isbuilt()
+  0.24    115.41     0.29 24595037     0.00     0.00  POGEL::IMAGE::getbase()
+  0.24    115.69     0.28   752748     0.00     0.00  POGEL::PHYSICS::line_triangle_collision(POGEL::POINT, POGEL::POINT, POGEL::TRIANGLE, POGEL::POINT*, POGEL::POINT*)
+  0.19    115.92     0.23    90486     0.00     0.03  POGEL::OBJECT::draw()
+  0.15    116.10     0.18  1072276     0.00     0.00  POGEL::MATRIX::MATRIX(POGEL::POINT, int)
+  0.14    116.27     0.17    84712     0.00     0.00  POGEL::PHYSICS::calcInelasticDirections(POGEL::VECTOR, POGEL::PHYSICS::SOLID*, POGEL::PHYSICS::SOLID*, POGEL::VECTOR*)
+  0.14    116.44     0.17       40     4.25     4.25  mipmap_image
+  0.13    116.60     0.16    82290     0.00     0.00  POGEL::PHYSICS::DYNAMICS::getpull(POGEL::PHYSICS::SOLID*)
+  0.12    116.74     0.14                             Renderer::__sorttris(DataWraper<POGEL::TRIANGLE, float>*, DataWraper<POGEL::TRIANGLE, float>*)
+  0.11    116.87     0.13    93262     0.00     0.01  POGEL::PHYSICS::SOLID::step()
+  0.10    116.99     0.12  4423416     0.00     0.00  POGEL::OCTREE<POGEL::PHYSICS::SOLID>::corner(unsigned int) const
+  0.10    117.11     0.12     2037     0.06     0.14  POGEL::OBJECT::addVertex(POGEL::VERTEX)
+  0.09    117.22     0.11   580395     0.00     0.00  POGEL::string(char const*, ...)
+  0.09    117.33     0.11     8229     0.01     0.32  POGEL::PHYSICS::SIMULATION::buildot()
+  0.08    117.43     0.10 10527779     0.00     0.00  POGEL::IMAGE::isClear()
+  0.08    117.52     0.09    37974     0.00     0.00  POGEL::VERTEX::toString()
+  0.07    117.60     0.08 10527779     0.00     0.00  POGEL::TRIANGLE::isClear() const
+  0.07    117.68     0.08    45789     0.00     0.01  POGEL::PHYSICS::SIMULATION::processSPHERE_SPHERE(POGEL::PHYSICS::SOLID*, POGEL::PHYSICS::SOLID*)
+  0.06    117.75     0.07   690095     0.00     0.00  boundingcheck(POGEL::PHYSICS::SOLID*, POGEL::PHYSICS::SOLID*)
+  0.06    117.82     0.07    84712     0.00     0.01  POGEL::PHYSICS::SIMULATION::reactcollision(POGEL::PHYSICS::SOLID*, POGEL::PHYSICS::SOLID*, POGEL::VECTOR, POGEL::VECTOR, POGEL::POINT)
+  0.06    117.89     0.07                             Renderer::Draw::__sorttris(DataWraper<POGEL::TRIANGLE, float>*, DataWraper<POGEL::TRIANGLE, float>*)
+  0.05    117.95     0.06  1020904     0.00     0.00  zhuffman_decode
+  0.05    118.01     0.06   242654     0.00     0.00  POGEL::getOccurrencesInString(char, std::string)
+  0.05    118.07     0.06        2    30.00    82.43  load_jpeg_image
+  0.04    118.12     0.05     8229     0.01     0.03  POGEL::PHYSICS::SIMULATION::addpulls(unsigned long, unsigned long)
+  0.03    118.16     0.04   587528     0.00     0.00  decode
+  0.03    118.20     0.04   371871     0.00     0.00  POGEL::MATRIX::MATRIX(POGEL::POINT, POGEL::POINT)
+  0.03    118.24     0.04   143199     0.00     0.00  POGEL::PHYSICS::SOLID::setboundingskips()
+  0.03    118.28     0.04   103318     0.00     0.00  POGEL::getStringSection(char, unsigned int, bool, char, unsigned int, bool, std::string)
+  0.03    118.32     0.04    90486     0.00     0.03  POGEL::PHYSICS::SOLID::draw()
+  0.03    118.36     0.04    12658     0.00     0.02  POGEL::TRIANGLE::toString()
+  0.03    118.40     0.04     8229     0.00     5.87  checkcollision(POGEL::PHYSICS::SIMULATION*, unsigned long, unsigned long, unsigned long, unsigned long)
+  0.03    118.44     0.04      692     0.06     0.06  inflate_fast
+  0.03    118.48     0.04       13     3.08    10.77  parse_png_file
+  0.03    118.51     0.03  2179713     0.00     0.00  get8
+  0.03    118.54     0.03   824241     0.00     0.05  objectIntersectionProcessing(POGEL::PHYSICS::SIMULATION*, unsigned long, unsigned long)
+  0.03    118.57     0.03   147258     0.00     0.00  POGEL::QUAT::slerp(POGEL::QUAT const&, float) const
+  0.03    118.60     0.03    98304     0.00     0.00  idct_block
+  0.03    118.63     0.03        4     7.50    25.00  parse_zlib
+  0.02    118.65     0.02  2009849     0.00     0.00  POGEL::PHYSICS::DYNAMICS::objs(unsigned long)
+  0.02    118.67     0.02   691626     0.00     0.00  POGEL::MATRIX::operator=(POGEL::MATRIX const&)
+  0.02    118.69     0.02   329040     0.00     0.00  POGEL::getproperties()
+  0.02    118.71     0.02   295380     0.00     0.00  POGEL::QUAT::QUAT(POGEL::POINT)
+  0.02    118.73     0.02    98304     0.00     0.00  decode_block
+  0.02    118.75     0.02    49937     0.00     0.01  POGEL::PHYSICS::SOLID::makebounding()
+  0.02    118.77     0.02    24158     0.00     0.00  POGEL::TRIANGLE::load(POGEL::VERTEX const&, POGEL::VERTEX const&, POGEL::VERTEX const&, POGEL::IMAGE*, unsigned int)
+  0.02    118.79     0.02        5     4.00     9.02  bmp_load
+  0.01    118.80     0.01   479124     0.00     0.00  POGEL::PHYSICS::SOLID::napping()
+  0.01    118.81     0.01   380896     0.00     0.00  POGEL::KEY::KEY()
+  0.01    118.82     0.01   192898     0.00     0.00  POGEL::OBJECT::getNumVerticies()
+  0.01    118.83     0.01   190447     0.00     0.00  POGEL::TANGENT::TANGENT()
+  0.01    118.84     0.01   167608     0.00     0.00  grow_buffer_unsafe
+  0.01    118.85     0.01   153581     0.00     0.00  zreceive
+  0.01    118.86     0.01    96567     0.00     0.00  get_things(std::string, std::string*, unsigned int*, unsigned int*, int*)
+  0.01    118.87     0.01    93262     0.00     0.00  POGEL::PHYSICS::SOLID::clearForce()
+  0.01    118.88     0.01    93228     0.00     0.00  POGEL::OBJECT::getNumFrames()
+  0.01    118.89     0.01    37858     0.00     0.01  POGEL::PHYSICS::SIMULATION::processCONCAVESPHERE_SPHERE(POGEL::PHYSICS::SOLID*, POGEL::PHYSICS::SOLID*)
+  0.01    118.90     0.01    35719     0.00     0.00  POGEL::OBJECT::getsname()
+  0.01    118.91     0.01    16499     0.00     0.00  Renderer::Physics::Simulation::getSim()
+  0.01    118.92     0.01     8229     0.00     0.04  POGEL::PHYSICS::DYNAMICS::destroyot()
+  0.01    118.93     0.01     6672     0.00     0.02  POGEL::requestImage(std::string)
+  0.01    118.94     0.01     5572     0.00     0.00  Renderer::Quad::~Quad()
+  0.01    118.95     0.01     4507     0.00     0.00  POGEL::OBJECT::addTangent(POGEL::TANGENT)
+  0.01    118.96     0.01     2749     0.00     0.00  ScriptEngine::Executor::Execute()
+  0.01    118.97     0.01     2743     0.00     0.00  POGEL::GetSecondsPerFrame()
+  0.01    118.98     0.01     2742     0.00     0.00  POGEL::IncrementFps()
+  0.01    118.99     0.01     2742     0.00     0.00  Renderer::Window::toOrtho()
+  0.01    119.00     0.01      678     0.01     0.01  crc32
+  0.01    119.01     0.01       35     0.29    32.41  POGEL::PHYSICS::SOLID::build()
+  0.01    119.02     0.01       34     0.29     0.76  addSphere(POGEL::OBJECT*, float, float, float, POGEL::IMAGE*, float, float, unsigned int, POGEL::MATRIX)
+  0.01    119.03     0.01       34     0.29     0.29  FileLoader::checkfile(std::string)
+  0.01    119.04     0.01                             pogelInterface::camera_set_pos_3f(_object*, _object*)
+  0.01    119.05     0.01                             pogelInterface::camera_set_rot_3f(_object*, _object*)
+  0.00    119.05     0.00   628576     0.00     0.00  paeth
+  0.00    119.05     0.00   433022     0.00     0.00  extend_receive
+  0.00    119.05     0.00   371674     0.00     0.00  fill_bits
+  0.00    119.05     0.00   329040     0.00     0.00  POGEL::setproperties(unsigned int)
+  0.00    119.05     0.00   223763     0.00     0.00  POGEL::OBJECT::translate(POGEL::VECTOR)
+  0.00    119.05     0.00   205454     0.00     0.00  POGEL::PHYSICS::DYNAMICS::numobjs()
+  0.00    119.05     0.00   180972     0.00     0.00  POGEL::BOUNDING::draw(POGEL::POINT const&) const
+  0.00    119.05     0.00   153808     0.00     0.00  Renderer::Physics::Simulation::isdyn()
+  0.00    119.05     0.00   150864     0.00     0.00  POGEL::MATRIX::MATRIX(float*)
+  0.00    119.05     0.00   150864     0.00     0.00  POGEL::QUAT::tomatrix() const
+  0.00    119.05     0.00   150810     0.00     0.00  POGEL::QUAT::QUAT()
+  0.00    119.05     0.00   150810     0.00     0.00  POGEL::POINT::POINT(float)
+  0.00    119.05     0.00   148068     0.00     0.00  POGEL::QUAT::operator=(POGEL::QUAT const&)
+  0.00    119.05     0.00   134148     0.00     0.00  POGEL::PHYSICS::DYNAMICS::getotree()
+  0.00    119.05     0.00   114924     0.00     0.00  POGEL::IMAGE::numchannels()
+  0.00    119.05     0.00   113591     0.00     0.00  POGEL::IMAGE::toString()
+  0.00    119.05     0.00    93262     0.00     0.00  POGEL::OBJECT::rotate(POGEL::VECTOR)
+  0.00    119.05     0.00    90781     0.00     0.00  POGEL::PHYSICS::SIMULATION::processcollision(POGEL::PHYSICS::SOLID*, POGEL::PHYSICS::SOLID*)
+  0.00    119.05     0.00    83534     0.00     0.00  fread_file_func
+  0.00    119.05     0.00    67736     0.00     0.00  POGEL::OBJECT::getnumfaces()
+  0.00    119.05     0.00    46756     0.00     0.00  Renderer::Physics::getSimulation(std::string)
+  0.00    119.05     0.00    46690     0.00     0.00  POGEL::PHYSICS::DYNAMICS::getSolid(std::string)
+  0.00    119.05     0.00    46690     0.00     0.00  Renderer::Physics::Simulation::getObject(std::string)
+  0.00    119.05     0.00    44942     0.00     0.00  POGEL::IMAGE::compare(POGEL::IMAGE*)
+  0.00    119.05     0.00    42156     0.00     0.00  bit_reverse
+  0.00    119.05     0.00    37974     0.00     0.00  POGEL::COLOR::toString() const
+  0.00    119.05     0.00    22308     0.00     0.00  POGEL::VERTEX::VERTEX(float, float, float, float, float)
+  0.00    119.05     0.00    21936     0.00     0.00  Renderer::Lighting::Light::draw()
+  0.00    119.05     0.00    16452     0.00     0.00  Renderer::Physics::Simulation::canDraw()
+  0.00    119.05     0.00    13004     0.00     0.00  POGEL::OBJECT::addtriangle(POGEL::TRIANGLE)
+  0.00    119.05     0.00    11154     0.00     0.00  POGEL::TRIANGLE::TRIANGLE(POGEL::VERTEX const&, POGEL::VERTEX const&, POGEL::VERTEX const&, POGEL::IMAGE*, unsigned int)
+  0.00    119.05     0.00    11096     0.00     0.00  Renderer::requestSubRenderer(std::string)
+  0.00    119.05     0.00    10497     0.00     0.00  unz64local_getLong
+  0.00    119.05     0.00     9014     0.00     0.00  POGEL::KEY::KEY(POGEL::POINT const&, float)
+  0.00    119.05     0.00     8317     0.00     0.00  Renderer::HUD::getQuad(int)
+  0.00    119.05     0.00     8273     0.00     0.00  POGEL::imglstlen()
+  0.00    119.05     0.00     8229     0.00     5.87  POGEL::PHYSICS::SIMULATION::checkcollisions()
+  0.00    119.05     0.00     8229     0.00     0.03  POGEL::PHYSICS::SIMULATION::addpulls()
+  0.00    119.05     0.00     8229     0.00     6.41  POGEL::PHYSICS::SIMULATION::increment()
+  0.00    119.05     0.00     8226     0.00     0.00  Renderer::Quad::draw()
+  0.00    119.05     0.00     8065     0.00     0.00  POGEL::lstimg(unsigned int)
+  0.00    119.05     0.00     7357     0.00     0.00  call_zseek64
+  0.00    119.05     0.00     7357     0.00     0.00  fseek64_file_func
+  0.00    119.05     0.00     7134     0.00     5.35  POGEL::PHYSICS::SIMULATION::processSPHERE_GENERAL(POGEL::PHYSICS::SOLID*, POGEL::PHYSICS::SOLID*)
+  0.00    119.05     0.00     6683     0.00     0.00  POGEL::IMAGE::IMAGE(std::string, bool)
+  0.00    119.05     0.00     5611     0.00     0.07  Renderer::requestImage(std::string)
+  0.00    119.05     0.00     5577     0.00     0.00  Renderer::Quad::Quad(int, int, int, int, POGEL::IMAGE*, unsigned int)
+  0.00    119.05     0.00     5574     0.00     0.00  Renderer::HUD::updateQuad(Renderer::Quad*, int)
+  0.00    119.05     0.00     5485     0.00     0.00  POGEL::GetTimePassed()
+  0.00    119.05     0.00     5484     0.00     0.00  Renderer::Window::toFrustum()
+  0.00    119.05     0.00     4976     0.00     0.00  POGEL::message(char const*, ...)
+  0.00    119.05     0.00     4608     0.00     0.00  resample_row_1
+  0.00    119.05     0.00     4507     0.00     0.00  POGEL::OBJECT::addPosKey(POGEL::KEY)
+  0.00    119.05     0.00     4507     0.00     0.00  POGEL::OBJECT::addRotKey(POGEL::KEY)
+  0.00    119.05     0.00     4507     0.00     0.00  POGEL::TANGENT::TANGENT(POGEL::POINT const&, POGEL::POINT const&)
+  0.00    119.05     0.00     3806     0.00     0.00  msModel::GetNumTriangles() const
+  0.00    119.05     0.00     3804     0.00     0.00  POGEL::TRIANGLE::TRIANGLE(POGEL::VERTEX*, unsigned int, int, int, int, POGEL::IMAGE*, unsigned int)
+  0.00    119.05     0.00     3804     0.00     0.00  msModel::GetTriangle(int)
+  0.00    119.05     0.00     2900     0.00     0.00  POGEL::IMAGE::isloaded()
+  0.00    119.05     0.00     2810     0.00     0.00  POGEL::POINT::POINT(std::string const&)
+  0.00    119.05     0.00     2775     0.00     0.00  POGEL::IMAGE::getFileID()
+  0.00    119.05     0.00     2765     0.00     0.20  Renderer::BuildImage(unsigned int)
+  0.00    119.05     0.00     2749     0.00     0.00  ScriptEngine::HasBegun()
+  0.00    119.05     0.00     2746     0.00     0.00  POGEL::OBJECT::getVertexListAddress()
+  0.00    119.05     0.00     2743     0.00     0.00  ScriptCallFunction()
+  0.00    119.05     0.00     2743     0.00     0.00  POGEL::SetFramerateThrotle(float)
+  0.00    119.05     0.00     2743     0.00    19.24  Renderer::Physics::Incriment()
+  0.00    119.05     0.00     2742     0.00     0.00  POGEL::VIEW::startrender()
+  0.00    119.05     0.00     2742     0.00     0.00  POGEL::VIEW::endrender()
+  0.00    119.05     0.00     2742     0.00     0.00  POGEL::OBJECT::getAnimationFPS()
+  0.00    119.05     0.00     2742     0.00     0.00  POGEL::PHYSICS::SOLID::setAnimationTime(float)
+  0.00    119.05     0.00     2742     0.00     2.28  Renderer::RenderAllSubRenderers()
+  0.00    119.05     0.00     2742     0.00     0.00  Renderer::HUD::addQuadCycle()
+  0.00    119.05     0.00     2742     0.00     0.00  Renderer::HUD::clearQuadsCycle()
+  0.00    119.05     0.00     2742     0.00     0.00  Renderer::HUD::removeQuadCycle()
+  0.00    119.05     0.00     2742     0.00     0.00  Renderer::HUD::updateQuadCycle()
+  0.00    119.05     0.00     2742     0.00     0.00  Renderer::HUD::draw()
+  0.00    119.05     0.00     2742     0.00     0.00  Renderer::Camera::GetCamDirection()
+  0.00    119.05     0.00     2742     0.00     0.00  Renderer::Camera::Viewpoint::GetCamDirection()
+  0.00    119.05     0.00     2742     0.00     0.00  Renderer::Camera::Viewpoint::set()
+  0.00    119.05     0.00     2742     0.00     0.00  Renderer::Timing::Timer::sleep()
+  0.00    119.05     0.00     2742     0.00     0.00  Renderer::Physics::Simulation::canDrawBound()
+  0.00    119.05     0.00     2039     0.00     0.00  msModel::GetNumVertices() const
+  0.00    119.05     0.00     2037     0.00     0.00  msModel::GetVertex(int)
+  0.00    119.05     0.00     1466     0.00     0.00  unz64local_GetCurrentFileInfoInternal
+  0.00    119.05     0.00     1140     0.00     0.00  POGEL::getNullImage()
+  0.00    119.05     0.00      973     0.00     0.00  skip.clone.4
+  0.00    119.05     0.00      710     0.00     0.00  get16
+  0.00    119.05     0.00      678     0.00     0.06  inflate
+  0.00    119.05     0.00      664     0.00     0.00  updatewindow
+  0.00    119.05     0.00      576     0.00     0.09  unzReadCurrentFile
+  0.00    119.05     0.00      514     0.00     0.00  POGEL::MATRIX::MATRIX()
+  0.00    119.05     0.00      343     0.00     0.00  get32
+  0.00    119.05     0.00      302     0.00     0.00  zbuild_huffman
+  0.00    119.05     0.00      282     0.00     0.00  inflate_table
+  0.00    119.05     0.00      274     0.00     0.00  POGEL::PrintFps()
+  0.00    119.05     0.00      170     0.00     0.00  POGEL::getStringComponentLevel(char, char, std::string, std::string)
+  0.00    119.05     0.00      170     0.00     0.00  get16le
+  0.00    119.05     0.00      108     0.00     0.00  POGEL::OBJECT::getJoint(char const*)
+  0.00    119.05     0.00      108     0.00     0.00  msModel::GetJoint(int)
+  0.00    119.05     0.00      108     0.00     0.00  std::vector<ms3d_keyframe_t, std::allocator<ms3d_keyframe_t> >::_M_fill_insert(__gnu_cxx::__normal_iterator<ms3d_keyframe_t*, std::vector<ms3d_keyframe_t, std::allocator<ms3d_keyframe_t> > >, unsigned int, ms3d_keyframe_t const&)
+  0.00    119.05     0.00       83     0.00     0.00  unzGetCurrentFileInfo64
+  0.00    119.05     0.00       70     0.00     0.00  get32le
+  0.00    119.05     0.00       69     0.00     0.16  POGEL::OBJECT::addtrianglespace(unsigned long)
+  0.00    119.05     0.00       68     0.00     0.00  POGEL::VECTOR::VECTOR(std::string)
+  0.00    119.05     0.00       60     0.00     0.00  call_ztell64
+  0.00    119.05     0.00       60     0.00     0.00  ftell64_file_func
+  0.00    119.05     0.00       58     0.00     0.02  compute_huffman_codes
+  0.00    119.05     0.00       56     0.00     0.00  msModel::GetNumJoints() const
+  0.00    119.05     0.00       55     0.00     0.00  POGEL::OBJECT::OBJECT(char const*)
+  0.00    119.05     0.00       54     0.00     0.00  POGEL::OBJECT::getdecendant(char const*, bool)
+  0.00    119.05     0.00       54     0.00     0.00  POGEL::OBJECT::addJoint(POGEL::OBJECT*, char const*)
+  0.00    119.05     0.00       54     0.00     0.00  POGEL::OBJECT::addobject(POGEL::OBJECT*)
+  0.00    119.05     0.00       54     0.00     0.00  msModel::SetupTangents(unsigned int)
+  0.00    119.05     0.00       54     0.00     0.00  std::vector<ms3d_tangent_t, std::allocator<ms3d_tangent_t> >::_M_fill_insert(__gnu_cxx::__normal_iterator<ms3d_tangent_t*, std::vector<ms3d_tangent_t, std::allocator<ms3d_tangent_t> > >, unsigned int, ms3d_tangent_t const&)
+  0.00    119.05     0.00       53     0.00     0.00  unzGoToNextFile
+  0.00    119.05     0.00       38     0.00     0.00  zcalloc
+  0.00    119.05     0.00       38     0.00     0.00  zcfree
+  0.00    119.05     0.00       35     0.00    25.17  POGEL::OBJECT::build()
+  0.00    119.05     0.00       35     0.00     0.00  POGEL::PHYSICS::GRAVITYCLUSTER::addsingularity(POGEL::PHYSICS::SINGULARITY)
+  0.00    119.05     0.00       35     0.00     0.01  POGEL::PHYSICS::DYNAMICS::addSolid(POGEL::PHYSICS::SOLID*)
+  0.00    119.05     0.00       35     0.00     0.00  POGEL::BOUNDING::BOUNDING(unsigned int)
+  0.00    119.05     0.00       35     0.00     0.00  get_marker
+  0.00    119.05     0.00       34     0.00     0.76  addSphere(POGEL::OBJECT*, float, float, float, POGEL::IMAGE*, float, float, unsigned int)
+  0.00    119.05     0.00       34     0.00     0.00  POGEL::OBJECT::getname()
+  0.00    119.05     0.00       34     0.00     0.00  POGEL::OBJECT::setname(char const*)
+  0.00    119.05     0.00       34     0.00     0.00  POGEL::OBJECT::OBJECT()
+  0.00    119.05     0.00       34     0.00     0.18  POGEL::PHYSICS::SOLID::SOLID(std::string)
+  0.00    119.05     0.00       30     0.00     0.00  FileLoader::__initArchive(std::string)
+  0.00    119.05     0.00       30     0.00     0.00  call_zopen64
+  0.00    119.05     0.00       30     0.00     0.00  fill_fopen64_filefunc
+  0.00    119.05     0.00       30     0.00     0.00  fopen64_file_func
+  0.00    119.05     0.00       30     0.00     0.00  unzOpen64
+  0.00    119.05     0.00       30     0.00     0.00  unzOpenInternal
+  0.00    119.05     0.00       29     0.00     1.72  do_extract_currentfile
+  0.00    119.05     0.00       29     0.00     0.00  unzCloseCurrentFile
+  0.00    119.05     0.00       29     0.00     0.00  unzLocateFile
+  0.00    119.05     0.00       29     0.00     0.00  unzOpenCurrentFile3
+  0.00    119.05     0.00       29     0.00     0.00  unzOpenCurrentFilePassword
+  0.00    119.05     0.00       26     0.00     1.72  FileLoader::extractfile(std::string, std::string)
+  0.00    119.05     0.00       26     0.00     0.00  FileLoader::ArchiveHandler::archiveLink::~archiveLink()
+  0.00    119.05     0.00       26     0.00     1.72  FileLoader::ArchiveHandler::extractKnownFile(std::string)
+  0.00    119.05     0.00       26     0.00     0.00  inflateEnd
+  0.00    119.05     0.00       26     0.00     0.00  inflateInit2_
+  0.00    119.05     0.00       26     0.00     0.00  inflateReset2
+  0.00    119.05     0.00       16     0.00     0.00  Renderer::Lighting::Light::Light()
+  0.00    119.05     0.00       16     0.00     0.00  process_marker
+  0.00    119.05     0.00       15     0.00     0.00  Renderer::Lighting::Light::~Light()
+  0.00    119.05     0.00       15     0.00     0.00  CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::FindEntry(char*&, char const*&, char const*&, char const*&, char const*&) const
+  0.00    119.05     0.00       15     0.00     0.00  std::_Rb_tree<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > >, std::_Select1st<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > > >, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > > > >::find(CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const&) const
+  0.00    119.05     0.00       15     0.00     0.00  expand
+  0.00    119.05     0.00       14     0.00     0.00  FileLoader::System::Files::remove(std::string)
+  0.00    119.05     0.00       14     0.00     0.00  std::_Rb_tree<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*>, std::_Select1st<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> >, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > >::_M_erase(std::_Rb_tree_node<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> >*)
+  0.00    119.05     0.00       14     0.00     0.00  std::_Rb_tree<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > >, std::_Select1st<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > > >, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > > > >::find(CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const&)
+  0.00    119.05     0.00       13     0.00     0.00  decode_jpeg_header
+  0.00    119.05     0.00       11     0.00    47.27  SOIL_create_OGL_texture
+  0.00    119.05     0.00       11     0.00    47.27  SOIL_internal_create_OGL_texture
+  0.00    119.05     0.00       11     0.00    31.82  SOIL_load_image
+  0.00    119.05     0.00       11     0.00    31.82  POGEL::IMAGE::load(char const*)
+  0.00    119.05     0.00       11     0.00    47.27  POGEL::IMAGE::build()
+  0.00    119.05     0.00       11     0.00     0.00  query_NPOT_capability
+  0.00    119.05     0.00       11     0.00     0.00  stbi_jpeg_test_file
+  0.00    119.05     0.00       11     0.00    31.82  stbi_load
+  0.00    119.05     0.00       11     0.00     8.81  stbi_load_from_file
+  0.00    119.05     0.00       10     0.00     0.00  FileLoader::Ini::getvalue(std::string, std::string)
+  0.00    119.05     0.00       10     0.00     0.00  msModel::GetNumGroups() const
+  0.00    119.05     0.00       10     0.00     0.00  std::_Rb_tree<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*>, std::_Select1st<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> >, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > >::find(CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const&) const
+  0.00    119.05     0.00       10     0.00     0.00  std::_Rb_tree<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*>, std::_Select1st<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> >, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > >::_M_insert_equal(std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> const&)
+  0.00    119.05     0.00       10     0.00     0.00  std::_Rb_tree<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*>, std::_Select1st<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> >, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > >::find(CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const&)
+  0.00    119.05     0.00        9     0.00     0.00  msModel::GetMaterial(int)
+  0.00    119.05     0.00        9     0.00     0.00  msModel::GetGroup(int)
+  0.00    119.05     0.00        9     0.00     0.00  msModel::GetNumMaterials() const
+  0.00    119.05     0.00        9     0.00     0.00  std::vector<unsigned short, std::allocator<unsigned short> >::_M_fill_insert(__gnu_cxx::__normal_iterator<unsigned short*, std::vector<unsigned short, std::allocator<unsigned short> > >, unsigned int, unsigned short const&)
+  0.00    119.05     0.00        9     0.00    10.77  stbi_png_test_file
+  0.00    119.05     0.00        8     0.00     0.00  build_huffman
+  0.00    119.05     0.00        8     0.00     0.00  makedir
+  0.00    119.05     0.00        7     0.00     0.00  ScriptEngine::Executor::Executor(std::string)
+  0.00    119.05     0.00        6     0.00     0.00  ScriptEngine::Executor::~Executor()
+  0.00    119.05     0.00        6     0.00     0.00  POGEL::PHYSICS::DYNAMICS::FORCEfastAccessList()
+  0.00    119.05     0.00        6     0.00     0.00  POGEL::PHYSICS::DYNAMICS::DYNAMICS()
+  0.00    119.05     0.00        6     0.00     0.00  Renderer::Physics::Simulation::setinc(bool)
+  0.00    119.05     0.00        6     0.00     0.00  Renderer::Physics::addSimulation(std::string, bool)
+  0.00    119.05     0.00        6     0.00     0.00  CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::LoadMultiLineText(char*&, char const*&, char const*, bool) const
+  0.00    119.05     0.00        5     0.00     0.00  bmp_test
+  0.00    119.05     0.00        5     0.00     9.02  stbi_bmp_load_from_file
+  0.00    119.05     0.00        5     0.00     0.00  stbi_bmp_test_file
+  0.00    119.05     0.00        4     0.00     0.00  ScriptEngine::MethodInterface::Add(std::string, PyMethodDef*)
+  0.00    119.05     0.00        4     0.00     0.00  ScriptEngine::Parse::endsWith(std::string const&, std::string const&)
+  0.00    119.05     0.00        4     0.00     0.00  POGEL::PHYSICS::SIMULATION::SIMULATION()
+  0.00    119.05     0.00        4     0.00     0.00  Renderer::Physics::Simulation::Simulation(std::string, POGEL::PHYSICS::SIMULATION*)
+  0.00    119.05     0.00        4     0.00     0.00  std::_Rb_tree<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > >, std::_Select1st<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > > >, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > > > >::_M_insert_(std::_Rb_tree_node_base const*, std::_Rb_tree_node_base const*, std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > > const&)
+  0.00    119.05     0.00        4     0.00     0.00  std::_Rb_tree<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > >, std::_Select1st<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > > >, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > > > >::_M_insert_unique(std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > > const&)
+  0.00    119.05     0.00        4     0.00    10.77  do_png
+  0.00    119.05     0.00        4     0.00    10.77  stbi_png_load_from_file
+  0.00    119.05     0.00        4     0.00    25.00  stbi_zlib_decode_malloc
+  0.00    119.05     0.00        4     0.00    25.00  stbi_zlib_decode_malloc_guesssize
+  0.00    119.05     0.00        3     0.00     1.72  FileLoader::extractfile(std::string, std::string, bool, bool, std::string, bool, std::string)
+  0.00    119.05     0.00        3     0.00     0.00  FileLoader::ArchiveHandler::getFilesOfType(std::string, ClassList<std::string, int (*)(std::string*, std::string*)>*)
+  0.00    119.05     0.00        3     0.00     0.00  FileLoader::Ini::hasSection(std::string)
+  0.00    119.05     0.00        3     0.00     0.00  Renderer::HUD::addQuad(Renderer::Quad*)
+  0.00    119.05     0.00        2     0.00     9.48  FileLoader::ArchiveHandler::extractKnownFiles(ClassList<std::string, int (*)(std::string*, std::string*)>)
+  0.00    119.05     0.00        2     0.00     0.00  FileLoader::System::Dir::clearDir(std::string)
+  0.00    119.05     0.00        2     0.00     0.00  FileLoader::totalfile(std::string)
+  0.00    119.05     0.00        2     0.00     0.00  POGEL::IMAGE::setfilter(int)
+  0.00    119.05     0.00        2     0.00     0.00  Renderer::Camera::Viewpoint::Viewpoint()
+  0.00    119.05     0.00        2     0.00     0.00  Renderer::Physics::Simulation::Simulation(std::string, POGEL::PHYSICS::DYNAMICS*)
+  0.00    119.05     0.00        2     0.00     0.00  std::_Rb_tree<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > >, std::_Select1st<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > > >, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > > > >::_M_erase(std::_Rb_tree_node<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, std::multimap<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, char const*, CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry::KeyOrder, std::allocator<std::pair<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry const, char const*> > > > >*)
+  0.00    119.05     0.00        2     0.00     0.00  cleanup_jpeg
+  0.00    119.05     0.00        2     0.00    82.43  stbi_jpeg_load_from_file
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to addSphere(POGEL::OBJECT*, float, float, float, POGEL::IMAGE*, float, float, unsigned int)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to CalcThread::CalcThread()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to FileLoader::ArchiveHandler::archiveList
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to FileLoader::Ini::Ini(std::string)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to FileLoader::System::Dir::changeDir(std::string)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to FileLoader::getline(std::string, int)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to ObjectLoader::newFromFile(char const*, char const*, char const*, POGEL::OBJECT*)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to ObjectLoader::ms3d::newFromMs3dBinFile(char const*, char const*, POGEL::OBJECT*)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to ScriptEngine::Parse::endsWith(std::string const&, std::string const&)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to ScriptEngine::started
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to ScriptEngine::Executor::Executor()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to ScriptThread::ScriptThread()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to pogelInterface::object_new(_object*, _object*)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to pogelInterface::addsimulation(_object*, _object*)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to pogelInterface::subrender_new(_object*, _object*)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to pogelInterface::object_add_sphere(_object*, _object*)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to pogelInterface::fps(_object*, _object*)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to pogelInterface::Init()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to pogelInterface::addquadi(_object*, _object*)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Main::printVersion()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Main::pylon_archive
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Main::lockCalculations(_object*)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Main::Init()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Main::getCMD(int, char**)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::logfilefilename
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::RadiansToDegrees(float)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::QUAT::QUAT()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::VIEW::screensizeX
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::POINT::POINT()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::OBJECT::OBJECT()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::PHYSICS::SIMULATION::reactcollision(POGEL::PHYSICS::SOLID*, POGEL::PHYSICS::SOLID*, POGEL::VECTOR, POGEL::VECTOR, POGEL::POINT)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::PHYSICS::SIMULATION::processcollision(POGEL::PHYSICS::SOLID*, POGEL::PHYSICS::SOLID*)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::PHYSICS::SIMULATION::buildot()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::PHYSICS::line_triangle_collision(POGEL::POINT, POGEL::POINT, POGEL::TRIANGLE, POGEL::POINT*, POGEL::POINT*)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::PHYSICS::FLOW::addfan(POGEL::PHYSICS::FAN)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::PHYSICS::SOLID::SOLID()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::PHYSICS::DYNAMICS::buildot()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::BOUNDING::BOUNDING()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to POGEL::TRIANGLE::TRIANGLE()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Threads::getNumCores()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Threads::_exThreadFunction(void*)
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Threads::Thread::Thread()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::subRenderers
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::CMD::argumentCount
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::HUD::quadList
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::Key::keys
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::Draw::globalTempRefpos
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::Init()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::Quad::Quad()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::Mouse::X
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::Camera::camrot
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::Timing::noTiming
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::Window::Size::width
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::Display()
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::Physics::simulations
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::timer30
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to Renderer::Lighting::Lights
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to change_file_date
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to imageList
+  0.00    119.05     0.00        1     0.00     0.00  global constructors keyed to main
+  0.00    119.05     0.00        1     0.00     0.00  FileLoader::ArchiveHandler::addArchiveLink(std::string, std::string)
+  0.00    119.05     0.00        1     0.00     0.00  FileLoader::ArchiveHandler::getAllFilesInDir(std::string)
+  0.00    119.05     0.00        1     0.00     0.00  FileLoader::ArchiveHandler::getAllFilesOfType(std::string)
+  0.00    119.05     0.00        1     0.00     0.00  FileLoader::__ar_extract_init(bool, bool, bool, std::string)
+  0.00    119.05     0.00        1     0.00     0.00  FileLoader::Ini::keysinsection(std::string)
+  0.00    119.05     0.00        1     0.00     0.00  FileLoader::Ini::Ini(std::string)
+  0.00    119.05     0.00        1     0.00     0.00  FileLoader::Ini::~Ini()
+  0.00    119.05     0.00        1     0.00     0.00  FileLoader::filesList(std::string)
+  0.00    119.05     0.00        1     0.00   381.67  ObjectLoader::newFromFile(char const*, char const*, char const*, POGEL::OBJECT*)
+  0.00    119.05     0.00        1     0.00   381.67  ObjectLoader::ms3d::newFromMs3dBinFile(char const*, char const*, POGEL::OBJECT*)
+  0.00    119.05     0.00        1     0.00     0.00  ScriptEngine::Initialize()
+  0.00    119.05     0.00        1     0.00     0.02  ScriptThread::FirstRun()
+  0.00    119.05     0.00        1     0.00     0.02  ScriptThread::ScriptThread(bool)
+  0.00    119.05     0.00        1     0.00     0.00  pogelInterface::Init()
+  0.00    119.05     0.00        1     0.00     0.00  CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::FindFileComment(char*&, bool)
+  0.00    119.05     0.00        1     0.00     0.00  CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::LoadData(char const*, unsigned int)
+  0.00    119.05     0.00        1     0.00     0.00  CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::LoadFile(_IO_FILE*)
+  0.00    119.05     0.00        1     0.00     0.00  Main::findVersion()
+  0.00    119.05     0.00        1     0.00     0.00  Main::printVersion()
+  0.00    119.05     0.00        1     0.00    24.14  Main::Init()
+  0.00    119.05     0.00        1     0.00     0.00  Main::getCMD(int, char**)
+  0.00    119.05     0.00        1     0.00     0.00  POGEL::VIEW::build()
+  0.00    119.05     0.00        1     0.00     0.00  POGEL::VIEW::VIEW()
+  0.00    119.05     0.00        1     0.00    79.09  POGEL::IMAGE::loadandbuild()
+  0.00    119.05     0.00        1     0.00     0.00  POGEL::IMAGE::getfilter()
+  0.00    119.05     0.00        1     0.00     0.00  POGEL::IMAGE::IMAGE()
+  0.00    119.05     0.00        1     0.00     0.00  POGEL::OBJECT::addScaleKey(POGEL::KEY)
+  0.00    119.05     0.00        1     0.00     0.00  POGEL::OBJECT::setNumFrames(unsigned int)
+  0.00    119.05     0.00        1     0.00     0.00  POGEL::OBJECT::gettrianglelist()
+  0.00    119.05     0.00        1     0.00     0.00  POGEL::OBJECT::setAnimationFPS(float)
+  0.00    119.05     0.00        1     0.00     0.00  POGEL::getcmd(int, char**)
+  0.00    119.05     0.00        1     0.00     0.00  POGEL::InitFps()
+  0.00    119.05     0.00        1     0.00     0.00  POGEL::PHYSICS::SOLID::SOLID(char const*)
+  0.00    119.05     0.00        1     0.00     0.00  POGEL::addImage(POGEL::IMAGE*)
+  0.00    119.05     0.00        1     0.00     0.00  Threads::getNumCores()
+  0.00    119.05     0.00        1     0.00     0.00  Threads::Thread::Thread(void* (*)(void*), void*)
+  0.00    119.05     0.00        1     0.00     0.00  Threads::ExThread::ExThread()
+  0.00    119.05     0.00        1     0.00     0.00  msModel::SetupJoints()
+  0.00    119.05     0.00        1     0.00     0.00  msModel::Load(char const*)
+  0.00    119.05     0.00        1     0.00     0.00  msModel::Clear()
+  0.00    119.05     0.00        1     0.00     0.00  msModel::msModel()
+  0.00    119.05     0.00        1     0.00     0.00  msModel::~msModel()
+  0.00    119.05     0.00        1     0.00     0.00  msModel::~msModel()
+  0.00    119.05     0.00        1     0.00     0.00  Renderer::SubRenderer::addSimulationBinding(std::string)
+  0.00    119.05     0.00        1     0.00     0.00  Renderer::SubRenderer::SubRenderer(std::string, float)
+  0.00    119.05     0.00        1     0.00     0.00  Renderer::CMD::get(int, char**)
+  0.00    119.05     0.00        1     0.00     0.00  Renderer::HUD::Init()
+  0.00    119.05     0.00        1     0.00     0.00  Renderer::Init()
+  0.00    119.05     0.00        1     0.00     0.00  Renderer::Timing::Timer::Timer(unsigned int, std::string)
+  0.00    119.05     0.00        1     0.00     0.00  Renderer::Window::Create(std::string, int, int, int, int)
+  0.00    119.05     0.00        1     0.00     0.00  CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::GetAllKeys(char const*, std::list<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry, std::allocator<CSimpleIniTempl<char, SI_GenericNoCase<char>, SI_ConvertA<char> >::Entry> >&) const
+  0.00    119.05     0.00        1     0.00     0.00  msModel::GetTotalFrames() const
+  0.00    119.05     0.00        1     0.00     0.00  msModel::GetAnimationFps() const
+  0.00    119.05     0.00        1     0.00     0.00  std::vector<ms3d_group_t, std::allocator<ms3d_group_t> >::_M_fill_insert(__gnu_cxx::__normal_iterator<ms3d_group_t*, std::vector<ms3d_group_t, std::allocator<ms3d_group_t> > >, unsigned int, ms3d_group_t const&)
+  0.00    119.05     0.00        1     0.00     0.00  std::vector<ms3d_joint_t, std::allocator<ms3d_joint_t> >::_M_fill_insert(__gnu_cxx::__normal_iterator<ms3d_joint_t*, std::vector<ms3d_joint_t, std::allocator<ms3d_joint_t> > >, unsigned int, ms3d_joint_t const&)
+  0.00    119.05     0.00        1     0.00     0.00  std::vector<ms3d_vertex_t, std::allocator<ms3d_vertex_t> >::_M_fill_insert(__gnu_cxx::__normal_iterator<ms3d_vertex_t*, std::vector<ms3d_vertex_t, std::allocator<ms3d_vertex_t> > >, unsigned int, ms3d_vertex_t const&)
+  0.00    119.05     0.00        1     0.00     0.00  std::vector<ms3d_material_t, std::allocator<ms3d_material_t> >::_M_fill_insert(__gnu_cxx::__normal_iterator<ms3d_material_t*, std::vector<ms3d_material_t, std::allocator<ms3d_material_t> > >, unsigned int, ms3d_material_t const&)
+  0.00    119.05     0.00        1     0.00     0.00  std::vector<ms3d_triangle_t, std::allocator<ms3d_triangle_t> >::_M_fill_insert(__gnu_cxx::__normal_iterator<ms3d_triangle_t*, std::vector<ms3d_triangle_t, std::allocator<ms3d_triangle_t> > >, unsigned int, ms3d_triangle_t const&)
+  0.00    119.05     0.00        1     0.00     0.00  fclose_file_func
+  0.00    119.05     0.00        1     0.00     0.00  unzClose
+  0.00    119.05     0.00        1     0.00     0.00  unzGetGlobalInfo64
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+ 
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this 
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.

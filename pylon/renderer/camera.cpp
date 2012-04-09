@@ -16,15 +16,15 @@ namespace Renderer
             return refpos.normal();
         }
 
-        Viewpoint::Viewpoint()
+        Viewpoint::Viewpoint() : rotation(), position()
         {
-            position = rotation = POGEL::POINT();
+            //position = rotation = POGEL::POINT();
         }
 
-        Viewpoint::Viewpoint(POGEL::POINT pos, POGEL::POINT rot)
+        Viewpoint::Viewpoint( const POGEL::POINT& pos, const POGEL::POINT& rot ) : rotation( rot ), position( pos )
         {
-            position = pos;
-            rotation = rot;
+            /*position = pos;
+            rotation = rot;*/
         }
 
         void Viewpoint::set()
@@ -38,7 +38,7 @@ namespace Renderer
         POGEL::VECTOR Viewpoint::GetCamDirection()
         {
             POGEL::MATRIX mat(rotation*-1.0f,MATRIX_CONSTRUCT_ROTATION);
-            POGEL::VECTOR refpos = mat.transformVector(POGEL::VECTOR(0.0f,0.0f,-1.0f));
+            POGEL::VECTOR refpos(mat.transformVector(POGEL::VECTOR(0.0f,0.0f,-1.0f)));
             return refpos.normal();
         }
 

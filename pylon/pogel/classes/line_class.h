@@ -19,28 +19,28 @@ class LINE {
 		POGEL::COLOR color;
 		unsigned int line_width;
 		POGEL::BOUNDING bounding;
-		
+
 		bool stippled;
 		unsigned int stp_width;
 		unsigned short patern;
-		
-		LINE() { 
+
+		LINE() {
 				ends[0] = POGEL::POINT(); ends[1] = POGEL::POINT();
 				line_width = 1;
 				color = POGEL::COLOR(1,1,1,1);
 				stippled = false; stp_width = 1;
 				patern = 0xFFFF;
 			}
-		
+
 		LINE(POGEL::POINT a, POGEL::POINT b) {
-				ends[0] = a; ends[1] = b; 
+				ends[0] = a; ends[1] = b;
 				line_width = 1;
 				color = POGEL::COLOR(1,1,1,1);
 				stippled = false; stp_width = 1;
 				patern = 0xFFFF;
 				bounding.addpoint(a,a); bounding.addpoint(a,b);
 			}
-			
+
 		LINE(POGEL::POINT a, POGEL::POINT b, unsigned int lw) {
 				ends[0] = a; ends[1] = b;
 				line_width = lw;
@@ -49,7 +49,7 @@ class LINE {
 				patern = 0xFFFF;
 				bounding.addpoint(a,a); bounding.addpoint(a,b);
 			}
-			
+
 		LINE(POGEL::POINT a, POGEL::POINT b, POGEL::COLOR c) {
 				ends[0] = a; ends[1] = b;
 				line_width = 1;
@@ -58,7 +58,7 @@ class LINE {
 				patern = 0xFFFF;
 				bounding.addpoint(a,a); bounding.addpoint(a,b);
 			}
-			
+
 		LINE(POGEL::POINT a, POGEL::POINT b, unsigned int lw, POGEL::COLOR c) {
 				ends[0] = a; ends[1] = b;
 				line_width = lw;
@@ -67,8 +67,8 @@ class LINE {
 				patern = 0xFFFF;
 				bounding.addpoint(a,a); bounding.addpoint(a,b);
 			}
-			
-		
+
+
 		LINE(POGEL::POINT a, POGEL::POINT b, unsigned int lw, POGEL::COLOR c, unsigned int wdth, unsigned short pat) {
 				ends[0] = a; ends[1] = b;
 				line_width = lw;
@@ -77,14 +77,14 @@ class LINE {
 				patern = pat;
 				bounding.addpoint(a,a); bounding.addpoint(a,b);
 			}
-		
+
 		POGEL::POINT getStart() { return ends[0]; }
 		POGEL::POINT getEnd() { return ends[1]; }
-			
+
 		POGEL::POINT getMiddle() { return (getStart()+getEnd())/2; }
-		
+
 		//PROPERTIES_METHODS;
-		
+
 		void draw()
 			{
 				#ifdef OPENGL

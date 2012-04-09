@@ -136,7 +136,7 @@ namespace FileLoader
             printf("error %d with zipfile in unzGetGlobalInfo \n",err);
         }
 
-        ClassList<std::string> * ret = new ClassList<std::string>();
+        ClassList<std::string> * ret = new ClassList<std::string>(gi.number_entry);
 
         for (i=0; i<gi.number_entry; i++)
         {

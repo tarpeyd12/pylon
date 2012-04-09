@@ -10,13 +10,21 @@ namespace Main
         for( unsigned int i = 0 ; i < (unsigned int)argc ; i++ )
         {
             std::string curarg(argv[i]);
-            if( false )
-            { }
+            if(
+                i == 1 &&
+                (ScriptEngine::Parse::endsWith(curarg,".pylon") ||
+                ScriptEngine::Parse::endsWith(curarg,".zip") ||
+                ScriptEngine::Parse::endsWith(curarg,".zip.pylon") ||
+                ScriptEngine::Parse::endsWith(curarg,".pylon.zip"))
+            )
+            {
+                pylon_archive = curarg;
+                continue;
+            }
             else
             if( !curarg.compare("-f") )
             {
-                i++;
-                pylon_archive = std::string(argv[i]);
+                pylon_archive = std::string(argv[++i]);
                 continue;
             }
             #if defined(PYLON_DEBUG_VERSION) || defined(PYLON_DEV_VERSION)

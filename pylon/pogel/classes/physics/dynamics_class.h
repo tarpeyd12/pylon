@@ -7,10 +7,12 @@ class DYNAMICS;
 }
 }
 
-#include "../../templates/templates.h"
+//#include "../../templates/templates.h"
+#include "../../templates/octree_template.h"
+#include "solid_class.h"
+#include "../../templates/classlist_template.h"
 #include "physics.h"
 #include "singularity_class.h"
-#include "solid_class.h"
 
 #define             DYNAMICS_HAS_MAGNETIC_OBJECT            1
 #define             DYNAMICS_LIGHTWEIGHT_ONLY               2
@@ -30,7 +32,7 @@ class POGEL::PHYSICS::DYNAMICS
         POGEL::PHYSICS::FLOW gusts;
 
         POGEL::OCTREE<POGEL::PHYSICS::SOLID> *ot;
-        HASHLIST<POGEL::PHYSICS::SOLID*> *oltmp;
+        CLASSLIST<POGEL::PHYSICS::SOLID*> *oltmp;
 
         CLASSLIST<unsigned int> *objIndicies;
 

@@ -5,7 +5,7 @@
 #include "object_class.h"
 #include "../pogel_internals.h"
 
-#include "../templates/templates.h"
+#include "../templates/classlist_template.h"
 
 POGEL::OBJECT::OBJECT()
 {
@@ -822,7 +822,7 @@ POGEL::TRIANGLE
 POGEL::OBJECT::gettransformedtriangle(unsigned long i)
 {
     // make a matrix for this objects position and rotation
-    POGEL::MATRIX mat(position,rotation);
+    //POGEL::MATRIX mat(position,rotation);
 
     // if the object is facing the camera
     if( hasproperty(OBJECT_ROTATE_TOCAMERA) )
@@ -832,9 +832,14 @@ POGEL::OBJECT::gettransformedtriangle(unsigned long i)
     }
 
     // make a transformed triangle from the triangle at the given index i
-    POGEL::TRIANGLE tri = mat.transformTriangle(face[i]);
+    //POGEL::TRIANGLE tri = mat.transformTriangle(face[i]);
+    POGEL::TRIANGLE tri = face[i];
+    if(matrix.getposition()==position)
+        matrix.transformTriangle(&tri);
+    else
+        POGEL::MATRIX(position,rotation).transformTriangle(&tri);
 
-    // ma ethe new triangles bounding
+    // make the new triangles bounding
     tri.makebounding();
 
     // return the transformed triangle temporary
@@ -1093,6 +1098,8 @@ POGEL::OBJECT::increment()
 
     // translate by this objects direction vector
     translate(direction);
+
+    //matrix = POGEL::MATRIX(position,rotation);
 }
 
 int
@@ -1163,7 +1170,7 @@ POGEL::OBJECT::build()
     }
 
     // get the current opengl matrix transform, unnessicary
-    matrix.get();
+    //matrix.get();
 
     // check if this object is 'inbred' ( is one of its own children )
     // if this object has a decendant with the same name, does not check self
@@ -1579,9 +1586,9 @@ POGEL::OBJECT::getTransformedVertex( POGEL::VERTEX vert, bool dovert, bool donor
             {
                 POGEL::OBJECT * joint = joints[ jointIndices[ 0 ] ];
                 if( dovert )
-                    out += VectorTransform(VectorITransform(vert,joint->matGlobalSkeleton),joint->matGlobal);
+                    out = VectorTransform(VectorITransform(vert,joint->matGlobalSkeleton),joint->matGlobal);
                 if( donorm )
-                    normal += joint->matGlobal.transformVector(VectorIRotate(vert.normal,joint->matGlobalSkeleton));
+                    normal = joint->matGlobal.transformVector(VectorIRotate(vert.normal,joint->matGlobalSkeleton));
             }
             else
             {
@@ -1612,6 +1619,7 @@ void
 POGEL::OBJECT::draw()
 {
     #ifdef OPENGL
+        matrix = POGEL::MATRIX(position,rotation);
         if( visable )
         {
             if( hasproperty(OBJECT_ROTATE_TOCAMERA) )

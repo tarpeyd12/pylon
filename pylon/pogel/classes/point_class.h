@@ -4,10 +4,6 @@
 #include <stdio.h>
 #include <math.h>
 
-//class POGEL::POINT;
-//class POGEL::VECTOR;
-//class POGEL::VERTEX;
-
 #include "misc_class.h"
 #include "../pogel_internals.h"
 
@@ -21,50 +17,52 @@ namespace POGEL
             float z;
 
             POINT();
-            POINT(float,float,float);
-            POINT(float);
+            POINT( float, float, float );
+            POINT( float );
 
-            POINT(std::string s);
+            POINT( const std::string& );
 
-            void get_values(float*,float*,float*);
-            void set_values(float,float,float);
+            inline void get_values( float*, float*, float* ) const;
+            inline void set_values( float, float, float );
 
-            void print();
+            inline void print() const;
 
-            std::string toString();
+            inline std::string toString() const;
 
-            void draw();
-            void draw(unsigned int);
-            void draw(unsigned int, POGEL::COLOR);
-            void drawto(POGEL::POINT);
+            inline void draw() const;
+            inline void draw( unsigned int ) const;
+            inline void draw( unsigned int, const POGEL::COLOR& ) const;
+            inline void drawto( const POGEL::POINT& ) const;
 
-            void translate();
+            inline void translate() const;
 
-            float distance(POGEL::POINT p);
+            inline float distance( const POGEL::POINT& ) const;
+            inline float distancesquared( const POGEL::POINT& ) const;
 
-            POGEL::POINT operator*(float a);
-            POGEL::POINT operator/(float a);
+            inline POGEL::POINT operator*( float ) const;
+            inline POGEL::POINT operator/( float ) const;
 
-            POGEL::POINT operator*(POGEL::POINT p);
-            POGEL::POINT operator/(POGEL::POINT p);
+            inline POGEL::POINT operator*( const POGEL::POINT& ) const;
+            inline POGEL::POINT operator/( const POGEL::POINT& ) const;
 
-            POGEL::POINT operator+(POGEL::POINT p);
-            POGEL::POINT operator-(POGEL::POINT p);
-            POGEL::POINT& operator=(const POGEL::POINT& p);
+            inline POGEL::POINT operator+( const POGEL::POINT& ) const;
+            inline POGEL::POINT operator-( const POGEL::POINT& ) const;
 
-            POGEL::POINT& operator*=(const float& a);
-            POGEL::POINT& operator/=(const float& a);
+            inline POGEL::POINT& operator=( const POGEL::POINT& );
 
-            POGEL::POINT& operator*=(const POGEL::POINT& p);
-            POGEL::POINT& operator/=(const POGEL::POINT& p);
+            inline POGEL::POINT& operator*=( const float& );
+            inline POGEL::POINT& operator/=( const float& );
 
-            POGEL::POINT& operator+=(const POGEL::POINT& p);
-            POGEL::POINT& operator-=(const POGEL::POINT& p);
+            inline POGEL::POINT& operator*=( const POGEL::POINT& );
+            inline POGEL::POINT& operator/=( const POGEL::POINT& );
 
-            bool operator==(POGEL::POINT p);
-            bool operator!=(POGEL::POINT p);
+            inline POGEL::POINT& operator+=( const POGEL::POINT& );
+            inline POGEL::POINT& operator-=( const POGEL::POINT& );
 
-            bool isbad();
+            inline bool operator==( const POGEL::POINT& ) const;
+            inline bool operator!=( const POGEL::POINT& ) const;
+
+            inline bool isbad() const;
     };
 
     class VECTOR : public POGEL::POINT
@@ -77,97 +75,97 @@ namespace POGEL
 
             VECTOR(std::string s);
 
-            void normalize();
-            POGEL::VECTOR normal();
-            void anglenormalize();
-            POGEL::VECTOR anglenormal();
-            float getdistance();
-            float getangle(POGEL::VECTOR,POGEL::VECTOR);
-            float getangle(POGEL::VECTOR);
-            POGEL::VECTOR& dodotproduct(POGEL::VECTOR);
-            float dotproduct(POGEL::VECTOR);
-            void frompoints(POGEL::POINT,POGEL::POINT);
+            inline void normalize();
+            inline POGEL::VECTOR normal() const;
+            inline void anglenormalize();
+            inline POGEL::VECTOR anglenormal() const;
+            inline float getdistance() const;
+            inline float getangle( const POGEL::VECTOR&, const POGEL::VECTOR& );
+            inline float getangle( const POGEL::VECTOR& );
+            inline POGEL::VECTOR& dodotproduct( const POGEL::VECTOR& );
+            inline float dotproduct( const POGEL::VECTOR&) const;
+            inline void frompoints( const POGEL::POINT&, const POGEL::POINT& );
 
-            POGEL::POINT topoint();
+            inline POGEL::POINT topoint() const;
 
-            POGEL::VECTOR operator*(float a);
-            POGEL::VECTOR operator/(float a);
+            inline POGEL::VECTOR operator*(float a);
+            inline POGEL::VECTOR operator/(float a);
 
-            POGEL::VECTOR operator*(POGEL::VECTOR p);
-            POGEL::VECTOR operator/(POGEL::VECTOR p);
+            inline POGEL::VECTOR operator*( const POGEL::VECTOR& p) const;
+            inline POGEL::VECTOR operator/( const POGEL::VECTOR& p) const;
 
-            POGEL::VECTOR operator+(POGEL::VECTOR p);
-            POGEL::VECTOR operator-(POGEL::VECTOR p);
+            inline POGEL::VECTOR operator+( const POGEL::VECTOR& p) const;
+            inline POGEL::VECTOR operator-( const POGEL::VECTOR& p) const;
 
-            POGEL::VECTOR& operator=(const POGEL::VECTOR p);
+            inline POGEL::VECTOR& operator=(const POGEL::VECTOR & p);
 
-            POGEL::VECTOR& operator*=(const float& a);
-            POGEL::VECTOR& operator/=(const float& a);
+            inline POGEL::VECTOR& operator*=(const float& a);
+            inline POGEL::VECTOR& operator/=(const float& a);
 
-            POGEL::VECTOR& operator*=(const POGEL::VECTOR& p);
-            POGEL::VECTOR& operator/=(const POGEL::VECTOR& p);
+            inline POGEL::VECTOR& operator*=(const POGEL::VECTOR& p);
+            inline POGEL::VECTOR& operator/=(const POGEL::VECTOR& p);
 
-            POGEL::VECTOR& operator+=(const POGEL::VECTOR& p);
-            POGEL::VECTOR& operator-=(const POGEL::VECTOR& p);
+            inline POGEL::VECTOR& operator+=(const POGEL::VECTOR& p);
+            inline POGEL::VECTOR& operator-=(const POGEL::VECTOR& p);
 
-            bool operator==(POGEL::VECTOR p);
-            bool operator!=(POGEL::VECTOR p);
+            inline bool operator==( const POGEL::VECTOR& p) const;
+            inline bool operator!=( const POGEL::VECTOR& p) const;
     };
 
     class VERTEX : public POGEL::POINT
     {
         public:
+            POGEL::COLOR color;
+            POGEL::VECTOR normal;
+            int boneIDs[3];
             float u;
             float v;
             int boneID;
-            int boneIDs[3];
             unsigned char weights[3];
-            POGEL::COLOR color;
-            POGEL::VECTOR normal;
             bool usable;
 
             VERTEX();
             VERTEX(float a, float b, float c, float s, float t);
             VERTEX(float a, float b, float c);
-            VERTEX(POGEL::POINT p);
+            VERTEX(const POGEL::POINT& p);
 
             VERTEX(std::string s);
 
-            std::string toString();
+            inline std::string toString();
 
-            void get_values(float *a, float *b, float *c, float *s, float *t);
-            void set_values(float a, float b, float c, float s, float t);
+            inline void get_values(float *a, float *b, float *c, float *s, float *t);
+            inline void set_values(float a, float b, float c, float s, float t);
 
-            void get_point_values(float *a, float *b, float *c);
-            void set_point_values(float a, float b, float c);
+            inline void get_point_values(float *a, float *b, float *c);
+            inline void set_point_values(float a, float b, float c);
 
-            void get_tex_values(float *s, float *t);
-            void set_tex_values(float s, float t);
+            inline void get_tex_values(float *s, float *t);
+            inline void set_tex_values(float s, float t);
 
-            void scroll_tex_values(float s, float t);
+            inline void scroll_tex_values(float s, float t);
 
-            POGEL::POINT topoint();
+            inline POGEL::POINT topoint();
 
-            POGEL::VERTEX operator*(float a);
-            POGEL::VERTEX operator/(float a);
+            inline POGEL::VERTEX operator*(float a) const;
+            inline POGEL::VERTEX operator/(float a) const;
 
-            POGEL::VERTEX operator*(POGEL::VERTEX p);
-            POGEL::VERTEX operator/(POGEL::VERTEX p);
+            inline POGEL::VERTEX operator*(POGEL::VERTEX p) const;
+            inline POGEL::VERTEX operator/(POGEL::VERTEX p) const;
 
-            POGEL::VERTEX operator+(POGEL::VERTEX p);
-            POGEL::VERTEX operator-(POGEL::VERTEX p);
+            inline POGEL::VERTEX operator+(POGEL::VERTEX p) const;
+            inline POGEL::VERTEX operator-(POGEL::VERTEX p) const;
 
-            POGEL::VERTEX& operator=(const POGEL::VERTEX& p);
-            POGEL::VERTEX& operator=(const POGEL::POINT& p);
+            inline POGEL::VERTEX& operator=(const POGEL::VERTEX& p);
+            inline POGEL::VERTEX& operator=(const POGEL::POINT& p);
 
-            POGEL::VERTEX& operator*=(const float& a);
-            POGEL::VERTEX& operator/=(const float& a);
+            inline POGEL::VERTEX& operator*=(const float& a);
+            inline POGEL::VERTEX& operator/=(const float& a);
 
-            POGEL::VERTEX& operator*=(const POGEL::VERTEX& p);
-            POGEL::VERTEX& operator/=(const POGEL::VERTEX& p);
+            inline POGEL::VERTEX& operator*=(const POGEL::VERTEX& p);
+            inline POGEL::VERTEX& operator/=(const POGEL::VERTEX& p);
 
-            POGEL::VERTEX& operator+=(const POGEL::VERTEX& p);
-            POGEL::VERTEX& operator-=(const POGEL::VERTEX& p);
+            inline POGEL::VERTEX& operator+=(const POGEL::VERTEX& p);
+            inline POGEL::VERTEX& operator-=(const POGEL::VERTEX& p);
     };
 
     class KEY : public POGEL::POINT
@@ -175,7 +173,7 @@ namespace POGEL
         public:
             float time;
             KEY();
-            KEY(POGEL::POINT,float);
+            KEY( const POGEL::POINT&, float );
     };
 
     class TANGENT
@@ -184,8 +182,10 @@ namespace POGEL
             POGEL::POINT in;
             POGEL::POINT out;
             TANGENT();
-            TANGENT(POGEL::POINT,POGEL::POINT);
+            TANGENT( const POGEL::POINT&, const POGEL::POINT& );
     };
 }
+
+#include "point_class_inline.h"
 
 #endif /* _POINT_CLASS_H */

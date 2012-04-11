@@ -27,6 +27,11 @@ namespace Renderer
             return 1;
         }
 
+        POGEL::TRIANGLE * __accesstri( void * list, unsigned int index )
+        {
+            return &((DataWraper<POGEL::TRIANGLE,float>*)list)[ index ].data;
+        }
+
         template<class T>
         inline
         ClassList< DataWraper<POGEL::PHYSICS::SOLID*,float> >
@@ -164,8 +169,11 @@ namespace Renderer
                     }
                 }
                 trilist.sort(__sorttris);
-                for(unsigned int i = 0; i < trilist.length(); i++)
+                /*for(unsigned int i = 0; i < trilist.length(); i++)
+                {
                     trilist[i].data.draw();
+                }*/
+                POGEL::drawTriangleList( (void*)trilist.getList() ,trilist.length(), __accesstri );
                 POGEL::setproperties(prp);
                 trilist.clear();
             }

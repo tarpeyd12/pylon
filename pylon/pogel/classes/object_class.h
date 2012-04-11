@@ -147,7 +147,7 @@ namespace POGEL
 
             void setNumFrames( unsigned int );
             void setAnimationFPS( float );
-            POGEL::VERTEX getTransformedVertex( POGEL::VERTEX, bool, bool );
+            POGEL::VERTEX getTransformedVertex( const POGEL::VERTEX&, bool, bool );
             unsigned int addVertex( POGEL::VERTEX );
             POGEL::VERTEX * getVertexAddress( unsigned int ) const;
             POGEL::VERTEX * getVertexListAddress();

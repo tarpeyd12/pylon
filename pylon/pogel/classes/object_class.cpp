@@ -1134,7 +1134,7 @@ void
 POGEL::OBJECT::build()
 {
     // go through all triangles
-    for( unsigned int i = 0; i < numfaces; i++ )
+    for( unsigned int i = 0; i < numfaces; ++i )
     {
         // if any are transparent or see through
         if( face[i].isClear() )
@@ -1151,6 +1151,13 @@ POGEL::OBJECT::build()
         }
     }
 
+    // generate a temporary list pointing to the list of triangles
+    CLASSLIST<POGEL::TRIANGLE> triList(face, numfaces);
+    // sort the list by the triangles transparency
+    triList.sort(_sortTrianglesByPropertiesAndImage);
+    // set the temporary lists' internal pointer to null
+    triList.nullify();
+
     // if the object is to be drawn into a display list
     if( hasproperty(OBJECT_DRAW_DISPLAYLIST) )
     {
@@ -1162,12 +1169,18 @@ POGEL::OBJECT::build()
             // start 'recording'
             glNewList(base,GL_COMPILE);
 
-                // loop through all the triangles
-                for( unsigned long i = 0; i < numfaces; i++ )
+                unsigned int prp = POGEL::getproperties();
+                // if bounding to be drawn and object rotates to camera
+                if( POGEL::hasproperty(POGEL_BOUNDING) )//&& hasproperty(OBJECT_ROTATE_TOCAMERA) )
                 {
-                    // draw them
-                    face[i].draw();
+                    // do not draw boundings for the triangles, it looks bad
+                    POGEL::removeproperty(POGEL_BOUNDING);
                 }
+
+                POGEL::drawTriangleList( face, numfaces );
+
+                // reset pogel's properties
+                POGEL::setproperties(prp);
 
             // finish the display list
             glEndList();
@@ -1190,13 +1203,6 @@ POGEL::OBJECT::build()
         }
     }
 
-    // generate a temporary list pointing to the list of triangles
-    CLASSLIST<POGEL::TRIANGLE> triList(face, numfaces);
-    // sort the list by the triangles transparency
-    triList.sort(_sortTrianglesByPropertiesAndImage);
-    // set the temporary lists' internal pointer to null
-    triList.nullify();
-
     unsigned int posKeysLength = posKeys.length();
 
     // if there are more than 2 keys, we can calculate tangents, otherwise we use zero derivatives
@@ -1204,7 +1210,7 @@ POGEL::OBJECT::build()
     {
         if( tangents.length() < posKeysLength )
         {
-            for( unsigned int k = 0; k < posKeysLength; k++ )
+            for( unsigned int k = 0; k < posKeysLength; ++k )
             {
                 // make the curve tangents looped
                 int k0 = int(k) - 1;
@@ -1258,7 +1264,7 @@ POGEL::OBJECT::build()
     matGlobal = matGlobalSkeleton;
 
     // go through the children
-    for( unsigned int i = 0; i < numchildren; i++ )
+    for( unsigned int i = 0; i < numchildren; ++i )
     {
         // make sure they know who is in charge
         children[i]->parent = this;
@@ -1291,7 +1297,7 @@ POGEL::OBJECT::setAnimationTime( float frame )
         {
             int i1 = -1;
             int i2 = -1;
-            for( unsigned int i = 0; i < posKeys.length() - 1; i++ )
+            for( unsigned int i = 0; i < posKeys.length() - 1; ++i )
             {
                 if( frame >= posKeys[i].time && frame < posKeys[i + 1].time )
                 {
@@ -1307,23 +1313,23 @@ POGEL::OBJECT::setAnimationTime( float frame )
                 // either take the first
                 if (frame < posKeys[0].time)
                 {
-                    pos = (POGEL::POINT)posKeys[0];
+                    pos = posKeys[0];
                 }
 
                 // or the last key
                 else if (frame >= posKeys[posKeys.length() - 1].time)
                 {
-                    pos = (POGEL::POINT)posKeys[posKeys.length() - 1];
+                    pos = posKeys[posKeys.length() - 1];
                 }
             }
 
             // there are such keys, so interpolate using hermite interpolation
             else
             {
-                POGEL::KEY p1 = posKeys[i1];
-                POGEL::KEY p2 = posKeys[i2];
-                POGEL::POINT m1 = tangents[i1].out;
-                POGEL::POINT m2 = tangents[i2].in;
+                POGEL::KEY p1( posKeys[i1] );
+                POGEL::KEY p2( posKeys[i2] );
+                POGEL::POINT m1( tangents[i1].out );
+                POGEL::POINT m2( tangents[i2].in );
 
                 // normalize the time between the keys into [0..1]
                 float t = (frame - p1.time) / (p2.time - p1.time);
@@ -1350,7 +1356,7 @@ POGEL::OBJECT::setAnimationTime( float frame )
             int i2 = -1;
 
             // find the two keys, where "frame" is in between for the rotation channel
-            for( unsigned int i = 0; i < rotKeys.length() - 1; i++ )
+            for( unsigned int i = 0; i < rotKeys.length() - 1; ++i )
             {
                 if( frame >= rotKeys[i].time && frame < rotKeys[i + 1].time )
                 {
@@ -1366,21 +1372,21 @@ POGEL::OBJECT::setAnimationTime( float frame )
                 // either take the first key
                 if( frame < rotKeys[0].time )
                 {
-                    rot = POGEL::QUAT((POGEL::POINT)rotKeys[0]);
+                    rot = POGEL::QUAT(rotKeys[0]);
                 }
 
                 // or the last key
                 else if( frame >= rotKeys[rotKeys.length() - 1].time )
                 {
-                    rot = POGEL::QUAT((POGEL::POINT)rotKeys[rotKeys.length() - 1]);
+                    rot = POGEL::QUAT(rotKeys[rotKeys.length() - 1]);
                 }
             }
 
             // there are such keys, so do the quaternion slerp interpolation
             else
             {
-                POGEL::QUAT q1((POGEL::POINT)rotKeys[i1]);
-                POGEL::QUAT q2((POGEL::POINT)rotKeys[i2]);
+                POGEL::QUAT q1( rotKeys[ i1 ] );
+                POGEL::QUAT q2( rotKeys[ i2 ] );
                 float t = (frame - rotKeys[i1].time) / (rotKeys[i2].time - rotKeys[i1].time);
                 rot = q1.slerp(q2,t);
             }
@@ -1392,7 +1398,7 @@ POGEL::OBJECT::setAnimationTime( float frame )
         {
             int i1 = -1;
             int i2 = -1;
-            for( unsigned int i = 0; i < scaleKeys.length() - 1; i++ )
+            for( unsigned int i = 0; i < scaleKeys.length() - 1; ++i )
             {
                 if( frame >= scaleKeys[i].time && frame < scaleKeys[i + 1].time )
                 {
@@ -1408,13 +1414,13 @@ POGEL::OBJECT::setAnimationTime( float frame )
                 // either take the first
                 if(frame < scaleKeys[0].time)
                 {
-                    scale = (POGEL::POINT)scaleKeys[0];
+                    scale = scaleKeys[0];
                 }
 
                 // or the last key
                 else if(frame >= scaleKeys[scaleKeys.length() - 1].time)
                 {
-                    scale = (POGEL::POINT)scaleKeys[scaleKeys.length() - 1];
+                    scale = scaleKeys[scaleKeys.length() - 1];
                 }
             }
 
@@ -1423,8 +1429,8 @@ POGEL::OBJECT::setAnimationTime( float frame )
             else
             {
                 //scale = POGEL::POINT(1.0f);
-                POGEL::POINT s1((POGEL::POINT)scaleKeys[i1]);
-                POGEL::POINT s2((POGEL::POINT)scaleKeys[i2]-s1);
+                POGEL::POINT s1(scaleKeys[i1]);
+                POGEL::POINT s2(scaleKeys[i2]-s1);
                 float t = (frame - scaleKeys[i1].time) / (scaleKeys[i2].time - scaleKeys[i1].time);
                 scale = s1 + s2*t;
             }
@@ -1484,44 +1490,46 @@ POGEL::OBJECT::setAnimationTime( float frame )
 
         memset(hastransformed,false,verticies.length()*sizeof(bool));
 
-        for( unsigned int i = 0; i < numfaces; i++)
+        for( unsigned int i = 0; i < numfaces; ++i )
         {
-            bool vertnorms = face[i].hasproperty( TRIANGLE_VERTEX_NORMALS );
-            for( unsigned int a = 0; a < 3; a++ )
+            bool vertnorms = face[ i ].hasproperty( TRIANGLE_VERTEX_NORMALS );
+            for( unsigned int a = 0; a < 3; ++a )
             {
                 int index = face[ i ].ivertex[ a ];
-                if( index >= 0 )
+                if( index < 0 )
                 {
-                    POGEL::VERTEX vert = verticies[ index ];
-
-                    if( vertnorms )
-                    {
-                        vert.normal = face[ i ].vertnormals[ a ];
-                    }
-
-                    POGEL::VERTEX transvert = this->getTransformedVertex( vert, !hastransformed[ index ], vertnorms );
-
-                    if( !hastransformed[index] )
-                    {
-                        if(frame>=0.0f)transvert/=2.55f;
-                        verticiesTrans.replace( index, transvert );
-                        if( POGEL::hasproperty(POGEL_LABEL) && POGEL::hasproperty(POGEL_WIREFRAME) )
-                        {
-                            transvert.draw( 3, POGEL::COLOR( 1.0f, 0.5f, 0.25f, 1.0f ) );
-                        }
-                        hastransformed[ index ] = true;
-                    }
-
-                    face[ i ].vertex[ a ] = (POGEL::POINT)verticiesTrans[ index ];
-
-                    if( vertnorms )
-                    {
-                        face[ i ].vertex[ a ].normal = transvert.normal;
-                    }
-
+                    continue;
                 }
+
+                POGEL::VERTEX vert = verticies[ index ];
+
+                if( vertnorms )
+                {
+                    vert.normal = face[ i ].vertnormals[ a ];
+                }
+
+                POGEL::VERTEX transvert = this->getTransformedVertex( vert, !hastransformed[ index ], vertnorms );
+
+                if( !hastransformed[ index ] )
+                {
+                    if(frame>=0.0f)transvert/=2.55f;
+                    verticiesTrans.replace( index, transvert );
+                    if( POGEL::hasproperty(POGEL_LABEL) && POGEL::hasproperty(POGEL_WIREFRAME) )
+                    {
+                        transvert.draw( 3, POGEL::COLOR( 1.0f, 0.5f, 0.25f, 1.0f ) );
+                    }
+                    hastransformed[ index ] = true;
+                }
+
+                face[ i ].vertex[ a ] = (POGEL::POINT)verticiesTrans[ index ];
+
+                if( vertnorms )
+                {
+                    face[ i ].vertex[ a ].normal = transvert.normal;
+                }
+
             }
-            face[i].updateVert();
+            face[ i ].updateVert();
         }
 
         delete [] hastransformed;
@@ -1529,8 +1537,9 @@ POGEL::OBJECT::setAnimationTime( float frame )
 }
 
 // rotate by the inverse of the matrix
+inline
 POGEL::VECTOR
-VectorIRotate (POGEL::VECTOR in1, const POGEL::MATRIX & in2)
+VectorIRotate ( const POGEL::VECTOR & in1, const POGEL::MATRIX & in2 )
 {
     float out0 = in1.x*in2.getvalue(0,0) + in1.y*in2.getvalue(1,0) + in1.z*in2.getvalue(2,0);
     float out1 = in1.x*in2.getvalue(0,1) + in1.y*in2.getvalue(1,1) + in1.z*in2.getvalue(2,1);
@@ -1538,8 +1547,9 @@ VectorIRotate (POGEL::VECTOR in1, const POGEL::MATRIX & in2)
     return POGEL::VECTOR(out0,out1,out2);
 }
 
+inline
 POGEL::VECTOR
-VectorTransform (POGEL::VECTOR in1, const POGEL::MATRIX & in2)
+VectorTransform ( const POGEL::VECTOR & in1, const POGEL::MATRIX & in2 )
 {
     float out0 = in1.x*in2.getvalue(0,0) + in1.y*in2.getvalue(1,0) + in1.z*in2.getvalue(2,0) + in2.getvalue(3,0);
     float out1 = in1.x*in2.getvalue(0,1) + in1.y*in2.getvalue(1,1) + in1.z*in2.getvalue(2,1) + in2.getvalue(3,1);
@@ -1547,8 +1557,9 @@ VectorTransform (POGEL::VECTOR in1, const POGEL::MATRIX & in2)
     return POGEL::VECTOR(out0,out1,out2);
 }
 
+inline
 POGEL::VECTOR
-VectorITransform (POGEL::VECTOR in1, const POGEL::MATRIX & in2)
+VectorITransform ( const POGEL::VECTOR & in1, const POGEL::MATRIX & in2 )
 {
     POGEL::VECTOR tmp;
     tmp.x = in1.x - in2.getvalue(3,0);
@@ -1558,67 +1569,99 @@ VectorITransform (POGEL::VECTOR in1, const POGEL::MATRIX & in2)
 }
 
 POGEL::VERTEX
-POGEL::OBJECT::getTransformedVertex( POGEL::VERTEX vert, bool dovert, bool donorm )
+POGEL::OBJECT::getTransformedVertex( const POGEL::VERTEX & invert, bool dovert, bool donorm )
 {
-    unsigned int numjoints = joints.length();
-    if( numjoints && ( dovert || donorm ) && currentAnimationFrame >= 0.0f)
+    if( !(dovert || donorm) )
     {
-        if( vert.boneID >= 0 && vert.boneID < (int)numjoints )
+        return invert;
+    }
+
+    unsigned int numjoints = joints.length();
+    if( numjoints && currentAnimationFrame >= 0.0f && invert.boneID >= 0 && invert.boneID < (int)numjoints )
+    {
+        int jointIndices[4] = { invert.boneID, invert.boneIDs[ 0 ], invert.boneIDs[ 1 ], invert.boneIDs[ 2 ] };
+        int jointWeights[4] = { 100, 0, 0, 0 };
+
+        if( invert.weights[ 0 ] || invert.weights[ 1 ] || invert.weights[ 2 ] )
         {
-            int jointIndices[4] = { vert.boneID, vert.boneIDs[0], vert.boneIDs[1], vert.boneIDs[2] };
-            int jointWeights[4] = { 100, 0, 0, 0 };
-            if (vert.weights[0] != 0 || vert.weights[1] != 0 || vert.weights[2] != 0)
-            {
-                jointWeights[0] = vert.weights[0];
-                jointWeights[1] = vert.weights[1];
-                jointWeights[2] = vert.weights[2];
-                jointWeights[3] = 100 - (vert.weights[0] + vert.weights[1] + vert.weights[2]);
-            }
+            jointWeights[ 0 ] = invert.weights[ 0 ];
+            jointWeights[ 1 ] = invert.weights[ 1 ];
+            jointWeights[ 2 ] = invert.weights[ 2 ];
+            jointWeights[ 3 ] = 100 - ( invert.weights[ 0 ] + invert.weights[ 1 ] + invert.weights[ 2 ] );
+        }
 
-            POGEL::POINT out;
-            POGEL::VECTOR normal;
-
-            // count valid weights
-            unsigned int numWeights = 0;
-            for( unsigned int i = 0; i < 4; i++ )
+        // count valid weights
+        unsigned int numWeights = 0;
+        for( unsigned int i = 0; i < 4; ++i )
+        {
+            if( jointWeights[ i ] > 0 && jointIndices[ i ] >= 0 && jointIndices[ i ] < (int)numjoints )
             {
-                if( jointWeights[ i ] > 0 && jointIndices[ i ] >= 0 && jointIndices[ i ] < (int)numjoints )
-                    numWeights++;
-                else
-                    break;
-            }
-
-            if( !numWeights )
-            {
-                POGEL::OBJECT * joint = joints[ jointIndices[ 0 ] ];
-                if( dovert )
-                    out = VectorTransform(VectorITransform(vert,joint->matGlobalSkeleton),joint->matGlobal);
-                if( donorm )
-                    normal = joint->matGlobal.transformVector(VectorIRotate(vert.normal,joint->matGlobalSkeleton));
+                ++numWeights;
             }
             else
             {
-                float weight = (float) jointWeights[ 0 ] / 100.0f;
-                // add weighted vertices
-                for( unsigned int i = 0; i < numWeights; weight = (float) jointWeights[ ++i ] / 100.0f)
+                break;
+            }
+        }
+
+        POGEL::VERTEX vert(invert);
+
+        if( !numWeights )
+        {
+            POGEL::OBJECT * joint = joints[ jointIndices[ 0 ] ];
+            if( dovert )
+            {
+                vert = VectorTransform( VectorITransform( vert, joint->matGlobalSkeleton ), joint->matGlobal );
+            }
+            if( donorm )
+            {
+                vert.normal = joint->matGlobal.transformVector( VectorIRotate( vert.normal, joint->matGlobalSkeleton ) );
+            }
+            return vert;
+        }
+        else
+        {
+            float weight = (float) jointWeights[ 0 ] * 0.01f;
+            // add weighted vertices
+            if( dovert && !donorm )
+            {
+                POGEL::POINT out;
+                for( unsigned int i = 0; i < numWeights; weight = (float) jointWeights[ ++i ] * 0.01f )
                 {
                     POGEL::OBJECT * joint = joints[ jointIndices[ i ] ];
-                    if( dovert )
-                        out += VectorTransform(VectorITransform(vert,joint->matGlobalSkeleton),joint->matGlobal) * weight;
-                    if( donorm )
-                        normal += joint->matGlobal.transformVector(VectorIRotate(vert.normal,joint->matGlobalSkeleton)) * weight;
-                    //if( ++i < numWeights )
-                        //weight = (float) jointWeights[ i ] / 100.0f;
+                    out += VectorTransform( VectorITransform( vert, joint->matGlobalSkeleton ), joint->matGlobal ) * weight;
                 }
+                vert = out;
+                return vert;
             }
-
-        if(dovert)
-            vert = out;
-        if(donorm)
-            vert.normal = normal;
+            else if( !dovert && donorm )
+            {
+                POGEL::VECTOR normal;
+                for( unsigned int i = 0; i < numWeights; weight = (float) jointWeights[ ++i ] * 0.01f )
+                {
+                    POGEL::OBJECT * joint = joints[ jointIndices[ i ] ];
+                    normal += joint->matGlobal.transformVector( VectorIRotate( vert.normal, joint->matGlobalSkeleton ) ) * weight;
+                }
+                vert.normal = normal;
+                return vert;
+            }
+            else
+            {
+                POGEL::POINT out;
+                POGEL::VECTOR normal;
+                for( unsigned int i = 0; i < numWeights; weight = (float) jointWeights[ ++i ] * 0.01f )
+                {
+                    POGEL::OBJECT * joint = joints[ jointIndices[ i ] ];
+                    out += VectorTransform( VectorITransform( vert, joint->matGlobalSkeleton ), joint->matGlobal ) * weight;
+                    normal += joint->matGlobal.transformVector( VectorIRotate( vert.normal, joint->matGlobalSkeleton ) ) * weight;
+                }
+                vert = out;
+                vert.normal = normal;
+                return vert;
+            }
         }
     }
-    return vert;
+    return invert;
 }
 
 void

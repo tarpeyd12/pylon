@@ -4,13 +4,13 @@ POGEL::TRIANGLE::updateVert()
     if( pvertex )
     {
         POGEL::VECTOR vct0( vertex[ 0 ], vertex[ 1 ] );
-        vct0.normalize();
+        //vct0.normalize();
 
         POGEL::VECTOR vct1( vertex[ 0 ], vertex[ 2 ] );
-        vct1.normalize();
+        //vct1.normalize();
 
         vct0.dodotproduct( vct1 );
-        normal = vct0.normal();
+        normal = vct0;//.normal();
 
         trimid = ( vertex[ 0 ] + vertex[ 1 ] + vertex[ 2 ] ) / 3.0f;
         usetrimid = true;

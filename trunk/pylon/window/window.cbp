@@ -187,7 +187,7 @@
 				<Option object_output="obj/Development/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug -bench -numsim 1" />
+				<Option parameters="-debug --bench -numsim 1 -forcesingle" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />

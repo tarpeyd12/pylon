@@ -1103,25 +1103,31 @@ POGEL::OBJECT::increment()
 }
 
 int
-_sortTrianglesByImageChannels(POGEL::TRIANGLE* a, POGEL::TRIANGLE* b)
+_sortTrianglesByPropertiesAndImage(POGEL::TRIANGLE* a, POGEL::TRIANGLE* b)
 {
     // safties
     POGEL::TRIANGLE* triA = (POGEL::TRIANGLE*)a;
     POGEL::TRIANGLE* triB = (POGEL::TRIANGLE*)b;
 
-    // if triangle A is null or has a null texture, move forward
-    if(triA == NULL || triA->texture == NULL)
+    if( triA->getproperties() == triB->getproperties() )
     {
-        return -1;
+        // if triangle A is null or has a null texture, move forward
+        if(triA == NULL || triA->texture == NULL)
+        {
+            return -1;
+        }
+        // same with B
+        if(triB == NULL || triB->texture == NULL)
+        {
+            return 1;
+        }
+        if( triA->texture == triB->texture )
+        {
+            return 0;
+        }
+        return (int)triB->texture - (int)triA->texture;
     }
-    // same with B
-    if(triB == NULL || triB->texture == NULL)
-    {
-        return 1;
-    }
-    // compare the number of chanells each image has, sort accordingly
-    // TRIANGLE_TRANSPARENT has no effect
-    return triA->texture->numchannels() - triB->texture->numchannels();
+    return (int)triB->getproperties() - (int)triA->getproperties();
 }
 
 void
@@ -1187,7 +1193,7 @@ POGEL::OBJECT::build()
     // generate a temporary list pointing to the list of triangles
     CLASSLIST<POGEL::TRIANGLE> triList(face, numfaces);
     // sort the list by the triangles transparency
-    triList.sort(_sortTrianglesByImageChannels);
+    triList.sort(_sortTrianglesByPropertiesAndImage);
     // set the temporary lists' internal pointer to null
     triList.nullify();
 
@@ -1702,12 +1708,9 @@ POGEL::OBJECT::draw()
                     // do not draw boundings for the triangles, it looks bad
                     POGEL::removeproperty(POGEL_BOUNDING);
                 }
-                // loop through the triangles
-                for( i = 0; i < numfaces; i++ )
-                {
-                    // draw them
-                    face[i].draw();
-                }
+
+                POGEL::drawTriangleList( face, numfaces );
+
                 // reset pogel's properties
                 POGEL::setproperties(prp);
             }

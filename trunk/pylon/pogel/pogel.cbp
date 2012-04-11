@@ -151,6 +151,7 @@
 		<Unit filename="classes/threads.h" />
 		<Unit filename="classes/triangle_class.cpp" />
 		<Unit filename="classes/triangle_class.h" />
+		<Unit filename="classes/triangle_class_inline.h" />
 		<Unit filename="classes/view_class.cpp" />
 		<Unit filename="classes/view_class.h" />
 		<Unit filename="pogel.cpp" />

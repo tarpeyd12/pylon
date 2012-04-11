@@ -5,7 +5,7 @@
 		<Cursor position="3794" topLine="0" />
 	</File>
 	<File name="classes/bounding_class.h" open="0" top="0" tabpos="9">
-		<Cursor position="349" topLine="1" />
+		<Cursor position="1209" topLine="31" />
 	</File>
 	<File name="classes/bounding_class_inline.h" open="0" top="0" tabpos="0">
 		<Cursor position="267" topLine="0" />
@@ -17,10 +17,10 @@
 		<Cursor position="739" topLine="10" />
 	</File>
 	<File name="classes/image_class.cpp" open="0" top="0" tabpos="13">
-		<Cursor position="6271" topLine="276" />
+		<Cursor position="5853" topLine="231" />
 	</File>
 	<File name="classes/image_class.h" open="0" top="0" tabpos="2">
-		<Cursor position="1347" topLine="45" />
+		<Cursor position="1511" topLine="37" />
 	</File>
 	<File name="classes/line_class.h" open="0" top="0" tabpos="17">
 		<Cursor position="415" topLine="8" />
@@ -29,16 +29,16 @@
 		<Cursor position="14050" topLine="300" />
 	</File>
 	<File name="classes/matrix_class.h" open="0" top="0" tabpos="2">
-		<Cursor position="195" topLine="0" />
+		<Cursor position="126" topLine="0" />
 	</File>
 	<File name="classes/misc_class.h" open="0" top="0" tabpos="0">
-		<Cursor position="665" topLine="0" />
+		<Cursor position="735" topLine="8" />
 	</File>
 	<File name="classes/object_class.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="19385" topLine="825" />
+		<Cursor position="45562" topLine="1687" />
 	</File>
 	<File name="classes/object_class.h" open="0" top="0" tabpos="7">
-		<Cursor position="270" topLine="0" />
+		<Cursor position="2441" topLine="45" />
 	</File>
 	<File name="classes/object_funcs.cpp" open="0" top="0" tabpos="35">
 		<Cursor position="812" topLine="0" />
@@ -79,7 +79,7 @@
 	<File name="classes/physics/singularity_class.h" open="0" top="0" tabpos="2">
 		<Cursor position="1679" topLine="38" />
 	</File>
-	<File name="classes/physics/solid_class.cpp" open="1" top="0" tabpos="2">
+	<File name="classes/physics/solid_class.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="26044" topLine="975" />
 	</File>
 	<File name="classes/physics/solid_class.h" open="0" top="0" tabpos="2">
@@ -89,7 +89,7 @@
 		<Cursor position="426" topLine="8" />
 	</File>
 	<File name="classes/point_class.h" open="0" top="0" tabpos="11">
-		<Cursor position="1134" topLine="29" />
+		<Cursor position="3832" topLine="99" />
 	</File>
 	<File name="classes/point_class_inline.h" open="0" top="0" tabpos="0">
 		<Cursor position="4461" topLine="221" />
@@ -106,11 +106,14 @@
 	<File name="classes/threads.h" open="0" top="0" tabpos="1">
 		<Cursor position="274" topLine="0" />
 	</File>
-	<File name="classes/triangle_class.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="7562" topLine="203" />
+	<File name="classes/triangle_class.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="2989" topLine="70" />
 	</File>
-	<File name="classes/triangle_class.h" open="1" top="1" tabpos="3">
-		<Cursor position="5583" topLine="148" />
+	<File name="classes/triangle_class.h" open="1" top="0" tabpos="4">
+		<Cursor position="2777" topLine="61" />
+	</File>
+	<File name="classes/triangle_class_inline.h" open="1" top="0" tabpos="5">
+		<Cursor position="2441" topLine="0" />
 	</File>
 	<File name="classes/view_class.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="3740" topLine="192" />

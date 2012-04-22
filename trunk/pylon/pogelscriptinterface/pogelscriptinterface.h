@@ -66,5 +66,6 @@ namespace pogelInterface
 #include "shapes.h"
 #include "hud.h"
 #include "subrender.h"
+#include "scriptcallbacks.h"
 
 #endif // POGELSCRIPTINTERFACE_H_INCLUDED

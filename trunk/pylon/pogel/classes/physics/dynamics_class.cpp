@@ -47,7 +47,7 @@ POGEL::PHYSICS::DYNAMICS::DYNAMICS()
 
 POGEL::PHYSICS::DYNAMICS::~DYNAMICS()
 {
-    objects.clear();
+    //clearAllSolids();
     destroyot();
 }
 
@@ -193,7 +193,7 @@ void POGEL::PHYSICS::DYNAMICS::removeSolid(POGEL::PHYSICS::SOLID* obj)
             objects[i]->container = NULL;
             objects.remove(i);
             objectmasses.remove(i);
-            numobjects--;
+            --numobjects;
             return;
         }
     }
@@ -211,7 +211,7 @@ void POGEL::PHYSICS::DYNAMICS::removeSolidKeepGravity(POGEL::PHYSICS::SOLID* obj
         {
             objects[i]->container = NULL;
             objects.remove(i);
-            numobjects--;
+            --numobjects;
             return;
         }
     }
@@ -240,6 +240,10 @@ void POGEL::PHYSICS::DYNAMICS::removeSolid(char* n)
 
 void POGEL::PHYSICS::DYNAMICS::clearAllSolids()
 {
+    for(unsigned int i = 0; i < objects.length(); ++i)
+    {
+        delete objects[i];
+    }
     numobjects = 0;
     objects.clear();
     objectmasses.clearAll();

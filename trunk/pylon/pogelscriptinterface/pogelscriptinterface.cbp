@@ -37,11 +37,8 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="pogel" />
 					<Add library="renderer" />
 					<Add library="scriptengine" />
@@ -58,8 +55,6 @@
 				<Option createDefFile="1" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add option="-pg" />
 					<Add option="-g" />
 					<Add directory="../bin/UnitaryDebug/" />
@@ -83,12 +78,9 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add directory="../bin/UnitaryRelease/" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="pogel" />
 					<Add library="renderer" />
 					<Add library="scriptengine" />
@@ -98,9 +90,7 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wextra" />
-			<Add option="-Wall" />
-			<Add option="-fexceptions" />
+			<Add option="-s -O3 -fexpensive-optimizations -fexceptions -Wall -Wextra" />
 			<Add directory="$(#python.include)" />
 			<Add directory="$(#python.lib)" />
 			<Add directory="$(#base.include)" />
@@ -122,6 +112,8 @@
 		<Unit filename="objects.h" />
 		<Unit filename="pogelscriptinterface.cpp" />
 		<Unit filename="pogelscriptinterface.h" />
+		<Unit filename="scriptcallbacks.cpp" />
+		<Unit filename="scriptcallbacks.h" />
 		<Unit filename="shapes.cpp" />
 		<Unit filename="shapes.h" />
 		<Unit filename="simulation.cpp" />

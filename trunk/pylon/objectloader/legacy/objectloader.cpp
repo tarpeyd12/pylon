@@ -4,6 +4,7 @@ namespace ObjectLoader
 {
     std::string getobject(std::string name, std::string type, std::string dat)
     {
+        if(name.length()) { }
         std::string ctype = "";
         unsigned int linenum = 0;
         unsigned int totallinenum = ScriptEngine::Parse::getOccurrencesInString('\n',dat);

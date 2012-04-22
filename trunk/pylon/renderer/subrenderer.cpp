@@ -151,6 +151,17 @@ namespace Renderer
         return &((DataWraper<POGEL::TRIANGLE,float>*)list)[ index ].data;
     }
 
+    class __AccessTriangle
+    {
+        public:
+            __AccessTriangle()
+                { }
+            inline POGEL::TRIANGLE * operator()( void * list, unsigned int index )
+            {
+                return &((DataWraper<POGEL::TRIANGLE,float>*)list)[ index ].data;
+            }
+    };
+
     template<class T>
     inline
     ClassList< DataWraper<POGEL::PHYSICS::SOLID*,float> >
@@ -271,22 +282,24 @@ namespace Renderer
             unsigned int numfaces = obj->getnumfaces();
             float objradius = obj->getbounding().maxdistance;
             ClassList< DataWraper<POGEL::TRIANGLE,float> > trilist(numfaces);
+            ClassList< POGEL::TRIANGLE > trilist2(numfaces);
             unsigned int prp = POGEL::getproperties();
             if( POGEL::hasproperty(POGEL_BOUNDING) ) POGEL::removeproperty(POGEL_BOUNDING);
-            for(unsigned int t = 0; t < numfaces;t++)
+            for(unsigned int t = 0; t < numfaces;++t)
             {
                 POGEL::TRIANGLE tri = obj->gettransformedtriangle(t);
                 POGEL::POINT trimiddle = tri.middle();
                 if( tri.hasproperty(TRIANGLE_DOUBLESIDED) || tri.isinfront(campos) )
                 {
                     float tritocam = trimiddle.distance(campos);
-                    if( ( tri.hasproperty(TRIANGLE_TRANSPARENT) || tri.isClear() ) && tritocam < objradius*50.0*2.0 )
+                    if( ( tri.hasproperty(TRIANGLE_TRANSPARENT) || tri.isClear() ) && tritocam < objradius*50.0f*1.0f )
                     {
                         trilist += DataWraper<POGEL::TRIANGLE,float>(tri,tritocam);
                     }
                     else
                     {
-                        tri.draw();
+                        trilist2 += tri;
+                        //tri.draw();
                     }
                 }
             }
@@ -295,9 +308,11 @@ namespace Renderer
             {
                 trilist[i].data.draw();
             }*/
-            POGEL::drawTriangleList( (void*)trilist.getList(), trilist.length(), __accesstri );
+            POGEL::drawTriangleList( trilist2.getList(), trilist2.length() );
+            POGEL::drawTriangleList( (void*)trilist.getList(), trilist.length(), __AccessTriangle() );
             POGEL::setproperties(prp);
             trilist.clear();
+            trilist2.clear();
         }
         closelist.clear();
     }

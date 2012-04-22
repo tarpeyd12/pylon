@@ -33,11 +33,8 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add directory="../bin/Release" />
 				</Linker>
 			</Target>
@@ -50,8 +47,6 @@
 				<Option createDefFile="1" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add option="-pg" />
 					<Add option="-g" />
 				</Compiler>
@@ -70,11 +65,8 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add directory="../bin/UnitaryRelease/" />
 				</Linker>
 			</Target>
@@ -82,7 +74,7 @@
 		<Compiler>
 			<Add option="-Wextra" />
 			<Add option="-Wall" />
-			<Add option="-fexceptions" />
+			<Add option="-s -O3 -fexpensive-optimizations -fexceptions -Wall -Wextra" />
 		</Compiler>
 		<Unit filename="archivehandler.cpp" />
 		<Unit filename="archivehandler.h" />

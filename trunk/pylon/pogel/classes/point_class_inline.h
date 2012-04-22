@@ -344,12 +344,12 @@ POGEL::VECTOR::topoint() const
     return p;
 }
 
-POGEL::VECTOR POGEL::VECTOR::operator*(float a)
+POGEL::VECTOR POGEL::VECTOR::operator*(float a) const
 {
     return POGEL::VECTOR(x*a, y*a, z*a);
 }
 
-POGEL::VECTOR POGEL::VECTOR::operator/(float a)
+POGEL::VECTOR POGEL::VECTOR::operator/(float a) const
 {
     return POGEL::VECTOR(x/a, y/a, z/a);
 }

@@ -16,17 +16,18 @@
 
 #include <iostream>
 
-#ifndef EXECUTOR_H
-#include "executor.h"
-#endif
-
-#ifndef STRINGPARSER_H_INCLUDED
-#include "stringparser.h"
-#endif
+#include "scripttypes.h"
 
 namespace ScriptEngine
 {
+    namespace MethodInterface
+    {
+        void Add(std::string, ScriptEngine::MethodInterface::MethodDef*);
+    }
+
     extern bool started;
+
+    extern ThreadState * mainThreadState;
 
     void Begin();
     void End();
@@ -35,22 +36,28 @@ namespace ScriptEngine
     void Initialize();
     void Finalize();
 
-    namespace MethodInterface
-    {
-        typedef PyObject Object;
-        typedef PyMethodDef MethodDef;
-        typedef PyCFunction CFunction;
 
-        extern const unsigned int OldArgs;
-        extern const unsigned int VarArgs;
-        extern const unsigned int KeyWords;
-        extern const unsigned int NoArgs;
-        //extern const unsigned int Args0;
-        extern const unsigned int Class;
-        extern const unsigned int Static;
-
-        void Add(std::string, ScriptEngine::MethodInterface::MethodDef*);
-    }
+    class Executor;
+    class FileExecutor;
+    class FunctionCaller;
+    class SubInterpreter;
+    class InterpreterThread;
 }
+
+//#ifndef EXECUTOR_H
+#include "executor.h"
+//#endif
+
+//#ifndef STRINGPARSER_H_INCLUDED
+#include "stringparser.h"
+//#endif
+
+//#ifndef INTERPRITER_THREAD_H_INCLUDED
+#include "interpriterthread.h"
+//#endif
+
+//#ifndef SUBINTERPRITER_H_INCLUDED
+#include "subinterpriter.h"
+//#endif
 
 #endif // SCRIPTENGINE_H_INCLUDED

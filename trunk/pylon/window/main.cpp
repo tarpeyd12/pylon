@@ -55,6 +55,7 @@ void _atExit()
 {
     // cleanup
     Renderer::drawLock = true;
+    Renderer::Physics::StopIncrimentation();
 
     // this list causes a segfault on exit, so nullify before the
     //  deallocation function is automaitacally called
@@ -85,4 +86,12 @@ void _atExit()
             cout << "OK" << endl;
         }
     }
+
+    cout << "Clearing all simulations ..." << endl;
+    Renderer::Physics::cleanSimulations();
+
+    //cout << "Ending Python Interpriter ..." << endl;
+    //ScriptEngine::Finalize();
+
+    cout << "Clean Exit." << endl;
 }

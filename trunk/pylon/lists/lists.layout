@@ -4,17 +4,23 @@
 	<File name="arraylist.cpp" open="0" top="0" tabpos="11">
 		<Cursor position="16224" topLine="555" />
 	</File>
-	<File name="arraylist.h" open="0" top="0" tabpos="7">
-		<Cursor position="6070" topLine="105" />
+	<File name="arraylist.h" open="0" top="0" tabpos="16">
+		<Cursor position="4962" topLine="105" />
 	</File>
 	<File name="arraylist.operators.cpp" open="0" top="0" tabpos="10">
 		<Cursor position="4165" topLine="86" />
 	</File>
-	<File name="classlist_template.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="3412" topLine="63" />
+	<File name="bitlist.cpp" open="0" top="0" tabpos="10">
+		<Cursor position="238" topLine="0" />
 	</File>
-	<File name="classlist_template.h" open="0" top="0" tabpos="1">
-		<Cursor position="516" topLine="10" />
+	<File name="bitlist.h" open="0" top="0" tabpos="11">
+		<Cursor position="199" topLine="0" />
+	</File>
+	<File name="classlist_template.cpp" open="0" top="0" tabpos="13">
+		<Cursor position="343" topLine="0" />
+	</File>
+	<File name="classlist_template.h" open="0" top="0" tabpos="12">
+		<Cursor position="457" topLine="0" />
 	</File>
 	<File name="hashlist_template.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="2843" topLine="127" />
@@ -22,10 +28,10 @@
 	<File name="hashlist_template.h" open="0" top="0" tabpos="2">
 		<Cursor position="925" topLine="36" />
 	</File>
-	<File name="lists.cpp" open="0" top="0" tabpos="0">
+	<File name="lists.cpp" open="0" top="0" tabpos="14">
 		<Cursor position="40" topLine="0" />
 	</File>
-	<File name="lists.h" open="0" top="0" tabpos="1">
-		<Cursor position="74" topLine="0" />
+	<File name="lists.h" open="0" top="0" tabpos="15">
+		<Cursor position="184" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

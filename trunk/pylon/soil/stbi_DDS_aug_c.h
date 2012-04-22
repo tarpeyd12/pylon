@@ -287,7 +287,7 @@ static stbi_uc *dds_load(stbi *s, int *x, int *y, int *comp, int req_comp)
 	if( header.dwMagic != (('D' << 0) | ('D' << 8) | ('S' << 16) | (' ' << 24)) ) return NULL;
 	if( header.dwSize != 124 ) return NULL;
 	flags = DDSD_CAPS | DDSD_HEIGHT | DDSD_WIDTH | DDSD_PIXELFORMAT;
-	if( (header.dwFlags & flags) != flags ) return NULL;
+	if( (header.dwFlags & flags) != (unsigned int)flags ) return NULL;
 	/*	According to the MSDN spec, the dwFlags should contain
 		DDSD_LINEARSIZE if it's compressed, or DDSD_PITCH if
 		uncompressed.  Some DDS writers do not conform to the
@@ -359,11 +359,11 @@ static stbi_uc *dds_load(stbi *s, int *x, int *y, int *comp, int req_comp)
 					stbi_decode_DXT_color_block ( block, compressed );
 				}
 				//	is this a partial block?
-				if( ref_x + 4 > s->img_x )
+				if( ref_x + 4 > (int)s->img_x )
 				{
 					bw = s->img_x - ref_x;
 				}
-				if( ref_y + 4 > s->img_y )
+				if( ref_y + 4 > (int)s->img_y )
 				{
 					bh = s->img_y - ref_y;
 				}
@@ -387,7 +387,7 @@ static stbi_uc *dds_load(stbi *s, int *x, int *y, int *comp, int req_comp)
 				{
 					block_size = 8;
 				}
-				for( i = 1; i < header.dwMipMapCount; ++i )
+				for( i = 1; i < (int)header.dwMipMapCount; ++i )
 				{
 					int mx = s->img_x >> (i + 2);
 					int my = s->img_y >> (i + 2);
@@ -424,7 +424,7 @@ static stbi_uc *dds_load(stbi *s, int *x, int *y, int *comp, int req_comp)
 				skip MIPmaps if present	*/
 			if( has_mipmap )
 			{
-				for( i = 1; i < header.dwMipMapCount; ++i )
+				for( i = 1; i < (int)header.dwMipMapCount; ++i )
 				{
 					int mx = s->img_x >> i;
 					int my = s->img_y >> i;

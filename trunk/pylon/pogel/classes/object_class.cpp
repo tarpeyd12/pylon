@@ -6,6 +6,7 @@
 #include "../pogel_internals.h"
 
 #include "../templates/classlist_template.h"
+#include "../templates/bitlist.h"
 
 POGEL::OBJECT::OBJECT()
 {
@@ -225,10 +226,11 @@ POGEL::OBJECT::~OBJECT()
 
     // check if the objects name is not its own, prevents crashes,
     // name will be deleted later
+
     if( n != getname() )
     {
         // free the ancestoral name
-        free(n);
+        delete [] n;
     }
 
     // if the list of triangles is not empty
@@ -236,10 +238,10 @@ POGEL::OBJECT::~OBJECT()
     {
         // delete it
         delete [] face;
-
-        // and nullify it
-        face = NULL;
     }
+
+    // and nullify it
+    face = NULL;
 
     // if the list of child objects is not empth
     if( children != NULL )
@@ -255,11 +257,14 @@ POGEL::OBJECT::~OBJECT()
         }
     }
 
+    // nullify it
+    children = NULL;
+
     // set the pointer to the parent as null
     root = parent = NULL;
 
     // if the name is not null
-    if( name != NULL )
+    if( name )
     {
         // delete it, told you
         delete [] name;
@@ -308,12 +313,12 @@ POGEL::OBJECT::killchildren()
         }
     }
 
-    // delete the list of children
-    delete[] children;
-
     // if the list is not null
     if(children)
     {
+        // delete the list of children
+        delete[] children;
+
         // nullify it
         children=NULL;
     }
@@ -392,7 +397,7 @@ POGEL::OBJECT::getsname()
 }
 
 void
-POGEL::OBJECT::translate(POGEL::VECTOR v)
+POGEL::OBJECT::translate( const POGEL::VECTOR& v )
 {
     // ensure the given value is non-toxic
     if( !v.isbad() )
@@ -403,21 +408,21 @@ POGEL::OBJECT::translate(POGEL::VECTOR v)
 }
 
 void
-POGEL::OBJECT::translate(POGEL::VECTOR v, float s)
+POGEL::OBJECT::translate( const POGEL::VECTOR& v, float s )
 {
     // translate by v scaled by s
     translate(v*s);
 }
 
 void
-POGEL::OBJECT::moveto(POGEL::POINT p)
+POGEL::OBJECT::moveto( const POGEL::POINT& p )
 {
     // set the position to p
     position = p;
 }
 
 void
-POGEL::OBJECT::rotate(POGEL::VECTOR v)
+POGEL::OBJECT::rotate( const POGEL::VECTOR& v )
 {
     // ensure the given value is non-toxic
     if(!v.isbad())
@@ -428,21 +433,21 @@ POGEL::OBJECT::rotate(POGEL::VECTOR v)
 }
 
 void
-POGEL::OBJECT::rotate(POGEL::VECTOR v, float s)
+POGEL::OBJECT::rotate( const POGEL::VECTOR& v, float s )
 {
     // rotate by v scaled by s
     rotate(v*s);
 }
 
 void
-POGEL::OBJECT::turnto(POGEL::POINT r)
+POGEL::OBJECT::turnto( const POGEL::POINT& r )
 {
     // set the rotation to r
     rotation = r;
 }
 
 unsigned long
-POGEL::OBJECT::addtriangle(POGEL::TRIANGLE tri)
+POGEL::OBJECT::addtriangle( const POGEL::TRIANGLE& tri )
 {
     // if the triangle has zero area
     if( (tri.vertex[0] == tri.vertex[1]) || (tri.vertex[0] == tri.vertex[2]) || (tri.vertex[1] == tri.vertex[2]) )
@@ -480,7 +485,7 @@ POGEL::OBJECT::addtriangles(POGEL::TRIANGLE *tri, unsigned long num)
     addtrianglespace( num );
 
     // go through the given list
-    for( unsigned long i = 0; i < num; i++ )
+    for( unsigned long i = 0; i < num; ++i )
     {
         // add each individual triangle
         addtriangle( tri[i] );
@@ -591,10 +596,10 @@ void
 POGEL::OBJECT::scroll_all_tex_values(float s, float t)
 {
     // loop through all the triangles
-    for(unsigned long i=0;i<numfaces;i++)
+    for( unsigned long i = 0; i < numfaces; ++i )
     {
         // scroll thier texture values
-        face[i].scroll_tex_values(s,t);
+        face[ i ].scroll_tex_values( s, t );
     }
 }
 
@@ -746,7 +751,7 @@ POGEL::OBJECT::getancestoryhash()
         if( n != parent->getname() )
         {
             // free n (prevents many memmory leaks)
-            free(n);
+            delete [] n;
         }
         // and return
         return ret;
@@ -818,34 +823,6 @@ POGEL::OBJECT::gettriangle(unsigned long i)
     return face[i];
 }
 
-POGEL::TRIANGLE
-POGEL::OBJECT::gettransformedtriangle(unsigned long i)
-{
-    // make a matrix for this objects position and rotation
-    //POGEL::MATRIX mat(position,rotation);
-
-    // if the object is facing the camera
-    if( hasproperty(OBJECT_ROTATE_TOCAMERA) )
-    {
-        // be uesfull and do nothing
-        // need to put code here
-    }
-
-    // make a transformed triangle from the triangle at the given index i
-    //POGEL::TRIANGLE tri = mat.transformTriangle(face[i]);
-    POGEL::TRIANGLE tri = face[i];
-    if(matrix.getposition()==position)
-        matrix.transformTriangle(&tri);
-    else
-        POGEL::MATRIX(position,rotation).transformTriangle(&tri);
-
-    // make the new triangles bounding
-    tri.makebounding();
-
-    // return the transformed triangle temporary
-    return tri;
-}
-
 POGEL::TRIANGLE*
 POGEL::OBJECT::gettrianglelist()
 {
@@ -879,7 +856,7 @@ POGEL::OBJECT::referencetriangles(POGEL::OBJECT* o)
 }
 
 void
-POGEL::OBJECT::settriangle(unsigned long i, POGEL::TRIANGLE t)
+POGEL::OBJECT::settriangle(unsigned long i, const POGEL::TRIANGLE& t )
 {
     // set the triagnle at index i, to the triangle t
     face[i] = t;
@@ -905,7 +882,7 @@ POGEL::OBJECT::setAnimationFPS( float fps )
 }
 
 unsigned int
-POGEL::OBJECT::addVertex( POGEL::VERTEX vert )
+POGEL::OBJECT::addVertex( const POGEL::VERTEX& vert )
 {
     verticies += vert;
     verticiesTrans += vert;
@@ -936,28 +913,28 @@ POGEL::OBJECT::getNumVerticies()
 }
 
 unsigned int
-POGEL::OBJECT::addPosKey( POGEL::KEY key )
+POGEL::OBJECT::addPosKey( const POGEL::KEY& key )
 {
     posKeys += key;
     return posKeys.length() - 1;
 }
 
 unsigned int
-POGEL::OBJECT::addRotKey( POGEL::KEY key )
+POGEL::OBJECT::addRotKey( const POGEL::KEY& key )
 {
     rotKeys += key;
     return rotKeys.length() - 1;
 }
 
 unsigned int
-POGEL::OBJECT::addScaleKey( POGEL::KEY key )
+POGEL::OBJECT::addScaleKey( const POGEL::KEY& key )
 {
     scaleKeys += key;
     return scaleKeys.length() - 1;
 }
 
 unsigned int
-POGEL::OBJECT::addTangent( POGEL::TANGENT tan )
+POGEL::OBJECT::addTangent( const POGEL::TANGENT& tan )
 {
     tangents += tan;
     return tangents.length() - 1;
@@ -1008,11 +985,11 @@ POGEL::OBJECT::getJoint( const char * jointname )
         return NULL;
     }
 
-    for( unsigned int i = 0; i < joints.length(); i++)
+    for( unsigned int i = 0; i < joints.length(); ++i )
     {
-        if( std::string(jointname).compare(joints[i]->getsname()) == 0 )
+        if( std::string( jointname ).compare( joints[ i ]->getsname() ) == 0 )
         {
-            return joints[i];
+            return joints[ i ];
         }
     }
 
@@ -1289,251 +1266,284 @@ POGEL::OBJECT::setAnimationTime( float frame )
     previousAnimationFrame = currentAnimationFrame;
     currentAnimationFrame = frame;
 
-    // apply the positional and rotational stuff to this object first
-    if( frame >= 0.0f )
+    updateSkeleton();
+
+    // go through the children
+    for( unsigned int i = 0; i < numchildren; ++i )
     {
-        POGEL::POINT pos;
-        if( posKeys.length() > 0 )
-        {
-            int i1 = -1;
-            int i2 = -1;
-            for( unsigned int i = 0; i < posKeys.length() - 1; ++i )
-            {
-                if( frame >= posKeys[i].time && frame < posKeys[i + 1].time )
-                {
-                    i1 = i;
-                    i2 = i + 1;
-                    break;
-                }
-            }
-
-            // if there are no such keys
-            if(i1 == -1 || i2 == -1)
-            {
-                // either take the first
-                if (frame < posKeys[0].time)
-                {
-                    pos = posKeys[0];
-                }
-
-                // or the last key
-                else if (frame >= posKeys[posKeys.length() - 1].time)
-                {
-                    pos = posKeys[posKeys.length() - 1];
-                }
-            }
-
-            // there are such keys, so interpolate using hermite interpolation
-            else
-            {
-                POGEL::KEY p1( posKeys[i1] );
-                POGEL::KEY p2( posKeys[i2] );
-                POGEL::POINT m1( tangents[i1].out );
-                POGEL::POINT m2( tangents[i2].in );
-
-                // normalize the time between the keys into [0..1]
-                float t = (frame - p1.time) / (p2.time - p1.time);
-                float t2 = t * t;
-                float t3 = t2 * t;
-
-                // calculate hermite basis
-                float h1 =  2.0f * t3 - 3.0f * t2 + 1.0f;
-                float h2 = -2.0f * t3 + 3.0f * t2;
-                float h3 =         t3 - 2.0f * t2 + t;
-                float h4 =         t3 -        t2;
-
-                // do hermite interpolation
-                pos = p1 * h1 + p2 * h2 + m1 * h3 + m2 * h4;
-            }
-
-        }
-
-        POGEL::QUAT rot;
-        if( rotKeys.length() > 0 )
-        {
-
-            int i1 = -1;
-            int i2 = -1;
-
-            // find the two keys, where "frame" is in between for the rotation channel
-            for( unsigned int i = 0; i < rotKeys.length() - 1; ++i )
-            {
-                if( frame >= rotKeys[i].time && frame < rotKeys[i + 1].time )
-                {
-                    i1 = i;
-                    i2 = i + 1;
-                    break;
-                }
-            }
-
-            // if there are no such keys
-            if( i1 == -1 || i2 == -1 )
-            {
-                // either take the first key
-                if( frame < rotKeys[0].time )
-                {
-                    rot = POGEL::QUAT(rotKeys[0]);
-                }
-
-                // or the last key
-                else if( frame >= rotKeys[rotKeys.length() - 1].time )
-                {
-                    rot = POGEL::QUAT(rotKeys[rotKeys.length() - 1]);
-                }
-            }
-
-            // there are such keys, so do the quaternion slerp interpolation
-            else
-            {
-                POGEL::QUAT q1( rotKeys[ i1 ] );
-                POGEL::QUAT q2( rotKeys[ i2 ] );
-                float t = (frame - rotKeys[i1].time) / (rotKeys[i2].time - rotKeys[i1].time);
-                rot = q1.slerp(q2,t);
-            }
-        }
-
-        // do not want a scale of zero, that would be bad
-        POGEL::POINT scale(1.0f);
-        if( scaleKeys.length() > 0 )
-        {
-            int i1 = -1;
-            int i2 = -1;
-            for( unsigned int i = 0; i < scaleKeys.length() - 1; ++i )
-            {
-                if( frame >= scaleKeys[i].time && frame < scaleKeys[i + 1].time )
-                {
-                    i1 = i;
-                    i2 = i + 1;
-                    break;
-                }
-            }
-
-            // if there are no such keys
-            if( i1 == -1 || i2 == -1 )
-            {
-                // either take the first
-                if(frame < scaleKeys[0].time)
-                {
-                    scale = scaleKeys[0];
-                }
-
-                // or the last key
-                else if(frame >= scaleKeys[scaleKeys.length() - 1].time)
-                {
-                    scale = scaleKeys[scaleKeys.length() - 1];
-                }
-            }
-
-            // there are such keys, so interpolate using linear interpolation,
-            //  because I am lazy
-            else
-            {
-                //scale = POGEL::POINT(1.0f);
-                POGEL::POINT s1(scaleKeys[i1]);
-                POGEL::POINT s2(scaleKeys[i2]-s1);
-                float t = (frame - scaleKeys[i1].time) / (scaleKeys[i2].time - scaleKeys[i1].time);
-                scale = s1 + s2*t;
-            }
-        }
-
-        POGEL::MATRIX matAnimate = rot.tomatrix();
-        matAnimate = matAnimate * POGEL::MATRIX(scale,MATRIX_CONSTRUCT_SCALE);
-        matAnimate.setvalue(3,0,pos.x);
-        matAnimate.setvalue(3,1,pos.y);
-        matAnimate.setvalue(3,2,pos.z);
-
-        // animate the local joint matrix using: matLocal = matLocalSkeleton * matAnimate
-        matLocal = matAnimate * matLocalSkeleton;
-
-        // build up the hierarchy if joints
-        if( parent == NULL )
-        {
-            matGlobal = matLocal;
-            if( this == root && this->posKeys.length() )
-            {
-                position = matGlobal.getposition();
-            }
-        }
-        else
-        {
-            // matGlobal = matGlobal(parent) * matLocal
-            matGlobal = matLocal * parent->matGlobal;
-            position = matGlobal.getposition() - parent->matGlobal.getposition();
-        }
-        if(POGEL::hasproperty(POGEL_LABEL))
-        {
-            if( root )
-            {
-                (root->position+matGlobal.getposition()).draw();
-            }
-        }
-
+        // set all children to the same frame
+        children[ i ]->setAnimationTime( frame );
     }
-    else
+
+    updateTriangles();
+}
+
+void
+POGEL::OBJECT::updateSkeleton()
+{
+    float frame( currentAnimationFrame );
+    // apply the positional and rotational stuff to this object first
+    if( frame < 0.0f )
     {
         matLocal = matLocalSkeleton;
         matGlobal = matGlobalSkeleton;
+        return;
     }
-
-    // go through the children
-    for( unsigned int i = 0; i < numchildren; i++ )
+    POGEL::POINT pos;
+    if( posKeys.length() > 0 )
     {
-        // set all children to the same frame
-        children[i]->setAnimationTime( frame );
-    }
-
-    // only transform verticies if able
-    if( joints.length() && verticies.length() && numfaces && verticiesTrans.length() == verticies.length() )
-    {
-
-        bool * hastransformed = new bool[ verticies.length() ];
-
-        memset(hastransformed,false,verticies.length()*sizeof(bool));
-
-        for( unsigned int i = 0; i < numfaces; ++i )
+        int i1 = -1;
+        int i2 = -1;
+        for( unsigned int i = 0; i < posKeys.length() - 1; ++i )
         {
-            bool vertnorms = face[ i ].hasproperty( TRIANGLE_VERTEX_NORMALS );
-            for( unsigned int a = 0; a < 3; ++a )
+            if( frame >= posKeys[i].time && frame < posKeys[i + 1].time )
             {
-                int index = face[ i ].ivertex[ a ];
-                if( index < 0 )
-                {
-                    continue;
-                }
-
-                POGEL::VERTEX vert = verticies[ index ];
-
-                if( vertnorms )
-                {
-                    vert.normal = face[ i ].vertnormals[ a ];
-                }
-
-                POGEL::VERTEX transvert = this->getTransformedVertex( vert, !hastransformed[ index ], vertnorms );
-
-                if( !hastransformed[ index ] )
-                {
-                    if(frame>=0.0f)transvert/=2.55f;
-                    verticiesTrans.replace( index, transvert );
-                    if( POGEL::hasproperty(POGEL_LABEL) && POGEL::hasproperty(POGEL_WIREFRAME) )
-                    {
-                        transvert.draw( 3, POGEL::COLOR( 1.0f, 0.5f, 0.25f, 1.0f ) );
-                    }
-                    hastransformed[ index ] = true;
-                }
-
-                face[ i ].vertex[ a ] = (POGEL::POINT)verticiesTrans[ index ];
-
-                if( vertnorms )
-                {
-                    face[ i ].vertex[ a ].normal = transvert.normal;
-                }
-
+                i1 = i;
+                i2 = i + 1;
+                break;
             }
-            face[ i ].updateVert();
         }
 
-        delete [] hastransformed;
+        // if there are no such keys
+        if(i1 == -1 || i2 == -1)
+        {
+            // either take the first
+            if (frame < posKeys[0].time)
+            {
+                pos = posKeys[0];
+            }
+
+            // or the last key
+            else if (frame >= posKeys[posKeys.length() - 1].time)
+            {
+                pos = posKeys[posKeys.length() - 1];
+            }
+        }
+
+        // there are such keys, so interpolate using hermite interpolation
+        else
+        {
+            POGEL::KEY p1( posKeys[i1] );
+            POGEL::KEY p2( posKeys[i2] );
+            POGEL::POINT m1( tangents[i1].out );
+            POGEL::POINT m2( tangents[i2].in );
+
+            // normalize the time between the keys into [0..1]
+            float t = (frame - p1.time) / (p2.time - p1.time);
+            float t2 = t * t;
+            float t3 = t2 * t;
+
+            // calculate hermite basis
+            float h1 =  2.0f * t3 - 3.0f * t2 + 1.0f;
+            float h2 = -2.0f * t3 + 3.0f * t2;
+            float h3 =         t3 - 2.0f * t2 + t;
+            float h4 =         t3 -        t2;
+
+            // do hermite interpolation
+            pos = p1 * h1 + p2 * h2 + m1 * h3 + m2 * h4;
+        }
+
     }
+
+    POGEL::QUAT rot;
+    if( rotKeys.length() > 0 )
+    {
+
+        int i1 = -1;
+        int i2 = -1;
+
+        // find the two keys, where "frame" is in between for the rotation channel
+        for( unsigned int i = 0; i < rotKeys.length() - 1; ++i )
+        {
+            if( frame >= rotKeys[ i ].time && frame < rotKeys[ i + 1 ].time )
+            {
+                i1 = i;
+                i2 = i + 1;
+                break;
+            }
+        }
+
+        // if there are no such keys
+        if( i1 == -1 || i2 == -1 )
+        {
+            // either take the first key
+            if( frame < rotKeys[ 0 ].time )
+            {
+                rot = POGEL::QUAT( rotKeys[ 0 ] );
+            }
+
+            // or the last key
+            else if( frame >= rotKeys[ rotKeys.length() - 1 ].time )
+            {
+                rot = POGEL::QUAT( rotKeys[ rotKeys.length() - 1 ] );
+            }
+        }
+
+        // there are such keys, so do the quaternion slerp interpolation
+        else
+        {
+            POGEL::QUAT q1( rotKeys[ i1 ] );
+            POGEL::QUAT q2( rotKeys[ i2 ] );
+            float t = ( frame - rotKeys[ i1 ].time ) / ( rotKeys[ i2 ].time - rotKeys[ i1 ].time );
+            rot = q1.slerp( q2, t );
+        }
+    }
+
+    // do not want a scale of zero, that would be bad
+    POGEL::POINT scale( 1.0f );
+    if( scaleKeys.length() > 0 )
+    {
+        int i1 = -1;
+        int i2 = -1;
+        for( unsigned int i = 0; i < scaleKeys.length() - 1; ++i )
+        {
+            if( frame >= scaleKeys[ i ].time && frame < scaleKeys[ i + 1 ].time )
+            {
+                i1 = i;
+                i2 = i + 1;
+                break;
+            }
+        }
+
+        // if there are no such keys
+        if( i1 == -1 || i2 == -1 )
+        {
+            // either take the first
+            if( frame < scaleKeys[ 0 ].time )
+            {
+                scale = scaleKeys[ 0 ];
+            }
+
+            // or the last key
+            else if( frame >= scaleKeys[ scaleKeys.length() - 1 ].time )
+            {
+                scale = scaleKeys[ scaleKeys.length() - 1 ];
+            }
+        }
+
+        // there are such keys, so interpolate using linear interpolation,
+        //  because I am lazy
+        else
+        {
+            //scale = POGEL::POINT(1.0f);
+            POGEL::POINT s1( scaleKeys[ i1 ] );
+            POGEL::POINT s2( scaleKeys[ i2 ] - s1 );
+            float t = ( frame - scaleKeys[ i1 ].time ) / ( scaleKeys[ i2 ].time - scaleKeys[ i1 ].time );
+            scale = s1 + s2 * t;
+        }
+    }
+
+    POGEL::MATRIX matAnimate( rot.tomatrix() );
+    matAnimate = matAnimate * POGEL::MATRIX( scale, MATRIX_CONSTRUCT_SCALE );
+    matAnimate.setvalue( 3, 0, pos.x );
+    matAnimate.setvalue( 3, 1, pos.y );
+    matAnimate.setvalue( 3, 2, pos.z );
+
+    // animate the local joint matrix using: matLocal = matLocalSkeleton * matAnimate
+    matLocal = matAnimate * matLocalSkeleton;
+
+    // build up the hierarchy if joints
+    if( parent == NULL )
+    {
+        matGlobal = matLocal;
+        if( this == root && this->posKeys.length() )
+        {
+            position = matGlobal.getposition();
+        }
+    }
+    else
+    {
+        // matGlobal = matGlobal(parent) * matLocal
+        matGlobal = matLocal * parent->matGlobal;
+        position = matGlobal.getposition() - parent->matGlobal.getposition();
+    }
+    if( root && POGEL::hasproperty( POGEL_LABEL ) )
+    {
+        ( root->position + matGlobal.getposition() ).draw();
+    }
+}
+
+void
+POGEL::OBJECT::updateTriangles()
+{
+    // only transform verticies if able
+    if( !joints.length() || !verticies.length() || !numfaces || verticiesTrans.length() != verticies.length() )
+    {
+        return;
+    }
+
+    bool dpoint( POGEL::properties & POGEL_LABEL && POGEL::properties & POGEL_WIREFRAME );
+
+    BITLIST hastransformed( verticies.length(), false );
+
+    for( unsigned int i = 0; i < numfaces; ++i )
+    {
+        bool vertnorms( face[ i ].getproperties() & TRIANGLE_VERTEX_NORMALS );
+        bool transformed( false );
+        for( unsigned int a = 0; a < 3; ++a )
+        {
+            int index( face[ i ].ivertex[ a ] );
+            if( index < 0 )
+            {
+                continue;
+            }
+
+            transformed = true;
+
+            //if( hastransformed[ index ] )
+            if( !vertnorms &&  hastransformed[ index ] )
+            {
+                face[ i ].vertex[ a ] = (POGEL::POINT)verticiesTrans[ index ];
+                /*if( vertnorms )
+                {
+                    face[ i ].vertex[ a ].normal = verticiesTrans[ index ].normal;
+                }*/
+                continue;
+            }
+
+            POGEL::VERTEX vert( verticies[ index ] );
+
+            if( vertnorms )
+            {
+                vert.normal = face[ i ].vertnormals[ a ];
+            }
+
+            POGEL::VERTEX transvert( this->getTransformedVertex( vert, !hastransformed[ index ], vertnorms ) );
+
+            if( !hastransformed[ index ] )
+            {
+                if( currentAnimationFrame >= 0.0f )
+                {
+                    transvert /= 2.55f;
+                }
+                verticiesTrans.replace( index, transvert );
+                if( dpoint )
+                {
+                    transvert.draw( 3, POGEL::COLOR( 1.0f, 0.5f, 0.25f, 1.0f ) );
+                }
+                hastransformed += index;
+            }
+
+            face[ i ].vertex[ a ] = (POGEL::POINT)verticiesTrans[ index ];
+
+            if( vertnorms )
+            {
+                face[ i ].vertex[ a ].normal = transvert.normal;
+            }
+        }
+
+        if( transformed )
+        {
+            face[ i ].updateVert();
+        }
+    }
+}
+
+inline
+POGEL::VECTOR
+transVect( const POGEL::VECTOR & in1, const POGEL::MATRIX & in2, const POGEL::MATRIX & in3 )
+{
+    return in3.transformPoint( in2.transformVector( in1 - in2.getposition() ) );
 }
 
 // rotate by the inverse of the matrix
@@ -1541,127 +1551,106 @@ inline
 POGEL::VECTOR
 VectorIRotate ( const POGEL::VECTOR & in1, const POGEL::MATRIX & in2 )
 {
-    float out0 = in1.x*in2.getvalue(0,0) + in1.y*in2.getvalue(1,0) + in1.z*in2.getvalue(2,0);
-    float out1 = in1.x*in2.getvalue(0,1) + in1.y*in2.getvalue(1,1) + in1.z*in2.getvalue(2,1);
-    float out2 = in1.x*in2.getvalue(0,2) + in1.y*in2.getvalue(1,2) + in1.z*in2.getvalue(2,2);
-    return POGEL::VECTOR(out0,out1,out2);
+    return in2.transformVector( in1 );
 }
 
 inline
 POGEL::VECTOR
 VectorTransform ( const POGEL::VECTOR & in1, const POGEL::MATRIX & in2 )
 {
-    float out0 = in1.x*in2.getvalue(0,0) + in1.y*in2.getvalue(1,0) + in1.z*in2.getvalue(2,0) + in2.getvalue(3,0);
-    float out1 = in1.x*in2.getvalue(0,1) + in1.y*in2.getvalue(1,1) + in1.z*in2.getvalue(2,1) + in2.getvalue(3,1);
-    float out2 = in1.x*in2.getvalue(0,2) + in1.y*in2.getvalue(1,2) + in1.z*in2.getvalue(2,2) + in2.getvalue(3,2);
-    return POGEL::VECTOR(out0,out1,out2);
+    return in2.transformPoint( in1 );
 }
 
 inline
 POGEL::VECTOR
 VectorITransform ( const POGEL::VECTOR & in1, const POGEL::MATRIX & in2 )
 {
-    POGEL::VECTOR tmp;
-    tmp.x = in1.x - in2.getvalue(3,0);
-    tmp.y = in1.y - in2.getvalue(3,1);
-    tmp.z = in1.z - in2.getvalue(3,2);
-    return VectorIRotate(tmp, in2);
+    return in2.transformVector( in1 - in2.getposition() );
 }
 
 POGEL::VERTEX
 POGEL::OBJECT::getTransformedVertex( const POGEL::VERTEX & invert, bool dovert, bool donorm )
 {
-    if( !(dovert || donorm) )
+    if( !(dovert || donorm) || !joints.length() || currentAnimationFrame < 0.0f || invert.boneID < 0 || invert.boneID >= (int)joints.length() )
     {
         return invert;
     }
 
-    unsigned int numjoints = joints.length();
-    if( numjoints && currentAnimationFrame >= 0.0f && invert.boneID >= 0 && invert.boneID < (int)numjoints )
+    int jointIndices[4] = { invert.boneID, invert.boneIDs[ 0 ], invert.boneIDs[ 1 ], invert.boneIDs[ 2 ] };
+    int jointWeights[4] = { 100, 0, 0, 0 };
+
+    if( invert.weights[ 0 ] || invert.weights[ 1 ] || invert.weights[ 2 ] )
     {
-        int jointIndices[4] = { invert.boneID, invert.boneIDs[ 0 ], invert.boneIDs[ 1 ], invert.boneIDs[ 2 ] };
-        int jointWeights[4] = { 100, 0, 0, 0 };
-
-        if( invert.weights[ 0 ] || invert.weights[ 1 ] || invert.weights[ 2 ] )
-        {
-            jointWeights[ 0 ] = invert.weights[ 0 ];
-            jointWeights[ 1 ] = invert.weights[ 1 ];
-            jointWeights[ 2 ] = invert.weights[ 2 ];
-            jointWeights[ 3 ] = 100 - ( invert.weights[ 0 ] + invert.weights[ 1 ] + invert.weights[ 2 ] );
-        }
-
-        // count valid weights
-        unsigned int numWeights = 0;
-        for( unsigned int i = 0; i < 4; ++i )
-        {
-            if( jointWeights[ i ] > 0 && jointIndices[ i ] >= 0 && jointIndices[ i ] < (int)numjoints )
-            {
-                ++numWeights;
-            }
-            else
-            {
-                break;
-            }
-        }
-
-        POGEL::VERTEX vert(invert);
-
-        if( !numWeights )
-        {
-            POGEL::OBJECT * joint = joints[ jointIndices[ 0 ] ];
-            if( dovert )
-            {
-                vert = VectorTransform( VectorITransform( vert, joint->matGlobalSkeleton ), joint->matGlobal );
-            }
-            if( donorm )
-            {
-                vert.normal = joint->matGlobal.transformVector( VectorIRotate( vert.normal, joint->matGlobalSkeleton ) );
-            }
-            return vert;
-        }
-        else
-        {
-            float weight = (float) jointWeights[ 0 ] * 0.01f;
-            // add weighted vertices
-            if( dovert && !donorm )
-            {
-                POGEL::POINT out;
-                for( unsigned int i = 0; i < numWeights; weight = (float) jointWeights[ ++i ] * 0.01f )
-                {
-                    POGEL::OBJECT * joint = joints[ jointIndices[ i ] ];
-                    out += VectorTransform( VectorITransform( vert, joint->matGlobalSkeleton ), joint->matGlobal ) * weight;
-                }
-                vert = out;
-                return vert;
-            }
-            else if( !dovert && donorm )
-            {
-                POGEL::VECTOR normal;
-                for( unsigned int i = 0; i < numWeights; weight = (float) jointWeights[ ++i ] * 0.01f )
-                {
-                    POGEL::OBJECT * joint = joints[ jointIndices[ i ] ];
-                    normal += joint->matGlobal.transformVector( VectorIRotate( vert.normal, joint->matGlobalSkeleton ) ) * weight;
-                }
-                vert.normal = normal;
-                return vert;
-            }
-            else
-            {
-                POGEL::POINT out;
-                POGEL::VECTOR normal;
-                for( unsigned int i = 0; i < numWeights; weight = (float) jointWeights[ ++i ] * 0.01f )
-                {
-                    POGEL::OBJECT * joint = joints[ jointIndices[ i ] ];
-                    out += VectorTransform( VectorITransform( vert, joint->matGlobalSkeleton ), joint->matGlobal ) * weight;
-                    normal += joint->matGlobal.transformVector( VectorIRotate( vert.normal, joint->matGlobalSkeleton ) ) * weight;
-                }
-                vert = out;
-                vert.normal = normal;
-                return vert;
-            }
-        }
+        jointWeights[ 0 ] = invert.weights[ 0 ];
+        jointWeights[ 1 ] = invert.weights[ 1 ];
+        jointWeights[ 2 ] = invert.weights[ 2 ];
+        jointWeights[ 3 ] = 100 - ( invert.weights[ 0 ] + invert.weights[ 1 ] + invert.weights[ 2 ] );
     }
-    return invert;
+
+    unsigned int numjoints( joints.length() );
+
+    // count valid weights
+    unsigned int numWeights = 0;
+    for( unsigned int i = 0; i < 4; ++i )
+    {
+        if( !(jointWeights[ i ] > 0 && jointIndices[ i ] >= 0 && jointIndices[ i ] < (int)numjoints) )
+        {
+            break;
+        }
+        ++numWeights;
+    }
+
+    if( !numWeights )
+    {
+        POGEL::OBJECT * joint = joints[ invert.boneID ];
+        POGEL::VERTEX vert;
+        if( dovert )
+        {
+            //vert = VectorTransform( VectorITransform( invert, joint->matGlobalSkeleton ), joint->matGlobal );
+            vert = transVect( invert, joint->matGlobalSkeleton, joint->matGlobal );
+        }
+        if( donorm )
+        {
+            vert.normal = joint->matGlobal.transformVector( VectorIRotate( invert.normal, joint->matGlobalSkeleton ) );
+        }
+        return vert;
+    }
+
+    float weight( (float) jointWeights[ 0 ] * 0.01f );
+
+    // add weighted vertices
+    if( dovert && !donorm )
+    {
+        POGEL::VERTEX vert;
+        for( unsigned int i( 0 ); i < numWeights; weight = (float) jointWeights[ ++i ] * 0.01f )
+        {
+            POGEL::OBJECT * joint = joints[ jointIndices[ i ] ];
+            //vert += VectorTransform( VectorITransform( invert, joint->matGlobalSkeleton ), joint->matGlobal ) * weight;
+            vert += transVect( invert, joint->matGlobalSkeleton, joint->matGlobal ) * weight;
+        }
+        return vert;
+    }
+
+    if( !dovert && donorm )
+    {
+        POGEL::VERTEX vert;
+        for( unsigned int i( 0 ); i < numWeights; weight = (float) jointWeights[ ++i ] * 0.01f )
+        {
+            POGEL::OBJECT * joint = joints[ jointIndices[ i ] ];
+            vert.normal += joint->matGlobal.transformVector( VectorIRotate( invert.normal, joint->matGlobalSkeleton ) ) * weight;
+        }
+        return vert;
+    }
+
+    POGEL::VERTEX vert;
+    for( unsigned int i( 0 ); i < numWeights; weight = (float) jointWeights[ ++i ] * 0.01f )
+    {
+        POGEL::OBJECT * joint = joints[ jointIndices[ i ] ];
+        //vert += VectorTransform( VectorITransform( invert, joint->matGlobalSkeleton ), joint->matGlobal ) * weight;
+        vert += transVect( invert, joint->matGlobalSkeleton, joint->matGlobal ) * weight;
+        vert.normal += joint->matGlobal.transformVector( VectorIRotate( invert.normal, joint->matGlobalSkeleton ) ) * weight;
+    }
+    return vert;
 }
 
 void

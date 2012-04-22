@@ -11,7 +11,8 @@ CalcThread::CalcThread()
 CalcThread::~CalcThread()
 {
     Main::calcLock = true;
-    //Renderer::Physics::StopIncrimentation();
+    Renderer::Physics::StopIncrimentation();
+    usleep(100000);
     try
     {
         this->cancelThread();
@@ -29,8 +30,6 @@ CalcThread::~CalcThread()
     {
         cout << "Unable to Join the Physics Thread. err:" << e << endl;
     }
-
-    Main::calcLock = false;
 }
 
 void CalcThread::run()

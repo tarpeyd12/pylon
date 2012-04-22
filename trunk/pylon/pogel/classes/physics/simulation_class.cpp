@@ -147,14 +147,14 @@ inline bool objectIntersectionProcessing(POGEL::PHYSICS::SIMULATION* sim, unsign
 				char* n = new char[strlen(objb->getname())+1];
 				memset(n, '\0', strlen(objb->getname())+1);
 				strcpy(n, objb->getname());
-				obja->callback(obja, n);
+				(*obja->callback)(obja, n);
 				delete[] n;
 			}
 			if(objb->callback != NULL) {
 				char* n = new char[strlen(obja->getname())+1];
 				memset(n, '\0', strlen(obja->getname())+1);
 				strcpy(n, obja->getname());
-				objb->callback(objb, n);
+				(*objb->callback)(objb, n);
 				delete[] n;
 			}
 			if(obja->napping()) obja->wake();
@@ -264,7 +264,7 @@ void POGEL::PHYSICS::SIMULATION::stepobjs() {
 		if(!objects[a]->napping())
 			objects[a]->step();
 		else if(objects[a]->function)
-			objects[a]->function(objects[a]);
+			(*objects[a]->function)(objects[a]);
 		if(objects.length() < l) { l--; a--; }
 	}
 };

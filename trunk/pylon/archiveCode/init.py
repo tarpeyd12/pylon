@@ -23,6 +23,7 @@ try:
 	from pylonsupport.classes.simulation import *
 	from pylonsupport.classes.objects import *
 	from pylonsupport.classes.pylonclasses import *
+	import game
 			
 except ImportError as bob:
 	# complete failure:
@@ -118,9 +119,12 @@ if True:
 		print "\nstart Object"+str(loop)
 		print sim2.addobject( makeObjectString(rpos,rot,zeropos,zeropos,"Object"+str(loop),2|4|16,8,20000,"") )
 		print 'add'
-		rnum = int(random.random()*7)
+		rnum = 1 #int(random.random()*7)
 		print pylon.object_add_sphere(sim2.name,"Object"+str(loop),.25,10,10,possibleImages[rnum],1,1,possibleTriProps[rnum])
 		print 'ball'
+		pylon.callback_set_collfunc(sim2.name,"Object"+str(loop),"game","collisionfunction1")
+		pylon.callback_set_stepfunc(sim2.name,"Object"+str(loop),"game","stepfunction1")
+		pylon.callback_set_hitfilter(sim2.name,"Object"+str(loop),"game","hitfilter1")
 		#if rnum == 6 or rnum == 1:
 			#pylon.object_options(sim2.name,"Object"+str(loop),"add option",64)
 		print pylon.object_build(sim2.name,"Object"+str(loop))
@@ -144,7 +148,7 @@ while loop < numOSpheres:
 	print "\nstart Object"+str(loop)
 	print TestSphereSim.addobject( makeObjectString(rpos,rot,zeropos,zeropos,"Object"+str(loop),2|4|16,8,0.02,"") )
 	print 'add'
-	rnum = int(random.random()*7)
+	rnum = 6 #int(random.random()*7)
 	print pylon.object_add_sphere("TestSphereSim","Object"+str(loop),0.07,10,10,possibleImages[rnum],1,1,possibleTriProps[rnum])
 	print 'ball'
 	print pylon.object_build("TestSphereSim","Object"+str(loop))
@@ -193,19 +197,26 @@ Bloop = Quad(0,pylon.window_height(),pylon.window_width(),0,subrenderer1)
 #pylon.subrender_set_light(subrenderer1, 0, 0,0,-50, "{[0.28],[0.333],[0.38],[1.0]}","{[0.855],[0.55],[0.15],[1.0]}","{[0.925],[0.925],[0.0],[1.0]}",False)
 #print "light set"
 
+
+
 Animation = Simulation("anm",True)
 animationfilename = "Data/objectdata/beast.ms3d"
 pylon.requestfile(animationfilename)
-if pylon.object_new_fromfile( Animation.name, "Object", animationfilename, "ms3d bin") != 0:
+
+animscale = 0.01
+
+if pylon.object_new_fromfile( Animation.name, "Object_1", animationfilename, "ms3d bin") != 0:
 	print 'failed to load object file, exiting'
 	print _pylon.exit(0)
 	quit()
-pylon.object_add_key(Animation.name,"Object", "scale", 0.01,0.01,0.01,0.0)
-pylon.object_options(Animation.name,"Object","add property",64)
-pylon.object_options(Animation.name,"Object","add option",1)
-pylon.object_set_bounce(Animation.name,"Object",0.0)
-pylon.object_set_mass(Animation.name,"Object",0.1)
-print pylon.object_build(Animation.name,"Object")
+pylon.object_add_key(Animation.name,"Object_1", "scale", animscale,animscale,animscale,0.0)
+pylon.object_options(Animation.name,"Object_1","add property",64)
+pylon.object_options(Animation.name,"Object_1","add option",1)
+pylon.object_set_bounce(Animation.name,"Object_1",0.0)
+pylon.object_set_mass(Animation.name,"Object_1",0.1)
+print pylon.object_build(Animation.name,"Object_1")
+pylon.object_move_3f(Animation.name,'Object_1', 0, 0, 0)
+
 
 loop = 0
 rnum = 0

@@ -45,7 +45,8 @@ namespace ObjectLoader
             for( int i = 0; i < mdl->GetNumJoints(); i++ )
             {
                 ms3d_joint_t * tmpjoint = mdl->GetJoint(i);
-                POGEL::OBJECT * pjoint = new POGEL::OBJECT(tmpjoint->name);
+                char* name = new char[strlen(tmpjoint->name)];
+                POGEL::OBJECT * pjoint = new POGEL::OBJECT(strcpy(name,tmpjoint->name));
 
                 pjoint->position.x = tmpjoint->pos[0];
                 pjoint->position.y = tmpjoint->pos[1];
@@ -124,11 +125,12 @@ namespace ObjectLoader
             {
                 ms3d_triangle_t * tritmp = mdl->GetTriangle(i);
 
-                int v1 = (int)tritmp->vertexIndices[0];
-                int v2 = (int)tritmp->vertexIndices[1];
-                int v3 = (int)tritmp->vertexIndices[2];
+                int v1 = (int)tritmp->vertexIndices[ 0 ];
+                int v2 = (int)tritmp->vertexIndices[ 1 ];
+                int v3 = (int)tritmp->vertexIndices[ 2 ];
 
                 POGEL::TRIANGLE tri(objverts,numverts,v1,v2,v3,NULL,TRIANGLE_VERTEX_NORMALS);
+                //POGEL::TRIANGLE tri(objverts,numverts,v1,v2,v3,NULL,TRIANGLE_LIT);
 
                 /*tri.normal.x = tritmp->normal[0];
                 tri.normal.y = tritmp->normal[1];
@@ -136,12 +138,12 @@ namespace ObjectLoader
 
                 for( int a = 0; a < 3; a++ )
                 {
-                    tri.vertex[a].u = tritmp->s[a];
-                    tri.vertex[a].v = tritmp->t[a];
+                    tri.vertex[a].u = tritmp->s[ a ];
+                    tri.vertex[a].v = tritmp->t[ a ];
 
-                    tri.vertex[a].normal.x = tritmp->vertexNormals[a][0];
-                    tri.vertex[a].normal.y = tritmp->vertexNormals[a][1];
-                    tri.vertex[a].normal.z = tritmp->vertexNormals[a][2];
+                    tri.vertex[a].normal.x = tritmp->vertexNormals[ a ][ 0 ];
+                    tri.vertex[a].normal.y = tritmp->vertexNormals[ a ][ 1 ];
+                    tri.vertex[a].normal.z = tritmp->vertexNormals[ a ][ 2 ];
                     tri.vertnormals[a] = tri.vertex[a].normal;
                 }
 

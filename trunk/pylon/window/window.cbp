@@ -13,11 +13,9 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug -bench --label --ancestory --boundingbox -forcesingle -numsim 8 --wireframe" />
+				<Option parameters="-debug --bench --label --ancestory --boundingbox --forcesingle -numsim 8 --wireframe" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
-					<Add option="-Wextra" />
-					<Add option="-Wall" />
 					<Add option="-g" />
 					<Add option="-DPYLON_DEBUG_VERSION" />
 					<Add directory="../bin/Debug" />
@@ -51,15 +49,12 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add directory="../bin/Release" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="../bin/Release/Data" />
 				</ResourceCompiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="pogelscriptinterface" />
 					<Add library="renderer" />
 					<Add library="objectloader" />
@@ -82,12 +77,10 @@
 				<Option object_output="obj/Development/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug -bench --label --ancestory --boundingbox --forcesingle -numsim 8" />
+				<Option parameters="-debug --bench --label --ancestory --boundingbox --forcesingle -numsim 8 --wireframe" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add option="-DPYLON_DEV_VERSION" />
 					<Add directory="../bin/Release" />
 				</Compiler>
@@ -95,7 +88,6 @@
 					<Add directory="../bin/Release/Data" />
 				</ResourceCompiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="pogelscriptinterface" />
 					<Add library="renderer" />
 					<Add library="objectloader" />
@@ -121,9 +113,6 @@
 				<Option parameters="-debug -bench -numsim 4" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
-					<Add option="-Wall" />
 					<Add option="-pg" />
 					<Add option="-g" />
 					<Add option="-DPYLON_DEBUG_VERSION" />
@@ -156,15 +145,12 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add directory="../bin/UnitaryRelease" />
 				</Compiler>
 				<ResourceCompiler>
 					<Add directory="../bin/UnitaryRelease/Data" />
 				</ResourceCompiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="pogelscriptinterface" />
 					<Add library="renderer" />
 					<Add library="objectloader" />
@@ -187,12 +173,10 @@
 				<Option object_output="obj/Development/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug --bench -numsim 1 -forcesingle" />
+				<Option parameters="-debug --bench -numsim 0 --forcesingle" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add option="-DPYLON_DEV_VERSION" />
 					<Add directory="../bin/UnitaryRelease" />
 				</Compiler>
@@ -200,7 +184,6 @@
 					<Add directory="../bin/Release/Data" />
 				</ResourceCompiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="pogelscriptinterface" />
 					<Add library="renderer" />
 					<Add library="objectloader" />
@@ -219,6 +202,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-s -O3 -fexpensive-optimizations -fexceptions -Wall -Wextra" />
 			<Add directory="$(#glut.include)" />
 			<Add directory="$(#python.lib)" />
 			<Add directory="$(#python.include)" />

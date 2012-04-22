@@ -28,6 +28,16 @@ ScriptThread::ScriptThread(bool st)
 
 ScriptThread::~ScriptThread()
 {
+    running = false;
+    usleep(100000);
+
+    /*if( mainScript )
+    {
+        delete mainScript;
+    }
+    mainScript = NULL;
+    ScriptEngine::Finalize();*/
+
     if(!Main::SingleThreaded)
     {
         /*try
@@ -48,7 +58,6 @@ ScriptThread::~ScriptThread()
             cout << "Unable to Join the Scripting Thread. err:" << e << endl;
         }
     }
-    ScriptEngine::Finalize();
     firstRun = false;
 }
 
@@ -65,7 +74,7 @@ void ScriptThread::run()
 
     if( !Main::dontremove )
     {
-        FileLoader::System::Dir::clearDir(Main::ext_dir);
+        //FileLoader::System::Dir::clearDir(Main::ext_dir);
     }
 }
 
@@ -157,7 +166,9 @@ void ScriptThread::FirstRun()
         exit(e);
     }
 
-    mainScript = new ScriptEngine::Executor(mainScriptData);
+    //mainScript = new ScriptEngine::Executor(mainScriptData);
+    mainScript = new ScriptEngine::InterpreterThread( new ScriptEngine::Executor(mainScriptData) );
+    //mainScript = new ScriptEngine::SubInterpreter( new ScriptEngine::Executor(mainScriptData) );
 }
 
 void ScriptThread::MainRun()

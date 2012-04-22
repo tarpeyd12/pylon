@@ -17,6 +17,8 @@ class SOLID;
 #include "../point_class.h"
 #include "../object_class.h"
 
+#include "callbacks.h"
+
 #define			PHYSICS_SOLID_STATIONARY		1
 #define			PHYSICS_SOLID_VOLITAL			2
 #define			PHYSICS_SOLID_CONVEX			4
@@ -103,8 +105,9 @@ class POGEL::PHYSICS::SOLID : public POGEL::OBJECT {
 
 		std::string trianglestring;
 	public:
-		void (*callback)(POGEL::PHYSICS::SOLID*,char*);
-		void (*function)(POGEL::PHYSICS::SOLID*);
+		SOLID_CALLBACK* callback;
+		SOLID_FUNCTION* function;
+		SOLID_HITFILTER *hitfilter;
 		POGEL::VECTOR force;
 		POGEL::BOUNDING bounding;
 		POGEL::BOUNDING refbounding;
@@ -135,8 +138,9 @@ class POGEL::PHYSICS::SOLID : public POGEL::OBJECT {
 		unsigned long getstepstaken();
 		void setstepstaken(unsigned long);
 
-		void setCallback(void (*func)(POGEL::PHYSICS::SOLID*,char*) );
-		void setStepFunc(void (*func)(POGEL::PHYSICS::SOLID*) );
+		void setCallback(SOLID_CALLBACK *func);
+		void setStepFunc(SOLID_FUNCTION *func);
+		void setHitFilter(SOLID_HITFILTER *func);
 
 		bool napping();
 		void sleep();

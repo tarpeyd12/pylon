@@ -41,7 +41,7 @@ namespace Main
 
     #endif
 
-    bool calcLock = false;
+    volatile bool calcLock = false;
 
     CalcThread *calcThread;
     ScriptThread *scriptThread;

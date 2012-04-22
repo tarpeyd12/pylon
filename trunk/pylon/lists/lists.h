@@ -9,4 +9,6 @@ void ListsDummy();
 
 #include "hashlist_template.h"
 
+#include "bitlist.h"
+
 //#endif // LISTS_H_INCLUDED

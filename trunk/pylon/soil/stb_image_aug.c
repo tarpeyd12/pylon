@@ -1310,11 +1310,14 @@ typedef uint8 *(*resample_row_func)(uint8 *out, uint8 *in0, uint8 *in1,
 
 static uint8 *resample_row_1(uint8 *out, uint8 *in_near, uint8 *in_far, int w, int hs)
 {
+    if( out || in_far ) { }
+    w = hs = 0;
    return in_near;
 }
 
 static uint8* resample_row_v_2(uint8 *out, uint8 *in_near, uint8 *in_far, int w, int hs)
 {
+    hs = 0;
    // need to generate two samples vertically for every one in input
    int i;
    for (i=0; i < w; ++i)
@@ -1324,6 +1327,8 @@ static uint8* resample_row_v_2(uint8 *out, uint8 *in_near, uint8 *in_far, int w,
 
 static uint8*  resample_row_h_2(uint8 *out, uint8 *in_near, uint8 *in_far, int w, int hs)
 {
+    if( in_far ) { }
+    hs = 0;
    // need to generate two samples horizontally for every one in input
    int i;
    uint8 *input = in_near;
@@ -1349,6 +1354,7 @@ static uint8*  resample_row_h_2(uint8 *out, uint8 *in_near, uint8 *in_far, int w
 
 static uint8 *resample_row_hv_2(uint8 *out, uint8 *in_near, uint8 *in_far, int w, int hs)
 {
+    hs = 0;
    // need to generate 2x2 samples for every one in input
    int i,t0,t1;
    if (w == 1) {
@@ -1370,6 +1376,7 @@ static uint8 *resample_row_hv_2(uint8 *out, uint8 *in_near, uint8 *in_far, int w
 
 static uint8 *resample_row_generic(uint8 *out, uint8 *in_near, uint8 *in_far, int w, int hs)
 {
+    if( in_far ) { }
    // resample with nearest-neighbor
    int i,j;
    for (i=0; i < w; ++i)
@@ -2173,6 +2180,7 @@ static int compute_transparency(png *z, uint8 tc[3], int out_n)
 
 static int expand_palette(png *a, uint8 *palette, int len, int pal_img_n)
 {
+    len = 0;
    uint32 i, pixel_count = a->s.img_x * a->s.img_y;
    uint8 *p, *temp_out, *orig = a->out;
 
@@ -2668,7 +2676,7 @@ static stbi_uc *bmp_load(stbi *s, int *x, int *y, int *comp, int req_comp)
             }
          } else {
             for (i=0; i < (int) s->img_x; ++i) {
-               uint32 v = (bpp == 16 ? get16le(s) : get32le(s));
+               uint32 v = (uint32)(bpp == 16 ? (uint32)get16le(s) : (uint32)get32le(s));
                int a;
                out[z++] = shiftsigned(v & mr, rshift, rcount);
                out[z++] = shiftsigned(v & mg, gshift, gcount);

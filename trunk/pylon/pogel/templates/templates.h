@@ -9,6 +9,8 @@
 
 #include "octree_template.h"
 
+#include "bitlist.h"
+
 
 #endif /* _TEMPLATES_H */
 

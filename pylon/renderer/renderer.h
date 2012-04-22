@@ -20,12 +20,15 @@ namespace Renderer
 {
     extern Timing::Timer *timer30;
 
-    extern bool HaltPhysics;
+    extern volatile bool DoExit;
+    extern volatile int ExitValue;
+
+    extern volatile bool HaltPhysics;
 
     extern bool SingleThreaded;
     extern void (*SciptCall)(void);
 
-    extern bool drawLock;
+    extern volatile bool drawLock;
 
     //extern POGEL::OBJECT * bob;
 

@@ -32,20 +32,33 @@ namespace Renderer
             return &((DataWraper<POGEL::TRIANGLE,float>*)list)[ index ].data;
         }
 
+        class __AccessTriangle
+        {
+            public:
+                __AccessTriangle()
+                    { }
+                inline POGEL::TRIANGLE * operator()( void * list, unsigned int index )
+                {
+                    return &((DataWraper<POGEL::TRIANGLE,float>*)list)[ index ].data;
+                }
+        };
+
         template<class T>
         inline
         ClassList< DataWraper<POGEL::PHYSICS::SOLID*,float> >
         __sortedDraw(T* sim)
         {
-            POGEL::VECTOR refpos = globalTempRefpos;
-            POGEL::POINT campos = globalTempCampos;
-            POGEL::POINT invcampos = globalTempInvCampos;
+            POGEL::VECTOR refpos( globalTempRefpos );
+            POGEL::POINT campos( globalTempCampos );
+            POGEL::POINT invcampos( globalTempInvCampos );
 
-            ClassList< DataWraper<POGEL::PHYSICS::SOLID*,float> > closelist( sim->numobjs() );
+            unsigned int numobjs = sim->numobjs();
+
+            ClassList< DataWraper<POGEL::PHYSICS::SOLID*,float> > closelist( numobjs );
 
             bool label = POGEL::hasproperty(POGEL_LABEL);
-            unsigned int numobjs = sim->numobjs();
-            for(unsigned int i = 0; i < numobjs; i++)
+
+            for( unsigned int i = 0; i < numobjs; ++i )
             {
                 POGEL::PHYSICS::SOLID* obj = sim->objs(i);
 
@@ -64,9 +77,9 @@ namespace Renderer
                     continue;
                 }
 
-                float dst2 = invcampos.distance(obj->position);
+                float dst2 = invcampos.distance(obj->position) + objradius;
 
-                if( dst2+objradius < 50.0f*objradius*2.0f )
+                if( dst2 < 50.0f*objradius*2.0f )
                 {
                     if( obj->getNumFrames() )
                     {
@@ -85,20 +98,22 @@ namespace Renderer
                 }
 
                 // if object is closer than 100 times its diamiter, recomend for sorting
-                if( dst2+objradius < 100.0f*objradius*2.0f )
+                if( dst2 < 100.0f*objradius*2.0f )
                 {
                     float val = obj->getbounding().maxdistance + POGEL::VECTOR(obj->position).dotproduct(refpos);
                     closelist += DataWraper<POGEL::PHYSICS::SOLID*,float>(obj,val);
+                    continue;
                 }
 
                 // otherwise if object is closer than 250 times its diamiter, just draw it
-                else if( dst2+objradius < 250.0f*objradius*2.0f )
+                else if( dst2 < 250.0f*objradius*2.0f )
                 {
                     obj->draw();
+                    continue;
                 }
 
                 // otherwise if POGEL wants to draw center positions, do so.
-                else if(label)
+                else if( label )
                 {
                     obj->position.draw(2,obj->getLabelColor());
                 }
@@ -117,7 +132,7 @@ namespace Renderer
             POGEL::POINT invcampos = globalTempInvCampos = campos*-1.0f;
             ClassList< DataWraper<POGEL::PHYSICS::SOLID*,float> > closelist;
             unsigned int numsimulations = Renderer::Physics::simulations.length();
-            for(unsigned int i = 0; i < numsimulations; i++)
+            for(unsigned int i = 0; i < numsimulations; ++i)
             {
                 if(Renderer::Physics::simulations[i]->canDraw())
                 {
@@ -134,7 +149,7 @@ namespace Renderer
                 }
             }
             closelist.sort(__sortobjs);
-            for(unsigned int i = 0; i < closelist.length(); i++)
+            for(unsigned int i = 0; i < closelist.length(); ++i)
             {
                 POGEL::PHYSICS::SOLID* obj = closelist[i].data;
                 if( !obj->hasproperty(OBJECT_SORT_TRIANGLES) && !obj->hasOption(PHYSICS_SOLID_STATIONARY) )
@@ -149,9 +164,10 @@ namespace Renderer
                 unsigned int numfaces = obj->getnumfaces();
                 float objradius = obj->getbounding().maxdistance;
                 ClassList< DataWraper<POGEL::TRIANGLE,float> > trilist(numfaces);
+                ClassList< POGEL::TRIANGLE > trilist2(numfaces);
                 unsigned int prp = POGEL::getproperties();
                 if( POGEL::hasproperty(POGEL_BOUNDING) ) POGEL::removeproperty(POGEL_BOUNDING);
-                for(unsigned int t = 0; t < numfaces;t++)
+                for(unsigned int t = 0; t < numfaces;++t)
                 {
                     POGEL::TRIANGLE tri = obj->gettransformedtriangle(t);
                     POGEL::POINT trimiddle = tri.middle();
@@ -164,7 +180,8 @@ namespace Renderer
                         }
                         else
                         {
-                            tri.draw();
+                            //tri.draw();
+                            trilist2 += tri;
                         }
                     }
                 }
@@ -173,9 +190,11 @@ namespace Renderer
                 {
                     trilist[i].data.draw();
                 }*/
-                POGEL::drawTriangleList( (void*)trilist.getList() ,trilist.length(), __accesstri );
+                POGEL::drawTriangleList( trilist2.getList(), trilist2.length() );
+                POGEL::drawTriangleList( (void*)trilist.getList() ,trilist.length(), __AccessTriangle() );
                 POGEL::setproperties(prp);
                 trilist.clear();
+                trilist2.clear();
             }
             closelist.clear();
         }

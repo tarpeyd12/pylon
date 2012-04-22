@@ -8,13 +8,15 @@ class ScriptThread : public Threads::ExThread
     private:
         bool firstRun;
         std::string mainScriptData;
-        ScriptEngine::Executor *mainScript;
+        //ScriptEngine::Executor *mainScript;
+        ScriptEngine::InterpreterThread * mainScript;
+        //ScriptEngine::SubInterpreter * mainScript;
     public:
         ScriptThread();
         ScriptThread(bool);
         ~ScriptThread();
 
-        bool running;
+        volatile bool running;
 
         void run();
 

@@ -2,7 +2,7 @@
 # the exiting condition
 if pylon.key_ispressed('q') or pylon.key_ispressed('Q'):
 	print _pylon.exit(0)
-	quit()
+	#quit()
 
 # greeting
 if counter == 0.0:

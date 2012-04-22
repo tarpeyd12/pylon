@@ -12,7 +12,17 @@ namespace Main
         {
             Main::calcLock = true;
             if(!Main::SingleThreaded)
-                Main::calcThread->joinThread();
+            {
+                try
+                {
+                    Main::calcThread->cancelThread();
+                    Main::calcThread->joinThread();
+                }
+                catch(int e)
+                {
+                    cout << "Physics Thread Destruction Failure " << e << endl;
+                }
+            }
             else
                 Renderer::HaltPhysics = true;
         }
@@ -25,7 +35,16 @@ namespace Main
         {
             Main::calcLock = false;
             if(!Main::SingleThreaded)
-                Main::calcThread->startThread();
+            {
+                try
+                {
+                    Main::calcThread->startThread();
+                }
+                catch(int e)
+                {
+                    cout << "Physics Thread Creation Failure " << e << endl;
+                }
+            }
             else
                 Renderer::HaltPhysics = false;
         }
@@ -102,9 +121,15 @@ namespace Main
     ScriptEngine::MethodInterface::Object* Exit(ScriptEngine::MethodInterface::Object* self, ScriptEngine::MethodInterface::Object* args)
     {
         int ret;
-        if(!PyArg_ParseTuple(args, "i:getPluginVersion", &ret))
+        if(!PyArg_ParseTuple(args, "i:exit", &ret))
             return NULL;
-        exit(ret);
+        if(!Main::SingleThreaded && Main::scriptThread != NULL)
+        {
+            Main::scriptThread->running = false;
+        }
+        Renderer::drawLock = true;
+        Renderer::ExitValue = ret;
+        Renderer::DoExit = true;
         return Py_BuildValue("s", "Exiting ...");
     }
 

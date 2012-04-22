@@ -16,9 +16,12 @@ namespace POGEL
             float y;
             float z;
 
-            POINT();
-            POINT( float, float, float );
-            POINT( float );
+            POINT() : x( 0.0f ), y( 0.0f ), z( 0.0f )
+                {  }
+            POINT( float a, float b, float c ) : x( a ), y( b ), z( c )
+                {  }
+            POINT( float a ) : x( a ), y( a ), z( a )
+                {  }
 
             POINT( const std::string& );
 
@@ -68,12 +71,16 @@ namespace POGEL
     class VECTOR : public POGEL::POINT
     {
         public:
-            VECTOR();
-            VECTOR(float,float,float);
-            VECTOR(POGEL::POINT);
-            VECTOR(POGEL::POINT,POGEL::POINT);
+            VECTOR() : POGEL::POINT()
+                {  }
+            VECTOR( float a, float b, float c ) : POGEL::POINT( a, b, c )
+                {  }
+            VECTOR( const POGEL::POINT& p ) : POGEL::POINT( p.x, p.y, p.z )
+                {  }
+            VECTOR( const POGEL::POINT& a, const POGEL::POINT& b ) : POGEL::POINT( b.x-a.x, b.y-a.y, b.z-a.z )
+                {  }
 
-            VECTOR(std::string s);
+            VECTOR( const std::string& );
 
             inline void normalize();
             inline POGEL::VECTOR normal() const;
@@ -88,8 +95,8 @@ namespace POGEL
 
             inline POGEL::POINT topoint() const;
 
-            inline POGEL::VECTOR operator*(float a);
-            inline POGEL::VECTOR operator/(float a);
+            inline POGEL::VECTOR operator*(float a) const;
+            inline POGEL::VECTOR operator/(float a) const;
 
             inline POGEL::VECTOR operator*( const POGEL::VECTOR& p) const;
             inline POGEL::VECTOR operator/( const POGEL::VECTOR& p) const;
@@ -124,12 +131,16 @@ namespace POGEL
             unsigned char weights[3];
             bool usable;
 
-            VERTEX();
-            VERTEX(float a, float b, float c, float s, float t);
-            VERTEX(float a, float b, float c);
-            VERTEX(const POGEL::POINT& p);
+            VERTEX() : u( 0.0f ), v( 0.0f ), boneID( -1 ), usable( true )
+                {  }
+            VERTEX( float a, float b, float c, float s, float t ) : POGEL::POINT( a, b, c ), u( s ), v( t ), boneID( -1 ), usable( true )
+                {  }
+            VERTEX( float a, float b, float c ) : POGEL::POINT(a,b,c), u( 0.0f ), v( 0.0f ), boneID( -1 ), usable( true )
+                {  }
+            VERTEX( const POGEL::POINT& p ) : POGEL::POINT( p ), u( 0.0f ), v( 0.0f ), boneID( -1 ), usable( true )
+                {  }
 
-            VERTEX(std::string s);
+            VERTEX( const std::string& s);
 
             inline std::string toString();
 
@@ -172,8 +183,10 @@ namespace POGEL
     {
         public:
             float time;
-            KEY();
-            KEY( const POGEL::POINT&, float );
+            KEY() : time( 0.0f )
+                {  }
+            KEY( const POGEL::POINT& p, float t ) : POGEL::POINT( p ), time( t )
+                {  }
     };
 
     class TANGENT
@@ -181,8 +194,10 @@ namespace POGEL
         public:
             POGEL::POINT in;
             POGEL::POINT out;
-            TANGENT();
-            TANGENT( const POGEL::POINT&, const POGEL::POINT& );
+            TANGENT() : in(), out()
+                {  }
+            TANGENT( const POGEL::POINT& i, const POGEL::POINT& o ) : in( i ), out( o )
+                {  }
     };
 }
 

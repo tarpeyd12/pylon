@@ -26,7 +26,7 @@ namespace Main
     extern std::string VersionStringNoOS;
     extern std::string VersionString;
 
-    extern bool calcLock;
+    extern volatile bool calcLock;
 
     extern CalcThread *calcThread;
     extern ScriptThread *scriptThread;

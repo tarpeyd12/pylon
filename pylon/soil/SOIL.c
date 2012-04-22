@@ -959,9 +959,10 @@ unsigned int
 				GL_MAX_TEXTURE_SIZE );
 }
 
-#if SOIL_CHECK_FOR_GL_ERRORS
+
 void check_for_GL_errors( const char *calling_location )
 {
+	#if SOIL_CHECK_FOR_GL_ERRORS
 	/*	check for errors	*/
 	GLenum err_code = glGetError();
 	while( GL_NO_ERROR != err_code )
@@ -969,13 +970,11 @@ void check_for_GL_errors( const char *calling_location )
 		printf( "OpenGL Error @ %s: %i", calling_location, err_code );
 		err_code = glGetError();
 	}
-}
-#else
-void check_for_GL_errors( const char *calling_location )
-{
+	#else
 	/*	no check for errors	*/
+	if(calling_location) { }
+	#endif
 }
-#endif
 
 unsigned int
 	SOIL_internal_create_OGL_texture
@@ -1565,7 +1564,7 @@ unsigned int SOIL_direct_load_DDS_from_memory(
 		result_string_pointer = "NULL buffer";
 		return 0;
 	}
-	if( buffer_length < sizeof( DDS_header ) )
+	if( buffer_length < (int)sizeof( DDS_header ) )
 	{
 		/*	we can't do it!	*/
 		result_string_pointer = "DDS file was too small to contain the DDS header";
@@ -1723,7 +1722,7 @@ unsigned int SOIL_direct_load_DDS_from_memory(
 	/*	do this for each face of the cubemap!	*/
 	for( cf_target = ogl_target_start; cf_target <= ogl_target_end; ++cf_target )
 	{
-		if( buffer_index + DDS_full_size <= buffer_length )
+		if( buffer_index + DDS_full_size <= (unsigned int)buffer_length )
 		{
 			unsigned int byte_offset = DDS_main_size;
 			memcpy( (void*)DDS_data, (const void*)(&buffer[buffer_index]), DDS_full_size );
@@ -1733,7 +1732,7 @@ unsigned int SOIL_direct_load_DDS_from_memory(
 			{
 				/*	and remember, DXT uncompressed uses BGR(A),
 					so swap to RGB(A) for ALL MIPmap levels	*/
-				for( i = 0; i < DDS_full_size; i += block_size )
+				for( i = 0; i < (int)DDS_full_size; i += block_size )
 				{
 					unsigned char temp = DDS_data[i];
 					DDS_data[i] = DDS_data[i+2];

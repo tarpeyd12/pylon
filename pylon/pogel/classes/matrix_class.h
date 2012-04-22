@@ -35,8 +35,22 @@ namespace POGEL
 
 namespace POGEL
 {
-    float RadiansToDegrees(float);
-    float DegreesToRadians(float);
+    //float RadiansToDegrees(float);
+    //float DegreesToRadians(float);
+
+    inline float
+    RadiansToDegrees(float r)
+    {
+        // does what it says
+        return (r / PI) * 180.0f;
+    }
+
+    inline float
+    DegreesToRadians(float d)
+    {
+        // ditto
+        return (d / 180.0f) * PI;
+    }
 
     class MATRIX
     {
@@ -64,7 +78,7 @@ namespace POGEL
             }
 
             void set(float*);
-            void set(POGEL::MATRIX);
+            void set(const POGEL::MATRIX&);
 
             POGEL::POINT getposition() const;
             POGEL::POINT getrotation() const;
@@ -104,7 +118,7 @@ namespace POGEL
 
             QUAT toquat() const;
 
-            void fromaxis(POGEL::VECTOR,float);
+            void fromaxis(const POGEL::VECTOR&,float);
 
             POGEL::MATRIX operator+(const POGEL::MATRIX&) const;
             POGEL::MATRIX operator-(const POGEL::MATRIX&) const;
@@ -120,10 +134,7 @@ namespace POGEL
 inline void
 POGEL::MATRIX::transformPoint(POGEL::POINT* p)
 {
-    POGEL::POINT tmp=(*p);
-    /*p->x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0);
-    p->y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1);
-    p->z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2);*/
+    POGEL::POINT tmp( *p );
     p->x = tmp.x * matrix[ 0] + tmp.y * matrix[ 4] + tmp.z * matrix[ 8] + matrix[12];
     p->y = tmp.x * matrix[ 1] + tmp.y * matrix[ 5] + tmp.z * matrix[ 9] + matrix[13];
     p->z = tmp.x * matrix[ 2] + tmp.y * matrix[ 6] + tmp.z * matrix[10] + matrix[14];
@@ -132,25 +143,16 @@ POGEL::MATRIX::transformPoint(POGEL::POINT* p)
 inline POGEL::POINT
 POGEL::MATRIX::transformPoint(const POGEL::POINT& p) const
 {
-    POGEL::POINT tmp=p;
-    POGEL::POINT tmp2;
-    /*tmp2.x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0);
-    tmp2.y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1);
-    tmp2.z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2);*/
-    tmp2.x = tmp.x * matrix[ 0] + tmp.y * matrix[ 4] + tmp.z * matrix[ 8] + matrix[12];
-    tmp2.y = tmp.x * matrix[ 1] + tmp.y * matrix[ 5] + tmp.z * matrix[ 9] + matrix[13];
-    tmp2.z = tmp.x * matrix[ 2] + tmp.y * matrix[ 6] + tmp.z * matrix[10] + matrix[14];
-    return tmp2;
+    return POGEL::POINT(p.x * matrix[ 0] + p.y * matrix[ 4] + p.z * matrix[ 8] + matrix[12],
+                        p.x * matrix[ 1] + p.y * matrix[ 5] + p.z * matrix[ 9] + matrix[13],
+                        p.x * matrix[ 2] + p.y * matrix[ 6] + p.z * matrix[10] + matrix[14]);
 }
 
 inline void
 POGEL::MATRIX::transformVector(POGEL::VECTOR* v)
 {
     // transforms the VECTOR 'v' by the rotation of the matrix
-    POGEL::VECTOR tmp=(*v);
-    /*v->x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0);
-    v->y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1);
-    v->z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2);*/
+    POGEL::VECTOR tmp( *v );
     v->x = tmp.x * matrix[ 0] + tmp.y * matrix[ 4] + tmp.z * matrix[ 8];
     v->y = tmp.x * matrix[ 1] + tmp.y * matrix[ 5] + tmp.z * matrix[ 9];
     v->z = tmp.x * matrix[ 2] + tmp.y * matrix[ 6] + tmp.z * matrix[10];
@@ -160,15 +162,9 @@ inline POGEL::VECTOR
 POGEL::MATRIX::transformVector(const POGEL::VECTOR& v) const
 {
     // transforms the VECTOR 'v' by the rotation of the matrix
-    POGEL::VECTOR tmp=v;
-    POGEL::VECTOR tmp2;
-    /*tmp2.x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0);
-    tmp2.y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1);
-    tmp2.z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2);*/
-    tmp2.x = tmp.x * matrix[ 0] + tmp.y * matrix[ 4] + tmp.z * matrix[ 8];
-    tmp2.y = tmp.x * matrix[ 1] + tmp.y * matrix[ 5] + tmp.z * matrix[ 9];
-    tmp2.z = tmp.x * matrix[ 2] + tmp.y * matrix[ 6] + tmp.z * matrix[10];
-    return tmp2;
+    return POGEL::VECTOR(v.x * matrix[ 0] + v.y * matrix[ 4] + v.z * matrix[ 8],
+                         v.x * matrix[ 1] + v.y * matrix[ 5] + v.z * matrix[ 9],
+                         v.x * matrix[ 2] + v.y * matrix[ 6] + v.z * matrix[10]);
 }
 
 inline void
@@ -177,10 +173,7 @@ POGEL::MATRIX::transformVertex(POGEL::VERTEX* v)
     // get the vector from center to vertex v, then get its length,
     // normalize it, transform it myltiply it by the vector length,
     // then use that as the new vertex. or do the same as converting a vector 'cause it's simpler
-    POGEL::POINT tmp=(*v);
-    /*v->x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0);
-    v->y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1);
-    v->z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2);*/
+    POGEL::POINT tmp( *v );
     v->x = tmp.x * matrix[ 0] + tmp.y * matrix[ 4] + tmp.z * matrix[ 8] + matrix[12];
     v->y = tmp.x * matrix[ 1] + tmp.y * matrix[ 5] + tmp.z * matrix[ 9] + matrix[13];
     v->z = tmp.x * matrix[ 2] + tmp.y * matrix[ 6] + tmp.z * matrix[10] + matrix[14];
@@ -191,17 +184,13 @@ POGEL::MATRIX::transformVertex(POGEL::VERTEX* v)
 inline POGEL::VERTEX
 POGEL::MATRIX::transformVertex(const POGEL::VERTEX& v) const
 {
-    POGEL::POINT tmp=v;
-    POGEL::VERTEX tmp2;
-    /*tmp2.x = tmp.x * getvalue(0,0) + tmp.y * getvalue(1,0) + tmp.z * getvalue(2,0) + getvalue(3,0);
-    tmp2.y = tmp.x * getvalue(0,1) + tmp.y * getvalue(1,1) + tmp.z * getvalue(2,1) + getvalue(3,1);
-    tmp2.z = tmp.x * getvalue(0,2) + tmp.y * getvalue(1,2) + tmp.z * getvalue(2,2) + getvalue(3,2);*/
-    tmp2.x = tmp.x * matrix[ 0] + tmp.y * matrix[ 4] + tmp.z * matrix[ 8] + matrix[12];
-    tmp2.y = tmp.x * matrix[ 1] + tmp.y * matrix[ 5] + tmp.z * matrix[ 9] + matrix[13];
-    tmp2.z = tmp.x * matrix[ 2] + tmp.y * matrix[ 6] + tmp.z * matrix[10] + matrix[14];
+    POGEL::VERTEX tmp( v );
+    tmp.x = v.x * matrix[ 0] + v.y * matrix[ 4] + v.z * matrix[ 8] + matrix[12];
+    tmp.y = v.x * matrix[ 1] + v.y * matrix[ 5] + v.z * matrix[ 9] + matrix[13];
+    tmp.z = v.x * matrix[ 2] + v.y * matrix[ 6] + v.z * matrix[10] + matrix[14];
     // now transform the normal vector
-    tmp2.normal=transformVector(v.normal);
-    return tmp2;
+    tmp.normal = transformVector( v.normal );
+    return tmp;
 }
 
 #endif /* _MATRIX_CLASS_H */

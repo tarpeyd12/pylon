@@ -48,13 +48,14 @@ namespace ScriptEngine
         return instructions;
     }
 
-
-    FileExecutor::FileExecutor(std::string file) : ScriptEngine::Executor(file)
+    std::string Executor::getResult()
     {
-
+        return std::string();
     }
 
-    FileExecutor::FileExecutor(const Executor& other) : ScriptEngine::Executor()
+
+
+    FileExecutor::FileExecutor(std::string file) : ScriptEngine::Executor(file)
     {
 
     }
@@ -88,12 +89,32 @@ namespace ScriptEngine
 
     }
 
-    FunctionCaller::~FunctionCaller()
+     FunctionCaller::FunctionCaller(std::string inst, std::string func, std::string* args, unsigned int numArgs) : ScriptEngine::Executor(inst)
     {
-
+        function = func;
+        arguments.add( args, numArgs );
     }
 
-    void FunctionCaller::call(std::string func, std::string* args, unsigned int numArgs)
+    FunctionCaller::~FunctionCaller()
+    {
+        arguments.clear();
+    }
+
+    void FunctionCaller::setArgs(std::string* args,unsigned int numArgs)
+    {
+        arguments.clear();
+        arguments.add( args, numArgs );
+    }
+
+    void FunctionCaller::Execute()
+    {
+        if( arguments.length() )
+        {
+            call( function, arguments.getList(), arguments.length(), NULL );
+        }
+    }
+
+    void FunctionCaller::call(std::string func, std::string* args, unsigned int numArgs, std::string* res)
     {
         bool is_init = ScriptEngine::HasBegun();
         if(!is_init)
@@ -109,42 +130,56 @@ namespace ScriptEngine
             pFunc = PyObject_GetAttrString(pModule, func.c_str());
             if (pFunc && PyCallable_Check(pFunc)) {
                 pArgs = PyTuple_New(numArgs);
+                //std::string concatargs = "";
                 for(unsigned int i = 0; i < numArgs; i++)
                 {
-                    std::string type = args[i].substr(0, args[i].find_first_of(' '));
-                    std::string data = args[i].substr(args[i].find_first_of(' '));
+                    std::string type = args[i].substr(0, args[i].find_first_of(':'));
+                    std::string data = args[i].substr(args[i].find_first_of(':')+1);
+
+                    /*if(POGEL::hasproperty(POGEL_DEBUG))
+                    {
+                        concatargs = concatargs + args[i];
+                        if( i+1 <numArgs )
+                            concatargs = concatargs + ",";
+                    }*/
 
                     //std::cout << type << " " << data << std::endl;
 
-                    if(type.compare("int") == 0)
+                    if(!type.compare("int"))
                     {
                         pValue = PyInt_FromLong(atoi(data.c_str()));
                     }
                     else
-                    if(type.compare("bool") == 0)
+                    if(!type.compare("bool"))
                     {
                         if(!data.compare("true") || !data.compare("True"))
                             pValue = PyBool_FromLong(1);
                         else if(!data.compare("false") || !data.compare("False"))
                             pValue = PyBool_FromLong(0);
-                        pValue = PyBool_FromLong(atoi(data.c_str()));
+                        else
+                            pValue = PyBool_FromLong(atoi(data.c_str()));
                     }
                     else
-                    if(type.compare("long") == 0)
+                    if(!type.compare("long"))
                     {
                         pValue = PyLong_FromLong(atoi(data.c_str()));
                     }
                     else
-                    if(type.compare("float") == 0)
+                    if(!type.compare("float"))
                     {
                         PyObject* s = PyString_FromString(data.c_str());
                         pValue = PyFloat_FromString(s,NULL);
                         // delete s;
+                        Py_DECREF(s);
                     }
                     else
-                    if(type.compare("str") == 0)
+                    if(!type.compare("str"))
                     {
                         pValue = PyString_FromString(data.c_str());
+                    }
+                    else
+                    {
+                        pValue = NULL;
                     }
 
                     if (!pValue) {
@@ -159,8 +194,44 @@ namespace ScriptEngine
                 pValue = PyObject_CallObject(pFunc, pArgs);
                 Py_DECREF(pArgs);
                 if (pValue != NULL) {
-                    printf("Result of call: %ld\n", PyInt_AsLong(pValue));
+                    std::string type = "?";
+                    if( PyString_Check(pValue) )
+                    {
+                        type = "str";
+                    }
+                    else
+                    if( PyFloat_Check(pValue) )
+                    {
+                        type = "float";
+                    }
+                    else
+                    if( PyLong_Check(pValue) )
+                    {
+                        type = "long";
+                    }
+                    else
+                    if( PyBool_Check(pValue) )
+                    {
+                        type = "bool";
+                    }
+                    else
+                    if( PyInt_Check(pValue) )
+                    {
+                        type = "int";
+                    }
+                    PyObject* reslt = PyObject_Str(pValue);
+                    const char* sres = PyString_AsString(reslt);
                     Py_DECREF(pValue);
+                    Py_DECREF(reslt);
+                    result = type+":"+std::string(sres);
+                    //if(POGEL::hasproperty(POGEL_DEBUG))
+                        //cout << "Function " << func << "(" << concatargs << ") resulted in " << result << endl;
+                    sres = NULL;
+
+                    if( res )
+                    {
+                        *res = result;
+                    }
                 }
                 else {
                     Py_DECREF(pFunc);
@@ -187,5 +258,11 @@ namespace ScriptEngine
         if(!is_init)
             ScriptEngine::Finalize();
     }
+
+    std::string FunctionCaller::getResult()
+    {
+        return result;
+    }
+
 
 }

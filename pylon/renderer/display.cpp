@@ -16,14 +16,24 @@ namespace Renderer
     void Display()
     {
 
-        if(Renderer::SingleThreaded)
+        if( Renderer::DoExit )
         {
-            POGEL::SetFramerateThrotle(POGEL::GetSecondsPerFrame());
+            exit( Renderer::ExitValue );
+        }
 
-            if(!Renderer::HaltPhysics)
+        if( Renderer::SingleThreaded )
+        {
+            POGEL::SetFramerateThrotle( POGEL::GetSecondsPerFrame() );
+
+            if( !Renderer::HaltPhysics )
+            {
                 Renderer::Physics::Incriment();
-            if(Renderer::SciptCall != NULL)
+            }
+
+            if( Renderer::SciptCall )
+            {
                 Renderer::SciptCall();
+            }
             else
             {
                 std::cout << "Renderer::SciptCall has derefferenced to NULL. Exiting..." << std::endl;
@@ -31,21 +41,25 @@ namespace Renderer
             }
         }
 
-        if(Renderer::drawLock)
+        if( Renderer::drawLock )
+        {
             return;
+        }
 
         Renderer::RenderAllSubRenderers();
 
         glClearColor(.5,.5,.5,0.0);
 
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
         glLoadIdentity();
 
         Renderer::Window::toFrustum();
 
         POGEL::IncrementFps();
         if(POGEL::frames%10 == 0)
+        {
             POGEL::PrintFps();
+        }
 
         //glTranslatef(campos.x,campos.y,campos.z);
         glRotatef( Renderer::Camera::camrot.x,  1.0f, 0.0f, 0.0f );
@@ -80,6 +94,9 @@ namespace Renderer
         Renderer::Window::toFrustum();
 
         if(!Renderer::drawLock)
+        {
             Renderer::timer30->sleep();
+        }
+
     }
 }

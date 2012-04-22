@@ -37,11 +37,8 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="lists" />
 					<Add library="soil" />
 					<Add library="threads" />
@@ -57,8 +54,6 @@
 				<Option createDefFile="1" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add option="-pg" />
 					<Add option="-g" />
 					<Add directory="../bin/UnitaryDebug/" />
@@ -81,12 +76,9 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add directory="../bin/UnitaryRelease/" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="lists" />
 					<Add library="soil" />
 					<Add library="threads" />
@@ -95,9 +87,7 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wextra" />
-			<Add option="-Wall" />
-			<Add option="-fexceptions" />
+			<Add option="-s -O3 -fexpensive-optimizations -fexceptions -Wall -Wextra" />
 			<Add directory="$(#base.include)" />
 			<Add directory="$(#base.lib)" />
 		</Compiler>
@@ -121,8 +111,10 @@
 		<Unit filename="classes/misc_class.h" />
 		<Unit filename="classes/object_class.cpp" />
 		<Unit filename="classes/object_class.h" />
+		<Unit filename="classes/object_class_inline.h" />
 		<Unit filename="classes/object_funcs.cpp" />
 		<Unit filename="classes/object_funcs.h" />
+		<Unit filename="classes/physics/callbacks.h" />
 		<Unit filename="classes/physics/collision.h" />
 		<Unit filename="classes/physics/dynamics_class.cpp" />
 		<Unit filename="classes/physics/dynamics_class.h" />
@@ -159,6 +151,7 @@
 		<Unit filename="pogel_classes.h" />
 		<Unit filename="pogel_internals.h" />
 		<Unit filename="templates/arraylist.h" />
+		<Unit filename="templates/bitlist.h" />
 		<Unit filename="templates/classlist_template.h" />
 		<Unit filename="templates/hashlist_template.h" />
 		<Unit filename="templates/octree_template.h" />

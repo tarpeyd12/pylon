@@ -28,8 +28,6 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O2" />
 				</Compiler>
 			</Target>
 			<Target title="Unitary Debug">
@@ -41,8 +39,6 @@
 				<Option createDefFile="1" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O2" />
 					<Add option="-pg" />
 					<Add option="-g" />
 				</Compiler>
@@ -60,14 +56,11 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O2" />
 				</Compiler>
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wextra" />
-			<Add option="-Wall" />
+			<Add option="-s -O2 -fexpensive-optimizations -fexceptions -Wall -Wextra" />
 			<Add directory="$(#base.lib)" />
 			<Add directory="$(#base.include)" />
 		</Compiler>

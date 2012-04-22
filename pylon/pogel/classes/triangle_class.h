@@ -40,7 +40,10 @@ namespace POGEL
             bool usetrimid;               // pre-calculated center is accurate
         public:
 
-            TRIANGLE();
+            TRIANGLE() : ivertlength( 0 ), pvertex( NULL ), texture( NULL ), usetrimid( false )
+            {
+                memset( &ivertex, -1, sizeof(ivertex) );
+            }
             TRIANGLE( const POGEL::POINT&, const POGEL::POINT&, const POGEL::POINT& );
             TRIANGLE( const POGEL::VERTEX&, const POGEL::VERTEX&, const POGEL::VERTEX&, POGEL::IMAGE*, unsigned int );
             TRIANGLE( const POGEL::POINT&, const POGEL::POINT&, const POGEL::POINT&, POGEL::IMAGE*, unsigned int );
@@ -90,11 +93,8 @@ namespace POGEL
             inline bool isClear() const;
 
             inline bool settriangletexture() const;
-
             inline void initializetriangledraw() const;
-
             inline void drawgeometry() const;
-
             inline void finalizetriangledraw() const;
 
             void draw() const;
@@ -104,8 +104,11 @@ namespace POGEL
             friend class POGEL::MATRIX;
     };
 
-    void drawTriangleList( TRIANGLE *, unsigned int );
-    void drawTriangleList( void *, unsigned int, TRIANGLE*(*)(void*,unsigned int) );
+    void drawTriangleList( TRIANGLE * face, unsigned int numfaces );
+    void drawTriangleList( void * list, unsigned int length, TRIANGLE * (*accessor)(void*,unsigned int) );
+
+    template < class Accessor >
+    inline void drawTriangleList( void * list, unsigned int length, Accessor accessor );
 
 }
 

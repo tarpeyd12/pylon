@@ -23,13 +23,16 @@ namespace Renderer
 
     Renderer::Timing::Timer* timer30;
 
-    bool HaltPhysics = false;
+    volatile bool DoExit = false;
+    volatile int ExitValue = 0;
+
+    volatile bool HaltPhysics = false;
 
     bool SingleThreaded = false;
     void (*SciptCall)(void) = NULL;
 
     // do not tamper with drawLock
-    bool drawLock = false;
+    volatile bool drawLock = false;
 
     // *******************************
 

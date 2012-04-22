@@ -4,11 +4,10 @@
 #include "triangle_class.h"
 #include "physics/physics.h"
 
-POGEL::TRIANGLE::TRIANGLE()
- : ivertlength( 0 ), pvertex( NULL ), texture( NULL ), usetrimid( false )
+/*POGEL::TRIANGLE::TRIANGLE() : ivertlength( 0 ), pvertex( NULL ), texture( NULL ), usetrimid( false )
 {
-    ivertex[ 0 ] = ivertex[ 1 ] = ivertex[ 2 ] = -1;
-}
+    memset(&ivertex,-1,sizeof(ivertex));
+}*/
 
 POGEL::TRIANGLE::TRIANGLE( const POGEL::POINT& a, const POGEL::POINT& b, const POGEL::POINT& c )
  : ivertlength( 0 ), pvertex( NULL )
@@ -90,9 +89,9 @@ POGEL::TRIANGLE::TRIANGLE( const std::string& s )
 
 POGEL::TRIANGLE::~TRIANGLE()
 {
-    texture = NULL;
+    /*texture = NULL;
     pvertex = NULL;
-    ivertlength = 0;
+    ivertlength = 0;*/
 }
 
 POGEL::TRIANGLE
@@ -208,23 +207,27 @@ POGEL::TRIANGLE::draw() const
 void
 POGEL::drawTriangleList( POGEL::TRIANGLE * face, unsigned int numfaces )
 {
-    if( face == NULL || numfaces == 0 )
+    if( !face || !numfaces )
     {
         return;
     }
 
-    bool texgood = face[0].settriangletexture();
-    face[0].initializetriangledraw();
+    bool texgood = face[ 0 ].settriangletexture();
+    face[ 0 ].initializetriangledraw();
 
-    GLenum mode = GL_TRIANGLES;
+    GLenum mode;// = GL_TRIANGLES;
 
     if ( POGEL::hasproperty( POGEL_WIREFRAME ) )
     {
         mode = GL_LINES;
     }
+    else
+    {
+        mode = GL_TRIANGLES;
+    }
 
-    unsigned int currentproperties, previousproperties = face[0].getproperties();
-    POGEL::IMAGE * currentimage, * previousimage = face[0].texture;
+    unsigned int currentproperties, previousproperties = face[ 0 ].getproperties();
+    POGEL::IMAGE * currentimage, * previousimage = face[ 0 ].texture;
 
     glBegin( mode );
 
@@ -275,19 +278,23 @@ POGEL::drawTriangleList( POGEL::TRIANGLE * face, unsigned int numfaces )
 void
 POGEL::drawTriangleList( void * list, unsigned int length, TRIANGLE * (*accessor)(void*,unsigned int) )
 {
-    if( list == NULL || length == 0 )
+    if( !list || !length )
     {
         return;
     }
 
-    bool texgood = accessor(list,0)->settriangletexture();
-    accessor(list,0)->initializetriangledraw();
+    bool texgood = accessor( list, 0 )->settriangletexture();
+    accessor( list, 0 )->initializetriangledraw();
 
-    GLenum mode = GL_TRIANGLES;
+    GLenum mode;// = GL_TRIANGLES;
 
     if ( POGEL::hasproperty( POGEL_WIREFRAME ) )
     {
         mode = GL_LINES;
+    }
+    else
+    {
+        mode = GL_TRIANGLES;
     }
 
     unsigned int currentproperties, previousproperties = accessor( list, 0 )->getproperties();

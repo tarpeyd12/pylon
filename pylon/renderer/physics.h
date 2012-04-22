@@ -25,9 +25,9 @@ namespace Renderer
                 std::string name;
                 POGEL::PHYSICS::SIMULATION* sim;
                 POGEL::PHYSICS::DYNAMICS* dyn;
-                bool incrementable;
-                bool drawable;
-                bool clearobjects;
+                volatile bool incrementable;
+                volatile bool drawable;
+                volatile bool clearobjects;
             protected:
                 Renderer::SubRenderer* binding;
             public:
@@ -47,6 +47,7 @@ namespace Renderer
                 bool ClearObjects();
                 bool ShouldClearObjects();
                 void draw();
+                bool isEmpty();
                 friend class Renderer::SubRenderer;
         };
 
@@ -60,6 +61,8 @@ namespace Renderer
 
         void StopIncrimentation();
         void Incriment();
+
+        void cleanSimulations();
     }
 }
 

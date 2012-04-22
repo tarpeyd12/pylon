@@ -35,11 +35,8 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="threads" />
 					<Add library="fileloader" />
 					<Add directory="../bin/Release" />
@@ -54,8 +51,6 @@
 				<Option createDefFile="1" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add option="-pg" />
 					<Add option="-g" />
 				</Compiler>
@@ -76,11 +71,8 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="threads" />
 					<Add library="fileloader" />
 					<Add directory="../bin/UnitaryRelease" />
@@ -88,9 +80,7 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wextra" />
-			<Add option="-Wall" />
-			<Add option="-fexceptions" />
+			<Add option="-s -O3 -fexpensive-optimizations -fexceptions -Wall -Wextra" />
 			<Add directory="$(#python.include)" />
 			<Add directory="$(#python.lib)" />
 		</Compiler>
@@ -101,10 +91,14 @@
 		</Linker>
 		<Unit filename="executor.cpp" />
 		<Unit filename="executor.h" />
+		<Unit filename="interpriterthread.cpp" />
+		<Unit filename="interpriterthread.h" />
 		<Unit filename="scriptengine.cpp" />
 		<Unit filename="scriptengine.h" />
 		<Unit filename="stringparser.cpp" />
 		<Unit filename="stringparser.h" />
+		<Unit filename="subinterpriter.cpp" />
+		<Unit filename="subinterpriter.h" />
 		<Unit filename="version.h" />
 		<Extensions>
 			<envvars />

@@ -30,6 +30,9 @@ bool POGEL::PHYSICS::SIMULATION::processcollision(POGEL::PHYSICS::SOLID* obj1, P
 	if(obj1 == obj2 || (obj1->hasOption(PHYSICS_SOLID_STATIONARY) && obj2->hasOption(PHYSICS_SOLID_STATIONARY)))
 		return false;
 
+	if( (obj1->hitfilter && !(*obj1->hitfilter)(obj1,obj2)) || (obj2->hitfilter && !(*obj2->hitfilter)(obj2,obj1)) )
+		return false;
+
 	// if either are concave do the concave checking
 	if(obj1->hasOption(PHYSICS_SOLID_CONCAVE) || obj2->hasOption(PHYSICS_SOLID_CONCAVE)) {
 		// concave general shape vs. assumed convex sphere

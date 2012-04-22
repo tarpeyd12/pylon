@@ -78,12 +78,15 @@ namespace Renderer
                 delete sim;
             if(dyn)
                 delete dyn;
-            for(unsigned int i = 0; i < simulations.length(); i++)
-                if(simulations[i] == this)
+            unsigned int numsimulations( simulations.length() );
+            for(unsigned int i = 0; i < numsimulations; ++i)
+            {
+                if(simulations.get(i) == this)
                 {
                     simulations.remove(i);
                     break;
                 }
+            }
         }
 
         void Simulation::setinc(bool i)
@@ -170,6 +173,15 @@ namespace Renderer
                 static_cast<POGEL::PHYSICS::SIMULATION*>(this->getSim())->draw();
         }
 
+        bool Simulation::isEmpty()
+        {
+            if(this->isdyn())
+                return !static_cast<POGEL::PHYSICS::DYNAMICS*>(this->getSim())->numobjs();
+            else
+                return !static_cast<POGEL::PHYSICS::SIMULATION*>(this->getSim())->numobjs();
+            return false;
+        }
+
 
         /*void Init()
         {
@@ -178,7 +190,8 @@ namespace Renderer
 
         Renderer::Physics::Simulation* getSimulation(std::string name)
         {
-            for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
+            unsigned int numsimulations = Renderer::Physics::simulations.length();
+            for(unsigned int i = 0; i < numsimulations; ++i)
                 if(Renderer::Physics::simulations[i]->getName().length() == name.length() && Renderer::Physics::simulations[i]->getName().compare(name) == 0)
                     return Renderer::Physics::simulations[i];
             return NULL;
@@ -205,15 +218,17 @@ namespace Renderer
 
         void StopIncrimentation()
         {
-            for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
+            unsigned int numsimulations = Renderer::Physics::simulations.length();
+            for(unsigned int i = 0; i < numsimulations; ++i)
             {
-                Renderer::Physics::simulations[i]->setinc(false);
+                Renderer::Physics::simulations.get(i)->setinc(false);
             }
         }
 
         void Incriment()
         {
-            for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
+            unsigned int numsimulations = Renderer::Physics::simulations.length();
+            for(unsigned int i = 0; i < numsimulations; ++i)
             {
                 if(Renderer::Physics::simulations[i]->inc())
                 {
@@ -240,6 +255,18 @@ namespace Renderer
                     Renderer::Physics::simulations[i]->ClearObjects();
                 }
             }
+        }
+
+        void cleanSimulations()
+        {
+            while( Renderer::Physics::simulations.length() )
+            {
+                Renderer::Physics::Simulation * sim = Renderer::Physics::simulations.get(Renderer::Physics::simulations.length()-1);
+                if( !sim->isEmpty() )
+                    sim->ClearObjects();
+                delete sim;
+            }
+            Renderer::Physics::simulations.clear();
         }
 
     }

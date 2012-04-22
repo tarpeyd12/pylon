@@ -340,11 +340,14 @@ POGEL::TRIANGLE::drawgeometry() const
         glColor4f( 1.0f, 1.0f, 1.0f, 1.0f );
     }
 
+    unsigned int max = POGEL::properties & POGEL_WIREFRAME ? 4 : 3;
+
     if( properties & TRIANGLE_INVERT_NORMALS )
     {
-        for ( unsigned int a = 3; a > 0; --a )
+        for ( unsigned int a = max; a > 0; --a )
         {
             unsigned int i = a % 3;
+
             // the triangle will not be colored if GL_LIGHTING is enabled,
             //  don't know why.
             // set the color
@@ -368,8 +371,10 @@ POGEL::TRIANGLE::drawgeometry() const
     }
     else
     {
-        for ( unsigned int i = 0; i < 3; ++i )
+        for ( unsigned int a = 0; a < max; ++a )
         {
+            unsigned int i = a % 3;
+
             // the triangle will not be colored if GL_LIGHTING is enabled,
             //  don't know why.
             // set the color
@@ -420,4 +425,82 @@ POGEL::TRIANGLE::operator = ( const POGEL::TRIANGLE& t )
     normal = t.normal;*/
     memcpy( this, &t, sizeof( t ) );
     return *this;
+}
+
+template < class Accessor >
+void
+POGEL::drawTriangleList( void * list, unsigned int length, Accessor accessor )
+{
+    if( !list || !length )
+    {
+        return;
+    }
+
+    POGEL::TRIANGLE * curtri, * prevtri = accessor( list, 0 );
+
+    bool texgood = prevtri->settriangletexture();
+    prevtri->initializetriangledraw();
+
+    GLenum mode;// = GL_TRIANGLES;
+
+    if ( POGEL::properties & POGEL_WIREFRAME )
+    {
+        mode = GL_LINES;
+    }
+    else
+    {
+        mode = GL_TRIANGLES;
+    }
+
+    unsigned int currentproperties, previousproperties = prevtri->getproperties();
+    POGEL::IMAGE * currentimage, * previousimage = prevtri->texture;
+
+    glBegin( mode );
+
+    for( unsigned int i = 0; i < length; ++i )
+    {
+        curtri = accessor( list, i );
+        currentproperties = curtri->getproperties();
+        currentimage = curtri->texture;
+
+        if( texgood && currentproperties == previousproperties && currentimage == previousimage )
+        {
+            curtri->drawgeometry();
+        }
+        else
+        {
+            if( !texgood && currentimage == previousimage )
+            {
+                previousproperties = currentproperties;
+                previousimage = currentimage;
+                prevtri = curtri;
+                continue;
+            }
+
+            glEnd();
+
+            if( currentimage != previousimage )
+            {
+                texgood = curtri->settriangletexture();
+            }
+
+            if( currentproperties != previousproperties )
+            {
+                prevtri->finalizetriangledraw();
+                curtri->initializetriangledraw();
+            }
+
+            glBegin( mode );
+
+            curtri->drawgeometry();
+        }
+
+        previousproperties = currentproperties;
+        previousimage = currentimage;
+        prevtri = curtri;
+    }
+
+    glEnd();
+
+    accessor( list, length-1 )->finalizetriangledraw();
 }

@@ -4,18 +4,20 @@
 #include "matrix_class.h"
 #include "quat_class.h"
 
+/*
 float
 POGEL::RadiansToDegrees(float r)
 {
     // does what it says
-    return (r/PI*180);
+    return (r / PI) * 180.0f;
 }
 float
 POGEL::DegreesToRadians(float d)
 {
     // ditto
-    return (d/180*PI);
+    return (d / 180.0f) * PI;
 }
+*/
 
 POGEL::MATRIX::MATRIX()
 {
@@ -134,7 +136,7 @@ POGEL::MATRIX::set(float* m)
 }
 
 void
-POGEL::MATRIX::set(POGEL::MATRIX m)
+POGEL::MATRIX::set(const POGEL::MATRIX& m)
 {
     // sets the current matrix to the values of MATRIX 'm'
     memcpy( &matrix, &m.matrix, sizeof(m.matrix) );
@@ -377,7 +379,7 @@ POGEL::MATRIX::toquat() const
 
 //TODO: make this work
 void
-POGEL::MATRIX::fromaxis(POGEL::VECTOR axis, float angle)
+POGEL::MATRIX::fromaxis(const POGEL::VECTOR& axis, float angle)
 {
     float u = axis.x, v = axis.y, w = axis.z;
 
@@ -439,19 +441,19 @@ POGEL::MATRIX::operator*(const POGEL::MATRIX& a) const
     ret.matrix[ 0] = matrix[ 0]*a.matrix[ 0] + matrix[ 1]*a.matrix[ 4] + matrix[ 2]*a.matrix[ 8] + matrix[ 3]*a.matrix[12];
     ret.matrix[ 1] = matrix[ 0]*a.matrix[ 1] + matrix[ 1]*a.matrix[ 5] + matrix[ 2]*a.matrix[ 9] + matrix[ 3]*a.matrix[13];
     ret.matrix[ 2] = matrix[ 0]*a.matrix[ 2] + matrix[ 1]*a.matrix[ 6] + matrix[ 2]*a.matrix[10] + matrix[ 3]*a.matrix[14];
-    ret.matrix[ 3] = matrix[ 0]*a.matrix[ 3] + matrix[ 1]*a.matrix[ 7] + matrix[ 2]*a.matrix[11] + matrix[ 3]*a.matrix[15];
+    //ret.matrix[ 3] = matrix[ 0]*a.matrix[ 3] + matrix[ 1]*a.matrix[ 7] + matrix[ 2]*a.matrix[11] + matrix[ 3]*a.matrix[15];
     ret.matrix[ 4] = matrix[ 4]*a.matrix[ 0] + matrix[ 5]*a.matrix[ 4] + matrix[ 6]*a.matrix[ 8] + matrix[ 7]*a.matrix[12];
     ret.matrix[ 5] = matrix[ 4]*a.matrix[ 1] + matrix[ 5]*a.matrix[ 5] + matrix[ 6]*a.matrix[ 9] + matrix[ 7]*a.matrix[13];
     ret.matrix[ 6] = matrix[ 4]*a.matrix[ 2] + matrix[ 5]*a.matrix[ 6] + matrix[ 6]*a.matrix[10] + matrix[ 7]*a.matrix[14];
-    ret.matrix[ 7] = matrix[ 4]*a.matrix[ 3] + matrix[ 5]*a.matrix[ 7] + matrix[ 6]*a.matrix[11] + matrix[ 7]*a.matrix[15];
+    //ret.matrix[ 7] = matrix[ 4]*a.matrix[ 3] + matrix[ 5]*a.matrix[ 7] + matrix[ 6]*a.matrix[11] + matrix[ 7]*a.matrix[15];
     ret.matrix[ 8] = matrix[ 8]*a.matrix[ 0] + matrix[ 9]*a.matrix[ 4] + matrix[10]*a.matrix[ 8] + matrix[11]*a.matrix[12];
     ret.matrix[ 9] = matrix[ 8]*a.matrix[ 1] + matrix[ 9]*a.matrix[ 5] + matrix[10]*a.matrix[ 9] + matrix[11]*a.matrix[13];
     ret.matrix[10] = matrix[ 8]*a.matrix[ 2] + matrix[ 9]*a.matrix[ 6] + matrix[10]*a.matrix[10] + matrix[11]*a.matrix[14];
-    ret.matrix[11] = matrix[ 8]*a.matrix[ 3] + matrix[ 9]*a.matrix[ 7] + matrix[10]*a.matrix[11] + matrix[11]*a.matrix[15];
+    //ret.matrix[11] = matrix[ 8]*a.matrix[ 3] + matrix[ 9]*a.matrix[ 7] + matrix[10]*a.matrix[11] + matrix[11]*a.matrix[15];
     ret.matrix[12] = matrix[12]*a.matrix[ 0] + matrix[13]*a.matrix[ 4] + matrix[14]*a.matrix[ 8] + matrix[15]*a.matrix[12];
     ret.matrix[13] = matrix[12]*a.matrix[ 1] + matrix[13]*a.matrix[ 5] + matrix[14]*a.matrix[ 9] + matrix[15]*a.matrix[13];
     ret.matrix[14] = matrix[12]*a.matrix[ 2] + matrix[13]*a.matrix[ 6] + matrix[14]*a.matrix[10] + matrix[15]*a.matrix[14];
-    ret.matrix[15] = matrix[12]*a.matrix[ 3] + matrix[13]*a.matrix[ 7] + matrix[14]*a.matrix[11] + matrix[15]*a.matrix[15];
+    //ret.matrix[15] = matrix[12]*a.matrix[ 3] + matrix[13]*a.matrix[ 7] + matrix[14]*a.matrix[11] + matrix[15]*a.matrix[15];
     return ret;
 }
 

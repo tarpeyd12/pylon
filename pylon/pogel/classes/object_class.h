@@ -102,15 +102,15 @@ namespace POGEL
             char * getname();
             std::string getsname();
 
-            void translate( POGEL::VECTOR );
-            void translate( POGEL::VECTOR, float );
-            void moveto( POGEL::POINT );
+            void translate( const POGEL::VECTOR& );
+            void translate( const POGEL::VECTOR&, float );
+            void moveto( const POGEL::POINT& );
 
-            void rotate( POGEL::VECTOR );
-            void rotate( POGEL::VECTOR, float );
-            void turnto( POGEL::POINT );
+            void rotate( const POGEL::VECTOR& );
+            void rotate( const POGEL::VECTOR&, float );
+            void turnto( const POGEL::POINT& );
 
-            unsigned long addtriangle( POGEL::TRIANGLE );
+            unsigned long addtriangle( const POGEL::TRIANGLE& );
             void addtriangles( POGEL::TRIANGLE *, unsigned long );
             void addtrianglespace( unsigned long );
 
@@ -137,25 +137,25 @@ namespace POGEL
 
             unsigned long getnumfaces();
             POGEL::TRIANGLE gettriangle( unsigned long );
-            POGEL::TRIANGLE gettransformedtriangle( unsigned long );
+            inline POGEL::TRIANGLE gettransformedtriangle( unsigned long );
             POGEL::TRIANGLE * gettrianglelist();
 
             void copytriangles( POGEL::OBJECT * );
             void referencetriangles( POGEL::OBJECT * );
-            void settriangle( unsigned long, POGEL::TRIANGLE );
+            void settriangle( unsigned long, const POGEL::TRIANGLE& );
             void settriangle( unsigned long, POGEL::TRIANGLE * );
 
             void setNumFrames( unsigned int );
             void setAnimationFPS( float );
             POGEL::VERTEX getTransformedVertex( const POGEL::VERTEX&, bool, bool );
-            unsigned int addVertex( POGEL::VERTEX );
+            unsigned int addVertex( const POGEL::VERTEX& );
             POGEL::VERTEX * getVertexAddress( unsigned int ) const;
             POGEL::VERTEX * getVertexListAddress();
             unsigned int getNumVerticies();
-            unsigned int addPosKey( POGEL::KEY );
-            unsigned int addRotKey( POGEL::KEY );
-            unsigned int addScaleKey( POGEL::KEY );
-            unsigned int addTangent( POGEL::TANGENT );
+            unsigned int addPosKey( const POGEL::KEY& );
+            unsigned int addRotKey( const POGEL::KEY& );
+            unsigned int addScaleKey( const POGEL::KEY& );
+            unsigned int addTangent( const POGEL::TANGENT& );
             unsigned int addJoint( POGEL::OBJECT * , const char * );
             POGEL::OBJECT * getJoint( const char * );
             float getAnimationFPS();
@@ -168,6 +168,8 @@ namespace POGEL
             virtual void build();
 
             void setAnimationTime( float );
+            void updateSkeleton();
+            void updateTriangles();
 
             virtual void draw();
 
@@ -181,5 +183,7 @@ namespace POGEL
             friend bool POGEL::PHYSICS::solid_collision( POGEL::PHYSICS::SOLID *, POGEL::PHYSICS::SOLID *, POGEL::POINT *, POGEL::VECTOR *, POGEL::VECTOR *, float * );
     };
 }
+
+#include "object_class_inline.h"
 
 #endif /* _OBJECT_CLASS_H */

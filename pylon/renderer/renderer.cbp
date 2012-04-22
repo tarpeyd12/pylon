@@ -37,12 +37,9 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add directory="../bin/Release/" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="pogel" />
 					<Add library="fileloader" />
 					<Add library="objectloader" />
@@ -58,8 +55,6 @@
 				<Option createDefFile="1" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add option="-pg" />
 					<Add option="-g" />
 					<Add directory="../bin/UnitaryDebug/" />
@@ -82,12 +77,9 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add option="-fexpensive-optimizations" />
-					<Add option="-O3" />
 					<Add directory="../bin/UnitaryRelease/" />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
 					<Add library="pogel" />
 					<Add library="fileloader" />
 					<Add library="objectloader" />
@@ -96,9 +88,7 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wextra" />
-			<Add option="-Wall" />
-			<Add option="-fexceptions" />
+			<Add option="-s -O3 -fexpensive-optimizations -fexceptions -Wall -Wextra" />
 			<Add directory="$(#base.include)" />
 			<Add directory="$(#base.lib)" />
 			<Add directory="$(#python.lib)" />

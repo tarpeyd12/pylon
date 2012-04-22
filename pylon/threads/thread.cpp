@@ -50,6 +50,7 @@ namespace Threads
         param.__sched_priority = priority;
         int ret = pthread_setschedparam(thread, SCHED_FIFO, &param);*/
         //if( ret ) std::cout << "Failed to set Thread priority, err: " << ret << std::endl;
+        priority = 0;
     }
 
     void Thread::setAffinity(int affinity)

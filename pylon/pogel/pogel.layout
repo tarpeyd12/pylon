@@ -35,7 +35,7 @@
 		<Cursor position="735" topLine="8" />
 	</File>
 	<File name="classes/object_class.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="5967" topLine="254" />
+		<Cursor position="43250" topLine="1681" />
 	</File>
 	<File name="classes/object_class.h" open="0" top="0" tabpos="2">
 		<Cursor position="1123" topLine="32" />
@@ -95,7 +95,7 @@
 		<Cursor position="2081" topLine="0" />
 	</File>
 	<File name="classes/point_class.h" open="0" top="0" tabpos="6">
-		<Cursor position="65" topLine="0" />
+		<Cursor position="4607" topLine="108" />
 	</File>
 	<File name="classes/point_class_inline.h" open="0" top="0" tabpos="7">
 		<Cursor position="6535" topLine="334" />
@@ -116,10 +116,10 @@
 		<Cursor position="1897" topLine="0" />
 	</File>
 	<File name="classes/triangle_class.h" open="0" top="0" tabpos="8">
-		<Cursor position="1554" topLine="0" />
+		<Cursor position="2360" topLine="24" />
 	</File>
 	<File name="classes/triangle_class_inline.h" open="0" top="0" tabpos="5">
-		<Cursor position="7500" topLine="338" />
+		<Cursor position="146" topLine="0" />
 	</File>
 	<File name="classes/view_class.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="3740" topLine="192" />
@@ -128,10 +128,10 @@
 		<Cursor position="1483" topLine="39" />
 	</File>
 	<File name="pogel.cpp" open="0" top="0" tabpos="10">
-		<Cursor position="2978" topLine="91" />
+		<Cursor position="235" topLine="3" />
 	</File>
 	<File name="pogel.h" open="0" top="0" tabpos="2">
-		<Cursor position="1151" topLine="42" />
+		<Cursor position="499" topLine="52" />
 	</File>
 	<File name="pogel_classes.h" open="0" top="0" tabpos="0">
 		<Cursor position="667" topLine="14" />

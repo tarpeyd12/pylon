@@ -4,7 +4,7 @@
 	<Project>
 		<Option title="main" />
 		<Option pch_mode="2" />
-		<Option default_target="Release" />
+		<Option default_target="Unitary Release" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
@@ -208,7 +208,6 @@
 			<Add directory="$(#python.include)" />
 		</Compiler>
 		<Linker>
-			<Add option="--enable-auto-import" />
 			<Add library="$(#glut.lflags)" />
 			<Add library="$(#glu.lflags)" />
 			<Add library="$(#opengl.lflags)" />

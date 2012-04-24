@@ -95,7 +95,6 @@
 			<Add directory="$(#python.include)" />
 		</Compiler>
 		<Linker>
-			<Add option="--enable-auto-import" />
 			<Add library="$(#opengl.lflags)" />
 			<Add library="$(#glut.lflags)" />
 			<Add library="$(#glu.lflags)" />

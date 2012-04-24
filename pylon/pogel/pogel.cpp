@@ -10,17 +10,17 @@
 // pogel global variables
 namespace POGEL {
 	char *logfilefilename;
-	unsigned int properties;
+	volatile unsigned int properties;
 
-	float start, finish, start_long, finish_long;
-	unsigned long frames;
-	float fps, fps_long;
+	volatile float start, finish, start_long, finish_long;
+	volatile unsigned long frames;
+	volatile float fps, fps_long;
 
-	clock_t inittime, curtime;
-	float duration;
-	unsigned long inittmpst;
+	volatile clock_t inittime, curtime;
+	volatile float duration;
+	volatile unsigned long inittmpst;
 
-	float framerate_throtling_correction = 1.0f;
+	volatile float framerate_throtling_correction = 1.0f;
 }
 
 void POGEL::getcmd(int argc, char **argv) {

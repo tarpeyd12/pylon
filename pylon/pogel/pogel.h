@@ -15,13 +15,13 @@
 namespace POGEL {
 	// pogel global variables
 	extern char *logfilefilename;
-	extern unsigned int properties;
+	extern volatile unsigned int properties;
 
-	extern float start, finish, start_long, finish_long;
-	extern unsigned long frames;
-	extern float duration, fps, fps_long;
+	extern volatile float start, finish, start_long, finish_long;
+	extern volatile unsigned long frames;
+	extern volatile float duration, fps, fps_long;
 
-	extern float framerate_throtling_correction;
+	extern volatile float framerate_throtling_correction;
 
 	// pogel global functions
 	void getcmd(int,char**);

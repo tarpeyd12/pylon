@@ -1,11 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Unitary Debug" />
+	<File name="legacy/base.h" open="0" top="0" tabpos="0">
+		<Cursor position="169" topLine="0" />
+	</File>
+	<File name="legacy/camera.h" open="0" top="0" tabpos="0">
+		<Cursor position="175" topLine="0" />
+	</File>
+	<File name="legacy/keyframe.h" open="0" top="0" tabpos="0">
+		<Cursor position="178" topLine="0" />
+	</File>
+	<File name="legacy/light.h" open="0" top="0" tabpos="0">
+		<Cursor position="173" topLine="0" />
+	</File>
+	<File name="legacy/object_base.h" open="0" top="0" tabpos="0">
+		<Cursor position="184" topLine="0" />
+	</File>
+	<File name="legacy/object_platonic.h" open="0" top="0" tabpos="0">
+		<Cursor position="192" topLine="0" />
+	</File>
+	<File name="legacy/objectloader.h" open="0" top="0" tabpos="0">
+		<Cursor position="247" topLine="0" />
+	</File>
 	<File name="ms3d.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="1644" topLine="36" />
 	</File>
+	<File name="ms3d/msModel.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="11643" topLine="413" />
+	</File>
 	<File name="ms3d/msModel.h" open="0" top="0" tabpos="5">
-		<Cursor position="2147" topLine="64" />
+		<Cursor position="799" topLine="6" />
 	</File>
 	<File name="objectloader.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="530" topLine="0" />

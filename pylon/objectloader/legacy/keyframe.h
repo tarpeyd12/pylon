@@ -3,9 +3,9 @@
 
 //#include "objectloader.h"
 
-#include "../scriptengine/scriptengine.h"
-#include "../pogel/pogel.h"
-#include "../fileloader/fileloader.h"
+#include "../../scriptengine/scriptengine.h"
+#include "../../pogel/pogel.h"
+#include "../../fileloader/fileloader.h"
 
 /*
 CKeyFrame {

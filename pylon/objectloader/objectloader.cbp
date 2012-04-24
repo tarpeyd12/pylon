@@ -89,7 +89,6 @@
 			<Add directory="$(#python.lib)" />
 		</Compiler>
 		<Linker>
-			<Add option="--enable-auto-import" />
 			<Add directory="$(#python.lib)" />
 		</Linker>
 		<Unit filename="legacy/base.cpp" />

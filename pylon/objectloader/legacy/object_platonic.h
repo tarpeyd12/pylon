@@ -2,9 +2,9 @@
 #define OBJECT_PLATONIC_H_INCLUDED
 
 //#include "objectloader.h"
-#include "../scriptengine/scriptengine.h"
-#include "../pogel/pogel.h"
-#include "../fileloader/fileloader.h"
+#include "../../scriptengine/scriptengine.h"
+#include "../../pogel/pogel.h"
+#include "../../fileloader/fileloader.h"
 
 #include "keyframelist.h"
 #include "object_base.h"

@@ -2,9 +2,9 @@
 #define OBJECT_BASE_H_INCLUDED
 
 //#include "objectloader.h"
-#include "../scriptengine/scriptengine.h"
-#include "../pogel/pogel.h"
-#include "../fileloader/fileloader.h"
+#include "../../scriptengine/scriptengine.h"
+#include "../../pogel/pogel.h"
+#include "../../fileloader/fileloader.h"
 
 #include "keyframelist.h"
 #include "base.h"

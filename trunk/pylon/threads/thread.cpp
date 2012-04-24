@@ -12,7 +12,7 @@ namespace Threads
         //setPriority(0);
     }
 
-    Thread::Thread(void* (*func)(void* arg))
+    Thread::Thread(THREADTYPE (*func)(THREADARGS arg))
     {
         thread_function = func;
         data = NULL;
@@ -21,7 +21,7 @@ namespace Threads
         //setPriority(0);
     }
 
-    Thread::Thread(void* (*func)(void* arg), void* dat)
+    Thread::Thread(THREADTYPE (*func)(THREADARGS arg), void* dat)
     {
         thread_function = func;
         data = dat;
@@ -73,7 +73,7 @@ namespace Threads
         #endif
     }
 
-    void Thread::setThread(void* (*func)(void* arg))
+    void Thread::setThread(THREADTYPE (*func)(THREADARGS arg))
     {
         thread_function = func;
     }

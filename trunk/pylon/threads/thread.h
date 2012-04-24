@@ -15,7 +15,7 @@ namespace Threads
 {
     class Thread {
         private:
-            void* (*thread_function)(void* arg);
+            THREADTYPE (*thread_function)(THREADARGS arg);
             void* data;
 
             pthread_t thread;
@@ -24,14 +24,14 @@ namespace Threads
         public:
 
             Thread();
-            Thread(void* (*func)(void* arg));
-            Thread(void* (*func)(void* arg), void* dat);
+            Thread(THREADTYPE (*func)(THREADARGS arg));
+            Thread(THREADTYPE (*func)(THREADARGS arg), void* dat);
             ~Thread();
 
             void setPriority(int);
             void setAffinity(int);
 
-            void setThread(void* (*func)(void* arg));
+            void setThread(THREADTYPE (*func)(THREADARGS arg));
             void setData(void * dat);
 
             void startThread();

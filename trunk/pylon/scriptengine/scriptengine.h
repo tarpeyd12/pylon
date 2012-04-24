@@ -22,7 +22,29 @@ namespace ScriptEngine
 {
     namespace MethodInterface
     {
+        class __Module
+        {
+            public:
+                std::string modname;
+                ScriptEngine::MethodInterface::Object* module;
+
+                __Module();
+                ~__Module();
+                __Module(std::string,ScriptEngine::MethodInterface::Object*);
+
+                bool operator == (const __Module&) const;
+                bool operator == (std::string) const;
+                bool operator == (__Module*) const;
+        };
+
+        extern ClassList<__Module*> moduleList;
+
+        void __AddModule(__Module*);
+
+        __Module* __GetModule(std::string);
+
         void Add(std::string, ScriptEngine::MethodInterface::MethodDef*);
+        void Add(std::string, ScriptEngine::MethodInterface::MethodDef*, std::string);
     }
 
     extern bool started;

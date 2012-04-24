@@ -262,4 +262,72 @@ namespace pogelInterface
         addCube(obj, h, w, d, image, wsc, hsc, (unsigned int)triprop, mat);
         return Py_BuildValue("s", "Added cube to object.");
     }
+
+    Object* object_add_triangle(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        char* img;
+        POGEL::TRIANGLE tri;
+        int prop;
+        if( !PyArg_ParseTuple(
+                args,
+                "sss"
+
+                "fff"
+                "ff"
+                "fff"
+                "ffff"
+
+                "fff"
+                "ff"
+                "fff"
+                "ffff"
+
+                "fff"
+                "ff"
+                "fff"
+                "ffff"
+
+                "i"
+
+                ":object_add_triangle",
+                &simname, &name, &img,
+
+                &tri.vertex[0].x, &tri.vertex[0].y, &tri.vertex[0].z,
+                &tri.vertex[0].u, &tri.vertex[0].v,
+                &tri.vertex[0].normal.x, &tri.vertex[0].normal.y, &tri.vertex[0].normal.z,
+                &tri.vertex[0].color.r, &tri.vertex[0].color.g, &tri.vertex[0].color.b, &tri.vertex[0].color.a,
+
+                &tri.vertex[1].x, &tri.vertex[1].y, &tri.vertex[1].z,
+                &tri.vertex[1].u, &tri.vertex[1].v,
+                &tri.vertex[1].normal.x, &tri.vertex[1].normal.y, &tri.vertex[1].normal.z,
+                &tri.vertex[1].color.r, &tri.vertex[1].color.g, &tri.vertex[1].color.b, &tri.vertex[1].color.a,
+
+                &tri.vertex[2].x, &tri.vertex[2].y, &tri.vertex[2].z,
+                &tri.vertex[2].u, &tri.vertex[2].v,
+                &tri.vertex[2].normal.x, &tri.vertex[2].normal.y, &tri.vertex[2].normal.z,
+                &tri.vertex[2].color.r, &tri.vertex[2].color.g, &tri.vertex[2].color.b, &tri.vertex[2].color.a,
+
+                &prop
+                ) )
+        {
+            return NULL;
+        }
+        POGEL::PHYSICS::SOLID* obj;
+        Renderer::Physics::Simulation * sim;
+        sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("s", "Simulation not found.");
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            return Py_BuildValue("s", "Object not in simulation");
+        tri.texture = Renderer::requestImage(std::string(img));
+        tri.setproperties((unsigned int)prop);
+
+        tri.updateVert();
+        obj->addtriangle(tri);
+
+        return Py_BuildValue("s", "Added triangle to object.");
+    }
 }

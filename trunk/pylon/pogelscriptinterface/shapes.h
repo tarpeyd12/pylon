@@ -20,6 +20,8 @@ namespace pogelInterface
 
     Object* object_add_cube(Object*,Object*);
     Object* object_add_cube_mat(Object*,Object*);
+
+    Object* object_add_triangle(Object*,Object*);
 }
 
 #endif // SHAPES_H_INCLUDED

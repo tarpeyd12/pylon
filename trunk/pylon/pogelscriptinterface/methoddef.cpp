@@ -58,6 +58,7 @@ namespace pogelInterface
         { "object_add_cylinder_mat", (CFunction)object_add_cylinder_mat, VarArgs, NULL },
         { "object_add_cube",         (CFunction)object_add_cube,         VarArgs, NULL },
         { "object_add_cube_mat",     (CFunction)object_add_cube_mat,     VarArgs, NULL },
+        { "object_add_triangle",     (CFunction)object_add_triangle,     VarArgs, NULL },
         // keyboard interface
         { "key_ispressed",      (CFunction)key_ispressed,     VarArgs, NULL },
         { "key_last",           (CFunction)key_last,          VarArgs, NULL },

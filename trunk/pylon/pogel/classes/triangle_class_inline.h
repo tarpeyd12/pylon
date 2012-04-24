@@ -1,7 +1,7 @@
 void
 POGEL::TRIANGLE::updateVert()
 {
-    if( pvertex )
+    //if( pvertex )
     {
         POGEL::VECTOR vct0( vertex[ 0 ], vertex[ 1 ] );
         //vct0.normalize();

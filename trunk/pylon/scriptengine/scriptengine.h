@@ -52,6 +52,7 @@ namespace ScriptEngine
     extern ThreadState * mainThreadState;
 
     void Begin();
+    void BeginThreads();
     void End();
     bool HasBegun();
 

@@ -7,6 +7,7 @@ namespace pogelInterface
     static MethodDef pogelMethods[] = {
         // pogel
         { "fps",                (CFunction)fps,               VarArgs, NULL },
+        { "getruntime",         (CFunction)getruntime,        VarArgs, NULL },
         { "getproperties",      (CFunction)getproperties,     VarArgs, NULL },
         { "setproperties",      (CFunction)setproperties,     VarArgs, NULL },
         { "hasproperty",        (CFunction)hasproperty,       VarArgs, NULL },

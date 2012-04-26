@@ -92,11 +92,19 @@ namespace ScriptEngine
     void Begin()
     {
         Py_Initialize();
-        PyEval_InitThreads();
-        mainThreadState = PyThreadState_Swap(NULL);
-        PyThreadState_Swap(mainThreadState);
-        PyEval_ReleaseLock();
+        //PyEval_InitThreads();
+        //mainThreadState = PyThreadState_Swap(NULL);
+        mainThreadState = PyEval_SaveThread();
+        //PyThreadState_Swap(mainThreadState);
+        PyEval_RestoreThread(mainThreadState);
+        //PyEval_ReleaseLock();
         started = ScriptEngine::HasBegun();
+    }
+
+    void BeginThreads()
+    {
+        PyEval_InitThreads();
+        PyEval_ReleaseLock();
     }
 
     void End()

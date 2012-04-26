@@ -44,7 +44,7 @@
 		<Cursor position="702" topLine="22" />
 	</File>
 	<File name="mouse.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="1233" topLine="22" />
+		<Cursor position="376" topLine="13" />
 	</File>
 	<File name="mouse.h" open="0" top="0" tabpos="2">
 		<Cursor position="73" topLine="0" />
@@ -83,9 +83,9 @@
 		<Cursor position="625" topLine="9" />
 	</File>
 	<File name="window.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="735" topLine="0" />
+		<Cursor position="587" topLine="3" />
 	</File>
 	<File name="window.h" open="0" top="0" tabpos="0">
-		<Cursor position="441" topLine="0" />
+		<Cursor position="408" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

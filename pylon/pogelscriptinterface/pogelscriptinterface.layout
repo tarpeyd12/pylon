@@ -8,7 +8,7 @@
 		<Cursor position="128" topLine="0" />
 	</File>
 	<File name="methoddef.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="7510" topLine="76" />
+		<Cursor position="6720" topLine="77" />
 	</File>
 	<File name="objects.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="4673" topLine="109" />
@@ -16,17 +16,17 @@
 	<File name="objects.h" open="0" top="0" tabpos="2">
 		<Cursor position="506" topLine="13" />
 	</File>
-	<File name="pogelscriptinterface.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="2635" topLine="249" />
+	<File name="pogelscriptinterface.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="582" topLine="0" />
 	</File>
-	<File name="pogelscriptinterface.h" open="0" top="0" tabpos="3">
-		<Cursor position="1674" topLine="43" />
+	<File name="pogelscriptinterface.h" open="0" top="0" tabpos="5">
+		<Cursor position="687" topLine="0" />
 	</File>
 	<File name="scriptcallbacks.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="517" topLine="12" />
 	</File>
 	<File name="scriptcallbacks.h" open="0" top="0" tabpos="2">
-		<Cursor position="796" topLine="13" />
+		<Cursor position="1205" topLine="9" />
 	</File>
 	<File name="shapes.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="10338" topLine="267" />

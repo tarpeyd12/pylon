@@ -166,6 +166,8 @@ void ScriptThread::FirstRun()
         exit(e);
     }
 
+    ScriptEngine::BeginThreads();
+
     //mainScript = new ScriptEngine::Executor(mainScriptData);
     mainScript = new ScriptEngine::InterpreterThread( new ScriptEngine::Executor(mainScriptData) );
     //mainScript = new ScriptEngine::SubInterpreter( new ScriptEngine::Executor(mainScriptData) );

@@ -121,7 +121,7 @@ namespace ObjectLoader
 
             int numverts = (int)mdl->GetNumVertices();
 
-            for( int i = 0; i < mdl->GetNumTriangles(); i++ )
+            for( int i = 0; i < mdl->GetNumTriangles(); ++i )
             {
                 ms3d_triangle_t * tritmp = mdl->GetTriangle(i);
 
@@ -136,7 +136,7 @@ namespace ObjectLoader
                 tri.normal.y = tritmp->normal[1];
                 tri.normal.z = tritmp->normal[2];*/
 
-                for( int a = 0; a < 3; a++ )
+                for( int a = 0; a < 3; ++a )
                 {
                     tri.vertex[a].u = tritmp->s[ a ];
                     tri.vertex[a].v = tritmp->t[ a ];
@@ -154,7 +154,7 @@ namespace ObjectLoader
 
             POGEL::TRIANGLE * trilist = object->gettrianglelist();
 
-            for( int i = 0; i < mdl->GetNumGroups(); i++ )
+            for( int i = 0; i < mdl->GetNumGroups(); ++i )
             {
                 ms3d_group_t * group = mdl->GetGroup(i);
 
@@ -171,7 +171,7 @@ namespace ObjectLoader
                     continue;
                 }
 
-                for( int c = 0; c < texnamelen; c++)
+                for( int c = 0; c < texnamelen; ++c)
                 {
                     if( material->texture[c] == '\\')
                     {
@@ -181,7 +181,7 @@ namespace ObjectLoader
 
                 if( material->texture[0] == '.' )
                 {
-                    for( int c = 0; c < texnamelen-1; c++)
+                    for( int c = 0; c < texnamelen-1; ++c)
                     {
                         material->texture[c] = material->texture[c+1];
                     }
@@ -190,14 +190,14 @@ namespace ObjectLoader
 
                 if( material->texture[0] == '/' )
                 {
-                    for( int c = 0; c < texnamelen-1; c++)
+                    for( int c = 0; c < texnamelen-1; ++c)
                     {
                         material->texture[c] = material->texture[c+1];
                     }
                     material->texture[--texnamelen] = '\0';
                 }
 
-                for( int p = 0; p < (int)group->triangleIndices.size(); p++)
+                for( int p = 0; p < (int)group->triangleIndices.size(); ++p)
                 {
                     trilist[group->triangleIndices[p]].texture = POGEL::requestImage("{["+std::string(material->texture)+"]}");
                 }

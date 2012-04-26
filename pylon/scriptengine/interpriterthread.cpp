@@ -6,26 +6,26 @@ namespace ScriptEngine
     {
         instructions = NULL;
         // get the global lock
-        PyEval_AcquireLock();
+        //PyEval_AcquireLock();
         // get a reference to the PyInterpreterState
         mainInterpreterState = ScriptEngine::mainThreadState->interp;
         // create a thread state object for this thread
         threadState = PyThreadState_New(mainInterpreterState);
         // free the lock
-        PyEval_ReleaseLock();
+        //PyEval_ReleaseLock();
     }
 
     InterpreterThread::InterpreterThread( Executor * inst )
     {
         instructions = inst;
         // get the global lock
-        PyEval_AcquireLock();
+        //PyEval_AcquireLock();
         // get a reference to the PyInterpreterState
         mainInterpreterState = ScriptEngine::mainThreadState->interp;
         // create a thread state object for this thread
         threadState = PyThreadState_New(mainInterpreterState);
         // free the lock
-        PyEval_ReleaseLock();
+        //PyEval_ReleaseLock();
     }
 
     InterpreterThread::~InterpreterThread()
@@ -57,7 +57,8 @@ namespace ScriptEngine
     {
         if( !instructions )
         {
-            return;
+            throw -10;
+            //return;
         }
 
         // grab the global interpreter lock

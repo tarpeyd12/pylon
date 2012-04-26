@@ -30,13 +30,30 @@ namespace ScriptEngine
         if(!is_init)
             ScriptEngine::Initialize();
 
-        int ret = PyRun_SimpleString(getInstructions().c_str());
+        /*int ret = PyRun_SimpleString(getInstructions().c_str());
         PyObject* err = PyErr_Occurred();
         if(ret || err)
         {
             if(err)
                 PyErr_Print();
             throw ret;
+        }*/
+
+        PyObject* mainModule = PyImport_ImportModule("__main__");
+        //PyObject* mainModule = PyImport_AddModule("__main__");
+        PyObject* globalDict = PyModule_GetDict(mainModule);
+        PyObject* localDict = globalDict;
+
+        char* inst = strcpy(new char[getInstructions().length()], getInstructions().c_str());
+
+        PyObject* ret = PyRun_String(inst, Py_file_input, globalDict, localDict);
+        delete [] inst;
+        PyObject* err = PyErr_Occurred();
+        if(!ret || err)
+        {
+            if(err)
+                PyErr_Print();
+            throw -1;
         }
 
         if(!is_init)

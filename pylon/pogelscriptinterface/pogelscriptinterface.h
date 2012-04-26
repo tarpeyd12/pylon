@@ -25,6 +25,7 @@ namespace pogelInterface
     // POGEL specific things
 
     Object* fps(Object*,Object*);
+    Object* getruntime(Object*,Object*);
     Object* getproperties(Object*,Object*);
     Object* setproperties(Object*,Object*);
     Object* hasproperty(Object*,Object*);

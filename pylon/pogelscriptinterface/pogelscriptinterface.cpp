@@ -14,6 +14,17 @@ namespace pogelInterface
     }
 
     ScriptEngine::MethodInterface::Object*
+    getruntime(
+        ScriptEngine::MethodInterface::Object* self,
+        ScriptEngine::MethodInterface::Object* args
+    )
+    {
+        if(!PyArg_ParseTuple(args, ":getruntime"))
+            return NULL;
+        return Py_BuildValue("f", POGEL::GetTimePassed());
+    }
+
+    ScriptEngine::MethodInterface::Object*
     getproperties(
         ScriptEngine::MethodInterface::Object* self,
         ScriptEngine::MethodInterface::Object* args

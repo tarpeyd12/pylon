@@ -1,6 +1,7 @@
 
 # the exiting condition
-if pylon.key_ispressed('q') or pylon.key_ispressed('Q'):
+#if pylon.key_ispressed('q') or pylon.key_ispressed('Q'):
+if pylon.key_ispressed(chr(27)):
 	print _pylon.exit(0)
 	#quit()
 
@@ -167,6 +168,7 @@ cam.getcamstrs()
 
 pylon.subrender_set_cam(subrenderer1, cam.posx,cam.posy,cam.posz, cam.rotx,cam.roty,cam.rotz)
 pylon.subrender_set_ratio(subrenderer1, float(pylon.window_width())/float(pylon.window_height()))
+pylon.subrender_set_light(subrenderer1, 1, math.sin(counter)*10,0,math.cos(counter)*10, '{[.1],[0],[0],[1]}', '{[0],[1],[0],[1]}', '{[0],[0],[.1],[1]}', False)
 Bloop.y1 = pylon.window_height()
 Bloop.x2 = pylon.window_width()
 #Bloop.makeInvisable()

@@ -95,6 +95,8 @@ namespace POGEL
             inline bool settriangletexture() const;
             inline void initializetriangledraw() const;
             inline void drawgeometry() const;
+            void drawgeometrysolidcolor(const POGEL::COLOR&) const;
+            void drawgeometryvertexonly() const;
             inline void finalizetriangledraw() const;
 
             void draw() const;
@@ -109,6 +111,8 @@ namespace POGEL
 
     template < class Accessor >
     inline void drawTriangleList( void * list, unsigned int length, Accessor accessor );
+
+    void drawTriangleListColored( TRIANGLE * face, unsigned int numfaces, const unsigned char* color );
 
 }
 

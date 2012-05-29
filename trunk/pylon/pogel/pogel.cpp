@@ -109,19 +109,32 @@ void POGEL::removeproperty(unsigned int prop) {POGEL::properties^=prop;}
 bool POGEL::hasproperty(unsigned int prop) {return (POGEL::properties & prop);}
 
 char* POGEL::string(const char* fmt, ...) {
-	//char* tmpstr=(char*)malloc(sizeof(char)*1024*2); // create a temporary string of suffient size to handle this string
-	char* tmpstr = new char[2048];
-	char* output; // an empty string for later
-	memset(tmpstr, '\0', 1024*2); // set the temporary string to all numm, as to avoid artifacts
-	va_list args; // the argument list
-	va_start(args, fmt); // initialize the argument list
-	vsprintf(tmpstr, fmt, args); // take the format, and argument list and put it into the temporary string
-	va_end(args);
-	//output=(char*)malloc(sizeof(char)*(strlen(tmpstr)+1));
-    output = new char[(strlen(tmpstr)+1)];
-	memcpy(output, tmpstr, strlen(tmpstr)+1);
-	//free(tmpstr);
-	delete[] tmpstr;
+
+
+    char buf[512];
+    char *tmpstr;
+    char* output; // an empty string for later
+    int len;
+    va_list args;
+
+    tmpstr = buf;
+    memset(tmpstr, '\0', 512);
+    va_start( args, fmt );
+    len = vsnprintf( tmpstr, 512, fmt, args );
+    va_end(args);
+    if (len >= 512)
+    {
+        tmpstr = new char[ len + 1 ];
+        va_start(args, fmt);
+        len = vsnprintf(tmpstr, len + 1, fmt, args);
+        va_end(args);
+    }
+    output = new char[len+1];
+	memcpy(output, tmpstr, len+1);
+	if(len >= 512)
+	{
+	    delete[] tmpstr;
+	}
 	return output;
 };
 

@@ -11,6 +11,7 @@ class DYNAMICS;
 #include "../../templates/octree_template.h"
 #include "solid_class.h"
 #include "../../templates/classlist_template.h"
+#include "../../templates/bitlist.h"
 #include "physics.h"
 #include "singularity_class.h"
 
@@ -87,11 +88,7 @@ class POGEL::PHYSICS::DYNAMICS
 
         void drawGravityGrid(float, float, POGEL::POINT, unsigned int);
 
-        /*
-        // to be implimented later:
-        int cullReleventObjs();
-        int _objIndiciesComp(unsigned int * a, unsigned int * b);
-        */
+        ;
 
         friend class POGEL::PHYSICS::SIMULATION;
 };

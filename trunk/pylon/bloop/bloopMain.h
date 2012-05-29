@@ -13,6 +13,10 @@
 #include <string.h>
 #include <sstream>
 
+
+#include <wx/event.h>
+
+
 //(*Headers(bloopFrame)
 #include <wx/notebook.h>
 #include <wx/sizer.h>
@@ -59,6 +63,9 @@ class bloopFrame: public wxFrame
         void OnbuttonBrowseDirClick(wxCommandEvent& event);
         void OntextPathDirTextEnter(wxCommandEvent& event);
         //*)
+        void OnPrintEvent(wxCommandEvent& event);
+        void OnStatusEvent(wxCommandEvent& event);
+        void OnClearOutputEvent(wxCommandEvent& event);
 
         //(*Identifiers(bloopFrame)
         static const long ID_STATICTEXT1;
@@ -184,6 +191,12 @@ class bloopFrame: public wxFrame
 
         DECLARE_EVENT_TABLE()
 };
+
+DECLARE_EVENT_TYPE(PRINT_STRING_EVENT, wxID_ANY);
+
+DECLARE_EVENT_TYPE(STATUS_STRING_EVENT, wxID_ANY);
+
+DECLARE_EVENT_TYPE(CLEAR_OUTPUT_EVENT, wxID_ANY);
 
 extern bloopFrame* ___bloopFrame;
 

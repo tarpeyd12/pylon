@@ -30,16 +30,16 @@ namespace ScriptEngine
         if(!is_init)
             ScriptEngine::Initialize();
 
-        /*int ret = PyRun_SimpleString(getInstructions().c_str());
+        int ret = PyRun_SimpleString(getInstructions().c_str());
         PyObject* err = PyErr_Occurred();
         if(ret || err)
         {
             if(err)
                 PyErr_Print();
             throw ret;
-        }*/
+        }
 
-        PyObject* mainModule = PyImport_ImportModule("__main__");
+        /*PyObject* mainModule = PyImport_ImportModule("__main__");
         //PyObject* mainModule = PyImport_AddModule("__main__");
         PyObject* globalDict = PyModule_GetDict(mainModule);
         PyObject* localDict = globalDict;
@@ -54,7 +54,7 @@ namespace ScriptEngine
             if(err)
                 PyErr_Print();
             throw -1;
-        }
+        }*/
 
         if(!is_init)
             ScriptEngine::Finalize();
@@ -103,18 +103,32 @@ namespace ScriptEngine
 
     FunctionCaller::FunctionCaller(std::string inst) : ScriptEngine::Executor(inst)
     {
-
+        outsidefunction = true;
     }
 
-     FunctionCaller::FunctionCaller(std::string inst, std::string func, std::string* args, unsigned int numArgs) : ScriptEngine::Executor(inst)
+    FunctionCaller::FunctionCaller(std::string inst, bool out) : ScriptEngine::Executor(inst)
+    {
+        outsidefunction = out;
+    }
+
+    FunctionCaller::FunctionCaller(std::string inst, std::string func, std::string* args, unsigned int numArgs) : ScriptEngine::Executor(inst)
     {
         function = func;
         arguments.add( args, numArgs );
+        outsidefunction = true;
+    }
+
+    FunctionCaller::FunctionCaller(std::string inst, std::string func, std::string* args, unsigned int numArgs, bool out) : ScriptEngine::Executor(inst)
+    {
+        function = func;
+        arguments.add( args, numArgs );
+        outsidefunction = out;
     }
 
     FunctionCaller::~FunctionCaller()
     {
         arguments.clear();
+        outsidefunction = true;
     }
 
     void FunctionCaller::setArgs(std::string* args,unsigned int numArgs)
@@ -143,12 +157,13 @@ namespace ScriptEngine
         pName = PyString_FromString(getInstructions().c_str());
         //pModule = PyImport_ImportModuleNoBlock(getInstructions().c_str());
         pModule = PyImport_Import(pName);
+
         if (pModule != NULL) {
             pFunc = PyObject_GetAttrString(pModule, func.c_str());
             if (pFunc && PyCallable_Check(pFunc)) {
                 pArgs = PyTuple_New(numArgs);
                 //std::string concatargs = "";
-                for(unsigned int i = 0; i < numArgs; i++)
+                for(unsigned int i = 0; i < numArgs; ++i)
                 {
                     std::string type = args[i].substr(0, args[i].find_first_of(':'));
                     std::string data = args[i].substr(args[i].find_first_of(':')+1);

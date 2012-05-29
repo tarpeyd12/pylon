@@ -9,9 +9,14 @@ namespace ObjectLoader
 
         std::string type(_type);
 
-        if( !type.compare("ms3d bin") || !type.compare("MS3D bin") )
+        if( !type.compare("ms3d") || !type.compare("ms3d bin") || !type.compare("MS3D bin") )
         {
             object = ObjectLoader::ms3d::newFromMs3dBinFile( filename, objname, object );
+        }
+        else
+        if( !type.compare("objmtl") || !type.compare("objmtl text") || !type.compare("OBJMTL text") )
+        {
+            object = ObjectLoader::objmtl::newFromObjMtlTextFile( filename, objname, object );
         }
         else
         {

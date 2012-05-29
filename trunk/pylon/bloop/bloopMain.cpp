@@ -10,6 +10,8 @@
 #include "bloopMain.h"
 #include <wx/msgdlg.h>
 
+#include <wx/event.h>
+
 bloopFrame* ___bloopFrame;
 
 wxString str(const char* s)
@@ -121,30 +123,58 @@ std::string getStringComponentLevelNoMore(std::string startChar, bool firstInclu
     return level_str;
 }
 
+DEFINE_EVENT_TYPE(PRINT_STRING_EVENT);
+
+DEFINE_EVENT_TYPE(STATUS_STRING_EVENT);
+
+DEFINE_EVENT_TYPE(CLEAR_OUTPUT_EVENT);
+
+
+
+
+
+
+
+
+
+
+
+
+
 void print(std::string s)
 {
     wxString ws = str(s);
-    ___bloopFrame->htmlOutput->AppendToPage(s("<br><font size=\"3\">" + s + "</font></ul>"));
-    ___bloopFrame->StatusBar->SetStatusText(str(getStringComponentLevelNoMore("<",false,">",false,"<"+s+">","0")), 0);
+    //___bloopFrame->htmlOutput->AppendToPage(s("<br><font size=\"3\">" + s + "</font></ul>"));
+    //___bloopFrame->StatusBar->SetStatusText(str(getStringComponentLevelNoMore("<",false,">",false,"<"+s+">","0")), 0);
     //___bloopFrame->StatusBar->SetStatusText(str(s), 0);
-    ___bloopFrame->htmlOutput->Scroll(0,___bloopFrame->htmlOutput->GetScrollLines(0));
+    //___bloopFrame->htmlOutput->Scroll(0,___bloopFrame->htmlOutput->GetScrollLines(0));
+
+    wxCommandEvent event1(PRINT_STRING_EVENT);
+    event1.SetString(ws.c_str()); // make a deep copy
+    ___bloopFrame->AddPendingEvent( event1 );
+    wxCommandEvent event2(STATUS_STRING_EVENT);
+    event2.SetString(str(getStringComponentLevelNoMore("<",false,">",false,"<"+s+">","0")).c_str()); // make a deep copy
+    ___bloopFrame->AddPendingEvent( event2 );
 }
 
 void print_ai(std::string s)
 {
-    ___bloopFrame->htmlOutput->AppendToPage(str(s));
-    //___bloopFrame->StatusBar->SetStatusText(str(s));
-    ___bloopFrame->htmlOutput->Scroll(0,___bloopFrame->htmlOutput->GetScrollLines(0));
+    wxCommandEvent event1(PRINT_STRING_EVENT);
+    event1.SetString(str(s)); // make a deep copy
+    ___bloopFrame->AddPendingEvent( event1 );
 }
 
 void setStatus(std::string s)
 {
-    ___bloopFrame->StatusBar->SetStatusText(str(s));
+    wxCommandEvent event2(STATUS_STRING_EVENT);
+    event2.SetString(str(getStringComponentLevelNoMore("<",false,">",false,"<"+s+">","0")).c_str()); // make a deep copy
+    ___bloopFrame->AddPendingEvent( event2 );
 }
 
 void clear_output()
 {
-    ___bloopFrame->htmlOutput->SetPage(str(""));
+    wxCommandEvent event(CLEAR_OUTPUT_EVENT);
+    ___bloopFrame->AddPendingEvent( event );
 }
 
 //(*InternalHeaders(bloopFrame)
@@ -235,9 +265,15 @@ const long bloopFrame::ID_NOTEBOOK1 = wxNewId();
 const long bloopFrame::ID_STATUSBAR = wxNewId();
 //*)
 
+
+
+
+
 BEGIN_EVENT_TABLE(bloopFrame,wxFrame)
     //(*EventTable(bloopFrame)
     //*)
+    EVT_COMMAND (wxID_ANY, PRINT_STRING_EVENT, bloopFrame::OnPrintEvent)
+    EVT_COMMAND (wxID_ANY, STATUS_STRING_EVENT, bloopFrame::OnStatusEvent)
 END_EVENT_TABLE()
 
 
@@ -416,7 +452,7 @@ bloopFrame::bloopFrame(wxWindow* parent,wxWindowID id)
     GridSizer10 = new wxGridSizer(2, 2, 0, 0);
     StaticText10 = new wxStaticText(panelSettings, ID_STATICTEXT10, _("Text Editor Command"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT10"));
     GridSizer10->Add(StaticText10, 1, wxALL|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
-    textEditorCMD = new wxTextCtrl(panelSettings, idTextEditorCMD, _("gedit %s"), wxDefaultPosition, wxSize(226,27), 0, wxDefaultValidator, _T("idTextEditorCMD"));
+    textEditorCMD = new wxTextCtrl(panelSettings, idTextEditorCMD, _("gedit \"%s\""), wxDefaultPosition, wxSize(226,27), 0, wxDefaultValidator, _T("idTextEditorCMD"));
     GridSizer10->Add(textEditorCMD, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
     StaticText11 = new wxStaticText(panelSettings, ID_STATICTEXT11, _("3D Editor:"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT11"));
     GridSizer10->Add(StaticText11, 1, wxALL|wxALIGN_LEFT|wxALIGN_CENTER_VERTICAL, 5);
@@ -525,6 +561,14 @@ bloopFrame::bloopFrame(wxWindow* parent,wxWindowID id)
     Connect(idButtonRUN,wxEVT_COMMAND_BUTTON_CLICKED,(wxObjectEventFunction)&bloopFrame::OnbuttonRUNClick);
     //*)
 
+
+
+    Connect(wxID_ANY, (wxEventType)PRINT_STRING_EVENT, (wxObjectEventFunction)&bloopFrame::OnPrintEvent);
+    Connect(wxID_ANY, (wxEventType)STATUS_STRING_EVENT, (wxObjectEventFunction)&bloopFrame::OnStatusEvent);
+    Connect(wxID_ANY, (wxEventType)CLEAR_OUTPUT_EVENT, (wxObjectEventFunction)&bloopFrame::OnClearOutputEvent);
+
+    ___bloopFrame = this;
+
     int fontsizes[] = {6,7,8,9,10,11,12};
     htmlOutput->SetFonts(str(""),str(""),fontsizes);
 }
@@ -533,6 +577,25 @@ bloopFrame::~bloopFrame()
 {
     //(*Destroy(bloopFrame)
     //*)
+}
+
+void bloopFrame::OnPrintEvent(wxCommandEvent& event)
+{
+    wxString text = event.GetString();
+    htmlOutput->AppendToPage(text);
+    //StatusBar->SetStatusText(text);
+    htmlOutput->Scroll(0,htmlOutput->GetScrollLines(0));
+}
+
+void bloopFrame::OnStatusEvent(wxCommandEvent& event)
+{
+    wxString text = event.GetString();
+    StatusBar->SetStatusText(text);
+}
+
+void bloopFrame::OnClearOutputEvent(wxCommandEvent& event)
+{
+    htmlOutput->SetPage(str(""));
 }
 
 void bloopFrame::OnQuit(wxCommandEvent& event)

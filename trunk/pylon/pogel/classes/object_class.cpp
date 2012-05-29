@@ -1114,18 +1114,23 @@ POGEL::OBJECT::build()
     for( unsigned int i = 0; i < numfaces; ++i )
     {
         // if any are transparent or see through
-        if( face[i].isClear() )
+        if( !face[ i ].isClear() )
         {
-            // tell the object to sort its triangles
-            // for external rendering procedures use only
-            addproperty(OBJECT_SORT_TRIANGLES);
-
-            // remove the option to 'predraw' the object to a display list
-            removeproperty(OBJECT_DRAW_DISPLAYLIST);
-
-            // exit loop, only one is enough
-            break;
+            continue;
         }
+
+        // tell the object to sort its triangles
+        // for external rendering procedures use only
+        addproperty(OBJECT_SORT_TRIANGLES);
+
+        // remove the option to 'predraw' the object to a display list
+        if( hasproperty(OBJECT_DRAW_DISPLAYLIST) )
+        {
+            removeproperty(OBJECT_DRAW_DISPLAYLIST);
+        }
+
+        // exit loop, only one is enough
+        break;
     }
 
     // generate a temporary list pointing to the list of triangles
@@ -1143,24 +1148,24 @@ POGEL::OBJECT::build()
             // generate a new display list
             base = glGenLists(1);
 
+            unsigned int prp = POGEL::getproperties();
+            // if bounding to be drawn and object rotates to camera
+            if( POGEL::hasproperty(POGEL_BOUNDING) )//&& hasproperty(OBJECT_ROTATE_TOCAMERA) )
+            {
+                // do not draw boundings for the triangles, it looks bad
+                POGEL::removeproperty(POGEL_BOUNDING);
+            }
+
             // start 'recording'
             glNewList(base,GL_COMPILE);
 
-                unsigned int prp = POGEL::getproperties();
-                // if bounding to be drawn and object rotates to camera
-                if( POGEL::hasproperty(POGEL_BOUNDING) )//&& hasproperty(OBJECT_ROTATE_TOCAMERA) )
-                {
-                    // do not draw boundings for the triangles, it looks bad
-                    POGEL::removeproperty(POGEL_BOUNDING);
-                }
-
                 POGEL::drawTriangleList( face, numfaces );
-
-                // reset pogel's properties
-                POGEL::setproperties(prp);
 
             // finish the display list
             glEndList();
+
+            // reset pogel's properties
+            POGEL::setproperties(prp);
 
         #endif
     }
@@ -1681,29 +1686,29 @@ POGEL::OBJECT::draw()
             #endif /* OBJECT_USE_OPNEGL_MATRIX_RECURSION */
 
             // translate to objects position
-            glTranslatef(position.x, position.y, position.z);
+            glTranslatef( position.x, position.y, position.z );
 
             // rotate transform
             if( hasproperty(OBJECT_ROTATE_XYZ) )
             {
                 // rotate: x, y, z
-                glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
-                glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
-                glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
+                glRotatef( rotation.x, 1.0f, 0.0f, 0.0f );
+                glRotatef( rotation.y, 0.0f, 1.0f, 0.0f );
+                glRotatef( rotation.z, 0.0f, 0.0f, 1.0f );
             }
             else if( hasproperty(OBJECT_ROTATE_TOCAMERA) )
             {
                 // rotate: y, x, z
-                glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
-                glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
-                glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
+                glRotatef( rotation.y, 0.0f, 1.0f, 0.0f );
+                glRotatef( rotation.x, 1.0f, 0.0f, 0.0f );
+                glRotatef( rotation.z, 0.0f, 0.0f, 1.0f );
             }
             else
             {
                 // rotate: z, y, x
-                glRotatef(rotation.z, 0.0f, 0.0f, 1.0f);
-                glRotatef(rotation.y, 0.0f, 1.0f, 0.0f);
-                glRotatef(rotation.x, 1.0f, 0.0f, 0.0f);
+                glRotatef( rotation.z, 0.0f, 0.0f, 1.0f );
+                glRotatef( rotation.y, 0.0f, 1.0f, 0.0f );
+                glRotatef( rotation.x, 1.0f, 0.0f, 0.0f );
             }
             unsigned long i;
 
@@ -1711,16 +1716,16 @@ POGEL::OBJECT::draw()
             if( hasproperty(OBJECT_DRAW_CHILDREN) )
             {
                 // go through the children
-                for( i = 0; i < numchildren; i++ )
+                for( i = 0; i < numchildren; ++i )
                 {
                     // if to draw the ancestoral inheretance
                     if( POGEL::hasproperty(POGEL_ANCESTORY) )
                     {
                         // draw line from this object to current child object
-                        POGEL::LINE(POGEL::POINT(), children[i]->position, 1, POGEL::COLOR(0,.5,1,1)).draw();
+                        POGEL::LINE(POGEL::POINT(), children[ i ]->position, 1, POGEL::COLOR(0,.5,1,1)).draw();
                     }
                     // draw the child object
-                    children[i]->draw();
+                    children[ i ]->draw();
                 }
             }
 
@@ -1728,7 +1733,7 @@ POGEL::OBJECT::draw()
             if( hasproperty(OBJECT_DRAW_DISPLAYLIST) )
             {
                 // call the list
-                glCallList(base);
+                glCallList( base );
             }
             // draw the faces if desired
             else if( !hasproperty(OBJECT_DRAW_NOFACES) )
@@ -1741,7 +1746,22 @@ POGEL::OBJECT::draw()
                     POGEL::removeproperty(POGEL_BOUNDING);
                 }
 
-                POGEL::drawTriangleList( face, numfaces );
+                if( hasproperty(OBJECT_SORT_TRIANGLES) )
+                {
+                    //glEnable( GL_ALPHA_TEST );
+                    POGEL::addproperty(POGEL_NODOUBLESIDEDTRIANGLES);
+                    glFrontFace(GL_CW);
+                    POGEL::drawTriangleList( face, numfaces );
+                    glFrontFace(GL_CCW);
+                    POGEL::drawTriangleList( face, numfaces );
+                    //glFrontFace(GL_CCW);
+                    POGEL::removeproperty(POGEL_NODOUBLESIDEDTRIANGLES);
+                    //glDisable( GL_ALPHA_TEST );
+                }
+                else
+                {
+                    POGEL::drawTriangleList( face, numfaces );
+                }
 
                 // reset pogel's properties
                 POGEL::setproperties(prp);
@@ -1787,21 +1807,21 @@ POGEL::OBJECT::draw()
                 // rotate in reverse of above
                 if( hasproperty(OBJECT_ROTATE_XYZ) )
                 {
-                    glRotatef(rotation.z, 0.0f, 0.0f, -1.0f);
-                    glRotatef(rotation.y, 0.0f, -1.0f, 0.0f);
-                    glRotatef(rotation.x, -1.0f, 0.0f, 0.0f);
+                    glRotatef( rotation.z, 0.0f, 0.0f, -1.0f );
+                    glRotatef( rotation.y, 0.0f, -1.0f, 0.0f );
+                    glRotatef( rotation.x, -1.0f, 0.0f, 0.0f );
                 }
                 else if( hasproperty(OBJECT_ROTATE_TOCAMERA) )
                 {
-                    glRotatef(rotation.z, 0.0f, 0.0f, -1.0f);
-                    glRotatef(rotation.x, -1.0f, 0.0f, 0.0f);
-                    glRotatef(rotation.y, 0.0f, -1.0f, 0.0f);
+                    glRotatef( rotation.z, 0.0f, 0.0f, -1.0f );
+                    glRotatef( rotation.x, -1.0f, 0.0f, 0.0f );
+                    glRotatef( rotation.y, 0.0f, -1.0f, 0.0f );
                 }
                 else
                 {
-                    glRotatef(rotation.x, -1.0f, 0.0f, 0.0f);
-                    glRotatef(rotation.y, 0.0f, -1.0f, 0.0f);
-                    glRotatef(rotation.z, 0.0f, 0.0f, -1.0f);
+                    glRotatef( rotation.x, -1.0f, 0.0f, 0.0f );
+                    glRotatef( rotation.y, 0.0f, -1.0f, 0.0f );
+                    glRotatef( rotation.z, 0.0f, 0.0f, -1.0f );
                 }
 
                 // translate back
@@ -1817,6 +1837,124 @@ POGEL::OBJECT::draw()
             // draw a blue dot at this objects position
             position.draw( 2, POGEL::COLOR(0.2f,0.5f,1.0f,1.0f) );
         }
+    #endif
+}
+
+
+void
+POGEL::OBJECT::drawColored(const unsigned char * color)
+{
+    #ifdef OPENGL
+        matrix = POGEL::MATRIX(position,rotation);
+        if( visable )
+        {
+            if( hasproperty(OBJECT_ROTATE_TOCAMERA) )
+            {
+                POGEL::MATRIX mat;
+                mat.get();
+                POGEL::POINT cam_pos = mat.getposition()*-1.0f;
+                mat.invert();
+                mat.transformPoint(&cam_pos);
+                float radius = cam_pos.distance(POGEL::POINT());
+
+                rotation.x = POGEL::RadiansToDegrees(acos(cam_pos.y/radius))+90.0f;
+                rotation.y = -1.0f*(90.0f+POGEL::RadiansToDegrees(atan2(cam_pos.z, cam_pos.x)))+180.0f;
+                rotation.z = 0.0f;
+            }
+
+            // if compiled to use opengl matrix recursion (limited stack size, but faster)
+            #ifdef OBJECT_USE_OPNEGL_MATRIX_RECURSION
+                // push new opengl matrix
+                glPushMatrix();
+            #endif /* OBJECT_USE_OPNEGL_MATRIX_RECURSION */
+
+            // translate to objects position
+            glTranslatef( position.x, position.y, position.z );
+
+            // rotate transform
+            if( hasproperty(OBJECT_ROTATE_XYZ) )
+            {
+                // rotate: x, y, z
+                glRotatef( rotation.x, 1.0f, 0.0f, 0.0f );
+                glRotatef( rotation.y, 0.0f, 1.0f, 0.0f );
+                glRotatef( rotation.z, 0.0f, 0.0f, 1.0f );
+            }
+            else if( hasproperty(OBJECT_ROTATE_TOCAMERA) )
+            {
+                // rotate: y, x, z
+                glRotatef( rotation.y, 0.0f, 1.0f, 0.0f );
+                glRotatef( rotation.x, 1.0f, 0.0f, 0.0f );
+                glRotatef( rotation.z, 0.0f, 0.0f, 1.0f );
+            }
+            else
+            {
+                // rotate: z, y, x
+                glRotatef( rotation.z, 0.0f, 0.0f, 1.0f );
+                glRotatef( rotation.y, 0.0f, 1.0f, 0.0f );
+                glRotatef( rotation.x, 1.0f, 0.0f, 0.0f );
+            }
+            unsigned long i;
+
+            // if can draw the objects children
+            if( hasproperty(OBJECT_DRAW_CHILDREN) )
+            {
+                // go through the children
+                for( i = 0; i < numchildren; ++i )
+                {
+                    // draw the child object
+                    children[ i ]->drawColored( color );
+                }
+            }
+
+            /*glColor4ub( color[0], color[1], color[2], color[3] );
+            if( POGEL::properties & POGEL_WIREFRAME )
+            {
+                glBegin( GL_LINES );
+            }
+            else
+            {
+                glBegin( GL_TRIANGLES );
+            }
+            for( i = 0; i < numfaces; ++i )
+            {
+                face[ i ].drawgeometryvertexonly();
+            }
+            glEnd();*/
+            POGEL::drawTriangleListColored( face, numfaces, color );
+
+            // if using opengl matricies
+            #ifdef OBJECT_USE_OPNEGL_MATRIX_RECURSION
+                // pop the matrix
+                glPopMatrix();
+            // otherwise
+            #else
+
+                // rotate in reverse of above
+                if( hasproperty(OBJECT_ROTATE_XYZ) )
+                {
+                    glRotatef( rotation.z, 0.0f, 0.0f, -1.0f );
+                    glRotatef( rotation.y, 0.0f, -1.0f, 0.0f );
+                    glRotatef( rotation.x, -1.0f, 0.0f, 0.0f );
+                }
+                else if( hasproperty(OBJECT_ROTATE_TOCAMERA) )
+                {
+                    glRotatef( rotation.z, 0.0f, 0.0f, -1.0f );
+                    glRotatef( rotation.x, -1.0f, 0.0f, 0.0f );
+                    glRotatef( rotation.y, 0.0f, -1.0f, 0.0f );
+                }
+                else
+                {
+                    glRotatef( rotation.x, -1.0f, 0.0f, 0.0f );
+                    glRotatef( rotation.y, 0.0f, -1.0f, 0.0f );
+                    glRotatef( rotation.z, 0.0f, 0.0f, -1.0f );
+                }
+
+                // translate back
+                glTranslatef(-position.x, -position.y, -position.z);
+
+            #endif /* OBJECT_USE_OPNEGL_MATRIX_RECURSION */
+        }
+        //position.draw( 2, POGEL::COLOR(0.2f,0.5f,1.0f,1.0f) );
     #endif
 }
 

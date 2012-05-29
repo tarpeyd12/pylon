@@ -4,15 +4,15 @@ namespace Renderer
 {
     namespace Mouse
     {
-        int X;
-        int Y;
-        int static_x;
-        int static_y;
-        int button;
-        int state = 1;
+        volatile int X;
+        volatile int Y;
+        volatile int static_x;
+        volatile int static_y;
+        volatile int button;
+        volatile int state = 1;
 
-        int prev_x;
-        int prev_y;
+        volatile int prev_x;
+        volatile int prev_y;
 
 
         void Rotation()

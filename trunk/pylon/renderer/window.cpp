@@ -16,11 +16,14 @@ namespace Renderer
             int height;
         }
 
-        void Create(std::string name , int x, int y, int pos_x, int pos_y)
+        void Create( std::string name , int x, int y, int pos_x, int pos_y )
         {
             Renderer::Window::Size::width = x;
             Renderer::Window::Size::height = y;
-            glutInitWindowSize(x,y);
+
+            Renderer::Selection::Init( x, y );
+
+            glutInitWindowSize( x, y );
             glutInitWindowPosition(pos_x,pos_y);
             glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_ALPHA);
 
@@ -37,10 +40,12 @@ namespace Renderer
             glutPassiveMotionFunc(&Renderer::Mouse::Moved);
         }
 
-        void Resize(int width, int height)
+        void Resize( int width, int height )
         {
             Renderer::Window::Size::width = width;
             Renderer::Window::Size::height = height;
+
+            Renderer::Selection::Resize( width, height );
 
             const float ar = (float) width / (float) height;
 

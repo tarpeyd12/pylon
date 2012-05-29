@@ -112,6 +112,7 @@
 		<Unit filename="ms3d/msModel.h" />
 		<Unit filename="objectloader.cpp" />
 		<Unit filename="objectloader.h" />
+		<Unit filename="objmtl.cpp" />
 		<Unit filename="version.h" />
 		<Extensions>
 			<code_completion />

@@ -13,6 +13,11 @@ namespace ObjectLoader
         POGEL::OBJECT * newFromMs3dBinFile( const char *, const char *, POGEL::OBJECT * );
     }
 
+    namespace objmtl
+    {
+        POGEL::OBJECT * newFromObjMtlTextFile( const char *, const char *, POGEL::OBJECT * );
+    }
+
     POGEL::OBJECT * newFromFile( const char *, const char *, const char *, POGEL::OBJECT * );
 }
 

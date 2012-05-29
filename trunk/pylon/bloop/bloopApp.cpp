@@ -25,7 +25,6 @@ bool bloopApp::OnInit()
     if ( wxsOK )
     {
     	bloopFrame* Frame = new bloopFrame(0);
-    	___bloopFrame = Frame;
     	Frame->Show();
     	SetTopWindow(Frame);
     }

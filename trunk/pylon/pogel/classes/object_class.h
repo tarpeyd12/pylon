@@ -172,6 +172,7 @@ namespace POGEL
             void updateTriangles();
 
             virtual void draw();
+            virtual void drawColored(const unsigned char *);
 
             virtual void stepFunc() { }
 

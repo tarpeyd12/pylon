@@ -18,6 +18,13 @@ namespace pogelInterface
         instructions = new ScriptEngine::FunctionCaller(inst,func,args,2);
     }
 
+    CollisionFunction::CollisionFunction(std::string simname, std::string inst, std::string func, bool out)
+    {
+        simulationName = simname;
+        std::string args[2] = { "str:", "str:" };
+        instructions = new ScriptEngine::FunctionCaller(inst,func,args,2,out);
+    }
+
     CollisionFunction::~CollisionFunction()
     {
 
@@ -50,6 +57,26 @@ namespace pogelInterface
         return Py_BuildValue("i", 0);
     }
 
+    Object* callback_set_collfunc_s(Object* self, Object* args)
+    {
+        char* simname;
+        char* objname;
+        char* inst;
+        char* func;
+        if(!PyArg_ParseTuple(args, "ssss:callback_set_collfunc_s", &simname, &objname, &inst, &func))
+            return NULL;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("i", -1);
+        POGEL::PHYSICS::SOLID* obj = sim->getObject(std::string(objname));
+        if(obj==NULL)
+            return Py_BuildValue("i", -2);
+        if(obj->callback!=NULL)
+            return Py_BuildValue("i", -3);
+        obj->setCallback(new CollisionFunction(std::string(simname),std::string(inst),std::string(func),false));
+        return Py_BuildValue("i", 0);
+    }
+
 
     StepFunction::StepFunction()
     {
@@ -59,8 +86,15 @@ namespace pogelInterface
     StepFunction::StepFunction(std::string simname, std::string inst, std::string func)
     {
         simulationName = simname;
-        std::string args[2] = { "str:", "str:" };
-        instructions = new ScriptEngine::FunctionCaller(inst,func,args,2);
+        std::string args[3] = { "str:", "str:", "int:" };
+        instructions = new ScriptEngine::FunctionCaller(inst,func,args,3);
+    }
+
+    StepFunction::StepFunction(std::string simname, std::string inst, std::string func, bool out)
+    {
+        simulationName = simname;
+        std::string args[3] = { "str:", "str:", "int:" };
+        instructions = new ScriptEngine::FunctionCaller(inst,func,args,3,out);
     }
 
     StepFunction::~StepFunction()
@@ -70,8 +104,11 @@ namespace pogelInterface
 
     void StepFunction::operator()( POGEL::PHYSICS::SOLID * obj )
     {
-        std::string args[2] = { "str:"+simulationName, "str:"+obj->getsname() };
-        getInstructions()->setArgs(args,2);
+        char * pzstepstaken = POGEL::string("%u");
+        std::string stepstaken(pzstepstaken);
+        delete [] pzstepstaken;
+        std::string args[3] = { "str:"+simulationName, "str:"+obj->getsname(), "int:"+stepstaken };
+        getInstructions()->setArgs(args,3);
         this->Execute();
     }
 
@@ -95,6 +132,26 @@ namespace pogelInterface
         return Py_BuildValue("i", 0);
     }
 
+    Object* callback_set_stepfunc_s(Object* self, Object* args)
+    {
+        char* simname;
+        char* objname;
+        char* inst;
+        char* func;
+        if(!PyArg_ParseTuple(args, "ssss:callback_set_stepfunc_s", &simname, &objname, &inst, &func))
+            return NULL;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("i", -1);
+        POGEL::PHYSICS::SOLID* obj = sim->getObject(std::string(objname));
+        if(obj==NULL)
+            return Py_BuildValue("i", -2);
+        if(obj->function!=NULL)
+            return Py_BuildValue("i", -3);
+        obj->setStepFunc(new StepFunction(std::string(simname),std::string(inst),std::string(func),false));
+        return Py_BuildValue("i", 0);
+    }
+
     HitFilterFunction::HitFilterFunction()
     {
 
@@ -105,6 +162,13 @@ namespace pogelInterface
         simulationName = simname;
         std::string args[3] = { "str:", "str:", "str:" };
         instructions = new ScriptEngine::FunctionCaller(inst,func,args,3);
+    }
+
+    HitFilterFunction::HitFilterFunction(std::string simname, std::string inst, std::string func, bool out)
+    {
+        simulationName = simname;
+        std::string args[3] = { "str:", "str:", "str:" };
+        instructions = new ScriptEngine::FunctionCaller(inst,func,args,3,out);
     }
 
     HitFilterFunction::~HitFilterFunction()
@@ -140,6 +204,26 @@ namespace pogelInterface
         if(obj->hitfilter!=NULL)
             return Py_BuildValue("i", -3);
         obj->setHitFilter(new HitFilterFunction(std::string(simname),std::string(inst),std::string(func)));
+        return Py_BuildValue("i", 0);
+    }
+
+    Object* callback_set_hitfilter_s(Object* self, Object* args)
+    {
+        char* simname;
+        char* objname;
+        char* inst;
+        char* func;
+        if(!PyArg_ParseTuple(args, "ssss:callback_set_hitfilter_s", &simname, &objname, &inst, &func))
+            return NULL;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("i", -1);
+        POGEL::PHYSICS::SOLID* obj = sim->getObject(std::string(objname));
+        if(obj==NULL)
+            return Py_BuildValue("i", -2);
+        if(obj->hitfilter!=NULL)
+            return Py_BuildValue("i", -3);
+        obj->setHitFilter(new HitFilterFunction(std::string(simname),std::string(inst),std::string(func),false));
         return Py_BuildValue("i", 0);
     }
 }

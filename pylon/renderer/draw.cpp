@@ -87,7 +87,7 @@ namespace Renderer
                         //obj->setAnimationTime(1.0f);
                     }
 
-                    bool autoinclude = obj->hasOption(PHYSICS_SOLID_STATIONARY) || obj->hasproperty(OBJECT_SORT_TRIANGLES);
+                    bool autoinclude = false;//obj->hasOption(PHYSICS_SOLID_STATIONARY) || obj->hasproperty(OBJECT_SORT_TRIANGLES);
 
                     if( autoinclude )
                     {
@@ -163,11 +163,14 @@ namespace Renderer
                 obj->setproperties(p);
                 unsigned int numfaces = obj->getnumfaces();
                 float objradius = obj->getbounding().maxdistance;
-                ClassList< DataWraper<POGEL::TRIANGLE,float> > trilist(numfaces);
-                ClassList< POGEL::TRIANGLE > trilist2(numfaces);
+                ClassList< DataWraper<POGEL::TRIANGLE,float> > trilist( numfaces );
+                ClassList< POGEL::TRIANGLE > trilist2( numfaces );
                 unsigned int prp = POGEL::getproperties();
-                if( POGEL::hasproperty(POGEL_BOUNDING) ) POGEL::removeproperty(POGEL_BOUNDING);
-                for(unsigned int t = 0; t < numfaces;++t)
+                if( POGEL::hasproperty(POGEL_BOUNDING) )
+                {
+                    POGEL::removeproperty(POGEL_BOUNDING);
+                }
+                for( unsigned int t = 0; t < numfaces; ++t )
                 {
                     POGEL::TRIANGLE tri = obj->gettransformedtriangle(t);
                     POGEL::POINT trimiddle = tri.middle();
@@ -185,13 +188,10 @@ namespace Renderer
                         }
                     }
                 }
-                trilist.sort(__sorttris);
-                /*for(unsigned int i = 0; i < trilist.length(); i++)
-                {
-                    trilist[i].data.draw();
-                }*/
                 POGEL::drawTriangleList( trilist2.getList(), trilist2.length() );
+                trilist.sort(__sorttris);
                 POGEL::drawTriangleList( (void*)trilist.getList() ,trilist.length(), __AccessTriangle() );
+
                 POGEL::setproperties(prp);
                 trilist.clear();
                 trilist2.clear();
@@ -275,14 +275,132 @@ namespace Renderer
         {
             if(drawLock)
                 return;
+            POGEL::VECTOR refpos = globalTempRefpos = Renderer::Camera::GetCamDirection();
+            POGEL::POINT campos = globalTempCampos = Renderer::Camera::campos;
+            POGEL::POINT invcampos = globalTempInvCampos = campos*-1.0;
             unsigned int numsimulations = Renderer::Physics::simulations.length();
-            for(unsigned int i = 0; i < numsimulations; i++)
+            for(unsigned int i = 0; i < numsimulations; ++i)
             {
                 if(Renderer::Physics::simulations[i]->canDraw())
                 {
-                    Renderer::Physics::simulations[i]->draw();
+                    //Renderer::Physics::simulations[i]->draw();
+                    unsigned int numobjects = Renderer::Physics::simulations[ i ]->numObjects();
+                    for( unsigned int a = 0; a < numobjects; ++a )
+                    //unsigned int a = numobjects; while( a-- )
+                    {
+                        POGEL::PHYSICS::SOLID* obj = Renderer::Physics::simulations[ i ]->getObject( a );
+
+                        if( !obj->visable )
+                        {
+                            continue;
+                        }
+
+                        float objradius = obj->getbounding().maxdistance;
+                        float dst = refpos.dotproduct( campos + obj->position );
+
+                        // if the object is not infornt of the camera
+                        if( dst+objradius <= 0.0f )
+                        {
+                            // skip it
+                            continue;
+                        }
+
+                        if( obj->getNumFrames() && invcampos.distance(obj->position) + objradius < 50.0f*objradius*2.0f )
+                        {
+                            obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
+                            //obj->setAnimationTime(1.0f);
+                        }
+
+                        obj->draw();
+                    }
                 }
             }
+        }
+
+        union colorIDstruct
+        {
+            unsigned char colorid[4];
+            unsigned int idnum;
+        };
+
+        void PickDraw()
+        {
+            if( drawLock )
+            {
+                return;
+            }
+            POGEL::VECTOR refpos = globalTempRefpos = Renderer::Camera::GetCamDirection();
+            POGEL::POINT campos = globalTempCampos = Renderer::Camera::campos;
+            POGEL::POINT invcampos = globalTempInvCampos = campos * -1.0;
+
+            unsigned int numsimulations = Renderer::Physics::simulations.length();
+
+            unsigned int simid = 0;
+
+            unsigned char colorid[4] = { 0, 0, 0, 0 };
+
+            glDisable( GL_LIGHTING );
+            glDisable( GL_TEXTURE_2D );
+            glDisable( GL_BLEND );
+
+            for( unsigned int i = 0; i < numsimulations; ++i )
+            {
+                ++simid;
+                if( !Renderer::Physics::simulations[ i ]->canDraw() )
+                {
+                    continue;
+                }
+
+                colorid[ 0 ] = (unsigned char)(simid >> 8);
+                colorid[ 1 ] = (unsigned char)(simid >> 0);
+
+                unsigned int numobjects = Renderer::Physics::simulations[ i ]->numObjects();
+
+                unsigned int objid = 0;
+
+                for( unsigned int a = 0; a < numobjects; ++a )
+                {
+                    ++objid;
+                    POGEL::PHYSICS::SOLID* obj = Renderer::Physics::simulations[ i ]->getObject( a );
+
+                    if( !obj->visable )
+                    {
+                        continue;
+                    }
+
+                    float objradius = obj->getbounding().maxdistance;
+                    float dst = refpos.dotproduct( campos + obj->position );
+
+                    // if the object is not infornt of the camera
+                    if( dst + objradius <= 0.0f )
+                    {
+                        // skip it
+                        continue;
+                    }
+
+                    colorid[ 2 ] = (unsigned char)(objid >> 8);
+                    colorid[ 3 ] = (unsigned char)(objid >> 0);
+
+                    /*if( POGEL::hasproperty( POGEL_LABEL ) && dst > 250.0f*objradius )
+                    {
+                        glPointSize( 1 );
+                        glColor4ub( colorid[ 0 ], colorid[ 1 ], colorid[ 2 ], colorid[ 3 ] );
+                        glBegin( GL_POINTS );
+                        glVertex3f( obj->position.x, obj->position.y, obj->position.z );
+                        glEnd();
+                        continue;
+                    }*/
+
+                    obj->drawColored( colorid );
+                }
+                //unsigned int simid = (colorid[0] << 8) | (colorid[1] << 0);
+                //unsigned int objid = (colorid[2] << 8) | (colorid[3] << 0);
+            }
+
+            glEnable( GL_LIGHTING );
+            glEnable( GL_TEXTURE_2D );
+            glEnable( GL_BLEND );
+            glColor4f( 1.0f, 1.0f, 1.0f, 1.0f );
         }
 
     }

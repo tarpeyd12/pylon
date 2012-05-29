@@ -7,9 +7,9 @@ namespace Renderer
 {
     namespace Key
     {
-        extern char keys[256];
+        extern volatile bool keys[256];
 
-        extern char last;
+        extern volatile char last;
 
         void Down(unsigned char key, int x, int y);
         void Up(unsigned char key, int x, int y);

@@ -12,6 +12,8 @@ namespace Renderer
 
         void SimpleDraw();
 
+        void PickDraw();
+
     }
 }
 

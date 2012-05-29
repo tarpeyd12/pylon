@@ -102,9 +102,12 @@ namespace pogelInterface
         { "subrender_set_cam",     (CFunction)subrender_set_cam,     VarArgs, NULL },
         { "subrender_set_ratio",   (CFunction)subrender_set_ratio,   VarArgs, NULL },
         // callback controll
-        { "callback_set_collfunc",  (CFunction)callback_set_collfunc,  VarArgs, NULL },
-        { "callback_set_stepfunc",  (CFunction)callback_set_stepfunc,  VarArgs, NULL },
-        { "callback_set_hitfilter", (CFunction)callback_set_hitfilter, VarArgs, NULL },
+        { "callback_set_collfunc",    (CFunction)callback_set_collfunc,    VarArgs, NULL },
+        { "callback_set_stepfunc",    (CFunction)callback_set_stepfunc,    VarArgs, NULL },
+        { "callback_set_hitfilter",   (CFunction)callback_set_hitfilter,   VarArgs, NULL },
+        /*{ "callback_set_collfunc_s",  (CFunction)callback_set_collfunc_s,  VarArgs, NULL },
+        { "callback_set_stepfunc_s",  (CFunction)callback_set_stepfunc_s,  VarArgs, NULL },
+        { "callback_set_hitfilter_s", (CFunction)callback_set_hitfilter_s, VarArgs, NULL },*/
         { NULL }
     };
 

@@ -4,23 +4,23 @@ namespace Renderer
 {
     namespace Key
     {
-        char keys[256];
+        volatile bool keys[256];
 
-        char last;
+        volatile char last;
 
-        void Down(unsigned char key, int x, int y)
+        void Down( unsigned char key, int x, int y )
         {
             //if(key == (unsigned char)27) exit(0);
-            Renderer::Key::keys[key] = true;
+            Renderer::Key::keys[ key ] = true;
             last = key;
-            glutPostRedisplay();
+            //glutPostRedisplay();
             x = y = 0;
         }
 
-        void Up(unsigned char key, int x, int y)
+        void Up( unsigned char key, int x, int y )
         {
-            Renderer::Key::keys[key] = false;
-            glutPostRedisplay();
+            Renderer::Key::keys[ key ] = false;
+            //glutPostRedisplay();
             x = y = 0;
         }
     }

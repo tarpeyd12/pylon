@@ -7,7 +7,7 @@ namespace ObjectLoader
     namespace ms3d
     {
         POGEL::OBJECT *
-        newFromMs3dBinFile( const char * filename, const char * objname, POGEL::OBJECT * object)
+        newFromMs3dBinFile( const char * filename, const char * objname, POGEL::OBJECT * object )
         {
             msModel * mdl = new msModel();
             if(!mdl->Load(filename))
@@ -22,7 +22,7 @@ namespace ObjectLoader
             object->setNumFrames(mdl->GetTotalFrames());
             object->setAnimationFPS(mdl->GetAnimationFps());
 
-            for( int i = 0; i < mdl->GetNumVertices(); i++ )
+            for( int i = 0; i < mdl->GetNumVertices(); ++i )
             {
                 ms3d_vertex_t * verttmp = mdl->GetVertex(i);
                 POGEL::VERTEX vert;
@@ -30,7 +30,7 @@ namespace ObjectLoader
                 vert.y = verttmp->vertex[1];
                 vert.z = verttmp->vertex[2];
                 vert.boneID = verttmp->boneId;
-                for( int a = 0; a < 3; a++ )
+                for( int a = 0; a < 3; ++a )
                 {
                     vert.boneIDs[a] = verttmp->boneIds[a];
                     vert.weights[a] = verttmp->weights[a];
@@ -42,7 +42,7 @@ namespace ObjectLoader
 
             ClassList<int> failedParented(mdl->GetNumJoints());
 
-            for( int i = 0; i < mdl->GetNumJoints(); i++ )
+            for( int i = 0; i < mdl->GetNumJoints(); ++i )
             {
                 ms3d_joint_t * tmpjoint = mdl->GetJoint(i);
                 char* name = new char[strlen(tmpjoint->name)];
@@ -52,7 +52,7 @@ namespace ObjectLoader
                 pjoint->position.y = tmpjoint->pos[1];
                 pjoint->position.z = tmpjoint->pos[2];
 
-                for( int a = 0; a < (int)tmpjoint->positionKeys.size(); a++ )
+                for( int a = 0; a < (int)tmpjoint->positionKeys.size(); ++a )
                 {
                     ms3d_keyframe_t * kf = &tmpjoint->positionKeys[a];
                     POGEL::KEY k(POGEL::POINT(kf->key[0],kf->key[1],kf->key[2]),kf->time);
@@ -65,7 +65,7 @@ namespace ObjectLoader
                 pjoint->rotation.y = tmpjoint->rot[2];
                 pjoint->rotation.z = tmpjoint->rot[0];
 
-                for( int a = 0; a < (int)tmpjoint->rotationKeys.size(); a++ )
+                for( int a = 0; a < (int)tmpjoint->rotationKeys.size(); ++a )
                 {
                     ms3d_keyframe_t * kf = &tmpjoint->rotationKeys[a];
                     // IMPORTANT: x = 1, y = 2, z = 0
@@ -73,7 +73,7 @@ namespace ObjectLoader
                     pjoint->addRotKey(k);
                 }
 
-                for( int a = 0; a < (int)tmpjoint->tangents.size(); a++ )
+                for( int a = 0; a < (int)tmpjoint->tangents.size(); ++a )
                 {
                     ms3d_tangent_t * ktan = &tmpjoint->tangents[a];
                     POGEL::POINT in( ktan->tangentIn[0], ktan->tangentIn[1], ktan->tangentIn[2] );
@@ -88,7 +88,7 @@ namespace ObjectLoader
                 failedParented += i;
             }
 
-            for( int n = 0; n < (int)failedParented.length(); n++ )
+            for( int n = 0; n < (int)failedParented.length(); ++n )
             {
                 int i = failedParented[n];
                 ms3d_joint_t * tmpjoint = mdl->GetJoint(i);
@@ -96,7 +96,7 @@ namespace ObjectLoader
                 POGEL::OBJECT * jnt = object->getJoint(tmpjoint->name);
                 if( dec != NULL && jnt != NULL )
                 {
-                    cout << "adding a joint to " << tmpjoint->parentName << endl;
+                    //cout << "adding a joint to " << tmpjoint->parentName << endl;
                     dec->addobject(jnt);
                 }
                 else

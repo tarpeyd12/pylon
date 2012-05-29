@@ -48,7 +48,8 @@ namespace Renderer
 
         Renderer::RenderAllSubRenderers();
 
-        glClearColor(.5,.5,.5,0.0);
+        //glClearColor( 0.5f, 0.5f, 0.5f, 0.0f );
+        glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
 
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
         glLoadIdentity();
@@ -56,7 +57,7 @@ namespace Renderer
         Renderer::Window::toFrustum();
 
         POGEL::IncrementFps();
-        if(POGEL::frames%10 == 0)
+        if( POGEL::frames % 10 == 0 )
         {
             POGEL::PrintFps();
         }
@@ -71,6 +72,31 @@ namespace Renderer
                      Renderer::Camera::campos.z
                      );
 
+        Renderer::Draw::PickDraw();
+        int simnum = -1, objnum = -1;
+        Renderer::Selection::RetrieveAt( Mouse::X, Mouse::Y, &simnum, &objnum );
+        if( simnum >= 0 && objnum >= 0 )
+        {
+            Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation( (unsigned int)simnum );
+            if( sim )
+            {
+                POGEL::PHYSICS::SOLID * obj = sim->getObject( (unsigned int)objnum );
+                if( obj )
+                {
+                    //cout << "\tSimulation: \"" << sim->getName() << "\", Object: \"" << obj->getsname() << "\"" << endl;
+                }
+                else
+                {
+                    //cout << "\tSimulation: \"" << sim->getName() << "\"" << endl;
+                }
+            }
+        }
+        glClearColor( 0.5f, 0.5f, 0.5f, 0.0f );
+        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+
+        glEnable( GL_ALPHA_TEST );
+        glAlphaFunc( GL_GREATER, 0.5f );
+
         //Renderer::Draw::SimpleDraw();
         Renderer::Draw::Draw();
         //Renderer::Draw::PerfectDraw();
@@ -79,8 +105,7 @@ namespace Renderer
 
         glEnable( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-        //glEnable( GL_ALPHA_TEST );
-        //glAlphaFunc( GL_GREATER, 0.5f );
+        glDisable( GL_ALPHA_TEST );
 
         Renderer::HUD::removeQuadCycle();
         Renderer::HUD::addQuadCycle();
@@ -93,7 +118,7 @@ namespace Renderer
 
         Renderer::Window::toFrustum();
 
-        if(!Renderer::drawLock)
+        if( !Renderer::drawLock )
         {
             Renderer::timer30->sleep();
         }

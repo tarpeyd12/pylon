@@ -11,6 +11,7 @@ namespace Main
         if(!Main::calcLock)
         {
             Main::calcLock = true;
+            usleep(1000);
             if(!Main::SingleThreaded)
             {
                 try

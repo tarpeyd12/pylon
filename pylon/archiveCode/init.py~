@@ -161,9 +161,9 @@ while loop < numOSpheres:
 #print pylon.object_set_dir_3f("TestSphereSim","Object2",0,0.02,0)
 #print pylon.object_set_dir_3f("TestSphereSim","Object3",0,0.02,0)
 
-rnum = 5
-print TestSphereSim.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8|64,0,"") )
-print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|16)
+rnum = 6
+print TestSphereSim.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8,0,"") )
+print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|64)
 #print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,subrenderer,1,1,possibleTriProps[rnum]|16)
 #if rnum!=6 and not False:
 #print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|32)
@@ -181,7 +181,7 @@ print pylon.setsimulationcollitters("TestSphereSim",3)
 print pylon.togglesimweight("TestSphereSim",False)
 
 rnum = 3
-print sim2.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8|64,0,"") )
+print sim2.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8,0,"") )
 print pylon.object_add_sphere(sim2.name,"Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|16)
 print pylon.object_build(sim2.name,"Outset")
 pylon.object_set_visibility(sim2.name,"Outset",False)
@@ -199,23 +199,45 @@ Bloop = Quad(0,pylon.window_height(),pylon.window_width(),0,subrenderer1)
 
 
 
-Animation = Simulation("anm",True)
-animationfilename = "Data/objectdata/beast.ms3d"
+Animation = Simulation("AnimationSimulation",True)
+animationname = "beast"
+animationfilename = "Data/objectdata/"+animationname+".ms3d"
 pylon.requestfile(animationfilename)
 
 animscale = 0.01
 
-if pylon.object_new_fromfile( Animation.name, "Object_1", animationfilename, "ms3d bin") != 0:
+if pylon.object_new_fromfile( Animation.name, animationname, animationfilename, "ms3d") != 0:
 	print 'failed to load object file, exiting'
 	print _pylon.exit(0)
 	quit()
-pylon.object_add_key(Animation.name,"Object_1", "scale", animscale,animscale,animscale,0.0)
-pylon.object_options(Animation.name,"Object_1","add property",64)
-pylon.object_options(Animation.name,"Object_1","add option",1)
-pylon.object_set_bounce(Animation.name,"Object_1",0.0)
-pylon.object_set_mass(Animation.name,"Object_1",0.1)
-print pylon.object_build(Animation.name,"Object_1")
-pylon.object_move_3f(Animation.name,'Object_1', 0, 0, 0)
+pylon.object_add_key(Animation.name,animationname, "scale", animscale,animscale,animscale,0.0)
+#pylon.object_options(Animation.name,animationname,"add property",64)
+pylon.object_options(Animation.name,animationname,"add option",1)
+pylon.object_set_bounce(Animation.name,animationname,0.0)
+pylon.object_set_mass(Animation.name,animationname,0.1)
+print pylon.object_build(Animation.name,animationname)
+pylon.object_move_3f(Animation.name,animationname, 0, 0, 0)
+
+
+
+objimportsim = Simulation("ObjectImportSimulation",False)
+objimportname = "horse"
+objimportsimfilename = "Data/objectdata/"+objimportname+".obj"
+pylon.requestfile(objimportsimfilename)
+pylon.requestfile("Data/objectdata/"+objimportname+".mtl")
+
+if pylon.object_new_fromfile( objimportsim.name, objimportname, objimportsimfilename, "objmtl") != 0:
+	print 'failed to load object file, exiting'
+	print _pylon.exit(0)
+	quit()
+pylon.object_add_key(objimportsim.name,objimportname, "scale", animscale,animscale,animscale,0.0)
+#pylon.object_options(objimportsim.name,objimportname,"add property",64)
+pylon.object_options(objimportsim.name,objimportname,"add option",1)
+pylon.object_set_bounce(objimportsim.name,objimportname,0.0)
+pylon.object_set_mass(objimportsim.name,objimportname,0.1)
+print pylon.object_build(objimportsim.name,objimportname)
+pylon.object_move_3f(objimportsim.name,objimportname, 0, 0, 0)
+pylon.object_set_rot_3f(objimportsim.name,objimportname, -90, 90, 0)
 
 
 loop = 0
@@ -247,9 +269,10 @@ print pylon.setsimulationcollitters(Animation.name,3)
 print pylon.togglesimweight(Animation.name,False)
 
 Sky = Simulation("Sky",False)
-print Sky.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Sky",1|8|16,8|64,0,"") )
+print Sky.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Sky",1|8|16,8,0,"") )
 print pylon.object_add_sphere(Sky.name,"Sky",750.0,20,20,"{[Data/images/sky/Sky_horiz_"+str(int(random.random()*11+1))+"_2048.jpg],[0]}",2,1,0|16)
 print pylon.object_build(Sky.name,"Sky")
+#print pylon.object_set_visibility(Sky.name,"Sky",False)
 #print pylon.setsimulationcollitters(Sky.name,0)
 #print pylon.togglesimweight(Sky.name,False)
 print Sky.stop()

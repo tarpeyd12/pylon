@@ -79,6 +79,8 @@ unsigned long POGEL::PHYSICS::DYNAMICS::numobjs()
 
 POGEL::PHYSICS::SOLID* POGEL::PHYSICS::DYNAMICS::objs(unsigned long a)
 {
+    if(a>=objects.length())
+        return NULL;
     return objects[a];
 }
 
@@ -312,24 +314,27 @@ void POGEL::PHYSICS::DYNAMICS::draw()
 {
     if( !hasproperty(DYNAMICS_DRAW_BY_INDEX) )
     {
-        for( unsigned long i = 0; i < numobjects; i++ )
+        for( unsigned long i = 0; i < numobjects; ++i )
         {
-            objects[i]->draw();
+            objects[ i ]->draw();
         }
     }
     else if( objIndicies != NULL )
     {
-        // note: objIndicies->length(), may change its value mid loop.
-        for( unsigned long i = 0; i < objIndicies->length(); i++ )
+        unsigned int numindicies = objIndicies->length();
+        BITLIST hasdrawn(numindicies, false);
+        for( unsigned long i = 0; i < numindicies; ++i )
         {
-            unsigned int c = objIndicies->get(i);
-            if( c < numobjects )
+            unsigned int c = objIndicies->get( i );
+            if( c >= numobjects || hasdrawn[ c ] )
             {
-                POGEL::PHYSICS::SOLID* obj = objects[c];
-                if( obj != NULL )
-                {
-                    obj->draw();
-                }
+                continue;
+            }
+            POGEL::PHYSICS::SOLID* obj = objects[ c ];
+            if( obj != NULL )
+            {
+                obj->draw();
+                hasdrawn += c;
             }
         }
     }

@@ -24,8 +24,8 @@ namespace Renderer
         glCullFace(GL_BACK);
 
         glEnable(GL_TEXTURE_2D);
-        //glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_FASTEST);
-        glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
+        glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_FASTEST);
+        //glHint(GL_PERSPECTIVE_CORRECTION_HINT,GL_NICEST);
 
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);

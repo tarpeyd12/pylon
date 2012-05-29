@@ -31,23 +31,26 @@ namespace Renderer
             protected:
                 Renderer::SubRenderer* binding;
             public:
-                Simulation(std::string);
-                Simulation(std::string,POGEL::PHYSICS::SIMULATION*);
-                Simulation(std::string,POGEL::PHYSICS::DYNAMICS*);
+                Simulation(const std::string&);
+                Simulation(const std::string&,POGEL::PHYSICS::SIMULATION*);
+                Simulation(const std::string&,POGEL::PHYSICS::DYNAMICS*);
                 ~Simulation();
                 void setinc(bool);
-                bool canDrawBound();
-                bool canDraw();
-                bool isdyn();
+                bool canDrawBound() const;
+                bool canDraw() const;
+                bool isdyn() const;
                 bool inc();
-                void* getSim();
-                POGEL::PHYSICS::SOLID* getObject(std::string);
-                std::string getName();
+                void* getSim() const;
+                unsigned int numObjects() const;
+                POGEL::PHYSICS::SOLID* getObject(const std::string&) const;
+                POGEL::PHYSICS::SOLID* getObject(unsigned int) const;
+                std::string getName() const;
                 bool RequestToClearObjects();
                 bool ClearObjects();
-                bool ShouldClearObjects();
-                void draw();
-                bool isEmpty();
+                bool ShouldClearObjects() const;
+                void draw() const;
+                bool isEmpty() const;
+                POGEL::PHYSICS::SOLID* getIntersected(const POGEL::POINT&,const POGEL::VECTOR&) const;
                 friend class Renderer::SubRenderer;
         };
 
@@ -55,9 +58,10 @@ namespace Renderer
 
         //void Init();
 
-        Renderer::Physics::Simulation* getSimulation(std::string);
-        POGEL::PHYSICS::SOLID* getObject(std::string,std::string);
-        void addSimulation(std::string,bool);
+        Renderer::Physics::Simulation* getSimulation(unsigned int);
+        Renderer::Physics::Simulation* getSimulation(const std::string&);
+        POGEL::PHYSICS::SOLID* getObject(const std::string&,const std::string&);
+        void addSimulation(const std::string&,bool);
 
         void StopIncrimentation();
         void Incriment();

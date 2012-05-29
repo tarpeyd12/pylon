@@ -12,7 +12,7 @@ CalcThread::~CalcThread()
 {
     Main::calcLock = true;
     Renderer::Physics::StopIncrimentation();
-    usleep(100000);
+    usleep(1000);
     try
     {
         this->cancelThread();

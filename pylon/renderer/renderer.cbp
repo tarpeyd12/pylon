@@ -124,6 +124,8 @@
 		<Unit filename="quad.h" />
 		<Unit filename="renderer.cpp" />
 		<Unit filename="renderer.h" />
+		<Unit filename="selection.cpp" />
+		<Unit filename="selection.h" />
 		<Unit filename="subrenderer.cpp" />
 		<Unit filename="subrenderer.h" />
 		<Unit filename="timer.cpp" />

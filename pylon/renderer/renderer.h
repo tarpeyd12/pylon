@@ -56,6 +56,7 @@ namespace Renderer
 #include "light.h"
 #include "physics.h"
 #include "subrenderer.h"
+#include "selection.h"
 
 
 #endif // RENDERER_H_INCLUDED

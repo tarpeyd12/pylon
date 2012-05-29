@@ -8,9 +8,9 @@
 
 namespace FileLoader
 {
-    std::string getline(std::string filename, int line);
-    std::string totalfile(std::string filename);
-    bool checkfile(std::string);
+    std::string getline( std::string filename, int line );
+    std::string totalfile( std::string filename );
+    bool checkfile( std::string );
 }
 
 #include "unzip.h"

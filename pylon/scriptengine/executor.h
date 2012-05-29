@@ -39,9 +39,12 @@ namespace ScriptEngine
             ClassList<std::string> arguments;
             std::string function;
             std::string result;
+            bool outsidefunction;
         public:
             FunctionCaller(std::string);
+            FunctionCaller(std::string,bool);
             FunctionCaller(std::string,std::string,std::string*,unsigned int);
+            FunctionCaller(std::string,std::string,std::string*,unsigned int,bool);
             virtual ~FunctionCaller();
 
             void setArgs(std::string*,unsigned int);

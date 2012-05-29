@@ -200,7 +200,7 @@ namespace Renderer
                         //obj->setAnimationTime(1.0f);
                     }
 
-                    bool autoinclude = obj->hasOption(PHYSICS_SOLID_STATIONARY) || obj->hasproperty(OBJECT_SORT_TRIANGLES);
+                    bool autoinclude = false;//obj->hasOption(PHYSICS_SOLID_STATIONARY) || obj->hasproperty(OBJECT_SORT_TRIANGLES);
 
                     if( autoinclude )
                     {
@@ -210,14 +210,14 @@ namespace Renderer
                     }
                 }
 
-                // if object is closer than 100 times its diamiter, recomend for sorting
+                // if object is closer than 100 times its radius, recomend for sorting
                 if( dst2+objradius < 100.0f*objradius*1.0f )
                 {
                     float val = obj->getbounding().maxdistance + POGEL::VECTOR(obj->position).dotproduct(refpos);
                     closelist += DataWraper<POGEL::PHYSICS::SOLID*,float>(obj,val);
                 }
 
-                // otherwise if object is closer than 250 times its diamiter, just draw it
+                // otherwise if object is closer than 250 times its radius, just draw it
                 else if( dst2+objradius < 250.0f*objradius*1.0f )
                 {
                     obj->draw();

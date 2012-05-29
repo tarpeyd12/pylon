@@ -82,6 +82,7 @@
 #define				POGEL_LABEL										256
 
 #define				POGEL_TIMEBASIS									512
+#define				POGEL_NODOUBLESIDEDTRIANGLES					1024
 
 // pogel global constants
 #define				PARTICLE_SLOWDOWN_RATIO							25.0f

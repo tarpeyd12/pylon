@@ -41,6 +41,38 @@ bool POGEL::PHYSICS::line_triangle_collision(POGEL::POINT start, POGEL::POINT en
 	return result && (collision2d->z <= start.distance(end));
 };
 
+bool POGEL::PHYSICS::ray_triangle_collision(POGEL::POINT start, POGEL::VECTOR direction, POGEL::TRIANGLE triangle, POGEL::POINT* collision2d, POGEL::POINT* collision3d) {
+	//triangle.getbounding();
+	//if(!POGEL::LINE(start,end).bounding.checkbounding(start, triangle.middle(), triangle.bounding)) return false;
+
+	float orig[] = { start.x, start.y, start.z };
+	POGEL::VECTOR vct(direction.normal());
+	float dir[] = { vct.x, vct.y, vct.z };
+
+	// put the verticies into arrays so that the collision function can read them
+	float vert0[] = {triangle.vertex[0].x, triangle.vertex[0].y, triangle.vertex[0].z};
+	float vert1[] = {triangle.vertex[1].x, triangle.vertex[1].y, triangle.vertex[1].z};
+	float vert2[] = {triangle.vertex[2].x, triangle.vertex[2].y, triangle.vertex[2].z};
+
+	// process the collision
+	bool result = (bool)intersect_triangle(orig, dir, vert0, vert1, vert2, &collision2d->z, &collision2d->x, &collision2d->y);
+
+	// make it positive, for some reason it comes out negative sometimes.
+	collision2d->z = fabs(collision2d->z);
+
+	// get the 3d position of the collision
+	*collision3d = start + vct.topoint() * collision2d->z;
+
+	#ifdef PHYSICS_COLLISION_LOGSTATS
+		if(result && (collision2d->z <= start.distance(end)))
+			POGEL::logtofile("\t\ttriangle_line_hit, dist = %7.3f", collision2d->z);
+		else
+			POGEL::logtofile("\t\tno, dist = %7.3f", collision2d->z);
+	#endif /* PHYSICS_COLLISION_LOGSTATS */
+
+	return result;
+};
+
 bool POGEL::PHYSICS::triangle_collision(POGEL::TRIANGLE tria, POGEL::TRIANGLE trib, POGEL::POINT* p1, POGEL::POINT* p2) {
 	tria.getbounding(); trib.getbounding();
 	if(!trib.bounding.checkbounding(tria.bounding)) return false;
@@ -130,6 +162,61 @@ bool POGEL::PHYSICS::solid_line_collision(POGEL::PHYSICS::SOLID* obj, POGEL::POI
 			*tri = obj->gettriangle(i).transform(&mat);
 			return true;
 		}
+	return false;
+};
+
+bool POGEL::PHYSICS::solid_ray_collision(int type, POGEL::PHYSICS::SOLID* obj, POGEL::POINT start, POGEL::VECTOR direction, POGEL::TRIANGLE* tri, POGEL::POINT* col2d, POGEL::POINT* col3d) {
+	POGEL::MATRIX mat(obj->position, obj->rotation);
+	POGEL::MATRIX mat2(mat);
+	mat.invert();
+	mat.transformPoint(&start);
+	mat.transformVector(&direction);
+
+	unsigned int numfaces = obj->getnumfaces();
+
+	if(type == PHYSICS_LINESOLID_COLLISION_GREATEST) {
+		float dist = 0.0f; int index = 0; bool ret = false;
+		for(unsigned long i = 0; i < numfaces; ++i)
+			if(POGEL::PHYSICS::ray_triangle_collision(start, direction, obj->gettriangle(i), col2d, col3d)) {
+				if(col2d->z > dist) { *tri = obj->gettriangle(i).transform(&mat2); dist = col2d->z; index = i; }
+				ret = true;
+			}
+		mat2.transformPoint(col3d);
+		return ret;
+	}
+
+	else if(type == PHYSICS_LINESOLID_COLLISION_LEAST) {
+		float dist = 0.0f; int index = 0; bool ret = false;
+		for(unsigned long i = 0; i < numfaces; ++i)
+			if(POGEL::PHYSICS::ray_triangle_collision(start, direction, obj->gettriangle(i), col2d, col3d)) {
+				if(col2d->z < dist) { *tri = obj->gettriangle(i).transform(&mat2); dist = col2d->z; index = i; }
+				ret = true;
+			}
+		mat2.transformPoint(col3d);
+		return ret;
+	}
+
+	else if(type == PHYSICS_LINESOLID_COLLISION_FIRST) {
+		for(unsigned long i = 0; i < numfaces; ++i)
+			if(POGEL::PHYSICS::ray_triangle_collision(start, direction, obj->gettriangle(i), col2d, col3d)) {
+				*tri = obj->gettriangle(i).transform(&mat2);
+				mat2.transformPoint(col3d);
+				return true;
+			}
+		return false;
+	}
+
+	else {
+		// TODO: put warning here
+		for(unsigned long i = 0; i < numfaces; ++i)
+			if(POGEL::PHYSICS::ray_triangle_collision(start, direction, obj->gettriangle(i), col2d, col3d)) {
+				*tri = obj->gettriangle(i).transform(&mat2);
+				mat2.transformPoint(col3d);
+				return true;
+			}
+		return false;
+	}
+
 	return false;
 };
 

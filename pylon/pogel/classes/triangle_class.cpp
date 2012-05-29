@@ -106,6 +106,41 @@ POGEL::TRIANGLE::transform( POGEL::MATRIX* m )
 }
 
 void
+POGEL::TRIANGLE::drawgeometrysolidcolor(const POGEL::COLOR& color) const
+{
+    glColor4f( color.r, color.g, color.b, color.a );
+    if( POGEL::properties & POGEL_WIREFRAME )
+    {
+        glVertex3f( vertex[ 0 ].x, vertex[ 0 ].y, vertex[ 0 ].z );
+        glVertex3f( vertex[ 1 ].x, vertex[ 1 ].y, vertex[ 1 ].z );
+        glVertex3f( vertex[ 2 ].x, vertex[ 2 ].y, vertex[ 2 ].z );
+        glVertex3f( vertex[ 0 ].x, vertex[ 0 ].y, vertex[ 0 ].z );
+        return;
+    }
+    glVertex3f( vertex[ 0 ].x, vertex[ 0 ].y, vertex[ 0 ].z );
+    glVertex3f( vertex[ 1 ].x, vertex[ 1 ].y, vertex[ 1 ].z );
+    glVertex3f( vertex[ 2 ].x, vertex[ 2 ].y, vertex[ 2 ].z );
+    return;
+}
+
+void
+POGEL::TRIANGLE::drawgeometryvertexonly() const
+{
+    if( POGEL::properties & POGEL_WIREFRAME )
+    {
+        glVertex3f( vertex[ 0 ].x, vertex[ 0 ].y, vertex[ 0 ].z );
+        glVertex3f( vertex[ 1 ].x, vertex[ 1 ].y, vertex[ 1 ].z );
+        glVertex3f( vertex[ 2 ].x, vertex[ 2 ].y, vertex[ 2 ].z );
+        glVertex3f( vertex[ 0 ].x, vertex[ 0 ].y, vertex[ 0 ].z );
+        return;
+    }
+    glVertex3f( vertex[ 0 ].x, vertex[ 0 ].y, vertex[ 0 ].z );
+    glVertex3f( vertex[ 1 ].x, vertex[ 1 ].y, vertex[ 1 ].z );
+    glVertex3f( vertex[ 2 ].x, vertex[ 2 ].y, vertex[ 2 ].z );
+    return;
+}
+
+void
 POGEL::TRIANGLE::draw() const
 {
     #ifdef OPENGL
@@ -345,4 +380,80 @@ POGEL::drawTriangleList( void * list, unsigned int length, TRIANGLE * (*accessor
     glEnd();
 
     accessor( list, length-1 )->finalizetriangledraw();
+}
+
+void
+POGEL::drawTriangleListColored( POGEL::TRIANGLE * face, unsigned int numfaces, const unsigned char* color )
+{
+    if( !face || !numfaces )
+    {
+        return;
+    }
+
+    GLenum mode;// = GL_TRIANGLES;
+
+    if ( POGEL::hasproperty( POGEL_WIREFRAME ) )
+    {
+        mode = GL_LINES;
+    }
+    else
+    {
+        mode = GL_TRIANGLES;
+    }
+
+    unsigned int currentproperties, previousproperties = face[ 0 ].getproperties();
+
+    if ( !(previousproperties & TRIANGLE_DOUBLESIDED) )
+    {
+        glEnable( GL_CULL_FACE );
+        if( (previousproperties & TRIANGLE_INVERT_NORMALS) )
+            glCullFace( GL_FRONT );
+        else
+            glCullFace( GL_BACK );
+    }
+    else if ( glIsEnabled( GL_CULL_FACE ) )
+    {
+        glDisable( GL_CULL_FACE );
+    }
+
+    glColor4ub( color[ 0 ], color[ 1 ], color[ 2 ], color[ 3 ] );
+
+    glBegin( mode );
+
+    for( unsigned int i = 0; i < numfaces; ++i )
+    {
+        currentproperties = face[ i ].getproperties();
+
+        if( currentproperties == previousproperties )
+        {
+            face[ i ].drawgeometryvertexonly();
+        }
+        else
+        {
+            glEnd();
+
+            if( currentproperties != previousproperties )
+            {
+                if ( !(currentproperties & TRIANGLE_DOUBLESIDED) )
+                {
+                    glEnable( GL_CULL_FACE );
+                    if( (currentproperties & TRIANGLE_INVERT_NORMALS) )
+                        glCullFace( GL_FRONT );
+                    else
+                        glCullFace( GL_BACK );
+                }
+                else if ( glIsEnabled( GL_CULL_FACE ) )
+                {
+                    glDisable( GL_CULL_FACE );
+                }
+            }
+
+            glBegin( mode );
+            face[ i ].drawgeometryvertexonly();
+        }
+
+        previousproperties = currentproperties;
+    }
+
+    glEnd();
 }

@@ -292,16 +292,32 @@ POGEL::TRIANGLE::initializetriangledraw() const
         glDisable( GL_LIGHTING );
     }
 
-    if ( !properties & TRIANGLE_DOUBLESIDED )
+    if( POGEL::hasproperty( POGEL_NODOUBLESIDEDTRIANGLES ) )
     {
         glEnable( GL_CULL_FACE );
-        glCullFace( GL_BACK );
+        if( (properties & TRIANGLE_INVERT_NORMALS) )
+            glCullFace( GL_FRONT );
+        else
+            glCullFace( GL_BACK );
+        //glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, int(bool(properties & TRIANGLE_DOUBLESIDED)));
         glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 0);
     }
-    else if ( glIsEnabled( GL_CULL_FACE ) )
+    else
     {
-        glDisable( GL_CULL_FACE );
-        glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
+        if ( !(properties & TRIANGLE_DOUBLESIDED) )
+        {
+            glEnable( GL_CULL_FACE );
+            if( (properties & TRIANGLE_INVERT_NORMALS) )
+                glCullFace( GL_FRONT );
+            else
+                glCullFace( GL_BACK );
+            glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 0);
+        }
+        else if ( glIsEnabled( GL_CULL_FACE ) )
+        {
+            glDisable( GL_CULL_FACE );
+            glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 1);
+        }
     }
 
     // set the transparency
@@ -332,6 +348,9 @@ POGEL::TRIANGLE::drawgeometry() const
     // if using triangle's flat normal set it
     if ( properties & TRIANGLE_LIT && !( properties & TRIANGLE_VERTEX_NORMALS ) )
     {
+        if( POGEL::hasproperty( POGEL_NODOUBLESIDEDTRIANGLES ) && properties & TRIANGLE_INVERT_NORMALS )
+        glNormal3f( -normal.x, -normal.y, -normal.z );
+        else
         glNormal3f( normal.x, normal.y, normal.z );
     }
 
@@ -342,59 +361,32 @@ POGEL::TRIANGLE::drawgeometry() const
 
     unsigned int max = POGEL::properties & POGEL_WIREFRAME ? 4 : 3;
 
-    if( properties & TRIANGLE_INVERT_NORMALS )
+    for ( unsigned int a = 0; a < max; ++a )
     {
-        for ( unsigned int a = max; a > 0; --a )
+        unsigned int i = a % 3;
+
+        // the triangle will not be colored if GL_LIGHTING is enabled,
+        //  don't know why.
+        // set the color
+        if ( properties & TRIANGLE_COLORED )
         {
-            unsigned int i = a % 3;
-
-            // the triangle will not be colored if GL_LIGHTING is enabled,
-            //  don't know why.
-            // set the color
-            if ( properties & TRIANGLE_COLORED )
-            {
-                glColor4f( vertex[ i ].color.r, vertex[ i ].color.g, vertex[ i ].color.b, vertex[ i ].color.a );
-            }
-
-            // light the verticies
-            if ( properties & TRIANGLE_VERTEX_NORMALS )
-            {
-                glNormal3f( vertex[ i ].normal.x, vertex[ i ].normal.y, vertex[ i ].normal.z );
-            }
-
-            // set the verticies' texture coordanates
-            glTexCoord2f( vertex[ i ].u, vertex[ i ].v );
-
-            // set the vertex
-            glVertex3f( vertex[ i ].x, vertex[ i ].y, vertex[ i ].z );
+            glColor4f( vertex[ i ].color.r, vertex[ i ].color.g, vertex[ i ].color.b, vertex[ i ].color.a );
         }
-    }
-    else
-    {
-        for ( unsigned int a = 0; a < max; ++a )
+
+        // light the verticies
+        if ( properties & TRIANGLE_VERTEX_NORMALS )
         {
-            unsigned int i = a % 3;
-
-            // the triangle will not be colored if GL_LIGHTING is enabled,
-            //  don't know why.
-            // set the color
-            if ( properties & TRIANGLE_COLORED )
-            {
-                glColor4f( vertex[ i ].color.r, vertex[ i ].color.g, vertex[ i ].color.b, vertex[ i ].color.a );
-            }
-
-            // light the verticies
-            if ( properties & TRIANGLE_VERTEX_NORMALS )
-            {
-                glNormal3f( vertex[ i ].normal.x, vertex[ i ].normal.y, vertex[ i ].normal.z );
-            }
-
-            // set the verticies' texture coordanates
-            glTexCoord2f( vertex[ i ].u, vertex[ i ].v );
-
-            // set the vertex
-            glVertex3f( vertex[ i ].x, vertex[ i ].y, vertex[ i ].z );
+            if( POGEL::hasproperty( POGEL_NODOUBLESIDEDTRIANGLES ) && properties & TRIANGLE_INVERT_NORMALS )
+            glNormal3f( -vertex[ i ].normal.x, -vertex[ i ].normal.y, -vertex[ i ].normal.z );
+            else
+            glNormal3f( vertex[ i ].normal.x, vertex[ i ].normal.y, vertex[ i ].normal.z );
         }
+
+        // set the verticies' texture coordanates
+        glTexCoord2f( vertex[ i ].u, vertex[ i ].v );
+
+        // set the vertex
+        glVertex3f( vertex[ i ].x, vertex[ i ].y, vertex[ i ].z );
     }
 
     if ( properties & TRIANGLE_COLORED )

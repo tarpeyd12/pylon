@@ -16,11 +16,13 @@ namespace pogelInterface
         public:
             CollisionFunction();
             CollisionFunction(std::string,std::string,std::string);
+            CollisionFunction(std::string,std::string,std::string,bool);
             ~CollisionFunction();
             void operator()( POGEL::PHYSICS::SOLID *, const char * );
     };
 
     Object* callback_set_collfunc(Object*,Object*);
+    Object* callback_set_collfunc_s(Object*,Object*);
 
     class StepFunction : public SOLID_FUNCTION, public ScriptEngine::InterpreterThread
     {
@@ -29,11 +31,13 @@ namespace pogelInterface
         public:
             StepFunction();
             StepFunction(std::string,std::string,std::string);
+            StepFunction(std::string,std::string,std::string,bool);
             ~StepFunction();
             void operator()( POGEL::PHYSICS::SOLID * );
     };
 
     Object* callback_set_stepfunc(Object*,Object*);
+    Object* callback_set_stepfunc_s(Object*,Object*);
 
     class HitFilterFunction : public SOLID_HITFILTER, public ScriptEngine::InterpreterThread
     {
@@ -42,11 +46,13 @@ namespace pogelInterface
         public:
             HitFilterFunction();
             HitFilterFunction(std::string,std::string,std::string);
+            HitFilterFunction(std::string,std::string,std::string,bool);
             ~HitFilterFunction();
             bool operator()( POGEL::PHYSICS::SOLID *, POGEL::PHYSICS::SOLID * );
     };
 
     Object* callback_set_hitfilter(Object*,Object*);
+    Object* callback_set_hitfilter_s(Object*,Object*);
 }
 
 #endif // SCRIPTCALLBACKS_H_INCLUDED

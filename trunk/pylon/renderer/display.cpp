@@ -23,7 +23,8 @@ namespace Renderer
 
         if( Renderer::SingleThreaded )
         {
-            POGEL::SetFramerateThrotle( POGEL::GetSecondsPerFrame() );
+            //POGEL::SetFramerateThrotle( POGEL::GetSecondsPerFrame() );
+            POGEL::SetFramerateThrotle((Renderer::timer30->getLastStepTime()+1.0f/float(Renderer::timer30->getFPS()))/2.0f);
 
             if( !Renderer::HaltPhysics )
             {
@@ -120,7 +121,7 @@ namespace Renderer
 
         if( !Renderer::drawLock )
         {
-            Renderer::timer30->sleep();
+            Renderer::timer30->Sleep();
         }
 
     }

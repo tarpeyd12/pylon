@@ -16,22 +16,23 @@ namespace Renderer
         {
             private:
                 std::string timerName;
-                float lastDuration;
-                float curentDuration;
-                float lastStepTime;
-                float totalTime;
+                double lastDuration;
+                double curentDuration;
+                double lastStepTime;
+                double totalTime;
+                double overflow;
                 unsigned int steps;
-                unsigned int FPS;
+                double FPS;
             public:
                 Timer();
-                Timer(unsigned int fps);
-                Timer(unsigned int fps, std::string name);
+                Timer(double fps);
+                Timer(double fps, std::string name);
                 ~Timer();
 
-                float getLastStepTime();
-                unsigned int getFPS();
+                double getLastStepTime();
+                double getFPS();
 
-                void sleep();
+                void Sleep();
                 void step();
         };
     }

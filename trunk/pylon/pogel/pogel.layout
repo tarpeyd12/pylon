@@ -127,17 +127,17 @@
 	<File name="classes/view_class.h" open="0" top="0" tabpos="0">
 		<Cursor position="1483" topLine="39" />
 	</File>
-	<File name="pogel.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="101" topLine="0" />
+	<File name="pogel.cpp" open="1" top="0" tabpos="21">
+		<Cursor position="174" topLine="0" />
 	</File>
-	<File name="pogel.h" open="0" top="0" tabpos="2">
-		<Cursor position="1232" topLine="0" />
+	<File name="pogel.h" open="1" top="0" tabpos="23">
+		<Cursor position="1263" topLine="40" />
 	</File>
 	<File name="pogel_classes.h" open="0" top="0" tabpos="0">
 		<Cursor position="149" topLine="0" />
 	</File>
 	<File name="pogel_internals.h" open="1" top="0" tabpos="6">
-		<Cursor position="3104" topLine="60" />
+		<Cursor position="4345" topLine="92" />
 	</File>
 	<File name="templates/arraylist.h" open="0" top="0" tabpos="4">
 		<Cursor position="88" topLine="0" />
@@ -177,6 +177,9 @@
 	</File>
 	<File name="templates/templates.h" open="0" top="0" tabpos="14">
 		<Cursor position="181" topLine="0" />
+	</File>
+	<File name="time.cpp" open="1" top="0" tabpos="22">
+		<Cursor position="2982" topLine="114" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="0">
 		<Cursor position="694" topLine="18" />

@@ -143,7 +143,7 @@ void ScriptThread::FirstRun()
      * simulations, default is 2, the command line option is undocumented.
      */
 
-    if(POGEL::hasproperty(POGEL_DEBUG) || Main::SingleThreaded || POGEL::hasproperty(POGEL_LABEL) || Main::numDummySimulations)
+    if(/*POGEL::hasproperty(POGEL_DEBUG) || Main::SingleThreaded || POGEL::hasproperty(POGEL_LABEL) ||*/ Main::numDummySimulations)
     {
         unsigned int max = Main::numDummySimulations ? Main::numDummySimulations : 2;
         for(unsigned int i = 0; i < max; i++)
@@ -179,7 +179,7 @@ void ScriptThread::MainRun()
 
     while(running)
     {
-        timer->sleep();
+        timer->Sleep();
 
         try
         {

@@ -8,19 +8,10 @@
 #include "pogel_internals.h"
 
 // pogel global variables
-namespace POGEL {
+namespace POGEL
+{
 	char *logfilefilename;
 	volatile unsigned int properties;
-
-	volatile float start, finish, start_long, finish_long;
-	volatile unsigned long frames;
-	volatile float fps, fps_long;
-
-	volatile clock_t inittime, curtime;
-	volatile float duration;
-	volatile unsigned long inittmpst;
-
-	volatile float framerate_throtling_correction = 1.0f;
 }
 
 void POGEL::getcmd(int argc, char **argv) {
@@ -282,74 +273,6 @@ bool POGEL::about(float a, float b, float pres) {
 	float c = (a+b)/2.0f;
 	pres /= 2.0f;
 	return (a<=c+pres && a>=c-pres) && (b<=c+pres && b>=c-pres);
-};
-
-void POGEL::InitFps() {
-	POGEL::start =  POGEL::start_long = 0.0f;
-	POGEL::inittime = POGEL::curtime = clock();
-	POGEL::inittmpst = 0;
-	POGEL::duration = 0.0f;
-};
-
-void POGEL::IncrementFps() {
-	float cur = POGEL::GetTimePassed();
-	POGEL::finish = cur;
-	if(frames%POGEL_FPS_UPDATE_AVERAGE == 0) {
-		POGEL::finish_long = cur;
-		POGEL::fps_long = 1.0/fabs(POGEL::finish_long - POGEL::start_long);
-		POGEL::start_long = cur;
-	}
-	POGEL::frames++;
-	POGEL::fps = 1.0/fabs(POGEL::finish - POGEL::start);
-	//POGEL::fps += POGEL::fps_long;
-	//POGEL::fps /= 2.0f;
-	POGEL::start = cur;
-};
-
-float POGEL::GetFps() {
-	return (POGEL::fps+POGEL::fps_long)/2.0;
-};
-
-void POGEL::PrintFps() {
-	float timepassed = POGEL::GetTimePassed();
-	POGEL::message("Frame:%u,Fps:%6.2f(%5.2favg),Spf:%5.2f,Duration:%0.2fs(%d:%02d:%05.2f)\n",
-		POGEL::frames,
-		(POGEL::GetFps()>999.99?999.99:POGEL::GetFps()),
-		POGEL::GetAverageFps(),
-		POGEL::GetSecondsPerFrame(),
-		timepassed,
-		(unsigned int)timepassed/3600, ((unsigned int)timepassed/60)%60, fmod(timepassed,60)
-	);
-};
-
-void POGEL::SetFramerateThrotle(float framerate) {
-	POGEL::framerate_throtling_correction = framerate;
-};
-
-float POGEL::GetAverageFps() {
-	return float(POGEL::frames)/POGEL::GetTimePassed();
-};
-
-float POGEL::GetSecondsPerFrame() {
-		return 1/POGEL::GetFps();
-};
-
-float POGEL::GetTimePassed() {
-	clock_t c = clock();
-	float t = float(c-POGEL::curtime)/float(CLOCKS_PER_SEC);
-	if(t >= 1000.0f) { POGEL::curtime = c; POGEL::duration += t; t = 0.0f;}
-	return t + duration;
-};
-
-void POGEL::ThrotleFps(int desitredFramerate) {
-	float dfr = (float)desitredFramerate - (POGEL::fps*2-POGEL::fps_long);
-	if(dfr < 0.0f)
-		dfr = 1.0f/dfr;
-	POGEL::SetFramerateThrotle(1.0f/fabs(dfr));
-};
-
-void POGEL::UnthrotleFps() {
-	POGEL::SetFramerateThrotle(1.0f);
 };
 
 unsigned int POGEL::getOccurrencesInString(char c, std::string s) {

@@ -17,9 +17,10 @@ namespace POGEL {
 	extern char *logfilefilename;
 	extern volatile unsigned int properties;
 
-	extern volatile float start, finish, start_long, finish_long;
+	extern volatile double start, finish, start_long, finish_long;
 	extern volatile unsigned long frames;
-	extern volatile float duration, fps, fps_long;
+	extern volatile double duration;
+	extern volatile float fps, fps_long;
 
 	extern volatile float framerate_throtling_correction;
 
@@ -52,7 +53,7 @@ namespace POGEL {
 	void SetFramerateThrotle(float);
 	float GetSecondsPerFrame();
 	float GetAverageFps();
-	float GetTimePassed();
+	double GetTimePassed();
 
 	void ThrotleFps(int);
 	void UnthrotleFps();

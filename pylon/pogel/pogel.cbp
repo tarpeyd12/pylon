@@ -164,6 +164,7 @@
 		<Unit filename="templates/octree_template_solid_definition.h" />
 		<Unit filename="templates/octree_template_solid_implimentation.h" />
 		<Unit filename="templates/templates.h" />
+		<Unit filename="time.cpp" />
 		<Unit filename="version.h" />
 		<Extensions>
 			<envvars />

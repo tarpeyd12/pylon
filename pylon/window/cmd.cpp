@@ -86,7 +86,7 @@ namespace Main
                 exit(0);
             }
             else
-            if( !curarg.compare("-forcesingle") )
+            if( !curarg.compare("-forcesingle") || !curarg.compare("-single") )
             {
                 Main::SingleThreaded = Renderer::SingleThreaded = true;
                 continue;

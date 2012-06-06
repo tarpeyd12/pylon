@@ -32,10 +32,17 @@ namespace pogelInterface
     Object* addproperty(Object*,Object*);
     Object* removeproperty(Object*,Object*);
 
-    // the mouse and keyboard stuff
+    // keyboard stuff
 
     Object* key_ispressed(Object*,Object*);
+    Object* key_when_pressed(Object*,Object*);
+    Object* key_when_released(Object*,Object*);
+    Object* key_pos_press_2i(Object*,Object*);
+    Object* key_pos_release_2i(Object*,Object*);
     Object* key_last(Object*,Object*);
+
+    // mouse stuff
+
     Object* mouse_ispressed(Object*,Object*);
     Object* mouse_getbutton(Object*,Object*);
     Object* mouse_pos_x(Object*,Object*);

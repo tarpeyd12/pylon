@@ -30,6 +30,8 @@ POGEL::OBJECT::OBJECT()
     root = parent = (POGEL::OBJECT*)NULL;
     // it can be seen, but there is nothing to be seen
     visable = true;
+    currentAnimationLoopIndex = -1;
+    currentAnimationLoopStartTime = -1.0f;
 
     numFrames = 0;
 
@@ -52,6 +54,8 @@ POGEL::OBJECT::OBJECT(unsigned int prop)
     name = (char*)NULL;
     root = parent = (POGEL::OBJECT*)NULL;
     visable = true;
+    currentAnimationLoopIndex = -1;
+    currentAnimationLoopStartTime = -1.0f;
     create();
 }
 
@@ -72,6 +76,8 @@ POGEL::OBJECT::OBJECT(POGEL::TRIANGLE *tri, unsigned long num, unsigned int prop
     name = (char*)NULL;
     root = parent = (POGEL::OBJECT*)NULL;
     visable = true;
+    currentAnimationLoopIndex = -1;
+    currentAnimationLoopStartTime = -1.0f;
     create();
 }
 
@@ -97,6 +103,8 @@ POGEL::OBJECT::OBJECT(POGEL::TRIANGLE *tri, unsigned long num, unsigned int prop
     name = (char*)NULL;
     root = parent = (POGEL::OBJECT*)NULL;
     visable = true;
+    currentAnimationLoopIndex = -1;
+    currentAnimationLoopStartTime = -1.0f;
     create();
 }
 
@@ -115,6 +123,8 @@ POGEL::OBJECT::OBJECT(const char* n)
 
     root = parent = (POGEL::OBJECT*)NULL;
     visable = true;
+    currentAnimationLoopIndex = -1;
+    currentAnimationLoopStartTime = -1.0f;
     create();
 }
 
@@ -135,6 +145,8 @@ POGEL::OBJECT::OBJECT(const char* n, unsigned int prop)
 
     root = parent = (POGEL::OBJECT*)NULL;
     visable = true;
+    currentAnimationLoopIndex = -1;
+    currentAnimationLoopStartTime = -1.0f;
     create();
 }
 
@@ -157,6 +169,8 @@ POGEL::OBJECT::OBJECT(const char* n, POGEL::TRIANGLE *tri, unsigned long num, un
 
     root = parent = (POGEL::OBJECT*)NULL;
     visable = true;
+    currentAnimationLoopIndex = -1;
+    currentAnimationLoopStartTime = -1.0f;
     create();
 }
 
@@ -186,6 +200,8 @@ POGEL::OBJECT::OBJECT(const char* n, POGEL::TRIANGLE *tri, unsigned long num, un
 
     root = parent = (POGEL::OBJECT*)NULL;
     visable = true;
+    currentAnimationLoopIndex = -1;
+    currentAnimationLoopStartTime = -1.0f;
     create();
 }
 
@@ -287,6 +303,7 @@ POGEL::OBJECT::~OBJECT()
     rotKeys.clear();
     scaleKeys.clear();
     tangents.clear();
+    animations.clear();
 }
 
 void
@@ -997,7 +1014,7 @@ POGEL::OBJECT::getJoint( const char * jointname )
 }
 
 float
-POGEL::OBJECT::getAnimationFPS()
+POGEL::OBJECT::getAnimationFPS() const
 {
     return animationFPS;
 }
@@ -1258,6 +1275,142 @@ POGEL::OBJECT::build()
     root = this->getprogenitor();
 
     setAnimationTime(-1.0f);
+}
+
+int
+POGEL::OBJECT::setAnimationLoop( const std::string& animationname )
+{
+    unsigned int numAnimations = animations.length();
+    if( !numAnimations )
+    {
+        return -1;
+    }
+    for( unsigned int i = 0; i < numAnimations; ++i )
+    {
+        if( animations[ i ] == animationname )
+        {
+            currentAnimationLoopIndex = i;
+            if( currentAnimationLoopStartTime < 0.0f )
+            {
+                currentAnimationLoopStartTime = (float)POGEL::GetTimePassed();
+            }
+            return 0;
+        }
+    }
+    return -2;
+}
+
+int
+POGEL::OBJECT::setAnimationLoop( const std::string& animationname, float startpercent )
+{
+    unsigned int numAnimations = animations.length();
+    if( !numAnimations )
+    {
+        return -1;
+    }
+    for( unsigned int i = 0; i < numAnimations; ++i )
+    {
+        if( animations[ i ] == animationname )
+        {
+            currentAnimationLoopIndex = i;
+            currentAnimationLoopStartTime = (float)POGEL::GetTimePassed();
+            currentAnimationLoopStartTime += ( animations[ i ].getStop() - animations[ i ].getStart() ) * startpercent;
+            return 0;
+        }
+    }
+    return -2;
+}
+
+void
+POGEL::OBJECT::setAnimationLoopStartTime( float stime )
+{
+    currentAnimationLoopStartTime = stime;
+}
+
+float
+POGEL::OBJECT::getTimeSinceAnimationStart() const
+{
+    return POGEL::GetTimePassed() - currentAnimationLoopStartTime;
+}
+
+float
+POGEL::OBJECT::getAnimationLength( const std::string& animationname ) const
+{
+     unsigned int numAnimations = animations.length();
+    if( !numAnimations )
+    {
+        return -1.0f;
+    }
+    for( unsigned int i = 0; i < numAnimations; ++i )
+    {
+        if( animations[ i ] == animationname )
+        {
+            return fabs(animations[ i ].getStop() - animations[ i ].getStart()) / getAnimationFPS();
+        }
+    }
+    return -2.0f;
+}
+
+std::string
+POGEL::OBJECT::getCurrentAnimation() const
+{
+    if( currentAnimationLoopIndex < 0 || currentAnimationLoopIndex >= int(animations.length()) )
+    {
+        return std::string("");
+    }
+    return animations[ currentAnimationLoopIndex ].getName();
+}
+
+int
+POGEL::OBJECT::addAnimationLoop( const POGEL::ANIMATIONLOOP& anim, const std::string& jointname )
+{
+    if( !jointname.length() || !jointname.compare( this->getsname() ) )
+    {
+        animations += anim;
+        return 0;
+    }
+
+    unsigned int numJoints = joints.length();
+    if( !numJoints )
+    {
+        return -1;
+    }
+
+    for( unsigned int i = 0; i < numJoints; ++i )
+    {
+        if( !joints[ i ]->getsname().compare(jointname) )
+        {
+            return joints[ i ]->addAnimationLoop( anim, "" );
+        }
+    }
+
+    return -2;
+}
+
+void
+POGEL::OBJECT::playAnimation( float curtime )
+{
+    if( currentAnimationLoopIndex < 0 )
+    {
+        return;
+    }
+    POGEL::ANIMATIONLOOP loop = animations[ currentAnimationLoopIndex ];
+    float start = loop.getStart();
+    float stop = loop.getStop();
+    float animlen = stop - start;
+    float coefient = 1.0f;
+    if( start > stop )
+    {
+        coefient = -1.0f;
+    }
+    if( currentAnimationLoopStartTime < 0.0f )
+    {
+        setAnimationTime( (fmod( ( curtime ) * getAnimationFPS(), animlen ) * coefient + start) );
+    }
+    else
+    {
+        setAnimationTime( (fmod( ( curtime - currentAnimationLoopStartTime ) * getAnimationFPS(), animlen ) * coefient + start) );
+    }
 }
 
 void

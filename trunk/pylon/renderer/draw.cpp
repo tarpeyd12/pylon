@@ -83,7 +83,8 @@ namespace Renderer
                 {
                     if( obj->getNumFrames() )
                     {
-                        obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
+                        //obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
+                        obj->playAnimation(POGEL::GetTimePassed());
                         //obj->setAnimationTime(1.0f);
                     }
 
@@ -307,7 +308,8 @@ namespace Renderer
 
                         if( obj->getNumFrames() && invcampos.distance(obj->position) + objradius < 50.0f*objradius*2.0f )
                         {
-                            obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
+                            //obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
+                            obj->playAnimation(POGEL::GetTimePassed());
                             //obj->setAnimationTime(1.0f);
                         }
 

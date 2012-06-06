@@ -46,6 +46,13 @@ namespace pogelInterface
 
     Object* object_add_key(Object*,Object*);
 
+    Object* object_add_animation(Object*,Object*);
+    Object* object_set_animation(Object*,Object*);
+    Object* object_get_animation(Object*,Object*);
+    Object* object_set_animtime(Object*,Object*);
+    Object* object_get_animlen(Object*,Object*);
+    Object* object_get_animsince(Object*,Object*);
+
     Object* object_build(Object*,Object*);
 }
 

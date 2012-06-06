@@ -126,22 +126,46 @@ if True or pylon.mouse_pos_x() != Mouse.x1+int(4*mouseScale) or pylon.mouse_pos_
 #if(pylon.key_ispressed('/') or int(counter*10) % 100 == 0):
 #	pylon.clearquads()
 
-# convoluted way to add an object to a simulation
-if pylon.key_ispressed(' ') or pylon.key_ispressed('j'):
-	bob = 0
-	while bob < 1:
-		sc1 = 0.1
-		sc2 = 0.0
-		sc3 = 0.0
-		sc4 = 0.0
-		vect1 = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1, rnd_n1p1()*sc1)
-		vect2 = makepos(rnd_n1p1()*sc2, rnd_n1p1()*sc2, rnd_n1p1()*sc2)
-		vect3 = makepos(rnd_n1p1()*sc3, rnd_n1p1()*sc3, rnd_n1p1()*sc3)
-		vect4 = makepos(rnd_n1p1()*sc4, rnd_n1p1()*sc4, rnd_n1p1()*sc4)
-		newobjdat = '{[obj'+str(int(counter*10))+'.'+str(bob)+'],[22],[136],[0],[0],'+vect1+','+vect2+','+vect3+','+vect4+',{[1.000000],[0.000000],[2000.000000],[1.000000],[1.000000],[1.000000],[0],[-1.000000]},<'+objtridat+'>}'
-		print sim2.addobject(newobjdat)
-		pylon.object_build(sim2.name,'objobj'+str(int(counter*10))+'.'+str(bob))
-		bob = bob + 1
+previouslastkey = lastkey
+lastkey = pylon.key_last()
+
+currentanimation = pylon.object_get_animation(Animation.name,animationname)
+timesinceanimationstart = pylon.object_get_animsince(Animation.name,animationname)
+animationlength = pylon.object_get_animlen(Animation.name,animationname, currentanimation)
+
+if timesinceanimationstart > animationlength:
+	if random.random() > 0.1:
+		pylon.object_set_animation(Animation.name,animationname,"Idle")
+	else:
+		nextanimation = ""
+		if random.random() > 0.5:
+			nextanimation = "Look"
+		else:
+			nextanimation = "Rear"
+		pylon.object_set_animation(Animation.name,animationname,nextanimation)
+	pylon.object_set_animtime(Animation.name,animationname)
+else:
+	if pylon.key_ispressed(' '):
+		if currentanimation != "Jump":
+			pylon.object_set_animtime(Animation.name,animationname)
+		pylon.object_set_animation(Animation.name,animationname,"Jump")
+	elif pylon.key_ispressed('w') or pylon.key_ispressed('W'):
+		if currentanimation != "Jump" and timesinceanimationstart < animationlength:
+			if currentanimation != "Walk":
+				pylon.object_set_animtime(Animation.name,animationname)
+			pylon.object_set_animation(Animation.name,animationname,"Walk")
+	elif pylon.key_ispressed('s') or pylon.key_ispressed('S'):
+		if currentanimation != "Jump" and timesinceanimationstart < animationlength:
+			if currentanimation != "WalkReverse":
+				pylon.object_set_animtime(Animation.name,animationname)
+			pylon.object_set_animation(Animation.name,animationname,"WalkReverse")
+
+if pylon.key_ispressed( 'd' ) or pylon.key_ispressed( 'D' ):
+	pylon.object_set_spin_3f( Animation.name, animationname, 0.0, 30.0, 0.0 )
+elif pylon.key_ispressed( 'a' ) or pylon.key_ispressed( 'A' ):
+	pylon.object_set_spin_3f( Animation.name, animationname, 0.0,-30.0, 0.0 )
+else:
+	pylon.object_set_spin_3f( Animation.name, animationname, 0.0, 0.0, 0.0 )
 
 # add a pogel formated multi-object data file to a simulation
 if pylon.key_ispressed('m'):
@@ -168,13 +192,14 @@ cam.getcamstrs()
 
 pylon.subrender_set_cam(subrenderer1, cam.posx,cam.posy,cam.posz, cam.rotx,cam.roty,cam.rotz)
 pylon.subrender_set_ratio(subrenderer1, float(pylon.window_width())/float(pylon.window_height()))
-pylon.subrender_set_light(subrenderer1, 1, math.sin(counter)*10,0,math.cos(counter)*10, '{[.1],[0],[0],[1]}', '{[0],[1],[0],[1]}', '{[0],[0],[.1],[1]}', False)
 Bloop.y1 = pylon.window_height()
 Bloop.x2 = pylon.window_width()
 #Bloop.makeInvisable()
 Bloop.update()
 
 pylon.object_move_3f(Sky.name,"Sky",-cam.posx,-cam.posy,-cam.posz)
+
+pylon.subrender_set_light(subrenderer1, 1, math.sin(counter)*10,0,math.cos(counter)*10, '{[.1],[0],[0],[1]}', '{[0],[1],[0],[1]}', '{[0],[0],[.1],[1]}', False)
 
 # a function defined in init.py for controlling the 'flow' of objects/particles
 if going:

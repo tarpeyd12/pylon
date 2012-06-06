@@ -73,27 +73,7 @@ namespace Renderer
                      Renderer::Camera::campos.z
                      );
 
-        Renderer::Draw::PickDraw();
-        int simnum = -1, objnum = -1;
-        Renderer::Selection::RetrieveAt( Mouse::X, Mouse::Y, &simnum, &objnum );
-        if( simnum >= 0 && objnum >= 0 )
-        {
-            Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation( (unsigned int)simnum );
-            if( sim )
-            {
-                POGEL::PHYSICS::SOLID * obj = sim->getObject( (unsigned int)objnum );
-                if( obj )
-                {
-                    //cout << "\tSimulation: \"" << sim->getName() << "\", Object: \"" << obj->getsname() << "\"" << endl;
-                }
-                else
-                {
-                    //cout << "\tSimulation: \"" << sim->getName() << "\"" << endl;
-                }
-            }
-        }
-        glClearColor( 0.5f, 0.5f, 0.5f, 0.0f );
-        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+        Renderer::Selection::DoMouseSelection();
 
         glEnable( GL_ALPHA_TEST );
         glAlphaFunc( GL_GREATER, 0.5f );

@@ -215,6 +215,15 @@ pylon.object_add_key(Animation.name,animationname, "scale", animscale,animscale,
 pylon.object_options(Animation.name,animationname,"add option",1)
 pylon.object_set_bounce(Animation.name,animationname,0.0)
 pylon.object_set_mass(Animation.name,animationname,0.1)
+pylon.object_add_animation(Animation.name,animationname,1.0,25.0-1,"Walk")
+pylon.object_add_animation(Animation.name,animationname,25.0-1,1.0,"WalkReverse")
+pylon.object_add_animation(Animation.name,animationname,71.0,80.0-1,"ToWalk")
+pylon.object_add_animation(Animation.name,animationname,82.0,100.0-1,"Jump")
+pylon.object_add_animation(Animation.name,animationname,332.0,380.0-1,"Idle")
+pylon.object_add_animation(Animation.name,animationname,152.0,180.0-1,"Look")
+pylon.object_add_animation(Animation.name,animationname,122.0,150.0-1,"Rear")
+pylon.object_set_animation(Animation.name,animationname,"Idle")
+pylon.object_set_animtime(Animation.name,animationname)
 print pylon.object_build(Animation.name,animationname)
 pylon.object_move_3f(Animation.name,animationname, 0, 0, 0)
 
@@ -226,7 +235,7 @@ objimportsimfilename = "Data/objectdata/"+objimportname+".obj"
 pylon.requestfile(objimportsimfilename)
 pylon.requestfile("Data/objectdata/"+objimportname+".mtl")
 
-if pylon.object_new_fromfile( objimportsim.name, objimportname, objimportsimfilename, "objmtl") != 0:
+if pylon.object_new_fromfile( objimportsim.name, objimportname, objimportsimfilename, "objmtl" ) != 0:
 	print 'failed to load object file, exiting'
 	print _pylon.exit(0)
 	quit()
@@ -298,6 +307,9 @@ def doOBJECTrelocate():
 	rpos = makepos(rnd_n1p1()*sc1, rnd_n1p1()*sc1+1.5, rnd_n1p1()*sc1)
 	pylon.object_set_pos_s(Animation.name,oname,rpos)
 	pylon.object_set_dir_3f(Animation.name,oname,0,0,0)
+
+previouslastkey = '1'
+lastkey = '2'
 
 waitcalc(1000)
 

@@ -34,6 +34,69 @@ namespace POGEL
 namespace POGEL
 {
 
+    class ANIMATIONLOOP
+    {
+        private:
+
+            float start;
+            float stop;
+
+        protected:
+
+            std::string name;
+
+        public:
+
+            ANIMATIONLOOP() : start( -2.0f ), stop( -1.0f ), name("") {  }
+
+            ANIMATIONLOOP( float b, float s, const std::string& nm )
+            {
+                start = b;
+                stop = s;
+                name = nm;
+            }
+
+            ~ANIMATIONLOOP()
+            {
+
+            }
+
+            void setName( const std::string& nm )
+            {
+                name = nm;
+            }
+
+            void setStart( float s )
+            {
+                start = s;
+            }
+
+            void setStop( float s )
+            {
+                stop = s;
+            }
+
+            std::string getName() const
+            {
+                return name;
+            }
+
+            float getStart() const
+            {
+                return start;
+            }
+
+            float getStop() const
+            {
+                return stop;
+            }
+
+            bool operator==( const std::string& nm )
+            {
+                return bool(!(name.compare(nm)));
+            }
+    };
+
     class OBJECT
     {
         private:
@@ -68,6 +131,9 @@ namespace POGEL
             POGEL::MATRIX matGlobal;
             POGEL::MATRIX matLocalSkeleton;
             POGEL::MATRIX matGlobalSkeleton;
+            CLASSLIST < POGEL::ANIMATIONLOOP > animations;
+            int currentAnimationLoopIndex;
+            float currentAnimationLoopStartTime;
         public:
 
             POGEL::POINT position; // the center position of the object
@@ -158,7 +224,7 @@ namespace POGEL
             unsigned int addTangent( const POGEL::TANGENT& );
             unsigned int addJoint( POGEL::OBJECT * , const char * );
             POGEL::OBJECT * getJoint( const char * );
-            float getAnimationFPS();
+            float getAnimationFPS() const;
             unsigned int getNumFrames();
 
             void copyAnimation( POGEL::OBJECT * );
@@ -166,6 +232,16 @@ namespace POGEL
             void increment();
 
             virtual void build();
+
+            int setAnimationLoop( const std::string& );
+            int setAnimationLoop( const std::string&, float );
+            void setAnimationLoopStartTime( float );
+            float getTimeSinceAnimationStart() const;
+            float getAnimationLength( const std::string& ) const;
+            std::string getCurrentAnimation() const;
+            int addAnimationLoop( const POGEL::ANIMATIONLOOP&, const std::string& );
+
+            void playAnimation( float );
 
             void setAnimationTime( float );
             void updateSkeleton();

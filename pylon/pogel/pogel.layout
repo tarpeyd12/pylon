@@ -34,11 +34,11 @@
 	<File name="classes/misc_class.h" open="0" top="0" tabpos="0">
 		<Cursor position="735" topLine="8" />
 	</File>
-	<File name="classes/object_class.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="45319" topLine="1737" />
+	<File name="classes/object_class.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="33619" topLine="1385" />
 	</File>
-	<File name="classes/object_class.h" open="1" top="0" tabpos="2">
-		<Cursor position="724" topLine="17" />
+	<File name="classes/object_class.h" open="0" top="0" tabpos="7">
+		<Cursor position="8240" topLine="220" />
 	</File>
 	<File name="classes/object_class_inline.h" open="0" top="0" tabpos="3">
 		<Cursor position="265" topLine="0" />
@@ -52,10 +52,10 @@
 	<File name="classes/physics/callbacks.h" open="0" top="0" tabpos="4">
 		<Cursor position="249" topLine="3" />
 	</File>
-	<File name="classes/physics/dynamics_class.cpp" open="1" top="0" tabpos="7">
+	<File name="classes/physics/dynamics_class.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="48" topLine="0" />
 	</File>
-	<File name="classes/physics/dynamics_class.h" open="1" top="0" tabpos="8">
+	<File name="classes/physics/dynamics_class.h" open="0" top="0" tabpos="8">
 		<Cursor position="304" topLine="0" />
 	</File>
 	<File name="classes/physics/fountain_class.h" open="0" top="0" tabpos="0">
@@ -85,7 +85,7 @@
 	<File name="classes/physics/singularity_class.h" open="0" top="0" tabpos="2">
 		<Cursor position="1679" topLine="38" />
 	</File>
-	<File name="classes/physics/solid_class.cpp" open="1" top="0" tabpos="1">
+	<File name="classes/physics/solid_class.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="18698" topLine="751" />
 	</File>
 	<File name="classes/physics/solid_class.h" open="0" top="0" tabpos="3">
@@ -112,13 +112,13 @@
 	<File name="classes/threads.h" open="0" top="0" tabpos="1">
 		<Cursor position="274" topLine="0" />
 	</File>
-	<File name="classes/triangle_class.cpp" open="1" top="0" tabpos="4">
+	<File name="classes/triangle_class.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="5301" topLine="240" />
 	</File>
-	<File name="classes/triangle_class.h" open="1" top="0" tabpos="10">
+	<File name="classes/triangle_class.h" open="0" top="0" tabpos="10">
 		<Cursor position="454" topLine="0" />
 	</File>
-	<File name="classes/triangle_class_inline.h" open="1" top="0" tabpos="5">
+	<File name="classes/triangle_class_inline.h" open="0" top="0" tabpos="5">
 		<Cursor position="6596" topLine="288" />
 	</File>
 	<File name="classes/view_class.cpp" open="0" top="0" tabpos="5">
@@ -127,22 +127,22 @@
 	<File name="classes/view_class.h" open="0" top="0" tabpos="0">
 		<Cursor position="1483" topLine="39" />
 	</File>
-	<File name="pogel.cpp" open="1" top="0" tabpos="21">
+	<File name="pogel.cpp" open="0" top="0" tabpos="11">
 		<Cursor position="174" topLine="0" />
 	</File>
-	<File name="pogel.h" open="1" top="0" tabpos="23">
+	<File name="pogel.h" open="0" top="0" tabpos="13">
 		<Cursor position="1263" topLine="40" />
 	</File>
 	<File name="pogel_classes.h" open="0" top="0" tabpos="0">
 		<Cursor position="149" topLine="0" />
 	</File>
-	<File name="pogel_internals.h" open="1" top="0" tabpos="6">
+	<File name="pogel_internals.h" open="0" top="0" tabpos="6">
 		<Cursor position="4345" topLine="92" />
 	</File>
 	<File name="templates/arraylist.h" open="0" top="0" tabpos="4">
 		<Cursor position="88" topLine="0" />
 	</File>
-	<File name="templates/bitlist.h" open="1" top="0" tabpos="9">
+	<File name="templates/bitlist.h" open="0" top="0" tabpos="9">
 		<Cursor position="124" topLine="0" />
 	</File>
 	<File name="templates/classlist_template.h" open="0" top="0" tabpos="12">
@@ -178,7 +178,7 @@
 	<File name="templates/templates.h" open="0" top="0" tabpos="14">
 		<Cursor position="181" topLine="0" />
 	</File>
-	<File name="time.cpp" open="1" top="0" tabpos="22">
+	<File name="time.cpp" open="0" top="0" tabpos="12">
 		<Cursor position="2982" topLine="114" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="0">

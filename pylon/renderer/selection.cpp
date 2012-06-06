@@ -6,6 +6,10 @@ namespace Renderer
     {
         unsigned char * pixeldata = NULL;
 
+        std::string lastsimname = "";
+        std::string lastobjname = "";
+        volatile bool lastwasselected = false;
+
         void Init( unsigned int x, unsigned int y )
         {
             pixeldata = new unsigned char[ ( x + 1 ) * ( y + 1 ) * 4 + 4 ];
@@ -94,6 +98,43 @@ namespace Renderer
             glGetIntegerv( GL_VIEWPORT, viewport );
             unsigned int pixelindex = 4 * ( x * viewport[ 2 ] + y );
             return ((Renderer::Selection::pixeldata[ pixelindex + 2 ] << 8) | (Renderer::Selection::pixeldata[ pixelindex + 3 ] << 0)) - 1;
+        }
+
+        void DoMouseSelection()
+        {
+            Renderer::Draw::PickDraw();
+            int simnum = -1, objnum = -1;
+            Renderer::Selection::RetrieveAt( Mouse::X, Mouse::Y, &simnum, &objnum );
+            if( simnum >= 0 && objnum >= 0 )
+            {
+                Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation( (unsigned int)simnum );
+                if( sim )
+                {
+                    POGEL::PHYSICS::SOLID * obj = sim->getObject( (unsigned int)objnum );
+                    if( obj )
+                    {
+                        Renderer::Selection::lastwasselected = true;
+                        Renderer::Selection::lastsimname = sim->getName();
+                        Renderer::Selection::lastobjname = obj->getsname();
+                        //cout << "\tSimulation: \"" << sim->getName() << "\", Object: \"" << obj->getsname() << "\"" << endl;
+                    }
+                    else
+                    {
+                        Renderer::Selection::lastwasselected = false;
+                        //cout << "\tSimulation: \"" << sim->getName() << "\"" << endl;
+                    }
+                }
+                else
+                {
+                    Renderer::Selection::lastwasselected = false;
+                }
+            }
+            else
+            {
+                Renderer::Selection::lastwasselected = false;
+            }
+            glClearColor( 0.5f, 0.5f, 0.5f, 0.0f );
+            glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
         }
 
     }

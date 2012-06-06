@@ -6,22 +6,29 @@ namespace Renderer
     {
         volatile bool keys[256];
 
+        volatile float lastpressed[256];
+        volatile float lastreleased[256];
+
+        volatile int mousepospress[256][2];
+        volatile int mouseposrelease[256][2];
+
         volatile char last;
 
         void Down( unsigned char key, int x, int y )
         {
-            //if(key == (unsigned char)27) exit(0);
-            Renderer::Key::keys[ key ] = true;
             last = key;
-            //glutPostRedisplay();
-            x = y = 0;
+            Renderer::Key::keys[ key ] = true;
+            Renderer::Key::lastpressed[ key ] = (float)POGEL::GetTimePassed();
+            Renderer::Key::mousepospress[ key ][ 0 ] = x;
+            Renderer::Key::mousepospress[ key ][ 1 ] = y;
         }
 
         void Up( unsigned char key, int x, int y )
         {
             Renderer::Key::keys[ key ] = false;
-            //glutPostRedisplay();
-            x = y = 0;
+            Renderer::Key::lastreleased[ key ] = (float)POGEL::GetTimePassed();
+            Renderer::Key::mouseposrelease[ key ][ 0 ] = x;
+            Renderer::Key::mouseposrelease[ key ][ 1 ] = y;
         }
     }
 }

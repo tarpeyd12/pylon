@@ -49,6 +49,12 @@ namespace pogelInterface
         { "object_set_friction",   (CFunction)object_set_friction,   VarArgs, NULL },
         { "object_get_friction",   (CFunction)object_get_friction,   VarArgs, NULL },
         { "object_add_key",        (CFunction)object_add_key,        VarArgs, NULL },
+        { "object_add_animation",  (CFunction)object_add_animation,  VarArgs, NULL },
+        { "object_set_animation",  (CFunction)object_set_animation,  VarArgs, NULL },
+        { "object_get_animation",  (CFunction)object_get_animation,  VarArgs, NULL },
+        { "object_set_animtime",   (CFunction)object_set_animtime,   VarArgs, NULL },
+        { "object_get_animlen",    (CFunction)object_get_animlen,    VarArgs, NULL },
+        { "object_get_animsince",  (CFunction)object_get_animsince,  VarArgs, NULL },
         { "object_build",          (CFunction)object_build,          VarArgs, NULL },
         // object shapes
         { "object_add_sphere",       (CFunction)object_add_sphere,       VarArgs, NULL },
@@ -61,8 +67,12 @@ namespace pogelInterface
         { "object_add_cube_mat",     (CFunction)object_add_cube_mat,     VarArgs, NULL },
         { "object_add_triangle",     (CFunction)object_add_triangle,     VarArgs, NULL },
         // keyboard interface
-        { "key_ispressed",      (CFunction)key_ispressed,     VarArgs, NULL },
-        { "key_last",           (CFunction)key_last,          VarArgs, NULL },
+        { "key_ispressed",      (CFunction)key_ispressed,      VarArgs, NULL },
+        { "key_when_pressed",   (CFunction)key_when_pressed,   VarArgs, NULL },
+        { "key_when_released",  (CFunction)key_when_released,  VarArgs, NULL },
+        { "key_pos_press_2i",   (CFunction)key_pos_press_2i,   VarArgs, NULL },
+        { "key_pos_release_2i", (CFunction)key_pos_release_2i, VarArgs, NULL },
+        { "key_last",           (CFunction)key_last,           VarArgs, NULL },
         // mouse interface
         { "mouse_ispressed",    (CFunction)mouse_ispressed,   VarArgs, NULL },
         { "mouse_getbutton",    (CFunction)mouse_getbutton,   VarArgs, NULL },

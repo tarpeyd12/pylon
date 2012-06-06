@@ -569,6 +569,116 @@ namespace pogelInterface
         return Py_BuildValue("i", 0);
     }
 
+    Object* object_add_animation(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        float start;
+        float stop;
+        char* animname;
+        if( !PyArg_ParseTuple( args, "ssffs:object_add_animation", &simname, &name, &start, &stop, &animname) )
+            return NULL;
+        POGEL::PHYSICS::SOLID * obj = NULL;
+        Renderer::Physics::Simulation * sim = NULL;
+        sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("i", -1);
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            return Py_BuildValue("i", -2);
+        int ret = obj->addAnimationLoop( POGEL::ANIMATIONLOOP(start,stop,std::string(animname)), "");
+        return Py_BuildValue("i", ret);
+    }
+
+    Object* object_set_animation(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        char* animname;
+        if( !PyArg_ParseTuple( args, "sss:object_set_animation", &simname, &name, &animname) )
+            return NULL;
+        POGEL::PHYSICS::SOLID * obj = NULL;
+        Renderer::Physics::Simulation * sim = NULL;
+        sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("i", -1);
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            return Py_BuildValue("i", -2);
+        int ret = obj->setAnimationLoop( std::string(animname) );
+        return Py_BuildValue("i", ret);
+    }
+
+    Object* object_get_animation(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        if( !PyArg_ParseTuple( args, "ss:object_get_animation", &simname, &name) )
+            return NULL;
+        POGEL::PHYSICS::SOLID * obj = NULL;
+        Renderer::Physics::Simulation * sim = NULL;
+        sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("s", "");
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            return Py_BuildValue("s", "");
+        return Py_BuildValue("s", obj->getCurrentAnimation().c_str());
+    }
+
+    Object* object_set_animtime(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        if( !PyArg_ParseTuple( args, "ss:object_set_animtime", &simname, &name) )
+            return NULL;
+        POGEL::PHYSICS::SOLID * obj = NULL;
+        Renderer::Physics::Simulation * sim = NULL;
+        sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("i", -1);
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            return Py_BuildValue("i", -2);
+        obj->setAnimationLoopStartTime( POGEL::GetTimePassed() );
+        return Py_BuildValue("i", 0);
+    }
+
+    Object* object_get_animlen(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        char* animname;
+        if( !PyArg_ParseTuple( args, "sss:object_get_animlen", &simname, &name, &animname) )
+            return NULL;
+        POGEL::PHYSICS::SOLID * obj = NULL;
+        Renderer::Physics::Simulation * sim = NULL;
+        sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("f", -1.0f);
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            return Py_BuildValue("f", -2.0f);
+        return Py_BuildValue("f", obj->getAnimationLength(std::string(animname)));
+    }
+
+    Object* object_get_animsince(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        if( !PyArg_ParseTuple( args, "ss:object_get_animsince", &simname, &name) )
+            return NULL;
+        POGEL::PHYSICS::SOLID * obj = NULL;
+        Renderer::Physics::Simulation * sim = NULL;
+        sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("f", -1.0f);
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            return Py_BuildValue("f", -2.0f);
+        return Py_BuildValue("f", obj->getTimeSinceAnimationStart());
+    }
+
     Object* object_build(Object* self, Object* args)
     {
         char* name;

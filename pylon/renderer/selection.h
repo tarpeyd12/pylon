@@ -9,6 +9,10 @@ namespace Renderer
     {
         extern unsigned char * pixeldata;
 
+        extern std::string lastsimname;
+        extern std::string lastobjname;
+        extern volatile bool lastwasselected;
+
         void Init( unsigned int, unsigned int );
         void Resize( unsigned int, unsigned int );
 
@@ -18,6 +22,8 @@ namespace Renderer
 
         int GetSimulation( unsigned int, unsigned int );
         int GetObject( unsigned int, unsigned int );
+
+        void DoMouseSelection();
     }
 }
 

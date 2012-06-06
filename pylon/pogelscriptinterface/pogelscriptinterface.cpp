@@ -2,44 +2,28 @@
 
 namespace pogelInterface
 {
-    ScriptEngine::MethodInterface::Object*
-    fps(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* fps( Object* self, Object* args )
     {
         if(!PyArg_ParseTuple(args, ":fps"))
             return NULL;
         return Py_BuildValue("f", POGEL::GetFps());
     }
 
-    ScriptEngine::MethodInterface::Object*
-    getruntime(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* getruntime( Object* self, Object* args )
     {
         if(!PyArg_ParseTuple(args, ":getruntime"))
             return NULL;
         return Py_BuildValue("f", POGEL::GetTimePassed());
     }
 
-    ScriptEngine::MethodInterface::Object*
-    getproperties(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* getproperties( Object* self, Object* args )
     {
         if(!PyArg_ParseTuple(args, ":getproperties"))
             return NULL;
         return Py_BuildValue("i", (int)POGEL::getproperties());
     }
 
-    ScriptEngine::MethodInterface::Object*
-    setproperties(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* setproperties( Object* self, Object* args )
     {
         int p;
         if(!PyArg_ParseTuple(args, "i:setproperties", &p))
@@ -49,11 +33,7 @@ namespace pogelInterface
         return Py_BuildValue("i", POGEL::getproperties());
     }
 
-    ScriptEngine::MethodInterface::Object*
-    hasproperty(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* hasproperty( Object* self, Object* args )
     {
         int p;
         if(!PyArg_ParseTuple(args, "i:hasproperty", &p))
@@ -61,11 +41,7 @@ namespace pogelInterface
         return Py_BuildValue("i", (int)POGEL::hasproperty((unsigned int)p));
     }
 
-    ScriptEngine::MethodInterface::Object*
-    addproperty(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* addproperty( Object* self, Object* args )
     {
         int p;
         if(!PyArg_ParseTuple(args, "i:addproperty", &p))
@@ -74,11 +50,7 @@ namespace pogelInterface
         return Py_BuildValue("i", (int)POGEL::getproperties());
     }
 
-    ScriptEngine::MethodInterface::Object*
-    removeproperty(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* removeproperty( Object* self, Object* args )
     {
         int p;
         if(!PyArg_ParseTuple(args, "i:removeproperty", &p))
@@ -87,16 +59,44 @@ namespace pogelInterface
         return Py_BuildValue("i", (int)POGEL::getproperties());
     }
 
-    ScriptEngine::MethodInterface::Object*
-    key_ispressed(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* key_ispressed( Object* self, Object* args )
     {
         char checkedKey;
         if(!PyArg_ParseTuple(args, "c:key_ispressed", &checkedKey))
             return NULL;
         return Py_BuildValue("i", (int)Renderer::Key::keys[(unsigned int)checkedKey]);
+    }
+
+    Object* key_when_pressed( Object* self, Object* args )
+    {
+        char checkedKey;
+        if(!PyArg_ParseTuple(args, "c:key_when_pressed", &checkedKey))
+            return NULL;
+        return Py_BuildValue("f", Renderer::Key::lastpressed[(unsigned int)checkedKey]);
+    }
+
+    Object* key_when_released( Object* self, Object* args )
+    {
+        char checkedKey;
+        if(!PyArg_ParseTuple(args, "c:key_when_released", &checkedKey))
+            return NULL;
+        return Py_BuildValue("f", Renderer::Key::lastreleased[(unsigned int)checkedKey]);
+    }
+
+    Object* key_pos_press_2i( Object* self, Object* args )
+    {
+        char checkedKey;
+        if(!PyArg_ParseTuple(args, "c:key_pos_press_2i", &checkedKey))
+            return NULL;
+        return Py_BuildValue("(ii)", Renderer::Key::mousepospress[(unsigned int)checkedKey][0], Renderer::Key::mousepospress[(unsigned int)checkedKey][1] );
+    }
+
+    Object* key_pos_release_2i( Object* self, Object* args )
+    {
+        char checkedKey;
+        if(!PyArg_ParseTuple(args, "c:key_pos_release_2i", &checkedKey))
+            return NULL;
+        return Py_BuildValue("(ii)", Renderer::Key::mouseposrelease[(unsigned int)checkedKey][0], Renderer::Key::mouseposrelease[(unsigned int)checkedKey][1] );
     }
 
     Object* key_last(Object* self, Object* args)
@@ -106,77 +106,49 @@ namespace pogelInterface
         return Py_BuildValue("c", (char)Renderer::Key::last);
     }
 
-    ScriptEngine::MethodInterface::Object*
-    mouse_ispressed(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* mouse_ispressed( Object* self, Object* args )
     {
         if(!PyArg_ParseTuple(args, ":mouse_ispressed"))
             return NULL;
         return Py_BuildValue("i", (int)(Renderer::Mouse::state == GLUT_DOWN));
     }
 
-    ScriptEngine::MethodInterface::Object*
-    mouse_getbutton(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* mouse_getbutton( Object* self, Object* args )
     {
         if(!PyArg_ParseTuple(args, ":mouse_getbutton"))
             return NULL;
         return Py_BuildValue("i", (int)(Renderer::Mouse::button));
     }
 
-    ScriptEngine::MethodInterface::Object*
-    mouse_pos_x(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* mouse_pos_x( Object* self, Object* args )
     {
         if(!PyArg_ParseTuple(args, ":mouse_pos_x"))
             return NULL;
         return Py_BuildValue("i", (int)Renderer::Mouse::X);
     }
 
-    ScriptEngine::MethodInterface::Object*
-    mouse_pos_y(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* mouse_pos_y( Object* self, Object* args )
     {
         if(!PyArg_ParseTuple(args, ":mouse_pos_y"))
             return NULL;
         return Py_BuildValue("i", (int)Renderer::Mouse::Y);
     }
 
-    ScriptEngine::MethodInterface::Object*
-    mouse_pos_sx(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* mouse_pos_sx( Object* self, Object* args )
     {
         if(!PyArg_ParseTuple(args, ":mouse_pos_sx"))
             return NULL;
         return Py_BuildValue("i", (int)Renderer::Mouse::static_x);
     }
 
-    ScriptEngine::MethodInterface::Object*
-    mouse_pos_sy(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* mouse_pos_sy( Object* self, Object* args )
     {
         if(!PyArg_ParseTuple(args, ":mouse_pos_sy"))
             return NULL;
         return Py_BuildValue("i", (int)Renderer::Mouse::static_y);
     }
 
-    ScriptEngine::MethodInterface::Object*
-    camera_set_pos_s(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* camera_set_pos_s( Object* self, Object* args )
     {
         char* newpos;
         if(!PyArg_ParseTuple(args, "s:camera_set_pos_s", &newpos))
@@ -185,11 +157,7 @@ namespace pogelInterface
         return Py_BuildValue("s", Renderer::Camera::campos.toString().c_str());
     }
 
-    ScriptEngine::MethodInterface::Object*
-    camera_set_pos_3f(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* camera_set_pos_3f( Object* self, Object* args )
     {
         float x, y, z;
         if(!PyArg_ParseTuple(args, "fff:camera_set_pos_3f", &x, &y, &z))
@@ -198,11 +166,7 @@ namespace pogelInterface
         return Py_BuildValue("s", Renderer::Camera::campos.toString().c_str());
     }
 
-    ScriptEngine::MethodInterface::Object*
-    camera_set_rot_s(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* camera_set_rot_s( Object* self, Object* args )
     {
         char* newpos;
         if(!PyArg_ParseTuple(args, "s:camera_set_rot_s", &newpos))
@@ -211,11 +175,7 @@ namespace pogelInterface
         return Py_BuildValue("s", Renderer::Camera::camrot.toString().c_str());
     }
 
-    ScriptEngine::MethodInterface::Object*
-    camera_set_rot_3f(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* camera_set_rot_3f( Object* self, Object* args )
     {
         float x, y, z;
         if(!PyArg_ParseTuple(args, "fff:camera_set_rot_3f", &x, &y, &z))
@@ -224,33 +184,21 @@ namespace pogelInterface
         return Py_BuildValue("s", Renderer::Camera::camrot.toString().c_str());
     }
 
-    ScriptEngine::MethodInterface::Object*
-    window_height(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* window_height( Object* self, Object* args )
     {
         if(!PyArg_ParseTuple(args, ":window_height"))
             return NULL;
         return Py_BuildValue("i", (int)Renderer::Window::Size::height);
     }
 
-    ScriptEngine::MethodInterface::Object*
-    window_width(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* window_width( Object* self, Object* args )
     {
         if(!PyArg_ParseTuple(args, ":window_width"))
             return NULL;
         return Py_BuildValue("i", (int)Renderer::Window::Size::width);
     }
 
-    ScriptEngine::MethodInterface::Object*
-    getline(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* getline( Object* self, Object* args )
     {
         char* filename;
         int line;
@@ -259,11 +207,7 @@ namespace pogelInterface
         return Py_BuildValue("s", FileLoader::getline(std::string(filename),line).c_str());
     }
 
-    ScriptEngine::MethodInterface::Object*
-    requestfile_ar(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* requestfile_ar( Object* self, Object* args )
     {
         char* filename;
         char* archive;
@@ -278,11 +222,7 @@ namespace pogelInterface
             return Py_BuildValue("s", std::string("File retrival from resource pylon unsucessful, "+std::string(filename)).c_str());
     }
 
-    ScriptEngine::MethodInterface::Object*
-    requestfile(
-        ScriptEngine::MethodInterface::Object* self,
-        ScriptEngine::MethodInterface::Object* args
-    )
+    Object* requestfile( Object* self, Object* args )
     {
         char* filename;
         if(!PyArg_ParseTuple(args, "s:requestfile", &filename))

@@ -32,13 +32,17 @@ POGEL::VIEW::~VIEW()
     renderfunc = NULL;
     sceneinit = NULL;
     screensizeX = screensizeY = NULL;
+    if( glIsTexture(base) )
+    {
+        glDeleteTextures(1, &base);
+    }
 }
 
 GLuint POGEL::VIEW::build()
 {
     #ifdef OPENGL
-    data = (char*)new GLuint[((sizeX * sizeY)* 4 * sizeof(char))];
-    memset(data,'\0',((sizeX * sizeY)* 4 * sizeof(char)));
+    //data = new char[((sizeX * sizeY)* 4 * sizeof(char))];
+    //memset(data,'\0',((sizeX * sizeY)* 4 * sizeof(char)));
 
     // Create Texture
     glGenTextures(1, &base);
@@ -70,7 +74,7 @@ GLuint POGEL::VIEW::build()
     // border 0 (normal), rgb color data, unsigned byte data, and finally the data itself.
     //glTexImage2D(GL_TEXTURE_2D, 0, 3, sizeX, sizeY, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 
-    delete data;
+    //delete [] data;
     data = NULL;
     #endif
     return base;

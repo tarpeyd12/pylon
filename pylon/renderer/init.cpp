@@ -67,9 +67,9 @@ namespace Renderer
         POGEL::InitFps();
 
         //glEnable( GL_MULTISAMPLE );
-        //glSampleCoverage(0.5,GL_TRUE);
+        //glSampleCoverage(0.5,GL_FALSE);
 
-        if(Renderer::SingleThreaded)
+        if( Renderer::SingleThreaded )
         {
             //POGEL::addproperty(POGEL_TIMEBASIS);
         }

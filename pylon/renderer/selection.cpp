@@ -49,9 +49,12 @@ namespace Renderer
             unsigned char dat[4] = { 0, 0, 0, 0 };
             glReadPixels( x, viewport[ 3 ] - y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, dat );
             unsigned int pixelindex = 4 * ( x * viewport[ 2 ] + viewport[ 3 ] - y );
-            for( unsigned int i = 0; i < 4; ++i )
+            if( Renderer::Selection::pixeldata )
             {
-                Renderer::Selection::pixeldata[ pixelindex + i ] = dat[ i ];
+                for( unsigned int i = 0; i < 4; ++i )
+                {
+                    Renderer::Selection::pixeldata[ pixelindex + i ] = dat[ i ];
+                }
             }
         }
 
@@ -62,10 +65,13 @@ namespace Renderer
             unsigned char dat[4] = { 0, 0, 0, 0 };
             glReadPixels( x, viewport[ 3 ] - y, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, dat );
             unsigned int pixelindex = 4 * ( x * viewport[ 2 ] + viewport[ 3 ] - y );
-            for( unsigned int i = 0; i < 4; ++i )
+            /*if( Renderer::Selection::pixeldata )
             {
-                Renderer::Selection::pixeldata[ pixelindex + i ] = dat[ i ];
-            }
+                for( unsigned int i = 0; i < 4; ++i )
+                {
+                    Renderer::Selection::pixeldata[ pixelindex + i ] = dat[ i ];
+                }
+            }*/
             if( sim )
             {
                 *sim = (int)(unsigned int)((dat[ 0 ] << 8) | (dat[ 1 ] << 0)) - 1;

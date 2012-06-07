@@ -80,6 +80,10 @@ namespace pogelInterface
         { "mouse_pos_y",        (CFunction)mouse_pos_y,       VarArgs, NULL },
         { "mouse_pos_sx",       (CFunction)mouse_pos_sx,      VarArgs, NULL },
         { "mouse_pos_sy",       (CFunction)mouse_pos_sy,      VarArgs, NULL },
+        // selection interface
+        { "select_isgood",       (CFunction)select_isgood,      VarArgs, NULL },
+        { "select_get_sim",      (CFunction)select_get_sim,     VarArgs, NULL },
+        { "select_get_obj",      (CFunction)select_get_obj,     VarArgs, NULL },
         // camera controll
         { "camera_set_pos_s",   (CFunction)camera_set_pos_s,  VarArgs, NULL },
         { "camera_set_pos_3f",  (CFunction)camera_set_pos_3f, VarArgs, NULL },

@@ -178,6 +178,10 @@ POGEL::IMAGE::~IMAGE()
         free(data);
         data = NULL;
     }
+    if( glIsTexture(base) )
+    {
+        glDeleteTextures(1, &base);
+    }
     base=(unsigned int)NULL;
 }
 

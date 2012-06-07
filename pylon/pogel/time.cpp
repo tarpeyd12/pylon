@@ -113,7 +113,7 @@ POGEL::GetTimePassed()
     #if defined(LINUX) || defined(_LINUX) || defined(linux)
         struct timespec current;
         clock_gettime( CLOCK_MONOTONIC, &current );
-        double c = (double( current.tv_sec ) + double( current.tv_nsec ) / 1000000000.0);
+        double c = ( double( current.tv_sec ) + double( current.tv_nsec ) / 1000000000.0 );
         double t = c - POGEL::curtime;
         POGEL::curtime = c;
         POGEL::duration += t;
@@ -132,10 +132,12 @@ POGEL::GetTimePassed()
 void
 POGEL::ThrotleFps( int desitredFramerate )
 {
-	float dfr = (float)desitredFramerate - (POGEL::fps*2-POGEL::fps_long);
-	if(dfr < 0.0f)
-		dfr = 1.0f/dfr;
-	POGEL::SetFramerateThrotle(1.0f/fabs(dfr));
+	float dfr = float(desitredFramerate) - ( POGEL::fps*2.0f - POGEL::fps_long );
+	if( dfr < 0.0f )
+	{
+		dfr = 1.0f / dfr;
+	}
+	POGEL::SetFramerateThrotle( 1.0f / fabs( dfr ) );
 }
 
 void

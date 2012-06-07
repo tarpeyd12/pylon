@@ -16,9 +16,9 @@ namespace Renderer
     void Display()
     {
 
-        if( Renderer::DoExit )
+        if( Renderer::drawLock )
         {
-            exit( Renderer::ExitValue );
+            return;
         }
 
         if( Renderer::SingleThreaded )
@@ -42,11 +42,6 @@ namespace Renderer
             }
         }
 
-        if( Renderer::drawLock )
-        {
-            return;
-        }
-
         Renderer::RenderAllSubRenderers();
 
         //glClearColor( 0.5f, 0.5f, 0.5f, 0.0f );
@@ -56,12 +51,6 @@ namespace Renderer
         glLoadIdentity();
 
         Renderer::Window::toFrustum();
-
-        POGEL::IncrementFps();
-        if( POGEL::frames % 10 == 0 )
-        {
-            POGEL::PrintFps();
-        }
 
         //glTranslatef(campos.x,campos.y,campos.z);
         glRotatef( Renderer::Camera::camrot.x,  1.0f, 0.0f, 0.0f );
@@ -102,6 +91,12 @@ namespace Renderer
         if( !Renderer::drawLock )
         {
             Renderer::timer30->Sleep();
+        }
+
+        POGEL::IncrementFps();
+        //if( POGEL::frames % 10 == 0 )
+        {
+            POGEL::PrintFps();
         }
 
     }

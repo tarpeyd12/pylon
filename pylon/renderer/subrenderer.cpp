@@ -18,7 +18,7 @@ namespace Renderer
         tstr = std::string("{(SubRenderer),[void]}");
         fileid = std::string("SubRenderer");
         camera = Renderer::Camera::Viewpoint();
-        for(unsigned int i = 0; i < MAXNUMLIGHTS; i++)
+        for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
             lights[i] = Renderer::Lighting::Light();
         subRenderers += this;
         aspectratio = 0.0f;
@@ -33,7 +33,7 @@ namespace Renderer
         tstr = "{(SubRenderer),["+s+"]}";
         fileid = std::string("SubRenderer");
         camera = Renderer::Camera::Viewpoint();
-        for(unsigned int i = 0; i < MAXNUMLIGHTS; i++)
+        for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
             lights[i] = Renderer::Lighting::Light();
         subRenderers += this;
         aspectratio = 0.0f;
@@ -48,7 +48,7 @@ namespace Renderer
         tstr = "{(SubRenderer),["+s+"]}";
         fileid = std::string("SubRenderer");
         camera = Renderer::Camera::Viewpoint();
-        for(unsigned int i = 0; i < MAXNUMLIGHTS; i++)
+        for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
             lights[i] = Renderer::Lighting::Light();
         subRenderers += this;
         aspectratio = ar;
@@ -56,12 +56,16 @@ namespace Renderer
 
     SubRenderer::~SubRenderer()
     {
-        for(unsigned int i = 0; i < simulationBindings.length(); i++)
+        if( glIsTexture(base) )
+        {
+            glDeleteTextures(1, &base);
+        }
+        for(unsigned int i = 0; i < simulationBindings.length(); ++i)
             simulationBindings[i]->binding = NULL;
         simulationBindings.clear();
-        for(unsigned int i = 0; i < MAXNUMLIGHTS; i++)
+        for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
             lights[i] = Renderer::Lighting::Light();
-        for(unsigned int i = 0; i < subRenderers.length(); i++)
+        for(unsigned int i = 0; i < subRenderers.length(); ++i)
         {
             if(subRenderers[i]->toString().compare(this->toString()) == 0)
             {
@@ -80,7 +84,7 @@ namespace Renderer
 
     Renderer::Physics::Simulation* SubRenderer::getBoundSimulation(std::string name)
     {
-        for(unsigned int i = 0; i < simulationBindings.length(); i++)
+        for(unsigned int i = 0; i < simulationBindings.length(); ++i)
             if(simulationBindings[i]->getName().length() == name.length() && simulationBindings[i]->getName().compare(name) == 0)
                 return simulationBindings[i];
         return NULL;
@@ -102,7 +106,7 @@ namespace Renderer
 
     int SubRenderer::removeSimulationBinding(std::string name)
     {
-        for(unsigned int i = 0; i < simulationBindings.length(); i++)
+        for(unsigned int i = 0; i < simulationBindings.length(); ++i)
             if(simulationBindings[i]->getName().length() == name.length() && simulationBindings[i]->getName().compare(name) == 0)
             {
                 if(simulationBindings[i]->binding != this)
@@ -119,7 +123,7 @@ namespace Renderer
 
     int SubRenderer::removeAllSimulationBindings()
     {
-        for(unsigned int i = 0; i < simulationBindings.length(); i++)
+        for(unsigned int i = 0; i < simulationBindings.length(); ++i)
         {
             simulationBindings[i]->binding = NULL;
         }
@@ -175,7 +179,7 @@ namespace Renderer
 
         bool label = POGEL::hasproperty(POGEL_LABEL);
         unsigned int numobjs = sim->numobjs();
-        for(unsigned int i = 0; i < numobjs; i++)
+        for(unsigned int i = 0; i < numobjs; ++i)
         {
             POGEL::PHYSICS::SOLID* obj = sim->objs(i);
 
@@ -237,11 +241,11 @@ namespace Renderer
 
     void SubRenderer::scene()
     {
-        for(unsigned int i = 0; i < MAXNUMLIGHTS; i++)
+        for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
             if(lights[i].inCameraSpace)
                 lights[i].draw();
         camera.set();
-        for(unsigned int i = 0; i < MAXNUMLIGHTS; i++)
+        for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
             if(!lights[i].inCameraSpace)
                 lights[i].draw();
         if(!simulationBindings.length())
@@ -251,7 +255,7 @@ namespace Renderer
         POGEL::POINT invcampos = this->globalTempInvCampos = campos*-1.0;
         ClassList< DataWraper<POGEL::PHYSICS::SOLID*,float> > closelist;
         unsigned int numsimulations = simulationBindings.length();
-        for(unsigned int i = 0; i < numsimulations; i++)
+        for(unsigned int i = 0; i < numsimulations; ++i)
         {
             if(simulationBindings[i]->canDrawBound())
             {
@@ -268,7 +272,7 @@ namespace Renderer
             }
         }
         closelist.sort(__sortobjs);
-        for(unsigned int i = 0; i < closelist.length(); i++)
+        for(unsigned int i = 0; i < closelist.length(); ++i)
         {
             POGEL::PHYSICS::SOLID* obj = closelist[i].data;
             if( !obj->hasproperty(OBJECT_SORT_TRIANGLES) && !obj->hasOption(PHYSICS_SOLID_STATIONARY) )
@@ -321,7 +325,7 @@ namespace Renderer
     void SubRenderer::draw()
     {
         // Clear The Screen And The Depth Buffer
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
         glLoadIdentity();
         glPushMatrix();
         this->startrender();
@@ -332,11 +336,11 @@ namespace Renderer
 
     Renderer::SubRenderer* requestSubRenderer(std::string s)
     {
-        for(unsigned int i = 0; i < subRenderers.length(); i++)
+        for( unsigned int i = 0; i < subRenderers.length(); ++i )
         {
-            if(subRenderers[i]->toString().compare(s) == 0)
+            if( subRenderers[ i ]->toString().compare( s ) == 0 )
             {
-                return subRenderers[i];
+                return subRenderers[ i ];
             }
         }
         return NULL;
@@ -344,11 +348,13 @@ namespace Renderer
 
     void RenderAllSubRenderers()
     {
-        for(unsigned int i = 0; i < subRenderers.length(); i++)
+        for( unsigned int i = 0; i < subRenderers.length(); ++i )
         {
-            if(!subRenderers[i]->isbuilt())
-                subRenderers[i]->build();
-            subRenderers[i]->draw();
+            if( !subRenderers[ i ]->isbuilt() )
+            {
+                subRenderers[ i ]->build();
+            }
+            subRenderers[ i ]->draw();
         }
     }
 }

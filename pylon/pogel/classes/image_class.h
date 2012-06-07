@@ -50,8 +50,8 @@ namespace POGEL
 
             /* methods */
             int load(const char*);
-            unsigned int build();
-            bool isbuilt();
+            virtual unsigned int build();
+            virtual bool isbuilt();
             bool isloaded();
             unsigned int loadandbuild(const char*);
             unsigned int loadandbuild();

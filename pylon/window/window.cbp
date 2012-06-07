@@ -77,7 +77,6 @@
 				<Option object_output="obj/Development/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug -bench" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />

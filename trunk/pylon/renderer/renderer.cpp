@@ -38,12 +38,21 @@ namespace Renderer
 
     void Idle()
     {
+        if( Renderer::DoExit )
+        {
+            exit( Renderer::ExitValue );
+        }
+
         if( POGEL::frames > 1 )
+        {
             Renderer::BuildImages();
+        }
         else
+        {
             Renderer::BuildAllImages();
+        }
+
         glutPostRedisplay();
-        //cout << "Idle at frame: " << POGEL::frames << endl;
     }
 
     void BuildImage(unsigned int i)
@@ -55,6 +64,10 @@ namespace Renderer
         std::string fileid = image->getFileID();
         if(typeid(Renderer::SubRenderer*) == typeid(image) || fileid.compare("SubRenderer")==0)
         {
+            if( !static_cast<Renderer::SubRenderer*>(image)->isbuilt() )
+            {
+                //static_cast<Renderer::SubRenderer*>(image)->build();
+            }
             return;
         }
         if( POGEL::lstimg(i)->isbuilt() )

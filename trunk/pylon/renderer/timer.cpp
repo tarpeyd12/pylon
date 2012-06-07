@@ -1,6 +1,6 @@
 #include "timer.h"
 
-#define TIMER_OVERRIDE 10
+//#define TIMER_OVERRIDE 10
 
 namespace Renderer
 {
@@ -93,7 +93,7 @@ namespace Renderer
             double waitTime = 1000000.0 / FPS;
             if ( invDurDiff >= FPS )
             {
-                double diffTime = waitTime - durationDifference*1000000.0;
+                double diffTime = waitTime - durationDifference * 1000000.0;
                 unsigned int sltime = (unsigned int)( diffTime );
                 double timeerr = diffTime - double(sltime);
                 overflow += timeerr;

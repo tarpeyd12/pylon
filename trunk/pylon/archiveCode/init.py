@@ -5,9 +5,11 @@ try:
 	import math
 	
 	# normal pylon interface
-	import pylon
+	#import pylon
 	# pylon versions interface
-	import _pylon
+	#import _pylon
+	#import _pylon_calc
+	#import _pylon_draw
 	
 	# for comparing the versions
 	import shlex
@@ -161,10 +163,10 @@ while loop < numOSpheres:
 #print pylon.object_set_dir_3f("TestSphereSim","Object2",0,0.02,0)
 #print pylon.object_set_dir_3f("TestSphereSim","Object3",0,0.02,0)
 
-rnum = 6
+rnum = 5
 print TestSphereSim.addobject( makeObjectString(zeropos,zeropos,zeropos,zeropos,"Outset",1|8|16,8,0,"") )
-print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|64)
-#print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,subrenderer,1,1,possibleTriProps[rnum]|16)
+#print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|64)
+print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|16)
 #if rnum!=6 and not False:
 #print pylon.object_add_sphere("TestSphereSim","Outset",2.0,20,20,possibleImages[rnum],1,1,possibleTriProps[rnum]|32)
 #print pylon.object_add_sphere("TestSphereSim","Outset",2.1,20,20,'{[Data/images/earthcloudmap.png],[2]}',1,1,8|32)

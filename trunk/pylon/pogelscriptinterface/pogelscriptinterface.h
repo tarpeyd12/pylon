@@ -50,6 +50,12 @@ namespace pogelInterface
     Object* mouse_pos_sx(Object*,Object*);
     Object* mouse_pos_sy(Object*,Object*);
 
+    // selection stuff
+
+    Object* select_isgood(Object*,Object*);
+    Object* select_get_sim(Object*,Object*);
+    Object* select_get_obj(Object*,Object*);
+
     // camera stuff
 
     Object* camera_set_pos_s(Object*,Object*);

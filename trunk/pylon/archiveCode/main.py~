@@ -129,31 +129,36 @@ if True or pylon.mouse_pos_x() != Mouse.x1+int(4*mouseScale) or pylon.mouse_pos_
 previouslastkey = lastkey
 lastkey = pylon.key_last()
 
-currentanimation = pylon.object_get_animation(Animation.name,animationname)
-timesinceanimationstart = pylon.object_get_animsince(Animation.name,animationname)
-animationlength = pylon.object_get_animlen(Animation.name,animationname, currentanimation)
+currentanimation = pylon.object_get_animation( Animation.name, animationname )
+timesinceanimationstart = pylon.object_get_animsince( Animation.name, animationname )
+animationlength = pylon.object_get_animlen( Animation.name, animationname, currentanimation )
 
 if timesinceanimationstart > animationlength:
 	if random.random() > 0.1:
-		pylon.object_set_animation(Animation.name,animationname,"Idle")
+		pylon.object_set_animation( Animation.name, animationname, "Idle" )
 	else:
 		nextanimation = ""
 		if random.random() > 0.5:
 			nextanimation = "Look"
 		else:
 			nextanimation = "Rear"
-		pylon.object_set_animation(Animation.name,animationname,nextanimation)
-	pylon.object_set_animtime(Animation.name,animationname)
+		pylon.object_set_animation( Animation.name, animationname, nextanimation )
+	pylon.object_set_animtime( Animation.name, animationname )
 else:
-	if pylon.key_ispressed(' '):
+	if pylon.key_ispressed( ' ' ):
 		if currentanimation != "Jump":
-			pylon.object_set_animtime(Animation.name,animationname)
-		pylon.object_set_animation(Animation.name,animationname,"Jump")
-	elif pylon.key_ispressed('w') or pylon.key_ispressed('W'):
+			pylon.object_set_animtime( Animation.name, animationname )
+		pylon.object_set_animation( Animation.name, animationname, "Jump" )
+	elif pylon.key_ispressed( 'w' ) or pylon.key_ispressed( 'W' ):
 		if currentanimation != "Jump" and timesinceanimationstart < animationlength:
 			if currentanimation != "Walk":
-				pylon.object_set_animtime(Animation.name,animationname)
-			pylon.object_set_animation(Animation.name,animationname,"Walk")
+				pylon.object_set_animtime( Animation.name, animationname )
+			pylon.object_set_animation( Animation.name, animationname, "Walk" )
+	elif pylon.key_ispressed( 's' ) or pylon.key_ispressed( 'S' ):
+		if currentanimation != "Jump" and timesinceanimationstart < animationlength:
+			if currentanimation != "WalkReverse":
+				pylon.object_set_animtime( Animation.name, animationname )
+			pylon.object_set_animation( Animation.name, animationname, "WalkReverse" )
 
 if pylon.key_ispressed( 'd' ) or pylon.key_ispressed( 'D' ):
 	pylon.object_set_spin_3f( Animation.name, animationname, 0.0, 30.0, 0.0 )
@@ -163,8 +168,8 @@ else:
 	pylon.object_set_spin_3f( Animation.name, animationname, 0.0, 0.0, 0.0 )
 
 # add a pogel formated multi-object data file to a simulation
-if pylon.key_ispressed('m'):
-	sim.addfilehere('Data/objectdata/log125_tga.txt')
+if pylon.key_ispressed( 'm' ):
+	sim.addfilehere( 'Data/objectdata/log125_tga.txt' )
 
 # simple debug display toggling, for object trails
 if pylon.key_ispressed('4'):
@@ -199,5 +204,9 @@ pylon.subrender_set_light(subrenderer1, 1, math.sin(counter)*10,0,math.cos(count
 # a function defined in init.py for controlling the 'flow' of objects/particles
 if going:
 	doOBJECTrelocate()
+
+if pylon.key_ispressed('z') and pylon.select_isgood() and pylon.mouse_ispressed() and pylon.mouse_getbutton() == 0:
+	#print pylon.select_get_sim(),"  ",pylon.select_get_obj()
+	pylon.object_move_3f( pylon.select_get_sim(), pylon.select_get_obj(), 0, 0, 0 )
 
 

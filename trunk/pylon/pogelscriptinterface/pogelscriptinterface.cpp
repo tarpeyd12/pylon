@@ -148,6 +148,27 @@ namespace pogelInterface
         return Py_BuildValue("i", (int)Renderer::Mouse::static_y);
     }
 
+    Object* select_isgood( Object* self, Object* args )
+    {
+        if(!PyArg_ParseTuple(args, ":select_isgood"))
+            return NULL;
+        return Py_BuildValue("i", (int)Renderer::Selection::lastwasselected);
+    }
+
+    Object* select_get_sim( Object* self, Object* args )
+    {
+        if(!PyArg_ParseTuple(args, ":select_get_sim"))
+            return NULL;
+        return Py_BuildValue("s", Renderer::Selection::lastsimname.c_str());
+    }
+
+    Object* select_get_obj( Object* self, Object* args )
+    {
+        if(!PyArg_ParseTuple(args, ":select_get_obj"))
+            return NULL;
+        return Py_BuildValue("s", Renderer::Selection::lastobjname.c_str());
+    }
+
     Object* camera_set_pos_s( Object* self, Object* args )
     {
         char* newpos;

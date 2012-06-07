@@ -13,8 +13,8 @@
 	<File name="cmd.h" open="0" top="0" tabpos="13">
 		<Cursor position="296" topLine="0" />
 	</File>
-	<File name="display.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="1770" topLine="63" />
+	<File name="display.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="2359" topLine="72" />
 	</File>
 	<File name="draw.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="6397" topLine="159" />
@@ -23,18 +23,18 @@
 		<Cursor position="202" topLine="0" />
 	</File>
 	<File name="hud.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="6339" topLine="156" />
+		<Cursor position="5798" topLine="162" />
 	</File>
 	<File name="hud.h" open="0" top="0" tabpos="5">
 		<Cursor position="103" topLine="0" />
 	</File>
 	<File name="init.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="2106" topLine="50" />
+		<Cursor position="1862" topLine="51" />
 	</File>
-	<File name="key.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="891" topLine="0" />
+	<File name="key.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="631" topLine="3" />
 	</File>
-	<File name="key.h" open="1" top="0" tabpos="2">
+	<File name="key.h" open="0" top="0" tabpos="2">
 		<Cursor position="349" topLine="0" />
 	</File>
 	<File name="light.cpp" open="0" top="0" tabpos="6">
@@ -44,13 +44,13 @@
 		<Cursor position="702" topLine="22" />
 	</File>
 	<File name="mouse.cpp" open="0" top="0" tabpos="12">
-		<Cursor position="270" topLine="0" />
+		<Cursor position="1398" topLine="27" />
 	</File>
 	<File name="mouse.h" open="0" top="0" tabpos="13">
-		<Cursor position="381" topLine="0" />
+		<Cursor position="407" topLine="0" />
 	</File>
 	<File name="physics.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="9654" topLine="309" />
+		<Cursor position="9930" topLine="300" />
 	</File>
 	<File name="physics.h" open="0" top="0" tabpos="4">
 		<Cursor position="2181" topLine="28" />
@@ -61,26 +61,26 @@
 	<File name="quad.h" open="0" top="0" tabpos="8">
 		<Cursor position="204" topLine="5" />
 	</File>
-	<File name="renderer.cpp" open="0" top="0" tabpos="9">
-		<Cursor position="3577" topLine="106" />
+	<File name="renderer.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="1420" topLine="57" />
 	</File>
-	<File name="renderer.h" open="1" top="0" tabpos="3">
+	<File name="renderer.h" open="0" top="0" tabpos="3">
 		<Cursor position="616" topLine="15" />
 	</File>
 	<File name="selection.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="164" topLine="0" />
+		<Cursor position="193" topLine="0" />
 	</File>
 	<File name="selection.h" open="0" top="0" tabpos="3">
-		<Cursor position="234" topLine="0" />
+		<Cursor position="217" topLine="0" />
 	</File>
 	<File name="subrenderer.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="7806" topLine="204" />
+		<Cursor position="4276" topLine="96" />
 	</File>
 	<File name="subrenderer.h" open="0" top="0" tabpos="5">
 		<Cursor position="555" topLine="21" />
 	</File>
-	<File name="timer.cpp" open="0" top="0" tabpos="12">
-		<Cursor position="347" topLine="0" />
+	<File name="timer.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="47" topLine="0" />
 	</File>
 	<File name="timer.h" open="0" top="0" tabpos="8">
 		<Cursor position="759" topLine="10" />
@@ -89,7 +89,7 @@
 		<Cursor position="625" topLine="9" />
 	</File>
 	<File name="window.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="312" topLine="28" />
+		<Cursor position="639" topLine="15" />
 	</File>
 	<File name="window.h" open="0" top="0" tabpos="5">
 		<Cursor position="248" topLine="0" />

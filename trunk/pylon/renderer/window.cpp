@@ -25,7 +25,7 @@ namespace Renderer
 
             glutInitWindowSize( x, y );
             glutInitWindowPosition(pos_x,pos_y);
-            glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_ALPHA);
+            glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_ALPHA );
 
             glutCreateWindow(name.c_str());
 

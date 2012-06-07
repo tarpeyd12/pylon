@@ -127,10 +127,10 @@ void ScriptThread::FirstRun()
         exit(-1);
     }
 
-    ScriptEngine::Executor("import pylon\n").Execute();
+    /*ScriptEngine::Executor("import pylon\n").Execute();
     ScriptEngine::Executor("import _pylon\n").Execute();
     ScriptEngine::Executor("import _pylon_calc\n").Execute();
-    ScriptEngine::Executor("import _pylon_draw\n").Execute();
+    ScriptEngine::Executor("import _pylon_draw\n").Execute();*/
 
     // I am calling this the 'StoneBug'
     // start StoneBug fix
@@ -150,7 +150,7 @@ void ScriptThread::FirstRun()
         {
             char *pcNum = POGEL::string("%u", i);
             ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation_" + std::string(pcNum) + "',False)").Execute();
-            delete pcNum;
+            delete [] pcNum;
         }
     }
 
@@ -158,7 +158,7 @@ void ScriptThread::FirstRun()
 
     try
     {
-        ScriptEngine::Executor(initScriptData).Execute();
+        ScriptEngine::Executor("import pylon\nimport _pylon\nimport _pylon_draw\nimport _pylon_calc\n"+initScriptData).Execute();
     }
     catch(int e)
     {
@@ -190,6 +190,7 @@ void ScriptThread::MainRun()
             cout << "ERROR: Main-Loop script failed: " << e << endl;
             exit(e);
         }
+        //glutPostRedisplay();
     }
 
     delete timer;

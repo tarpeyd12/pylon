@@ -240,6 +240,7 @@ namespace POGEL
             float getAnimationLength( const std::string& ) const;
             std::string getCurrentAnimation() const;
             int addAnimationLoop( const POGEL::ANIMATIONLOOP&, const std::string& );
+            bool hasAnimationLoop( const std::string& ) const;
 
             void playAnimation( float );
 

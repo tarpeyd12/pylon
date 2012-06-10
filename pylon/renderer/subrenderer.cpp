@@ -241,6 +241,8 @@ namespace Renderer
 
     void SubRenderer::scene()
     {
+        if(!simulationBindings.length())
+            return;
         for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
             if(lights[i].inCameraSpace)
                 lights[i].draw();
@@ -248,8 +250,6 @@ namespace Renderer
         for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
             if(!lights[i].inCameraSpace)
                 lights[i].draw();
-        if(!simulationBindings.length())
-            return;
         POGEL::VECTOR refpos = this->globalTempRefpos = camera.GetCamDirection();
         POGEL::POINT campos = this->globalTempCampos = camera.position;
         POGEL::POINT invcampos = this->globalTempInvCampos = campos*-1.0;

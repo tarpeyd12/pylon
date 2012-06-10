@@ -37,10 +37,9 @@ void CalcThread::run()
     Renderer::Timing::Timer *timer = new Renderer::Timing::Timer(25, "Physics");
     while(!Main::calcLock)
     {
-        timer->Sleep();
         Renderer::Physics::Incriment();
+        timer->Sleep();
         POGEL::SetFramerateThrotle((timer->getLastStepTime()+1.0f/float(timer->getFPS()))/2.0f);
-        //glutPostRedisplay();
     }
     delete timer;
 }

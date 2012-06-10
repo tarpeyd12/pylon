@@ -25,6 +25,7 @@ POGEL::VIEW::VIEW() : POGEL::IMAGE()
     imgbgcolor = POGEL::COLOR(0.25f,0.25f,0.25f,0.25f);
     setfilter(IMAGE_LINEAR);
     aspectratio = 0.0f;
+    properties = 0;
 }
 
 POGEL::VIEW::~VIEW()

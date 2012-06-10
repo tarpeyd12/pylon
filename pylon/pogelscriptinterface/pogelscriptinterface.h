@@ -32,6 +32,11 @@ namespace pogelInterface
     Object* addproperty(Object*,Object*);
     Object* removeproperty(Object*,Object*);
 
+    // general things
+
+    Object* wait_sec_f(Object*,Object*);
+    Object* wait_usec_i(Object*,Object*);
+
     // keyboard stuff
 
     Object* key_ispressed(Object*,Object*);
@@ -80,6 +85,7 @@ namespace pogelInterface
 #include "shapes.h"
 #include "hud.h"
 #include "subrender.h"
-#include "scriptcallbacks.h"
+#include "objectcallbacks.h"
+#include "keycallbacks.h"
 
 #endif // POGELSCRIPTINTERFACE_H_INCLUDED

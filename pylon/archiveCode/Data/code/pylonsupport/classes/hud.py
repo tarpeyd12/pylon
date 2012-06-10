@@ -42,15 +42,15 @@ class Quad:
 		return ret
 	
 	def makeVisable(self):
-		if(self.quadID >= 0):
+		if self.quadID >= 0:
 			ret = pylon.quadsetvis(self.quadID, True)
 			if ret < 0:
 				print 'quad does not exist', ret, self.quadID
 	
 	def makeInvisable(self):
-		if(self.quadID >= 0):
+		if self.quadID >= 0:
 			ret = pylon.quadsetvis(self.quadID, False)
-			if(ret < 0):
+			if ret < 0:
 				print 'quad does not exist', ret, self.quadID
 
 	def update(self):

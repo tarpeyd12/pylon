@@ -116,7 +116,10 @@ namespace Renderer
             return;
         }
 
-        triangles[ 0 ].settriangletexture();
+        if( !triangles[ 0 ].settriangletexture() )
+        {
+            return;
+        }
         triangles[ 0 ].initializetriangledraw();
         glBegin( GL_TRIANGLES );
         unsigned int p = POGEL::properties;

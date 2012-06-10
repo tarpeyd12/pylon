@@ -13,7 +13,10 @@ namespace pogelInterface
     Object* object_new_fromfile(Object*,Object*);
     Object* object_new_child(Object*,Object*);
 
+    Object* object_check(Object*,Object*);
+
     Object* object_set_visibility(Object*,Object*);
+    Object* object_get_visibility(Object*,Object*);
 
     Object* object_move_s(Object*,Object*);
     Object* object_move_3f(Object*,Object*);
@@ -22,6 +25,11 @@ namespace pogelInterface
     Object* object_set_pos_3f(Object*,Object*);
     Object* object_set_rot_3f(Object*,Object*);
     Object* object_set_spin_3f(Object*,Object*);
+
+    Object* object_get_dir_3f(Object*,Object*);
+    Object* object_get_pos_3f(Object*,Object*);
+    Object* object_get_rot_3f(Object*,Object*);
+    Object* object_get_spin_3f(Object*,Object*);
 
     Object* object_get_dir_s(Object*,Object*);
     Object* object_get_pos_s(Object*,Object*);
@@ -49,6 +57,7 @@ namespace pogelInterface
     Object* object_add_animation(Object*,Object*);
     Object* object_set_animation(Object*,Object*);
     Object* object_get_animation(Object*,Object*);
+    Object* object_has_animation(Object*,Object*);
     Object* object_set_animtime(Object*,Object*);
     Object* object_get_animlen(Object*,Object*);
     Object* object_get_animsince(Object*,Object*);

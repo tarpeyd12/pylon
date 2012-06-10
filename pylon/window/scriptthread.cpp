@@ -99,9 +99,9 @@ void ScriptThread::FirstRun()
 
     ScriptEngine::Initialize();
 
-    ScriptEngine::MethodInterface::Add( "_pylon_calc", Main::calcLockMethods );
-    ScriptEngine::MethodInterface::Add( "_pylon_draw", Main::drawLockMethods );
-    ScriptEngine::MethodInterface::Add( "_pylon", Main::getVersionMethod );
+    ScriptEngine::MethodInterface::Add( "_pylon",      Main::getVersionMethod, "" );
+    ScriptEngine::MethodInterface::Add( "_pylon_calc", Main::calcLockMethods,  "" );
+    ScriptEngine::MethodInterface::Add( "_pylon_draw", Main::drawLockMethods,  "" );
 
     pogelInterface::Init();
 
@@ -179,8 +179,6 @@ void ScriptThread::MainRun()
 
     while(running)
     {
-        timer->Sleep();
-
         try
         {
             mainScript->Execute();
@@ -190,7 +188,7 @@ void ScriptThread::MainRun()
             cout << "ERROR: Main-Loop script failed: " << e << endl;
             exit(e);
         }
-        //glutPostRedisplay();
+        timer->Sleep();
     }
 
     delete timer;

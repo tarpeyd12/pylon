@@ -1387,6 +1387,24 @@ POGEL::OBJECT::addAnimationLoop( const POGEL::ANIMATIONLOOP& anim, const std::st
     return -2;
 }
 
+bool
+POGEL::OBJECT::hasAnimationLoop( const std::string& animname ) const
+{
+    unsigned int numAnimations = animations.length();
+    if( !numAnimations || !animname.length() )
+    {
+        return false;
+    }
+    for( unsigned int i = 0; i < numAnimations; ++i )
+    {
+        if( animations[ i ] == animname )
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
 void
 POGEL::OBJECT::playAnimation( float curtime )
 {

@@ -1,0 +1,22 @@
+try:
+	import pylon
+	import _pylon
+	import _pylon_calc
+	import _pylon_draw
+	
+	import shlex
+	import thread
+	import math
+	from threading import *
+	
+	from pylonclasses import *
+	
+except ImportError:
+	print 'Importing failure for the required modules in \"classes.position.py\".'
+	print _pylon.exit(-1)
+	quit()
+
+class Texture(str):
+	
+	def __init__(self,tex):
+		super( Texture, self ).__init__("{["+tex"],[0]}")

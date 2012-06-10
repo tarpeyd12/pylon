@@ -104,11 +104,19 @@ namespace ScriptEngine
     FunctionCaller::FunctionCaller(std::string inst) : ScriptEngine::Executor(inst)
     {
         outsidefunction = true;
+        if( !instructions.length() )
+        {
+            instructions = "__main__";
+        }
     }
 
     FunctionCaller::FunctionCaller(std::string inst, bool out) : ScriptEngine::Executor(inst)
     {
         outsidefunction = out;
+        if( !instructions.length() )
+        {
+            instructions = "__main__";
+        }
     }
 
     FunctionCaller::FunctionCaller(std::string inst, std::string func, std::string* args, unsigned int numArgs) : ScriptEngine::Executor(inst)
@@ -116,6 +124,10 @@ namespace ScriptEngine
         function = func;
         arguments.add( args, numArgs );
         outsidefunction = true;
+        if( !instructions.length() )
+        {
+            instructions = "__main__";
+        }
     }
 
     FunctionCaller::FunctionCaller(std::string inst, std::string func, std::string* args, unsigned int numArgs, bool out) : ScriptEngine::Executor(inst)
@@ -123,6 +135,10 @@ namespace ScriptEngine
         function = func;
         arguments.add( args, numArgs );
         outsidefunction = out;
+        if( !instructions.length() )
+        {
+            instructions = "__main__";
+        }
     }
 
     FunctionCaller::~FunctionCaller()
@@ -208,6 +224,11 @@ namespace ScriptEngine
                     if(!type.compare("str"))
                     {
                         pValue = PyString_FromString(data.c_str());
+                    }
+                    else
+                    if(!type.compare("char"))
+                    {
+                        pValue = Py_BuildValue("c", data[ 0 ]);
                     }
                     else
                     {

@@ -83,12 +83,6 @@ namespace Renderer
 
             double durationDifference = curentDuration - lastDuration;
             double invDurDiff = 1.0 / durationDifference;
-            /*if(steps%10 == 0)
-            {
-                totalTime = 0.0f;
-                steps = 0;
-            }*/
-            //totalTime += durationDifference;
             lastStepTime = durationDifference;
             double waitTime = 1000000.0 / FPS;
             if ( invDurDiff >= FPS )
@@ -97,13 +91,13 @@ namespace Renderer
                 unsigned int sltime = (unsigned int)( diffTime );
                 double timeerr = diffTime - double(sltime);
                 overflow += timeerr;
-                //cout << overflow << endl;
-                if( usleep( sltime + (unsigned int)overflow ) )
+                int sleeptime = sltime + int(overflow) - 100;
+                if( usleep( (unsigned int)( sleeptime > 0 ? sleeptime : 0 ) ) )
                 {
                     cout << "usleep() error" << endl;
                 }
-                overflow -= double((unsigned int)(overflow));
-                if( overflow < 0.0 )
+                overflow -= double( int( overflow ) );
+                if( overflow > waitTime || overflow < 0.0 )
                 {
                     overflow = 0.0;
                 }
@@ -111,21 +105,12 @@ namespace Renderer
             else
             if ( curentDuration <= lastDuration )
             {
-                if( usleep( (unsigned int)waitTime ) )
+                int sleeptime = int(waitTime) - 100;
+                if( usleep( (unsigned int)( sleeptime > 0 ? sleeptime : 0 ) ) )
                 {
                     cout << "usleep() error" << endl;
                 }
             }
-            /*else
-            if ( steps == 9 && isfinite(invDurDiff) && invDurDiff > 0.0f && (unsigned int)(invDurDiff) < FPS-1 )
-            {
-                cout << "Warning: cyclerate to slow for timer: \"";
-                cout <<  timerName;
-                cout << "\" @ \t" << FPS << " : ";
-                char* tmp = POGEL::string("%0.1f", invDurDiff);
-                cout << tmp << endl;
-                delete[] tmp;
-            }*/
             lastDuration = POGEL::GetTimePassed();
         }
 

@@ -85,7 +85,28 @@ namespace FileLoader
 
             sortFileLinksByFile();
 
+            ClassList<std::string> * archiveFilesInArchive = getFilesOfType( ".pylon", filesInArchive );
+
             delete filesInArchive;
+
+            if(archiveFilesInArchive == NULL)
+            {
+                return;
+            }
+            if(!archiveFilesInArchive->length())
+            {
+                delete archiveFilesInArchive;
+                return;
+            }
+
+            for(unsigned int i = 0; i < archiveFilesInArchive->length(); i++)
+            {
+                addArchiveLink(archiveFilesInArchive->get(i),archiveFilesInArchive->get(i));
+            }
+
+            sortFileLinksByFile();
+
+            delete archiveFilesInArchive;
         }
 
         void addFileLink(std::string fileName, std::string archiveFileName)

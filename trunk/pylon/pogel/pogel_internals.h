@@ -72,6 +72,7 @@
 #define				POGEL_OOPS										( ( 1|2|4|8|16|32|64|128|256 ) ^ POGEL_LOGTOFILE )
 
 #define				POGEL_LOGTOFILE									1
+
 #define				POGEL_DEBUG										2
 #define				POGEL_WIREFRAME									4
 #define				POGEL_BOUNDING									8

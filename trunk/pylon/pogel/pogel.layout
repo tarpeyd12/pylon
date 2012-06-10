@@ -14,13 +14,13 @@
 		<Cursor position="14" topLine="0" />
 	</File>
 	<File name="classes/fractal_class.h" open="0" top="0" tabpos="37">
-		<Cursor position="739" topLine="10" />
+		<Cursor position="310" topLine="3" />
 	</File>
 	<File name="classes/image_class.cpp" open="0" top="0" tabpos="13">
-		<Cursor position="4076" topLine="166" />
+		<Cursor position="3210" topLine="124" />
 	</File>
 	<File name="classes/image_class.h" open="0" top="0" tabpos="2">
-		<Cursor position="1203" topLine="31" />
+		<Cursor position="1752" topLine="45" />
 	</File>
 	<File name="classes/line_class.h" open="0" top="0" tabpos="17">
 		<Cursor position="415" topLine="8" />
@@ -32,13 +32,13 @@
 		<Cursor position="126" topLine="0" />
 	</File>
 	<File name="classes/misc_class.h" open="0" top="0" tabpos="0">
-		<Cursor position="735" topLine="8" />
+		<Cursor position="735" topLine="6" />
 	</File>
 	<File name="classes/object_class.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="33619" topLine="1385" />
+		<Cursor position="33304" topLine="1345" />
 	</File>
 	<File name="classes/object_class.h" open="0" top="0" tabpos="7">
-		<Cursor position="2148" topLine="81" />
+		<Cursor position="489" topLine="90" />
 	</File>
 	<File name="classes/object_class_inline.h" open="0" top="0" tabpos="3">
 		<Cursor position="265" topLine="0" />
@@ -50,13 +50,13 @@
 		<Cursor position="131" topLine="0" />
 	</File>
 	<File name="classes/physics/callbacks.h" open="0" top="0" tabpos="4">
-		<Cursor position="249" topLine="3" />
+		<Cursor position="227" topLine="0" />
 	</File>
 	<File name="classes/physics/dynamics_class.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="48" topLine="0" />
 	</File>
 	<File name="classes/physics/dynamics_class.h" open="0" top="0" tabpos="8">
-		<Cursor position="304" topLine="0" />
+		<Cursor position="546" topLine="6" />
 	</File>
 	<File name="classes/physics/fountain_class.h" open="0" top="0" tabpos="0">
 		<Cursor position="314" topLine="6" />
@@ -65,7 +65,7 @@
 		<Cursor position="12722" topLine="365" />
 	</File>
 	<File name="classes/physics/physics.h" open="0" top="0" tabpos="0">
-		<Cursor position="1747" topLine="19" />
+		<Cursor position="257" topLine="0" />
 	</File>
 	<File name="classes/physics/simulation_class.cpp" open="0" top="0" tabpos="16">
 		<Cursor position="5871" topLine="191" />
@@ -89,7 +89,7 @@
 		<Cursor position="18698" topLine="751" />
 	</File>
 	<File name="classes/physics/solid_class.h" open="0" top="0" tabpos="3">
-		<Cursor position="3121" topLine="98" />
+		<Cursor position="3152" topLine="113" />
 	</File>
 	<File name="classes/point_class.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="2081" topLine="0" />
@@ -116,28 +116,28 @@
 		<Cursor position="5301" topLine="240" />
 	</File>
 	<File name="classes/triangle_class.h" open="0" top="0" tabpos="10">
-		<Cursor position="454" topLine="0" />
+		<Cursor position="371" topLine="0" />
 	</File>
 	<File name="classes/triangle_class_inline.h" open="0" top="0" tabpos="5">
-		<Cursor position="6596" topLine="288" />
+		<Cursor position="6314" topLine="278" />
 	</File>
 	<File name="classes/view_class.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="2338" topLine="71" />
+		<Cursor position="2686" topLine="74" />
 	</File>
 	<File name="classes/view_class.h" open="0" top="0" tabpos="0">
-		<Cursor position="791" topLine="21" />
+		<Cursor position="680" topLine="36" />
 	</File>
 	<File name="pogel.cpp" open="0" top="0" tabpos="11">
-		<Cursor position="6489" topLine="187" />
+		<Cursor position="3351" topLine="99" />
 	</File>
 	<File name="pogel.h" open="0" top="0" tabpos="13">
-		<Cursor position="1263" topLine="40" />
+		<Cursor position="1263" topLine="0" />
 	</File>
 	<File name="pogel_classes.h" open="0" top="0" tabpos="0">
 		<Cursor position="149" topLine="0" />
 	</File>
 	<File name="pogel_internals.h" open="0" top="0" tabpos="6">
-		<Cursor position="2735" topLine="62" />
+		<Cursor position="2769" topLine="63" />
 	</File>
 	<File name="templates/arraylist.h" open="0" top="0" tabpos="4">
 		<Cursor position="88" topLine="0" />
@@ -178,8 +178,8 @@
 	<File name="templates/templates.h" open="0" top="0" tabpos="14">
 		<Cursor position="181" topLine="0" />
 	</File>
-	<File name="time.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="2623" topLine="11" />
+	<File name="time.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="1654" topLine="53" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="0">
 		<Cursor position="694" topLine="18" />

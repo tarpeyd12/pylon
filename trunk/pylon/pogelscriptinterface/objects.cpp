@@ -73,6 +73,22 @@ namespace pogelInterface
         return Py_BuildValue("i", 0);
     }
 
+    Object* object_check(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        if(!PyArg_ParseTuple(args, "ss:object_check", &simname, &name))
+            return NULL;
+        POGEL::PHYSICS::SOLID* obj;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("i", int(false));
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            return Py_BuildValue("i", int(false));
+        return Py_BuildValue("i", int(true));
+    }
+
     Object* object_set_visibility(Object* self, Object* args)
     {
         char* name;
@@ -91,6 +107,22 @@ namespace pogelInterface
         return Py_BuildValue("i", 0);
     }
 
+    Object* object_get_visibility(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        if(!PyArg_ParseTuple(args, "ss:object_get_visibility", &simname, &name))
+            return NULL;
+        POGEL::PHYSICS::SOLID* obj;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            Py_RETURN_NONE;
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            Py_RETURN_NONE;
+        return Py_BuildValue("i", int(obj->visable));
+    }
+
     Object* object_move_s(Object* self, Object* args)
     {
         char* name;
@@ -101,10 +133,10 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            Py_RETURN_NONE;
         obj->position = POGEL::POINT(std::string(newpos));
         return Py_BuildValue("s", obj->position.toString().c_str());
     }
@@ -119,10 +151,10 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            Py_RETURN_NONE;
         obj->position = newpos;
         return Py_BuildValue("s", obj->position.toString().c_str());
     }
@@ -137,10 +169,10 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            Py_RETURN_NONE;
         obj->direction = newdir;
         return Py_BuildValue("s", obj->direction.toString().c_str());
     }
@@ -155,10 +187,10 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            Py_RETURN_NONE;
         obj->position = newdir;
         return Py_BuildValue("s", obj->position.toString().c_str());
     }
@@ -173,10 +205,10 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            Py_RETURN_NONE;
         obj->rotation = newdir;
         return Py_BuildValue("s", obj->rotation.toString().c_str());
     }
@@ -191,12 +223,76 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            Py_RETURN_NONE;
         obj->spin = newdir;
         return Py_BuildValue("s", obj->spin.toString().c_str());
+    }
+
+    Object* object_get_dir_3f(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        if(!PyArg_ParseTuple(args, "ss:object_get_dir_3f", &simname, &name))
+            return NULL;
+        POGEL::PHYSICS::SOLID* obj;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            Py_RETURN_NONE;
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            Py_RETURN_NONE;
+        return Py_BuildValue("[fff]", obj->direction.x, obj->direction.y, obj->direction.z);
+    }
+
+    Object* object_get_pos_3f(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        if(!PyArg_ParseTuple(args, "ss:object_get_pos_3f", &simname, &name))
+            return NULL;
+        POGEL::PHYSICS::SOLID* obj;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            Py_RETURN_NONE;
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            Py_RETURN_NONE;
+        return Py_BuildValue("[fff]", obj->position.x, obj->position.y, obj->position.z);
+    }
+
+    Object* object_get_rot_3f(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        if(!PyArg_ParseTuple(args, "ss:object_get_rot_3f", &simname, &name))
+            return NULL;
+        POGEL::PHYSICS::SOLID* obj;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            Py_RETURN_NONE;
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            Py_RETURN_NONE;
+        return Py_BuildValue("[fff]", obj->rotation.x, obj->rotation.y, obj->rotation.z);
+    }
+
+    Object* object_get_spin_3f(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        if(!PyArg_ParseTuple(args, "ss:object_get_spin_3f", &simname, &name))
+            return NULL;
+        POGEL::PHYSICS::SOLID* obj;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            Py_RETURN_NONE;
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            Py_RETURN_NONE;
+        return Py_BuildValue("[fff]", obj->spin.x, obj->spin.y, obj->spin.z);
     }
 
     Object* object_get_dir_s(Object* self, Object* args)
@@ -208,10 +304,10 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            Py_RETURN_NONE;
         return Py_BuildValue("s", obj->direction.toString().c_str());
     }
 
@@ -224,10 +320,10 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            Py_RETURN_NONE;
         return Py_BuildValue("s", obj->position.toString().c_str());
     }
 
@@ -240,10 +336,10 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            Py_RETURN_NONE;
         return Py_BuildValue("s", obj->rotation.toString().c_str());
     }
 
@@ -256,10 +352,10 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            Py_RETURN_NONE;
         return Py_BuildValue("s", obj->spin.toString().c_str());
     }
 
@@ -273,12 +369,12 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            return Py_BuildValue("i", -1);
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("i", -2);
         obj->direction = POGEL::VECTOR(std::string(newdir));
-        return Py_BuildValue("s", obj->direction.toString().c_str());
+        return Py_BuildValue("i", 0);
     }
 
     Object* object_set_pos_s(Object* self, Object* args)
@@ -291,12 +387,12 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            return Py_BuildValue("i", -1);
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("i", -2);
         obj->position = POGEL::POINT(std::string(newdir));
-        return Py_BuildValue("s", obj->position.toString().c_str());
+        return Py_BuildValue("i", 0);
     }
 
     Object* object_set_rot_s(Object* self, Object* args)
@@ -309,12 +405,12 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            return Py_BuildValue("i", -1);
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("i", -2);
         obj->rotation = POGEL::POINT(std::string(newdir));
-        return Py_BuildValue("s", obj->rotation.toString().c_str());
+        return Py_BuildValue("i", 0);
     }
 
     Object* object_set_spin_s(Object* self, Object* args)
@@ -327,12 +423,12 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID* obj;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            return Py_BuildValue("i", -1);
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("i", -2);
         obj->spin = POGEL::VECTOR(std::string(newdir));
-        return Py_BuildValue("s", obj->spin.toString().c_str());
+        return Py_BuildValue("i", 0);
     }
 
     Object* object_options(Object* self, Object* args)
@@ -450,10 +546,10 @@ namespace pogelInterface
         Renderer::Physics::Simulation * sim;
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            throw -1;
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            throw -2;
+            Py_RETURN_NONE;
         return Py_BuildValue("f", obj->behavior.mass);
     }
 
@@ -486,10 +582,10 @@ namespace pogelInterface
         Renderer::Physics::Simulation * sim;
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            throw -1;
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            throw -2;
+            Py_RETURN_NONE;
         return Py_BuildValue("f", obj->behavior.bounce);
     }
 
@@ -522,10 +618,10 @@ namespace pogelInterface
         Renderer::Physics::Simulation * sim;
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            throw -1;
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            throw -2;
+            Py_RETURN_NONE;
         return Py_BuildValue("f", obj->behavior.friction);
     }
 
@@ -619,11 +715,34 @@ namespace pogelInterface
         Renderer::Physics::Simulation * sim = NULL;
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "");
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "");
+            Py_RETURN_NONE;
         return Py_BuildValue("s", obj->getCurrentAnimation().c_str());
+    }
+
+
+    Object* object_has_animation(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        char* animname;
+        if( !PyArg_ParseTuple( args, "sss:object_has_animation", &simname, &name, &animname) )
+            return NULL;
+        POGEL::PHYSICS::SOLID * obj = NULL;
+        Renderer::Physics::Simulation * sim = NULL;
+        sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            Py_RETURN_NONE;
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            Py_RETURN_NONE;
+        if( obj->hasAnimationLoop( std::string(animname) ) )
+        {
+            Py_RETURN_TRUE;
+        }
+        Py_RETURN_FALSE;
     }
 
     Object* object_set_animtime(Object* self, Object* args)
@@ -655,10 +774,10 @@ namespace pogelInterface
         Renderer::Physics::Simulation * sim = NULL;
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("f", -1.0f);
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("f", -2.0f);
+            Py_RETURN_NONE;
         return Py_BuildValue("f", obj->getAnimationLength(std::string(animname)));
     }
 
@@ -672,10 +791,10 @@ namespace pogelInterface
         Renderer::Physics::Simulation * sim = NULL;
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("f", -1.0f);
+            Py_RETURN_NONE;
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("f", -2.0f);
+            Py_RETURN_NONE;
         return Py_BuildValue("f", obj->getTimeSinceAnimationStart());
     }
 
@@ -689,11 +808,11 @@ namespace pogelInterface
         Renderer::Physics::Simulation * sim = NULL;
         sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            return Py_BuildValue("i", -1);
         obj = sim->getObject(std::string(name));
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("i", -2);
         obj->build();
-        return Py_BuildValue("s", "built object.");
+        return Py_BuildValue("i", 0);
     }
 }

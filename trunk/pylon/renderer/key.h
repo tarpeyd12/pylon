@@ -1,5 +1,5 @@
-#ifndef KEY_H_INCLUDED
-#define KEY_H_INCLUDED
+#ifndef RENDERER_KEY_H_INCLUDED
+#define RENDERER_KEY_H_INCLUDED
 
 #include "renderer.h"
 
@@ -15,9 +15,21 @@ namespace Renderer
 
         extern volatile char last;
 
+        class KeyCallback
+        {
+            public:
+                bool remove;
+                KeyCallback() { remove = false; };
+                virtual ~KeyCallback() { };
+                virtual void operator()( unsigned char, int, int, float ) = 0;
+        };
+
+        extern ClassList< KeyCallback* > keyDownCallBacks;
+        extern ClassList< KeyCallback* > keyUpCallBacks;
+
         void Down(unsigned char key, int x, int y);
         void Up(unsigned char key, int x, int y);
     }
 }
 
-#endif // KEY_H_INCLUDED
+#endif // RENDERER_KEY_H_INCLUDED

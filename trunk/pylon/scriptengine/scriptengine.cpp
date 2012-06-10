@@ -24,7 +24,7 @@ namespace ScriptEngine
             modname = "";
         }
 
-        __Module::__Module( std::string name, ScriptEngine::MethodInterface::Object * mod )
+        __Module::__Module( const std::string& name, ScriptEngine::MethodInterface::Object * mod )
         {
             modname = name;
             module = mod;
@@ -36,56 +36,65 @@ namespace ScriptEngine
             modname = "";
         }
 
-        bool __Module::operator == (const __Module& other) const
+        void __Module::addIntConstant( const std::string& constantName, long constantValue )
         {
-            return other.modname.compare(this->modname) == 0;
+            int ret = PyModule_AddIntConstant( module, constantName.c_str(), constantValue );
+            if( ret )
+            {
+                throw ret;
+            }
         }
 
-        bool __Module::operator == (std::string name) const
+        bool __Module::operator == ( const __Module& other ) const
         {
-            return name.compare(this->modname) == 0;
+            return other.modname.compare( this->modname ) == 0;
         }
 
-        bool __Module::operator == (__Module* other) const
+        bool __Module::operator == ( const std::string& name ) const
         {
-            return other->modname.compare(this->modname) == 0;
+            return name.compare( this->modname ) == 0;
         }
 
-        void __AddModule(__Module* mod)
+        bool __Module::operator == ( __Module* other ) const
+        {
+            return other->modname.compare( this->modname ) == 0;
+        }
+
+        void __AddModule( __Module* mod )
         {
             moduleList += mod;
         }
 
-        __Module* __GetModule(std::string name)
+        __Module* __GetModule( const std::string& name )
         {
-            for(unsigned int i = 0; i < moduleList.length(); ++i )
+            for( unsigned int i = 0; i < moduleList.length(); ++i )
             {
-                if(moduleList[i]->operator==(name))
-                    return moduleList[i];
+                if( moduleList[ i ]->operator==( name ) )
+                    return moduleList[ i ];
             }
             return NULL;
         }
 
-        void Add(std::string name, ScriptEngine::MethodInterface::MethodDef* def)
+        void Add( const std::string& name, ScriptEngine::MethodInterface::MethodDef* def )
         {
-            Object* ret = Py_InitModule(name.c_str(), def);
-            if(!ret)
+            Object* ret = Py_InitModule( name.c_str(), def );
+            if( !ret )
             {
                 cout << "module creation falure" << endl;
                 throw -1;
             }
-            __AddModule(new __Module(name,ret));
+            __AddModule( new __Module( name, ret ) );
         }
 
-        void Add(std::string name, ScriptEngine::MethodInterface::MethodDef* def, std::string doc)
+        void Add( const std::string& name, ScriptEngine::MethodInterface::MethodDef* def, const std::string& doc )
         {
-            Object* ret = Py_InitModule3(name.c_str(), def, doc.c_str());
-            if(!ret)
+            Object* ret = Py_InitModule3( name.c_str(), def, doc.c_str() );
+            if( !ret )
             {
                 cout << "module creation falure" << endl;
                 throw -1;
             }
-            __AddModule(new __Module(name,ret));
+            __AddModule( new __Module( name, ret ) );
         }
     }
 
@@ -93,10 +102,10 @@ namespace ScriptEngine
     {
         Py_Initialize();
         //PyEval_InitThreads();
-        //mainThreadState = PyThreadState_Swap(NULL);
+        //mainThreadState = PyThreadState_Swap( NULL );
         mainThreadState = PyEval_SaveThread();
-        //PyThreadState_Swap(mainThreadState);
-        PyEval_RestoreThread(mainThreadState);
+        //PyThreadState_Swap( mainThreadState );
+        PyEval_RestoreThread( mainThreadState );
         //PyEval_ReleaseLock();
         started = ScriptEngine::HasBegun();
     }
@@ -110,28 +119,32 @@ namespace ScriptEngine
     void End()
     {
         PyEval_AcquireLock();
-        PyThreadState_Swap(NULL);
-        PyThreadState_Clear(mainThreadState);
-        PyThreadState_Delete(mainThreadState);
-        //PyEval_Restore(mainThreadState);
+        PyThreadState_Swap( NULL );
+        PyThreadState_Clear( mainThreadState );
+        PyThreadState_Delete( mainThreadState );
+        //PyEval_Restore( mainThreadState );
         Py_Finalize();
         started = ScriptEngine::HasBegun();
     }
 
     bool HasBegun()
     {
-        return (bool)Py_IsInitialized();
+        return bool( Py_IsInitialized() );
     }
 
     void Initialize()
     {
-        if(!ScriptEngine::HasBegun())
+        if( !ScriptEngine::HasBegun() )
+        {
             ScriptEngine::Begin();
+        }
     }
 
     void Finalize()
     {
-        if(ScriptEngine::HasBegun())
+        if( ScriptEngine::HasBegun() )
+        {
             ScriptEngine::End();
+        }
     }
 }

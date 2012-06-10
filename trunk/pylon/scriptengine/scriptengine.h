@@ -30,21 +30,23 @@ namespace ScriptEngine
 
                 __Module();
                 ~__Module();
-                __Module(std::string,ScriptEngine::MethodInterface::Object*);
+                __Module( const std::string&, ScriptEngine::MethodInterface::Object*);
 
-                bool operator == (const __Module&) const;
-                bool operator == (std::string) const;
-                bool operator == (__Module*) const;
+                void addIntConstant( const std::string&, long );
+
+                bool operator == ( const __Module& ) const;
+                bool operator == ( const std::string& ) const;
+                bool operator == ( __Module* ) const;
         };
 
         extern ClassList<__Module*> moduleList;
 
-        void __AddModule(__Module*);
+        void __AddModule( __Module* );
 
-        __Module* __GetModule(std::string);
+        __Module* __GetModule( const std::string& );
 
-        void Add(std::string, ScriptEngine::MethodInterface::MethodDef*);
-        void Add(std::string, ScriptEngine::MethodInterface::MethodDef*, std::string);
+        void Add( const std::string&, ScriptEngine::MethodInterface::MethodDef* );
+        void Add( const std::string&, ScriptEngine::MethodInterface::MethodDef*, const std::string& );
     }
 
     extern bool started;

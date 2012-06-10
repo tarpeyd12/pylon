@@ -46,7 +46,10 @@ namespace Renderer
         void Light::draw()
         {
             if(lightNumber < 0 || lightNumber >= MAXNUMLIGHTS)
+            {
+                glDisable(glLight(lightNumber));
                 return;
+            }
 
             glEnable(glLight(lightNumber));
 

@@ -14,6 +14,7 @@ namespace pogelInterface
     Object* togglesimweight(Object*,Object*);
     Object* clearsimulation(Object*,Object*);
     Object* setsimulationgravity_3f(Object*,Object*);
+    Object* getsimulationgravity_3f(Object*,Object*);
 
     Object* setsimulationcollitters(Object*,Object*);
     Object* getsimulationcollitters(Object*,Object*);

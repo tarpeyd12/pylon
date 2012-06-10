@@ -110,13 +110,15 @@
 		</Linker>
 		<Unit filename="hud.cpp" />
 		<Unit filename="hud.h" />
+		<Unit filename="keycallbacks.cpp" />
+		<Unit filename="keycallbacks.h" />
 		<Unit filename="methoddef.cpp" />
+		<Unit filename="objectcallbacks.cpp" />
+		<Unit filename="objectcallbacks.h" />
 		<Unit filename="objects.cpp" />
 		<Unit filename="objects.h" />
 		<Unit filename="pogelscriptinterface.cpp" />
 		<Unit filename="pogelscriptinterface.h" />
-		<Unit filename="scriptcallbacks.cpp" />
-		<Unit filename="scriptcallbacks.h" />
 		<Unit filename="shapes.cpp" />
 		<Unit filename="shapes.h" />
 		<Unit filename="simulation.cpp" />

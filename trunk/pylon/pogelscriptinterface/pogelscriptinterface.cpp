@@ -59,6 +59,63 @@ namespace pogelInterface
         return Py_BuildValue("i", (int)POGEL::getproperties());
     }
 
+    Object* wait_sec_f( Object* self, Object* args )
+    {
+        float waittime;
+        if(!PyArg_ParseTuple(args, "f:wait_sec_f", &waittime))
+            return NULL;
+        if( waittime < 0.0f )
+        {
+            return Py_BuildValue("f", POGEL::GetTimePassed());
+        }
+        if( waittime >= 1.0f )
+        {
+            if( sleep( (unsigned int)(waittime) ) )
+            {
+                cout << "sleep() error" << endl;
+            }
+            waittime -= float( (unsigned int)(waittime) );
+        }
+        if( waittime < 0.0f )
+        {
+            return Py_BuildValue("f", POGEL::GetTimePassed());
+        }
+        if( usleep( (unsigned int)(waittime * 1000000.0f) ) )
+        {
+            cout << "usleep() error" << endl;
+        }
+        return Py_BuildValue("f", POGEL::GetTimePassed());
+    }
+
+    Object* wait_usec_i( Object* self, Object* args )
+    {
+        int waittime;
+        if(!PyArg_ParseTuple(args, "i:wait_usec_i", &waittime))
+            return NULL;
+        if( waittime < 0 )
+        {
+            return Py_BuildValue("f", POGEL::GetTimePassed());
+        }
+        if( waittime >= 1000000 )
+        {
+            int secwait = waittime / 1000000;
+            if( sleep( secwait ) )
+            {
+                cout << "sleep() error" << endl;
+            }
+            waittime -= ( secwait ) * 1000000;
+        }
+        if( waittime < 0 )
+        {
+            return Py_BuildValue("f", POGEL::GetTimePassed());
+        }
+        if( usleep( waittime ) )
+        {
+            cout << "usleep() error" << endl;
+        }
+        return Py_BuildValue("f", POGEL::GetTimePassed());
+    }
+
     Object* key_ispressed( Object* self, Object* args )
     {
         char checkedKey;
@@ -88,7 +145,7 @@ namespace pogelInterface
         char checkedKey;
         if(!PyArg_ParseTuple(args, "c:key_pos_press_2i", &checkedKey))
             return NULL;
-        return Py_BuildValue("(ii)", Renderer::Key::mousepospress[(unsigned int)checkedKey][0], Renderer::Key::mousepospress[(unsigned int)checkedKey][1] );
+        return Py_BuildValue("[ii]", Renderer::Key::mousepospress[(unsigned int)checkedKey][0], Renderer::Key::mousepospress[(unsigned int)checkedKey][1] );
     }
 
     Object* key_pos_release_2i( Object* self, Object* args )
@@ -96,7 +153,7 @@ namespace pogelInterface
         char checkedKey;
         if(!PyArg_ParseTuple(args, "c:key_pos_release_2i", &checkedKey))
             return NULL;
-        return Py_BuildValue("(ii)", Renderer::Key::mouseposrelease[(unsigned int)checkedKey][0], Renderer::Key::mouseposrelease[(unsigned int)checkedKey][1] );
+        return Py_BuildValue("[ii]", Renderer::Key::mouseposrelease[(unsigned int)checkedKey][0], Renderer::Key::mouseposrelease[(unsigned int)checkedKey][1] );
     }
 
     Object* key_last(Object* self, Object* args)

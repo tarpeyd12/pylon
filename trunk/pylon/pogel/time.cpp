@@ -68,9 +68,10 @@ void
 POGEL::PrintFps()
 {
 	float timepassed = POGEL::GetTimePassed();
-	POGEL::message("Frame:%u,Fps:%6.2f(%5.2favg),Spf:%5.2f,Duration:%0.2fs(%d:%02d:%05.2f)\n",
+	float gfps = POGEL::GetFps();
+	POGEL::message("Frame:%u,Fps:%6.2f(%5.2favg),Spf:%7.5f,Duration:%0.4fs(%d:%02d:%05.2f)\n",
 		POGEL::frames,
-		(POGEL::GetFps()>999.99?999.99:POGEL::GetFps()),
+		(gfps>999.999?999.999:gfps),
 		POGEL::GetAverageFps(),
 		POGEL::GetSecondsPerFrame(),
 		timepassed,

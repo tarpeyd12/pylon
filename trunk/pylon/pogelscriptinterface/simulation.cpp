@@ -13,9 +13,9 @@ namespace pogelInterface
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim != NULL)
-            return Py_BuildValue("s", "Simulation already exists.");
+            return Py_BuildValue("i", -1);
         Renderer::Physics::addSimulation(std::string(simname), (bool)col);
-        return Py_BuildValue("s", "Added simulation.");
+        return Py_BuildValue("i", 0);
     }
 
     Object* togglesimulation(Object* self, Object* args)
@@ -26,9 +26,9 @@ namespace pogelInterface
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation does not exists.");
+            return Py_BuildValue("i", -1);
         sim->setinc((bool)col);
-        return Py_BuildValue("s", "Toggled simulation.");
+        return Py_BuildValue("i", 0);
     }
 
     Object* togglesimweight(Object* self, Object* args)
@@ -39,7 +39,7 @@ namespace pogelInterface
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation does not exists.");
+            return Py_BuildValue("i", -1);
         if(sim->isdyn())
         {
             POGEL::PHYSICS::DYNAMICS* dyn = static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim());
@@ -56,7 +56,7 @@ namespace pogelInterface
             else if(dyn->hasproperty(DYNAMICS_LIGHTWEIGHT_ONLY))
                 dyn->removeproperty(SIMULATION_LIGHTWEIGHT_ONLY);
         }
-        return Py_BuildValue("s", (std::string("Toggled simulation weight: ")+std::string(!bool(col)?"Off ":"On ")+std::string(simname)).c_str() );
+        return Py_BuildValue("i", 0);
     }
 
     Object* clearsimulation(Object* self, Object* args)
@@ -66,11 +66,11 @@ namespace pogelInterface
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation does not exists.");
+            return Py_BuildValue("i", -1);
         if(sim->RequestToClearObjects())
-            return Py_BuildValue("s", "Simulation will be cleared next incrimentation.");
+            return Py_BuildValue("i", 0);
         else
-            return Py_BuildValue("s", "Failed to clear simulation.");
+            return Py_BuildValue("i", -2);
     }
 
     Object* setsimulationgravity_3f(Object* self, Object* args)
@@ -81,12 +81,28 @@ namespace pogelInterface
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation does not exists.");
+            return Py_BuildValue("i", -1);
         if(sim->isdyn())
             static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->gravity = dir;
         else
             static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->gravity = dir;
-        return Py_BuildValue("s", "set simulation gravity.");
+        return Py_BuildValue("i", 0);
+    }
+
+    Object* getsimulationgravity_3f(Object* self, Object* args)
+    {
+        char* simname;
+        if(!PyArg_ParseTuple(args, "s:getsimulationgravity_3f", &simname))
+            return NULL;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            Py_RETURN_NONE;
+        POGEL::VECTOR grav;
+        if(sim->isdyn())
+            grav = static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->gravity;
+        else
+            grav = static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->gravity;
+        return Py_BuildValue("[fff]", grav.x, grav.y, grav.z );
     }
 
     Object* setsimulationcollitters(Object* self, Object* args)
@@ -97,12 +113,12 @@ namespace pogelInterface
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation does not exists.");
+            return Py_BuildValue("i", -1);
         if(!sim->isdyn())
             static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->setCollItters(char(collitters));
         else
-            return Py_BuildValue("s", "Cannot set simulation collision itterations, wrong type of simulation.");
-        return Py_BuildValue("s", "Set simulation collision itterations.");
+            return Py_BuildValue("i", -2);
+        return Py_BuildValue("i", 0);
     }
 
     Object* getsimulationcollitters(Object* self, Object* args)
@@ -112,12 +128,12 @@ namespace pogelInterface
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation does not exists.");
+            Py_RETURN_NONE;
         unsigned char collitters = 1;
         if(!sim->isdyn())
             collitters = static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->getCollItters();
         else
-            return Py_BuildValue("s", "Cannot get simulation collision itterations, wrong type of simulation.");
+            Py_RETURN_NONE;
         return Py_BuildValue("i", int(collitters));
     }
 
@@ -129,12 +145,12 @@ namespace pogelInterface
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
+            return Py_BuildValue("i", -1);
         POGEL::PHYSICS::SOLID* obj = new POGEL::PHYSICS::SOLID(std::string(data));
         if(sim->isdyn())
             static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->addSolid(obj);
         else
             static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->addSolid(obj);
-        return Py_BuildValue("s", std::string("Added object: "+obj->getsname()).c_str());
+        return Py_BuildValue("i", 0);
     }
 }

@@ -21,6 +21,7 @@ namespace FileLoader
     void __closeArchive(unzFile);
 
     int extractfile(std::string ar, std::string fn);
+    int extractfileto(std::string ar, std::string fn, std::string dst);
     int extractfile(std::string ar, std::string fn, bool o, bool bdirto, std::string dirto, bool bpw, std::string pw);
 
     ClassList<std::string>* filesList(std::string ar);

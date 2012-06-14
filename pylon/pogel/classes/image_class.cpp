@@ -77,7 +77,7 @@ POGEL::IMAGE::IMAGE()
     tstr = fileid = "";
     sizeX = sizeY = 0;
     channels = 0;
-    setfilter(IMAGE_LINEAR);
+    setfilter(IMAGE_DEFAULT_FILTER);
 }
 
 POGEL::IMAGE::IMAGE(const char *filename)
@@ -130,7 +130,7 @@ POGEL::IMAGE::IMAGE(std::string s)
     tstr = s;
     fileid = POGEL::getStringSection('[',1,false,']',1,false, s);
     unsigned int x, y;
-    int filter=0;
+    int filter=IMAGE_DEFAULT_FILTER;
     std::string fileid="";
     get_things(s,&fileid,&x,&y,&filter);
     setfilter(filter);
@@ -153,7 +153,7 @@ POGEL::IMAGE::IMAGE(std::string s,bool bob)
     tstr = s;
     fileid = POGEL::getStringSection('[',1,false,']',1,false, s);
     unsigned int x, y;
-    int filter=0;
+    int filter=IMAGE_DEFAULT_FILTER;
     std::string fileid="";
     get_things(s,&fileid,&x,&y,&filter);
     setfilter(filter);

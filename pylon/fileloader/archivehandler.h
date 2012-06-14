@@ -41,6 +41,7 @@ namespace FileLoader
         void sortFileLinksByFile();
         void sortFileLinksByLink();
 
+        bool isKnownFile( std::string );
         int extractKnownFile(std::string);
         int extractKnownFiles(ClassList<std::string>);
 
@@ -48,7 +49,7 @@ namespace FileLoader
         ClassList<std::string> * getAllFilesInDir(std::string);
 
         ClassList<std::string> * getFilesOfType(std::string, ClassList<std::string>*);
-        ClassList<std::string> * getFilesInDir(std::string, ClassList<std::string>);
+        ClassList<std::string> * getFilesInDir(std::string, ClassList<std::string>*);
     }
 }
 

@@ -16,6 +16,18 @@ namespace pogelInterface
         return Py_BuildValue("i", (int)Renderer::Key::keyDownCallBacks.length()-1);
     }
 
+    Object* key_callback_add_objdownfunc(Object* self, Object* args)
+    {
+        char* sim;
+        char* obj;
+        char* inst;
+        char* func;
+        if(!PyArg_ParseTuple(args, "ssss:key_callback_add_objdownfunc", &sim, &obj, &inst, &func))
+            return NULL;
+        Renderer::Key::keyDownCallBacks += new KeyObjectFunction( std::string(inst),std::string(func), std::string(sim), std::string(obj) );
+        return Py_BuildValue("i", (int)Renderer::Key::keyDownCallBacks.length()-1);
+    }
+
     Object* key_callback_remove_downfunc(Object* self, Object* args)
     {
         int keyfuncid;
@@ -40,6 +52,18 @@ namespace pogelInterface
         if(!PyArg_ParseTuple(args, "ss:key_callback_add_upfunc", &inst, &func))
             return NULL;
         Renderer::Key::keyUpCallBacks += new KeyFunction(std::string(inst),std::string(func));
+        return Py_BuildValue("i", (int)Renderer::Key::keyUpCallBacks.length()-1);
+    }
+
+    Object* key_callback_add_objupfunc(Object* self, Object* args)
+    {
+         char* sim;
+        char* obj;
+        char* inst;
+        char* func;
+        if(!PyArg_ParseTuple(args, "ssss:key_callback_add_objupfunc", &sim, &obj, &inst, &func))
+            return NULL;
+        Renderer::Key::keyUpCallBacks += new KeyObjectFunction( std::string(inst),std::string(func), std::string(sim), std::string(obj) );
         return Py_BuildValue("i", (int)Renderer::Key::keyUpCallBacks.length()-1);
     }
 
@@ -94,6 +118,46 @@ namespace pogelInterface
         args[ 3 ] += std::string(tmp);
         //delete[]tmp;
         getInstructions()->setArgs(args,4);
+        this->Execute();
+    }
+
+    KeyObjectFunction::KeyObjectFunction() : KeyFunction()
+    {
+
+    }
+
+    KeyObjectFunction::KeyObjectFunction( const std::string& inst, const std::string& func, const std::string& sim, const std::string& obj ) : KeyFunction( inst, func )
+    {
+        simulation = sim;
+        object = obj;
+        std::string args[6] = { "char:", "int:", "int:", "float:", "str:", "str:" };
+        getInstructions()->setArgs(args,6);
+    }
+
+    KeyObjectFunction::~KeyObjectFunction()
+    {
+
+    }
+
+    void KeyObjectFunction::operator()( unsigned char key, int xpos, int ypos, float curtime )
+    {
+        char* tmp = NULL;
+        std::string args[6] = { "char:", "int:", "int:", "float:", "str:", "str:" };
+        tmp = POGEL::string("%c",key);
+        args[ 0 ] += std::string(tmp);
+        //delete [] tmp;
+        tmp = POGEL::string("%d",xpos);
+        args[ 1 ] += std::string(tmp);
+        //delete [] tmp;
+        tmp = POGEL::string("%d",ypos);
+        args[ 2 ] += std::string(tmp);
+        //delete [] tmp;
+        tmp = POGEL::string("%0.2f",curtime);
+        args[ 3 ] += std::string(tmp);
+        //delete[]tmp;
+        args[ 4 ] += simulation;
+        args[ 5 ] += object;
+        getInstructions()->setArgs(args,6);
         this->Execute();
     }
 }

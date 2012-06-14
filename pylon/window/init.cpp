@@ -85,7 +85,7 @@ namespace Main
         if( tmpinternalarchivelist )
         {
             FileLoader::ArchiveHandler::extractKnownFiles(*tmpinternalarchivelist);
-            delete tmpinternalarchivelist;
+            //delete tmpinternalarchivelist;
         }
 
         if( ini.hasSection("archives") )

@@ -58,6 +58,7 @@ namespace pogelInterface
         { "object_get_bounce",     (CFunction)object_get_bounce,     VarArgs, NULL },
         { "object_set_friction",   (CFunction)object_set_friction,   VarArgs, NULL },
         { "object_get_friction",   (CFunction)object_get_friction,   VarArgs, NULL },
+        { "object_get_steps",      (CFunction)object_get_steps,      VarArgs, NULL },
         { "object_add_key",        (CFunction)object_add_key,        VarArgs, NULL },
         { "object_add_animation",  (CFunction)object_add_animation,  VarArgs, NULL },
         { "object_set_animation",  (CFunction)object_set_animation,  VarArgs, NULL },
@@ -90,8 +91,10 @@ namespace pogelInterface
         { "key_last",           (CFunction)key_last,           VarArgs, NULL },
         // key callback controll
         { "key_callback_add_downfunc",    (CFunction)key_callback_add_downfunc,    VarArgs, NULL },
+        { "key_callback_add_objdownfunc", (CFunction)key_callback_add_objdownfunc, VarArgs, NULL },
         { "key_callback_remove_downfunc", (CFunction)key_callback_remove_downfunc, VarArgs, NULL },
         { "key_callback_add_upfunc",      (CFunction)key_callback_add_upfunc,      VarArgs, NULL },
+        { "key_callback_add_objupfunc",   (CFunction)key_callback_add_objupfunc,   VarArgs, NULL },
         { "key_callback_remove_upfunc",   (CFunction)key_callback_remove_upfunc,   VarArgs, NULL },
         // mouse interface
         { "mouse_ispressed",    (CFunction)mouse_ispressed,   VarArgs, NULL },

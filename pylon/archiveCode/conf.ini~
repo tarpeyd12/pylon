@@ -1,5 +1,6 @@
 ; the initilization fields required by the pylon engine
 [pylon]
+type = main
 init = init.py
 main = main.py
 extractiondir = Data
@@ -10,7 +11,8 @@ version = 0.5.535.2859
 name = Pylon
 
 ; the archives section is optional alltogether
-;[archives]
+[archives]
+code = Data/code/code
 ;rc = ../rc
 ;resources = rc
 ;blarg = ../rc

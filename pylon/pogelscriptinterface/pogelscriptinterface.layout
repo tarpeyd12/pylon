@@ -7,23 +7,26 @@
 	<File name="hud.h" open="0" top="0" tabpos="0">
 		<Cursor position="128" topLine="0" />
 	</File>
-	<File name="keycallbacks.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="899" topLine="18" />
+	<File name="keycallbacks.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="1872" topLine="37" />
 	</File>
-	<File name="methoddef.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="10081" topLine="117" />
+	<File name="keycallbacks.h" open="0" top="0" tabpos="0">
+		<Cursor position="522" topLine="3" />
+	</File>
+	<File name="methoddef.cpp" open="0" top="0" tabpos="7">
+		<Cursor position="4540" topLine="45" />
 	</File>
 	<File name="objectcallbacks.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="961" topLine="0" />
+		<Cursor position="4193" topLine="90" />
 	</File>
 	<File name="objectcallbacks.h" open="0" top="0" tabpos="2">
 		<Cursor position="600" topLine="0" />
 	</File>
 	<File name="objects.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="28915" topLine="781" />
+		<Cursor position="23143" topLine="616" />
 	</File>
 	<File name="objects.h" open="0" top="0" tabpos="3">
-		<Cursor position="1681" topLine="36" />
+		<Cursor position="1754" topLine="36" />
 	</File>
 	<File name="pogelscriptinterface.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="2706" topLine="71" />

@@ -10,9 +10,11 @@ namespace POGEL
 
 #include "../pogel_internals.h"
 
-#define             IMAGE_NEAREST       0
-#define             IMAGE_LINEAR        1
-#define             IMAGE_MIPMAP        2
+#define             IMAGE_NEAREST           0
+#define             IMAGE_LINEAR            1
+#define             IMAGE_MIPMAP            2
+
+#define             IMAGE_DEFAULT_FILTER    IMAGE_MIPMAP
 
 namespace POGEL
 {

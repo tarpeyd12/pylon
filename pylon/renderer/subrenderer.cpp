@@ -3,7 +3,8 @@
 #include <typeinfo>
 
 #define DEFAULTRESOLUTION   256
-#define DEFAULTFILTER       IMAGE_NEAREST
+//#define DEFAULTFILTER       IMAGE_NEAREST
+#define DEFAULTFILTER       IMAGE_DEFAULT_FILTER
 
 namespace Renderer
 {

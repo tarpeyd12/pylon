@@ -13,11 +13,11 @@
 	<File name="cmd.h" open="0" top="0" tabpos="13">
 		<Cursor position="296" topLine="0" />
 	</File>
-	<File name="display.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1862" topLine="51" />
+	<File name="display.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="2067" topLine="65" />
 	</File>
-	<File name="draw.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="6397" topLine="159" />
+	<File name="draw.cpp" open="0" top="0" tabpos="7">
+		<Cursor position="13543" topLine="291" />
 	</File>
 	<File name="draw.h" open="0" top="0" tabpos="6">
 		<Cursor position="202" topLine="0" />
@@ -32,7 +32,7 @@
 		<Cursor position="1862" topLine="48" />
 	</File>
 	<File name="key.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="2372" topLine="47" />
+		<Cursor position="2140" topLine="47" />
 	</File>
 	<File name="key.h" open="0" top="0" tabpos="2">
 		<Cursor position="551" topLine="2" />
@@ -73,8 +73,8 @@
 	<File name="selection.h" open="0" top="0" tabpos="3">
 		<Cursor position="217" topLine="0" />
 	</File>
-	<File name="subrenderer.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="1494" topLine="25" />
+	<File name="subrenderer.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="78" topLine="0" />
 	</File>
 	<File name="subrenderer.h" open="0" top="0" tabpos="5">
 		<Cursor position="1284" topLine="24" />
@@ -89,7 +89,7 @@
 		<Cursor position="625" topLine="9" />
 	</File>
 	<File name="window.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="639" topLine="15" />
+		<Cursor position="931" topLine="19" />
 	</File>
 	<File name="window.h" open="0" top="0" tabpos="5">
 		<Cursor position="248" topLine="0" />

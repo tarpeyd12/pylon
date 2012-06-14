@@ -19,7 +19,7 @@ try:
 	#sys.path.append('./Data/')
 	sys.path.append('./Data/code/')
 	
-	from pylonsupport.classes import *
+	#from pylonsupport.classes import *
 	from pylonsupport.classes.camera import *
 	from pylonsupport.classes.hud import *
 	from pylonsupport.classes.simulation import *
@@ -57,8 +57,8 @@ def rnd_n1p1():
 	return (random.random() * 2) - 1
 
 # create objects for the mouse cursor and dragbox
-Mouse = Quad(0,0,pylon.mouse_pos_x(),pylon.mouse_pos_y(),'{[Data/images/mouse_pointer.png],[2]}')
-ClickLine = Quad(0,0,pylon.mouse_pos_x(),pylon.mouse_pos_y(),'{[Data/images/red_square.bmp],[0]}')
+Mouse = Quad(0,0,pylon.mouse_pos_x(),pylon.mouse_pos_y(),'{[Data/images/mouse_pointer.png]}')
+ClickLine = Quad(0,0,pylon.mouse_pos_x(),pylon.mouse_pos_y(),'{[Data/images/red_square.bmp]}')
 ClickLine.setproperties( pylon.triangle_transparent )
 
 # declare a simulation
@@ -69,7 +69,7 @@ sim = Simulation("sim",True)
 
 zeropos = makepos(0,0,0)
 
-possibleImages = [ '{[Data/images/earth.bmp],[2]}', '{[Data/images/Glass.bmp],[2]}', '{[Data/images/lava8.bmp],[2]}', '{[Data/images/mandel_2.png],[1]}', '{[Data/images/pogel_runner_galax_color_1.png],[2]}', '{[Data/images/default_2.bmp],[0]}', '{[Data/images/mouse_pointer.png],[0]}' ]
+possibleImages = [ '{[Data/images/earth.bmp]}', '{[Data/images/Glass.bmp]}', '{[Data/images/lava8.bmp]}', '{[Data/images/mandel_2.png]}', '{[Data/images/pogel_runner_galax_color_1.png]}', '{[Data/images/default_2.bmp]}', '{[Data/images/mouse_pointer.png]}' ]
 
 tvn = pylon.triangle_vertex_normals
 tlt = pylon.triangle_lit
@@ -156,32 +156,40 @@ subrenderer1.bindSimulation(sim2)
 #pylon.subrender_bind_sim( subrenderer1, sim2.name )
 
 Bloop = Quad( 0, pylon.window_height(), pylon.window_width(), 0, subrenderer1 )
-Bloop.setproperties( pylon.triangle_transparent )
+#Bloop.setproperties( pylon.triangle_transparent )
 Bloop.makeInvisable()
 
 animscale = 0.01
 
 AnimationSim = Simulation("AnimationSimulation",True)
 animationname = "beast"
-animationfilename = "Data/objectdata/"+animationname+".ms3d"
-pylon.requestfile(animationfilename)
+#animationfilename = "Data/objectdata/"+animationname+".ms3d"
+#pylon.requestfile(animationfilename)
 
-Beast = AnimationSim.newObjectFromFile( animationname, animationfilename, "ms3d" )
-Beast.addScaleKey( Position(1,1,1)*animscale, 0.0 )
-Beast.setProperties( 0 )
-Beast.setOptions( pylon.solid_stationary )
-Beast.setMass( 0.1 )
-Beast.setBounce( 0.0 )
-Beast.addAnimation(1.0,25.0-1,"Walk")
-Beast.addAnimation(25.0-1,1.0,"WalkReverse")
-Beast.addAnimation(71.0,80.0-1,"ToWalk")
-Beast.addAnimation(82.0,100.0-1,"Jump")
-Beast.addAnimation(332.0,380.0-1,"Idle")
-Beast.addAnimation(152.0,180.0-1,"Look")
-Beast.addAnimation(122.0,150.0-1,"Rear")
-Beast.setAnimation("Idle")
-Beast.setAnimationStart()
+pylon.requestfile("Data/objects/beast.pylon")
+
+print "making beast"
+
+#pylon.object_new_fromfile( AnimationSim.name, "beast", "Data/objects/beast.pylon", "pylon" )
+Beast = AnimationSim.newObjectFromFile( animationname, "Data/objects/beast.pylon", "pylon" )
 Beast.build()
+
+#Beast = AnimationSim.newObjectFromFile( animationname, animationfilename, "ms3d" )
+#Beast.addScaleKey( Position(1,1,1)*animscale, 0.0 )
+#Beast.setProperties( 0 )
+#Beast.setOptions( pylon.solid_stationary )
+#Beast.setMass( 0.1 )
+#Beast.setBounce( 0.0 )
+#Beast.addAnimation(1.0,25.0-1,"Walk")
+#Beast.addAnimation(25.0-1,1.0,"WalkReverse")
+#Beast.addAnimation(71.0,80.0-1,"ToWalk")
+#Beast.addAnimation(82.0,100.0-1,"Jump")
+#Beast.addAnimation(332.0,380.0-1,"Idle")
+#Beast.addAnimation(152.0,180.0-1,"Look")
+#Beast.addAnimation(122.0,150.0-1,"Rear")
+#Beast.setAnimation("Idle")
+#Beast.setAnimationStart()
+#Beast.build()
 Beast.setPos( Position(0,0,0) )
 
 
@@ -242,7 +250,7 @@ SkySim = Simulation("Sky",False)
 Sky = SkySim.newObject("Sky")
 Sky.setOptions( pylon.solid_stationary|pylon.solid_concave|pylon.solid_sphere )
 Sky.setProperties( pylon.object_draw_children )
-pylon.object_add_sphere(Sky.simname,Sky.name,750.0,20,20,"{[Data/images/sky/Sky_horiz_"+str(int(random.random()*11+1))+"_2048.jpg],[0]}",2,1,pylon.triangle_invert_normals)
+pylon.object_add_sphere(Sky.simname,Sky.name,750.0,20,20,"{[Data/images/sky/Sky_horiz_"+str(int(random.random()*11+1))+"_2048.jpg]}",2,1,pylon.triangle_invert_normals)
 Sky.build()
 SkySim.stop()
 
@@ -274,7 +282,9 @@ lastkey = '2'
 
 # controlling the pylon internal calculation thread
 def keyfunc1( key, mx, my, tm ):
-	#print "Key ",ord(key)," pressed at execution time: ",tm," with mouse at (",mx,",",my,")"
+	# the exiting condition
+	if chr(27) == key:
+		print _pylon.exit( 0 )
 	if key == '\r' or key == '\n':
 		global going
 		if going:
@@ -289,10 +299,11 @@ def keyfunc1( key, mx, my, tm ):
 keystring = ""
 
 def keyfunc2( key, mx, my, tm ):
-	#print "Key ",ord(key)," released at execution time: ",tm," with mouse at (",mx,",",my,")"
+	if chr(27) == key:
+		print _pylon.exit( 0 )
 	global keystring
 	keystring = keystring + str(key)
-	print keystring
+	#print keystring
 
 keyfunc1index = pylon.key_callback_add_downfunc("","keyfunc1")
 print keyfunc1index

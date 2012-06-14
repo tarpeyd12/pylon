@@ -412,7 +412,7 @@ int do_extract_onefile(unzFile uf, const char* filename, int opt_extract_without
 //    int err = UNZ_OK;
     if (unzLocateFile(uf,filename,CASESENSITIVITY)!=UNZ_OK)
     {
-        printf("file %s not found in the zipfile\n",filename);
+        //printf("file %s not found in the zipfile\n",filename);
         return 2;
     }
 

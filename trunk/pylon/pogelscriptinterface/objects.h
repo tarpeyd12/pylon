@@ -52,6 +52,8 @@ namespace pogelInterface
     Object* object_set_friction(Object*,Object*);
     Object* object_get_friction(Object*,Object*);
 
+    Object* object_get_steps(Object*,Object*);
+
     Object* object_add_key(Object*,Object*);
 
     Object* object_add_animation(Object*,Object*);

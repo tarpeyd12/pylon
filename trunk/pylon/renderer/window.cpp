@@ -33,6 +33,7 @@ namespace Renderer
             glutDisplayFunc(Renderer::Display);
             glutKeyboardFunc(Renderer::Key::Down);
             glutKeyboardUpFunc(Renderer::Key::Up);
+            glutIgnoreKeyRepeat(true);
             glutIdleFunc(Renderer::Idle);
 
             glutMouseFunc(&Renderer::Mouse::Clicked);

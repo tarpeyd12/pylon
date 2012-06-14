@@ -1,10 +1,3 @@
-
-# the exiting condition
-#if pylon.key_ispressed('q') or pylon.key_ispressed('Q'):
-if pylon.key_ispressed(chr(27)):
-	print _pylon.exit(0)
-	#quit()
-
 # greeting
 if counter == 0.0:
 	print ''
@@ -124,10 +117,6 @@ if True:
 		Beast.setSpin( Position(0,-30,0) )
 	else:
 		Beast.setSpin( Position(0,0,0) )
-
-# add a pogel formated multi-object data file to a simulation
-if pylon.key_ispressed( 'm' ):
-	sim.addfilehere( 'Data/objectdata/log125_tga.txt' )
 
 # simple debug display toggling, for object trails
 if pylon.key_ispressed('4'):

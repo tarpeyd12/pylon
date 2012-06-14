@@ -1,10 +1,3 @@
-
-# the exiting condition
-#if pylon.key_ispressed('q') or pylon.key_ispressed('Q'):
-if pylon.key_ispressed(chr(27)):
-	print _pylon.exit(0)
-	#quit()
-
 # greeting
 if counter == 0.0:
 	print ''
@@ -86,7 +79,7 @@ if True or pylon.mouse_pos_x() != Mouse.x1+int(4*mouseScale) or pylon.mouse_pos_
 previouslastkey = lastkey
 lastkey = pylon.key_last()
 
-if True:
+if False:
 	currentanimation = Beast.getAnimationCurrent()
 	timesinceanimationstart = Beast.getAnimationRuntime()
 	animationlength = Beast.getAnimationLength( currentanimation )

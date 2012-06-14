@@ -21,7 +21,7 @@ namespace Renderer
         {
             if( Renderer::Key::keys[ key ] == true )
             {
-                return;
+                //return;
             }
             last = key;
             Renderer::Key::keys[ key ] = true;
@@ -51,7 +51,7 @@ namespace Renderer
         {
             if( Renderer::Key::keys[ key ] == false )
             {
-                return;
+                //return;
             }
             Renderer::Key::keys[ key ] = false;
             Renderer::Key::lastreleased[ key ] = (float)POGEL::GetTimePassed();

@@ -113,6 +113,7 @@
 		<Unit filename="objectloader.cpp" />
 		<Unit filename="objectloader.h" />
 		<Unit filename="objmtl.cpp" />
+		<Unit filename="pylon.cpp" />
 		<Unit filename="version.h" />
 		<Extensions>
 			<code_completion />

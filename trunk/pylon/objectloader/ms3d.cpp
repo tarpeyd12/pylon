@@ -152,6 +152,29 @@ namespace ObjectLoader
 
             objverts = NULL;
 
+
+            std::string location = "";
+            if( std::string(filename).rfind('/') != std::string::npos )
+            {
+                location = std::string(filename).substr( 0, std::string(filename).rfind('/') );
+            }
+
+            if( location[ 0 ] == '.' )
+            {
+                location = location.substr( 1 );
+            }
+
+            if( location[ 0 ] == '/' )
+            {
+                location = location.substr( 1 );
+            }
+
+            if( location.length() && location[ location.length()-1 ] != '/' )
+            {
+                location = location + "/";
+            }
+
+
             POGEL::TRIANGLE * trilist = object->gettrianglelist();
 
             for( int i = 0; i < mdl->GetNumGroups(); ++i )
@@ -197,9 +220,23 @@ namespace ObjectLoader
                     material->texture[--texnamelen] = '\0';
                 }
 
+                std::string texturefilename = std::string(material->texture);
+
+                if( !FileLoader::ArchiveHandler::isKnownFile(texturefilename) )
+                {
+                    texturefilename = location + texturefilename;
+                    //cout << texturefilename << endl;
+                }
+
+                if( !FileLoader::ArchiveHandler::isKnownFile(texturefilename) )
+                {
+                    //cout << " cannot find texture file: \"{[" << texturefilename << "]}\"" << endl;
+                    continue;
+                }
+
                 for( int p = 0; p < (int)group->triangleIndices.size(); ++p)
                 {
-                    trilist[group->triangleIndices[p]].texture = POGEL::requestImage("{["+std::string(material->texture)+"]}");
+                    trilist[group->triangleIndices[p]].texture = POGEL::requestImage("{["+texturefilename+"]}");
                 }
             }
 

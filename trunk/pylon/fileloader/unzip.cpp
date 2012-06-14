@@ -76,6 +76,11 @@ namespace FileLoader
         return extractfile(ar,fn,true,false,"",false,"");
     }
 
+    int extractfileto(std::string ar, std::string fn, std::string dst)
+    {
+        return extractfile(ar,fn,true,true,dst,false,"");
+    }
+
     int extractfile(std::string ar, std::string fn, bool overite, bool bdirto, std::string dirto, bool bpw, std::string pw)
     {
         if(noarchive)
@@ -88,6 +93,7 @@ namespace FileLoader
         {
             return 1;
         }
+
 
         #ifdef _WIN32
         char *curdur = _getcwd(NULL,2048);

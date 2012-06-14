@@ -10,9 +10,11 @@ using namespace ScriptEngine::MethodInterface;
 namespace pogelInterface
 {
     Object* key_callback_add_downfunc(Object*,Object*);
+    Object* key_callback_add_objdownfunc(Object*,Object*);
     Object* key_callback_remove_downfunc(Object*,Object*);
 
     Object* key_callback_add_upfunc(Object*,Object*);
+    Object* key_callback_add_objupfunc(Object*,Object*);
     Object* key_callback_remove_upfunc(Object*,Object*);
 
     class KeyFunction : public Renderer::Key::KeyCallback, public ScriptEngine::InterpreterThread
@@ -21,7 +23,19 @@ namespace pogelInterface
             KeyFunction();
             KeyFunction( const std::string&, const std::string& );
             ~KeyFunction();
-            void operator()( unsigned char, int, int, float );
+            virtual void operator()( unsigned char, int, int, float );
+    };
+
+    class KeyObjectFunction : public KeyFunction
+    {
+        private:
+            std::string simulation;
+            std::string object;
+        public:
+            KeyObjectFunction();
+            KeyObjectFunction( const std::string&, const std::string&, const std::string&, const std::string& );
+            ~KeyObjectFunction();
+            virtual void operator()( unsigned char, int, int, float );
     };
 }
 

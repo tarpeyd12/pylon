@@ -51,5 +51,6 @@ namespace Main
         #if defined(PYLON_DEV_VERSION)
         VersionString += ".dev";
         #endif
+        ObjectLoader::pylon::VersionStringRaw = Main::VersionStringRaw;
     }
 }

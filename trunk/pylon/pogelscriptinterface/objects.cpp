@@ -35,15 +35,19 @@ namespace pogelInterface
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("i", -1);
-        char *nm = new char[strlen(objname)];
-        POGEL::PHYSICS::SOLID * obj = new POGEL::PHYSICS::SOLID(nm);
-        POGEL::OBJECT * animobj = ObjectLoader::newFromFile( filename, filetype, strcpy(nm,objname), obj );
+        POGEL::PHYSICS::SOLID * obj = sim->getObject(std::string(objname));
+        char *nm = strcpy(new char[strlen(objname)],objname);
+        if(!obj)
+        {
+            obj = new POGEL::PHYSICS::SOLID(nm);
+            if(sim->isdyn())
+                static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->addSolid(obj);
+            else
+                static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->addSolid(obj);
+        }
+        POGEL::OBJECT * animobj = ObjectLoader::newFromFile( filename, filetype, nm, obj, std::string(simname) );
         if( animobj == NULL)
             return Py_BuildValue("i", -2);
-        if(sim->isdyn())
-            static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->addSolid(obj);
-        else
-            static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->addSolid(obj);
         return Py_BuildValue("i", 0);
     }
 
@@ -623,6 +627,23 @@ namespace pogelInterface
         if(obj == NULL)
             Py_RETURN_NONE;
         return Py_BuildValue("f", obj->behavior.friction);
+    }
+
+    Object* object_get_steps(Object* self, Object* args)
+    {
+        char* name;
+        char* simname;
+        if( !PyArg_ParseTuple( args, "ss:object_get_steps", &simname, &name) )
+            return NULL;
+        POGEL::PHYSICS::SOLID* obj;
+        Renderer::Physics::Simulation * sim;
+        sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            Py_RETURN_NONE;
+        obj = sim->getObject(std::string(name));
+        if(obj == NULL)
+            Py_RETURN_NONE;
+        return Py_BuildValue("i", (int)obj->getstepstaken());
     }
 
     Object* object_add_key(Object* self, Object* args)

@@ -746,7 +746,7 @@ POGEL::PHYSICS::SOLID::build()
 
 	for(unsigned long a = 0; a < getnumfaces(); a++)
 	{
-	    trianglestring += gettriangle(a).toString()+(a<getnumfaces()-1 ? ",":"");
+	    //trianglestring += gettriangle(a).toString()+(a<getnumfaces()-1 ? ",":"");
 	}
 }
 

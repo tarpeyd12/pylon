@@ -5,22 +5,22 @@
 		<Cursor position="16224" topLine="555" />
 	</File>
 	<File name="arraylist.h" open="0" top="0" tabpos="16">
-		<Cursor position="4962" topLine="105" />
+		<Cursor position="4526" topLine="99" />
 	</File>
 	<File name="arraylist.operators.cpp" open="0" top="0" tabpos="10">
 		<Cursor position="4165" topLine="86" />
 	</File>
 	<File name="bitlist.cpp" open="0" top="0" tabpos="10">
-		<Cursor position="238" topLine="0" />
+		<Cursor position="1942" topLine="0" />
 	</File>
 	<File name="bitlist.h" open="0" top="0" tabpos="1">
-		<Cursor position="683" topLine="0" />
+		<Cursor position="683" topLine="6" />
 	</File>
-	<File name="classlist_template.cpp" open="0" top="0" tabpos="13">
-		<Cursor position="1282" topLine="49" />
+	<File name="classlist_template.cpp" open="1" top="0" tabpos="22">
+		<Cursor position="2704" topLine="141" />
 	</File>
-	<File name="classlist_template.h" open="0" top="0" tabpos="12">
-		<Cursor position="1745" topLine="69" />
+	<File name="classlist_template.h" open="1" top="0" tabpos="27">
+		<Cursor position="914" topLine="58" />
 	</File>
 	<File name="hashlist_template.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="2843" topLine="127" />

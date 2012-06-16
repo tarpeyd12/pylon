@@ -49,7 +49,7 @@ namespace ScriptEngine
         void Add( const std::string&, ScriptEngine::MethodInterface::MethodDef*, const std::string& );
     }
 
-    extern bool started;
+    extern volatile bool started;
 
     extern ThreadState * mainThreadState;
 

@@ -1,6 +1,6 @@
-#include "../scriptengine/scriptengine.h"
-
 #include "objectloader.h"
+
+#include "pylon/pylon.h"
 
 namespace ObjectLoader
 {
@@ -100,7 +100,7 @@ namespace ObjectLoader
 
             std::string pylon_type = ini.getvalue( "pylon", "type" );
 
-            if( pylon_type.compare("object") != 0 )
+            if( !suportedType(pylon_type) )
             {
                 delete filesinzip;
                 cout << "wrongtype" << endl;
@@ -221,14 +221,7 @@ namespace ObjectLoader
                 object = new POGEL::OBJECT( objname );
             }
 
-            std::string objectnamespace = ini.getvalue("object", "namespace");
-
-            ScriptEngine::Executor("sys.path.append('./" + location+codeDir + "')\n"/*"import " + objectnamespace + "\n"*/ ).Execute();
-
-            std::string constructor = ini.getvalue("object", "constructor");
-
-            std::string args[3] = { "str:"+simname, "str:"+std::string(objname), "str:"+location };
-            ScriptEngine::FunctionCaller(objectnamespace,constructor,args,3).Execute();
+            executeArchiveType(pylon_type,object,&ini,location,codeDir,simname,objname);
 
             delete filesinzip;
             return object;

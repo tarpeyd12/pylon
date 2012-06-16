@@ -13,8 +13,8 @@
 	<File name="cmd.h" open="0" top="0" tabpos="13">
 		<Cursor position="296" topLine="0" />
 	</File>
-	<File name="display.cpp" open="1" top="1" tabpos="3">
-		<Cursor position="2067" topLine="65" />
+	<File name="display.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="1858" topLine="47" />
 	</File>
 	<File name="draw.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="13543" topLine="291" />
@@ -49,11 +49,11 @@
 	<File name="mouse.h" open="0" top="0" tabpos="13">
 		<Cursor position="407" topLine="0" />
 	</File>
-	<File name="physics.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="9930" topLine="300" />
+	<File name="physics.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="6287" topLine="217" />
 	</File>
-	<File name="physics.h" open="0" top="0" tabpos="4">
-		<Cursor position="2181" topLine="28" />
+	<File name="physics.h" open="1" top="0" tabpos="1">
+		<Cursor position="1086" topLine="26" />
 	</File>
 	<File name="quad.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="4956" topLine="105" />
@@ -61,19 +61,19 @@
 	<File name="quad.h" open="0" top="0" tabpos="8">
 		<Cursor position="204" topLine="2" />
 	</File>
-	<File name="renderer.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="952" topLine="36" />
+	<File name="renderer.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="2971" topLine="105" />
 	</File>
 	<File name="renderer.h" open="0" top="0" tabpos="3">
 		<Cursor position="808" topLine="30" />
 	</File>
 	<File name="selection.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="193" topLine="0" />
+		<Cursor position="4368" topLine="100" />
 	</File>
 	<File name="selection.h" open="0" top="0" tabpos="3">
-		<Cursor position="217" topLine="0" />
+		<Cursor position="406" topLine="0" />
 	</File>
-	<File name="subrenderer.cpp" open="1" top="0" tabpos="2">
+	<File name="subrenderer.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="78" topLine="0" />
 	</File>
 	<File name="subrenderer.h" open="0" top="0" tabpos="5">
@@ -89,7 +89,7 @@
 		<Cursor position="625" topLine="9" />
 	</File>
 	<File name="window.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="931" topLine="19" />
+		<Cursor position="1719" topLine="37" />
 	</File>
 	<File name="window.h" open="0" top="0" tabpos="5">
 		<Cursor position="248" topLine="0" />

@@ -68,6 +68,9 @@ namespace pogelInterface
     Object* camera_set_rot_s(Object*,Object*);
     Object* camera_set_rot_3f(Object*,Object*);
 
+    Object* camera_get_pos_3f(Object*,Object*);
+    Object* camera_get_rot_3f(Object*,Object*);
+
     // window stuff
 
     Object* window_height(Object*,Object*);

@@ -37,6 +37,7 @@ namespace Threads
         int ret = pthread_attr_destroy(&attr);
         if ( ret )
         {
+            std::cout << "*** THREAD DESTRUCTION FAILURE: " << ret << " ***" << std::endl;
             throw ret;
         }
         thread_function = NULL;
@@ -88,7 +89,7 @@ namespace Threads
         int ret = pthread_create( &thread, &attr, thread_function, data);
         if( ret )
         {
-            //std::cout << "*** THREAD START FAILURE: " << ret << " ***" << std::endl;
+            std::cout << "*** THREAD START FAILURE: " << ret << " ***" << std::endl;
             throw ret;//"*** THREAD START FAILURE:  ***";
             //exit(-1);
         }
@@ -106,7 +107,7 @@ namespace Threads
         int ret = pthread_join(thread, NULL);
         if( ret )
         {
-            //std::cout << "*** THREAD JOIN FAILURE: " << ret << " ***" << std::endl;
+            std::cout << "*** THREAD JOIN FAILURE: " << ret << " ***" << std::endl;
             throw ret;
             //exit(-1);
         }
@@ -122,7 +123,7 @@ namespace Threads
         int ret = pthread_cancel(thread);
         if( ret )
         {
-            //std::cout << "*** THREAD CANCEL FAILURE: " << ret << " ***" << std::endl;
+            std::cout << "*** THREAD CANCEL FAILURE: " << ret << " ***" << std::endl;
             throw ret;
             //exit(-1);
         }

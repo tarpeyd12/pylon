@@ -262,6 +262,20 @@ namespace pogelInterface
         return Py_BuildValue("s", Renderer::Camera::camrot.toString().c_str());
     }
 
+    Object* camera_get_pos_3f( Object* self, Object* args )
+    {
+        if(!PyArg_ParseTuple(args, ":camera_get_pos_3f"))
+            return NULL;
+        return Py_BuildValue("[fff]", Renderer::Camera::campos.x, Renderer::Camera::campos.y, Renderer::Camera::campos.z );
+    }
+
+    Object* camera_get_rot_3f( Object* self, Object* args )
+    {
+        if(!PyArg_ParseTuple(args, ":camera_get_rot_3f"))
+            return NULL;
+        return Py_BuildValue("[fff]", Renderer::Camera::camrot.x, Renderer::Camera::camrot.y, Renderer::Camera::camrot.z );
+    }
+
     Object* window_height( Object* self, Object* args )
     {
         if(!PyArg_ParseTuple(args, ":window_height"))

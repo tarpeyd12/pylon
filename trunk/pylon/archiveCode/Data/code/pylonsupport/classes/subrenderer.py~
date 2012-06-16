@@ -22,6 +22,7 @@ class SubRenderer(str):
 	def __new__( self, tex, ar ):
 		return super( SubRenderer, self ).__new__( self, pylon.subrender_new( tex, ar ) )
 	
+	
 	def bindSimulation( self, sim ):
 		pylon.subrender_bind_sim( self, sim.name )
 	

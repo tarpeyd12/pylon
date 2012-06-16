@@ -44,7 +44,7 @@ except ImportError as bob:
 counter = 0
 
 # setup the camera
-cam = Camera(0,0,0,0,0,0)
+cam = Camera( Position( 0, 0, 0 ), Position( 0, 0, 0 ) )
 
 # declare the way in which the simple object movement example moves objects
 movestatetype = 0
@@ -211,6 +211,11 @@ Lamp.setRot( Position(-90,90,0) )
 
 ObjectImportSimulation.stop()
 
+#pylon.requestfile("Data/objects/tree.pylon")
+#Tree = ObjectImportSimulation.newObjectFromFile( "Tree", "Data/objects/tree.pylon", "pylon" )
+#Tree.build()
+#print "Tree built =)"
+
 loop = 0
 rnum = 0
 numOSpheres = 10
@@ -220,7 +225,9 @@ while loop < numOSpheres:
 	rpos = Position(rnd_n1p1(),rnd_n1p1(),rnd_n1p1()) * positionrange
 	rpos.y -= 2
 	rot  = Position(rnd_n1p1(),rnd_n1p1(),rnd_n1p1()) * 360.0
+	print "new object ","Object"+str(loop)
 	currentObject = AnimationSim.newObject( "Object"+str(loop) )
+	print " created object"
 	currentObject.setPos(rpos)
 	currentObject.setRot(rot)
 	currentObject.setMass(.02)

@@ -5,11 +5,11 @@ using namespace ScriptEngine::MethodInterface;
 
 namespace pogelInterface
 {
-    Object* addsimulation(Object* self, Object* args)
+    Object* sim_new(Object* self, Object* args)
     {
         char* simname;
         int col;
-        if(!PyArg_ParseTuple(args, "si:addsimulation", &simname, &col))
+        if(!PyArg_ParseTuple(args, "si:sim_new", &simname, &col))
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim != NULL)
@@ -18,11 +18,11 @@ namespace pogelInterface
         return Py_BuildValue("i", 0);
     }
 
-    Object* togglesimulation(Object* self, Object* args)
+    Object* sim_toggle(Object* self, Object* args)
     {
         char* simname;
         int col;
-        if(!PyArg_ParseTuple(args, "si:togglesimulation", &simname, &col))
+        if(!PyArg_ParseTuple(args, "si:sim_toggle", &simname, &col))
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
@@ -31,11 +31,11 @@ namespace pogelInterface
         return Py_BuildValue("i", 0);
     }
 
-    Object* togglesimweight(Object* self, Object* args)
+    Object* sim_weight(Object* self, Object* args)
     {
         char* simname;
         int col;
-        if(!PyArg_ParseTuple(args, "si:togglesimweight", &simname, &col))
+        if(!PyArg_ParseTuple(args, "si:sim_weight", &simname, &col))
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
@@ -59,10 +59,10 @@ namespace pogelInterface
         return Py_BuildValue("i", 0);
     }
 
-    Object* clearsimulation(Object* self, Object* args)
+    Object* sim_clear(Object* self, Object* args)
     {
         char* simname;
-        if(!PyArg_ParseTuple(args, "s:clearsimulation", &simname))
+        if(!PyArg_ParseTuple(args, "s:sim_clear", &simname))
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
@@ -73,11 +73,11 @@ namespace pogelInterface
             return Py_BuildValue("i", -2);
     }
 
-    Object* setsimulationgravity_3f(Object* self, Object* args)
+    Object* sim_set_gravity_3f(Object* self, Object* args)
     {
         char* simname;
         POGEL::VECTOR dir;
-        if(!PyArg_ParseTuple(args, "sfff:setsimulationgravity_3f", &simname, &dir.x, &dir.y, &dir.z))
+        if(!PyArg_ParseTuple(args, "sfff:sim_set_gravity_3f", &simname, &dir.x, &dir.y, &dir.z))
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
@@ -89,10 +89,10 @@ namespace pogelInterface
         return Py_BuildValue("i", 0);
     }
 
-    Object* getsimulationgravity_3f(Object* self, Object* args)
+    Object* sim_get_gravity_3f(Object* self, Object* args)
     {
         char* simname;
-        if(!PyArg_ParseTuple(args, "s:getsimulationgravity_3f", &simname))
+        if(!PyArg_ParseTuple(args, "s:sim_get_gravity_3f", &simname))
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
@@ -105,11 +105,11 @@ namespace pogelInterface
         return Py_BuildValue("[fff]", grav.x, grav.y, grav.z );
     }
 
-    Object* setsimulationcollitters(Object* self, Object* args)
+    Object* sim_set_itter(Object* self, Object* args)
     {
         char* simname;
         int collitters;
-        if(!PyArg_ParseTuple(args, "si:setsimulationcollitters", &simname, &collitters))
+        if(!PyArg_ParseTuple(args, "si:sim_set_itter", &simname, &collitters))
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
@@ -121,10 +121,10 @@ namespace pogelInterface
         return Py_BuildValue("i", 0);
     }
 
-    Object* getsimulationcollitters(Object* self, Object* args)
+    Object* sim_get_itter(Object* self, Object* args)
     {
         char* simname;
-        if(!PyArg_ParseTuple(args, "s:getsimulationcollitters", &simname))
+        if(!PyArg_ParseTuple(args, "s:sim_get_itter", &simname))
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
@@ -137,11 +137,11 @@ namespace pogelInterface
         return Py_BuildValue("i", int(collitters));
     }
 
-    Object* addobject(Object* self, Object* args)
+    Object* sim_add_object_s(Object* self, Object* args)
     {
         char* data;
         char* simname;
-        if(!PyArg_ParseTuple(args, "ss:addobject", &simname, &data))
+        if(!PyArg_ParseTuple(args, "ss:sim_add_object_s", &simname, &data))
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)

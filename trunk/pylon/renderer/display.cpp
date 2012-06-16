@@ -62,13 +62,15 @@ namespace Renderer
                      Renderer::Camera::campos.z
                      );
 
+        glDisable( GL_ALPHA_TEST );
+
         Renderer::Selection::DoMouseSelection();
 
         glEnable( GL_ALPHA_TEST );
         glAlphaFunc( GL_GREATER, 0.5f );
 
-        //Renderer::Draw::SimpleDraw();
-        Renderer::Draw::Draw();
+        Renderer::Draw::SimpleDraw();
+        //Renderer::Draw::Draw();
         //Renderer::Draw::PerfectDraw();
 
         Renderer::Window::toOrtho();
@@ -94,7 +96,7 @@ namespace Renderer
         }
 
         POGEL::IncrementFps();
-        //if( POGEL::frames % 10 == 0 )
+        if( POGEL::frames % 10 == 0 )
         {
             POGEL::PrintFps();
         }

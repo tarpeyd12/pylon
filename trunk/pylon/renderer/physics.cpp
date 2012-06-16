@@ -4,9 +4,9 @@ namespace Renderer
 {
     namespace Physics
     {
-        ClassList<Simulation*> simulations;
+        ClassList< Simulation * > simulations;
 
-        Simulation::Simulation(const std::string& n)
+        Simulation::Simulation( const std::string& n )
         {
             binding = NULL;
             name = n;
@@ -16,17 +16,21 @@ namespace Renderer
             drawable = false;
             clearobjects = false;
             bool in = false;
-            for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
-                if(Renderer::Physics::simulations[i] == this)
+            for( unsigned int i = 0; i < Renderer::Physics::simulations.length(); ++i )
+            {
+                if( Renderer::Physics::simulations[ i ] == this )
                 {
                     in = true;
                     break;
                 }
-            if(!in)
+            }
+            if( !in )
+            {
                 simulations.add(this);
+            }
         }
 
-        Simulation::Simulation(const std::string& n, POGEL::PHYSICS::SIMULATION* s)
+        Simulation::Simulation( const std::string& n, POGEL::PHYSICS::SIMULATION * s )
         {
             binding = NULL;
             sim = s;
@@ -37,17 +41,21 @@ namespace Renderer
             drawable = true;
             clearobjects = false;
             bool in = false;
-            for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
-                if(Renderer::Physics::simulations[i] == this)
+            for( unsigned int i = 0; i < Renderer::Physics::simulations.length(); ++i )
+            {
+                if( Renderer::Physics::simulations[ i ] == this )
                 {
                     in = true;
                     break;
                 }
-            if(!in)
+            }
+            if( !in )
+            {
                 simulations.add(this);
+            }
         }
 
-        Simulation::Simulation(const std::string& n, POGEL::PHYSICS::DYNAMICS* s)
+        Simulation::Simulation( const std::string& n, POGEL::PHYSICS::DYNAMICS * s )
         {
             binding = NULL;
             sim = NULL;
@@ -58,14 +66,18 @@ namespace Renderer
             drawable = true;
             clearobjects = false;
             bool in = false;
-            for(unsigned int i = 0; i < Renderer::Physics::simulations.length(); i++)
-                if(Renderer::Physics::simulations[i] == this)
+            for( unsigned int i = 0; i < Renderer::Physics::simulations.length(); ++i )
+            {
+                if( Renderer::Physics::simulations[ i ] == this )
                 {
                     in = true;
                     break;
                 }
-            if(!in)
+            }
+            if( !in )
+            {
                 simulations.add(this);
+            }
         }
 
         Simulation::~Simulation()
@@ -74,22 +86,26 @@ namespace Renderer
             incrementable = false;
             drawable = false;
             clearobjects = false;
-            if(sim)
-                delete sim;
-            if(dyn)
-                delete dyn;
-            unsigned int numsimulations( simulations.length() );
-            for(unsigned int i = 0; i < numsimulations; ++i)
+            if( sim )
             {
-                if(simulations.get(i) == this)
+                delete sim;
+            }
+            else if( dyn )
+            {
+                delete dyn;
+            }
+            unsigned int numsimulations( Renderer::Physics::simulations.length() );
+            for( unsigned int i = 0; i < numsimulations; ++i )
+            {
+                if( Renderer::Physics::simulations[ i ] == this )
                 {
-                    simulations.remove(i);
+                    Renderer::Physics::simulations -= i;
                     break;
                 }
             }
         }
 
-        void Simulation::setinc(bool i)
+        void Simulation::setinc( bool i )
         {
             incrementable = i;
         }
@@ -107,55 +123,80 @@ namespace Renderer
         bool Simulation::isdyn() const
         {
             if(dyn != NULL && sim == NULL)
+            {
                 return true;
+            }
             if(dyn == NULL && sim != NULL)
+            {
                 return false;
-            cout << "Simulation Type Handleing ERROR!" << endl;
+            }
+            cout << "ERROR Simulation Type failure (dyn == NULL && sim == NULL) evaluated to true" << endl;
+            throw int(-1);
             return false;
         }
 
-        bool Simulation::inc()
+        bool Simulation::inc() const
         {
             return incrementable && !clearobjects;
         }
 
         void* Simulation::getSim() const
         {
-            if(isdyn())
+            if( isdyn() )
+            {
                 return dyn;
+            }
             return sim;
         }
 
         unsigned int Simulation::numObjects() const
         {
-            if(clearobjects)
+            if( clearobjects )
+            {
                 return 0;
-            if(this->isdyn())
-                return static_cast<POGEL::PHYSICS::DYNAMICS*>(this->getSim())->numobjs();
+            }
+            if( this->isdyn() )
+            {
+                return static_cast<POGEL::PHYSICS::DYNAMICS*>( this->getSim() )->numobjs();
+            }
             else
-                return static_cast<POGEL::PHYSICS::SIMULATION*>(this->getSim())->numobjs();
+            {
+                return static_cast<POGEL::PHYSICS::SIMULATION*>( this->getSim() )->numobjs();
+            }
             return 0;
         }
 
-        POGEL::PHYSICS::SOLID* Simulation::getObject(const std::string& s) const
+        POGEL::PHYSICS::SOLID* Simulation::getObject( const std::string& s ) const
         {
-            if(clearobjects)
+            if( clearobjects )
+            {
                 return NULL;
-            if(this->isdyn())
-                return static_cast<POGEL::PHYSICS::DYNAMICS*>(this->getSim())->getSolid(s);
+            }
+            if( this->isdyn() )
+            {
+                return static_cast<POGEL::PHYSICS::DYNAMICS*>( this->getSim() )->getSolid( s );
+            }
             else
-                return static_cast<POGEL::PHYSICS::SIMULATION*>(this->getSim())->getSolid(s);
+            {
+                return static_cast<POGEL::PHYSICS::SIMULATION*>( this->getSim() )->getSolid( s );
+            }
             return NULL;
         }
 
-        POGEL::PHYSICS::SOLID* Simulation::getObject(unsigned int i) const
+        POGEL::PHYSICS::SOLID* Simulation::getObject( unsigned int i ) const
         {
-            if(clearobjects)
+            if( clearobjects )
+            {
                 return NULL;
-            if(this->isdyn())
-                return static_cast<POGEL::PHYSICS::DYNAMICS*>(this->getSim())->objs(i);
+            }
+            if( this->isdyn() )
+            {
+                return static_cast<POGEL::PHYSICS::DYNAMICS*>( this->getSim() )->objs( i );
+            }
             else
-                return static_cast<POGEL::PHYSICS::SIMULATION*>(this->getSim())->objs(i);
+            {
+                return static_cast<POGEL::PHYSICS::SIMULATION*>( this->getSim() )->objs( i );
+            }
             return NULL;
         }
 
@@ -173,10 +214,18 @@ namespace Renderer
 
         bool Simulation::ClearObjects()
         {
-            if(this->isdyn())
-                static_cast<POGEL::PHYSICS::DYNAMICS*>(this->getSim())->clearAllSolids();
+            if( !clearobjects )
+            {
+                return false;
+            }
+            if( this->isdyn() )
+            {
+                static_cast<POGEL::PHYSICS::DYNAMICS*>( this->getSim() )->clearAllSolids();
+            }
             else
-                static_cast<POGEL::PHYSICS::SIMULATION*>(this->getSim())->clearAllSolids();
+            {
+                static_cast<POGEL::PHYSICS::SIMULATION*>( this->getSim() )->clearAllSolids();
+            }
             drawable = true;
             clearobjects = false;
             return true;
@@ -189,18 +238,26 @@ namespace Renderer
 
         void Simulation::draw() const
         {
-            if(this->isdyn())
-                static_cast<POGEL::PHYSICS::DYNAMICS*>(this->getSim())->draw();
+            if( this->isdyn() )
+            {
+                static_cast<POGEL::PHYSICS::DYNAMICS*>( this->getSim() )->draw();
+            }
             else
-                static_cast<POGEL::PHYSICS::SIMULATION*>(this->getSim())->draw();
+            {
+                static_cast<POGEL::PHYSICS::SIMULATION*>( this->getSim() )->draw();
+            }
         }
 
         bool Simulation::isEmpty() const
         {
-            if(this->isdyn())
-                return !static_cast<POGEL::PHYSICS::DYNAMICS*>(this->getSim())->numobjs();
+            if( this->isdyn() )
+            {
+                return !static_cast<POGEL::PHYSICS::DYNAMICS*>( this->getSim() )->numobjs();
+            }
             else
-                return !static_cast<POGEL::PHYSICS::SIMULATION*>(this->getSim())->numobjs();
+            {
+                return !static_cast<POGEL::PHYSICS::SIMULATION*>( this->getSim() )->numobjs();
+            }
             return false;
         }
 
@@ -254,7 +311,7 @@ namespace Renderer
             unsigned int numsimulations = Renderer::Physics::simulations.length();
             for( unsigned int i = 0; i < numsimulations; ++i )
             {
-                if( Renderer::Physics::simulations[ i ]->getName().length() == name.length() && Renderer::Physics::simulations[ i ]->getName().compare( name ) == 0 )
+                if( Renderer::Physics::simulations[ i ]->getName().compare( name ) == 0 )
                 {
                     return Renderer::Physics::simulations[ i ];
                 }
@@ -272,14 +329,21 @@ namespace Renderer
             return sim->getObject( o );
         }
 
-        void addSimulation( const std::string& name, bool col )
+        bool addSimulation( const std::string& name, bool col )
         {
-            if( Renderer::Physics::getSimulation( name ) != NULL )
-                return;
+            if( Renderer::Physics::getSimulation( name ) )
+            {
+                return false;
+            }
             if( col )
+            {
                 new Renderer::Physics::Simulation( name, new POGEL::PHYSICS::SIMULATION() );
+            }
             else
+            {
                 new Renderer::Physics::Simulation( name, new POGEL::PHYSICS::DYNAMICS() );
+            }
+            return true;
         }
 
 
@@ -288,7 +352,7 @@ namespace Renderer
             unsigned int numsimulations = Renderer::Physics::simulations.length();
             for( unsigned int i = 0; i < numsimulations; ++i )
             {
-                Renderer::Physics::simulations.get( i )->setinc(false);
+                Renderer::Physics::simulations[ i ]->setinc( false );
             }
         }
 
@@ -297,29 +361,33 @@ namespace Renderer
             unsigned int numsimulations = Renderer::Physics::simulations.length();
             for( unsigned int i = 0; i < numsimulations; ++i )
             {
-                if( Renderer::Physics::simulations[ i ]->inc() )
+                Renderer::Physics::Simulation * sim = Renderer::Physics::simulations[ i ];
+                if( sim->inc() )
                 {
-                    void* vp_sim = Renderer::Physics::simulations[ i ]->getSim();
-                    if( Renderer::Physics::simulations[ i ]->isdyn() )
+                    void* vp_sim = sim->getSim();
+                    if( sim->isdyn() )
                     {
-                        POGEL::PHYSICS::DYNAMICS* sim = static_cast<POGEL::PHYSICS::DYNAMICS*>( vp_sim );
-                        if( sim->numobjs() )
+                        POGEL::PHYSICS::DYNAMICS* dsim = static_cast<POGEL::PHYSICS::DYNAMICS*>( vp_sim );
+                        if( dsim->numobjs() )
                         {
-                            sim->increment();
+                            dsim->increment();
                         }
                     }
                     else
                     {
-                        POGEL::PHYSICS::SIMULATION* sim = static_cast<POGEL::PHYSICS::SIMULATION*>( vp_sim );
-                        if( sim->numobjs() )
+                        POGEL::PHYSICS::SIMULATION* ssim = static_cast<POGEL::PHYSICS::SIMULATION*>( vp_sim );
+                        if( ssim->numobjs() )
                         {
-                            sim->increment();
+                            ssim->increment();
                         }
                     }
                 }
-                else if( Renderer::Physics::simulations[ i ]->ShouldClearObjects() )
+                else if( sim->ShouldClearObjects() )
                 {
-                    Renderer::Physics::simulations[ i ]->ClearObjects();
+                    if( !sim->ClearObjects() )
+                    {
+                        cout << "ERROR could not clear all objects from simulation \"" << sim->getName() << "\"" << endl;
+                    }
                 }
             }
         }
@@ -330,7 +398,13 @@ namespace Renderer
             {
                 Renderer::Physics::Simulation * sim = Renderer::Physics::simulations.get( Renderer::Physics::simulations.length() - 1 );
                 if( !sim->isEmpty() )
-                    sim->ClearObjects();
+                {
+                    sim->RequestToClearObjects();
+                    if( !sim->ClearObjects() )
+                    {
+                        cout << "ERROR could not clear all objects from simulation \"" << sim->getName() << "\"" << endl;
+                    }
+                }
                 delete sim;
             }
             Renderer::Physics::simulations.clear();

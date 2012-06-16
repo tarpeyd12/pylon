@@ -119,7 +119,8 @@ POGEL::OBJECT::OBJECT(const char* n)
     properties = (unsigned int)NULL;
 
     // set the name to n
-    name = (char*)n;
+    //name = (char*)n;
+    name = strcpy( new char[ strlen(n) ], n );
 
     root = parent = (POGEL::OBJECT*)NULL;
     visable = true;
@@ -315,20 +316,22 @@ POGEL::OBJECT::killchildren()
         // loop through them
         for( unsigned long i = 0; i < numchildren; i++ )
         {
-            // kill their children
-            children[i]->killchildren();
-
-            // delete the current child
-            delete children[i];
-
             // if the pointer is not null
             if( children[i] )
             {
+                // kill their children
+                children[i]->killchildren();
+
+                // delete the current child
+                //delete children[i];
+
                 // nullify it
                 children[i] = NULL;
             }
         }
     }
+
+    numchildren = 0;
 
     // if the list is not null
     if(children)
@@ -546,7 +549,8 @@ void
 POGEL::OBJECT::cleartriangles()
 {
     // delete the list of triangle faces
-    delete[] face;
+    if( face )
+        delete[] face;
     // set the list to null
     face = NULL;
     // set the number of faces and the number of preallocated slots to zero
@@ -873,6 +877,13 @@ POGEL::OBJECT::referencetriangles(POGEL::OBJECT* o)
 }
 
 void
+POGEL::OBJECT::stealtriangles( POGEL::OBJECT * o )
+{
+    this->copytriangles(o);
+    o->cleartriangles();
+}
+
+void
 POGEL::OBJECT::settriangle(unsigned long i, const POGEL::TRIANGLE& t )
 {
     // set the triagnle at index i, to the triangle t
@@ -884,6 +895,32 @@ POGEL::OBJECT::settriangle(unsigned long i, POGEL::TRIANGLE * t)
 {
     // set the triagnle at index i, to the triangle t
     face[i] = *t;
+}
+
+unsigned int
+POGEL::OBJECT::getNumChildren() const
+{
+    return numchildren;
+}
+
+POGEL::OBJECT *
+POGEL::OBJECT::getChild( unsigned int i ) const
+{
+    if( i >= numchildren )
+    {
+        return NULL;
+    }
+    return children[ i ];
+}
+
+void
+POGEL::OBJECT::stealChildren( POGEL::OBJECT * other )
+{
+    this->addobjects( other->children, other->numchildren );
+    other->numchildren = 0;
+    if(other->children)
+    delete [] other->children;
+    other->children = NULL;
 }
 
 void
@@ -1150,12 +1187,15 @@ POGEL::OBJECT::build()
         break;
     }
 
-    // generate a temporary list pointing to the list of triangles
-    CLASSLIST<POGEL::TRIANGLE> triList(face, numfaces);
-    // sort the list by the triangles transparency
-    triList.sort(_sortTrianglesByPropertiesAndImage);
-    // set the temporary lists' internal pointer to null
-    triList.nullify();
+    if( hasproperty(OBJECT_SORT_TRIANGLES) )
+    {
+        // generate a temporary list pointing to the list of triangles
+        CLASSLIST<POGEL::TRIANGLE> triList(face, numfaces);
+        // sort the list by the triangles transparency
+        triList.sort(_sortTrianglesByPropertiesAndImage);
+        // set the temporary lists' internal pointer to null
+        triList.nullify();
+    }
 
     // if the object is to be drawn into a display list
     if( hasproperty(OBJECT_DRAW_DISPLAYLIST) )

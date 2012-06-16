@@ -7,7 +7,7 @@ namespace ScriptEngine
         instructions = "";
     }
 
-    Executor::Executor(std::string instr)
+    Executor::Executor( const std::string& instr)
     {
         instructions = instr;
     }
@@ -27,37 +27,47 @@ namespace ScriptEngine
     void Executor::Execute()
     {
         bool is_init = ScriptEngine::HasBegun();
-        if(!is_init)
-            ScriptEngine::Initialize();
-
-        int ret = PyRun_SimpleString(getInstructions().c_str());
-        PyObject* err = PyErr_Occurred();
-        if(ret || err)
+        if( !is_init )
         {
-            if(err)
-                PyErr_Print();
-            throw ret;
+            ScriptEngine::Initialize();
         }
 
-        /*PyObject* mainModule = PyImport_ImportModule("__main__");
+        #if defined( SIMPLE_EXECUTION )
+        int ret = PyRun_SimpleString( getInstructions().c_str() );
+        PyObject* err = PyErr_Occurred();
+        if( ret || err )
+        {
+            if( err )
+            {
+                PyErr_Print();
+            }
+            throw ret;
+        }
+        #else
+        PyObject* mainModule = PyImport_ImportModule( "__main__" );
         //PyObject* mainModule = PyImport_AddModule("__main__");
-        PyObject* globalDict = PyModule_GetDict(mainModule);
+        PyObject* globalDict = PyModule_GetDict( mainModule );
         PyObject* localDict = globalDict;
 
         char* inst = strcpy(new char[getInstructions().length()], getInstructions().c_str());
 
-        PyObject* ret = PyRun_String(inst, Py_file_input, globalDict, localDict);
+        PyObject* ret = PyRun_String( inst, Py_file_input, globalDict, localDict );
         delete [] inst;
         PyObject* err = PyErr_Occurred();
-        if(!ret || err)
+        if( !ret || err )
         {
-            if(err)
+            if( err )
+            {
                 PyErr_Print();
+            }
             throw -1;
-        }*/
+        }
+        #endif
 
-        if(!is_init)
+        if( !is_init )
+        {
             ScriptEngine::Finalize();
+        }
     }
 
     std::string Executor::getInstructions()
@@ -72,7 +82,7 @@ namespace ScriptEngine
 
 
 
-    FileExecutor::FileExecutor(std::string file) : ScriptEngine::Executor(file)
+    FileExecutor::FileExecutor( const std::string& file ) : ScriptEngine::Executor( file )
     {
 
     }
@@ -85,23 +95,29 @@ namespace ScriptEngine
     void FileExecutor::Execute()
     {
         bool is_init = ScriptEngine::HasBegun();
-        if(!is_init)
-            ScriptEngine::Initialize();
-
-        int ret = PyRun_AnyFile(stdout, getInstructions().c_str());
-        PyObject* err = PyErr_Occurred();
-        if(ret || err)
+        if( !is_init )
         {
-            if(err)
+            ScriptEngine::Initialize();
+        }
+
+        int ret = PyRun_AnyFile( stdout, getInstructions().c_str() );
+        PyObject* err = PyErr_Occurred();
+        if( ret || err )
+        {
+            if( err )
+            {
                 PyErr_Print();
+            }
             throw ret;
         }
 
-        if(!is_init)
+        if( !is_init )
+        {
             ScriptEngine::Finalize();
+        }
     }
 
-    FunctionCaller::FunctionCaller(std::string inst) : ScriptEngine::Executor(inst)
+    FunctionCaller::FunctionCaller( const std::string& inst ) : ScriptEngine::Executor(inst)
     {
         outsidefunction = true;
         if( !instructions.length() )
@@ -110,7 +126,7 @@ namespace ScriptEngine
         }
     }
 
-    FunctionCaller::FunctionCaller(std::string inst, bool out) : ScriptEngine::Executor(inst)
+    FunctionCaller::FunctionCaller( const std::string& inst, bool out ) : ScriptEngine::Executor(inst)
     {
         outsidefunction = out;
         if( !instructions.length() )
@@ -119,7 +135,7 @@ namespace ScriptEngine
         }
     }
 
-    FunctionCaller::FunctionCaller(std::string inst, std::string func, std::string* args, unsigned int numArgs) : ScriptEngine::Executor(inst)
+    FunctionCaller::FunctionCaller( const std::string& inst,  const std::string& func, std::string* args, unsigned int numArgs ) : ScriptEngine::Executor(inst)
     {
         function = func;
         arguments.add( args, numArgs );
@@ -130,7 +146,7 @@ namespace ScriptEngine
         }
     }
 
-    FunctionCaller::FunctionCaller(std::string inst, std::string func, std::string* args, unsigned int numArgs, bool out) : ScriptEngine::Executor(inst)
+    FunctionCaller::FunctionCaller( const std::string& inst,  const std::string& func, std::string* args, unsigned int numArgs, bool out ) : ScriptEngine::Executor(inst)
     {
         function = func;
         arguments.add( args, numArgs );
@@ -161,7 +177,7 @@ namespace ScriptEngine
         }
     }
 
-    void FunctionCaller::call(std::string func, std::string* args, unsigned int numArgs, std::string* res)
+    void FunctionCaller::call( const std::string& func, std::string* args, unsigned int numArgs, std::string* res)
     {
         bool is_init = ScriptEngine::HasBegun();
         if(!is_init)
@@ -274,17 +290,22 @@ namespace ScriptEngine
                     }
                     PyObject* reslt = PyObject_Str(pValue);
                     const char* sres = PyString_AsString(reslt);
+
+                    char* sres2 = strcpy(new char[strlen(sres)],sres);
+                    sres = NULL;
+
                     Py_DECREF(pValue);
                     Py_DECREF(reslt);
-                    result = type+":"+std::string(sres);
-                    //if(POGEL::hasproperty(POGEL_DEBUG))
-                        //cout << "Function " << func << "(" << concatargs << ") resulted in " << result << endl;
-                    sres = NULL;
+
+                    result = type+":"+std::string(sres2);
+                    delete [] sres2;
 
                     if( res )
                     {
                         *res = result;
                     }
+                    //if(POGEL::hasproperty(POGEL_DEBUG))
+                        //cout << "Function " << func << "(" << concatargs << ") resulted in " << result << endl;
                 }
                 else {
                     Py_DECREF(pFunc);

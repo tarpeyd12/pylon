@@ -14,8 +14,9 @@ namespace pogelInterface
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("i", -1);
-        char *nm = new char[strlen(objname)];
-        POGEL::PHYSICS::SOLID* obj = new POGEL::PHYSICS::SOLID(strcpy(nm,objname));
+        //char *nm = new char[strlen(objname)];
+        //POGEL::PHYSICS::SOLID* obj = new POGEL::PHYSICS::SOLID(strcpy(nm,objname));
+        POGEL::PHYSICS::SOLID* obj = new POGEL::PHYSICS::SOLID(objname);
         if(sim->isdyn())
             static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->addSolid(obj);
         else
@@ -72,7 +73,7 @@ namespace pogelInterface
         if( dec == NULL )
             return Py_BuildValue("i", -3);
         POGEL::OBJECT * child = NULL;
-        child = new POGEL::OBJECT( childname );
+        child = new POGEL::OBJECT( strcpy(new char[strlen(childname)],childname) );
         dec->addobject( child );
         return Py_BuildValue("i", 0);
     }

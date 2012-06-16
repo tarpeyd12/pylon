@@ -13,38 +13,38 @@
 	<File name="keycallbacks.h" open="0" top="0" tabpos="0">
 		<Cursor position="522" topLine="3" />
 	</File>
-	<File name="methoddef.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="4540" topLine="45" />
+	<File name="methoddef.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="1917" topLine="15" />
 	</File>
 	<File name="objectcallbacks.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="4193" topLine="90" />
+		<Cursor position="3770" topLine="0" />
 	</File>
 	<File name="objectcallbacks.h" open="0" top="0" tabpos="2">
 		<Cursor position="600" topLine="0" />
 	</File>
-	<File name="objects.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="23143" topLine="616" />
+	<File name="objects.cpp" open="1" top="1" tabpos="4">
+		<Cursor position="629" topLine="0" />
 	</File>
 	<File name="objects.h" open="0" top="0" tabpos="3">
 		<Cursor position="1754" topLine="36" />
 	</File>
 	<File name="pogelscriptinterface.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="2706" topLine="71" />
+		<Cursor position="8349" topLine="240" />
 	</File>
 	<File name="pogelscriptinterface.h" open="0" top="0" tabpos="2">
-		<Cursor position="2407" topLine="58" />
+		<Cursor position="1958" topLine="50" />
 	</File>
-	<File name="shapes.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="10338" topLine="267" />
+	<File name="shapes.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="962" topLine="22" />
 	</File>
 	<File name="shapes.h" open="0" top="0" tabpos="0">
 		<Cursor position="653" topLine="0" />
 	</File>
-	<File name="simulation.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="4799" topLine="108" />
+	<File name="simulation.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="2279" topLine="51" />
 	</File>
-	<File name="simulation.h" open="0" top="0" tabpos="2">
-		<Cursor position="413" topLine="0" />
+	<File name="simulation.h" open="1" top="0" tabpos="2">
+		<Cursor position="398" topLine="0" />
 	</File>
 	<File name="subrender.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="323" topLine="0" />

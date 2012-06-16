@@ -38,7 +38,7 @@ class SubRenderer(str):
 	
 	
 	def setCamera( self, cam ):
-		pylon.subrender_set_cam( self, cam.posx, cam.posy, cam.posz, cam.rotx, cam.roty, cam.rotz )
+		pylon.subrender_set_cam( self, cam.pos.x, cam.pos.y, cam.pos.z, cam.rot.x, cam.rot.y, cam.rot.z )
 	
 	
 	def setRatio( self, ar ):

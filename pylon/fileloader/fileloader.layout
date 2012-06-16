@@ -2,22 +2,22 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Unitary Debug" />
 	<File name="archivehandler.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="11935" topLine="333" />
+		<Cursor position="9022" topLine="0" />
 	</File>
 	<File name="archivehandler.h" open="0" top="0" tabpos="4">
 		<Cursor position="1292" topLine="24" />
 	</File>
 	<File name="fileloader.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="1104" topLine="25" />
+		<Cursor position="853" topLine="0" />
 	</File>
 	<File name="fileloader.h" open="0" top="0" tabpos="6">
 		<Cursor position="297" topLine="0" />
 	</File>
 	<File name="ini.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="881" topLine="20" />
+		<Cursor position="455" topLine="5" />
 	</File>
 	<File name="ini.h" open="0" top="0" tabpos="9">
-		<Cursor position="467" topLine="0" />
+		<Cursor position="418" topLine="0" />
 	</File>
 	<File name="minizip/ioapi.c" open="0" top="0" tabpos="0">
 		<Cursor position="1057" topLine="31" />
@@ -64,6 +64,9 @@
 	<File name="minizip/zlib/trees.c" open="0" top="0" tabpos="0">
 		<Cursor position="44707" topLine="1209" />
 	</File>
+	<File name="minizip/zlib/trees.h" open="0" top="0" tabpos="0">
+		<Cursor position="2503" topLine="78" />
+	</File>
 	<File name="simpleini/ConvertUTF.c" open="0" top="0" tabpos="0">
 		<Cursor position="0" topLine="132" />
 	</File>
@@ -71,22 +74,22 @@
 		<Cursor position="0" topLine="53" />
 	</File>
 	<File name="simpleini/SimpleIni.h" open="0" top="0" tabpos="1">
-		<Cursor position="52541" topLine="1266" />
+		<Cursor position="45788" topLine="1071" />
 	</File>
 	<File name="system.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="1616" topLine="48" />
+		<Cursor position="1616" topLine="40" />
 	</File>
 	<File name="system.h" open="0" top="0" tabpos="3">
-		<Cursor position="521" topLine="3" />
+		<Cursor position="302" topLine="0" />
 	</File>
 	<File name="unzip.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="2790" topLine="94" />
+		<Cursor position="4467" topLine="93" />
 	</File>
 	<File name="unzip.h" open="0" top="0" tabpos="7">
 		<Cursor position="502" topLine="0" />
 	</File>
 	<File name="unzip_backend.h" open="0" top="0" tabpos="5">
-		<Cursor position="10272" topLine="387" />
+		<Cursor position="10272" topLine="400" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="0">
 		<Cursor position="621" topLine="0" />

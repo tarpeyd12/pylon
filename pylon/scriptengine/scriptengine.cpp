@@ -2,7 +2,7 @@
 
 namespace ScriptEngine
 {
-    bool started;
+    volatile bool started;
 
     ThreadState * mainThreadState;
 

@@ -208,8 +208,13 @@ namespace POGEL
 
             void copytriangles( POGEL::OBJECT * );
             void referencetriangles( POGEL::OBJECT * );
+            void stealtriangles( POGEL::OBJECT * );
             void settriangle( unsigned long, const POGEL::TRIANGLE& );
             void settriangle( unsigned long, POGEL::TRIANGLE * );
+
+            unsigned int getNumChildren() const;
+            POGEL::OBJECT* getChild( unsigned int ) const;
+            void stealChildren( POGEL::OBJECT * );
 
             void setNumFrames( unsigned int );
             void setAnimationFPS( float );

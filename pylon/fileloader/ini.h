@@ -19,6 +19,7 @@ namespace FileLoader
             CSimpleIniA ini;
         public:
             Ini(std::string);
+            Ini(const Ini&);
             virtual ~Ini();
 
             std::string getvalue(std::string,std::string);

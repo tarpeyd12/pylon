@@ -8,6 +8,11 @@ namespace FileLoader
         ini.LoadFile(fn.c_str());
     }
 
+    Ini::Ini( const Ini& other )
+    {
+        memcpy( this, &other, sizeof( other ) );
+    }
+
     Ini::~Ini()
     {
 

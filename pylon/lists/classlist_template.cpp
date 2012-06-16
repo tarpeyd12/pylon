@@ -194,7 +194,10 @@ void
 ClassList<T,C>::replace(unsigned int l, const T& c)
 {
     if(l>=length())
+    {
+        throw int(-1);
         return;
+    }
     list[l] = c;
 }
 
@@ -203,7 +206,10 @@ void
 ClassList<T,C>::remove(unsigned int l)
 {
     if(l>=length())
+    {
+        throw int(-1);
         return;
+    }
     T *tmp = new T[--len];
     unsigned int nlen = length();
     for(unsigned int i=0;i<nlen;i++)
@@ -225,7 +231,10 @@ void
 ClassList<T,C>::insert(const T& c, unsigned int l)
 {
     if(l>=length())
+    {
+        throw int(-1);
         return;
+    }
     T *tmp = new T[++len];
     unsigned int nlen = length();
     for(unsigned int i=0;i<nlen-1;i++)
@@ -248,6 +257,10 @@ T
 ClassList<T,C>::get(unsigned int i) const
 {
     //if(i < length())
+    if(i>=length())
+    {
+        throw int(-1);
+    }
     return list[i];
 }
 
@@ -255,6 +268,10 @@ template < typename T, typename C >
 T *
 ClassList<T,C>::getaddress(unsigned int i) const
 {
+    if(i>=length())
+    {
+        throw int(-1);
+    }
     return &list[i];
 }
 

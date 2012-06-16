@@ -47,6 +47,7 @@ int main(int argc, char *argv[])
     // cleanup is done with the atexit(_atExit); call to _atExit() below.
 
     // goodby and good riddance
+    exit( EXIT_SUCCESS );
     return EXIT_SUCCESS;
 }
 

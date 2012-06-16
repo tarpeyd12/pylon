@@ -5,6 +5,8 @@
 #include "scriptengine.h"
 #endif // SCRIPTENGINE_H_INCLUDED
 
+#define SIMPLE_EXECUTION
+
 namespace ScriptEngine
 {
     class Executor
@@ -13,7 +15,7 @@ namespace ScriptEngine
             std::string instructions;
         public:
             Executor();
-            Executor(std::string);
+            Executor( const std::string& );
             virtual ~Executor();
             virtual Executor& operator=(const Executor& other);
 
@@ -27,7 +29,7 @@ namespace ScriptEngine
     class FileExecutor : public Executor
     {
         public:
-            FileExecutor(std::string inst);
+            FileExecutor( const std::string& );
             virtual ~FileExecutor();
 
             void Execute();
@@ -41,17 +43,17 @@ namespace ScriptEngine
             std::string result;
             bool outsidefunction;
         public:
-            FunctionCaller(std::string);
-            FunctionCaller(std::string,bool);
-            FunctionCaller(std::string,std::string,std::string*,unsigned int);
-            FunctionCaller(std::string,std::string,std::string*,unsigned int,bool);
+            FunctionCaller( const std::string& );
+            FunctionCaller( const std::string&, bool );
+            FunctionCaller( const std::string&, const std::string&, std::string*, unsigned int );
+            FunctionCaller( const std::string&, const std::string&, std::string*, unsigned int, bool );
             virtual ~FunctionCaller();
 
-            void setArgs(std::string*,unsigned int);
+            void setArgs( std::string*, unsigned int );
 
             void Execute();
 
-            void call(std::string func, std::string* args, unsigned int numArgs, std::string* res);
+            void call( const std::string&, std::string*, unsigned int, std::string* );
 
             std::string getResult();
     };

@@ -9,17 +9,17 @@ using namespace ScriptEngine::MethodInterface;
 
 namespace pogelInterface
 {
-    Object* addsimulation(Object*,Object*);
-    Object* togglesimulation(Object*,Object*);
-    Object* togglesimweight(Object*,Object*);
-    Object* clearsimulation(Object*,Object*);
-    Object* setsimulationgravity_3f(Object*,Object*);
-    Object* getsimulationgravity_3f(Object*,Object*);
+    Object* sim_new(Object*,Object*);
+    Object* sim_toggle(Object*,Object*);
+    Object* sim_weight(Object*,Object*);
+    Object* sim_clear(Object*,Object*);
+    Object* sim_set_gravity_3f(Object*,Object*);
+    Object* sim_get_gravity_3f(Object*,Object*);
 
-    Object* setsimulationcollitters(Object*,Object*);
-    Object* getsimulationcollitters(Object*,Object*);
+    Object* sim_set_itter(Object*,Object*);
+    Object* sim_get_itter(Object*,Object*);
 
-    Object* addobject(Object*,Object*);
+    Object* sim_add_object_s(Object*,Object*);
 }
 
 #endif // SIMULATION_H_INCLUDED

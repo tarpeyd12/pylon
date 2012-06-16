@@ -27,11 +27,6 @@ if pylon.key_ispressed('p') or pylon.key_ispressed('P'):
 # increment the counter
 counter = counter + 0.1
 
-# more object controll
-if pylon.key_ispressed(';'):
-	sphere8.move(rnd()*3,rnd()*3,rnd()*3)
-	sphere0.move(rnd()*3,rnd()*3,rnd()*3)
-
 # specific simulation execution controll
 if pylon.key_ispressed('g'):
 	sim2.stop()
@@ -39,14 +34,6 @@ if pylon.key_ispressed('g'):
 if pylon.key_ispressed('G'):
 	sim2.restart()
 	#waitcalc(100)
-
-# moving an object with the mouse
-if ( pylon.mouse_ispressed() and pylon.mouse_getbutton() == 1 ) or ( pylon.key_ispressed('z') or pylon.key_ispressed('Z') ):
-	x = pylon.mouse_pos_x()/640.0
-	y = pylon.mouse_pos_y()/-480.0
-	pylon.object_move_3f("sim",'sphere7',x-0.5,y+0.5,0)
-	pylon.object_set_dir_s("sim",'sphere7',orig)
-
 
 # mouse cursor and 'drag box'
 	# DragBox:
@@ -131,13 +118,30 @@ if pylon.key_ispressed(','):
 	pylon.clearsimulation(sim2.name)
 	sim2.restart()
 
-# rudimentary camera controll
-cam.mouserot()
-cam.mousepos()
-cam.centerset()
-cam.getcamstrs()
+if pylon.key_ispressed('z') and pylon.select_isgood() and pylon.mouse_ispressed():
+	sim = pylon.select_get_sim()
+	obj = pylon.select_get_obj()
+	button = pylon.mouse_getbutton()
+	if sim != "Sky" and obj != "Sky":
+		if button == 0:
+			pylon.object_set_pos_3f( pylon.select_get_sim(), pylon.select_get_obj(), 0, 0, 0 )
+		elif button == 2:
+			pylon.object_set_rot_3f( pylon.select_get_sim(), pylon.select_get_obj(), 0, 0, 0 )
 
-subrenderer1.setCamera( cam )
+if not pylon.key_ispressed('z'):
+	# rudimentary camera controll
+	if pylon.key_ispressed('c'):
+		cam2 = Camera.makeCopy( cam )
+		cam2.mouserot()
+		subrenderer1.setCamera( cam2 )
+	else:
+		cam.mouserot()
+		cam.mousepos()
+		cam.centerset()
+		cam.getcamstrs()
+		pylon.object_move_3f( Sky.name,"Sky",-cam.pos.x,-cam.pos.y,-cam.pos.z )
+		subrenderer1.setCamera( cam )
+
 subrenderer1.setRatio( float(pylon.window_width())/float(pylon.window_height()) )
 subrenderer1.setLight( 1, Position(math.sin(pylon.get_runtime()/2),0,math.cos(pylon.get_runtime()/2))*10, '{[.1],[0],[0],[1]}', '{[0],[1],[0],[1]}', '{[0],[0],[.1],[1]}', False)
 
@@ -146,13 +150,7 @@ Bloop.x2 = pylon.window_width()
 #Bloop.makeInvisable()
 Bloop.update()
 
-pylon.object_move_3f(Sky.name,"Sky",-cam.posx,-cam.posy,-cam.posz)
-
 # a function defined in init.py for controlling the 'flow' of objects/particles
 if going:
 	doOBJECTrelocate()
-
-if pylon.key_ispressed('z') and pylon.select_isgood() and pylon.mouse_ispressed() and pylon.mouse_getbutton() == 0:
-	pylon.object_move_3f( pylon.select_get_sim(), pylon.select_get_obj(), 0, 0, 0 )
-
 

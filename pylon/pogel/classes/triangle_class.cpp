@@ -311,6 +311,161 @@ POGEL::drawTriangleList( POGEL::TRIANGLE * face, unsigned int numfaces )
 }
 
 void
+POGEL::drawTriangleListIsClear( POGEL::TRIANGLE * face, unsigned int numfaces, bool isclear, BITLIST * candraw, bool cdmatch, int * first, int * last )
+{
+    if( !face || !numfaces )
+    {
+        return;
+    }
+
+    int firstmatch = -1;
+    int lastmatch = -1;
+
+    if( first )
+    {
+        firstmatch = *first;
+    }
+    if( last )
+    {
+        lastmatch = *last;
+    }
+
+    if( firstmatch < 0 || lastmatch < 0 )
+    {
+        for( unsigned int i = 0; i < numfaces; ++i )
+        {
+            if( firstmatch < 0 && !( face[ i ].isClear() != isclear || (candraw != NULL && candraw->get( i ) != cdmatch) ) )
+            {
+                firstmatch = i;
+            }
+            unsigned int c = (numfaces-1) - i;
+            if( lastmatch < 0 && !(face[ c ].isClear() != isclear || (candraw != NULL && candraw->get( c ) != cdmatch) ) )
+            {
+                lastmatch = c;
+            }
+            if( firstmatch >= 0 && lastmatch >= 0 )
+            {
+                break;
+            }
+        }
+        if( first )
+        {
+            *first = firstmatch;
+        }
+        if( last )
+        {
+            *last = lastmatch;
+        }
+    }
+
+    if( firstmatch < 0 || lastmatch < 0 )
+    {
+        return;
+    }
+
+    GLenum mode;// = GL_TRIANGLES;
+
+    if ( POGEL::hasproperty( POGEL_WIREFRAME ) )
+    {
+        mode = GL_LINES;
+    }
+    else
+    {
+        mode = GL_TRIANGLES;
+    }
+
+    if( firstmatch == lastmatch )
+    {
+        face[ firstmatch ].settriangletexture();
+        face[ firstmatch ].initializetriangledraw();
+        glBegin( mode );
+        face[ firstmatch ].drawgeometry();
+        glEnd();
+        face[ lastmatch ].finalizetriangledraw();
+        return;
+    }
+
+    bool texgood = face[ firstmatch ].settriangletexture();
+    face[ firstmatch ].initializetriangledraw();
+
+    unsigned int currentproperties, previousproperties = face[ firstmatch ].getproperties();
+    POGEL::IMAGE * currentimage, * previousimage = face[ firstmatch ].texture;
+
+    glBegin( mode );
+
+    //for( unsigned int i = firstmatch; i < numfaces; ++i )
+    for( unsigned int i = firstmatch; i < lastmatch; ++i )
+    {
+        if( face[ i ].isClear() != isclear || (candraw != NULL && candraw->get( i ) != cdmatch) )
+        {
+            continue;
+        }
+
+        //lastmatch = (int)i;
+
+        currentproperties = face[ i ].getproperties();
+        currentimage = face[ i ].texture;
+
+        if( texgood && currentproperties == previousproperties && currentimage == previousimage )
+        {
+            if( candraw != NULL )
+            {
+                if( candraw->get( i ) == cdmatch )
+                {
+                    face[ i ].drawgeometry();
+                }
+            }
+            else
+            {
+                face[ i ].drawgeometry();
+            }
+        }
+        else
+        {
+            if( !texgood && currentimage == previousimage )
+            {
+                previousproperties = currentproperties;
+                previousimage = currentimage;
+                continue;
+            }
+
+            glEnd();
+
+            if( currentimage != previousimage )
+            {
+                texgood = face[ i ].settriangletexture();
+            }
+
+            if( currentproperties != previousproperties )
+            {
+                face[ i-1 ].finalizetriangledraw();
+                face[ i ].initializetriangledraw();
+            }
+
+            glBegin( mode );
+            if( candraw != NULL )
+            {
+                if( candraw->get( i ) == cdmatch )
+                {
+                    face[ i ].drawgeometry();
+                }
+            }
+            else
+            {
+                face[ i ].drawgeometry();
+            }
+        }
+
+        previousproperties = currentproperties;
+        previousimage = currentimage;
+    }
+
+    glEnd();
+
+    face[ lastmatch ].finalizetriangledraw();
+}
+
+void
 POGEL::drawTriangleList( void * list, unsigned int length, TRIANGLE * (*accessor)(void*,unsigned int) )
 {
     if( !list || !length )

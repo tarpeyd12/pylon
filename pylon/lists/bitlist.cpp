@@ -82,7 +82,7 @@ BitList::setAllTo( bool v )
 void
 BitList::set( unsigned int b, bool v )
 {
-    if(b>>3>=length())
+    if(b>>3>=numbytes)
     {
         throw int(-1);
     }
@@ -99,27 +99,27 @@ BitList::set( unsigned int b, bool v )
 bool
 BitList::get( unsigned int b ) const
 {
-    if(b>>3>=length())
+    if(b>>3>=numbytes)
     {
         throw int(-1);
     }
-    return (bool)bits[ b >> 3 ] & 1 << ( b & 7 );
+    return (bool)( bits[ b >> 3 ] & ( 1 << ( b & 7 ) ) );
 }
 
 bool
 BitList::operator [] ( unsigned int b ) const
 {
-    if(b>>3>=length())
+    if(b>>3>=numbytes)
     {
         throw int(-1);
     }
-    return (bool)bits[ b >> 3 ] & 1 << ( b & 7 );
+    return (bool)( bits[ b >> 3 ] & ( 1 << ( b & 7 ) ) );
 }
 
 BitList&
 BitList::operator += ( unsigned int b )
 {
-    if(b>>3>=length())
+    if(b>>3>=numbytes)
     {
         throw int(-1);
     }
@@ -130,7 +130,7 @@ BitList::operator += ( unsigned int b )
 BitList&
 BitList::operator -= ( unsigned int b )
 {
-    if(b>>3>=length())
+    if(b>>3>=numbytes)
     {
         throw int(-1);
     }

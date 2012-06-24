@@ -6,6 +6,8 @@ namespace Renderer
     {
         ClassList< Simulation * > simulations;
 
+        volatile bool doIncrimentSimulations = true;
+
         Simulation::Simulation( const std::string& n )
         {
             binding = NULL;
@@ -349,6 +351,7 @@ namespace Renderer
 
         void StopIncrimentation()
         {
+            doIncrimentSimulations = false;
             unsigned int numsimulations = Renderer::Physics::simulations.length();
             for( unsigned int i = 0; i < numsimulations; ++i )
             {
@@ -362,7 +365,7 @@ namespace Renderer
             for( unsigned int i = 0; i < numsimulations; ++i )
             {
                 Renderer::Physics::Simulation * sim = Renderer::Physics::simulations[ i ];
-                if( sim->inc() )
+                if( doIncrimentSimulations && sim->inc() )
                 {
                     void* vp_sim = sim->getSim();
                     if( sim->isdyn() )

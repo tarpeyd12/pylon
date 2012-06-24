@@ -81,7 +81,7 @@ namespace Renderer
 
                 if( dst2 < 50.0f*objradius*2.0f )
                 {
-                    if( obj->getNumFrames() )
+                    if( Renderer::Physics::doIncrimentSimulations && obj->getNumFrames() )
                     {
                         //obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
                         obj->playAnimation(POGEL::GetTimePassed());
@@ -135,6 +135,10 @@ namespace Renderer
             unsigned int numsimulations = Renderer::Physics::simulations.length();
             for(unsigned int i = 0; i < numsimulations; ++i)
             {
+                if( !Renderer::Physics::simulations[i] )
+                {
+                    continue;
+                }
                 if(Renderer::Physics::simulations[i]->canDraw())
                 {
                     if(Renderer::Physics::simulations[i]->isdyn())
@@ -150,6 +154,10 @@ namespace Renderer
                 }
             }
             closelist.sort(__sortobjs);
+            #ifndef SORTTRIANGLESPEROBJECT
+            ClassList< DataWraper<POGEL::TRIANGLE,float> > gtrilist;
+            ClassList< POGEL::TRIANGLE > gtrilist2;
+            #endif
             for(unsigned int i = 0; i < closelist.length(); ++i)
             {
                 POGEL::PHYSICS::SOLID* obj = closelist[i].data;
@@ -189,14 +197,26 @@ namespace Renderer
                         }
                     }
                 }
+                #ifndef SORTTRIANGLESPEROBJECT
+                gtrilist2 += trilist2;
+                gtrilist += trilist;
+                #else
                 POGEL::drawTriangleList( trilist2.getList(), trilist2.length() );
                 trilist.sort(__sorttris);
                 POGEL::drawTriangleList( (void*)trilist.getList() ,trilist.length(), __AccessTriangle() );
+                #endif
 
                 POGEL::setproperties(prp);
                 trilist.clear();
                 trilist2.clear();
             }
+            #ifndef SORTTRIANGLESPEROBJECT
+            POGEL::drawTriangleList( gtrilist2.getList(), gtrilist2.length() );
+            gtrilist.sort(__sorttris);
+            POGEL::drawTriangleList( (void*)gtrilist.getList() ,gtrilist.length(), __AccessTriangle() );
+            gtrilist.clear();
+            gtrilist2.clear();
+            #endif
             closelist.clear();
         }
 
@@ -247,6 +267,12 @@ namespace Renderer
             for(unsigned int i = 0; i < closelist.length(); i++)
             {
                 POGEL::PHYSICS::SOLID* obj = closelist[i].data;
+                if( Renderer::Physics::doIncrimentSimulations && obj->getNumFrames() )
+                {
+                    //obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
+                    obj->playAnimation(POGEL::GetTimePassed());
+                    //obj->setAnimationTime(1.0f);
+                }
                 unsigned int numfaces = obj->getnumfaces();
                 ClassList< DataWraper<POGEL::TRIANGLE,float> > trilist(numfaces);
                 for(unsigned int t = 0; t < numfaces;t++)
@@ -265,8 +291,7 @@ namespace Renderer
                     }
                 }
                 trilist.sort(__sorttris);
-                for(unsigned int i = 0; i < trilist.length(); i++)
-                    trilist[i].data.draw();
+                POGEL::drawTriangleList( (void*)trilist.getList() ,trilist.length(), __AccessTriangle() );
                 trilist.clear();
             }
             closelist.clear();
@@ -306,7 +331,7 @@ namespace Renderer
                             continue;
                         }
 
-                        if( obj->getNumFrames() && invcampos.distance(obj->position) + objradius < 50.0f*objradius*2.0f )
+                        if( Renderer::Physics::doIncrimentSimulations && obj->getNumFrames() && invcampos.distance(obj->position) + objradius < 50.0f*objradius*2.0f )
                         {
                             //obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
                             obj->playAnimation(POGEL::GetTimePassed());

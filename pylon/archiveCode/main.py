@@ -122,11 +122,12 @@ if pylon.key_ispressed('z') and pylon.select_isgood() and pylon.mouse_ispressed(
 	sim = pylon.select_get_sim()
 	obj = pylon.select_get_obj()
 	button = pylon.mouse_getbutton()
-	if sim != "Sky" and obj != "Sky":
+	#if sim != "Sky" and obj != "Sky":
+	if obj != "Sky":
 		if button == 0:
-			pylon.object_set_pos_3f( pylon.select_get_sim(), pylon.select_get_obj(), 0, 0, 0 )
+			pylon.object_set_pos_3f( sim, obj, 0, 0, 0 )
 		elif button == 2:
-			pylon.object_set_rot_3f( pylon.select_get_sim(), pylon.select_get_obj(), 0, 0, 0 )
+			pylon.object_set_rot_3f( sim, obj, 0, 0, 0 )
 
 if not pylon.key_ispressed('z'):
 	# rudimentary camera controll

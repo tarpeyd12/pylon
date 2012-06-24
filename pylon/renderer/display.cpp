@@ -42,6 +42,7 @@ namespace Renderer
             }
         }
 
+        //glDisable( GL_ALPHA_TEST );
         Renderer::RenderAllSubRenderers();
 
         //glClearColor( 0.5f, 0.5f, 0.5f, 0.0f );

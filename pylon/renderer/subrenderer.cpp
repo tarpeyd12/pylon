@@ -3,7 +3,7 @@
 #include <typeinfo>
 
 #define DEFAULTRESOLUTION   256
-//#define DEFAULTFILTER       IMAGE_NEAREST
+
 #define DEFAULTFILTER       IMAGE_DEFAULT_FILTER
 
 namespace Renderer
@@ -25,7 +25,7 @@ namespace Renderer
         aspectratio = 0.0f;
     }
 
-    SubRenderer::SubRenderer(std::string s) : POGEL::VIEW()
+    SubRenderer::SubRenderer( const std::string& s ) : POGEL::VIEW()
     {
         setbgcolor(POGEL::COLOR(0.0f,0.0f,0.0f,0.0f));
         setviewport(0,0, DEFAULTRESOLUTION, DEFAULTRESOLUTION);
@@ -40,7 +40,7 @@ namespace Renderer
         aspectratio = 0.0f;
     }
 
-    SubRenderer::SubRenderer(std::string s, float ar) : POGEL::VIEW()
+    SubRenderer::SubRenderer( const std::string& s, float ar ) : POGEL::VIEW()
     {
         setbgcolor(POGEL::COLOR(0.0f,0.0f,0.0f,0.0f));
         setviewport(0,0, DEFAULTRESOLUTION, DEFAULTRESOLUTION);
@@ -75,15 +75,17 @@ namespace Renderer
         }
     }
 
-    void SubRenderer::setLight(Renderer::Lighting::Light l, int i)
+    void SubRenderer::setLight( const Renderer::Lighting::Light& l, int i)
     {
-        if(i < 0 || i >= MAXNUMLIGHTS)
+        if( i < 0 || i >= MAXNUMLIGHTS )
+        {
             return;
+        }
         lights[i] = l;
         lights[i].lightNumber = i;
     }
 
-    Renderer::Physics::Simulation* SubRenderer::getBoundSimulation(std::string name)
+    Renderer::Physics::Simulation* SubRenderer::getBoundSimulation( const std::string& name )
     {
         for(unsigned int i = 0; i < simulationBindings.length(); ++i)
             if(simulationBindings[i]->getName().length() == name.length() && simulationBindings[i]->getName().compare(name) == 0)
@@ -91,7 +93,7 @@ namespace Renderer
         return NULL;
     }
 
-    int SubRenderer::addSimulationBinding(std::string name)
+    int SubRenderer::addSimulationBinding( const std::string& name )
     {
         Renderer::Physics::Simulation* sim = Renderer::Physics::getSimulation(name);
         if( sim == NULL )
@@ -105,10 +107,10 @@ namespace Renderer
         return simulationBindings.length()-1;
     }
 
-    int SubRenderer::removeSimulationBinding(std::string name)
+    int SubRenderer::removeSimulationBinding( const std::string& name )
     {
         for(unsigned int i = 0; i < simulationBindings.length(); ++i)
-            if(simulationBindings[i]->getName().length() == name.length() && simulationBindings[i]->getName().compare(name) == 0)
+            if( simulationBindings[i]->getName().compare(name) == 0 )
             {
                 if(simulationBindings[i]->binding != this)
                 {
@@ -199,7 +201,7 @@ namespace Renderer
 
                 if( dst2+objradius < 50.0f*objradius*1.0f )
                 {
-                    if( obj->getNumFrames() )
+                    if( Renderer::Physics::doIncrimentSimulations && obj->getNumFrames() )
                     {
                         //obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
                         obj->playAnimation(POGEL::GetTimePassed());
@@ -242,25 +244,42 @@ namespace Renderer
 
     void SubRenderer::scene()
     {
-        if(!simulationBindings.length())
+        if( !simulationBindings.length() )
+        {
             return;
+        }
         for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
-            if(lights[i].inCameraSpace)
-                lights[i].draw();
+        {
+            if( lights[ i ].inCameraSpace )
+            {
+                lights[ i ].draw();
+            }
+        }
+
         camera.set();
+
         for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
-            if(!lights[i].inCameraSpace)
-                lights[i].draw();
+        {
+            if( !lights[ i ].inCameraSpace )
+            {
+                lights[ i ].draw();
+            }
+        }
+
         POGEL::VECTOR refpos = this->globalTempRefpos = camera.GetCamDirection();
         POGEL::POINT campos = this->globalTempCampos = camera.position;
         POGEL::POINT invcampos = this->globalTempInvCampos = campos*-1.0;
         ClassList< DataWraper<POGEL::PHYSICS::SOLID*,float> > closelist;
         unsigned int numsimulations = simulationBindings.length();
-        for(unsigned int i = 0; i < numsimulations; ++i)
+        for( unsigned int i = 0; i < numsimulations; ++i )
         {
-            if(simulationBindings[i]->canDrawBound())
+            if( !simulationBindings[ i ] )
             {
-                if(simulationBindings[i]->isdyn())
+                continue;
+            }
+            if( simulationBindings[ i ]->canDrawBound() )
+            {
+                if( simulationBindings[ i ]->isdyn() )
                 {
                     POGEL::PHYSICS::DYNAMICS* sim = static_cast<POGEL::PHYSICS::DYNAMICS*>(simulationBindings[i]->getSim());
                     closelist += __sortedDraw<POGEL::PHYSICS::DYNAMICS>(sim);
@@ -273,7 +292,11 @@ namespace Renderer
             }
         }
         closelist.sort(__sortobjs);
-        for(unsigned int i = 0; i < closelist.length(); ++i)
+        #ifndef SORTTRIANGLESPEROBJECT
+        ClassList< DataWraper<POGEL::TRIANGLE,float> > gtrilist;
+        ClassList< POGEL::TRIANGLE > gtrilist2;
+        #endif
+        for( unsigned int i = 0; i < closelist.length(); ++i )
         {
             POGEL::PHYSICS::SOLID* obj = closelist[i].data;
             if( !obj->hasproperty(OBJECT_SORT_TRIANGLES) && !obj->hasOption(PHYSICS_SOLID_STATIONARY) )
@@ -309,17 +332,26 @@ namespace Renderer
                     }
                 }
             }
-            trilist.sort(__sorttris);
-            /*for(unsigned int i = 0; i < trilist.length(); i++)
-            {
-                trilist[i].data.draw();
-            }*/
+            #ifndef SORTTRIANGLESPEROBJECT
+            gtrilist2 += trilist2;
+            gtrilist += trilist;
+            #else
             POGEL::drawTriangleList( trilist2.getList(), trilist2.length() );
-            POGEL::drawTriangleList( (void*)trilist.getList(), trilist.length(), __AccessTriangle() );
+            trilist.sort(__sorttris);
+            POGEL::drawTriangleList( (void*)trilist.getList() ,trilist.length(), __AccessTriangle() );
+            #endif
+
             POGEL::setproperties(prp);
             trilist.clear();
             trilist2.clear();
         }
+        #ifndef SORTTRIANGLESPEROBJECT
+        POGEL::drawTriangleList( gtrilist2.getList(), gtrilist2.length() );
+        gtrilist.sort(__sorttris);
+        POGEL::drawTriangleList( (void*)gtrilist.getList() ,gtrilist.length(), __AccessTriangle() );
+        gtrilist.clear();
+        gtrilist2.clear();
+        #endif
         closelist.clear();
     }
 
@@ -335,13 +367,19 @@ namespace Renderer
         this->endrender();
     }
 
-    Renderer::SubRenderer* requestSubRenderer(std::string s)
+    Renderer::SubRenderer* requestSubRenderer( const std::string& s )
     {
-        for( unsigned int i = 0; i < subRenderers.length(); ++i )
+        unsigned int numsubrenderers = subRenderers.length();
+        for( unsigned int i = 0; i < numsubrenderers; ++i )
         {
-            if( subRenderers[ i ]->toString().compare( s ) == 0 )
+            Renderer::SubRenderer * subrend = subRenderers[ i ];
+            if( !subrend )
             {
-                return subRenderers[ i ];
+                continue;
+            }
+            if( subrend->toString().compare( s ) == 0 )
+            {
+                return subrend;
             }
         }
         return NULL;
@@ -349,13 +387,19 @@ namespace Renderer
 
     void RenderAllSubRenderers()
     {
-        for( unsigned int i = 0; i < subRenderers.length(); ++i )
+        unsigned int numsubrenderers = subRenderers.length();
+        for( unsigned int i = 0; i < numsubrenderers; ++i )
         {
-            if( !subRenderers[ i ]->isbuilt() )
+            Renderer::SubRenderer * subrend = subRenderers[ i ];
+            if( !subrend )
             {
-                subRenderers[ i ]->build();
+                continue;
             }
-            subRenderers[ i ]->draw();
+            if( !subrend->isbuilt() )
+            {
+                subrend->build();
+            }
+            subrend->draw();
         }
     }
 }

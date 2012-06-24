@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="Unitary Development" />
 	<File name="calcthread.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="390" topLine="13" />
+		<Cursor position="155" topLine="0" />
 	</File>
 	<File name="calcthread.h" open="0" top="0" tabpos="2">
 		<Cursor position="132" topLine="0" />
@@ -20,22 +20,22 @@
 		<Cursor position="3036" topLine="23" />
 	</File>
 	<File name="init.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="5462" topLine="141" />
+		<Cursor position="5462" topLine="79" />
 	</File>
 	<File name="main.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="1732" topLine="48" />
+		<Cursor position="292" topLine="66" />
 	</File>
 	<File name="main.h" open="0" top="0" tabpos="2">
 		<Cursor position="925" topLine="22" />
 	</File>
-	<File name="mainscriptdefs.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="6361" topLine="114" />
+	<File name="mainscriptdefs.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="1336" topLine="27" />
 	</File>
 	<File name="mainscriptdefs.h" open="0" top="0" tabpos="9">
 		<Cursor position="969" topLine="0" />
 	</File>
-	<File name="scriptthread.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="4830" topLine="165" />
+	<File name="scriptthread.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="344" topLine="0" />
 	</File>
 	<File name="scriptthread.h" open="0" top="0" tabpos="1">
 		<Cursor position="320" topLine="0" />

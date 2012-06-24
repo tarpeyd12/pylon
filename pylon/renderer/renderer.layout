@@ -13,14 +13,14 @@
 	<File name="cmd.h" open="0" top="0" tabpos="13">
 		<Cursor position="296" topLine="0" />
 	</File>
-	<File name="display.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="1858" topLine="47" />
+	<File name="display.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="1886" topLine="48" />
 	</File>
-	<File name="draw.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="13543" topLine="291" />
+	<File name="draw.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="14966" topLine="317" />
 	</File>
-	<File name="draw.h" open="0" top="0" tabpos="6">
-		<Cursor position="202" topLine="0" />
+	<File name="draw.h" open="1" top="0" tabpos="3">
+		<Cursor position="84" topLine="0" />
 	</File>
 	<File name="hud.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="5798" topLine="161" />
@@ -49,11 +49,11 @@
 	<File name="mouse.h" open="0" top="0" tabpos="13">
 		<Cursor position="407" topLine="0" />
 	</File>
-	<File name="physics.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="6287" topLine="217" />
+	<File name="physics.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="9892" topLine="351" />
 	</File>
-	<File name="physics.h" open="1" top="0" tabpos="1">
-		<Cursor position="1086" topLine="26" />
+	<File name="physics.h" open="0" top="0" tabpos="1">
+		<Cursor position="1818" topLine="41" />
 	</File>
 	<File name="quad.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="4956" topLine="105" />
@@ -61,7 +61,7 @@
 	<File name="quad.h" open="0" top="0" tabpos="8">
 		<Cursor position="204" topLine="2" />
 	</File>
-	<File name="renderer.cpp" open="1" top="0" tabpos="10">
+	<File name="renderer.cpp" open="0" top="0" tabpos="10">
 		<Cursor position="2971" topLine="105" />
 	</File>
 	<File name="renderer.h" open="0" top="0" tabpos="3">
@@ -73,11 +73,11 @@
 	<File name="selection.h" open="0" top="0" tabpos="3">
 		<Cursor position="406" topLine="0" />
 	</File>
-	<File name="subrenderer.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="78" topLine="0" />
+	<File name="subrenderer.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="9454" topLine="267" />
 	</File>
 	<File name="subrenderer.h" open="0" top="0" tabpos="5">
-		<Cursor position="1284" topLine="24" />
+		<Cursor position="1018" topLine="27" />
 	</File>
 	<File name="timer.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="2287" topLine="75" />

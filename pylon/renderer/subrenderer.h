@@ -12,6 +12,8 @@ namespace Renderer
 #include "camera.h"
 #include "physics.h"
 
+#include "draw.h"
+
 #include "renderer.h"
 
 namespace Renderer
@@ -32,16 +34,16 @@ namespace Renderer
             Renderer::Lighting::Light lights[MAXNUMLIGHTS];
 
             SubRenderer();
-            SubRenderer(std::string);
-            SubRenderer(std::string,float);
+            SubRenderer( const std::string& );
+            SubRenderer( const std::string& ,float);
             ~SubRenderer();
 
-            void setLight(Renderer::Lighting::Light,int);
+            void setLight( const Renderer::Lighting::Light&, int );
 
-            Renderer::Physics::Simulation* getBoundSimulation(std::string);
+            Renderer::Physics::Simulation* getBoundSimulation( const std::string& );
 
-            int addSimulationBinding(std::string);
-            int removeSimulationBinding(std::string);
+            int addSimulationBinding( const std::string& );
+            int removeSimulationBinding( const std::string& );
             int removeAllSimulationBindings();
 
             void scenesetup();
@@ -50,7 +52,7 @@ namespace Renderer
             void draw();
     };
 
-    Renderer::SubRenderer* requestSubRenderer(std::string);
+    Renderer::SubRenderer* requestSubRenderer( const std::string& );
     void RenderAllSubRenderers();
 }
 

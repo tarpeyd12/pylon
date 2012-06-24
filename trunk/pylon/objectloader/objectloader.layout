@@ -34,22 +34,22 @@
 	<File name="objectloader.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="606" topLine="1" />
 	</File>
-	<File name="objectloader.h" open="1" top="0" tabpos="6">
+	<File name="objectloader.h" open="0" top="0" tabpos="6">
 		<Cursor position="233" topLine="0" />
 	</File>
 	<File name="objmtl.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="3521" topLine="86" />
 	</File>
-	<File name="pylon.cpp" open="1" top="0" tabpos="7">
+	<File name="pylon.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="7740" topLine="185" />
 	</File>
-	<File name="pylon/pylon.h" open="1" top="0" tabpos="10">
+	<File name="pylon/pylon.h" open="0" top="0" tabpos="10">
 		<Cursor position="658" topLine="0" />
 	</File>
-	<File name="pylon/pylonobject.cpp" open="1" top="1" tabpos="9">
+	<File name="pylon/pylonobject.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="2662" topLine="49" />
 	</File>
-	<File name="pylon/pylontypes.cpp" open="1" top="0" tabpos="8">
+	<File name="pylon/pylontypes.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="790" topLine="0" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="0">

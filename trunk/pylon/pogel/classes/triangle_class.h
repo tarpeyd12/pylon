@@ -12,6 +12,8 @@ class TRIANGLE;
 #include "bounding_class.h"
 #include "../pogel_internals.h"
 
+#include "../templates/bitlist.h"
+
 #define			TRIANGLE_LIT				2
 #define			TRIANGLE_COLORED			4
 #define			TRIANGLE_VERTEX_NORMALS		8
@@ -106,7 +108,12 @@ namespace POGEL
             friend class POGEL::MATRIX;
     };
 
+
     void drawTriangleList( TRIANGLE * face, unsigned int numfaces );
+
+    void drawTriangleListIsClear( TRIANGLE * face, unsigned int numfaces, bool isclear, BITLIST * candraw = NULL, bool cdmatch = true, int * first = NULL, int * last = NULL );
+
+
     void drawTriangleList( void * list, unsigned int length, TRIANGLE * (*accessor)(void*,unsigned int) );
 
     template < class Accessor >

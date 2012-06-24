@@ -10,6 +10,7 @@ namespace Main
     {
         if( !Main::calcLock )
         {
+            Renderer::Physics::doIncrimentSimulations = false;
             Main::calcLock = true;
             usleep( 1000 );
             if( !Main::SingleThreaded )
@@ -36,6 +37,7 @@ namespace Main
     {
         if( Main::calcLock )
         {
+            Renderer::Physics::doIncrimentSimulations = true;
             Main::calcLock = false;
             if( !Main::SingleThreaded )
             {

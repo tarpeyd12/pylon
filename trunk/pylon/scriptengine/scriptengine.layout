@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="executor.cpp" open="1" top="0" tabpos="16">
+	<File name="executor.cpp" open="0" top="0" tabpos="16">
 		<Cursor position="5099" topLine="185" />
 	</File>
 	<File name="executor.h" open="0" top="0" tabpos="1">
 		<Cursor position="1542" topLine="30" />
 	</File>
-	<File name="interpriterthread.cpp" open="1" top="0" tabpos="17">
+	<File name="interpriterthread.cpp" open="0" top="0" tabpos="17">
 		<Cursor position="1943" topLine="30" />
 	</File>
 	<File name="scriptengine.cpp" open="0" top="0" tabpos="7">

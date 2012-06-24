@@ -56,6 +56,8 @@ namespace Renderer
 
         extern ClassList< Simulation * > simulations;
 
+        extern volatile bool doIncrimentSimulations;
+
         //void Init();
 
         Renderer::Physics::Simulation* getSimulation( unsigned int );

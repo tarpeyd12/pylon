@@ -134,6 +134,15 @@ namespace POGEL
             CLASSLIST < POGEL::ANIMATIONLOOP > animations;
             int currentAnimationLoopIndex;
             float currentAnimationLoopStartTime;
+
+            BITLIST trisortfaces1;
+            BITLIST trisortfaces2;
+            int trisortfaces0_first;
+            int trisortfaces0_last;
+            int trisortfaces1_first;
+            int trisortfaces1_last;
+            int trisortfaces2_first;
+            int trisortfaces2_last;
         public:
 
             POGEL::POINT position; // the center position of the object

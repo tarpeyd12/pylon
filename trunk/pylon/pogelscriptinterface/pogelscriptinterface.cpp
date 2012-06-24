@@ -70,13 +70,17 @@ namespace pogelInterface
         }
         if( waittime >= 1.0f )
         {
+            #if defined(WINDOWS) || defined(_WIN32)
+            Sleep( (unsigned int)(waittime) );
+            #else
             if( sleep( (unsigned int)(waittime) ) )
             {
                 cout << "sleep() error" << endl;
             }
+            #endif
             waittime -= float( (unsigned int)(waittime) );
         }
-        if( waittime < 0.0f )
+        if( waittime <= 0.0f )
         {
             return Py_BuildValue("f", POGEL::GetTimePassed());
         }
@@ -99,13 +103,17 @@ namespace pogelInterface
         if( waittime >= 1000000 )
         {
             int secwait = waittime / 1000000;
+            #if defined(WINDOWS) || defined(_WIN32)
+            Sleep( secwait );
+            #else
             if( sleep( secwait ) )
             {
                 cout << "sleep() error" << endl;
             }
+            #endif
             waittime -= ( secwait ) * 1000000;
         }
-        if( waittime < 0 )
+        if( waittime <= 0 )
         {
             return Py_BuildValue("f", POGEL::GetTimePassed());
         }
@@ -121,7 +129,12 @@ namespace pogelInterface
         char checkedKey;
         if(!PyArg_ParseTuple(args, "c:key_ispressed", &checkedKey))
             return NULL;
-        return Py_BuildValue("i", (int)Renderer::Key::keys[(unsigned int)checkedKey]);
+        //return Py_BuildValue("i", (int)Renderer::Key::keys[(unsigned int)checkedKey]);
+        if( Renderer::Key::keys[(unsigned int)checkedKey] )
+        {
+            Py_RETURN_TRUE;
+        }
+        Py_RETURN_FALSE;
     }
 
     Object* key_when_pressed( Object* self, Object* args )
@@ -167,7 +180,12 @@ namespace pogelInterface
     {
         if(!PyArg_ParseTuple(args, ":mouse_ispressed"))
             return NULL;
-        return Py_BuildValue("i", (int)(Renderer::Mouse::state == GLUT_DOWN));
+        //return Py_BuildValue("i", (int)(Renderer::Mouse::state == GLUT_DOWN));
+        if( Renderer::Mouse::state == GLUT_DOWN )
+        {
+            Py_RETURN_TRUE;
+        }
+        Py_RETURN_FALSE;
     }
 
     Object* mouse_getbutton( Object* self, Object* args )
@@ -209,7 +227,12 @@ namespace pogelInterface
     {
         if(!PyArg_ParseTuple(args, ":select_isgood"))
             return NULL;
-        return Py_BuildValue("i", (int)Renderer::Selection::lastwasselected);
+        //return Py_BuildValue("i", (int)Renderer::Selection::lastwasselected);
+        if( Renderer::Selection::lastwasselected )
+        {
+            Py_RETURN_TRUE;
+        }
+        Py_RETURN_FALSE;
     }
 
     Object* select_get_sim( Object* self, Object* args )

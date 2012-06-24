@@ -1195,6 +1195,22 @@ POGEL::OBJECT::build()
         triList.sort(_sortTrianglesByPropertiesAndImage);
         // set the temporary lists' internal pointer to null
         triList.nullify();
+
+        trisortfaces1.init( numfaces );
+        trisortfaces2.init( numfaces );
+
+        for( unsigned int i = 0; i < numfaces; ++i )
+        {
+            trisortfaces1.set( i, face[ i ].hasproperty(TRIANGLE_DOUBLESIDED) || face[ i ].hasproperty(TRIANGLE_INVERT_NORMALS) );
+            trisortfaces2.set( i, face[ i ].hasproperty(TRIANGLE_DOUBLESIDED) || !face[ i ].hasproperty(TRIANGLE_INVERT_NORMALS) );
+        }
+
+        trisortfaces0_first = -1;
+        trisortfaces0_last = -1;
+        trisortfaces1_first = -1;
+        trisortfaces1_last = -1;
+        trisortfaces2_first = -1;
+        trisortfaces2_last = -1;
     }
 
     // if the object is to be drawn into a display list
@@ -1960,11 +1976,12 @@ POGEL::OBJECT::draw()
                 if( hasproperty(OBJECT_SORT_TRIANGLES) )
                 {
                     //glEnable( GL_ALPHA_TEST );
+                    POGEL::drawTriangleListIsClear( face, numfaces, false, NULL, false, &trisortfaces0_first, &trisortfaces0_last );
                     POGEL::addproperty(POGEL_NODOUBLESIDEDTRIANGLES);
                     glFrontFace(GL_CW);
-                    POGEL::drawTriangleList( face, numfaces );
+                    POGEL::drawTriangleListIsClear( face, numfaces, true, &trisortfaces1, true, &trisortfaces1_first, &trisortfaces1_last );
                     glFrontFace(GL_CCW);
-                    POGEL::drawTriangleList( face, numfaces );
+                    POGEL::drawTriangleListIsClear( face, numfaces, true, &trisortfaces2, true, &trisortfaces2_first, &trisortfaces2_last );
                     //glFrontFace(GL_CCW);
                     POGEL::removeproperty(POGEL_NODOUBLESIDEDTRIANGLES);
                     //glDisable( GL_ALPHA_TEST );

@@ -34,10 +34,10 @@
 	<File name="classes/misc_class.h" open="0" top="0" tabpos="0">
 		<Cursor position="735" topLine="6" />
 	</File>
-	<File name="classes/object_class.cpp" open="1" top="0" tabpos="3">
+	<File name="classes/object_class.cpp" open="1" top="0" tabpos="1">
 		<Cursor position="51170" topLine="1966" />
 	</File>
-	<File name="classes/object_class.h" open="1" top="0" tabpos="4">
+	<File name="classes/object_class.h" open="1" top="0" tabpos="2">
 		<Cursor position="9398" topLine="236" />
 	</File>
 	<File name="classes/object_class_inline.h" open="0" top="0" tabpos="3">
@@ -73,8 +73,8 @@
 	<File name="classes/physics/simulation_class.h" open="0" top="0" tabpos="17">
 		<Cursor position="674" topLine="17" />
 	</File>
-	<File name="classes/physics/simulation_class_collisions.cpp" open="1" top="0" tabpos="8">
-		<Cursor position="8578" topLine="208" />
+	<File name="classes/physics/simulation_class_collisions.cpp" open="1" top="1" tabpos="6">
+		<Cursor position="9751" topLine="232" />
 	</File>
 	<File name="classes/physics/simulation_class_collisions_reaction.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="4642" topLine="67" />
@@ -112,17 +112,17 @@
 	<File name="classes/threads.h" open="0" top="0" tabpos="1">
 		<Cursor position="274" topLine="0" />
 	</File>
-	<File name="classes/triangle_class.cpp" open="1" top="0" tabpos="5">
+	<File name="classes/triangle_class.cpp" open="1" top="0" tabpos="3">
 		<Cursor position="9631" topLine="331" />
 	</File>
-	<File name="classes/triangle_class.h" open="1" top="0" tabpos="6">
+	<File name="classes/triangle_class.h" open="1" top="0" tabpos="4">
 		<Cursor position="3872" topLine="83" />
 	</File>
 	<File name="classes/triangle_class_inline.h" open="0" top="0" tabpos="5">
 		<Cursor position="5121" topLine="230" />
 	</File>
-	<File name="classes/view_class.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="2686" topLine="74" />
+	<File name="classes/view_class.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="4874" topLine="148" />
 	</File>
 	<File name="classes/view_class.h" open="0" top="0" tabpos="0">
 		<Cursor position="680" topLine="36" />
@@ -142,7 +142,7 @@
 	<File name="templates/arraylist.h" open="0" top="0" tabpos="4">
 		<Cursor position="88" topLine="0" />
 	</File>
-	<File name="templates/bitlist.h" open="1" top="0" tabpos="7">
+	<File name="templates/bitlist.h" open="1" top="0" tabpos="5">
 		<Cursor position="223" topLine="0" />
 	</File>
 	<File name="templates/classlist_template.h" open="0" top="0" tabpos="12">

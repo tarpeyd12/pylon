@@ -63,17 +63,16 @@ GLuint POGEL::VIEW::build()
         break;
 
         case IMAGE_MIPMAP:
+            #if defined(GL_GENERATE_MIPMAP)
             glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_NEAREST);
-            #ifdef GL_GENERATE_MIPMAP
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR_MIPMAP_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE);
+            #else
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR); // scale linearly when image bigger than texture
+            glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); // scale linearly when image smaller than texture
             #endif
         break;
     }
-
-    // 2d texture, level of detail 0 (normal), 3 components (red, green, blue), x size from image, y size from image,
-    // border 0 (normal), rgb color data, unsigned byte data, and finally the data itself.
-    //glTexImage2D(GL_TEXTURE_2D, 0, 3, sizeX, sizeY, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
 
     //delete [] data;
     data = NULL;

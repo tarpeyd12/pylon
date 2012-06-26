@@ -13,13 +13,13 @@
 	<File name="cmd.h" open="0" top="0" tabpos="13">
 		<Cursor position="296" topLine="0" />
 	</File>
-	<File name="display.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="1044" topLine="33" />
+	<File name="display.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="1698" topLine="39" />
 	</File>
-	<File name="draw.cpp" open="1" top="0" tabpos="2">
+	<File name="draw.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="14966" topLine="317" />
 	</File>
-	<File name="draw.h" open="1" top="0" tabpos="3">
+	<File name="draw.h" open="0" top="0" tabpos="3">
 		<Cursor position="84" topLine="0" />
 	</File>
 	<File name="hud.cpp" open="0" top="0" tabpos="2">

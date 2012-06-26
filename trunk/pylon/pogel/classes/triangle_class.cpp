@@ -394,7 +394,7 @@ POGEL::drawTriangleListIsClear( POGEL::TRIANGLE * face, unsigned int numfaces, b
     glBegin( mode );
 
     //for( unsigned int i = firstmatch; i < numfaces; ++i )
-    for( unsigned int i = firstmatch; i < lastmatch; ++i )
+    for( unsigned int i = firstmatch; i <= lastmatch; ++i )
     {
         if( face[ i ].isClear() != isclear || (candraw != NULL && candraw->get( i ) != cdmatch) )
         {

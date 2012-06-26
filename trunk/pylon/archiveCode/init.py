@@ -144,7 +144,7 @@ TestSphereSim.newtonianGravityOff()
 rnum = 3
 sim2Outest = sim2.newObject("Outset")
 sim2Outest.setOptions( pylon.solid_stationary | pylon.solid_concave | pylon.solid_sphere )
-sim2Outest.setProperties( pylon.object_draw_children )
+#sim2Outest.setProperties( pylon.object_draw_children )
 pylon.object_add_sphere( sim2Outest.simname, sim2Outest.name, 2.0, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
 sim2Outest.setInvisible()
 sim2Outest.build()

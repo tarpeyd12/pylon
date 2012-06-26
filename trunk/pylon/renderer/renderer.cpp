@@ -109,12 +109,12 @@ namespace Renderer
             BuildImage( i );
     }
 
-    POGEL::IMAGE* requestImage(std::string s)
+    POGEL::IMAGE * requestImage( std::string s )
     {
-        Renderer::SubRenderer* subrend = Renderer::requestSubRenderer(s);
-        if(subrend == NULL)
+        Renderer::SubRenderer * subrend = Renderer::requestSubRenderer(s);
+        if( subrend == NULL )
         {
-            POGEL::IMAGE* image = POGEL::requestImage(s);
+            POGEL::IMAGE * image = POGEL::requestImage( s );
             if(image != NULL && !image->isloaded())
             {
                 std::string fileid = image->getFileID();
@@ -126,12 +126,13 @@ namespace Renderer
                 }
                 if( fileexists )
                 {
-                    if( !image->load(fileid.c_str()) )
+                    if( !image->load( fileid.c_str() ) )
                     {
                         if( !FileLoader::noremoval )
                             FileLoader::System::Files::remove( fileid );
                         cout << "Error: " << fileid << " loading error" << endl;
                         throw -1;
+                        return NULL;
                     }
                     if( !FileLoader::noremoval )
                         FileLoader::System::Files::remove( fileid );
@@ -140,6 +141,7 @@ namespace Renderer
                 {
                     cout << "Error: " << fileid << " extracted, but nonexistant" << endl;
                     throw -2;
+                    return NULL;
                 }
             }
             return image;

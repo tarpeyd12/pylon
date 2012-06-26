@@ -1174,7 +1174,6 @@ POGEL::OBJECT::build()
         }
 
         // tell the object to sort its triangles
-        // for external rendering procedures use only
         addproperty(OBJECT_SORT_TRIANGLES);
 
         // remove the option to 'predraw' the object to a display list
@@ -1219,7 +1218,7 @@ POGEL::OBJECT::build()
         #ifdef OPENGL
 
             // generate a new display list
-            base = glGenLists(1);
+            base = glGenLists( 1 );
 
             unsigned int prp = POGEL::getproperties();
             // if bounding to be drawn and object rotates to camera
@@ -1230,9 +1229,26 @@ POGEL::OBJECT::build()
             }
 
             // start 'recording'
-            glNewList(base,GL_COMPILE);
+            glNewList( base, GL_COMPILE );
 
-                POGEL::drawTriangleList( face, numfaces );
+                if( hasproperty(OBJECT_SORT_TRIANGLES) )
+                {
+                    POGEL::drawTriangleListIsClear( face, numfaces, false, NULL, false, &trisortfaces0_first, &trisortfaces0_last );
+                    #if !(defined(WINDOWS) || defined(_WIN32) || defined(_WIN64))
+                    POGEL::addproperty(POGEL_NODOUBLESIDEDTRIANGLES);
+                    #endif
+                    glFrontFace(GL_CW);
+                    POGEL::drawTriangleListIsClear( face, numfaces, true, &trisortfaces1, true, &trisortfaces1_first, &trisortfaces1_last );
+                    glFrontFace(GL_CCW);
+                    POGEL::drawTriangleListIsClear( face, numfaces, true, &trisortfaces2, true, &trisortfaces2_first, &trisortfaces2_last );
+                    #if !(defined(WINDOWS) || defined(_WIN32) || defined(_WIN64))
+                    POGEL::removeproperty(POGEL_NODOUBLESIDEDTRIANGLES);
+                    #endif
+                }
+                else
+                {
+                    POGEL::drawTriangleList( face, numfaces );
+                }
 
             // finish the display list
             glEndList();
@@ -1975,16 +1991,17 @@ POGEL::OBJECT::draw()
 
                 if( hasproperty(OBJECT_SORT_TRIANGLES) )
                 {
-                    //glEnable( GL_ALPHA_TEST );
                     POGEL::drawTriangleListIsClear( face, numfaces, false, NULL, false, &trisortfaces0_first, &trisortfaces0_last );
+                    #if !(defined(WINDOWS) || defined(_WIN32) || defined(_WIN64))
                     POGEL::addproperty(POGEL_NODOUBLESIDEDTRIANGLES);
+                    #endif
                     glFrontFace(GL_CW);
                     POGEL::drawTriangleListIsClear( face, numfaces, true, &trisortfaces1, true, &trisortfaces1_first, &trisortfaces1_last );
                     glFrontFace(GL_CCW);
                     POGEL::drawTriangleListIsClear( face, numfaces, true, &trisortfaces2, true, &trisortfaces2_first, &trisortfaces2_last );
-                    //glFrontFace(GL_CCW);
+                    #if !(defined(WINDOWS) || defined(_WIN32) || defined(_WIN64))
                     POGEL::removeproperty(POGEL_NODOUBLESIDEDTRIANGLES);
-                    //glDisable( GL_ALPHA_TEST );
+                    #endif
                 }
                 else
                 {

@@ -22,7 +22,7 @@ namespace Main
     {
         cout << "Usage:" << "\n";//endl;
         std::string cmds = "[args]";
-        #if defined(WINDOWS) || defined(_WIN32)
+        #if defined(WINDOWS) || defined(_WIN32) || defined(_WIN64)
         cout << "  pylon.exe " + cmds << endl;
         #else
         cout << "  ./pylon " + cmds << endl;

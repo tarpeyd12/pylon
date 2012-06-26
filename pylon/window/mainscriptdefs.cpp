@@ -18,7 +18,9 @@ namespace Main
                 try
                 {
                     Main::calcThread->cancelThread();
+                    #if !(defined(WINDOWS) || defined(_WIN32) || defined(_WIN64))
                     Main::calcThread->joinThread();
+                    #endif
                 }
                 catch( int e )
                 {

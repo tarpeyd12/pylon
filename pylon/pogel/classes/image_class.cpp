@@ -82,11 +82,25 @@ POGEL::IMAGE::IMAGE()
 
 POGEL::IMAGE::IMAGE(const char *filename)
 {
+    data=(char*)NULL;
+    base=(unsigned int)NULL;
+    tstr = fileid = "";
+    sizeX = sizeY = 0;
+    channels = 0;
+    setfilter(IMAGE_DEFAULT_FILTER);
+
     loadandbuild(filename);
 }
 
 POGEL::IMAGE::IMAGE(const char *filename, int filter)
 {
+    data=(char*)NULL;
+    base=(unsigned int)NULL;
+    tstr = fileid = "";
+    sizeX = sizeY = 0;
+    channels = 0;
+    setfilter(IMAGE_DEFAULT_FILTER);
+
     setfilter(filter);
     loadandbuild(filename);
 }

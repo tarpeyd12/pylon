@@ -307,14 +307,15 @@ namespace Renderer
             unsigned int numsimulations = Renderer::Physics::simulations.length();
             for(unsigned int i = 0; i < numsimulations; ++i)
             {
-                if(Renderer::Physics::simulations[i]->canDraw())
+                Renderer::Physics::Simulation * sim = Renderer::Physics::simulations[ i ];
+                if( sim->canDraw() )
                 {
-                    //Renderer::Physics::simulations[i]->draw();
-                    unsigned int numobjects = Renderer::Physics::simulations[ i ]->numObjects();
+                    //sim->draw();
+                    unsigned int numobjects = sim->numObjects();
                     for( unsigned int a = 0; a < numobjects; ++a )
                     //unsigned int a = numobjects; while( a-- )
                     {
-                        POGEL::PHYSICS::SOLID* obj = Renderer::Physics::simulations[ i ]->getObject( a );
+                        POGEL::PHYSICS::SOLID* obj = sim->getObject( a );
 
                         if( !obj->visable )
                         {
@@ -331,7 +332,7 @@ namespace Renderer
                             continue;
                         }
 
-                        if( Renderer::Physics::doIncrimentSimulations && obj->getNumFrames() && invcampos.distance(obj->position) + objradius < 50.0f*objradius*2.0f )
+                        if( sim->inc() && Renderer::Physics::doIncrimentSimulations && obj->getNumFrames() && invcampos.distance(obj->position) + objradius < 50.0f*objradius*2.0f )
                         {
                             //obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
                             obj->playAnimation(POGEL::GetTimePassed());

@@ -1,1 +1,1117 @@
 # depslib dependency file v1.0
+1340743099 source:c:\documents and settings\dean tarpey\desktop\pylon\window\main.cpp
+	"main.h"
+	"versionheaders.h"
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\window\main.h
+	<Python.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdlib.h>
+	"../lists/classlist_template.h"
+	"../threads/threads.h"
+	"../pogel/pogel.h"
+	"../fileloader/fileloader.h"
+	"../scriptengine/scriptengine.h"
+	"../objectloader/objectloader.h"
+	"../renderer/renderer.h"
+	"../pogelscriptinterface/pogelscriptinterface.h"
+	"scriptthread.h"
+	"calcthread.h"
+	"globals.h"
+
+1280953274 c:\python26\include\python.h
+	"patchlevel.h"
+	"pyconfig.h"
+	"pymacconfig.h"
+	<limits.h>
+	<stdio.h>
+	<string.h>
+	<errno.h>
+	<stdlib.h>
+	<unistd.h>
+	<stddef.h>
+	<assert.h>
+	"pyport.h"
+	"pymath.h"
+	"pymem.h"
+	"object.h"
+	"objimpl.h"
+	"pydebug.h"
+	"unicodeobject.h"
+	"intobject.h"
+	"boolobject.h"
+	"longobject.h"
+	"floatobject.h"
+	"complexobject.h"
+	"rangeobject.h"
+	"stringobject.h"
+	"bufferobject.h"
+	"bytesobject.h"
+	"bytearrayobject.h"
+	"tupleobject.h"
+	"listobject.h"
+	"dictobject.h"
+	"enumobject.h"
+	"setobject.h"
+	"methodobject.h"
+	"moduleobject.h"
+	"funcobject.h"
+	"classobject.h"
+	"fileobject.h"
+	"cobject.h"
+	"traceback.h"
+	"sliceobject.h"
+	"cellobject.h"
+	"iterobject.h"
+	"genobject.h"
+	"descrobject.h"
+	"warnings.h"
+	"weakrefobject.h"
+	"codecs.h"
+	"pyerrors.h"
+	"pystate.h"
+	"pyarena.h"
+	"modsupport.h"
+	"pythonrun.h"
+	"ceval.h"
+	"sysmodule.h"
+	"intrcheck.h"
+	"import.h"
+	"abstract.h"
+	"compile.h"
+	"eval.h"
+	"pystrtod.h"
+	"pystrcmp.h"
+	"pyfpe.h"
+	<pth.h>
+
+1282693864 c:\python26\include\patchlevel.h
+
+1254303296 c:\python26\include\pyconfig.h
+	<io.h>
+	<stdlib.h>
+	<float.h>
+	<basetsd.h>
+	<io.h>
+	<stdio.h>
+
+1250308676 c:\program files\codeblocks\mingw\include\io.h
+	<_mingw.h>
+	<sys/types.h>
+
+1250308674 c:\program files\codeblocks\mingw\include\_mingw.h
+
+1250308682 c:\program files\codeblocks\mingw\include\sys\types.h
+	<_mingw.h>
+	<stddef.h>
+
+1250308680 c:\program files\codeblocks\mingw\include\stdlib.h
+	<_mingw.h>
+	<stddef.h>
+
+1250308676 c:\program files\codeblocks\mingw\include\float.h
+	<_mingw.h>
+
+1228534312 c:\program files\codeblocks\mingw\include\basetsd.h
+
+1250308680 c:\program files\codeblocks\mingw\include\stdio.h
+	<_mingw.h>
+	<stddef.h>
+	<stdarg.h>
+	<sys/types.h>
+
+1280953274 c:\python26\include\pymacconfig.h
+
+1250308678 c:\program files\codeblocks\mingw\include\limits.h
+	<_mingw.h>
+
+1250308680 c:\program files\codeblocks\mingw\include\string.h
+	<_mingw.h>
+	<stddef.h>
+
+1250308676 c:\program files\codeblocks\mingw\include\errno.h
+	<_mingw.h>
+
+1250308680 c:\program files\codeblocks\mingw\include\unistd.h
+	<io.h>
+	<process.h>
+	<getopt.h>
+	<sys/types.h>
+
+1250308678 c:\program files\codeblocks\mingw\include\process.h
+	<_mingw.h>
+	<sys/types.h>
+	<stdint.h>
+
+1250308680 c:\program files\codeblocks\mingw\include\stdint.h
+	<stddef.h>
+
+1250308676 c:\program files\codeblocks\mingw\include\getopt.h
+	<_mingw.h>
+
+1250308674 c:\program files\codeblocks\mingw\include\assert.h
+	<_mingw.h>
+
+1280953274 c:\python26\include\pyport.h
+	"pyconfig.h"
+	<stdint.h>
+	<stdlib.h>
+	<math.h>
+	<sys/time.h>
+	<time.h>
+	<sys/time.h>
+	<time.h>
+	<sys/select.h>
+	<sys/types.h>
+	"unixstuff.h"
+	<sys/types.h>
+	<sys/stat.h>
+	<stat.h>
+	<sys/types.h>
+	<sys/termio.h>
+	<termios.h>
+	<osreldate.h>
+	<ctype.h>
+	<wctype.h>
+
+1250308678 c:\program files\codeblocks\mingw\include\math.h
+	<_mingw.h>
+
+1250308682 c:\program files\codeblocks\mingw\include\sys\time.h
+	<time.h>
+
+1250308680 c:\program files\codeblocks\mingw\include\time.h
+	<_mingw.h>
+	<stddef.h>
+
+1250308682 c:\program files\codeblocks\mingw\include\sys\stat.h
+	<_mingw.h>
+	<stddef.h>
+	<sys/types.h>
+
+1250308676 c:\program files\codeblocks\mingw\include\ctype.h
+	<_mingw.h>
+	<stddef.h>
+
+1250308682 c:\program files\codeblocks\mingw\include\wctype.h
+	<_mingw.h>
+	<stddef.h>
+
+1254303254 c:\python26\include\pymath.h
+	"pyconfig.h"
+	<stdint.h>
+
+1266459052 c:\python26\include\pymem.h
+	"pyport.h"
+
+1280953274 c:\python26\include\object.h
+
+1280953274 c:\python26\include\objimpl.h
+	"pymem.h"
+
+1210263388 c:\python26\include\pydebug.h
+
+1280953274 c:\python26\include\unicodeobject.h
+	<stdarg.h>
+	<ctype.h>
+	<time.h>
+	<wchar.h>
+	<wctype.h>
+
+1250308682 c:\program files\codeblocks\mingw\include\wchar.h
+	<_mingw.h>
+	<stddef.h>
+	<stdarg.h>
+	<wctype.h>
+	<sys/types.h>
+	<stdint.h>
+	<stdint.h>
+
+1216424872 c:\python26\include\intobject.h
+
+1200966572 c:\python26\include\boolobject.h
+
+1212427498 c:\python26\include\longobject.h
+
+1216424872 c:\python26\include\floatobject.h
+
+1210263388 c:\python26\include\complexobject.h
+
+1200966572 c:\python26\include\rangeobject.h
+
+1280953274 c:\python26\include\stringobject.h
+	<stdarg.h>
+
+1200966572 c:\python26\include\bufferobject.h
+
+1213328362 c:\python26\include\bytesobject.h
+
+1266459052 c:\python26\include\bytearrayobject.h
+	<stdarg.h>
+
+1204261450 c:\python26\include\tupleobject.h
+
+1200966572 c:\python26\include\listobject.h
+
+1280953274 c:\python26\include\dictobject.h
+
+1130555166 c:\python26\include\enumobject.h
+
+1280953274 c:\python26\include\setobject.h
+
+1204261450 c:\python26\include\methodobject.h
+
+1200966572 c:\python26\include\moduleobject.h
+
+1200966572 c:\python26\include\funcobject.h
+
+1204261450 c:\python26\include\classobject.h
+
+1280953274 c:\python26\include\fileobject.h
+
+1220922758 c:\python26\include\cobject.h
+
+1216424872 c:\python26\include\traceback.h
+
+1254303254 c:\python26\include\sliceobject.h
+
+1200966572 c:\python26\include\cellobject.h
+
+1200966572 c:\python26\include\iterobject.h
+
+1202859342 c:\python26\include\genobject.h
+
+1280953274 c:\python26\include\descrobject.h
+
+1213905592 c:\python26\include\warnings.h
+
+1200966572 c:\python26\include\weakrefobject.h
+
+1143172584 c:\python26\include\codecs.h
+
+1280953274 c:\python26\include\pyerrors.h
+	<stdarg.h>
+
+1280953274 c:\python26\include\pystate.h
+
+1142024382 c:\python26\include\pyarena.h
+
+1202859342 c:\python26\include\modsupport.h
+	<stdarg.h>
+
+1280953274 c:\python26\include\pythonrun.h
+
+1280953274 c:\python26\include\ceval.h
+
+1280953274 c:\python26\include\sysmodule.h
+
+1130555168 c:\python26\include\intrcheck.h
+
+1254303254 c:\python26\include\import.h
+
+1280953274 c:\python26\include\abstract.h
+
+1207166084 c:\python26\include\compile.h
+	"code.h"
+
+1207166084 c:\python26\include\code.h
+
+1130555168 c:\python26\include\eval.h
+
+1140132844 c:\python26\include\pystrtod.h
+
+1222548510 c:\python26\include\pystrcmp.h
+
+1130555168 c:\python26\include\pyfpe.h
+	<signal.h>
+	<setjmp.h>
+	<math.h>
+
+1250308680 c:\program files\codeblocks\mingw\include\signal.h
+	<_mingw.h>
+
+1250308678 c:\program files\codeblocks\mingw\include\setjmp.h
+	<_mingw.h>
+
+983734386 c:\program files\codeblocks\mingw\include\gl\glut.h
+	<windows.h>
+	<stdlib.h>
+	<GL/gl.h>
+	<GL/glu.h>
+
+1228534332 c:\program files\codeblocks\mingw\include\windows.h
+	<winresrc.h>
+	<stdarg.h>
+	<windef.h>
+	<wincon.h>
+	<winbase.h>
+	<wingdi.h>
+	<winuser.h>
+	<winnls.h>
+	<winver.h>
+	<winnetwk.h>
+	<winreg.h>
+	<winsvc.h>
+	<cderr.h>
+	<dde.h>
+	<ddeml.h>
+	<dlgs.h>
+	<imm.h>
+	<lzexpand.h>
+	<mmsystem.h>
+	<nb30.h>
+	<rpc.h>
+	<shellapi.h>
+	<winperf.h>
+	<commdlg.h>
+	<winspool.h>
+	<winsock2.h>
+	<winsock.h>
+	<ole2.h>
+
+1228534332 c:\program files\codeblocks\mingw\include\winresrc.h
+	<winuser.h>
+	<winnt.h>
+	<winver.h>
+	<dde.h>
+	<dlgs.h>
+	<commctrl.h>
+
+1228534334 c:\program files\codeblocks\mingw\include\winuser.h
+
+1228534332 c:\program files\codeblocks\mingw\include\winnt.h
+	<winerror.h>
+	<string.h>
+	<basetsd.h>
+	<pshpack4.h>
+	<poppack.h>
+
+1228534332 c:\program files\codeblocks\mingw\include\winerror.h
+
+1228534324 c:\program files\codeblocks\mingw\include\pshpack4.h
+
+1228534324 c:\program files\codeblocks\mingw\include\poppack.h
+
+1228534334 c:\program files\codeblocks\mingw\include\winver.h
+
+1228534314 c:\program files\codeblocks\mingw\include\dde.h
+
+1228534314 c:\program files\codeblocks\mingw\include\dlgs.h
+
+1228534314 c:\program files\codeblocks\mingw\include\commctrl.h
+	<prsht.h>
+
+1228534324 c:\program files\codeblocks\mingw\include\prsht.h
+
+1228534332 c:\program files\codeblocks\mingw\include\windef.h
+	<winnt.h>
+
+1228534332 c:\program files\codeblocks\mingw\include\wincon.h
+
+1228534330 c:\program files\codeblocks\mingw\include\winbase.h
+
+1228534332 c:\program files\codeblocks\mingw\include\wingdi.h
+
+1228534332 c:\program files\codeblocks\mingw\include\winnls.h
+
+1228534332 c:\program files\codeblocks\mingw\include\winnetwk.h
+
+1228534332 c:\program files\codeblocks\mingw\include\winreg.h
+
+1228534334 c:\program files\codeblocks\mingw\include\winsvc.h
+
+1228534312 c:\program files\codeblocks\mingw\include\cderr.h
+
+1228534314 c:\program files\codeblocks\mingw\include\ddeml.h
+
+1228534316 c:\program files\codeblocks\mingw\include\imm.h
+
+1228534320 c:\program files\codeblocks\mingw\include\lzexpand.h
+
+1228534322 c:\program files\codeblocks\mingw\include\mmsystem.h
+
+1228534322 c:\program files\codeblocks\mingw\include\nb30.h
+
+1228534326 c:\program files\codeblocks\mingw\include\rpc.h
+	<windows.h>
+	<rpcdce.h>
+	<rpcnsi.h>
+	<rpcnterr.h>
+	<winerror.h>
+	<excpt.h>
+
+1228534326 c:\program files\codeblocks\mingw\include\rpcdce.h
+	<basetyps.h>
+	<rpcdcep.h>
+
+1228534312 c:\program files\codeblocks\mingw\include\basetyps.h
+
+1228534328 c:\program files\codeblocks\mingw\include\rpcdcep.h
+
+1228534328 c:\program files\codeblocks\mingw\include\rpcnsi.h
+
+1228534328 c:\program files\codeblocks\mingw\include\rpcnterr.h
+
+1250308676 c:\program files\codeblocks\mingw\include\excpt.h
+	<_mingw.h>
+	<windef.h>
+
+1228534328 c:\program files\codeblocks\mingw\include\shellapi.h
+	<pshpack2.h>
+	<poppack.h>
+
+1228534324 c:\program files\codeblocks\mingw\include\pshpack2.h
+
+1228534332 c:\program files\codeblocks\mingw\include\winperf.h
+
+1228534314 c:\program files\codeblocks\mingw\include\commdlg.h
+	<unknwn.h>
+	<prsht.h>
+
+1228534330 c:\program files\codeblocks\mingw\include\unknwn.h
+	<windows.h>
+	<objfwd.h>
+	<wtypes.h>
+
+1228534324 c:\program files\codeblocks\mingw\include\objfwd.h
+	<basetyps.h>
+
+1228534334 c:\program files\codeblocks\mingw\include\wtypes.h
+	<rpc.h>
+	<rpcndr.h>
+
+1228534328 c:\program files\codeblocks\mingw\include\rpcndr.h
+	<rpcnsip.h>
+	<objfwd.h>
+
+1228534328 c:\program files\codeblocks\mingw\include\rpcnsip.h
+
+1228534334 c:\program files\codeblocks\mingw\include\winspool.h
+
+1228534334 c:\program files\codeblocks\mingw\include\winsock2.h
+	<windows.h>
+
+1228534332 c:\program files\codeblocks\mingw\include\winsock.h
+	<windows.h>
+	<mswsock.h>
+
+1228534322 c:\program files\codeblocks\mingw\include\mswsock.h
+
+1228534324 c:\program files\codeblocks\mingw\include\ole2.h
+	<winerror.h>
+	<objbase.h>
+	<olectlid.h>
+	<oleauto.h>
+	<oleidl.h>
+
+1228534324 c:\program files\codeblocks\mingw\include\objbase.h
+	<rpc.h>
+	<rpcndr.h>
+	<stdlib.h>
+	<basetyps.h>
+	<wtypes.h>
+	<unknwn.h>
+	<objidl.h>
+	<cguid.h>
+
+1228534324 c:\program files\codeblocks\mingw\include\objidl.h
+	<objfwd.h>
+
+1228534312 c:\program files\codeblocks\mingw\include\cguid.h
+
+1228534324 c:\program files\codeblocks\mingw\include\olectlid.h
+
+1228534324 c:\program files\codeblocks\mingw\include\oleauto.h
+	<oaidl.h>
+
+1228534322 c:\program files\codeblocks\mingw\include\oaidl.h
+	<windows.h>
+	<ole2.h>
+
+1228534324 c:\program files\codeblocks\mingw\include\oleidl.h
+	<objfwd.h>
+
+1228534334 c:\program files\codeblocks\mingw\include\gl\gl.h
+
+1228534334 c:\program files\codeblocks\mingw\include\gl\glu.h
+	<stddef.h>
+	<GL/gl.h>
+
+1340743092 c:\documents and settings\dean tarpey\desktop\pylon\lists\classlist_template.h
+	<iostream>
+	<vector>
+	<algorithm>
+	"classlist_template.cpp"
+
+1340743093 c:\documents and settings\dean tarpey\desktop\pylon\lists\classlist_template.cpp
+	"classlist_template.h"
+	<stdlib.h>
+
+1340743091 c:\documents and settings\dean tarpey\desktop\pylon\threads\threads.h
+	<pthread.h>
+	<sched.h>
+	<stdlib.h>
+	<unistd.h>
+	<stdio.h>
+	<iostream>
+	"thread.h"
+	"exthread.h"
+
+989765248 c:\program files\codeblocks\mingw\include\pthread.h
+	<windows.h>
+	"config.h"
+	<time.h>
+	<signal.h>
+	<setjmp.h>
+	<limits.h>
+	"need_errno.h"
+	<errno.h>
+	<sched.h>
+	<sys/types.h>
+
+989765248 c:\program files\codeblocks\mingw\include\sched.h
+	"need_errno.h"
+	<errno.h>
+	<sys/types.h>
+	<time.h>
+
+1340743091 c:\documents and settings\dean tarpey\desktop\pylon\threads\thread.h
+	<pthread.h>
+	<sched.h>
+	<stdlib.h>
+	<unistd.h>
+	<stdio.h>
+	<iostream>
+
+1340743091 c:\documents and settings\dean tarpey\desktop\pylon\threads\exthread.h
+	<pthread.h>
+	<sched.h>
+	<stdlib.h>
+	<unistd.h>
+	<stdio.h>
+	<iostream>
+	"thread.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\pogel.h
+	<time.h>
+	<iostream>
+	<sstream>
+	<string>
+	"pogel_classes.h"
+
+1340743094 c:\documents and settings\dean tarpey\desktop\pylon\pogel\pogel_classes.h
+	"templates/templates.h"
+	"classes/threads.h"
+	"classes/bounding_class.h"
+	"classes/image_class.h"
+	"classes/view_class.h"
+	"classes/matrix_class.h"
+	"classes/misc_class.h"
+	"classes/object_class.h"
+	"classes/fractal_class.h"
+	"classes/sprite_class.h"
+	"classes/object_funcs.h"
+	"classes/point_class.h"
+	"classes/quat_class.h"
+	"classes/triangle_class.h"
+	"classes/line_class.h"
+	"classes/physics/physics.h"
+	"classes/physics/solid_class.h"
+	"classes/physics/singularity_class.h"
+	"classes/physics/dynamics_class.h"
+	"classes/physics/simulation_class.h"
+	"classes/physics/fountain_class.h"
+	"classes/physics/microcosm_class.h"
+	"pogel_internals.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\templates\templates.h
+	"arraylist.h"
+	"classlist_template.h"
+	"hashlist_template.h"
+	"octree_template.h"
+	"bitlist.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\templates\arraylist.h
+	"../../lists/arraylist.h"
+
+1340743092 c:\documents and settings\dean tarpey\desktop\pylon\lists\arraylist.h
+	<iostream>
+	"arraylist.cpp"
+	"arraylist.operators.cpp"
+
+1340743093 c:\documents and settings\dean tarpey\desktop\pylon\lists\arraylist.cpp
+	<math.h>
+	<iostream>
+	"arraylist.h"
+
+1340743092 c:\documents and settings\dean tarpey\desktop\pylon\lists\arraylist.operators.cpp
+	<stdlib.h>
+	<iostream>
+	"arraylist.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\templates\classlist_template.h
+	"../../lists/classlist_template.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\templates\hashlist_template.h
+	"../../lists/hashlist_template.h"
+
+1340743092 c:\documents and settings\dean tarpey\desktop\pylon\lists\hashlist_template.h
+	"classlist_template.h"
+	"arraylist.h"
+	"hashlist_template.cpp"
+
+1340743092 c:\documents and settings\dean tarpey\desktop\pylon\lists\hashlist_template.cpp
+	"hashlist_template.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\templates\octree_template.h
+	"../classes/bounding_class.h"
+	"classlist_template.h"
+	"octree_template_general_definition.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\bounding_class.h
+	"point_class.h"
+	"misc_class.h"
+	"bounding_class_inline.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\point_class.h
+	<stdio.h>
+	<math.h>
+	"misc_class.h"
+	"../pogel_internals.h"
+	"point_class_inline.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\misc_class.h
+	<GL/gl.h>
+	"../pogel_internals.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\pogel_internals.h
+	<GL/gl.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	<string>
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\point_class_inline.h
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\bounding_class_inline.h
+
+1340743097 c:\documents and settings\dean tarpey\desktop\pylon\pogel\templates\octree_template_general_definition.h
+	"octree_template_protected_definition.h"
+	"octree_template_general_public_definition.h"
+	"octree_template_protected_implimentation.h"
+	"octree_template_general_implimentation.h"
+	"octree_template_general_public_implimentation.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\templates\octree_template_protected_definition.h
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\templates\octree_template_general_public_definition.h
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\templates\octree_template_protected_implimentation.h
+
+1340743097 c:\documents and settings\dean tarpey\desktop\pylon\pogel\templates\octree_template_general_implimentation.h
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\templates\octree_template_general_public_implimentation.h
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\templates\bitlist.h
+	"../../lists/bitlist.h"
+
+1340743092 c:\documents and settings\dean tarpey\desktop\pylon\lists\bitlist.h
+	<string.h>
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\threads.h
+	<pthread.h>
+	<stdlib.h>
+	<unistd.h>
+	<stdio.h>
+	"../../threads/threads.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\image_class.h
+	"../pogel_internals.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\view_class.h
+	"../pogel_internals.h"
+	"misc_class.h"
+	"image_class.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\matrix_class.h
+	<GL/gl.h>
+	<math.h>
+	"quat_class.h"
+	"point_class.h"
+	"triangle_class.h"
+	"../pogel_internals.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\quat_class.h
+	<stdio.h>
+	"matrix_class.h"
+	"point_class.h"
+	"../pogel_internals.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\triangle_class.h
+	"point_class.h"
+	"line_class.h"
+	"image_class.h"
+	"matrix_class.h"
+	"bounding_class.h"
+	"../pogel_internals.h"
+	"../templates/bitlist.h"
+	"triangle_class_inline.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\line_class.h
+	"point_class.h"
+	"bounding_class.h"
+	"misc_class.h"
+	"../pogel_internals.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\triangle_class_inline.h
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\object_class.h
+	<stdlib.h>
+	<string.h>
+	"point_class.h"
+	"triangle_class.h"
+	"matrix_class.h"
+	"../pogel_internals.h"
+	"physics/physics.h"
+	"../templates/classlist_template.h"
+	"object_class_inline.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\physics\physics.h
+	"../triangle_class.h"
+	"../line_class.h"
+	"../../pogel_internals.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\object_class_inline.h
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\fractal_class.h
+	"object_class.h"
+	"point_class.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\sprite_class.h
+	"point_class.h"
+	"object_class.h"
+
+1340743096 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\object_funcs.h
+	"point_class.h"
+	"triangle_class.h"
+	"object_class.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\physics\solid_class.h
+	<iostream>
+	<string>
+	"../../templates/octree_template.h"
+	"physics.h"
+	"../point_class.h"
+	"../object_class.h"
+	"callbacks.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\physics\callbacks.h
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\physics\singularity_class.h
+	<stdlib.h>
+	"../../templates/classlist_template.h"
+	"physics.h"
+	"../point_class.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\physics\dynamics_class.h
+	"../../templates/octree_template.h"
+	"solid_class.h"
+	"../../templates/classlist_template.h"
+	"../../templates/bitlist.h"
+	"physics.h"
+	"singularity_class.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\physics\simulation_class.h
+	"physics.h"
+	"dynamics_class.h"
+	"solid_class.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\physics\fountain_class.h
+	"physics.h"
+	"solid_class.h"
+	"simulation_class.h"
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\classes\physics\microcosm_class.h
+	"physics.h"
+	"solid_class.h"
+	"simulation_class.h"
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\fileloader\fileloader.h
+	<string>
+	<fstream>
+	"../pogel/pogel.h"
+	"unzip.h"
+	"ini.h"
+	"archivehandler.h"
+	"system.h"
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\fileloader\unzip.h
+	"fileloader.h"
+	"minizip/unzip.h"
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\fileloader\minizip\unzip.h
+	"zlib/zlib.h"
+	"ioapi.h"
+	"bzlib.h"
+
+1340743098 c:\documents and settings\dean tarpey\desktop\pylon\fileloader\minizip\zlib\zlib.h
+	"zconf.h"
+
+1340743098 c:\documents and settings\dean tarpey\desktop\pylon\fileloader\minizip\zlib\zconf.h
+	<windows.h>
+	<sys/types.h>
+	<unistd.h>
+	<unixio.h>
+
+1340743098 c:\documents and settings\dean tarpey\desktop\pylon\fileloader\minizip\ioapi.h
+	<stdio.h>
+	<stdlib.h>
+	"zlib/zlib.h"
+	<stdint.h>
+	"mz64conf.h"
+	"stdint.h"
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\fileloader\ini.h
+	"fileloader.h"
+	"simpleini/SimpleIni.h"
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\fileloader\simpleini\simpleini.h
+	<cstring>
+	<string>
+	<map>
+	<list>
+	<algorithm>
+	<stdio.h>
+	<iostream>
+	<cassert>
+	<unicode/ustring.h>
+	<wchar.h>
+	"ConvertUTF.h"
+	<unicode/ucnv.h>
+	<windows.h>
+	<mbstring.h>
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\fileloader\simpleini\convertutf.h
+
+1250308678 c:\program files\codeblocks\mingw\include\mbstring.h
+	<_mingw.h>
+	<stddef.h>
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\fileloader\archivehandler.h
+	"fileloader.h"
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\fileloader\system.h
+	"fileloader.h"
+
+1340743090 c:\documents and settings\dean tarpey\desktop\pylon\scriptengine\scriptengine.h
+	<Python.h>
+	"../fileloader/fileloader.h"
+	"../threads/threads.h"
+	<iostream>
+	"scripttypes.h"
+	"executor.h"
+	"stringparser.h"
+	"interpriterthread.h"
+	"subinterpriter.h"
+
+1340743090 c:\documents and settings\dean tarpey\desktop\pylon\scriptengine\scripttypes.h
+
+1340743090 c:\documents and settings\dean tarpey\desktop\pylon\scriptengine\executor.h
+	"scriptengine.h"
+
+1340743090 c:\documents and settings\dean tarpey\desktop\pylon\scriptengine\stringparser.h
+	<string>
+	<iostream>
+	<sstream>
+
+1340743090 c:\documents and settings\dean tarpey\desktop\pylon\scriptengine\interpriterthread.h
+	"scriptengine.h"
+
+1340743090 c:\documents and settings\dean tarpey\desktop\pylon\scriptengine\subinterpriter.h
+	"scriptengine.h"
+
+1340743092 c:\documents and settings\dean tarpey\desktop\pylon\objectloader\objectloader.h
+	"../pogel/pogel.h"
+	"../fileloader/fileloader.h"
+
+1340743093 c:\documents and settings\dean tarpey\desktop\pylon\renderer\renderer.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdlib.h>
+	"../pogel/pogel.h"
+	"../lists/lists.h"
+	"../fileloader/fileloader.h"
+	"../objectloader/objectloader.h"
+	"timer.h"
+	"camera.h"
+	"draw.h"
+	"mouse.h"
+	"window.h"
+	"key.h"
+	"cmd.h"
+	"quad.h"
+	"hud.h"
+	"light.h"
+	"physics.h"
+	"subrenderer.h"
+	"selection.h"
+
+1340743092 c:\documents and settings\dean tarpey\desktop\pylon\lists\lists.h
+	"arraylist.h"
+	"classlist_template.h"
+	"hashlist_template.h"
+	"bitlist.h"
+
+1340743093 c:\documents and settings\dean tarpey\desktop\pylon\renderer\timer.h
+	<stdlib.h>
+	<unistd.h>
+	"../pogel/pogel.h"
+
+1340743094 c:\documents and settings\dean tarpey\desktop\pylon\renderer\camera.h
+	"../pogel/pogel.h"
+
+1340743093 c:\documents and settings\dean tarpey\desktop\pylon\renderer\draw.h
+
+1340743094 c:\documents and settings\dean tarpey\desktop\pylon\renderer\mouse.h
+
+1340743093 c:\documents and settings\dean tarpey\desktop\pylon\renderer\window.h
+	"renderer.h"
+
+1340743094 c:\documents and settings\dean tarpey\desktop\pylon\renderer\key.h
+	"renderer.h"
+
+1340743093 c:\documents and settings\dean tarpey\desktop\pylon\renderer\cmd.h
+	"renderer.h"
+
+1340743093 c:\documents and settings\dean tarpey\desktop\pylon\renderer\quad.h
+	"../pogel/pogel.h"
+	"../lists/lists.h"
+
+1340743093 c:\documents and settings\dean tarpey\desktop\pylon\renderer\hud.h
+	"quad.h"
+
+1340743093 c:\documents and settings\dean tarpey\desktop\pylon\renderer\light.h
+	"../pogel/pogel.h"
+
+1340743093 c:\documents and settings\dean tarpey\desktop\pylon\renderer\physics.h
+	"../pogel/pogel.h"
+	"subrenderer.h"
+	"renderer.h"
+
+1340743093 c:\documents and settings\dean tarpey\desktop\pylon\renderer\subrenderer.h
+	"../pogel/pogel.h"
+	"light.h"
+	"camera.h"
+	"physics.h"
+	"draw.h"
+	"renderer.h"
+
+1340743094 c:\documents and settings\dean tarpey\desktop\pylon\renderer\selection.h
+	"renderer.h"
+
+1340743150 c:\documents and settings\dean tarpey\desktop\pylon\pogelscriptinterface\pogelscriptinterface.h
+	<Python.h>
+	"../pogel/pogel.h"
+	"../scriptengine/scriptengine.h"
+	"../renderer/renderer.h"
+	"../fileloader/fileloader.h"
+	"simulation.h"
+	"objects.h"
+	"shapes.h"
+	"hud.h"
+	"subrender.h"
+	"objectcallbacks.h"
+	"keycallbacks.h"
+
+1340743150 c:\documents and settings\dean tarpey\desktop\pylon\pogelscriptinterface\simulation.h
+	"pogelscriptinterface.h"
+
+1340743150 c:\documents and settings\dean tarpey\desktop\pylon\pogelscriptinterface\objects.h
+	"pogelscriptinterface.h"
+
+1340743150 c:\documents and settings\dean tarpey\desktop\pylon\pogelscriptinterface\shapes.h
+	"pogelscriptinterface.h"
+
+1340743150 c:\documents and settings\dean tarpey\desktop\pylon\pogelscriptinterface\hud.h
+	"pogelscriptinterface.h"
+
+1340743150 c:\documents and settings\dean tarpey\desktop\pylon\pogelscriptinterface\subrender.h
+	"pogelscriptinterface.h"
+	"../renderer/renderer.h"
+
+1340743150 c:\documents and settings\dean tarpey\desktop\pylon\pogelscriptinterface\objectcallbacks.h
+	"pogelscriptinterface.h"
+
+1340743150 c:\documents and settings\dean tarpey\desktop\pylon\pogelscriptinterface\keycallbacks.h
+	"pogelscriptinterface.h"
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\window\scriptthread.h
+	"../threads/threads.h"
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\window\calcthread.h
+	"../threads/threads.h"
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\window\globals.h
+	"main.h"
+	"scriptthread.h"
+	"calcthread.h"
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\window\versionheaders.h
+	"version.h"
+	"../pogel/version.h"
+	"../fileloader/version.h"
+	"../scriptengine/version.h"
+	"../renderer/version.h"
+	"../threads/version.h"
+	"../pogelscriptinterface/version.h"
+	"../objectloader/version.h"
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\window\version.h
+
+1340743095 c:\documents and settings\dean tarpey\desktop\pylon\pogel\version.h
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\fileloader\version.h
+
+1340743091 c:\documents and settings\dean tarpey\desktop\pylon\scriptengine\version.h
+
+1340743094 c:\documents and settings\dean tarpey\desktop\pylon\renderer\version.h
+
+1340743091 c:\documents and settings\dean tarpey\desktop\pylon\threads\version.h
+
+1340743150 c:\documents and settings\dean tarpey\desktop\pylon\pogelscriptinterface\version.h
+
+1340743092 c:\documents and settings\dean tarpey\desktop\pylon\objectloader\version.h
+
+1340743099 source:c:\documents and settings\dean tarpey\desktop\pylon\window\globals.cpp
+	"globals.h"
+	"version.h"
+
+1340743302 source:c:\documents and settings\dean tarpey\desktop\pylon\window\info.cpp
+	"main.h"
+	"versionheaders.h"
+
+1340743099 source:c:\documents and settings\dean tarpey\desktop\pylon\window\init.cpp
+	"main.h"
+
+1340743099 source:c:\documents and settings\dean tarpey\desktop\pylon\window\cmd.cpp
+	"main.h"
+
+1340743099 source:c:\documents and settings\dean tarpey\desktop\pylon\window\mainscriptdefs.cpp
+	"main.h"
+	"mainscriptdefs.h"
+	"versionheaders.h"
+
+1340743099 c:\documents and settings\dean tarpey\desktop\pylon\window\mainscriptdefs.h
+
+1340743099 source:c:\documents and settings\dean tarpey\desktop\pylon\window\scriptthread.cpp
+	"main.h"
+	"mainscriptdefs.h"
+	"scriptthread.h"
+
+1340743099 source:c:\documents and settings\dean tarpey\desktop\pylon\window\calcthread.cpp
+	"main.h"
+	"calcthread.h"
+

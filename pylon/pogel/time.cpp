@@ -7,6 +7,97 @@
 #include "pogel.h"
 #include "pogel_internals.h"
 
+
+#if defined(WINDOWS) || defined(_WIN32) || defined(_WIN64)
+
+#include <windows.h>
+
+inline
+LARGE_INTEGER
+getFILETIMEoffset()
+{
+    SYSTEMTIME s;
+    FILETIME f;
+    LARGE_INTEGER t;
+
+    s.wYear = 1970;
+    s.wMonth = 1;
+    s.wDay = 1;
+    s.wHour = 0;
+    s.wMinute = 0;
+    s.wSecond = 0;
+    s.wMilliseconds = 0;
+    SystemTimeToFileTime( &s, &f );
+    t.QuadPart = f.dwHighDateTime;
+    t.QuadPart <<= 32;
+    t.QuadPart |= f.dwLowDateTime;
+    return t;
+}
+
+inline
+int
+clock_gettime( int X, struct timeval *tv )
+{
+    static LARGE_INTEGER    offset;
+    static double           frequencyToMicroseconds;
+    static bool             initialized = false;
+    static bool             usePerformanceCounter = false;
+
+    if( !initialized )
+    {
+        initialized = true;
+
+        LARGE_INTEGER performanceFrequency;
+        usePerformanceCounter = (bool)QueryPerformanceFrequency( &performanceFrequency );
+        if( usePerformanceCounter )
+        {
+            QueryPerformanceCounter( &offset );
+            frequencyToMicroseconds = (double)performanceFrequency.QuadPart / 1000000.0;
+        }
+        else
+        {
+            offset = getFILETIMEoffset();
+            frequencyToMicroseconds = 10.0;
+        }
+    }
+
+    if( !tv )
+    {
+        return -1;
+    }
+
+    LARGE_INTEGER           t;
+    FILETIME                f;
+    double                  microseconds;
+
+    if( usePerformanceCounter )
+    {
+        QueryPerformanceCounter( &t );
+    }
+    else
+    {
+        GetSystemTimeAsFileTime( &f );
+        t.QuadPart = f.dwHighDateTime;
+        t.QuadPart <<= 32;
+        t.QuadPart |= f.dwLowDateTime;
+    }
+
+    t.QuadPart -= offset.QuadPart;
+    microseconds = (double)t.QuadPart / frequencyToMicroseconds;
+    t.QuadPart = microseconds;
+
+    tv->tv_sec = t.QuadPart / 1000000;
+    tv->tv_usec = t.QuadPart % 1000000;
+
+    return 0;
+}
+
+#define CLOCK_MONOTONIC 0
+
+#define timespec timeval
+
+#endif
+
 // pogel global variables
 namespace POGEL
 {
@@ -29,15 +120,19 @@ POGEL::InitFps()
 	POGEL::inittmpst = 0;
 	POGEL::duration = 0.0;
 
-	#if defined(LINUX) || defined(_LINUX) || defined(linux)
-        struct timespec begin;
-        clock_gettime( CLOCK_MONOTONIC, &begin );
+	//
+    struct timespec begin;
+    clock_gettime( CLOCK_MONOTONIC, &begin );
+    #if defined(LINUX) || defined(_LINUX) || defined(linux)
         POGEL::inittime = POGEL::curtime = double( begin.tv_sec ) + double( begin.tv_nsec ) / 1000000000.0;
-    //#elif
-
-    #else
-        POGEL::inittime = POGEL::curtime = double( clock() ) / double( CLOCKS_PER_SEC );
+    #elif defined(WINDOWS) || defined(_WIN32) || defined(_WIN64)
+        POGEL::inittime = POGEL::curtime = double( begin.tv_sec ) + double( begin.tv_usec ) / 1000000.0;
     #endif
+    //
+
+    /*#else
+        POGEL::inittime = POGEL::curtime = double( clock() ) / double( CLOCKS_PER_SEC );
+    #endif*/
 }
 
 void
@@ -111,23 +206,27 @@ POGEL::GetTimePassed()
     return t + POGEL::duration;*/
 
 
+    //
+    struct timespec current;
+    clock_gettime( CLOCK_MONOTONIC, &current );
     #if defined(LINUX) || defined(_LINUX) || defined(linux)
-        struct timespec current;
-        clock_gettime( CLOCK_MONOTONIC, &current );
         double c = ( double( current.tv_sec ) + double( current.tv_nsec ) / 1000000000.0 );
-        double t = c - POGEL::curtime;
-        POGEL::curtime = c;
-        POGEL::duration += t;
-        return POGEL::duration;
-    //#elif
+    #elif defined(WINDOWS) || defined(_WIN32) || defined(_WIN64)
+        double c = ( double( current.tv_sec ) + double( current.tv_usec ) / 1000000.0 );
+    #endif
+    double t = c - POGEL::curtime;
+    POGEL::curtime = c;
+    POGEL::duration += t;
+    return POGEL::duration;
+    //
 
-    #else
+    /*#else
         clock_t c = clock();
         double t = double( c - POGEL::curtime ) / double( CLOCKS_PER_SEC );
         POGEL::curtime = c;
         POGEL::duration += t;
         return POGEL::duration;
-    #endif
+    #endif*/
 }
 
 void

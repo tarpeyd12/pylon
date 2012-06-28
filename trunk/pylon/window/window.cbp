@@ -8,20 +8,20 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="..\bin\Debug\pylon" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\bin\Debug" />
-				<Option object_output="obj\Debug\" />
+				<Option output="../bin/Debug/pylon" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/Debug" />
+				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug -single" />
+				<Option parameters="-debug" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-DPYLON_DEBUG_VERSION" />
-					<Add directory="..\bin\Debug" />
+					<Add directory="../bin/Debug" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="..\bin\Debug\Data" />
+					<Add directory="../bin/Debug/Data" />
 				</ResourceCompiler>
 				<Linker>
 					<Add library="pogelscriptinterface" />
@@ -33,7 +33,7 @@
 					<Add library="lists" />
 					<Add library="soil" />
 					<Add library="threads" />
-					<Add directory="..\bin\Debug" />
+					<Add directory="../bin/Debug" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='[[ if (PLATFORM == PLATFORM_MSW) { print (_T(&quot;..\\createDebugArchive.bat&quot;)); } else { print (_T(&quot;../createDebugArchive&quot;)); } ]]' />
@@ -41,18 +41,18 @@
 				</ExtraCommands>
 			</Target>
 			<Target title="Release">
-				<Option output="..\bin\Release\pylon" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\bin\Release" />
-				<Option object_output="obj\Release\" />
+				<Option output="../bin/Release/pylon" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/Release" />
+				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add directory="..\bin\Release" />
+					<Add directory="../bin/Release" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="..\bin\Release\Data" />
+					<Add directory="../bin/Release/Data" />
 				</ResourceCompiler>
 				<Linker>
 					<Add library="pogelscriptinterface" />
@@ -64,7 +64,7 @@
 					<Add library="lists" />
 					<Add library="soil" />
 					<Add library="threads" />
-					<Add directory="..\bin\Release" />
+					<Add directory="../bin/Release" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='[[ if (PLATFORM == PLATFORM_MSW) { print (_T(&quot;..\\createReleaseArchive.bat&quot;)); } else { print (_T(&quot;../createReleaseArchive&quot;)); } ]]' />
@@ -72,19 +72,19 @@
 				</ExtraCommands>
 			</Target>
 			<Target title="Development">
-				<Option output="..\bin\Release\pylon_dev" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\bin\Release" />
-				<Option object_output="obj\Development\" />
+				<Option output="../bin/Release/pylon_dev" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/Release" />
+				<Option object_output="obj/Development/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-DPYLON_DEV_VERSION" />
-					<Add directory="..\bin\Release" />
+					<Add directory="../bin/Release" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="..\bin\Release\Data" />
+					<Add directory="../bin/Release/Data" />
 				</ResourceCompiler>
 				<Linker>
 					<Add library="pogelscriptinterface" />
@@ -96,7 +96,7 @@
 					<Add library="lists" />
 					<Add library="soil" />
 					<Add library="threads" />
-					<Add directory="..\bin\Release" />
+					<Add directory="../bin/Release" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='[[ if (PLATFORM == PLATFORM_MSW) { print (_T(&quot;..\\createReleaseArchive.bat&quot;)); } else { print (_T(&quot;../createReleaseArchive&quot;)); } ]]' />
@@ -104,9 +104,9 @@
 				</ExtraCommands>
 			</Target>
 			<Target title="Unitary Debug">
-				<Option output="..\bin\UnitaryDebug\pylon" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\bin\UnitaryDebug" />
-				<Option object_output="obj\Debug\" />
+				<Option output="../bin/UnitaryDebug/pylon" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/UnitaryDebug" />
+				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option parameters="-debug -bench -numsim 4" />
@@ -115,7 +115,7 @@
 					<Add option="-pg" />
 					<Add option="-g" />
 					<Add option="-DPYLON_DEBUG_VERSION" />
-					<Add directory="..\bin\UnitaryDebug\" />
+					<Add directory="../bin/UnitaryDebug/" />
 				</Compiler>
 				<Linker>
 					<Add option="-pg" />
@@ -128,7 +128,7 @@
 					<Add library="lists" />
 					<Add library="soil" />
 					<Add library="threads" />
-					<Add directory="..\bin\UnitaryDebug\" />
+					<Add directory="../bin/UnitaryDebug/" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='[[ if (PLATFORM == PLATFORM_MSW) { print (_T(&quot;..\\createUnitaryDebugArchive.bat&quot;)); } else { print (_T(&quot;../createUnitaryDebugArchive&quot;)); } ]]' />
@@ -136,18 +136,18 @@
 				</ExtraCommands>
 			</Target>
 			<Target title="Unitary Release">
-				<Option output="..\bin\UnitaryRelease\pylon" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\bin\UnitaryRelease" />
-				<Option object_output="obj\Release\" />
+				<Option output="../bin/UnitaryRelease/pylon" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/UnitaryRelease" />
+				<Option object_output="obj/Release/" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
-					<Add directory="..\bin\UnitaryRelease" />
+					<Add directory="../bin/UnitaryRelease" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="..\bin\UnitaryRelease\Data" />
+					<Add directory="../bin/UnitaryRelease/Data" />
 				</ResourceCompiler>
 				<Linker>
 					<Add library="pogelscriptinterface" />
@@ -159,7 +159,7 @@
 					<Add library="lists" />
 					<Add library="soil" />
 					<Add library="threads" />
-					<Add directory="..\bin\UnitaryRelease" />
+					<Add directory="../bin/UnitaryRelease" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='[[ if (PLATFORM == PLATFORM_MSW) { print (_T(&quot;..\\createUnitaryReleaseArchive.bat&quot;)); } else { print (_T(&quot;../createUnitaryReleaseArchive&quot;)); } ]]' />
@@ -167,9 +167,9 @@
 				</ExtraCommands>
 			</Target>
 			<Target title="Unitary Development">
-				<Option output="..\bin\UnitaryRelease\pylon_dev" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\bin\UnitaryRelease" />
-				<Option object_output="obj\Development\" />
+				<Option output="../bin/UnitaryRelease/pylon_dev" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="../bin/UnitaryRelease" />
+				<Option object_output="obj/Development/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option parameters="-debug -bench -oops" />
@@ -177,10 +177,10 @@
 				<Compiler>
 					<Add option="-fomit-frame-pointer" />
 					<Add option="-DPYLON_DEV_VERSION" />
-					<Add directory="..\bin\UnitaryRelease" />
+					<Add directory="../bin/UnitaryRelease" />
 				</Compiler>
 				<ResourceCompiler>
-					<Add directory="..\bin\Release\Data" />
+					<Add directory="../bin/Release/Data" />
 				</ResourceCompiler>
 				<Linker>
 					<Add library="pogelscriptinterface" />
@@ -192,7 +192,7 @@
 					<Add library="lists" />
 					<Add library="soil" />
 					<Add library="threads" />
-					<Add directory="..\bin\UnitaryRelease" />
+					<Add directory="../bin/UnitaryRelease" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='[[ if (PLATFORM == PLATFORM_MSW) { print (_T(&quot;..\\createUnitaryReleaseArchive.bat&quot;)); } else { print (_T(&quot;../createUnitaryReleaseArchive&quot;)); } ]]' />

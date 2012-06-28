@@ -13,7 +13,7 @@ class SIMULATION;
 
 #define				BUPMAX						10
 
-#define				THREADSOK					2
+#define				THREADSOK					1
 
 
 #define     SIMULATION_LIGHTWEIGHT_ONLY     DYNAMICS_LIGHTWEIGHT_ONLY

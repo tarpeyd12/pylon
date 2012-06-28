@@ -104,6 +104,7 @@ namespace FileLoader
         #endif
         {
             printf("Error changing into %s, aborting\n", (const char*)(dirto).c_str());
+            __closeArchive(uf);
             exit(-1);
         }
 
@@ -111,6 +112,8 @@ namespace FileLoader
             ret_value = do_extract(uf, 0, (int)overite, (bpw?(const char*)pw.c_str():NULL));
         else
             ret_value = do_extract_onefile(uf, (const char*)fn.c_str(), 0, (int)overite, (bpw?(const char*)pw.c_str():NULL));
+
+        __closeArchive(uf);
 
         #ifdef _WIN32
         _chdir(curdur);

@@ -26,6 +26,7 @@ POGEL::VIEW::VIEW() : POGEL::IMAGE()
     setfilter(IMAGE_LINEAR);
     aspectratio = 0.0f;
     properties = 0;
+    channels = 4;
 }
 
 POGEL::VIEW::~VIEW()

@@ -116,6 +116,9 @@ namespace Renderer
             return;
         }
 
+        triangles[ 0 ].bounding.draw(POGEL::POINT());
+        triangles[ 1 ].bounding.draw(POGEL::POINT());
+
         if( !triangles[ 0 ].settriangletexture() )
         {
             return;

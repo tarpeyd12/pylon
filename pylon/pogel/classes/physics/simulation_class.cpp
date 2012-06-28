@@ -208,8 +208,6 @@ inline void checkcollision(POGEL::PHYSICS::SIMULATION* sim, unsigned long s, uns
 						obj_a->makebounding();
 						checkcollision(sim,b,b+1,a,recnum+1);
 					}
-				if(objs != NULL)
-					delete objs;
 			}
 			else if(objs != NULL) {
 				unsigned int objs_length = objs->length();
@@ -220,8 +218,9 @@ inline void checkcollision(POGEL::PHYSICS::SIMULATION* sim, unsigned long s, uns
 						checkcollision(sim,obj_b,obj_b+1,a,recnum+1);
 					}
 				}
-				delete objs;
 			}
+			if(objs != NULL)
+				delete objs;
 		}
 	}
 };

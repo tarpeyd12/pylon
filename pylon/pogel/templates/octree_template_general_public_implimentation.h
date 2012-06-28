@@ -4,14 +4,15 @@ POGEL::OCTREE< T >::~OCTREE()
 {
 	objects.clear();
 	indicies.clear();
-	if( allobjects )
+	/*if( allobjects )
 	{
 		if( allobjects->length() )
 		{
-			//allobjects->clear();
+			allobjects->nullify();
 		}
-		allobjects = NULL;
-	}
+		delete allobjects;
+	}*/
+	allobjects = NULL;
 	for( unsigned int i = 0; i < children.length(); ++i )
 	{
 		delete children[ i ];

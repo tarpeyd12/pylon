@@ -52,7 +52,8 @@ POGEL::TRIANGLE::load( POGEL::VERTEX * verts,POGEL::IMAGE * tex,unsigned int pro
     }
     else
     {
-        printf( "triangle loading failed, null pointer to vertex array.\n" );
+        std::cout << "triangle loading failed, null pointer to vertex array." << std::endl;
+        throw -1;
     }
 }
 
@@ -300,7 +301,7 @@ POGEL::TRIANGLE::initializetriangledraw() const
         else
             glCullFace( GL_BACK );
         //glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, int(bool(properties & TRIANGLE_DOUBLESIDED)));
-        glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 0);
+        //glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, 0);
     }
     else
     {
@@ -335,11 +336,12 @@ POGEL::TRIANGLE::finalizetriangledraw() const
     if ( properties & TRIANGLE_TRANSPARENT )
     {
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
-        if( !glIsEnabled( GL_BLEND ) )
+        if( glIsEnabled( GL_BLEND ) )
         {
             glDisable( GL_BLEND );
         }
     }
+    glColor4f( 1.0f, 1.0f, 1.0f, 1.0f );
 }
 
 void
@@ -349,6 +351,7 @@ POGEL::TRIANGLE::drawgeometry() const
     if ( properties & TRIANGLE_LIT && !( properties & TRIANGLE_VERTEX_NORMALS ) )
     {
         if( POGEL::hasproperty( POGEL_NODOUBLESIDEDTRIANGLES ) && properties & TRIANGLE_INVERT_NORMALS )
+        //if( properties & TRIANGLE_INVERT_NORMALS )
         glNormal3f( -normal.x, -normal.y, -normal.z );
         else
         glNormal3f( normal.x, normal.y, normal.z );
@@ -377,6 +380,7 @@ POGEL::TRIANGLE::drawgeometry() const
         if ( properties & TRIANGLE_VERTEX_NORMALS )
         {
             if( POGEL::hasproperty( POGEL_NODOUBLESIDEDTRIANGLES ) && properties & TRIANGLE_INVERT_NORMALS )
+            //if( properties & TRIANGLE_INVERT_NORMALS )
             glNormal3f( -vertex[ i ].normal.x, -vertex[ i ].normal.y, -vertex[ i ].normal.z );
             else
             glNormal3f( vertex[ i ].normal.x, vertex[ i ].normal.y, vertex[ i ].normal.z );

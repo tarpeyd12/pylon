@@ -242,30 +242,8 @@ namespace Renderer
         return closelist;
     }
 
-    void SubRenderer::scene()
+    void SubRenderer::RenderNormal()
     {
-        if( !simulationBindings.length() )
-        {
-            return;
-        }
-        for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
-        {
-            if( lights[ i ].inCameraSpace )
-            {
-                lights[ i ].draw();
-            }
-        }
-
-        camera.set();
-
-        for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
-        {
-            if( !lights[ i ].inCameraSpace )
-            {
-                lights[ i ].draw();
-            }
-        }
-
         POGEL::VECTOR refpos = this->globalTempRefpos = camera.GetCamDirection();
         POGEL::POINT campos = this->globalTempCampos = camera.position;
         POGEL::POINT invcampos = this->globalTempInvCampos = campos*-1.0;
@@ -353,6 +331,84 @@ namespace Renderer
         gtrilist2.clear();
         #endif
         closelist.clear();
+    }
+
+    void SubRenderer::RenderSimple()
+    {
+        POGEL::VECTOR refpos = this->globalTempRefpos = camera.GetCamDirection();
+        POGEL::POINT campos = this->globalTempCampos = camera.position;
+        POGEL::POINT invcampos = this->globalTempInvCampos = campos*-1.0;
+        unsigned int numsimulations = simulationBindings.length();
+        for( unsigned int i = 0; i < numsimulations; ++i )
+        {
+            Renderer::Physics::Simulation * sim = simulationBindings[ i ];
+            if( !sim || !sim->numObjects() )
+            {
+                continue;
+            }
+            if( sim->canDrawBound() )
+            {
+                //sim->draw();
+                unsigned int numobjects = sim->numObjects();
+                for( unsigned int a = 0; a < numobjects; ++a )
+                //unsigned int a = numobjects; while( a-- )
+                {
+                    POGEL::PHYSICS::SOLID* obj = sim->getObject( a );
+
+                    if( !obj || !obj->visable )
+                    {
+                        continue;
+                    }
+
+                    float objradius = obj->getbounding().maxdistance;
+                    float dst = refpos.dotproduct( campos + obj->position );
+
+                    // if the object is not infornt of the camera
+                    if( dst+objradius <= 0.0f )
+                    {
+                        // skip it
+                        continue;
+                    }
+
+                    if( sim->inc() && Renderer::Physics::doIncrimentSimulations && obj->getNumFrames() && invcampos.distance(obj->position) + objradius < 50.0f*objradius*2.0f )
+                    {
+                        //obj->setAnimationTime( fmod(POGEL::GetTimePassed()*obj->getAnimationFPS(),float(obj->getNumFrames())) );
+                        obj->playAnimation(POGEL::GetTimePassed());
+                        //obj->setAnimationTime(1.0f);
+                    }
+                    obj->draw();
+                }
+            }
+        }
+    }
+
+    void SubRenderer::scene()
+    {
+        if( !simulationBindings.length() )
+        {
+            return;
+        }
+        for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
+        {
+            if( lights[ i ].inCameraSpace )
+            {
+                lights[ i ].draw();
+            }
+        }
+
+        camera.set();
+
+        for(unsigned int i = 0; i < MAXNUMLIGHTS; ++i)
+        {
+            if( !lights[ i ].inCameraSpace )
+            {
+                lights[ i ].draw();
+            }
+        }
+
+        //RenderNormal();
+        RenderSimple();
+
     }
 
     void SubRenderer::draw()

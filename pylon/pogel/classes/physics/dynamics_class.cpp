@@ -26,13 +26,13 @@ void POGEL::PHYSICS::DYNAMICS::destroyot()
     if(ot != NULL)
     {
         delete ot;
-        ot = NULL;
     }
+    ot = NULL;
     if(oltmp != NULL)
     {
         delete oltmp;
-        oltmp = NULL;
     }
+    oltmp = NULL;
 }
 
 POGEL::PHYSICS::DYNAMICS::DYNAMICS()

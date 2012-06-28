@@ -133,8 +133,11 @@ while loop < numOSpheres:
 rnum = 5
 TestSphereOutset = TestSphereSim.newObject("Outset")
 TestSphereOutset.setOptions( pylon.solid_stationary | pylon.solid_concave | pylon.solid_sphere )
-TestSphereOutset.setProperties( pylon.object_draw_children )
+#TestSphereOutset.setProperties( pylon.object_draw_children )
+#TestSphereOutset.setProperties( pylon.object_debug )
+TestSphereOutset.setProperties( 0 )
 pylon.object_add_sphere( TestSphereOutset.simname, TestSphereOutset.name, 2.0, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
+#pylon.object_add_sphere( TestSphereOutset.simname, TestSphereOutset.name, 2.0, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_doublesided )
 TestSphereOutset.build()
 
 TestSphereSim.setGravityVector( Position( 0, -9.8, 0 ) )
@@ -142,12 +145,14 @@ TestSphereSim.setCollisionIterations( 3 )
 TestSphereSim.newtonianGravityOff()
 
 rnum = 3
-sim2Outest = sim2.newObject("Outset")
-sim2Outest.setOptions( pylon.solid_stationary | pylon.solid_concave | pylon.solid_sphere )
-#sim2Outest.setProperties( pylon.object_draw_children )
-pylon.object_add_sphere( sim2Outest.simname, sim2Outest.name, 2.0, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
-sim2Outest.setInvisible()
-sim2Outest.build()
+sim2Outset = sim2.newObject("sim2Outset_0.0")
+sim2Outset.setOptions( pylon.solid_stationary | pylon.solid_concave | pylon.solid_sphere )
+#sim2Outset.setProperties( pylon.object_draw_children )
+#sim2Outset.setProperties( pylon.object_debug )
+sim2Outset.setProperties( 0 )
+pylon.object_add_sphere( sim2Outset.simname, sim2Outset.name, 1.5, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
+sim2Outset.setInvisible()
+sim2Outset.build()
 
 subrenderer1 = SubRenderer( "steve", float(pylon.window_width())/float(pylon.window_height()) )
 subrenderer1.bindSimulation(sim2)
@@ -265,11 +270,10 @@ Sky.build()
 pylon.requestfile("Data/objects/earth.pylon")
 
 Earth = SkySim.newObjectFromFile( "earth", "Data/objects/earth.pylon", "pylon" )
-Earth.build()
-
-Earth.setSpin( Position(0,10.0,0) )
-
+#Earth.setSpin( Position(0,10.0,0) )
 Earth.setPos( Position(0,-1,0) )
+#Earth.setProperties( pylon.object_debug )
+Earth.build()
 
 relocateobjscounter = 0
 
@@ -312,15 +316,61 @@ def keyfunc1( key, mx, my, tm ):
 			print "Starting Physics Calculation Thread"
 			going = True
 			_pylon_calc.unlock()
-
-keystring = ""
+	
+	if key == 'o':
+		sim2.stop()
+		pylon.wait_sec_f(1.0/25.0)
+		positionrange = 1.5
+		rpos = Position(rnd_n1p1(),rnd_n1p1(),rnd_n1p1()) * positionrange
+		rot  = Position(rnd_n1p1(),rnd_n1p1(),rnd_n1p1()) * 360.0
+		currentObject = sim2.newObject( "Object_"+str(pylon.get_runtime()) )
+		currentObject.setPos(rpos)
+		currentObject.setRot(rot)
+		currentObject.setMass(20000)
+		currentObject.setBounce(0.25)
+		currentObject.setFriction(0.5)
+		currentObject.setOptions( pylon.solid_volatile | pylon.solid_convex | pylon.solid_sphere )
+		currentObject.setProperties( pylon.object_draw_children )
+		rnum = 1
+		print pylon.object_add_sphere( currentObject.simname, currentObject.name, .25, 10, 10, possibleImages[rnum], 1, 1, possibleTriProps[rnum] )
+		currentObject.setCollisionCallBack( "game", "collisionfunction1" )
+		currentObject.setStepCallBack( "game", "stepfunction1" )
+		currentObject.setHitFilterCallBack( "game", "hitfilter1" )
+		currentObject.build()
+		sim2.start()
+	
+	if key == ',':
+		sim2.clearAllObjects()
+	
+	if key == 'v':
+		global sim2Outset
+		sim2Outset.setVisible()
 
 def keyfunc2( key, mx, my, tm ):
 	if chr(27) == key:
 		print _pylon.exit( 0 )
-	global keystring
-	keystring = keystring + str(key)
-	#print keystring
+		
+	global sim2Outset
+	
+	if key == ',':
+		pylon.wait_sec_f(10.0/25.0)
+		sim2.stop()
+		rnum = 3
+		
+		sim2Outset = sim2.newObject("sim2Outset_"+str(pylon.get_runtime()))
+		sim2Outset.setOptions( pylon.solid_stationary | pylon.solid_concave | pylon.solid_sphere )
+		#sim2Outset.setProperties( pylon.object_draw_children )
+		#sim2Outset.setProperties( pylon.object_debug )
+		sim2Outset.setProperties( 0 )
+		pylon.object_add_sphere( sim2Outset.simname, sim2Outset.name, 1.5, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
+		#sim2Outset.setVisibility(not pylon.key_ispressed('v'))
+		sim2Outset.setInvisible()
+		#sim2Outset.setVisible()
+		sim2Outset.build()
+		sim2.restart()
+	
+	if key == 'v':
+		sim2Outset.setInvisible()
 
 keyfunc1index = pylon.key_callback_add_downfunc("","keyfunc1")
 print keyfunc1index

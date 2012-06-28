@@ -37,7 +37,7 @@ class POGEL::PHYSICS::DYNAMICS
 
         CLASSLIST<unsigned int> *objIndicies;
 
-        void buildot();
+        virtual void buildot();
         void destroyot();
 
     public:
@@ -87,8 +87,6 @@ class POGEL::PHYSICS::DYNAMICS
         virtual void draw();
 
         void drawGravityGrid(float, float, POGEL::POINT, unsigned int);
-
-        ;
 
         friend class POGEL::PHYSICS::SIMULATION;
 };

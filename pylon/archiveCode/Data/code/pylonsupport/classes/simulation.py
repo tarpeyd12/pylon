@@ -28,8 +28,8 @@ class Simulation:
 		return pylon.sim_add_object_s(self.name,objstr)
 	
 	def newObject(self,obj):
-		if pylon.object_new(self.name,obj) or not pylon.object_check(self.name,obj):
-			print "Cannot create object:'",objname,"' in sim:'",self.name,"'"
+		if pylon.object_new(self.name,obj) or not self.hasObject(obj):
+			print "Cannot create object:'",obj,"' in sim:'",self.name,"'"
 			return None
 		return Object(obj,self.name)
 	

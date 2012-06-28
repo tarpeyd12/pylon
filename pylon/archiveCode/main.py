@@ -3,6 +3,7 @@ if counter == 0.0:
 	print ''
 	print 'Pylon Engine started:',time.ctime(time.time())
 
+
 # simple object controll
 count = counter
 count = count % 20
@@ -113,7 +114,7 @@ if pylon.key_ispressed('4'):
 		pylon.addproperty(16)
 
 # clearing all objects from a simulation
-if pylon.key_ispressed(','):
+if False and pylon.key_ispressed(','):
 	sim2.stop()
 	pylon.clearsimulation(sim2.name)
 	sim2.restart()
@@ -129,6 +130,16 @@ if pylon.key_ispressed('z') and pylon.select_isgood() and pylon.mouse_ispressed(
 		elif button == 2:
 			pylon.object_set_rot_3f( sim, obj, 0, 0, 0 )
 
+			
+
+rad = pylon.get_runtime()/180.0*math.pi*10.0
+lightpos = Position(math.sin(rad),0,math.cos(rad))*10
+subrenderer1.setLight( 1, lightpos, '{[.1],[0],[0],[1]}', '{[0],[1],[0],[1]}', '{[0],[0],[.1],[1]}', False)
+Earth.setPos( lightpos )
+Earth.setRot( Position(0,pylon.get_runtime()*10.0,0) )
+if pylon.window_height() != 0:
+	subrenderer1.setRatio( float(pylon.window_width())/float(pylon.window_height()) )
+			
 if not pylon.key_ispressed('z'):
 	# rudimentary camera controll
 	if pylon.key_ispressed('c'):
@@ -142,9 +153,6 @@ if not pylon.key_ispressed('z'):
 		cam.getcamstrs()
 		pylon.object_move_3f( Sky.name,"Sky",-cam.pos.x,-cam.pos.y,-cam.pos.z )
 		subrenderer1.setCamera( cam )
-
-subrenderer1.setRatio( float(pylon.window_width())/float(pylon.window_height()) )
-subrenderer1.setLight( 1, Position(math.sin(pylon.get_runtime()/2),0,math.cos(pylon.get_runtime()/2))*10, '{[.1],[0],[0],[1]}', '{[0],[1],[0],[1]}', '{[0],[0],[.1],[1]}', False)
 
 Bloop.y1 = pylon.window_height()
 Bloop.x2 = pylon.window_width()

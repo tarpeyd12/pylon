@@ -47,6 +47,10 @@ namespace Renderer
             int removeAllSimulationBindings();
 
             void scenesetup();
+
+            void RenderNormal();
+            void RenderSimple();
+
             void scene();
 
             void draw();

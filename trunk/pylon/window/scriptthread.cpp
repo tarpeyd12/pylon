@@ -171,6 +171,9 @@ void ScriptThread::FirstRun()
     //mainScript = new ScriptEngine::Executor(mainScriptData);
     mainScript = new ScriptEngine::InterpreterThread( new ScriptEngine::Executor(mainScriptData) );
     //mainScript = new ScriptEngine::SubInterpreter( new ScriptEngine::Executor(mainScriptData) );
+
+    if(!Main::dontremove)
+        FileLoader::System::Dir::clearDir(Main::ext_dir);
 }
 
 void ScriptThread::MainRun()

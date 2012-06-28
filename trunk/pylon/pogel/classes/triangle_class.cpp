@@ -131,7 +131,7 @@ POGEL::TRIANGLE::drawgeometryvertexonly() const
         glVertex3f( vertex[ 0 ].x, vertex[ 0 ].y, vertex[ 0 ].z );
         glVertex3f( vertex[ 1 ].x, vertex[ 1 ].y, vertex[ 1 ].z );
         glVertex3f( vertex[ 2 ].x, vertex[ 2 ].y, vertex[ 2 ].z );
-        glVertex3f( vertex[ 0 ].x, vertex[ 0 ].y, vertex[ 0 ].z );
+        //glVertex3f( vertex[ 0 ].x, vertex[ 0 ].y, vertex[ 0 ].z );
         return;
     }
     glVertex3f( vertex[ 0 ].x, vertex[ 0 ].y, vertex[ 0 ].z );
@@ -393,6 +393,8 @@ POGEL::drawTriangleListIsClear( POGEL::TRIANGLE * face, unsigned int numfaces, b
 
     glBegin( mode );
 
+    unsigned int previousTriangleIndex = firstmatch;
+
     //for( unsigned int i = firstmatch; i < numfaces; ++i )
     for( unsigned int i = firstmatch; i <= lastmatch; ++i )
     {
@@ -408,17 +410,7 @@ POGEL::drawTriangleListIsClear( POGEL::TRIANGLE * face, unsigned int numfaces, b
 
         if( texgood && currentproperties == previousproperties && currentimage == previousimage )
         {
-            if( candraw != NULL )
-            {
-                if( candraw->get( i ) == cdmatch )
-                {
-                    face[ i ].drawgeometry();
-                }
-            }
-            else
-            {
-                face[ i ].drawgeometry();
-            }
+            face[ i ].drawgeometry();
         }
         else
         {
@@ -438,26 +430,18 @@ POGEL::drawTriangleListIsClear( POGEL::TRIANGLE * face, unsigned int numfaces, b
 
             if( currentproperties != previousproperties )
             {
-                face[ i-1 ].finalizetriangledraw();
+                face[ previousTriangleIndex ].finalizetriangledraw();
                 face[ i ].initializetriangledraw();
             }
 
             glBegin( mode );
-            if( candraw != NULL )
-            {
-                if( candraw->get( i ) == cdmatch )
-                {
-                    face[ i ].drawgeometry();
-                }
-            }
-            else
-            {
-                face[ i ].drawgeometry();
-            }
+
+            face[ i ].drawgeometry();
         }
 
         previousproperties = currentproperties;
         previousimage = currentimage;
+        previousTriangleIndex = i;
     }
 
     glEnd();
@@ -540,18 +524,18 @@ POGEL::drawTriangleList( void * list, unsigned int length, TRIANGLE * (*accessor
 void
 POGEL::drawTriangleListColored( POGEL::TRIANGLE * face, unsigned int numfaces, const unsigned char* color )
 {
-    if( !face || !numfaces )
+    if( !face || !numfaces || !color )
     {
         return;
     }
 
     GLenum mode;// = GL_TRIANGLES;
 
-    if ( POGEL::hasproperty( POGEL_WIREFRAME ) )
+    /*if ( POGEL::hasproperty( POGEL_WIREFRAME ) )
     {
         mode = GL_LINES;
     }
-    else
+    else*/
     {
         mode = GL_TRIANGLES;
     }

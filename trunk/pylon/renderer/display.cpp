@@ -43,7 +43,9 @@ namespace Renderer
         }
 
         //glDisable( GL_ALPHA_TEST );
+        //unsigned int p = POGEL::getproperties();
         Renderer::RenderAllSubRenderers();
+        //POGEL::setproperties( p );
 
         //glClearColor( 0.5f, 0.5f, 0.5f, 0.0f );
         glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );

@@ -1,1 +1,1 @@
-pylon.exe --usedir menutest -debug -usedir rc
+pylon.exe -debug -bench

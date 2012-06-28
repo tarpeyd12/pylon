@@ -39,6 +39,14 @@ namespace Main
             FileLoader::System::Files::remove( ininame );
         }
 
+        if( ini.getvalue("pylon", "type").compare("main") != 0 )
+        {
+            cout << "ERROR: cannot run pylon archive." << endl;
+            cout << "\tNot a pylon archive of type main." << endl;
+            cout << "Exiting ..." << endl;
+            exit(-1);
+        }
+
         std::string requiredVersion = ini.getvalue("pylon", "version");
         unsigned int ver1[4], ver2[4];
         sscanf(requiredVersion.c_str(), "%d.%d.%d.%d", &ver1[0], &ver1[1], &ver1[2], &ver1[3]);

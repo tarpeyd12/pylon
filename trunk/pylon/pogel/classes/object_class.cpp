@@ -305,6 +305,9 @@ POGEL::OBJECT::~OBJECT()
     scaleKeys.clear();
     tangents.clear();
     animations.clear();
+
+    trisortfaces1.clear();
+    trisortfaces2.clear();
 }
 
 void
@@ -1186,15 +1189,15 @@ POGEL::OBJECT::build()
         break;
     }
 
+    // generate a temporary list pointing to the list of triangles
+    CLASSLIST<POGEL::TRIANGLE> triList(face, numfaces);
+    // sort the list by the triangles transparency
+    triList.sort(_sortTrianglesByPropertiesAndImage);
+    // set the temporary lists' internal pointer to null
+    triList.nullify();
+
     if( hasproperty(OBJECT_SORT_TRIANGLES) )
     {
-        // generate a temporary list pointing to the list of triangles
-        CLASSLIST<POGEL::TRIANGLE> triList(face, numfaces);
-        // sort the list by the triangles transparency
-        triList.sort(_sortTrianglesByPropertiesAndImage);
-        // set the temporary lists' internal pointer to null
-        triList.nullify();
-
         trisortfaces1.init( numfaces );
         trisortfaces2.init( numfaces );
 
@@ -1234,16 +1237,16 @@ POGEL::OBJECT::build()
                 if( hasproperty(OBJECT_SORT_TRIANGLES) )
                 {
                     POGEL::drawTriangleListIsClear( face, numfaces, false, NULL, false, &trisortfaces0_first, &trisortfaces0_last );
-                    #if !(defined(WINDOWS) || defined(_WIN32) || defined(_WIN64))
+                    //#if !(defined(WINDOWS) || defined(_WIN32) || defined(_WIN64))
                     POGEL::addproperty(POGEL_NODOUBLESIDEDTRIANGLES);
-                    #endif
+                    //#endif
                     glFrontFace(GL_CW);
                     POGEL::drawTriangleListIsClear( face, numfaces, true, &trisortfaces1, true, &trisortfaces1_first, &trisortfaces1_last );
                     glFrontFace(GL_CCW);
                     POGEL::drawTriangleListIsClear( face, numfaces, true, &trisortfaces2, true, &trisortfaces2_first, &trisortfaces2_last );
-                    #if !(defined(WINDOWS) || defined(_WIN32) || defined(_WIN64))
-                    POGEL::removeproperty(POGEL_NODOUBLESIDEDTRIANGLES);
-                    #endif
+                    //#if !(defined(WINDOWS) || defined(_WIN32) || defined(_WIN64))
+                    //POGEL::removeproperty(POGEL_NODOUBLESIDEDTRIANGLES);
+                    //#endif
                 }
                 else
                 {
@@ -1992,16 +1995,16 @@ POGEL::OBJECT::draw()
                 if( hasproperty(OBJECT_SORT_TRIANGLES) )
                 {
                     POGEL::drawTriangleListIsClear( face, numfaces, false, NULL, false, &trisortfaces0_first, &trisortfaces0_last );
-                    #if !(defined(WINDOWS) || defined(_WIN32) || defined(_WIN64))
+                    //#if !(defined(WINDOWS) || defined(_WIN32) || defined(_WIN64))
                     POGEL::addproperty(POGEL_NODOUBLESIDEDTRIANGLES);
-                    #endif
+                    //#endif
                     glFrontFace(GL_CW);
                     POGEL::drawTriangleListIsClear( face, numfaces, true, &trisortfaces1, true, &trisortfaces1_first, &trisortfaces1_last );
                     glFrontFace(GL_CCW);
                     POGEL::drawTriangleListIsClear( face, numfaces, true, &trisortfaces2, true, &trisortfaces2_first, &trisortfaces2_last );
-                    #if !(defined(WINDOWS) || defined(_WIN32) || defined(_WIN64))
+                    //#if !(defined(WINDOWS) || defined(_WIN32) || defined(_WIN64))
                     POGEL::removeproperty(POGEL_NODOUBLESIDEDTRIANGLES);
-                    #endif
+                    //#endif
                 }
                 else
                 {
@@ -2023,7 +2026,10 @@ POGEL::OBJECT::draw()
                 {
                     free(n);
                 }
-                POGEL::message("object position:  ");
+                POGEL::message("\nobject properties:  %ld", properties);
+                POGEL::message("\nobject number of triangles:  %ld", numfaces);
+                POGEL::message("\nobject number of allocated triangles:  %ld", triangle_allocation_total);
+                POGEL::message("\nobject position:  ");
                 position.print();
                 POGEL::message("\nobject rotation:  ");
                 rotation.print();

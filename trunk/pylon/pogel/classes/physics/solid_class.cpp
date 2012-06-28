@@ -192,6 +192,11 @@ POGEL::PHYSICS::SOLID::~SOLID()
 	{
 	    delete hitfilter;
 	}
+
+	if( container )
+	{
+	    container = NULL;
+	}
 }
 
 unsigned long

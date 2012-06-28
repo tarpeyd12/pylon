@@ -1,6 +1,4 @@
-__all__ = ["classes","pylonconstants"]
-
-from pylonconstants import *
+__all__ = ["classes"]
 
 from classes.camera import *
 from classes.hud import *

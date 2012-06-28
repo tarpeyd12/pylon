@@ -14,13 +14,13 @@
 		<Cursor position="697" topLine="39" />
 	</File>
 	<File name="bitlist.h" open="0" top="0" tabpos="1">
-		<Cursor position="683" topLine="6" />
+		<Cursor position="397" topLine="0" />
 	</File>
 	<File name="classlist_template.cpp" open="0" top="0" tabpos="22">
-		<Cursor position="2704" topLine="141" />
+		<Cursor position="1726" topLine="79" />
 	</File>
-	<File name="classlist_template.h" open="0" top="0" tabpos="27">
-		<Cursor position="914" topLine="58" />
+	<File name="classlist_template.h" open="1" top="0" tabpos="15">
+		<Cursor position="1105" topLine="43" />
 	</File>
 	<File name="hashlist_template.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="2843" topLine="127" />

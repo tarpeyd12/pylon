@@ -317,7 +317,7 @@ namespace Renderer
                     {
                         POGEL::PHYSICS::SOLID* obj = sim->getObject( a );
 
-                        if( !obj->visable )
+                        if( !obj || !obj->visable )
                         {
                             continue;
                         }

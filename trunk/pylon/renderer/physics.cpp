@@ -365,9 +365,13 @@ namespace Renderer
             for( unsigned int i = 0; i < numsimulations; ++i )
             {
                 Renderer::Physics::Simulation * sim = Renderer::Physics::simulations[ i ];
-                if( doIncrimentSimulations && sim->inc() )
+                if( doIncrimentSimulations && sim && sim->inc() )
                 {
                     void* vp_sim = sim->getSim();
+                    if( !vp_sim )
+                    {
+                        throw -10;
+                    }
                     if( sim->isdyn() )
                     {
                         POGEL::PHYSICS::DYNAMICS* dsim = static_cast<POGEL::PHYSICS::DYNAMICS*>( vp_sim );
@@ -375,6 +379,7 @@ namespace Renderer
                         {
                             dsim->increment();
                         }
+                        dsim = NULL;
                     }
                     else
                     {
@@ -383,7 +388,9 @@ namespace Renderer
                         {
                             ssim->increment();
                         }
+                        ssim = NULL;
                     }
+                    vp_sim = NULL;
                 }
                 else if( sim->ShouldClearObjects() )
                 {

@@ -106,6 +106,13 @@ namespace Main
                     std::string key = keynames->get(i);
                     std::string alias = "{" + key + "}";
                     std::string value = ini.getvalue("archives", key);
+                    if( !FileLoader::ArchiveHandler::isKnownFile(value) )
+                    {
+                        if( FileLoader::ArchiveHandler::isKnownFile(value+".pylon") )
+                        {
+                            value = value + ".pylon";
+                        }
+                    }
                     FileLoader::ArchiveHandler::addArchiveLink(alias, value);
                 }
             }
@@ -189,7 +196,6 @@ namespace Main
                 delete filesInCodeDir;
             }
         }
-
 
     }
 

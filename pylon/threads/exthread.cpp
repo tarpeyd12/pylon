@@ -5,7 +5,14 @@ namespace Threads
 
     THREADTYPE _exThreadFunction(THREADARGS thread)
     {
-        ((Threads::ExThread*)thread)->run();
+        try
+        {
+            ((Threads::ExThread*)thread)->run();
+        }
+        catch(...)
+        {
+            std::cout << "*** THREAD EXCEPTION ***" << std::endl;
+        }
         pthread_exit(NULL);
         return NULL;
     }

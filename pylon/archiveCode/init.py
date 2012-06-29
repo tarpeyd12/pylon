@@ -378,5 +378,4 @@ print pylon.key_callback_remove_downfunc(keyfunc1index)
 pylon.key_callback_add_downfunc("","keyfunc1")
 
 pylon.key_callback_add_upfunc("","keyfunc2")
-		
 

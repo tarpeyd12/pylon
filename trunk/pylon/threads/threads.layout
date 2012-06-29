@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="exthread.cpp" open="0" top="0" tabpos="28">
-		<Cursor position="175" topLine="0" />
+	<File name="exthread.cpp" open="1" top="0" tabpos="18">
+		<Cursor position="186" topLine="32" />
 	</File>
 	<File name="exthread.h" open="0" top="0" tabpos="6">
 		<Cursor position="318" topLine="9" />
 	</File>
-	<File name="thread.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="1579" topLine="36" />
+	<File name="thread.cpp" open="1" top="0" tabpos="19">
+		<Cursor position="1116" topLine="27" />
 	</File>
 	<File name="thread.h" open="0" top="0" tabpos="4">
 		<Cursor position="493" topLine="17" />

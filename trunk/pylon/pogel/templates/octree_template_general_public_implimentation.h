@@ -432,7 +432,7 @@ POGEL::OCTREE< T >::draw() const
 			}
 		}
 	}
-	else
+	//else
 	{
 		getbounding().draw( POGEL::POINT() );
 	}

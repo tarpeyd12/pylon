@@ -19,6 +19,21 @@ namespace Main
             )
             {
                 pylon_archive = curarg;
+                #if defined(WINDOWS) || defined(_WIN32) || defined(_WIN64)
+                int slppos = curarg.rfind("\\");
+                #else
+                int slppos = curarg.rfind("/");
+                #endif
+                if( slppos != std::string::npos )
+                {
+                    forcedir = true;
+                    forced_dir = curarg.substr( 0, slppos );
+                    pylon_archive = curarg.substr(forced_dir.length());
+                    if( pylon_archive[ 0 ] == '\\' || pylon_archive[ 0 ] == '/' )
+                    {
+                        pylon_archive = pylon_archive.substr(1);
+                    }
+                }
                 continue;
             }
             else
@@ -42,7 +57,7 @@ namespace Main
                 continue;
             }
             else
-            if( !curarg.compare("-usedir") )
+            if( !forcedir && !curarg.compare("-usedir") )
             {
                 forced_dir = std::string(argv[++i]);
                 forcedir = true;
@@ -64,7 +79,7 @@ namespace Main
             }
             #endif
             else
-            if( !curarg.compare("-forcedir") || !curarg.compare("-dir") )
+            if( !forcedir && (!curarg.compare("-forcedir") || !curarg.compare("-dir")) )
             {
                 forcedir = true;
                 forced_dir = std::string(argv[++i]);

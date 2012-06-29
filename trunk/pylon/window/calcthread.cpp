@@ -21,7 +21,6 @@ CalcThread::~CalcThread()
     {
         cout << "Unable to Cancel the Physics Thread. err:" << e << endl;
     }
-
     try
     {
         this->joinThread();

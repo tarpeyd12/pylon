@@ -52,10 +52,10 @@
 	<File name="classes\physics\callbacks.h" open="0" top="0" tabpos="4">
 		<Cursor position="227" topLine="0" />
 	</File>
-	<File name="classes\physics\dynamics_class.cpp" open="1" top="0" tabpos="2">
+	<File name="classes\physics\dynamics_class.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="750" topLine="0" />
 	</File>
-	<File name="classes\physics\dynamics_class.h" open="1" top="0" tabpos="1">
+	<File name="classes\physics\dynamics_class.h" open="0" top="0" tabpos="1">
 		<Cursor position="2526" topLine="51" />
 	</File>
 	<File name="classes\physics\fountain_class.h" open="0" top="0" tabpos="0">
@@ -67,10 +67,10 @@
 	<File name="classes\physics\physics.h" open="0" top="0" tabpos="0">
 		<Cursor position="257" topLine="0" />
 	</File>
-	<File name="classes\physics\simulation_class.cpp" open="1" top="0" tabpos="3">
+	<File name="classes\physics\simulation_class.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="7939" topLine="242" />
 	</File>
-	<File name="classes\physics\simulation_class.h" open="1" top="0" tabpos="4">
+	<File name="classes\physics\simulation_class.h" open="0" top="0" tabpos="4">
 		<Cursor position="911" topLine="21" />
 	</File>
 	<File name="classes\physics\simulation_class_collisions.cpp" open="0" top="0" tabpos="6">
@@ -79,11 +79,11 @@
 	<File name="classes\physics\simulation_class_collisions_reaction.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="4642" topLine="67" />
 	</File>
-	<File name="classes\physics\singularity_class.cpp" open="0" top="0" tabpos="0">
+	<File name="classes\physics\singularity_class.cpp" open="1" top="0" tabpos="1">
 		<Cursor position="0" topLine="10" />
 	</File>
-	<File name="classes\physics\singularity_class.h" open="0" top="0" tabpos="2">
-		<Cursor position="1679" topLine="38" />
+	<File name="classes\physics\singularity_class.h" open="1" top="1" tabpos="2">
+		<Cursor position="1097" topLine="38" />
 	</File>
 	<File name="classes\physics\solid_class.cpp" open="0" top="0" tabpos="21">
 		<Cursor position="19361" topLine="774" />
@@ -151,31 +151,31 @@
 	<File name="templates\hashlist_template.h" open="0" top="0" tabpos="2">
 		<Cursor position="136" topLine="0" />
 	</File>
-	<File name="templates\octree_template.h" open="1" top="0" tabpos="7">
+	<File name="templates\octree_template.h" open="0" top="0" tabpos="7">
 		<Cursor position="1851" topLine="50" />
 	</File>
-	<File name="templates\octree_template_general_definition.h" open="1" top="0" tabpos="6">
+	<File name="templates\octree_template_general_definition.h" open="0" top="0" tabpos="6">
 		<Cursor position="696" topLine="0" />
 	</File>
-	<File name="templates\octree_template_general_implimentation.h" open="1" top="0" tabpos="9">
+	<File name="templates\octree_template_general_implimentation.h" open="0" top="0" tabpos="9">
 		<Cursor position="2639" topLine="0" />
 	</File>
-	<File name="templates\octree_template_general_public_definition.h" open="1" top="0" tabpos="8">
+	<File name="templates\octree_template_general_public_definition.h" open="0" top="0" tabpos="8">
 		<Cursor position="177" topLine="0" />
 	</File>
-	<File name="templates\octree_template_general_public_implimentation.h" open="1" top="0" tabpos="12">
+	<File name="templates\octree_template_general_public_implimentation.h" open="0" top="0" tabpos="12">
 		<Cursor position="9770" topLine="396" />
 	</File>
-	<File name="templates\octree_template_protected_definition.h" open="1" top="0" tabpos="10">
+	<File name="templates\octree_template_protected_definition.h" open="0" top="0" tabpos="10">
 		<Cursor position="389" topLine="0" />
 	</File>
-	<File name="templates\octree_template_protected_implimentation.h" open="1" top="0" tabpos="11">
+	<File name="templates\octree_template_protected_implimentation.h" open="0" top="0" tabpos="11">
 		<Cursor position="200" topLine="0" />
 	</File>
 	<File name="templates\octree_template_solid_definition.h" open="0" top="0" tabpos="0">
 		<Cursor position="80" topLine="0" />
 	</File>
-	<File name="templates\octree_template_solid_implimentation.h" open="1" top="0" tabpos="5">
+	<File name="templates\octree_template_solid_implimentation.h" open="0" top="0" tabpos="5">
 		<Cursor position="920" topLine="33" />
 	</File>
 	<File name="templates\templates.h" open="0" top="0" tabpos="14">

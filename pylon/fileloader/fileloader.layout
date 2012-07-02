@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Unitary Debug" />
-	<File name="archivehandler.cpp" open="1" top="0" tabpos="7">
+	<File name="archivehandler.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="7179" topLine="216" />
 	</File>
-	<File name="archivehandler.h" open="1" top="0" tabpos="9">
+	<File name="archivehandler.h" open="0" top="0" tabpos="9">
 		<Cursor position="729" topLine="13" />
 	</File>
 	<File name="fileloader.cpp" open="0" top="0" tabpos="2">
@@ -82,7 +82,7 @@
 	<File name="system.h" open="0" top="0" tabpos="3">
 		<Cursor position="302" topLine="0" />
 	</File>
-	<File name="unzip.cpp" open="1" top="0" tabpos="6">
+	<File name="unzip.cpp" open="0" top="0" tabpos="6">
 		<Cursor position="2612" topLine="68" />
 	</File>
 	<File name="unzip.h" open="0" top="0" tabpos="7">

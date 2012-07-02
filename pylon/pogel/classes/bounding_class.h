@@ -9,13 +9,13 @@ namespace POGEL
 #include "point_class.h"
 #include "misc_class.h"
 
-#define				BOUNDING_DEFAULT				0
-#define				BOUNDING_OBJECT					1
-#define				BOUNDING_TRIANGLE				2
+#define             BOUNDING_DEFAULT                0
+#define             BOUNDING_OBJECT                 1
+#define             BOUNDING_TRIANGLE               2
 
-#define				BOUNDING_DEFAULT_COLOR			POGEL::COLOR(0.0f,1.0f,1.0f,1.0f)
-#define				BOUNDING_TRIANGLE_COLOR			POGEL::COLOR(0.0f,1.0f,0.0f,0.75f)
-#define				BOUNDING_OBJECT_COLOR			POGEL::COLOR(1.0f,0.0f,1.0f,1.0f)
+#define             BOUNDING_DEFAULT_COLOR          POGEL::COLOR(0.0f,1.0f,1.0f,1.0f)
+#define             BOUNDING_TRIANGLE_COLOR         POGEL::COLOR(0.0f,1.0f,0.0f,0.75f)
+#define             BOUNDING_OBJECT_COLOR           POGEL::COLOR(1.0f,0.0f,1.0f,1.0f)
 
 namespace POGEL
 {

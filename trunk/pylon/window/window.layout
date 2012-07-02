@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="calcthread.cpp" open="1" top="0" tabpos="1">
+	<File name="calcthread.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="95" topLine="1" />
 	</File>
 	<File name="calcthread.h" open="0" top="0" tabpos="2">
 		<Cursor position="132" topLine="0" />
 	</File>
-	<File name="cmd.cpp" open="1" top="1" tabpos="4">
+	<File name="cmd.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="599" topLine="9" />
 	</File>
 	<File name="globals.cpp" open="0" top="0" tabpos="3">
@@ -19,7 +19,7 @@
 	<File name="info.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="3036" topLine="23" />
 	</File>
-	<File name="init.cpp" open="1" top="0" tabpos="3">
+	<File name="init.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="3501" topLine="87" />
 	</File>
 	<File name="main.cpp" open="0" top="0" tabpos="2">
@@ -40,7 +40,7 @@
 	<File name="scriptthread.h" open="0" top="0" tabpos="1">
 		<Cursor position="320" topLine="0" />
 	</File>
-	<File name="version.h" open="1" top="0" tabpos="2">
+	<File name="version.h" open="0" top="0" tabpos="2">
 		<Cursor position="517" topLine="0" />
 	</File>
 	<File name="versionheaders.h" open="0" top="0" tabpos="0">

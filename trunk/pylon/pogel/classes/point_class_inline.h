@@ -299,7 +299,7 @@ POGEL::VECTOR::getdistance() const
 }
 
 float
-POGEL::VECTOR::getangle( const POGEL::VECTOR& other,  const POGEL::VECTOR& ref)
+POGEL::VECTOR::getangle( const POGEL::VECTOR& other,  const POGEL::VECTOR& ref ) const
 {
     ref.getdistance();
     // http://en.wikipedia.org/wiki/Inner_product_space
@@ -307,14 +307,14 @@ POGEL::VECTOR::getangle( const POGEL::VECTOR& other,  const POGEL::VECTOR& ref)
 }
 
 float
-POGEL::VECTOR::getangle( const POGEL::VECTOR& other)
+POGEL::VECTOR::getangle( const POGEL::VECTOR& other ) const
 {
     // http://en.wikipedia.org/wiki/Inner_product_space
     return acos( this->dotproduct(other) / (this->getdistance() * other.getdistance()) );
 }
 
 POGEL::VECTOR&
-POGEL::VECTOR::dodotproduct( const POGEL::VECTOR& b)
+POGEL::VECTOR::dodotproduct( const POGEL::VECTOR& b )
 {
     POGEL::VECTOR a(x,y,z);
     x = ((a.y*b.z) - (a.z*b.y));
@@ -324,7 +324,7 @@ POGEL::VECTOR::dodotproduct( const POGEL::VECTOR& b)
 }
 
 float
-POGEL::VECTOR::dotproduct( const POGEL::VECTOR& a) const
+POGEL::VECTOR::dotproduct( const POGEL::VECTOR& a ) const
 {
     return (x*a.x)+(y*a.y)+(z*a.z);
 }

@@ -87,8 +87,8 @@ namespace POGEL
             inline void anglenormalize();
             inline POGEL::VECTOR anglenormal() const;
             inline float getdistance() const;
-            inline float getangle( const POGEL::VECTOR&, const POGEL::VECTOR& );
-            inline float getangle( const POGEL::VECTOR& );
+            inline float getangle( const POGEL::VECTOR&, const POGEL::VECTOR& ) const;
+            inline float getangle( const POGEL::VECTOR& ) const;
             inline POGEL::VECTOR& dodotproduct( const POGEL::VECTOR& );
             inline float dotproduct( const POGEL::VECTOR&) const;
             inline void frompoints( const POGEL::POINT&, const POGEL::POINT& );

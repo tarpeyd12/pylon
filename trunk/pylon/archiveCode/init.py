@@ -83,7 +83,7 @@ if True:
 	mass = 5
 	maxrad = 1
 	minrad = 0.5
-	numOSpheres = 10
+	numOSpheres = 20
 	while loop < numOSpheres:
 		positionrange = 1.5
 		rpos = Position(rnd_n1p1(),rnd_n1p1(),rnd_n1p1()) * positionrange
@@ -112,7 +112,7 @@ TestSphereSim = Simulation("TestSphereSim",True)
 
 loop = 0
 rnum = 0
-numOSpheres = 10
+numOSpheres = 20
 while loop < numOSpheres:
 	positionrange = 1.5
 	rpos = Position(rnd_n1p1(),rnd_n1p1(),rnd_n1p1()) * positionrange
@@ -223,7 +223,7 @@ ObjectImportSimulation.stop()
 
 loop = 0
 rnum = 0
-numOSpheres = 10
+numOSpheres = 20
 while loop < numOSpheres:
 	
 	positionrange = 1.5
@@ -277,7 +277,7 @@ Earth.build()
 
 relocateobjscounter = 0
 
-numOSpheres = 10
+numOSpheres = 20
 
 def doOBJECTrelocate():
 	#pass

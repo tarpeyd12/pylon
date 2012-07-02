@@ -3,155 +3,274 @@
 
 #include <stdlib.h>
 
-namespace POGEL {
-namespace PHYSICS {
-class SINGULARITY;
-class FAN;
-class FLOW;
-class GRAVITYCLUSTER;
-}
+namespace POGEL
+{
+    namespace PHYSICS
+    {
+        class SINGULARITY;
+        class FAN;
+        class FLOW;
+        class GRAVITYCLUSTER;
+    }
 }
 
 #include "../../templates/classlist_template.h"
 #include "physics.h"
 #include "../point_class.h"
 
-//#define			GRAVITYCONSTANT			((float)pow(10.0f, -11.0f)*6.673f)
-#define			GRAVITYCONSTANT			0.00000000006673
+//#define         GRAVITYCONSTANT         ((float)pow(10.0f, -11.0f)*6.673f)
+#define         GRAVITYCONSTANT         0.00000000006673
 
-class POGEL::PHYSICS::SINGULARITY {
-	public:
-		bool active;
-		POGEL::POINT *pcenter;
-		float *pintencity;
-		POGEL::POINT center;
-		float intencity;
+class POGEL::PHYSICS::SINGULARITY
+{
+    protected:
+        bool notpointing;
+    public:
+        bool active;
 
-		bool notpointing;
+        POGEL::POINT *pcenter;
+        POGEL::POINT center;
 
-		SINGULARITY() { center=POGEL::POINT(); intencity=0.0f; active=true; notpointing=true; }
-		SINGULARITY(POGEL::POINT p, float i) { center=p; intencity=i; active=true; notpointing=true; }
-		SINGULARITY(POGEL::POINT *p, float *i) { pcenter=p; pintencity=i; active=true; notpointing=false; }
-		SINGULARITY(float x, float y, float z, float i) { center=POGEL::POINT(x,y,z); intencity=i; active=true; notpointing=true; }
+        float *pintencity;
+        float intencity;
 
-		//~SINGULARITY() { if(notpointing) { delete pcenter; delete pintencity; } }
+        SINGULARITY();
+        SINGULARITY( const POGEL::POINT& p, float i );
+        SINGULARITY( POGEL::POINT * p, float * i );
+        SINGULARITY( float x, float y, float z, float i );
 
-		POGEL::POINT getCenter() { if(notpointing) return center; return *pcenter; }
-		float getIntencity() { if(notpointing) return intencity; return *pintencity; }
+        inline
+        POGEL::POINT
+        getCenter() const
+        {
+            if( notpointing )
+            {
+                return center;
+            }
+            return *pcenter;
+        }
 
-		POGEL::POINT getposition() { return getCenter(); }
-		POGEL::BOUNDING getbounding() {
-			return POGEL::BOUNDING( 0,
-				getposition().x,getposition().x,
-				getposition().y,getposition().y,
-				getposition().z,getposition().z);
-		}
+        inline
+        float
+        getIntencity() const
+        {
+            if( notpointing )
+            {
+                return intencity;
+            }
+            return *pintencity;
+        }
 
-		virtual POGEL::VECTOR getpull(POGEL::POINT p, float mass) {
-			if(active) {
-				if(p==getCenter()) return POGEL::VECTOR();
-				float dist = p.distance(getCenter());
-				if(dist*dist > 0.00001 && 1/(dist*dist) > 0.00001) {
-					POGEL::VECTOR v (p, getCenter());
-					v.normalize();
-					v *= getIntencity() * mass * GRAVITYCONSTANT;
-					v /= (dist*dist);
-					if(mass < 0.0) v*=-1.0;
-					return v;
-				}
-				//return POGEL::VECTOR();
-			}
-			return POGEL::VECTOR();
-		}
+        inline
+        POGEL::POINT
+        getposition() const
+        {
+            return getCenter();
+        }
+
+        inline
+        POGEL::BOUNDING
+        getbounding() const
+        {
+            POGEL::POINT c = getCenter();
+            return POGEL::BOUNDING( 0, c.x,c.x, c.y,c.y, c.z,c.z );
+        }
+
+        virtual
+        inline
+        POGEL::VECTOR
+        getpull( const POGEL::POINT& p, float mass ) const
+        {
+            if( !active )
+            {
+                return POGEL::VECTOR();
+            }
+            POGEL::POINT center = getCenter();
+            if( p == center )
+            {
+                return POGEL::VECTOR();
+            }
+            float dist = p.distance( center );
+            if( isnan( dist ) || !isfinite( dist ) )
+            {
+                return POGEL::VECTOR();
+            }
+            //if( dist*dist > 0.00001 && 1/(dist*dist) > 0.00001 )
+            {
+                POGEL::VECTOR v( p, center );
+                v.normalize();
+                v *= getIntencity() * mass * GRAVITYCONSTANT;
+                v /= dist * dist;
+                if( mass < 0.0 )
+                {
+                    v *= -1.0;
+                }
+                return v;
+            }
+            return POGEL::VECTOR();
+        }
 };
 
-class POGEL::PHYSICS::FAN : public POGEL::PHYSICS::SINGULARITY {
-	public:
-		POGEL::VECTOR direction;
-		POGEL::VECTOR *pdirection;
+class POGEL::PHYSICS::FAN : public POGEL::PHYSICS::SINGULARITY
+{
+    public:
+        POGEL::VECTOR direction;
+        POGEL::VECTOR *pdirection;
 
-		FAN() : SINGULARITY() { direction=POGEL::VECTOR(); }
-		FAN(POGEL::POINT p, POGEL::VECTOR v, float i) : SINGULARITY(p,i) { direction=v; }
-		FAN(float x, float y, float z, POGEL::VECTOR v, float i) : SINGULARITY(x,y,z,i) { direction=v; }
-		FAN(POGEL::POINT p, float x, float y, float z, float i) : SINGULARITY(p,i) { direction=POGEL::VECTOR(x,y,z); }
-		FAN(float x, float y, float z, float vx, float vy, float vz, float i) : SINGULARITY(x,y,z,i) { direction=POGEL::VECTOR(vx,vy,vz); }
+        FAN();
+        FAN( const POGEL::POINT& p, const POGEL::VECTOR& v, float i );
+        FAN( float x, float y, float z, const POGEL::VECTOR& v, float i );
+        FAN( const POGEL::POINT& p, float x, float y, float z, float i );
+        FAN( float x, float y, float z, float vx, float vy, float vz, float i );
 
-		POGEL::VECTOR getDirection() { if(notpointing) return direction; return *pdirection; }
+        inline
+        POGEL::VECTOR
+        getDirection() const
+        {
+            if( notpointing )
+            {
+                return direction;
+            }
+            return *pdirection;
+        }
 
-		POGEL::VECTOR getpull(POGEL::POINT p, float mass) {
-			if(active) return ((getDirection()*getIntencity())/p.distance(getCenter()))/(mass+1.0f);
-			return POGEL::VECTOR();
-		}
+        inline
+        POGEL::VECTOR
+        getpull( const POGEL::POINT& p, float mass ) const
+        {
+            if( active )
+            {
+                return ( ( getDirection() * getIntencity() ) / p.distance( getCenter() ) ) / ( mass + 1.0f );
+            }
+            return POGEL::VECTOR();
+        }
 };
 
-class POGEL::PHYSICS::GRAVITYCLUSTER {
-		CLASSLIST<POGEL::PHYSICS::SINGULARITY>* singularities;
-		unsigned long numsingularities;
-	public:
+class POGEL::PHYSICS::GRAVITYCLUSTER
+{
+    private:
+        CLASSLIST< POGEL::PHYSICS::SINGULARITY > * singularities;
+        unsigned long numsingularities;
+    public:
 
-		GRAVITYCLUSTER()
-			{  numsingularities = 0; singularities = new CLASSLIST<POGEL::PHYSICS::SINGULARITY>(); }
-		~GRAVITYCLUSTER()
-			{ singularities->clear(); if(singularities) delete singularities; }
+        GRAVITYCLUSTER();
+        ~GRAVITYCLUSTER();
 
-		unsigned long addsingularity(POGEL::PHYSICS::SINGULARITY);
-		void addsingularities(POGEL::PHYSICS::SINGULARITY*,unsigned long);
+        unsigned long addsingularity( const POGEL::PHYSICS::SINGULARITY& );
+        void addsingularities( POGEL::PHYSICS::SINGULARITY*, unsigned long );
 
-		void remove(unsigned long i) { singularities->remove(i); numsingularities--; }
+        inline
+        void
+        remove( unsigned long i )
+        {
+            singularities->remove( i );
+            --numsingularities;
+        }
 
-		void clearAll() { numsingularities = 0; delete singularities; singularities = new CLASSLIST<POGEL::PHYSICS::SINGULARITY>(); }
+        inline
+        void
+        clearAll()
+        {
+            numsingularities = 0;
+            singularities->clear();
+            if( singularities )
+            {
+                delete singularities;
+            }
+            singularities = new CLASSLIST<POGEL::PHYSICS::SINGULARITY>();
+        }
 
-		POGEL::VECTOR getpull(POGEL::POINT p, float mass) {
-			if(numsingularities==0) return POGEL::VECTOR();
-			POGEL::VECTOR v;
-			for(unsigned int i=0;i<numsingularities;i++) v+=singularities->get(i).getpull(p, mass);
-			return v;
-		}
+        inline
+        POGEL::VECTOR
+        getpull( const POGEL::POINT& p, float mass ) const
+        {
+            if( !numsingularities )
+            {
+                return POGEL::VECTOR();
+            }
+            POGEL::VECTOR v = singularities->get( 0 ).getpull( p, mass );
+            for( unsigned int i = 1; i < numsingularities; ++i )
+            {
+                v += singularities->get( i ).getpull( p, mass );
+            }
+            return v;
+        }
 
-		/*POGEL::VECTOR fgetpull(POGEL::POINT p, float mass, HASHLIST<POGEL::OCTREE<POGEL::PHYSICS::SOLID>*> *otlst) {
+        /*inline
+        POGEL::VECTOR
+        fgetpull(POGEL::POINT p, float mass, HASHLIST<POGEL::OCTREE<POGEL::PHYSICS::SOLID>*> *otlst) {
 
-			if(numsingularities==0) return POGEL::VECTOR();
-			POGEL::VECTOR v;
-			for(unsigned int i=0;i<numsingularities;i++) v+=singularities[i].getpull(p, mass);
-			return v;
-		}*/
+            if(numsingularities==0) return POGEL::VECTOR();
+            POGEL::VECTOR v;
+            for(unsigned int i=0;i<numsingularities;++i) v+=singularities[i].getpull(p, mass);
+            return v;
+        }*/
 
-		POGEL::PHYSICS::GRAVITYCLUSTER& operator = (POGEL::PHYSICS::GRAVITYCLUSTER g) {
-			singularities->clear();
-			if(singularities)
-				delete singularities;
-			singularities = g.singularities;
-			numsingularities = g.numsingularities;
-			return *this;
-		}
+        inline
+        POGEL::PHYSICS::GRAVITYCLUSTER&
+        operator = ( const POGEL::PHYSICS::GRAVITYCLUSTER& g )
+        {
+            if( singularities )
+            {
+                singularities->clear();
+                delete singularities;
+            }
+            singularities = g.singularities;
+            numsingularities = g.numsingularities;
+            return *this;
+        }
 };
 
-class POGEL::PHYSICS::FLOW {
-		CLASSLIST<POGEL::PHYSICS::FAN> gusts;
-		unsigned long numgusts;
-	public:
+class POGEL::PHYSICS::FLOW
+{
+    private:
+        CLASSLIST<POGEL::PHYSICS::FAN> gusts;
+        unsigned long numgusts;
+    public:
 
-		FLOW() { numgusts = 0; }
-		FLOW(POGEL::POINT* waypoints,unsigned long num,bool forwards) {generatecurve(waypoints,num,forwards);}
-		~FLOW() { gusts.clear(); }
+        FLOW();
+        FLOW( POGEL::POINT * waypoints, unsigned long num, bool forwards );
+        ~FLOW();
 
-		unsigned long addfan(POGEL::PHYSICS::FAN);
-		void addfans(POGEL::PHYSICS::FAN*,unsigned long);
+        unsigned long addfan( const POGEL::PHYSICS::FAN& );
+        void addfans( POGEL::PHYSICS::FAN *, unsigned long );
+        void generatecurve( POGEL::POINT *, unsigned long, bool );
 
-		void remove(unsigned long i) { gusts.remove(i); numgusts--; }
+        inline
+        void
+        remove( unsigned long i )
+        {
+            gusts.remove( i );
+            --numgusts;
+        }
 
-		void generatecurve(POGEL::POINT*,unsigned long,bool);
-
-		POGEL::VECTOR getpull(POGEL::POINT p, float mass) {
-			if(numgusts==0) return POGEL::VECTOR();
-			POGEL::VECTOR v;
-			unsigned int diff=0;
-			for(unsigned int i=0;i<numgusts;i++)
-				if(gusts[i].active) v=v+gusts[i].getpull(p, mass);
-				else diff++;
-			if(diff<numgusts) return v/((float)numgusts - (float)diff);
-			else return POGEL::VECTOR();
-		}
+        inline
+        POGEL::VECTOR
+        getpull( const POGEL::POINT& p, float mass ) const
+        {
+            if( !numgusts )
+            {
+                return POGEL::VECTOR();
+            }
+            POGEL::VECTOR v;
+            unsigned int diff = 0;
+            for( unsigned int i = 0; i < numgusts; ++i )
+            {
+                if( gusts[ i ].active )
+                {
+                    v += gusts[ i ].getpull( p, mass );
+                }
+                else
+                {
+                    ++diff;
+                }
+            }
+            if( diff < numgusts )
+            {
+                return v / ( (float)numgusts - (float)diff );
+            }
+            return POGEL::VECTOR();
+        }
 };
 
 #endif /* _SINGULARITY_CLASS_H */

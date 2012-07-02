@@ -1,5 +1,5 @@
 void
-POGEL::BOUNDING::set(float maximum, float gx, float lx, float gy, float ly, float gz, float lz)
+POGEL::BOUNDING::set( float maximum, float gx, float lx, float gy, float ly, float gz, float lz)
 {
     maxdistance = maximum;
     max.x = gx;

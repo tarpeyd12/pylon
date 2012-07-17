@@ -1,1 +1,1037 @@
 # depslib dependency file v1.0
+1339785584 source:/home/tarpeyd12/Desktop/pylon/window/main.cpp
+	"main.h"
+	"versionheaders.h"
+
+1339374322 /home/tarpeyd12/Desktop/pylon/window/main.h
+	<Python.h>
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdlib.h>
+	"../lists/classlist_template.h"
+	"../threads/threads.h"
+	"../pogel/pogel.h"
+	"../fileloader/fileloader.h"
+	"../scriptengine/scriptengine.h"
+	"../objectloader/objectloader.h"
+	"../renderer/renderer.h"
+	"../pogelscriptinterface/pogelscriptinterface.h"
+	"scriptthread.h"
+	"calcthread.h"
+	"globals.h"
+
+1317762470 /usr/include/python2.7/Python.h
+	"patchlevel.h"
+	"pyconfig.h"
+	"pymacconfig.h"
+	<limits.h>
+	<stdio.h>
+	<string.h>
+	<errno.h>
+	<stdlib.h>
+	<unistd.h>
+	<stddef.h>
+	<assert.h>
+	"pyport.h"
+	"pymath.h"
+	"pymem.h"
+	"object.h"
+	"objimpl.h"
+	"pydebug.h"
+	"unicodeobject.h"
+	"intobject.h"
+	"boolobject.h"
+	"longobject.h"
+	"floatobject.h"
+	"complexobject.h"
+	"rangeobject.h"
+	"stringobject.h"
+	"memoryobject.h"
+	"bufferobject.h"
+	"bytesobject.h"
+	"bytearrayobject.h"
+	"tupleobject.h"
+	"listobject.h"
+	"dictobject.h"
+	"enumobject.h"
+	"setobject.h"
+	"methodobject.h"
+	"moduleobject.h"
+	"funcobject.h"
+	"classobject.h"
+	"fileobject.h"
+	"cobject.h"
+	"pycapsule.h"
+	"traceback.h"
+	"sliceobject.h"
+	"cellobject.h"
+	"iterobject.h"
+	"genobject.h"
+	"descrobject.h"
+	"warnings.h"
+	"weakrefobject.h"
+	"codecs.h"
+	"pyerrors.h"
+	"pystate.h"
+	"pyarena.h"
+	"modsupport.h"
+	"pythonrun.h"
+	"ceval.h"
+	"sysmodule.h"
+	"intrcheck.h"
+	"import.h"
+	"abstract.h"
+	"compile.h"
+	"eval.h"
+	"pyctype.h"
+	"pystrtod.h"
+	"pystrcmp.h"
+	"dtoa.h"
+	"pyfpe.h"
+	<pth.h>
+
+1317762470 /usr/include/python2.7/patchlevel.h
+
+1317762470 /usr/include/python2.7/pyconfig.h
+
+1317762470 /usr/include/python2.7/pymacconfig.h
+
+1331088379 /usr/include/limits.h
+	<features.h>
+	<bits/wordsize.h>
+	<bits/posix1_lim.h>
+	<bits/posix2_lim.h>
+	<bits/xopen_lim.h>
+
+1331088379 /usr/include/features.h
+	<bits/predefs.h>
+	<sys/cdefs.h>
+	<gnu/stubs.h>
+
+1331088452 /usr/include/stdio.h
+	<features.h>
+	<stddef.h>
+	<bits/types.h>
+	<libio.h>
+	<stdarg.h>
+	<bits/stdio_lim.h>
+	<bits/sys_errlist.h>
+	<getopt.h>
+	<bits/stdio.h>
+	<bits/stdio2.h>
+	<bits/stdio-ldbl.h>
+
+1331088452 /usr/include/libio.h
+	<_G_config.h>
+	<stdarg.h>
+	<sys/cdefs.h>
+	<bits/stdio-lock.h>
+	<shlib-compat.h>
+	<bits/libio-ldbl.h>
+
+1331088452 /usr/include/_G_config.h
+	<bits/types.h>
+	<stddef.h>
+	<wchar.h>
+	<gconv.h>
+
+1331088464 /usr/include/wchar.h
+	<features.h>
+	<stdio.h>
+	<stdarg.h>
+	<bits/wchar.h>
+	<stddef.h>
+	<wctype.h>
+	<xlocale.h>
+	<xlocale.h>
+	<xlocale.h>
+	<wctype.h>
+	<bits/wchar2.h>
+	<bits/wchar-ldbl.h>
+
+1331088504 /usr/include/wctype.h
+	<features.h>
+	<bits/types.h>
+	<wchar.h>
+	<endian.h>
+	<xlocale.h>
+
+1331088460 /usr/include/endian.h
+	<features.h>
+	<bits/endian.h>
+	<bits/byteswap.h>
+
+1331088389 /usr/include/xlocale.h
+
+1331088384 /usr/include/gconv.h
+	<features.h>
+	<wchar.h>
+	<stddef.h>
+
+1331088480 /usr/include/getopt.h
+	<ctype.h>
+
+1331088422 /usr/include/ctype.h
+	<features.h>
+	<bits/types.h>
+	<endian.h>
+	<xlocale.h>
+
+1331088460 /usr/include/string.h
+	<features.h>
+	<stddef.h>
+	<xlocale.h>
+	<bits/string.h>
+	<bits/string2.h>
+	<bits/string3.h>
+
+1331088444 /usr/include/errno.h
+	<features.h>
+	<bits/errno.h>
+
+1331088444 /usr/include/stdlib.h
+	<features.h>
+	<stddef.h>
+	<bits/waitflags.h>
+	<bits/waitstatus.h>
+	<xlocale.h>
+	<sys/types.h>
+	<alloca.h>
+	<bits/stdlib.h>
+	<bits/stdlib-ldbl.h>
+
+1331088444 /usr/include/alloca.h
+	<features.h>
+	<stddef.h>
+
+1331088480 /usr/include/unistd.h
+	<features.h>
+	<bits/posix_opt.h>
+	<bits/environments.h>
+	<bits/types.h>
+	<stddef.h>
+	<bits/confname.h>
+	<getopt.h>
+	<bits/unistd.h>
+
+1331088421 /usr/include/assert.h
+	<features.h>
+
+1317762470 /usr/include/python2.7/pyport.h
+	"pyconfig.h"
+	<inttypes.h>
+	<stdint.h>
+	<stdlib.h>
+	<ieeefp.h>
+	<math.h>
+	<sys/time.h>
+	<time.h>
+	<sys/time.h>
+	<time.h>
+	<sys/select.h>
+	<sys/types.h>
+	"unixstuff.h"
+	<sys/types.h>
+	<sys/stat.h>
+	<stat.h>
+	<sys/types.h>
+	<sys/termio.h>
+	<termios.h>
+	<osreldate.h>
+	<ctype.h>
+	<wctype.h>
+
+1331088444 /usr/include/inttypes.h
+	<features.h>
+	<stdint.h>
+	<stddef.h>
+
+1331088444 /usr/include/stdint.h
+	<features.h>
+	<bits/wchar.h>
+	<bits/wordsize.h>
+
+1331088433 /usr/include/math.h
+	<features.h>
+	<bits/huge_val.h>
+	<bits/huge_valf.h>
+	<bits/huge_vall.h>
+	<bits/inf.h>
+	<bits/nan.h>
+	<bits/mathdef.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls.h>
+	<bits/mathcalls.h>
+	<bits/mathinline.h>
+
+1331088470 /usr/include/time.h
+	<features.h>
+	<stddef.h>
+	<bits/time.h>
+	<bits/types.h>
+	<bits/types.h>
+	<bits/types.h>
+	<bits/types.h>
+	<bits/types.h>
+	<xlocale.h>
+
+1331088486 /usr/include/termios.h
+	<features.h>
+	<bits/types.h>
+	<bits/termios.h>
+	<sys/ttydefaults.h>
+
+1317762470 /usr/include/python2.7/pymath.h
+	"pyconfig.h"
+
+1317762470 /usr/include/python2.7/pymem.h
+	"pyport.h"
+
+1317762470 /usr/include/python2.7/object.h
+
+1317762470 /usr/include/python2.7/objimpl.h
+	"pymem.h"
+
+1317762470 /usr/include/python2.7/pydebug.h
+
+1317762470 /usr/include/python2.7/unicodeobject.h
+	<stdarg.h>
+	<ctype.h>
+	<time.h>
+	<wchar.h>
+	<wctype.h>
+
+1317762470 /usr/include/python2.7/intobject.h
+
+1317762470 /usr/include/python2.7/boolobject.h
+
+1317762470 /usr/include/python2.7/longobject.h
+
+1317762470 /usr/include/python2.7/floatobject.h
+
+1317762470 /usr/include/python2.7/complexobject.h
+
+1317762470 /usr/include/python2.7/rangeobject.h
+
+1317762470 /usr/include/python2.7/stringobject.h
+	<stdarg.h>
+
+1317762470 /usr/include/python2.7/memoryobject.h
+
+1317762470 /usr/include/python2.7/bufferobject.h
+
+1317762470 /usr/include/python2.7/bytesobject.h
+
+1317762470 /usr/include/python2.7/bytearrayobject.h
+	<stdarg.h>
+
+1317762470 /usr/include/python2.7/tupleobject.h
+
+1317762470 /usr/include/python2.7/listobject.h
+
+1317762470 /usr/include/python2.7/dictobject.h
+
+1317762470 /usr/include/python2.7/enumobject.h
+
+1317762470 /usr/include/python2.7/setobject.h
+
+1317762470 /usr/include/python2.7/methodobject.h
+
+1317762470 /usr/include/python2.7/moduleobject.h
+
+1317762470 /usr/include/python2.7/funcobject.h
+
+1317762470 /usr/include/python2.7/classobject.h
+
+1317762470 /usr/include/python2.7/fileobject.h
+
+1317762470 /usr/include/python2.7/cobject.h
+
+1317762470 /usr/include/python2.7/pycapsule.h
+
+1317762470 /usr/include/python2.7/traceback.h
+
+1317762470 /usr/include/python2.7/sliceobject.h
+
+1317762470 /usr/include/python2.7/cellobject.h
+
+1317762470 /usr/include/python2.7/iterobject.h
+
+1317762470 /usr/include/python2.7/genobject.h
+
+1317762470 /usr/include/python2.7/descrobject.h
+
+1317762470 /usr/include/python2.7/warnings.h
+
+1317762470 /usr/include/python2.7/weakrefobject.h
+
+1317762470 /usr/include/python2.7/codecs.h
+
+1317762470 /usr/include/python2.7/pyerrors.h
+	<stdarg.h>
+
+1317762470 /usr/include/python2.7/pystate.h
+
+1317762470 /usr/include/python2.7/pyarena.h
+
+1317762470 /usr/include/python2.7/modsupport.h
+	<stdarg.h>
+
+1317762470 /usr/include/python2.7/pythonrun.h
+
+1317762470 /usr/include/python2.7/ceval.h
+
+1317762470 /usr/include/python2.7/sysmodule.h
+
+1317762470 /usr/include/python2.7/intrcheck.h
+
+1317762470 /usr/include/python2.7/import.h
+
+1317762470 /usr/include/python2.7/abstract.h
+
+1317762470 /usr/include/python2.7/compile.h
+	"code.h"
+
+1317762470 /usr/include/python2.7/code.h
+
+1317762470 /usr/include/python2.7/eval.h
+
+1317762470 /usr/include/python2.7/pyctype.h
+
+1317762470 /usr/include/python2.7/pystrtod.h
+
+1317762470 /usr/include/python2.7/pystrcmp.h
+
+1317762470 /usr/include/python2.7/dtoa.h
+
+1317762470 /usr/include/python2.7/pyfpe.h
+	<signal.h>
+	<setjmp.h>
+	<math.h>
+
+1331088440 /usr/include/signal.h
+	<features.h>
+	<bits/sigset.h>
+	<bits/types.h>
+	<bits/signum.h>
+	<time.h>
+	<bits/siginfo.h>
+	<bits/sigaction.h>
+	<bits/sigcontext.h>
+	<stddef.h>
+	<bits/sigstack.h>
+	<sys/ucontext.h>
+	<bits/pthreadtypes.h>
+	<bits/sigthread.h>
+
+1331088438 /usr/include/setjmp.h
+	<features.h>
+	<bits/setjmp.h>
+	<bits/sigset.h>
+	<bits/setjmp2.h>
+
+1295411577 /usr/include/GL/glut.h
+	"freeglut_std.h"
+
+1295411577 /usr/include/GL/freeglut_std.h
+	<Windows.h>
+	<GL/gl.h>
+	<GL/glu.h>
+	<stdlib.h>
+
+1333506667 /usr/include/GL/gl.h
+	"gl_mangle.h"
+	<stdlib.h>
+	<windows.h>
+	<GL/mesa_wgl.h>
+	<GL/glext.h>
+
+1333506667 /usr/include/GL/gl_mangle.h
+
+1333506667 /usr/include/GL/glext.h
+	<windows.h>
+	<stddef.h>
+	<inttypes.h>
+	<inttypes.h>
+	<inttypes.h>
+	<stdint.h>
+	<stdint.h>
+	<inttypes.h>
+
+1333506663 /usr/include/GL/glu.h
+	"glu_mangle.h"
+	<GL/gl.h>
+
+1333506663 /usr/include/GL/glu_mangle.h
+
+1339374319 /home/tarpeyd12/Desktop/pylon/lists/classlist_template.h
+	<iostream>
+	<vector>
+	<algorithm>
+	"classlist_template.cpp"
+
+1339791556 /home/tarpeyd12/Desktop/pylon/lists/classlist_template.cpp
+	"classlist_template.h"
+	<stdlib.h>
+
+1339374318 /home/tarpeyd12/Desktop/pylon/threads/threads.h
+	<pthread.h>
+	<sched.h>
+	<stdlib.h>
+	<unistd.h>
+	<stdio.h>
+	<iostream>
+	"thread.h"
+	"exthread.h"
+
+1331088528 /usr/include/pthread.h
+	<features.h>
+	<endian.h>
+	<sched.h>
+	<time.h>
+	<bits/pthreadtypes.h>
+	<bits/setjmp.h>
+	<bits/wordsize.h>
+
+1331088480 /usr/include/sched.h
+	<features.h>
+	<bits/types.h>
+	<stddef.h>
+	<time.h>
+	<bits/sched.h>
+
+1339374318 /home/tarpeyd12/Desktop/pylon/threads/thread.h
+	<pthread.h>
+	<sched.h>
+	<stdlib.h>
+	<unistd.h>
+	<stdio.h>
+	<iostream>
+
+1339374318 /home/tarpeyd12/Desktop/pylon/threads/exthread.h
+	<pthread.h>
+	<sched.h>
+	<stdlib.h>
+	<unistd.h>
+	<stdio.h>
+	<iostream>
+	"thread.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/pogel.h
+	<time.h>
+	<iostream>
+	<sstream>
+	<string>
+	"pogel_classes.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/pogel_classes.h
+	"templates/templates.h"
+	"classes/threads.h"
+	"classes/bounding_class.h"
+	"classes/image_class.h"
+	"classes/view_class.h"
+	"classes/matrix_class.h"
+	"classes/misc_class.h"
+	"classes/object_class.h"
+	"classes/fractal_class.h"
+	"classes/sprite_class.h"
+	"classes/object_funcs.h"
+	"classes/point_class.h"
+	"classes/quat_class.h"
+	"classes/triangle_class.h"
+	"classes/line_class.h"
+	"classes/physics/physics.h"
+	"classes/physics/solid_class.h"
+	"classes/physics/singularity_class.h"
+	"classes/physics/dynamics_class.h"
+	"classes/physics/simulation_class.h"
+	"classes/physics/fountain_class.h"
+	"classes/physics/microcosm_class.h"
+	"pogel_internals.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/templates/templates.h
+	"arraylist.h"
+	"classlist_template.h"
+	"hashlist_template.h"
+	"octree_template.h"
+	"bitlist.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/templates/arraylist.h
+	"../../lists/arraylist.h"
+
+1339374319 /home/tarpeyd12/Desktop/pylon/lists/arraylist.h
+	<iostream>
+	"arraylist.cpp"
+	"arraylist.operators.cpp"
+
+1339374319 /home/tarpeyd12/Desktop/pylon/lists/arraylist.cpp
+	<math.h>
+	<iostream>
+	"arraylist.h"
+
+1339374319 /home/tarpeyd12/Desktop/pylon/lists/arraylist.operators.cpp
+	<stdlib.h>
+	<iostream>
+	"arraylist.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/templates/classlist_template.h
+	"../../lists/classlist_template.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/templates/hashlist_template.h
+	"../../lists/hashlist_template.h"
+
+1339374319 /home/tarpeyd12/Desktop/pylon/lists/hashlist_template.h
+	"classlist_template.h"
+	"arraylist.h"
+	"hashlist_template.cpp"
+
+1339374319 /home/tarpeyd12/Desktop/pylon/lists/hashlist_template.cpp
+	"hashlist_template.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/templates/octree_template.h
+	"../classes/bounding_class.h"
+	"classlist_template.h"
+	"octree_template_general_definition.h"
+
+1341266299 /home/tarpeyd12/Desktop/pylon/pogel/classes/bounding_class.h
+	"point_class.h"
+	"misc_class.h"
+	"bounding_class_inline.h"
+
+1341266299 /home/tarpeyd12/Desktop/pylon/pogel/classes/point_class.h
+	<stdio.h>
+	<math.h>
+	"misc_class.h"
+	"../pogel_internals.h"
+	"point_class_inline.h"
+
+1341266299 /home/tarpeyd12/Desktop/pylon/pogel/classes/misc_class.h
+	<GL/gl.h>
+	"../pogel_internals.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/pogel_internals.h
+	<GL/gl.h>
+	<time.h>
+	<string.h>
+	<stdio.h>
+	<stdlib.h>
+	<iostream>
+	<string>
+
+1341266299 /home/tarpeyd12/Desktop/pylon/pogel/classes/point_class_inline.h
+
+1341266299 /home/tarpeyd12/Desktop/pylon/pogel/classes/bounding_class_inline.h
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/templates/octree_template_general_definition.h
+	"octree_template_protected_definition.h"
+	"octree_template_general_public_definition.h"
+	"octree_template_protected_implimentation.h"
+	"octree_template_general_implimentation.h"
+	"octree_template_general_public_implimentation.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/templates/octree_template_protected_definition.h
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/templates/octree_template_general_public_definition.h
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/templates/octree_template_protected_implimentation.h
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/templates/octree_template_general_implimentation.h
+
+1341266299 /home/tarpeyd12/Desktop/pylon/pogel/templates/octree_template_general_public_implimentation.h
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/templates/bitlist.h
+	"../../lists/bitlist.h"
+
+1339374319 /home/tarpeyd12/Desktop/pylon/lists/bitlist.h
+	<string.h>
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/classes/threads.h
+	<pthread.h>
+	<stdlib.h>
+	<unistd.h>
+	<stdio.h>
+	"../../threads/threads.h"
+
+1339648146 /home/tarpeyd12/Desktop/pylon/pogel/classes/image_class.h
+	"../pogel_internals.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/classes/view_class.h
+	"../pogel_internals.h"
+	"misc_class.h"
+	"image_class.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/classes/matrix_class.h
+	<GL/gl.h>
+	<math.h>
+	"quat_class.h"
+	"point_class.h"
+	"triangle_class.h"
+	"../pogel_internals.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/classes/quat_class.h
+	<stdio.h>
+	"matrix_class.h"
+	"point_class.h"
+	"../pogel_internals.h"
+
+1340573249 /home/tarpeyd12/Desktop/pylon/pogel/classes/triangle_class.h
+	"point_class.h"
+	"line_class.h"
+	"image_class.h"
+	"matrix_class.h"
+	"bounding_class.h"
+	"../pogel_internals.h"
+	"../templates/bitlist.h"
+	"triangle_class_inline.h"
+
+1341611220 /home/tarpeyd12/Desktop/pylon/pogel/classes/line_class.h
+	"point_class.h"
+	"bounding_class.h"
+	"misc_class.h"
+	"../pogel_internals.h"
+
+1340862279 /home/tarpeyd12/Desktop/pylon/pogel/classes/triangle_class_inline.h
+
+1340573350 /home/tarpeyd12/Desktop/pylon/pogel/classes/object_class.h
+	<stdlib.h>
+	<string.h>
+	"point_class.h"
+	"triangle_class.h"
+	"matrix_class.h"
+	"../pogel_internals.h"
+	"physics/physics.h"
+	"../templates/classlist_template.h"
+	"object_class_inline.h"
+
+1341611267 /home/tarpeyd12/Desktop/pylon/pogel/classes/physics/physics.h
+	"../triangle_class.h"
+	"../line_class.h"
+	"../../pogel_internals.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/classes/object_class_inline.h
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/classes/fractal_class.h
+	"object_class.h"
+	"point_class.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/classes/sprite_class.h
+	"point_class.h"
+	"object_class.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/classes/object_funcs.h
+	"point_class.h"
+	"triangle_class.h"
+	"object_class.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/classes/physics/solid_class.h
+	<iostream>
+	<string>
+	"../../templates/octree_template.h"
+	"physics.h"
+	"../point_class.h"
+	"../object_class.h"
+	"callbacks.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/classes/physics/callbacks.h
+
+1341266299 /home/tarpeyd12/Desktop/pylon/pogel/classes/physics/singularity_class.h
+	<stdlib.h>
+	"../../templates/classlist_template.h"
+	"physics.h"
+	"../point_class.h"
+
+1340862278 /home/tarpeyd12/Desktop/pylon/pogel/classes/physics/dynamics_class.h
+	"../../templates/octree_template.h"
+	"solid_class.h"
+	"../../templates/classlist_template.h"
+	"../../templates/bitlist.h"
+	"physics.h"
+	"singularity_class.h"
+
+1340863024 /home/tarpeyd12/Desktop/pylon/pogel/classes/physics/simulation_class.h
+	"physics.h"
+	"dynamics_class.h"
+	"solid_class.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/classes/physics/fountain_class.h
+	"physics.h"
+	"solid_class.h"
+	"simulation_class.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/classes/physics/microcosm_class.h
+	"physics.h"
+	"solid_class.h"
+	"simulation_class.h"
+
+1339639226 /home/tarpeyd12/Desktop/pylon/fileloader/fileloader.h
+	<string>
+	<fstream>
+	"../pogel/pogel.h"
+	"unzip.h"
+	"ini.h"
+	"archivehandler.h"
+	"system.h"
+
+1339376549 /home/tarpeyd12/Desktop/pylon/fileloader/unzip.h
+	"fileloader.h"
+	"minizip/unzip.h"
+
+1339374321 /home/tarpeyd12/Desktop/pylon/fileloader/minizip/unzip.h
+	"zlib/zlib.h"
+	"ioapi.h"
+	"bzlib.h"
+
+1339374321 /home/tarpeyd12/Desktop/pylon/fileloader/minizip/zlib/zlib.h
+	"zconf.h"
+
+1339374321 /home/tarpeyd12/Desktop/pylon/fileloader/minizip/zlib/zconf.h
+	<windows.h>
+	<sys/types.h>
+	<unistd.h>
+	<unixio.h>
+
+1339374321 /home/tarpeyd12/Desktop/pylon/fileloader/minizip/ioapi.h
+	<stdio.h>
+	<stdlib.h>
+	"zlib/zlib.h"
+	<stdint.h>
+	"mz64conf.h"
+	"stdint.h"
+
+1339805789 /home/tarpeyd12/Desktop/pylon/fileloader/ini.h
+	"fileloader.h"
+	"simpleini/SimpleIni.h"
+
+1339374321 /home/tarpeyd12/Desktop/pylon/fileloader/simpleini/SimpleIni.h
+	<cstring>
+	<string>
+	<map>
+	<list>
+	<algorithm>
+	<stdio.h>
+	<iostream>
+	<cassert>
+	<unicode/ustring.h>
+	<wchar.h>
+	"ConvertUTF.h"
+	<unicode/ucnv.h>
+	<windows.h>
+	<mbstring.h>
+
+1339374321 /home/tarpeyd12/Desktop/pylon/fileloader/simpleini/ConvertUTF.h
+
+1339639476 /home/tarpeyd12/Desktop/pylon/fileloader/archivehandler.h
+	"fileloader.h"
+
+1339374322 /home/tarpeyd12/Desktop/pylon/fileloader/system.h
+	"fileloader.h"
+
+1339788081 /home/tarpeyd12/Desktop/pylon/scriptengine/scriptengine.h
+	<Python.h>
+	"../fileloader/fileloader.h"
+	"../threads/threads.h"
+	<iostream>
+	"scripttypes.h"
+	"executor.h"
+	"stringparser.h"
+	"interpriterthread.h"
+	"subinterpriter.h"
+
+1339374318 /home/tarpeyd12/Desktop/pylon/scriptengine/scripttypes.h
+
+1339789904 /home/tarpeyd12/Desktop/pylon/scriptengine/executor.h
+	"scriptengine.h"
+
+1339374318 /home/tarpeyd12/Desktop/pylon/scriptengine/stringparser.h
+	<string>
+	<iostream>
+	<sstream>
+
+1339374318 /home/tarpeyd12/Desktop/pylon/scriptengine/interpriterthread.h
+	"scriptengine.h"
+
+1339374318 /home/tarpeyd12/Desktop/pylon/scriptengine/subinterpriter.h
+	"scriptengine.h"
+
+1339384551 /home/tarpeyd12/Desktop/pylon/objectloader/objectloader.h
+	"../pogel/pogel.h"
+	"../fileloader/fileloader.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/renderer/renderer.h
+	<GLUT/glut.h>
+	<GL/glut.h>
+	<stdlib.h>
+	"../pogel/pogel.h"
+	"../lists/lists.h"
+	"../fileloader/fileloader.h"
+	"../objectloader/objectloader.h"
+	"timer.h"
+	"camera.h"
+	"draw.h"
+	"mouse.h"
+	"window.h"
+	"key.h"
+	"cmd.h"
+	"quad.h"
+	"hud.h"
+	"light.h"
+	"physics.h"
+	"subrenderer.h"
+	"selection.h"
+
+1339374319 /home/tarpeyd12/Desktop/pylon/lists/lists.h
+	"arraylist.h"
+	"classlist_template.h"
+	"hashlist_template.h"
+	"bitlist.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/renderer/timer.h
+	<stdlib.h>
+	<unistd.h>
+	"../pogel/pogel.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/renderer/camera.h
+	"../pogel/pogel.h"
+
+1340328333 /home/tarpeyd12/Desktop/pylon/renderer/draw.h
+
+1339374320 /home/tarpeyd12/Desktop/pylon/renderer/mouse.h
+
+1339374320 /home/tarpeyd12/Desktop/pylon/renderer/window.h
+	"renderer.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/renderer/key.h
+	"renderer.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/renderer/cmd.h
+	"renderer.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/renderer/quad.h
+	"../pogel/pogel.h"
+	"../lists/lists.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/renderer/hud.h
+	"quad.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/renderer/light.h
+	"../pogel/pogel.h"
+
+1340325907 /home/tarpeyd12/Desktop/pylon/renderer/physics.h
+	"../pogel/pogel.h"
+	"subrenderer.h"
+	"renderer.h"
+
+1340862278 /home/tarpeyd12/Desktop/pylon/renderer/subrenderer.h
+	"../pogel/pogel.h"
+	"light.h"
+	"camera.h"
+	"physics.h"
+	"draw.h"
+	"renderer.h"
+
+1339374320 /home/tarpeyd12/Desktop/pylon/renderer/selection.h
+	"renderer.h"
+
+1339797964 /home/tarpeyd12/Desktop/pylon/pogelscriptinterface/pogelscriptinterface.h
+	<Python.h>
+	"../pogel/pogel.h"
+	"../scriptengine/scriptengine.h"
+	"../renderer/renderer.h"
+	"../fileloader/fileloader.h"
+	"simulation.h"
+	"objects.h"
+	"shapes.h"
+	"hud.h"
+	"subrender.h"
+	"objectcallbacks.h"
+	"keycallbacks.h"
+
+1339803577 /home/tarpeyd12/Desktop/pylon/pogelscriptinterface/simulation.h
+	"pogelscriptinterface.h"
+
+1339636254 /home/tarpeyd12/Desktop/pylon/pogelscriptinterface/objects.h
+	"pogelscriptinterface.h"
+
+1339374345 /home/tarpeyd12/Desktop/pylon/pogelscriptinterface/shapes.h
+	"pogelscriptinterface.h"
+
+1339374345 /home/tarpeyd12/Desktop/pylon/pogelscriptinterface/hud.h
+	"pogelscriptinterface.h"
+
+1339374345 /home/tarpeyd12/Desktop/pylon/pogelscriptinterface/subrender.h
+	"pogelscriptinterface.h"
+	"../renderer/renderer.h"
+
+1339374345 /home/tarpeyd12/Desktop/pylon/pogelscriptinterface/objectcallbacks.h
+	"pogelscriptinterface.h"
+
+1339630405 /home/tarpeyd12/Desktop/pylon/pogelscriptinterface/keycallbacks.h
+	"pogelscriptinterface.h"
+
+1339374322 /home/tarpeyd12/Desktop/pylon/window/scriptthread.h
+	"../threads/threads.h"
+
+1339374322 /home/tarpeyd12/Desktop/pylon/window/calcthread.h
+	"../threads/threads.h"
+
+1339374322 /home/tarpeyd12/Desktop/pylon/window/globals.h
+	"main.h"
+	"scriptthread.h"
+	"calcthread.h"
+
+1339374322 /home/tarpeyd12/Desktop/pylon/window/versionheaders.h
+	"version.h"
+	"../pogel/version.h"
+	"../fileloader/version.h"
+	"../scriptengine/version.h"
+	"../renderer/version.h"
+	"../threads/version.h"
+	"../pogelscriptinterface/version.h"
+	"../objectloader/version.h"
+
+1340335277 /home/tarpeyd12/Desktop/pylon/window/version.h
+
+1339374320 /home/tarpeyd12/Desktop/pylon/pogel/version.h
+
+1339374322 /home/tarpeyd12/Desktop/pylon/fileloader/version.h
+
+1339374318 /home/tarpeyd12/Desktop/pylon/scriptengine/version.h
+
+1339374320 /home/tarpeyd12/Desktop/pylon/renderer/version.h
+
+1339374318 /home/tarpeyd12/Desktop/pylon/threads/version.h
+
+1339374345 /home/tarpeyd12/Desktop/pylon/pogelscriptinterface/version.h
+
+1339810761 /home/tarpeyd12/Desktop/pylon/objectloader/version.h
+
+1341266299 source:/home/tarpeyd12/Desktop/pylon/window/calcthread.cpp
+	"main.h"
+	"calcthread.h"
+
+1341266299 source:/home/tarpeyd12/Desktop/pylon/window/cmd.cpp
+	"main.h"
+
+1339374322 source:/home/tarpeyd12/Desktop/pylon/window/globals.cpp
+	"globals.h"
+	"version.h"
+
+1340862279 source:/home/tarpeyd12/Desktop/pylon/window/info.cpp
+	"main.h"
+	"versionheaders.h"
+
+1341266299 source:/home/tarpeyd12/Desktop/pylon/window/init.cpp
+	"main.h"
+
+1340862279 source:/home/tarpeyd12/Desktop/pylon/window/mainscriptdefs.cpp
+	"main.h"
+	"mainscriptdefs.h"
+	"versionheaders.h"
+
+1339374322 /home/tarpeyd12/Desktop/pylon/window/mainscriptdefs.h
+
+1340862279 source:/home/tarpeyd12/Desktop/pylon/window/scriptthread.cpp
+	"main.h"
+	"mainscriptdefs.h"
+	"scriptthread.h"
+

@@ -194,36 +194,51 @@ inline bool objectIntersectionProcessing(POGEL::PHYSICS::SIMULATION* sim, unsign
 	return false;
 };
 
-inline void checkcollision(POGEL::PHYSICS::SIMULATION* sim, unsigned long s, unsigned long e, unsigned long o, unsigned long recnum) {
-	if(recnum >= sim->getCollItters())
+inline
+void
+checkcollision( POGEL::PHYSICS::SIMULATION* sim, unsigned long s, unsigned long e, unsigned long o, unsigned long recnum )
+{
+	if( recnum >= sim->getCollItters() )
+	{
 		return;
+	}
 	unsigned long sim_numobjs = sim->numobjs();
-	for( unsigned long a = s; a < e && a < sim_numobjs; a++ ) {
+
+	for( unsigned long a = s; a < e && a < sim_numobjs; ++a )
+	{
 		POGEL::PHYSICS::SOLID* obj_a = sim->objs(a);
-		if(!obj_a->napping() || obj_a->hasOption(PHYSICS_SOLID_STATIONARY)) {
+		if(!obj_a->napping() || obj_a->hasOption(PHYSICS_SOLID_STATIONARY))
+		{
 			CLASSLIST<unsigned int> *objs = sim->getotree()->releventIndicies(obj_a->bounding);
-			if(obj_a->hasOption(PHYSICS_SOLID_CONCAVE)) {
-				for( unsigned long b = 0; b < sim_numobjs; b++ )
-					if(o!=a&&o!=b && objectIntersectionProcessing(sim, a, b) && !sim->objs(b)->hasOption(PHYSICS_SOLID_STATIONARY)) {
+			if(obj_a->hasOption(PHYSICS_SOLID_CONCAVE))
+			{
+				for( unsigned long b = 0; b < sim_numobjs; ++b )
+					if(o!=a&&o!=b && objectIntersectionProcessing(sim, a, b) && !sim->objs(b)->hasOption(PHYSICS_SOLID_STATIONARY))
+					{
 						obj_a->makebounding();
 						checkcollision(sim,b,b+1,a,recnum+1);
 					}
 			}
-			else if(objs != NULL) {
+			else if(objs != NULL)
+			{
 				unsigned int objs_length = objs->length();
-				for( unsigned long b = 0; b < objs_length; b++ ) {
+				for( unsigned long b = 0; b < objs_length; ++b )
+				{
 					unsigned int obj_b = objs->get(b);
-					if( o!=a&&o!=obj_b && obj_b < sim_numobjs && objectIntersectionProcessing(sim, a, obj_b) && !sim->objs(obj_b)->hasOption(PHYSICS_SOLID_STATIONARY)) {
+					if( o!=a&&o!=obj_b && obj_b < sim_numobjs && objectIntersectionProcessing(sim, a, obj_b) && !sim->objs(obj_b)->hasOption(PHYSICS_SOLID_STATIONARY))
+					{
 						sim->objs(obj_b)->makebounding();
 						checkcollision(sim,obj_b,obj_b+1,a,recnum+1);
 					}
 				}
 			}
 			if(objs != NULL)
+			{
 				delete objs;
+			}
 		}
 	}
-};
+}
 
 inline void checkcollision(POGEL::PHYSICS::SIMULATION* sim) { checkcollision(sim, 0, sim->numobjs(),sim->numobjs(),0); };
 

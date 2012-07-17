@@ -14,46 +14,48 @@
 #define			PHYSICS_LINESOLID_COLLISION_GREATEST		2
 
 
-namespace POGEL {
-namespace PHYSICS {
+namespace POGEL
+{
+    namespace PHYSICS
+    {
 
-	class BOUNDINGCONTAINER;
+        class BOUNDINGCONTAINER;
 
-	class SINGULARITY;
-	class FAN;
+        class SINGULARITY;
+        class FAN;
 
-	class GRAVITYCLUSTER;
-	class FLOW;
+        class GRAVITYCLUSTER;
+        class FLOW;
 
-	class DYNAMICS;
-	class SIMULATION;
+        class DYNAMICS;
+        class SIMULATION;
 
-	class SOLID;
-	class SOLIDPHYSICALPROPERTIES;
+        class SOLID;
+        class SOLIDPHYSICALPROPERTIES;
 
-	class FOUNTAIN;
-	class MICROCOSM;
+        class FOUNTAIN;
+        class MICROCOSM;
 
-	bool line_triangle_collision(POGEL::POINT, POGEL::POINT, POGEL::TRIANGLE, POGEL::POINT*, POGEL::POINT*);
-	bool ray_triangle_collision(POGEL::POINT, POGEL::VECTOR, POGEL::TRIANGLE, POGEL::POINT*, POGEL::POINT*);
-	bool triangle_collision(POGEL::TRIANGLE, POGEL::TRIANGLE, POGEL::POINT*, POGEL::POINT*);
-	bool solid_line_collision(int, POGEL::PHYSICS::SOLID*, POGEL::POINT, POGEL::POINT, POGEL::TRIANGLE*, POGEL::POINT*, POGEL::POINT*);
-	bool solid_line_collision(POGEL::PHYSICS::SOLID*, POGEL::POINT, POGEL::POINT, POGEL::TRIANGLE*, POGEL::POINT*, POGEL::POINT*);
-	bool solid_ray_collision(int, POGEL::PHYSICS::SOLID*, POGEL::POINT, POGEL::VECTOR, POGEL::TRIANGLE*, POGEL::POINT*, POGEL::POINT*);
-	bool solid_collision(POGEL::PHYSICS::SOLID*,POGEL::PHYSICS::SOLID*,POGEL::POINT*,POGEL::VECTOR*,POGEL::VECTOR*,float*);
+        bool line_triangle_collision( const POGEL::POINT&, const POGEL::POINT&, const POGEL::TRIANGLE&, POGEL::POINT*, POGEL::POINT* );
+        bool ray_triangle_collision( const POGEL::POINT&, const POGEL::VECTOR&, const POGEL::TRIANGLE&, POGEL::POINT*, POGEL::POINT* );
+        bool triangle_collision( const POGEL::TRIANGLE&, const POGEL::TRIANGLE&, POGEL::POINT*, POGEL::POINT* );
+        bool solid_line_collision( int, POGEL::PHYSICS::SOLID*, const POGEL::POINT&, const POGEL::POINT&, POGEL::TRIANGLE*, POGEL::POINT*, POGEL::POINT* );
+        bool solid_line_collision( POGEL::PHYSICS::SOLID*, const POGEL::POINT&, const POGEL::POINT&, POGEL::TRIANGLE*, POGEL::POINT*, POGEL::POINT* );
+        bool solid_ray_collision( int, POGEL::PHYSICS::SOLID*, const POGEL::POINT&, const POGEL::VECTOR&, POGEL::TRIANGLE*, POGEL::POINT*, POGEL::POINT* );
+        bool solid_collision( POGEL::PHYSICS::SOLID*, POGEL::PHYSICS::SOLID*, POGEL::POINT*, POGEL::VECTOR*, POGEL::VECTOR*, float* );
 
-	float line_point_distance_BRUTE(POGEL::POINT, POGEL::LINE, POGEL::POINT*);
-	float line_point_distance(POGEL::POINT, POGEL::LINE, POGEL::POINT*);
+        float line_point_distance_BRUTE( const POGEL::POINT&, const POGEL::LINE&, POGEL::POINT* );
+        float line_point_distance( const POGEL::POINT&, const POGEL::LINE&, POGEL::POINT* );
 
-	float point_triangle_distance_BRUTE(POGEL::POINT, POGEL::TRIANGLE, POGEL::POINT*);
-	float point_triangle_distance(POGEL::POINT, POGEL::TRIANGLE, POGEL::POINT*);
+        float point_triangle_distance_BRUTE( const POGEL::POINT&, const POGEL::TRIANGLE&, POGEL::POINT* );
+        float point_triangle_distance( const POGEL::POINT&, const POGEL::TRIANGLE&, POGEL::POINT* );
 
-	inline float getvprime(float m1, float m2, float v1, float v2);
-	void calcElasticDirections(POGEL::VECTOR, POGEL::PHYSICS::SOLID*, POGEL::PHYSICS::SOLID*, POGEL::VECTOR*);
+        inline float getvprime( float m1, float m2, float v1, float v2 );
+        void calcElasticDirections( const POGEL::VECTOR&, POGEL::PHYSICS::SOLID*, POGEL::PHYSICS::SOLID*, POGEL::VECTOR* );
 
-	inline float getvf(float m1, float m2, float v1, float v2, float cr);
-	void calcInelasticDirections(POGEL::VECTOR vn, POGEL::PHYSICS::SOLID* s1, POGEL::PHYSICS::SOLID* s2, POGEL::VECTOR* v);
-}
+        inline float getvf( float m1, float m2, float v1, float v2, float cr );
+        void calcInelasticDirections( const POGEL::VECTOR&, POGEL::PHYSICS::SOLID*, POGEL::PHYSICS::SOLID*, POGEL::VECTOR* );
+    }
 }
 
 #endif /* _PHYSICS_H */

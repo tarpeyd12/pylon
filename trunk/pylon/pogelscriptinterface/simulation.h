@@ -11,6 +11,8 @@ namespace pogelInterface
 {
     Object* sim_new(Object*,Object*);
     Object* sim_toggle(Object*,Object*);
+    Object* sim_halt(Object*,Object*);
+    Object* sim_visibility(Object*,Object*);
     Object* sim_weight(Object*,Object*);
     Object* sim_clear(Object*,Object*);
     Object* sim_set_gravity_3f(Object*,Object*);

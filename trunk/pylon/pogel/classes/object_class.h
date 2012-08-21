@@ -175,7 +175,7 @@ namespace POGEL
 
             void setname( const char * );
             char * getname();
-            std::string getsname();
+            std::string getsname() const;
 
             void translate( const POGEL::VECTOR& );
             void translate( const POGEL::VECTOR&, float );

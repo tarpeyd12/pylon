@@ -112,6 +112,11 @@ namespace Renderer
             incrementable = i;
         }
 
+        void Simulation::setdraw( bool d )
+        {
+            drawable = d;
+        }
+
         bool Simulation::canDrawBound() const
         {
             return drawable;

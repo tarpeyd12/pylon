@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Release" />
+	<File name="bloopApp.cpp" open="0" top="0" tabpos="8">
+		<Cursor position="608" topLine="8" />
+	</File>
+	<File name="bloopApp.h" open="0" top="0" tabpos="3">
+		<Cursor position="318" topLine="0" />
+	</File>
+	<File name="bloopMain.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="8849" topLine="546" />
+	</File>
+	<File name="bloopMain.h" open="0" top="0" tabpos="6">
+		<Cursor position="980" topLine="34" />
+	</File>
+	<File name="files.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="315" topLine="0" />
+	</File>
+	<File name="filesindir.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="226" topLine="0" />
+	</File>
+	<File name="filesindir.h" open="0" top="0" tabpos="0">
+		<Cursor position="202" topLine="0" />
+	</File>
+	<File name="run.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="4119" topLine="110" />
+	</File>
+</CodeBlocks_layout_file>

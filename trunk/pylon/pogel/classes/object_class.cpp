@@ -413,7 +413,7 @@ POGEL::OBJECT::getname()
 }
 
 std::string
-POGEL::OBJECT::getsname()
+POGEL::OBJECT::getsname() const
 {
     // return the name as a c++ string
     return std::string(name);

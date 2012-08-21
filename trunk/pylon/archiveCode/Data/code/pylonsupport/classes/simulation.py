@@ -91,7 +91,13 @@ class Simulation:
 	
 	def start(self):
 		pylon.sim_toggle(self.name,True)
+
 	
+	def halt(self):
+		pylon.sim_halt(self.name)
 	
+	def resume(self):
+		pylon.sim_toggle(self.name,True)
+		pylon.sim_visibility(self.name,True)
 	
 	

@@ -33,6 +33,7 @@ namespace Threads
 
             void setThread(THREADTYPE (*func)(THREADARGS arg));
             void setData(void * dat);
+            void * getData();
 
             void startThread();
             void start();

@@ -8,7 +8,7 @@
 		<Cursor position="381" topLine="0" />
 	</File>
 	<File name="cmd.cpp" open="0" top="0" tabpos="10">
-		<Cursor position="268" topLine="0" />
+		<Cursor position="287" topLine="0" />
 	</File>
 	<File name="cmd.h" open="0" top="0" tabpos="13">
 		<Cursor position="296" topLine="0" />
@@ -49,11 +49,11 @@
 	<File name="mouse.h" open="0" top="0" tabpos="13">
 		<Cursor position="407" topLine="0" />
 	</File>
-	<File name="physics.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="11335" topLine="359" />
+	<File name="physics.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="11664" topLine="388" />
 	</File>
-	<File name="physics.h" open="0" top="0" tabpos="1">
-		<Cursor position="1818" topLine="41" />
+	<File name="physics.h" open="1" top="0" tabpos="2">
+		<Cursor position="1135" topLine="35" />
 	</File>
 	<File name="quad.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="4956" topLine="105" />
@@ -79,8 +79,8 @@
 	<File name="subrenderer.h" open="0" top="0" tabpos="5">
 		<Cursor position="1297" topLine="18" />
 	</File>
-	<File name="timer.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="1727" topLine="80" />
+	<File name="timer.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="22" topLine="0" />
 	</File>
 	<File name="timer.h" open="0" top="0" tabpos="8">
 		<Cursor position="759" topLine="10" />

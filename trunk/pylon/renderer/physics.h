@@ -36,6 +36,7 @@ namespace Renderer
                 Simulation( const std::string&,POGEL::PHYSICS::DYNAMICS* );
                 ~Simulation();
                 void setinc( bool );
+                void setdraw( bool );
                 bool canDrawBound() const;
                 bool canDraw() const;
                 bool isdyn() const;

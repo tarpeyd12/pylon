@@ -40,6 +40,8 @@ except ImportError as bob:
 
 # the main Initialization things ...
 
+NumInitObjs = 5
+
 #declare the 'counter' will be incrimented by 0.1 every script cycle
 counter = 0
 
@@ -83,7 +85,7 @@ if True:
 	mass = 5
 	maxrad = 1
 	minrad = 0.5
-	numOSpheres = 20
+	numOSpheres = NumInitObjs
 	while loop < numOSpheres:
 		positionrange = 1.5
 		rpos = Position(rnd_n1p1(),rnd_n1p1(),rnd_n1p1()) * positionrange
@@ -112,7 +114,7 @@ TestSphereSim = Simulation("TestSphereSim",True)
 
 loop = 0
 rnum = 0
-numOSpheres = 20
+numOSpheres = NumInitObjs
 while loop < numOSpheres:
 	positionrange = 1.5
 	rpos = Position(rnd_n1p1(),rnd_n1p1(),rnd_n1p1()) * positionrange
@@ -130,6 +132,9 @@ while loop < numOSpheres:
 	currentObject.build()
 	loop = loop + 1
 
+subrenderer1 = SubRenderer( "steve", float(pylon.window_width())/float(pylon.window_height()) )
+subrenderer1.bindSimulation(sim2)
+
 rnum = 5
 TestSphereOutset = TestSphereSim.newObject("Outset")
 TestSphereOutset.setOptions( pylon.solid_stationary | pylon.solid_concave | pylon.solid_sphere )
@@ -138,6 +143,8 @@ TestSphereOutset.setOptions( pylon.solid_stationary | pylon.solid_concave | pylo
 TestSphereOutset.setProperties( 0 )
 pylon.object_add_sphere( TestSphereOutset.simname, TestSphereOutset.name, 2.0, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
 #pylon.object_add_sphere( TestSphereOutset.simname, TestSphereOutset.name, 2.0, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_doublesided )
+
+#pylon.object_add_sphere( TestSphereOutset.simname, TestSphereOutset.name, 2.0, 20, 20, subrenderer1, 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
 TestSphereOutset.build()
 
 TestSphereSim.setGravityVector( Position( 0, -9.8, 0 ) )
@@ -153,9 +160,6 @@ sim2Outset.setProperties( 0 )
 pylon.object_add_sphere( sim2Outset.simname, sim2Outset.name, 1.5, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
 sim2Outset.setInvisible()
 sim2Outset.build()
-
-subrenderer1 = SubRenderer( "steve", float(pylon.window_width())/float(pylon.window_height()) )
-subrenderer1.bindSimulation(sim2)
 
 #subrenderer1 = pylon.subrender_new("steve",float(pylon.window_width())/float(pylon.window_height()))
 #pylon.subrender_bind_sim( subrenderer1, sim2.name )
@@ -223,7 +227,7 @@ ObjectImportSimulation.stop()
 
 loop = 0
 rnum = 0
-numOSpheres = 20
+numOSpheres = NumInitObjs
 while loop < numOSpheres:
 	
 	positionrange = 1.5
@@ -277,7 +281,7 @@ Earth.build()
 
 relocateobjscounter = 0
 
-numOSpheres = 20
+numOSpheres = NumInitObjs
 
 def doOBJECTrelocate():
 	#pass
@@ -318,7 +322,7 @@ def keyfunc1( key, mx, my, tm ):
 			_pylon_calc.unlock()
 	
 	if key == 'o':
-		sim2.stop()
+		sim2.halt()
 		pylon.wait_sec_f(1.0/25.0)
 		positionrange = 1.5
 		rpos = Position(rnd_n1p1(),rnd_n1p1(),rnd_n1p1()) * positionrange
@@ -337,9 +341,10 @@ def keyfunc1( key, mx, my, tm ):
 		currentObject.setStepCallBack( "game", "stepfunction1" )
 		currentObject.setHitFilterCallBack( "game", "hitfilter1" )
 		currentObject.build()
-		sim2.start()
+		sim2.resume()
 	
 	if key == ',':
+		sim2.halt()
 		sim2.clearAllObjects()
 	
 	if key == 'v':
@@ -353,21 +358,22 @@ def keyfunc2( key, mx, my, tm ):
 	global sim2Outset
 	
 	if key == ',':
-		pylon.wait_sec_f(10.0/25.0)
-		sim2.stop()
+		#pylon.wait_sec_f(10.0/25.0)
+		#sim2.stop()
 		rnum = 3
-		
-		sim2Outset = sim2.newObject("sim2Outset_"+str(pylon.get_runtime()))
+		sim2Outset = None
+		while sim2Outset == None:
+			sim2Outset = sim2.newObject("sim2Outset_"+str(tm))
 		sim2Outset.setOptions( pylon.solid_stationary | pylon.solid_concave | pylon.solid_sphere )
 		#sim2Outset.setProperties( pylon.object_draw_children )
 		#sim2Outset.setProperties( pylon.object_debug )
 		sim2Outset.setProperties( 0 )
 		pylon.object_add_sphere( sim2Outset.simname, sim2Outset.name, 1.5, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
-		#sim2Outset.setVisibility(not pylon.key_ispressed('v'))
-		sim2Outset.setInvisible()
+		sim2Outset.setVisibility(pylon.key_ispressed('v'))
+		#sim2Outset.setInvisible()
 		#sim2Outset.setVisible()
 		sim2Outset.build()
-		sim2.restart()
+		sim2.resume()
 	
 	if key == 'v':
 		sim2Outset.setInvisible()

@@ -84,6 +84,11 @@ namespace Threads
         data = dat;
     }
 
+    void * Thread::getData()
+    {
+        return data;
+    }
+
     void Thread::startThread()
     {
         int ret = pthread_create( &thread, &attr, thread_function, data);

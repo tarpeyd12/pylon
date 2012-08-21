@@ -2,23 +2,24 @@
 #define _SIMULATION_CLASS_H
 
 namespace POGEL {
-namespace PHYSICS {
-class SIMULATION;
-}
+    namespace PHYSICS {
+        class SIMULATION;
+    }
 }
 
 #include "physics.h"
 #include "dynamics_class.h"
 #include "solid_class.h"
 
-#define				BUPMAX						10
+#define             BUPMAX                      10
 
-#define				THREADSOK					1
+#define             THREADSOK                   1
 
 
 #define     SIMULATION_LIGHTWEIGHT_ONLY     DYNAMICS_LIGHTWEIGHT_ONLY
 
-class POGEL::PHYSICS::SIMULATION : public POGEL::PHYSICS::DYNAMICS {
+class POGEL::PHYSICS::SIMULATION : public POGEL::PHYSICS::DYNAMICS
+{
     private:
         unsigned int properties; // the mushed properties
         unsigned long stepstaken;
@@ -36,32 +37,58 @@ class POGEL::PHYSICS::SIMULATION : public POGEL::PHYSICS::DYNAMICS {
 
         SIMULATION();
 
-        void setCollItters(unsigned char i) {
-			collitters = i;
-			if(collitters < 1) collitters = 1;
-		}
+        inline
+        void
+        setCollItters( unsigned char i )
+        {
+            collitters = i;
+            if( collitters < 1 )
+            {
+                collitters = 1;
+            }
+        }
 
-        unsigned char getCollItters() {
-			if(collitters < 1) return 1;
-			return collitters;
-		}
+        inline
+        unsigned char
+        getCollItters()
+        {
+            if( collitters < 1 )
+            {
+                return 1;
+            }
+            return collitters;
+        }
 
-        void setThreadsNum(unsigned int t) {
-			#ifdef THREADSOK
-			threads = t;
-			if(threads > 1) FORCEfastAccessList();
-			#endif
-		}
+        inline
+        void
+        setThreadsNum( unsigned int t )
+        {
+            #ifdef THREADSOK
+            threads = t;
+            /*if(threads > 1)
+            {
+                FORCEfastAccessList();
+            }*/
+            #endif
+        }
 
-        unsigned int numThreads() {
-			#ifdef THREADSOK
-			return threads;
-			#else
-			return 1;
-			#endif
-		}
+        inline
+        unsigned int
+        numThreads()
+        {
+            #ifdef THREADSOK
+            return threads;
+            #else
+            return 1;
+            #endif
+        }
 
-        unsigned long getStepsTaken() { return stepstaken; }
+        inline
+        unsigned long
+        getStepsTaken()
+        {
+            return stepstaken;
+        }
 
         void addpulls(unsigned long, unsigned long);
         void addpulls();

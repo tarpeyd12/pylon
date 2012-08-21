@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Unitary Debug" />
+	<File name="archivehandler.cpp" open="0" top="0" tabpos="7">
+		<Cursor position="7179" topLine="216" />
+	</File>
+	<File name="archivehandler.h" open="0" top="0" tabpos="9">
+		<Cursor position="729" topLine="13" />
+	</File>
+	<File name="fileloader.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="853" topLine="0" />
+	</File>
+	<File name="fileloader.h" open="0" top="0" tabpos="6">
+		<Cursor position="297" topLine="0" />
+	</File>
+	<File name="ini.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="455" topLine="5" />
+	</File>
+	<File name="ini.h" open="0" top="0" tabpos="9">
+		<Cursor position="418" topLine="0" />
+	</File>
+	<File name="minizip/ioapi.c" open="0" top="0" tabpos="0">
+		<Cursor position="1057" topLine="31" />
+	</File>
+	<File name="minizip/ioapi.h" open="0" top="0" tabpos="0">
+		<Cursor position="1248" topLine="176" />
+	</File>
+	<File name="minizip/iowin32.c" open="0" top="0" tabpos="0">
+		<Cursor position="4635" topLine="126" />
+	</File>
+	<File name="minizip/iowin32.h" open="0" top="0" tabpos="0">
+		<Cursor position="465" topLine="0" />
+	</File>
+	<File name="minizip/unzip.c" open="0" top="0" tabpos="17">
+		<Cursor position="18202" topLine="724" />
+	</File>
+	<File name="minizip/unzip.h" open="0" top="0" tabpos="0">
+		<Cursor position="1764" topLine="48" />
+	</File>
+	<File name="minizip/zip.c" open="0" top="0" tabpos="16">
+		<Cursor position="426" topLine="0" />
+	</File>
+	<File name="minizip/zlib/compress.c" open="0" top="0" tabpos="0">
+		<Cursor position="183" topLine="60" />
+	</File>
+	<File name="minizip/zlib/gzguts.h" open="0" top="0" tabpos="0">
+		<Cursor position="360" topLine="0" />
+	</File>
+	<File name="minizip/zlib/gzlib.c" open="0" top="0" tabpos="19">
+		<Cursor position="208" topLine="0" />
+	</File>
+	<File name="minizip/zlib/gzread.c" open="0" top="0" tabpos="0">
+		<Cursor position="20477" topLine="0" />
+	</File>
+	<File name="minizip/zlib/gzwrite.c" open="0" top="0" tabpos="0">
+		<Cursor position="14492" topLine="0" />
+	</File>
+	<File name="minizip/zlib/inffast.c" open="0" top="0" tabpos="0">
+		<Cursor position="12737" topLine="311" />
+	</File>
+	<File name="minizip/zlib/inftrees.c" open="0" top="0" tabpos="0">
+		<Cursor position="13767" topLine="310" />
+	</File>
+	<File name="minizip/zlib/trees.c" open="0" top="0" tabpos="0">
+		<Cursor position="44707" topLine="1209" />
+	</File>
+	<File name="minizip/zlib/trees.h" open="0" top="0" tabpos="0">
+		<Cursor position="2503" topLine="78" />
+	</File>
+	<File name="simpleini/ConvertUTF.c" open="0" top="0" tabpos="0">
+		<Cursor position="0" topLine="132" />
+	</File>
+	<File name="simpleini/ConvertUTF.h" open="0" top="0" tabpos="0">
+		<Cursor position="0" topLine="53" />
+	</File>
+	<File name="simpleini/SimpleIni.h" open="0" top="0" tabpos="1">
+		<Cursor position="45788" topLine="1071" />
+	</File>
+	<File name="system.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="1616" topLine="40" />
+	</File>
+	<File name="system.h" open="0" top="0" tabpos="3">
+		<Cursor position="302" topLine="0" />
+	</File>
+	<File name="unzip.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="2612" topLine="68" />
+	</File>
+	<File name="unzip.h" open="0" top="0" tabpos="7">
+		<Cursor position="502" topLine="0" />
+	</File>
+	<File name="unzip_backend.h" open="0" top="0" tabpos="5">
+		<Cursor position="10272" topLine="400" />
+	</File>
+	<File name="version.h" open="0" top="0" tabpos="0">
+		<Cursor position="621" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>

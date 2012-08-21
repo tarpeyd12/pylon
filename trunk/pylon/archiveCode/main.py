@@ -154,6 +154,8 @@ if not pylon.key_ispressed('z'):
 		pylon.object_move_3f( Sky.name,"Sky",-cam.pos.x,-cam.pos.y,-cam.pos.z )
 		subrenderer1.setCamera( cam )
 
+#subrenderer1.setCamera( Camera(Position(0,0,-10),Position(0,0,0)) )
+
 Bloop.y1 = pylon.window_height()
 Bloop.x2 = pylon.window_width()
 #Bloop.makeInvisable()

@@ -1,6 +1,6 @@
 #include "timer.h"
 
-//#define TIMER_OVERRIDE 10
+//#define TIMER_OVERRIDE 60
 
 namespace Renderer
 {

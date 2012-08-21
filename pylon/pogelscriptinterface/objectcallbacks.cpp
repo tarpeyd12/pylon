@@ -161,6 +161,11 @@ namespace pogelInterface
 
     bool HitFilterFunction::operator()( POGEL::PHYSICS::SOLID * obj1, POGEL::PHYSICS::SOLID * obj2 )
     {
+        if( !obj1 || !obj2 )
+        {
+            throw -1;
+            return false;
+        }
         std::string args[3] = { "str:"+simulationName, "str:"+obj1->getsname(), "str:"+obj2->getsname() };
         getInstructions()->setArgs(args,3);
         this->Execute();

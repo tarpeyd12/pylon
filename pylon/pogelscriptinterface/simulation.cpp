@@ -31,6 +31,32 @@ namespace pogelInterface
         return Py_BuildValue("i", 0);
     }
 
+    Object* sim_halt(Object* self, Object* args)
+    {
+        char* simname;
+        if(!PyArg_ParseTuple(args, "s:sim_halt", &simname))
+            return NULL;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("i", -1);
+        sim->setinc( false );
+        sim->setdraw( false );
+        return Py_BuildValue("i", 0);
+    }
+
+    Object* sim_visibility(Object* self, Object* args)
+    {
+        char* simname;
+        int vis;
+        if(!PyArg_ParseTuple(args, "si:sim_visibility", &simname, &vis))
+            return NULL;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
+        if(sim == NULL)
+            return Py_BuildValue("i", -1);
+        sim->setdraw( (bool)vis );
+        return Py_BuildValue("i", 0);
+    }
+
     Object* sim_weight(Object* self, Object* args)
     {
         char* simname;

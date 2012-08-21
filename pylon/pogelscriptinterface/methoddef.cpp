@@ -19,6 +19,8 @@ namespace pogelInterface
         // pogel simulations
         { "sim_new",            (CFunction)sim_new,            VarArgs, NULL },
         { "sim_toggle",         (CFunction)sim_toggle,         VarArgs, NULL },
+        { "sim_halt",           (CFunction)sim_halt,           VarArgs, NULL },
+        { "sim_visibility",     (CFunction)sim_visibility,     VarArgs, NULL },
         { "sim_weight",         (CFunction)sim_weight,         VarArgs, NULL },
         { "sim_set_gravity_3f", (CFunction)sim_set_gravity_3f, VarArgs, NULL },
         { "sim_get_gravity_3f", (CFunction)sim_get_gravity_3f, VarArgs, NULL },

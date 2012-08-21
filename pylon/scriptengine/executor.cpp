@@ -179,6 +179,17 @@ namespace ScriptEngine
 
     void FunctionCaller::call( const std::string& func, std::string* args, unsigned int numArgs, std::string* res)
     {
+        if( !args )
+        {
+            throw -1;
+        }
+        ClassList< std::string > arguments( numArgs );
+        for(unsigned int i = 0; i < numArgs; ++i)
+        {
+            arguments += args[ i ];
+            //cout << "FUNC " << func << " ARG" << i << ": " << args[i] << endl;
+        }
+        //cout << endl;
         bool is_init = ScriptEngine::HasBegun();
         if(!is_init)
             ScriptEngine::Initialize();
@@ -197,12 +208,16 @@ namespace ScriptEngine
                 //std::string concatargs = "";
                 for(unsigned int i = 0; i < numArgs; ++i)
                 {
-                    std::string type = args[i].substr(0, args[i].find_first_of(':'));
-                    std::string data = args[i].substr(args[i].find_first_of(':')+1);
+                    unsigned int argnum = i;
+                    std::string curarg(arguments[ i ]);
+                    unsigned int colonposition = curarg.find_first_of(':');
+                    std::string type = curarg.substr(0, colonposition);
+                    std::string data = curarg.substr(colonposition+1);
+                    argnum = 0;
 
                     /*if(POGEL::hasproperty(POGEL_DEBUG))
                     {
-                        concatargs = concatargs + args[i];
+                        concatargs = concatargs + curarg;
                         if( i+1 <numArgs )
                             concatargs = concatargs + ",";
                     }*/
@@ -259,6 +274,7 @@ namespace ScriptEngine
                     }
 
                     PyTuple_SetItem(pArgs, i, pValue);
+                    type = data = curarg = "";
                 }
                 pValue = PyObject_CallObject(pFunc, pArgs);
                 Py_DECREF(pArgs);

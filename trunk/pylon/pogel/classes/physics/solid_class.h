@@ -122,6 +122,8 @@ class POGEL::PHYSICS::SOLID : public POGEL::OBJECT {
 
 		~SOLID();
 
+        inline virtual int GetType() const { return POGEL_TYPE_SOLID; }
+
 		//PROPERTIES_METHODS;
 
 		POGEL::POINT getposition() { return position; }

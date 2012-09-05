@@ -2,6 +2,64 @@
 
 namespace pogelInterface
 {
+
+    POGEL::OBJECT* GetObject( const std::string& simname, Object* pyobjreff )
+    {
+        if( PyString_CheckExact( pyobjreff ) )
+        {
+            char* objname = PyString_AsString( pyobjreff );
+            POGEL::OBJECT* ret = (POGEL::OBJECT*)Renderer::Physics::getObject(  simname, std::string( objname ) );
+            objname = NULL;
+            return ret;
+        }
+        if( PyTuple_CheckExact( pyobjreff ) )
+        {
+            int tlen = PyTuple_Size( pyobjreff );
+            ClassList< std::string > declist( tlen );
+            for( int i = 0; i < tlen; ++i )
+            {
+                Object * curpydec = PyTuple_GetItem( pyobjreff, i );
+                if( !PyString_CheckExact( curpydec ) )
+                {
+                    return NULL;
+                }
+                char * dec = PyString_AsString( curpydec );
+                //char * dec = (char*)memcpy( (void*)new char[strlen(tdec)], (const void *)tdec, strlen(tdec) );
+                //tdec = NULL;
+                declist += std::string(dec);
+                //delete [] dec;
+            }
+            POGEL::OBJECT * ret = Renderer::Physics::getObject( simname, declist );
+            declist.clear();
+            return ret;
+        }
+        return NULL;
+    }
+
+    std::string GetObjectName( Object * pyobjreff )
+    {
+        if( PyString_CheckExact( pyobjreff ) )
+        {
+            char* objname = PyString_AsString( pyobjreff );
+            return std::string(objname);
+        }
+        if( PyTuple_CheckExact( pyobjreff ) )
+        {
+            if( !PyTuple_Size( pyobjreff ))
+                throw -1;
+            Object * curpydec = PyTuple_GetItem( pyobjreff,0 );
+            if( !PyString_CheckExact( curpydec ) )
+            {
+                throw -2;
+            }
+            char * dec = PyString_AsString( curpydec );
+            return std::string(dec);
+
+        }
+        throw -3;
+        return std::string();
+    }
+
     Object* fps( Object* self, Object* args )
     {
         if(!PyArg_ParseTuple(args, ":fps"))

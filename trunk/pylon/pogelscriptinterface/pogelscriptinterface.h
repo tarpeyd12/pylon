@@ -22,6 +22,9 @@ namespace pogelInterface
 {
     void Init();
 
+    POGEL::OBJECT * GetObject( const std::string&, Object * );
+    std::string GetObjectName( Object * );
+
     // POGEL specific things
 
     Object* fps(Object*,Object*);

@@ -270,7 +270,6 @@ pylon.object_add_sphere(Sky.simname,Sky.name,750.0,20,20,"{[Data/images/sky/Sky_
 Sky.build()
 #SkySim.stop()
 
-
 pylon.requestfile("Data/objects/earth.pylon")
 
 Earth = SkySim.newObjectFromFile( "earth", "Data/objects/earth.pylon", "pylon" )

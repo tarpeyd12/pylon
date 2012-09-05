@@ -15,6 +15,9 @@ namespace pogelInterface
 
     Object* object_check(Object*,Object*);
 
+    Object* object_get_type_s(Object*,Object*);
+    Object* object_get_type_i(Object*,Object*);
+
     Object* object_set_visibility(Object*,Object*);
     Object* object_get_visibility(Object*,Object*);
 

@@ -14,7 +14,7 @@
 		<Cursor position="1807" topLine="74" />
 	</File>
 	<File name="classes/fractal_class.h" open="0" top="0" tabpos="11">
-		<Cursor position="1350" topLine="16" />
+		<Cursor position="1105" topLine="16" />
 	</File>
 	<File name="classes/image_class.cpp" open="0" top="0" tabpos="20">
 		<Cursor position="1499" topLine="54" />
@@ -37,8 +37,8 @@
 	<File name="classes/object_class.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="8817" topLine="397" />
 	</File>
-	<File name="classes/object_class.h" open="0" top="0" tabpos="2">
-		<Cursor position="5833" topLine="164" />
+	<File name="classes/object_class.h" open="1" top="0" tabpos="2">
+		<Cursor position="724" topLine="0" />
 	</File>
 	<File name="classes/object_class_inline.h" open="0" top="0" tabpos="3">
 		<Cursor position="265" topLine="0" />
@@ -62,7 +62,10 @@
 		<Cursor position="2526" topLine="51" />
 	</File>
 	<File name="classes/physics/fountain_class.h" open="0" top="0" tabpos="0">
-		<Cursor position="314" topLine="6" />
+		<Cursor position="591" topLine="3" />
+	</File>
+	<File name="classes/physics/microcosm_class.h" open="0" top="0" tabpos="0">
+		<Cursor position="673" topLine="0" />
 	</File>
 	<File name="classes/physics/physics.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="19457" topLine="0" />
@@ -91,8 +94,8 @@
 	<File name="classes/physics/solid_class.cpp" open="0" top="0" tabpos="21">
 		<Cursor position="23730" topLine="913" />
 	</File>
-	<File name="classes/physics/solid_class.h" open="0" top="0" tabpos="25">
-		<Cursor position="4929" topLine="145" />
+	<File name="classes/physics/solid_class.h" open="1" top="0" tabpos="3">
+		<Cursor position="393" topLine="0" />
 	</File>
 	<File name="classes/point_class.cpp" open="0" top="0" tabpos="7">
 		<Cursor position="2081" topLine="0" />
@@ -108,6 +111,9 @@
 	</File>
 	<File name="classes/quat_class.h" open="0" top="0" tabpos="12">
 		<Cursor position="340" topLine="16" />
+	</File>
+	<File name="classes/sprite_class.h" open="0" top="0" tabpos="0">
+		<Cursor position="286" topLine="0" />
 	</File>
 	<File name="classes/terrain_class.h" open="0" top="0" tabpos="36">
 		<Cursor position="838" topLine="0" />
@@ -134,13 +140,13 @@
 		<Cursor position="3351" topLine="99" />
 	</File>
 	<File name="pogel.h" open="0" top="0" tabpos="13">
-		<Cursor position="1263" topLine="0" />
+		<Cursor position="1263" topLine="51" />
 	</File>
 	<File name="pogel_classes.h" open="0" top="0" tabpos="0">
-		<Cursor position="149" topLine="0" />
+		<Cursor position="438" topLine="0" />
 	</File>
-	<File name="pogel_internals.h" open="0" top="0" tabpos="6">
-		<Cursor position="2769" topLine="63" />
+	<File name="pogel_internals.h" open="1" top="0" tabpos="1">
+		<Cursor position="3627" topLine="75" />
 	</File>
 	<File name="templates/arraylist.h" open="0" top="0" tabpos="4">
 		<Cursor position="88" topLine="0" />

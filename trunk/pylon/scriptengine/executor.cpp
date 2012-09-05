@@ -138,7 +138,8 @@ namespace ScriptEngine
     FunctionCaller::FunctionCaller( const std::string& inst,  const std::string& func, std::string* args, unsigned int numArgs ) : ScriptEngine::Executor(inst)
     {
         function = func;
-        arguments.add( args, numArgs );
+        //arguments.add( args, numArgs );
+        setArgs( args, numArgs );
         outsidefunction = true;
         if( !instructions.length() )
         {
@@ -149,7 +150,8 @@ namespace ScriptEngine
     FunctionCaller::FunctionCaller( const std::string& inst,  const std::string& func, std::string* args, unsigned int numArgs, bool out ) : ScriptEngine::Executor(inst)
     {
         function = func;
-        arguments.add( args, numArgs );
+        //arguments.add( args, numArgs );
+        setArgs( args, numArgs );
         outsidefunction = out;
         if( !instructions.length() )
         {
@@ -166,7 +168,25 @@ namespace ScriptEngine
     void FunctionCaller::setArgs(std::string* args,unsigned int numArgs)
     {
         arguments.clear();
-        arguments.add( args, numArgs );
+        //arguments.add( args, numArgs );
+        //arguments = convertArgs( args, numArgs );
+        arguments.add( convertArgs(args,numArgs), numArgs );
+    }
+
+    void FunctionCaller::setArgs(ScriptEngine::MethodInterface::Object** args,unsigned int numArgs)
+    {
+        arguments.clear();
+        for( unsigned int i = 0; i < numArgs; ++i )
+        {
+            arguments += args[i];
+        }
+        //arguments.add( args, numArgs );
+        //arguments = convertArgs( args, numArgs );
+    }
+
+    void FunctionCaller::setArg( ScriptEngine::MethodInterface::Object* arg, unsigned int index )
+    {
+        arguments.replace( index, arg );
     }
 
     void FunctionCaller::Execute()
@@ -183,98 +203,53 @@ namespace ScriptEngine
         {
             throw -1;
         }
-        ClassList< std::string > arguments( numArgs );
-        for(unsigned int i = 0; i < numArgs; ++i)
-        {
-            arguments += args[ i ];
-            //cout << "FUNC " << func << " ARG" << i << ": " << args[i] << endl;
-        }
-        //cout << endl;
+
         bool is_init = ScriptEngine::HasBegun();
         if(!is_init)
             ScriptEngine::Initialize();
+        arguments.clear();
+        arguments.add( convertArgs(args,numArgs), numArgs );
 
-        PyObject *pName, *pModule, *pFunc;
+        if(!is_init)
+            ScriptEngine::Finalize();
+
+        if( arguments.length() != numArgs )
+            throw -2;
+
+        call( func, arguments.getList(), arguments.length(), res);
+    }
+
+    void FunctionCaller::call( const std::string& func, ScriptEngine::MethodInterface::Object** args, unsigned int numArgs, std::string* res )
+    {
+        if( !args )
+        {
+            throw -1;
+        }
+        bool is_init = ScriptEngine::HasBegun();
+        if(!is_init)
+            ScriptEngine::Initialize();
+        //unsigned int numArgs = args.length();
+        PyObject *pName = NULL, *pModule, *pFunc;
         PyObject *pArgs, *pValue = NULL;
-
-        pName = PyString_FromString(getInstructions().c_str());
+        std::string inst = getInstructions();
+        pName = PyString_FromString(inst.c_str());
+        //if(!pName)
+        {
+            //cout << pName << endl;
+            //throw -8;
+        }
         //pModule = PyImport_ImportModuleNoBlock(getInstructions().c_str());
         pModule = PyImport_Import(pName);
+        //pModule = PyImport_ImportModule(getInstructions().c_str());
 
         if (pModule != NULL) {
             pFunc = PyObject_GetAttrString(pModule, func.c_str());
             if (pFunc && PyCallable_Check(pFunc)) {
+
                 pArgs = PyTuple_New(numArgs);
-                //std::string concatargs = "";
                 for(unsigned int i = 0; i < numArgs; ++i)
                 {
-                    unsigned int argnum = i;
-                    std::string curarg(arguments[ i ]);
-                    unsigned int colonposition = curarg.find_first_of(':');
-                    std::string type = curarg.substr(0, colonposition);
-                    std::string data = curarg.substr(colonposition+1);
-                    argnum = 0;
-
-                    /*if(POGEL::hasproperty(POGEL_DEBUG))
-                    {
-                        concatargs = concatargs + curarg;
-                        if( i+1 <numArgs )
-                            concatargs = concatargs + ",";
-                    }*/
-
-                    //std::cout << type << " " << data << std::endl;
-
-                    if(!type.compare("int"))
-                    {
-                        pValue = PyInt_FromLong(atoi(data.c_str()));
-                    }
-                    else
-                    if(!type.compare("bool"))
-                    {
-                        if(!data.compare("true") || !data.compare("True"))
-                            pValue = PyBool_FromLong(1);
-                        else if(!data.compare("false") || !data.compare("False"))
-                            pValue = PyBool_FromLong(0);
-                        else
-                            pValue = PyBool_FromLong(atoi(data.c_str()));
-                    }
-                    else
-                    if(!type.compare("long"))
-                    {
-                        pValue = PyLong_FromLong(atoi(data.c_str()));
-                    }
-                    else
-                    if(!type.compare("float"))
-                    {
-                        PyObject* s = PyString_FromString(data.c_str());
-                        pValue = PyFloat_FromString(s,NULL);
-                        // delete s;
-                        Py_DECREF(s);
-                    }
-                    else
-                    if(!type.compare("str"))
-                    {
-                        pValue = PyString_FromString(data.c_str());
-                    }
-                    else
-                    if(!type.compare("char"))
-                    {
-                        pValue = Py_BuildValue("c", data[ 0 ]);
-                    }
-                    else
-                    {
-                        pValue = NULL;
-                    }
-
-                    if (!pValue) {
-                        Py_DECREF(pArgs);
-                        Py_DECREF(pModule);
-                        fprintf(stderr, "Cannot convert argument\n");
-                        return;
-                    }
-
-                    PyTuple_SetItem(pArgs, i, pValue);
-                    type = data = curarg = "";
+                    PyTuple_SetItem(pArgs, i, args[i]);
                 }
                 pValue = PyObject_CallObject(pFunc, pArgs);
                 Py_DECREF(pArgs);
@@ -328,6 +303,7 @@ namespace ScriptEngine
                     Py_DECREF(pModule);
                     PyErr_Print();
                     fprintf(stderr,"Call failed\n");
+                    throw -3;
                     return;
                 }
             }
@@ -342,6 +318,7 @@ namespace ScriptEngine
         else {
             PyErr_Print();
             fprintf(stderr, "Failed to load \"%s\"\n", getInstructions().c_str());
+            throw -4;
             return;
         }
 
@@ -352,6 +329,94 @@ namespace ScriptEngine
     std::string FunctionCaller::getResult()
     {
         return result;
+    }
+
+    ScriptEngine::MethodInterface::Object** FunctionCaller::convertArgs( std::string* args, unsigned int numArgs ) const
+    {
+        if( !args )
+        {
+            throw -1;
+        }
+        //ClassList<ScriptEngine::MethodInterface::Object*> ret(numArgs);
+        ScriptEngine::MethodInterface::Object** ret = new ScriptEngine::MethodInterface::Object*[numArgs];
+        ClassList< std::string > argumentss( numArgs );
+        for(unsigned int i = 0; i < numArgs; ++i)
+        {
+            argumentss += args[ i ];
+            ret[i] = NULL;
+            //cout << "FUNC " << function << " ARG" << i << ": " << args[i] << endl;
+        }
+
+        ScriptEngine::MethodInterface::Object* pValue = NULL;
+
+        for(unsigned int i = 0; i < numArgs; ++i)
+        {
+            std::string curarg(argumentss[ i ]);
+            unsigned int colonposition = curarg.find_first_of(':');
+            std::string type = curarg.substr(0, colonposition);
+            std::string data = curarg.substr(colonposition+1);
+
+            if( !data.length() )
+                continue;
+
+            pValue = NULL;
+
+            if(!type.compare("int"))
+            {
+                pValue = PyInt_FromLong(atoi(data.c_str()));
+            }
+            else
+            if(!type.compare("bool"))
+            {
+                if(!data.compare("true") || !data.compare("True"))
+                    pValue = PyBool_FromLong(1);
+                else if(!data.compare("false") || !data.compare("False"))
+                    pValue = PyBool_FromLong(0);
+                else
+                    pValue = PyBool_FromLong(atoi(data.c_str()));
+            }
+            else
+            if(!type.compare("long"))
+            {
+                pValue = PyLong_FromLong(atoi(data.c_str()));
+            }
+            else
+            if(!type.compare("float"))
+            {
+                PyObject* s = PyString_FromString(data.c_str());
+                pValue = PyFloat_FromString(s,NULL);
+                // delete s;
+                Py_DECREF(s);
+            }
+            else
+            if(!type.compare("str"))
+            {
+                pValue = PyString_FromString(data.c_str());
+            }
+            else
+            if(!type.compare("char"))
+            {
+                pValue = Py_BuildValue("c", data[ 0 ]);
+            }
+            else
+            //if(!type.compare("?"))
+            {
+                //pValue = NULL;
+                pValue = Py_BuildValue( type.c_str(), data.c_str() );
+            }
+
+            if (!pValue) {
+                //Py_DECREF(pArgs);
+                //Py_DECREF(pModule);
+                fprintf(stderr, "Cannot convert argument\n");
+                //delete [] ret;
+                throw -2;
+                return NULL;
+            }
+            //ret.replace( i, pValue );// += pValue;
+            ret[i] = pValue;
+        }
+        return ret;//ret.getList();
     }
 
 

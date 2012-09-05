@@ -40,7 +40,7 @@ except ImportError as bob:
 
 # the main Initialization things ...
 
-NumInitObjs = 50
+NumInitObjs = 5
 
 #declare the 'counter' will be incrimented by 0.1 every script cycle
 counter = 0
@@ -183,6 +183,8 @@ print "making beast"
 Beast = AnimationSim.newObjectFromFile( animationname, "Data/objects/beast.pylon", "pylon" )
 Beast.build()
 
+print "beast made"
+
 #Beast = AnimationSim.newObjectFromFile( animationname, animationfilename, "ms3d" )
 #Beast.addScaleKey( Position(1,1,1)*animscale, 0.0 )
 #Beast.setProperties( 0 )
@@ -269,7 +271,6 @@ Sky.setProperties( pylon.object_draw_children )
 pylon.object_add_sphere(Sky.simname,Sky.name,750.0,20,20,"{[Data/images/sky/Sky_horiz_"+str(int(random.random()*11+1))+"_2048.jpg]}",2,1,pylon.triangle_invert_normals)
 Sky.build()
 #SkySim.stop()
-
 
 pylon.requestfile("Data/objects/earth.pylon")
 

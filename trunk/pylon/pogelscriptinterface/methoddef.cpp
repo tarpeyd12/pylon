@@ -32,6 +32,8 @@ namespace pogelInterface
         { "object_new",            (CFunction)object_new,            VarArgs, NULL },
         { "object_new_fromfile",   (CFunction)object_new_fromfile,   VarArgs, NULL },
         { "object_new_child",      (CFunction)object_new_child,      VarArgs, NULL },
+        { "object_get_type_s",     (CFunction)object_get_type_s,     VarArgs, NULL },
+        { "object_get_type_i",     (CFunction)object_get_type_i,     VarArgs, NULL },
         { "object_check",          (CFunction)object_check,          VarArgs, NULL },
         { "object_set_visibility", (CFunction)object_set_visibility, VarArgs, NULL },
         { "object_get_visibility", (CFunction)object_get_visibility, VarArgs, NULL },
@@ -221,6 +223,13 @@ namespace pogelInterface
         pylonModule->addIntConstant( "solid_convex", PHYSICS_SOLID_CONVEX );
         pylonModule->addIntConstant( "solid_concave", PHYSICS_SOLID_CONCAVE );
         pylonModule->addIntConstant( "solid_sphere", PHYSICS_SOLID_SPHERE );
+
+        pylonModule->addIntConstant( "object_type_object", POGEL_TYPE_OBJECT );
+        pylonModule->addIntConstant( "object_type_fractal", POGEL_TYPE_FRACTAL );
+        pylonModule->addIntConstant( "object_type_sprite", POGEL_TYPE_SPRITE );
+        pylonModule->addIntConstant( "object_type_solid", POGEL_TYPE_SOLID );
+        pylonModule->addIntConstant( "object_type_fountain", POGEL_TYPE_FOUNTAIN );
+        pylonModule->addIntConstant( "object_type_microcosm", POGEL_TYPE_MICROCOSOM );
 
         //ScriptEngine::Execute("import pylon\n");
     }

@@ -22,20 +22,20 @@
 	<File name="init.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="1016" topLine="6" />
 	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="579" topLine="5" />
+	<File name="main.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="833" topLine="10" />
 	</File>
 	<File name="main.h" open="0" top="0" tabpos="2">
 		<Cursor position="925" topLine="22" />
 	</File>
-	<File name="mainscriptdefs.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="4543" topLine="119" />
+	<File name="mainscriptdefs.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="6597" topLine="122" />
 	</File>
 	<File name="mainscriptdefs.h" open="0" top="0" tabpos="9">
 		<Cursor position="969" topLine="0" />
 	</File>
-	<File name="scriptthread.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="4729" topLine="161" />
+	<File name="scriptthread.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="4060" topLine="148" />
 	</File>
 	<File name="scriptthread.h" open="0" top="0" tabpos="1">
 		<Cursor position="320" topLine="0" />

@@ -19,12 +19,12 @@ namespace pogelInterface
     Object* key_callback_add_objdownfunc(Object* self, Object* args)
     {
         char* sim;
-        char* obj;
+        Object* obj;
         char* inst;
         char* func;
-        if(!PyArg_ParseTuple(args, "ssss:key_callback_add_objdownfunc", &sim, &obj, &inst, &func))
+        if(!PyArg_ParseTuple(args, "sOss:key_callback_add_objdownfunc", &sim, &obj, &inst, &func))
             return NULL;
-        Renderer::Key::keyDownCallBacks += new KeyObjectFunction( std::string(inst),std::string(func), std::string(sim), std::string(obj) );
+        Renderer::Key::keyDownCallBacks += new KeyObjectFunction( std::string(inst),std::string(func), std::string(sim), pogelInterface::GetObjectName(obj) );
         return Py_BuildValue("i", (int)Renderer::Key::keyDownCallBacks.length()-1);
     }
 
@@ -57,13 +57,13 @@ namespace pogelInterface
 
     Object* key_callback_add_objupfunc(Object* self, Object* args)
     {
-         char* sim;
-        char* obj;
+        char* sim;
+        Object* obj;
         char* inst;
         char* func;
-        if(!PyArg_ParseTuple(args, "ssss:key_callback_add_objupfunc", &sim, &obj, &inst, &func))
+        if(!PyArg_ParseTuple(args, "sOss:key_callback_add_objupfunc", &sim, &obj, &inst, &func))
             return NULL;
-        Renderer::Key::keyUpCallBacks += new KeyObjectFunction( std::string(inst),std::string(func), std::string(sim), std::string(obj) );
+        Renderer::Key::keyUpCallBacks += new KeyObjectFunction( std::string(inst),std::string(func), std::string(sim), pogelInterface::GetObjectName(obj) );
         return Py_BuildValue("i", (int)Renderer::Key::keyUpCallBacks.length()-1);
     }
 

@@ -207,6 +207,38 @@ namespace Renderer
             return NULL;
         }
 
+        POGEL::OBJECT* Simulation::getObject( const ClassList<std::string>& o ) const
+        {
+            unsigned int numst = o.length();
+            if( !numst )
+            {
+                return NULL;
+            }
+            POGEL::PHYSICS::SOLID * sl = this->getObject( o[0] );
+            if( !sl )
+            {
+                return NULL;
+            }
+            if( numst == 1 )
+            {
+                return (POGEL::OBJECT*)sl;
+            }
+            if( numst == 2 && o[1].size() && o[1].at(0) == ':' )
+            {
+                return (POGEL::OBJECT*)sl->getdecendant( (const char*)o[1].c_str() );
+            }
+            POGEL::OBJECT * ret = (POGEL::OBJECT*)sl;
+            for( unsigned int i = 1; i < numst; ++i )
+            {
+                ret = (POGEL::OBJECT*)ret->getchild( (const char*)o[i].c_str() );
+                if( !ret )
+                {
+                    return NULL;
+                }
+            }
+            return (POGEL::OBJECT*)ret;
+        }
+
         std::string Simulation::getName() const
         {
             return name;
@@ -330,6 +362,16 @@ namespace Renderer
         {
             Renderer::Physics::Simulation* sim = getSimulation( s );
             if( sim == NULL )
+            {
+                return NULL;
+            }
+            return sim->getObject( o );
+        }
+
+        POGEL::OBJECT* getObject( const std::string& s, const ClassList<std::string>& o )
+        {
+            Renderer::Physics::Simulation * sim = getSimulation( s );
+            if( !sim )
             {
                 return NULL;
             }

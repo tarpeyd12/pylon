@@ -12,7 +12,9 @@ class POGEL::SPRITE : public POGEL::OBJECT {
 	public:
 		/*SPRITE();
 		~SPRITE();*/
-		
+
+		inline virtual int GetType() const { return POGEL_TYPE_SPRITE; }
+
 		void draw();
 };
 

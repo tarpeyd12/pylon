@@ -167,6 +167,8 @@ namespace POGEL
 
             ~OBJECT();
 
+            inline virtual int GetType() const { return POGEL_TYPE_OBJECT; }
+
             void killchildren();
 
             void derefference();

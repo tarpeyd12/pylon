@@ -19,25 +19,27 @@ class POGEL::PHYSICS::FOUNTAIN : public POGEL::PHYSICS::DYNAMICS, public POGEL::
 	private:
 		unsigned int properties; // the mushed properties
 	protected:
-		
+
 	public:
 		FOUNTAIN();
 		~FOUNTAIN();
-		
+
+		inline virtual int GetType() const { return POGEL_TYPE_FOUNTAIN; }
+
 		PROPERTIES_METHODS;
-		
+
 		POGEL::VECTOR getpull(POGEL::PHYSICS::SOLID*);
-		
+
 		void increment();
-		
+
 		void step() {
 			increment();
 			steptrail();
 			getbounding();
 		}
-		
+
 		void build();
-		
+
 		void draw();
 };
 

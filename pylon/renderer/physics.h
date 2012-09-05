@@ -45,6 +45,7 @@ namespace Renderer
                 unsigned int numObjects() const;
                 POGEL::PHYSICS::SOLID* getObject( const std::string& ) const;
                 POGEL::PHYSICS::SOLID* getObject( unsigned int ) const;
+                POGEL::OBJECT* getObject( const ClassList<std::string>& ) const;
                 std::string getName() const;
                 bool RequestToClearObjects();
                 bool ClearObjects();
@@ -64,6 +65,7 @@ namespace Renderer
         Renderer::Physics::Simulation* getSimulation( unsigned int );
         Renderer::Physics::Simulation* getSimulation( const std::string& );
         POGEL::PHYSICS::SOLID* getObject( const std::string&, const std::string& );
+        POGEL::OBJECT* getObject( const std::string&, const ClassList<std::string>& );
         bool addSimulation( const std::string&, bool );
 
         void StopIncrimentation();

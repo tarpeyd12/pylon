@@ -21,23 +21,25 @@ class POGEL::PHYSICS::MICROCOSM : public POGEL::PHYSICS::SIMULATION, public POGE
 	private:
 		unsigned int properties; // the mushed properties
 	protected:
-		
+
 	public:
 		MICROCOSM();
 		~MICROCOSM();
-		
+
+		inline virtual int GetType() const { return POGEL_TYPE_MICROCOSOM; }
+
 		PROPERTIES_METHODS;
-		
+
 		POGEL::VECTOR getpull(POGEL::PHYSICS::SOLID*);
-		
+
 		void increment();
-		
+
 		void step() {
 			increment();
 			steptrail();
 			getbounding();
 		}
-		
+
 		void build();
 		void draw();
 };

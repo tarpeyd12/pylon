@@ -9,60 +9,72 @@ namespace pogelInterface
     Object* object_callback_set_collfunc(Object* self, Object* args)
     {
         char* simname;
-        char* objname;
+        Object* objname;
         char* inst;
         char* func;
-        if(!PyArg_ParseTuple(args, "ssss:object_callback_set_collfunc", &simname, &objname, &inst, &func))
+        if(!PyArg_ParseTuple(args, "sOss:object_callback_set_collfunc", &simname, &objname, &inst, &func))
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("i", -1);
-        POGEL::PHYSICS::SOLID* obj = sim->getObject(std::string(objname));
+
+        POGEL::OBJECT* obj = pogelInterface::GetObject(std::string(simname),objname);
         if(obj==NULL)
             return Py_BuildValue("i", -2);
-        if(obj->callback!=NULL)
+        if(obj->GetType() != POGEL_TYPE_SOLID)
             return Py_BuildValue("i", -3);
-        obj->setCallback(new CollisionFunction(std::string(simname),std::string(inst),std::string(func)));
+        if(((POGEL::PHYSICS::SOLID*)obj)->callback!=NULL)
+            return Py_BuildValue("i", -4);
+
+        ((POGEL::PHYSICS::SOLID*)obj)->setCallback(new CollisionFunction(std::string(simname),std::string(inst),std::string(func)));
         return Py_BuildValue("i", 0);
     }
 
     Object* object_callback_set_stepfunc(Object* self, Object* args)
     {
         char* simname;
-        char* objname;
+        Object* objname;
         char* inst;
         char* func;
-        if(!PyArg_ParseTuple(args, "ssss:object_callback_set_stepfunc", &simname, &objname, &inst, &func))
+        if(!PyArg_ParseTuple(args, "sOss:object_callback_set_stepfunc", &simname, &objname, &inst, &func))
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("i", -1);
-        POGEL::PHYSICS::SOLID* obj = sim->getObject(std::string(objname));
+
+        POGEL::OBJECT* obj = pogelInterface::GetObject(std::string(simname),objname);
         if(obj==NULL)
             return Py_BuildValue("i", -2);
-        if(obj->function!=NULL)
+        if(obj->GetType() != POGEL_TYPE_SOLID)
             return Py_BuildValue("i", -3);
-        obj->setStepFunc(new StepFunction(std::string(simname),std::string(inst),std::string(func)));
+        if(((POGEL::PHYSICS::SOLID*)obj)->function!=NULL)
+            return Py_BuildValue("i", -4);
+
+        ((POGEL::PHYSICS::SOLID*)obj)->setStepFunc(new StepFunction(std::string(simname),std::string(inst),std::string(func)));
         return Py_BuildValue("i", 0);
     }
 
     Object* object_callback_set_hitfilter(Object* self, Object* args)
     {
         char* simname;
-        char* objname;
+        Object* objname;
         char* inst;
         char* func;
-        if(!PyArg_ParseTuple(args, "ssss:object_callback_set_hitfilter", &simname, &objname, &inst, &func))
+        if(!PyArg_ParseTuple(args, "sOss:object_callback_set_hitfilter", &simname, &objname, &inst, &func))
             return NULL;
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("i", -1);
-        POGEL::PHYSICS::SOLID* obj = sim->getObject(std::string(objname));
+
+        POGEL::OBJECT* obj = pogelInterface::GetObject(std::string(simname),objname);
         if(obj==NULL)
             return Py_BuildValue("i", -2);
-        if(obj->hitfilter!=NULL)
+        if(obj->GetType() != POGEL_TYPE_SOLID)
             return Py_BuildValue("i", -3);
-        obj->setHitFilter(new HitFilterFunction(std::string(simname),std::string(inst),std::string(func)));
+        if(((POGEL::PHYSICS::SOLID*)obj)->hitfilter!=NULL)
+            return Py_BuildValue("i", -4);
+
+        ((POGEL::PHYSICS::SOLID*)obj)->setHitFilter(new HitFilterFunction(std::string(simname),std::string(inst),std::string(func)));
         return Py_BuildValue("i", 0);
     }
 

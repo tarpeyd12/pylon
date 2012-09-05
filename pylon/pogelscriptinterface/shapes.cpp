@@ -7,28 +7,24 @@ namespace pogelInterface
 {
     Object* object_add_sphere(Object* self, Object* args)
     {
-        char* name;
+        Object* name;
         char* simname;
         float radius;
         float hdiv, wdiv;
         float hsc=1.0, wsc=1.0;
         char* img;
         int triprop;
-        if( !PyArg_ParseTuple( args, "ssfffsffi:object_add_sphere",
+        if( !PyArg_ParseTuple( args, "sOfffsffi:object_add_sphere",
                 &simname, &name,
                 &radius, &wdiv, &hdiv,
                 &img, &wsc, &hsc, &triprop) )
         {
             return NULL;
         }
-        POGEL::PHYSICS::SOLID* obj;
-        Renderer::Physics::Simulation * sim;
-        sim = Renderer::Physics::getSimulation(std::string(simname));
-        if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
-        obj = sim->getObject(std::string(name));
+        POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("s", "Object not found.");
+
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         addSphere(obj, wdiv, hdiv, radius, image, wsc, hsc, (unsigned int)triprop);
         return Py_BuildValue("s", "Added sphere to object.");
@@ -36,7 +32,7 @@ namespace pogelInterface
 
     Object* object_add_sphere_mat(Object* self, Object* args)
     {
-        char* name;
+        Object* name;
         char* simname;
         float radius;
         float hdiv, wdiv;
@@ -44,7 +40,7 @@ namespace pogelInterface
         char* img;
         int triprop;
         float px,py,pz, rx,ry,rz;
-        if( !PyArg_ParseTuple( args, "ssfffsffiffffff:object_add_sphere_mat",
+        if( !PyArg_ParseTuple( args, "sOfffsffiffffff:object_add_sphere_mat",
                 &simname, &name,
                 &radius, &wdiv, &hdiv,
                 &img, &wsc, &hsc, &triprop,
@@ -52,14 +48,9 @@ namespace pogelInterface
         {
             return NULL;
         }
-        POGEL::PHYSICS::SOLID* obj;
-        Renderer::Physics::Simulation * sim;
-        sim = Renderer::Physics::getSimulation(std::string(simname));
-        if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
-        obj = sim->getObject(std::string(name));
+        POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         POGEL::MATRIX mat(POGEL::POINT(px,py,pz),POGEL::POINT(rx,ry,rz));
         addSphere(obj, wdiv, hdiv, radius, image, wsc, hsc, (unsigned int)triprop, mat);
@@ -68,7 +59,7 @@ namespace pogelInterface
 
     Object* object_add_disk(Object* self, Object* args)
     {
-        char* name;
+        Object* name;
         char* simname;
         float irad, orad;
         float div, rings;
@@ -76,7 +67,7 @@ namespace pogelInterface
         char* img;
         int triprop;
         int rtex;
-        if( !PyArg_ParseTuple( args, "ssffffsffii:object_add_disk",
+        if( !PyArg_ParseTuple( args, "sOffffsffii:object_add_disk",
                 &simname, &name,
                 &div, &rings,
                 &orad, &irad,
@@ -84,14 +75,9 @@ namespace pogelInterface
         {
             return NULL;
         }
-        POGEL::PHYSICS::SOLID* obj;
-        Renderer::Physics::Simulation * sim;
-        sim = Renderer::Physics::getSimulation(std::string(simname));
-        if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
-        obj = sim->getObject(std::string(name));
+        POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         addDisk(obj, div, rings, orad, irad, image, wsc, hsc, (unsigned int)triprop, bool(rtex), POGEL::MATRIX());
         return Py_BuildValue("s", "Added disk to object.");
@@ -99,7 +85,7 @@ namespace pogelInterface
 
     Object* object_add_disk_mat(Object* self, Object* args)
     {
-        char* name;
+        Object* name;
         char* simname;
         float irad, orad;
         float div, rings;
@@ -108,7 +94,7 @@ namespace pogelInterface
         int triprop;
         int rtex;
         float px,py,pz, rx,ry,rz;
-        if( !PyArg_ParseTuple( args, "ssffffsffiiffffff:object_add_disk_mat",
+        if( !PyArg_ParseTuple( args, "sOffffsffiiffffff:object_add_disk_mat",
                 &simname, &name,
                 &div, &rings,
                 &orad, &irad,
@@ -117,14 +103,9 @@ namespace pogelInterface
         {
             return NULL;
         }
-        POGEL::PHYSICS::SOLID* obj;
-        Renderer::Physics::Simulation * sim;
-        sim = Renderer::Physics::getSimulation(std::string(simname));
-        if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
-        obj = sim->getObject(std::string(name));
+       POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         POGEL::MATRIX mat(POGEL::POINT(px,py,pz),POGEL::POINT(rx,ry,rz));
         addDisk(obj, div, rings, orad, irad, image, wsc, hsc, (unsigned int)triprop, bool(rtex), mat);
@@ -133,7 +114,7 @@ namespace pogelInterface
 
     Object* object_add_cylinder(Object* self, Object* args)
     {
-        char* name;
+        Object* name;
         char* simname;
         float lrad, urad;
         float height;
@@ -141,7 +122,7 @@ namespace pogelInterface
         float wsc=1.0, hsc=1.0;
         char* img;
         int triprop;
-        if( !PyArg_ParseTuple( args, "ssfffffsffi:object_add_cylinder",
+        if( !PyArg_ParseTuple( args, "sOfffffsffi:object_add_cylinder",
                 &simname, &name,
                 &div, &rings,
                 &height, &lrad, &urad,
@@ -149,14 +130,9 @@ namespace pogelInterface
         {
             return NULL;
         }
-        POGEL::PHYSICS::SOLID* obj;
-        Renderer::Physics::Simulation * sim;
-        sim = Renderer::Physics::getSimulation(std::string(simname));
-        if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
-        obj = sim->getObject(std::string(name));
+        POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         addCylinder(obj, div, rings, height, lrad, urad, image, wsc, hsc, (unsigned int)triprop, POGEL::MATRIX());
         return Py_BuildValue("s", "Added cylinder to object.");
@@ -164,7 +140,7 @@ namespace pogelInterface
 
     Object* object_add_cylinder_mat(Object* self, Object* args)
     {
-        char* name;
+        Object* name;
         char* simname;
         float lrad, urad;
         float height;
@@ -173,7 +149,7 @@ namespace pogelInterface
         char* img;
         int triprop;
         float px,py,pz, rx,ry,rz;
-        if( !PyArg_ParseTuple( args, "ssfffffsffiffffff:object_add_cylinder_mat",
+        if( !PyArg_ParseTuple( args, "sOfffffsffiffffff:object_add_cylinder_mat",
                 &simname, &name,
                 &div, &rings,
                 &height, &lrad, &urad,
@@ -182,14 +158,9 @@ namespace pogelInterface
         {
             return NULL;
         }
-        POGEL::PHYSICS::SOLID* obj;
-        Renderer::Physics::Simulation * sim;
-        sim = Renderer::Physics::getSimulation(std::string(simname));
-        if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
-        obj = sim->getObject(std::string(name));
+        POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         POGEL::MATRIX mat(POGEL::POINT(px,py,pz),POGEL::POINT(rx,ry,rz));
         addCylinder(obj, div, rings, height, lrad, urad, image, wsc, hsc, (unsigned int)triprop, mat);
@@ -198,31 +169,22 @@ namespace pogelInterface
 
     Object* object_add_cube(Object* self, Object* args)
     {
-        char* name;
+        Object* name;
         char* simname;
         float h, w, d;
         float hsc=1.0, wsc=1.0;
         char* img;
         int triprop;
-        if( !PyArg_ParseTuple( args, "ssfffsffi:object_add_cube",
+        if( !PyArg_ParseTuple( args, "sOfffsffi:object_add_cube",
                 &simname, &name,
                 &h, &w, &d,
                 &img, &wsc, &hsc, &triprop) )
         {
             return NULL;
         }
-        POGEL::PHYSICS::SOLID* obj;
-        Renderer::Physics::Simulation * sim;
-        sim = Renderer::Physics::getSimulation(std::string(simname));
-        if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
-        void* vsim = sim->getSim();
-        if(sim->isdyn())
-            obj = static_cast<POGEL::PHYSICS::DYNAMICS*>(vsim)->getSolid(name);
-        else
-            obj = static_cast<POGEL::PHYSICS::SIMULATION*>(vsim)->getSolid(name);
+        POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         addCube(obj, h, w, d, image, wsc, hsc, (unsigned int)triprop, POGEL::MATRIX());
         return Py_BuildValue("s", "Added cube to object.");
@@ -230,14 +192,14 @@ namespace pogelInterface
 
     Object* object_add_cube_mat(Object* self, Object* args)
     {
-        char* name;
+        Object* name;
         char* simname;
         float h, w, d;
         float hsc=1.0, wsc=1.0;
         char* img;
         int triprop;
         float px,py,pz, rx,ry,rz;
-        if( !PyArg_ParseTuple( args, "ssfffsffiffffff:object_add_cube_mat",
+        if( !PyArg_ParseTuple( args, "sOfffsffiffffff:object_add_cube_mat",
                 &simname, &name,
                 &h, &w, &d,
                 &img, &wsc, &hsc, &triprop,
@@ -245,18 +207,9 @@ namespace pogelInterface
         {
             return NULL;
         }
-        POGEL::PHYSICS::SOLID* obj;
-        Renderer::Physics::Simulation * sim;
-        sim = Renderer::Physics::getSimulation(std::string(simname));
-        if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
-        void* vsim = sim->getSim();
-        if(sim->isdyn())
-            obj = static_cast<POGEL::PHYSICS::DYNAMICS*>(vsim)->getSolid(name);
-        else
-            obj = static_cast<POGEL::PHYSICS::SIMULATION*>(vsim)->getSolid(name);
+        POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
         POGEL::MATRIX mat(POGEL::POINT(px,py,pz),POGEL::POINT(rx,ry,rz));
         addCube(obj, h, w, d, image, wsc, hsc, (unsigned int)triprop, mat);
@@ -265,14 +218,14 @@ namespace pogelInterface
 
     Object* object_add_triangle(Object* self, Object* args)
     {
-        char* name;
+        Object* name;
         char* simname;
         char* img;
         POGEL::TRIANGLE tri;
         int prop;
         if( !PyArg_ParseTuple(
                 args,
-                "sss"
+                "sOs"
 
                 "fff"
                 "ff"
@@ -314,14 +267,10 @@ namespace pogelInterface
         {
             return NULL;
         }
-        POGEL::PHYSICS::SOLID* obj;
-        Renderer::Physics::Simulation * sim;
-        sim = Renderer::Physics::getSimulation(std::string(simname));
-        if(sim == NULL)
-            return Py_BuildValue("s", "Simulation not found.");
-        obj = sim->getObject(std::string(name));
+        POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
         if(obj == NULL)
-            return Py_BuildValue("s", "Object not in simulation");
+            return Py_BuildValue("s", "Object not found.");
+
         tri.texture = Renderer::requestImage(std::string(img));
         tri.setproperties((unsigned int)prop);
 

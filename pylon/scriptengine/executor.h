@@ -24,6 +24,7 @@ namespace ScriptEngine
             std::string getInstructions();
             virtual std::string getResult();
             virtual void setArgs(std::string*,unsigned int) {}
+            virtual void setArgs( ScriptEngine::MethodInterface::Object**, unsigned int ) {}
     };
 
     class FileExecutor : public Executor
@@ -38,7 +39,7 @@ namespace ScriptEngine
     class FunctionCaller : public Executor
     {
         protected:
-            ClassList<std::string> arguments;
+            ClassList<ScriptEngine::MethodInterface::Object*> arguments;
             std::string function;
             std::string result;
             bool outsidefunction;
@@ -50,12 +51,18 @@ namespace ScriptEngine
             virtual ~FunctionCaller();
 
             void setArgs( std::string*, unsigned int );
+            void setArgs( ScriptEngine::MethodInterface::Object**, unsigned int );
+            void setArg( ScriptEngine::MethodInterface::Object*, unsigned int );
 
             void Execute();
 
             void call( const std::string&, std::string*, unsigned int, std::string* );
+            void call( const std::string&, ScriptEngine::MethodInterface::Object**, unsigned int, std::string* );
 
             std::string getResult();
+
+        private:
+            ScriptEngine::MethodInterface::Object** convertArgs( std::string*, unsigned int ) const;
     };
 }
 

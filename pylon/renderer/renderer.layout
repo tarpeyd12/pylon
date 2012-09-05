@@ -50,10 +50,10 @@
 		<Cursor position="407" topLine="0" />
 	</File>
 	<File name="physics.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="11664" topLine="388" />
+		<Cursor position="6120" topLine="204" />
 	</File>
 	<File name="physics.h" open="1" top="0" tabpos="2">
-		<Cursor position="1135" topLine="35" />
+		<Cursor position="1402" topLine="24" />
 	</File>
 	<File name="quad.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="4956" topLine="105" />
@@ -65,7 +65,7 @@
 		<Cursor position="2971" topLine="105" />
 	</File>
 	<File name="renderer.h" open="0" top="0" tabpos="3">
-		<Cursor position="808" topLine="30" />
+		<Cursor position="808" topLine="0" />
 	</File>
 	<File name="selection.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="5590" topLine="102" />

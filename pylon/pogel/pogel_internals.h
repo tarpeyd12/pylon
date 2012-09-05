@@ -89,6 +89,14 @@
 #define				PARTICLE_SLOWDOWN_RATIO							25.0f
 #define				PARTICLE_SLOWDOWN								(POGEL::hasproperty(POGEL_TIMEBASIS) ? POGEL::framerate_throtling_correction : 1.0f/PARTICLE_SLOWDOWN_RATIO)
 
+
+#define             POGEL_TYPE_OBJECT           0
+#define             POGEL_TYPE_FRACTAL          1
+#define             POGEL_TYPE_SPRITE           2
+#define             POGEL_TYPE_SOLID            3
+#define             POGEL_TYPE_FOUNTAIN         4
+#define             POGEL_TYPE_MICROCOSOM       5
+
 //* PARTICLE_SLOWDOWN_FRAMERATECORRECTION
 
 #ifndef _POGEL_H

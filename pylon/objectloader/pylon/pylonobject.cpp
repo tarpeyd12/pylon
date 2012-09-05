@@ -12,11 +12,21 @@ namespace ObjectLoader
             std::string objectnamespace = ini->getvalue("object", "namespace");
 
             ScriptEngine::Executor("sys.path.append('./" + location+codeDir + "')\n"/*"import " + objectnamespace + "\n"*/ ).Execute();
+            //ScriptEngine::Executor("sys.path.append('./" + location + "')\n"/*"import " + objectnamespace + "\n"*/ ).Execute();
 
             std::string constructor = ini->getvalue("object", "constructor");
 
             std::string args[3] = { "str:"+simname, "str:"+objname, "str:"+location };
-            ScriptEngine::FunctionCaller(objectnamespace,constructor,args,3).Execute();
+
+            ScriptEngine::FunctionCaller function(objectnamespace,constructor,args,3);
+
+            cout << "Executing " << objectnamespace << ", " << constructor << ", " << endl;
+
+            if( object != object->getprogenitor() )
+                function.setArg( Py_BuildValue("(ss)", object->getprogenitor()->getsname().c_str(), (":"+objname).c_str()), 1 );
+
+            function.Execute();
+
             return 0;
         }
 

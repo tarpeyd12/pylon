@@ -8,6 +8,7 @@ ScriptThread::ScriptThread()
 {
     firstRun = true;
     this->run();
+    //this->FirstRun();
     running = true;
     this->startThread();
     // if the computer has more than 2 cpu's
@@ -91,6 +92,40 @@ void _atAbruptScriptInitExit()
     }
 }
 
+
+int PythonTrace( PyObject * obj, int * frame, int what, PyObject * arg )
+{
+    if( !POGEL::hasproperty(POGEL_DEBUG) && what != PyTrace_EXCEPTION && what != PyTrace_C_EXCEPTION )
+    {
+        return 0;
+    }
+    cout << "PythonTrace(";
+    PyObject* reslt1 = PyObject_Str(obj);
+    const char* sres1 = PyString_AsString(reslt1);
+    cout << sres1 << "): ";
+    sres1 = NULL;
+    reslt1 = NULL;
+    switch( what )
+    {
+        case PyTrace_CALL: cout << "PyTrace_CALL"; break;
+        case PyTrace_EXCEPTION: cout << "PyTrace_EXCEPTION"; break;
+        case PyTrace_LINE: cout << "PyTrace_LINE"; break;
+        case PyTrace_RETURN: cout << "PyTrace_RETURN"; break;
+        case PyTrace_C_CALL: cout << "PyTrace_C_CALL"; break;
+        case PyTrace_C_EXCEPTION: cout << "PyTrace_C_EXCEPTION"; break;
+        case PyTrace_C_RETURN: cout << "PyTrace_C_RETURN"; break;
+        default: cout << "Unknown Code: " << what; break;
+    }
+    PyObject* reslt = PyObject_Str(arg);
+    const char* sres = PyString_AsString(reslt);
+    cout << " " << sres;
+    sres = NULL;
+    reslt = NULL;
+    cout << endl;
+    return 0;
+}
+
+
 void ScriptThread::FirstRun()
 {
     atexit(_atAbruptScriptInitExit);
@@ -98,6 +133,8 @@ void ScriptThread::FirstRun()
     firstRun = false;
 
     ScriptEngine::Initialize();
+
+    PyEval_SetProfile( (Py_tracefunc)PythonTrace, NULL );
 
     ScriptEngine::MethodInterface::Add( "_pylon",      Main::getVersionMethod, "" );
     ScriptEngine::MethodInterface::Add( "_pylon_calc", Main::calcLockMethods,  "" );
@@ -146,7 +183,7 @@ void ScriptThread::FirstRun()
     if(/*POGEL::hasproperty(POGEL_DEBUG) || Main::SingleThreaded || POGEL::hasproperty(POGEL_LABEL) ||*/ Main::numDummySimulations)
     {
         unsigned int max = Main::numDummySimulations ? Main::numDummySimulations : 2;
-        for(unsigned int i = 0; i < max; i++)
+        for(unsigned int i = 0; i < max; ++i)
         {
             char *pcNum = POGEL::string("%u", i);
             ScriptEngine::Executor("import pylon\npylon.addsimulation('NullSimulation_" + std::string(pcNum) + "',False)").Execute();
@@ -156,9 +193,17 @@ void ScriptThread::FirstRun()
 
     // end StoneBug fix
 
+    //ScriptEngine::BeginThreads();
+    ScriptEngine::RegisterThreads();
+
     try
     {
-        ScriptEngine::Executor("import pylon\nimport _pylon\nimport _pylon_draw\nimport _pylon_calc\n"+initScriptData).Execute();
+        //Py_BEGIN_ALLOW_THREADS
+        //ScriptEngine::Executor("import pylon\nimport _pylon\nimport _pylon_draw\nimport _pylon_calc\n"+initScriptData).Execute();
+        //ScriptEngine::Executor initscript("import pylon\nimport _pylon\nimport _pylon_draw\nimport _pylon_calc\n"+initScriptData);
+        ScriptEngine::Executor initscript(initScriptData);
+        initscript.Execute();
+        //Py_END_ALLOW_THREADS
     }
     catch(int e)
     {

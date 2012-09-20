@@ -17,15 +17,21 @@ namespace Renderer
 
         class KeyCallback
         {
+            private:
+                bool haskeyfilters;
+                volatile bool keyfilter[256];
             public:
                 bool remove;
-                KeyCallback() { remove = false; };
+                KeyCallback();
                 virtual ~KeyCallback() { };
+                bool hasKeyFilters() const;
+                bool hasKeyFiltered(unsigned char ) const;
+                void setKeyFilter( unsigned char, bool );
                 virtual void operator()( unsigned char, int, int, float ) = 0;
         };
 
-        extern ClassList< KeyCallback* > keyDownCallBacks;
-        extern ClassList< KeyCallback* > keyUpCallBacks;
+        extern ClassList< KeyCallback * > keyDownCallBacks;
+        extern ClassList< KeyCallback * > keyUpCallBacks;
 
         void Down(unsigned char key, int x, int y);
         void Up(unsigned char key, int x, int y);

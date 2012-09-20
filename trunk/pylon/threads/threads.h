@@ -10,6 +10,7 @@
 
 #include "thread.h"
 #include "exthread.h"
+#include "mutex.h"
 
 namespace Threads
 {

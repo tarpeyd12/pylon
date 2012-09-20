@@ -60,7 +60,7 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-s -O2 -fexpensive-optimizations -fexceptions -Wall -Wextra" />
+			<Add option="-fexceptions -Wall -Wextra" />
 			<Add directory="$(#base.lib)" />
 			<Add directory="$(#base.include)" />
 		</Compiler>

@@ -38,7 +38,8 @@ namespace Threads
         if ( ret )
         {
             std::cout << "*** THREAD DESTRUCTION FAILURE: " << ret << " ***" << std::endl;
-            throw ret;
+            //throw ret;
+            ThrowError(ret);
         }
         thread_function = NULL;
         //data = NULL;
@@ -95,7 +96,8 @@ namespace Threads
         if( ret )
         {
             std::cout << "*** THREAD START FAILURE: " << ret << " ***" << std::endl;
-            throw ret;//"*** THREAD START FAILURE:  ***";
+            //throw ret;//"*** THREAD START FAILURE:  ***";
+            ThrowError(ret);
             //exit(-1);
         }
     }
@@ -113,7 +115,8 @@ namespace Threads
         if( ret )
         {
             std::cout << "*** THREAD JOIN FAILURE: " << ret << " ***" << std::endl;
-            throw ret;
+            //throw ret;
+            ThrowError(ret);
             //exit(-1);
         }
     }
@@ -129,7 +132,8 @@ namespace Threads
         if( ret )
         {
             std::cout << "*** THREAD CANCEL FAILURE: " << ret << " ***" << std::endl;
-            throw ret;
+            //throw ret;
+            ThrowError(ret);
             //exit(-1);
         }
     }

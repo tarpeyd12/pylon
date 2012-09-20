@@ -2,18 +2,22 @@
 
 namespace ScriptEngine
 {
+    unsigned int Executor::numExecutors = 0;
     Executor::Executor()
     {
         instructions = "";
+        executorId = numExecutors++;
     }
 
     Executor::Executor( const std::string& instr)
     {
         instructions = instr;
+        executorId = numExecutors++;
     }
 
     Executor::~Executor()
     {
+        //--numExecutors;
         instructions = "";
     }
 
@@ -21,6 +25,7 @@ namespace ScriptEngine
     {
         if (this == &rhs) return *this; // handle self assignment
         //assignment operator
+        throw -1;
         return *this;
     }
 
@@ -28,12 +33,19 @@ namespace ScriptEngine
     {
         bool is_init = ScriptEngine::HasBegun();
         if( !is_init )
-        {
             ScriptEngine::Initialize();
-        }
 
         #if defined( SIMPLE_EXECUTION )
-        int ret = PyRun_SimpleString( getInstructions().c_str() );
+        //int ret = PyRun_SimpleString( getInstructions().c_str() );
+        PyCompilerFlags flags;
+        flags.cf_flags = Py_InspectFlag;
+        //std::string inst = getInstructions();
+        //int ret = PyRun_SimpleStringFlags( (const char*)inst.c_str(), &flags );
+        char* inst = strcpy(new char[getInstructions().length()], (getInstructions()).c_str());
+        int ret = 0;
+        ret = PyRun_SimpleStringFlags( inst, &flags );
+        delete [] inst;
+
         PyObject* err = PyErr_Occurred();
         if( ret || err )
         {
@@ -41,17 +53,31 @@ namespace ScriptEngine
             {
                 PyErr_Print();
             }
-            throw ret;
+            ThrowError(ret);
         }
         #else
         PyObject* mainModule = PyImport_ImportModule( "__main__" );
+        //PyObject* mainModule = PyImport_AddModule( "__main__" );
+        if( !mainModule )
+        {
+            ThrowError(-1);
+        }
         //PyObject* mainModule = PyImport_AddModule("__main__");
         PyObject* globalDict = PyModule_GetDict( mainModule );
         PyObject* localDict = globalDict;
+        if( !globalDict )
+        {
+            ThrowError(-2);
+        }
 
         char* inst = strcpy(new char[getInstructions().length()], getInstructions().c_str());
 
-        PyObject* ret = PyRun_String( inst, Py_file_input, globalDict, localDict );
+        //PyObject* ret = PyRun_String( inst, Py_file_input, globalDict, localDict );
+        PyCompilerFlags flags;
+        flags.cf_flags = Py_InspectFlag;
+        PyObject* ret = PyRun_StringFlags( inst, Py_file_input, globalDict, localDict, &flags );
+        //PyObject* ret = PyRun_StringFlags( inst, Py_file_input, PyEval_GetGlobals(), PyEval_GetLocals(), &flags );
+
         delete [] inst;
         PyObject* err = PyErr_Occurred();
         if( !ret || err )
@@ -60,14 +86,22 @@ namespace ScriptEngine
             {
                 PyErr_Print();
             }
-            throw -1;
+            ThrowError(-3);
         }
         #endif
 
         if( !is_init )
-        {
             ScriptEngine::Finalize();
-        }
+    }
+
+    unsigned int Executor::getExecutorIdNum() const
+    {
+        return executorId;
+    }
+
+    unsigned int Executor::getNumExecutors() const
+    {
+        return numExecutors;
     }
 
     std::string Executor::getInstructions()
@@ -167,6 +201,8 @@ namespace ScriptEngine
 
     void FunctionCaller::setArgs(std::string* args,unsigned int numArgs)
     {
+        if( !args )
+            ThrowError(-1);
         arguments.clear();
         //arguments.add( args, numArgs );
         //arguments = convertArgs( args, numArgs );
@@ -175,9 +211,13 @@ namespace ScriptEngine
 
     void FunctionCaller::setArgs(ScriptEngine::MethodInterface::Object** args,unsigned int numArgs)
     {
+        if( !args )
+            ThrowError(-1);
         arguments.clear();
         for( unsigned int i = 0; i < numArgs; ++i )
         {
+            if( !args[i] )
+                ThrowError(-2);
             arguments += args[i];
         }
         //arguments.add( args, numArgs );
@@ -186,6 +226,8 @@ namespace ScriptEngine
 
     void FunctionCaller::setArg( ScriptEngine::MethodInterface::Object* arg, unsigned int index )
     {
+        if( !arg )
+            ThrowError(-1);
         arguments.replace( index, arg );
     }
 
@@ -195,26 +237,28 @@ namespace ScriptEngine
         {
             call( function, arguments.getList(), arguments.length(), NULL );
         }
+        else
+        {
+            ThrowError(-2);
+        }
     }
 
     void FunctionCaller::call( const std::string& func, std::string* args, unsigned int numArgs, std::string* res)
     {
         if( !args )
         {
-            throw -1;
+            ThrowError(-1);
         }
 
-        bool is_init = ScriptEngine::HasBegun();
-        if(!is_init)
-            ScriptEngine::Initialize();
+        //bool is_init = ScriptEngine::HasBegun();
+        //if(!is_init) ScriptEngine::Initialize();
         arguments.clear();
         arguments.add( convertArgs(args,numArgs), numArgs );
 
-        if(!is_init)
-            ScriptEngine::Finalize();
+        //if(!is_init) ScriptEngine::Finalize();
 
         if( arguments.length() != numArgs )
-            throw -2;
+            ThrowError(-2);
 
         call( func, arguments.getList(), arguments.length(), res);
     }
@@ -223,7 +267,7 @@ namespace ScriptEngine
     {
         if( !args )
         {
-            throw -1;
+            ThrowError(-1);
         }
         bool is_init = ScriptEngine::HasBegun();
         if(!is_init)
@@ -233,27 +277,48 @@ namespace ScriptEngine
         PyObject *pArgs, *pValue = NULL;
         std::string inst = getInstructions();
         pName = PyString_FromString(inst.c_str());
-        //if(!pName)
-        {
-            //cout << pName << endl;
-            //throw -8;
-        }
         //pModule = PyImport_ImportModuleNoBlock(getInstructions().c_str());
         pModule = PyImport_Import(pName);
         //pModule = PyImport_ImportModule(getInstructions().c_str());
 
-        if (pModule != NULL) {
+        if (pModule != NULL)
+        {
             pFunc = PyObject_GetAttrString(pModule, func.c_str());
-            if (pFunc && PyCallable_Check(pFunc)) {
-
+            if (pFunc && PyCallable_Check(pFunc))
+            {
                 pArgs = PyTuple_New(numArgs);
-                for(unsigned int i = 0; i < numArgs; ++i)
+                if( POGEL::hasproperty(POGEL_DEBUG) )
                 {
-                    PyTuple_SetItem(pArgs, i, args[i]);
+                    cout << "FUNC: " << func << "(" << numArgs << ")" << endl;
+                }
+                for( unsigned int i = 0; i < numArgs; ++i )
+                {
+                    if( POGEL::hasproperty(POGEL_DEBUG) )
+                    {
+                        PyObject* r = PyObject_Str(args[i]);
+                        const char* sres = PyString_AsString(r);
+                        //Py_CLEAR(r);
+                        //Py_DECREF(r);
+                        //char* sres2 = strcpy(new char[strlen(sres)],sres);
+                        //sres = NULL;
+                        cout << "\tArg" << i << ": '" << std::string(sres) << "'" << endl;
+                        //delete [] sres2;
+                        sres = NULL;
+                    }
+                    //Py_XINCREF(args[i]);
+                    if( PyTuple_SetItem(pArgs, i, args[i]) )
+                    {
+                        cout << "PyTuple_SetItem(pArgs, " << i << ", args[" << i << "]) Failed" << endl;
+                        ThrowError(-5);
+                    }
+                    //args[ i ] = NULL;
+                    //Py_DECREF(args[i]);
                 }
                 pValue = PyObject_CallObject(pFunc, pArgs);
-                Py_DECREF(pArgs);
-                if (pValue != NULL) {
+                //Py_DECREF(pArgs);
+                Py_CLEAR(pArgs);
+                if (pValue != NULL)
+                {
                     std::string type = "?";
                     if( PyString_Check(pValue) )
                     {
@@ -298,16 +363,18 @@ namespace ScriptEngine
                     //if(POGEL::hasproperty(POGEL_DEBUG))
                         //cout << "Function " << func << "(" << concatargs << ") resulted in " << result << endl;
                 }
-                else {
+                else
+                {
                     Py_DECREF(pFunc);
                     Py_DECREF(pModule);
                     PyErr_Print();
                     fprintf(stderr,"Call failed\n");
-                    throw -3;
+                    ThrowError(-3);
                     return;
                 }
             }
-            else {
+            else
+            {
                 if (PyErr_Occurred())
                     PyErr_Print();
                 fprintf(stderr, "Cannot find function \"%s\"\n", func.c_str());
@@ -315,15 +382,20 @@ namespace ScriptEngine
             Py_XDECREF(pFunc);
             Py_DECREF(pModule);
         }
-        else {
+        else
+        {
             PyErr_Print();
             fprintf(stderr, "Failed to load \"%s\"\n", getInstructions().c_str());
-            throw -4;
+            ThrowError(-4);
             return;
         }
 
         if(!is_init)
             ScriptEngine::Finalize();
+        for( unsigned int i = 0; i < arguments.length(); ++i )
+        {
+            arguments.replace( i, NULL );
+        }
     }
 
     std::string FunctionCaller::getResult()
@@ -335,7 +407,7 @@ namespace ScriptEngine
     {
         if( !args )
         {
-            throw -1;
+            ThrowError(-1);
         }
         //ClassList<ScriptEngine::MethodInterface::Object*> ret(numArgs);
         ScriptEngine::MethodInterface::Object** ret = new ScriptEngine::MethodInterface::Object*[numArgs];
@@ -401,16 +473,17 @@ namespace ScriptEngine
             else
             //if(!type.compare("?"))
             {
-                //pValue = NULL;
-                pValue = Py_BuildValue( type.c_str(), data.c_str() );
+                pValue = NULL;
+                //pValue = Py_BuildValue( type.c_str(), data.c_str() );
             }
 
             if (!pValue) {
                 //Py_DECREF(pArgs);
                 //Py_DECREF(pModule);
-                fprintf(stderr, "Cannot convert argument\n");
+                fprintf(stderr, "Cannot convert argument %d, %s\n", i, curarg.c_str());
                 //delete [] ret;
-                throw -2;
+                //throw -2;
+                ThrowError(-2);
                 return NULL;
             }
             //ret.replace( i, pValue );// += pValue;

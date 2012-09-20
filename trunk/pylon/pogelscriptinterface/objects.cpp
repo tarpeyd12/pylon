@@ -16,7 +16,9 @@ namespace pogelInterface
             return Py_BuildValue("i", -1);
         //char *nm = new char[strlen(objname)];
         //POGEL::PHYSICS::SOLID* obj = new POGEL::PHYSICS::SOLID(strcpy(nm,objname));
+        Py_XINCREF(objname);
         POGEL::PHYSICS::SOLID* obj = new POGEL::PHYSICS::SOLID((char*)pogelInterface::GetObjectName(objname).c_str());
+        Py_XDECREF(objname);
         if(sim->isdyn())
             static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->addSolid(obj);
         else
@@ -33,11 +35,16 @@ namespace pogelInterface
         char* filetype;
         if(!PyArg_ParseTuple(args, "sOss:object_new_fromfile", &simname, &objname, &filename, &filetype))
             return NULL;
+        Py_XINCREF(objname);
         POGEL::OBJECT * oobj = pogelInterface::GetObject( std::string(simname), objname );
          if( oobj != NULL && oobj->GetType() != POGEL_TYPE_SOLID)
+        {
+            Py_XDECREF(objname);
             return Py_BuildValue("i", -1);
+        }
         POGEL::PHYSICS::SOLID * obj = (POGEL::PHYSICS::SOLID*)oobj;
         char* objname2 = (char*)pogelInterface::GetObjectName(objname).c_str();
+        Py_XDECREF(objname);
         char *nm = strcpy(new char[strlen(objname2)],objname2);
         if(!obj)
         {
@@ -93,8 +100,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sO:object_get_type_s", &simname, &name))
             return NULL;
-
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("s", "Object not found");
 
@@ -116,8 +124,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sO:object_get_type_i", &simname, &name))
             return NULL;
-
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("i", -1);
         return Py_BuildValue("i", obj->GetType());
@@ -129,8 +138,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sO:object_check", &simname, &name))
             return NULL;
-
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("i", int(false));
         return Py_BuildValue("i", int(true));
@@ -143,8 +153,9 @@ namespace pogelInterface
         int visable;
         if(!PyArg_ParseTuple(args, "sOi:object_set_visibility", &simname, &name, &visable))
             return NULL;
-
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("i", -2);
 
@@ -158,8 +169,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sO:object_get_visibility", &simname, &name))
             return NULL;
-
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
 
@@ -173,7 +185,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sOs:object_move_s", &simname, &name, &newpos))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         obj->position = POGEL::POINT(std::string(newpos));
@@ -187,7 +201,9 @@ namespace pogelInterface
         POGEL::POINT newpos;
         if(!PyArg_ParseTuple(args, "sOfff:object_move_3f", &simname, &name, &newpos.x, &newpos.y, &newpos.z))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         obj->position = newpos;
@@ -201,7 +217,9 @@ namespace pogelInterface
         POGEL::VECTOR newdir;
         if(!PyArg_ParseTuple(args, "sOfff:object_set_dir_3f", &simname, &name, &newdir.x, &newdir.y, &newdir.z))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         obj->direction = newdir;
@@ -215,7 +233,9 @@ namespace pogelInterface
         POGEL::POINT newdir;
         if(!PyArg_ParseTuple(args, "sOfff:object_set_pos_3f", &simname, &name, &newdir.x, &newdir.y, &newdir.z))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         obj->position = newdir;
@@ -229,7 +249,9 @@ namespace pogelInterface
         POGEL::POINT newdir;
         if(!PyArg_ParseTuple(args, "sOfff:object_set_rot_3f", &simname, &name, &newdir.x, &newdir.y, &newdir.z))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         obj->rotation = newdir;
@@ -243,7 +265,9 @@ namespace pogelInterface
         POGEL::VECTOR newdir;
         if(!PyArg_ParseTuple(args, "sOfff:object_set_spin_3f", &simname, &name, &newdir.x, &newdir.y, &newdir.z))
             return NULL;
-       POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XINCREF(name);
+        POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         obj->spin = newdir;
@@ -256,7 +280,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sO:object_get_dir_3f", &simname, &name))
             return NULL;
-       POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XINCREF(name);
+        POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         return Py_BuildValue("[fff]", obj->direction.x, obj->direction.y, obj->direction.z);
@@ -268,7 +294,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sO:object_get_pos_3f", &simname, &name))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         return Py_BuildValue("[fff]", obj->position.x, obj->position.y, obj->position.z);
@@ -280,7 +308,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sO:object_get_rot_3f", &simname, &name))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         return Py_BuildValue("[fff]", obj->rotation.x, obj->rotation.y, obj->rotation.z);
@@ -292,7 +322,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sO:object_get_spin_3f", &simname, &name))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         return Py_BuildValue("[fff]", obj->spin.x, obj->spin.y, obj->spin.z);
@@ -304,7 +336,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sO:object_get_dir_s", &simname, &name))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         return Py_BuildValue("s", obj->direction.toString().c_str());
@@ -316,7 +350,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sO:object_get_pos_s", &simname, &name))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         return Py_BuildValue("s", obj->position.toString().c_str());
@@ -328,7 +364,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sO:object_get_rot_s", &simname, &name))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         return Py_BuildValue("s", obj->rotation.toString().c_str());
@@ -340,7 +378,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sO:object_get_spin_s", &simname, &name))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         return Py_BuildValue("s", obj->spin.toString().c_str());
@@ -353,7 +393,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sOs:object_set_dir_s", &simname, &name, &newdir))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("i", -2);
         obj->direction = POGEL::VECTOR(std::string(newdir));
@@ -367,7 +409,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sOs:object_set_pos_s", &simname, &name, &newdir))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("i", -2);
         obj->position = POGEL::POINT(std::string(newdir));
@@ -381,7 +425,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sOs:object_set_rot_s", &simname, &name, &newdir))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("i", -2);
         obj->rotation = POGEL::POINT(std::string(newdir));
@@ -395,7 +441,9 @@ namespace pogelInterface
         char* simname;
         if(!PyArg_ParseTuple(args, "sOs:object_set_spin_s", &simname, &name, &newdir))
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("i", -2);
         obj->spin = POGEL::VECTOR(std::string(newdir));
@@ -410,7 +458,9 @@ namespace pogelInterface
         int prop;
         if( !PyArg_ParseTuple( args, "sOsi:object_options", &simname, &name, &inst, &prop) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("i", -2);
         std::string instructions(inst);
@@ -493,7 +543,9 @@ namespace pogelInterface
         float property;
         if( !PyArg_ParseTuple( args, "sOf:object_set_mass", &simname, &name, &property) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if( obj->GetType() != POGEL_TYPE_SOLID )
             return Py_BuildValue("i", -1);
         if(obj == NULL)
@@ -508,7 +560,9 @@ namespace pogelInterface
         char* simname;
         if( !PyArg_ParseTuple( args, "sO:object_get_mass", &simname, &name) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL || obj->GetType() != POGEL_TYPE_SOLID)
             Py_RETURN_NONE;
         return Py_BuildValue("f", ((POGEL::PHYSICS::SOLID*)obj)->behavior.mass);
@@ -521,7 +575,9 @@ namespace pogelInterface
         float property;
         if( !PyArg_ParseTuple( args, "sOf:object_set_bounce", &simname, &name, &property) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if( obj->GetType() != POGEL_TYPE_SOLID )
             return Py_BuildValue("i", -1);
         if(obj == NULL)
@@ -536,7 +592,9 @@ namespace pogelInterface
         char* simname;
         if( !PyArg_ParseTuple( args, "sO:object_get_bounce", &simname, &name) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL || obj->GetType() != POGEL_TYPE_SOLID)
             Py_RETURN_NONE;
         return Py_BuildValue("f", ((POGEL::PHYSICS::SOLID*)obj)->behavior.bounce);
@@ -549,7 +607,9 @@ namespace pogelInterface
         float property;
         if( !PyArg_ParseTuple( args, "sOf:object_set_friction", &simname, &name, &property) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if( obj->GetType() != POGEL_TYPE_SOLID )
             return Py_BuildValue("i", -1);
         if(obj == NULL)
@@ -564,7 +624,9 @@ namespace pogelInterface
         char* simname;
         if( !PyArg_ParseTuple( args, "sO:object_get_friction", &simname, &name) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL || obj->GetType() != POGEL_TYPE_SOLID)
             Py_RETURN_NONE;
         return Py_BuildValue("f", ((POGEL::PHYSICS::SOLID*)obj)->behavior.friction);
@@ -576,7 +638,9 @@ namespace pogelInterface
         char* simname;
         if( !PyArg_ParseTuple( args, "sO:object_get_steps", &simname, &name) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL || obj->GetType() != POGEL_TYPE_SOLID)
             Py_RETURN_NONE;
         return Py_BuildValue("i", (int)((POGEL::PHYSICS::SOLID*)obj)->getstepstaken());
@@ -590,7 +654,9 @@ namespace pogelInterface
         POGEL::KEY key;
         if( !PyArg_ParseTuple( args, "sOsffff:object_add_key", &simname, &name, &keytype, &key.x, &key.y, &key.z, &key.time) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("i", -2);
         std::string skeytype(keytype);
@@ -626,7 +692,9 @@ namespace pogelInterface
         char* animname;
         if( !PyArg_ParseTuple( args, "sOffs:object_add_animation", &simname, &name, &start, &stop, &animname) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("i", -2);
         int ret = obj->addAnimationLoop( POGEL::ANIMATIONLOOP(start,stop,std::string(animname)), "");
@@ -640,7 +708,9 @@ namespace pogelInterface
         char* animname;
         if( !PyArg_ParseTuple( args, "sOs:object_set_animation", &simname, &name, &animname) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("i", -2);
         int ret = obj->setAnimationLoop( std::string(animname) );
@@ -653,7 +723,9 @@ namespace pogelInterface
         char* simname;
         if( !PyArg_ParseTuple( args, "sO:object_get_animation", &simname, &name) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         return Py_BuildValue("s", obj->getCurrentAnimation().c_str());
@@ -667,7 +739,9 @@ namespace pogelInterface
         char* animname;
         if( !PyArg_ParseTuple( args, "sOs:object_has_animation", &simname, &name, &animname) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         if( obj->hasAnimationLoop( std::string(animname) ) )
@@ -683,7 +757,9 @@ namespace pogelInterface
         char* simname;
         if( !PyArg_ParseTuple( args, "sO:object_set_animtime", &simname, &name) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("i", -2);
         obj->setAnimationLoopStartTime( POGEL::GetTimePassed() );
@@ -697,7 +773,9 @@ namespace pogelInterface
         char* animname;
         if( !PyArg_ParseTuple( args, "sOs:object_get_animlen", &simname, &name, &animname) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         return Py_BuildValue("f", obj->getAnimationLength(std::string(animname)));
@@ -709,7 +787,9 @@ namespace pogelInterface
         char* simname;
         if( !PyArg_ParseTuple( args, "sO:object_get_animsince", &simname, &name) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             Py_RETURN_NONE;
         return Py_BuildValue("f", obj->getTimeSinceAnimationStart());
@@ -721,7 +801,9 @@ namespace pogelInterface
         char* simname;
         if( !PyArg_ParseTuple( args, "sO:object_build", &simname, &name) )
             return NULL;
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("i", -2);
         obj->getprogenitor()->build();

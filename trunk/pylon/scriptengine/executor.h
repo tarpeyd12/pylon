@@ -11,6 +11,9 @@ namespace ScriptEngine
 {
     class Executor
     {
+        private:
+            static unsigned int numExecutors;
+            unsigned int executorId;
         protected:
             std::string instructions;
         public:
@@ -21,10 +24,14 @@ namespace ScriptEngine
 
             virtual void Execute();
 
+            unsigned int getExecutorIdNum() const;
+            unsigned int getNumExecutors() const;
+
             std::string getInstructions();
             virtual std::string getResult();
             virtual void setArgs(std::string*,unsigned int) {}
             virtual void setArgs( ScriptEngine::MethodInterface::Object**, unsigned int ) {}
+            virtual void setArg( ScriptEngine::MethodInterface::Object*, unsigned int ) {}
     };
 
     class FileExecutor : public Executor

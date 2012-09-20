@@ -60,7 +60,7 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-s -O3 -fexpensive-optimizations -fexceptions -Wall -Wextra" />
+			<Add option="-fexceptions -Wall -Wextra" />
 		</Compiler>
 		<Unit filename="arraylist.cpp">
 			<Option target="&lt;{~None~}&gt;" />

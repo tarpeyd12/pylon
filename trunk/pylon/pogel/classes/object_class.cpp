@@ -215,7 +215,7 @@ POGEL::OBJECT::OBJECT(POGEL::OBJECT * obj)
     children=obj->children;
     parent=obj->parent;
     numchildren=obj->numchildren;
-    for( unsigned int i = 0; i < numchildren; i++ )
+    for( unsigned int i = 0; i < numchildren; ++i )
     {
         children[i]->parent = this;
     }

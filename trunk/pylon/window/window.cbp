@@ -13,7 +13,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug -bench" />
+				<Option parameters="-debug -single" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-g" />
@@ -110,7 +110,7 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
-				<Option parameters="-debug -bench -numsim 4" />
+				<Option parameters="-debug -oops" />
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add option="-pg" />
@@ -202,7 +202,7 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-s -O3 -fexpensive-optimizations -fexceptions -Wall -Wextra" />
+			<Add option="-fexceptions -Wall -Wextra" />
 			<Add directory="$(#glut.include)" />
 			<Add directory="$(#python.lib)" />
 			<Add directory="$(#python.include)" />

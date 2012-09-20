@@ -209,6 +209,10 @@ namespace Renderer
 
         POGEL::OBJECT* Simulation::getObject( const ClassList<std::string>& o ) const
         {
+            if( clearobjects )
+            {
+                return NULL;
+            }
             unsigned int numst = o.length();
             if( !numst )
             {
@@ -217,22 +221,32 @@ namespace Renderer
             POGEL::PHYSICS::SOLID * sl = this->getObject( o[0] );
             if( !sl )
             {
+                cout << "Invalid Reference to Object" << endl;
                 return NULL;
             }
             if( numst == 1 )
             {
                 return (POGEL::OBJECT*)sl;
             }
-            if( numst == 2 && o[1].size() && o[1].at(0) == ':' )
-            {
-                return (POGEL::OBJECT*)sl->getdecendant( (const char*)o[1].c_str() );
-            }
             POGEL::OBJECT * ret = (POGEL::OBJECT*)sl;
             for( unsigned int i = 1; i < numst; ++i )
             {
-                ret = (POGEL::OBJECT*)ret->getchild( (const char*)o[i].c_str() );
+                if( !o[i].size() )
+                {
+                    cout << "Invalid Object Reference List" << endl;
+                    return NULL;
+                }
+                if( o[i].size() >= 2 && o[i].at(0) == ':' )
+                {
+                    ret = (POGEL::OBJECT*)ret->getdecendant( (const char*)(o[i].substr(1)).c_str() );
+                }
+                else
+                {
+                    ret = (POGEL::OBJECT*)ret->getchild( (const char*)o[i].c_str() );
+                }
                 if( !ret )
                 {
+                    cout << "Invalid Reference to Child Object" << endl;
                     return NULL;
                 }
             }

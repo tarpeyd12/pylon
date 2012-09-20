@@ -3,12 +3,12 @@
 namespace pogelInterface
 {
 
-    POGEL::OBJECT* GetObject( const std::string& simname, Object* pyobjreff )
+    POGEL::OBJECT * GetObject( const std::string& simname, Object* pyobjreff )
     {
         if( PyString_CheckExact( pyobjreff ) )
         {
-            char* objname = PyString_AsString( pyobjreff );
-            POGEL::OBJECT* ret = (POGEL::OBJECT*)Renderer::Physics::getObject(  simname, std::string( objname ) );
+            const char* objname = PyString_AsString( pyobjreff );
+            POGEL::OBJECT* ret = (POGEL::OBJECT*)Renderer::Physics::getObject( simname,  std::string( objname ) );
             objname = NULL;
             return ret;
         }
@@ -19,14 +19,16 @@ namespace pogelInterface
             for( int i = 0; i < tlen; ++i )
             {
                 Object * curpydec = PyTuple_GetItem( pyobjreff, i );
-                if( !PyString_CheckExact( curpydec ) )
+                if( !curpydec || !PyString_CheckExact( curpydec ) )
                 {
+                    declist.clear();
                     return NULL;
                 }
-                char * dec = PyString_AsString( curpydec );
+                const char * dec = PyString_AsString( curpydec );
                 //char * dec = (char*)memcpy( (void*)new char[strlen(tdec)], (const void *)tdec, strlen(tdec) );
                 //tdec = NULL;
                 declist += std::string(dec);
+                dec = NULL;
                 //delete [] dec;
             }
             POGEL::OBJECT * ret = Renderer::Physics::getObject( simname, declist );
@@ -36,27 +38,78 @@ namespace pogelInterface
         return NULL;
     }
 
+    ClassList<std::string> * GetObjectNameList( Object* pyobjreff )
+    {
+        if( PyString_CheckExact( pyobjreff ) )
+        {
+            ClassList< std::string > * ret = new ClassList<std::string>( 1 );
+            const char* objname = PyString_AsString( pyobjreff );
+            ret->add( std::string(objname) );
+            objname = NULL;
+            return ret;
+        }
+        if( PyTuple_CheckExact( pyobjreff ) )
+        {
+            int tlen = PyTuple_Size( pyobjreff );
+            if( tlen <= 0 )
+            {
+                return NULL;
+            }
+            ClassList<std::string> * ret = new ClassList<std::string>( tlen );
+            for( int i = 0; i < tlen; ++i )
+            {
+                Object * curpydec = PyTuple_GetItem( pyobjreff, i );
+                if( !curpydec || !PyString_CheckExact( curpydec ) )
+                {
+                    delete ret;
+                    return NULL;
+                }
+                const char * dec = PyString_AsString( curpydec );
+                ret->add( std::string(dec) );
+                dec = NULL;
+            }
+            return ret;
+        }
+        return NULL;
+    }
+
+    Object * GetObjectTupleFromNameList( ClassList<std::string> * objref )
+    {
+        if( !objref || !objref->length() )
+        {
+            return NULL;
+        }
+        Object * ret = PyTuple_New( objref->length() );
+        for( unsigned int i = 0; i < objref->length(); ++i )
+        {
+            PyTuple_SetItem(ret, i, Py_BuildValue("s",(objref->get(i)+"\0").c_str()) );
+            //PyTuple_SET_ITEM(ret, i, Py_BuildValue("s",(objref->get(i)).c_str()) );
+        }
+        return ret;
+    }
+
     std::string GetObjectName( Object * pyobjreff )
     {
         if( PyString_CheckExact( pyobjreff ) )
         {
-            char* objname = PyString_AsString( pyobjreff );
-            return std::string(objname);
+            const char * objname = PyString_AsString( pyobjreff );
+            std::string ret(objname);
+            objname = NULL;
+            return ret;
         }
         if( PyTuple_CheckExact( pyobjreff ) )
         {
-            if( !PyTuple_Size( pyobjreff ))
-                throw -1;
+            if( !PyTuple_Size( pyobjreff ) )
+                ThrowError(-1);
             Object * curpydec = PyTuple_GetItem( pyobjreff,0 );
             if( !PyString_CheckExact( curpydec ) )
-            {
-                throw -2;
-            }
-            char * dec = PyString_AsString( curpydec );
-            return std::string(dec);
-
+                ThrowError(-2);
+            const char * dec = PyString_AsString( curpydec );
+            std::string ret(dec);
+            dec = NULL;
+            return ret;
         }
-        throw -3;
+        ThrowError(-3);
         return std::string();
     }
 

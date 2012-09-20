@@ -80,7 +80,7 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-s -O3 -fexpensive-optimizations -fexceptions -Wall -Wextra" />
+			<Add option="-fexceptions -Wall -Wextra" />
 			<Add directory="$(#python.include)" />
 			<Add directory="$(#python.lib)" />
 		</Compiler>

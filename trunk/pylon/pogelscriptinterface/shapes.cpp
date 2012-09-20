@@ -21,7 +21,9 @@ namespace pogelInterface
         {
             return NULL;
         }
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("s", "Object not found.");
 
@@ -48,7 +50,9 @@ namespace pogelInterface
         {
             return NULL;
         }
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
@@ -75,7 +79,9 @@ namespace pogelInterface
         {
             return NULL;
         }
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
@@ -103,7 +109,9 @@ namespace pogelInterface
         {
             return NULL;
         }
-       POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XINCREF(name);
+        POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
@@ -130,7 +138,9 @@ namespace pogelInterface
         {
             return NULL;
         }
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
@@ -158,7 +168,9 @@ namespace pogelInterface
         {
             return NULL;
         }
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
@@ -182,7 +194,9 @@ namespace pogelInterface
         {
             return NULL;
         }
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
@@ -207,7 +221,9 @@ namespace pogelInterface
         {
             return NULL;
         }
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("s", "Object not found.");
         POGEL::IMAGE* image = Renderer::requestImage(std::string(img));
@@ -267,7 +283,9 @@ namespace pogelInterface
         {
             return NULL;
         }
+        Py_XINCREF(name);
         POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
         if(obj == NULL)
             return Py_BuildValue("s", "Object not found.");
 
@@ -278,5 +296,149 @@ namespace pogelInterface
         obj->addtriangle(tri);
 
         return Py_BuildValue("s", "Added triangle to object.");
+    }
+
+    Object* object_add_triangle2(Object* self, Object* args)
+    {
+        Object* name;
+        char* simname;
+        char* img;
+        POGEL::TRIANGLE tri;
+        int prop;
+        int ind[3];
+        Object* verts;
+        if( !PyArg_ParseTuple(
+                args,
+                "sOsi"
+                "O"
+                "((ff)(ff)(ff))"
+                "|((fff)(fff)(fff))"
+                "|((ffff)(ffff)(ffff))"
+                ":object_add_triangle2",
+                &simname, &name, &img, &prop,
+                &verts,
+                &tri.vertex[0].u, &tri.vertex[0].v,
+                &tri.vertex[1].u, &tri.vertex[1].v,
+                &tri.vertex[2].u, &tri.vertex[2].v,
+                &tri.vertex[0].normal.x, &tri.vertex[0].normal.y, &tri.vertex[0].normal.z,
+                &tri.vertex[1].normal.x, &tri.vertex[1].normal.y, &tri.vertex[1].normal.z,
+                &tri.vertex[2].normal.x, &tri.vertex[2].normal.y, &tri.vertex[2].normal.z,
+                &tri.vertex[0].color.r, &tri.vertex[0].color.g, &tri.vertex[0].color.b, &tri.vertex[0].color.a,
+                &tri.vertex[1].color.r, &tri.vertex[1].color.g, &tri.vertex[1].color.b, &tri.vertex[1].color.a,
+                &tri.vertex[2].color.r, &tri.vertex[2].color.g, &tri.vertex[2].color.b, &tri.vertex[2].color.a
+                ) )
+        {
+            return NULL;
+        }
+        if( !PyTuple_CheckExact(verts) || PyTuple_Size(verts) != 3 )
+        {
+            return NULL;
+        }
+
+        Py_XINCREF(name);
+        POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
+        if(obj == NULL)
+            return Py_BuildValue("s", "Object not found.");
+
+        Object * triprp[] = { PyTuple_GetItem(verts,0), PyTuple_GetItem(verts,1), PyTuple_GetItem(verts,2) };
+
+        bool type1 = false, type2 = false;
+
+        for( unsigned int i = 0; i < 3; ++i )
+        {
+            if( PyTuple_CheckExact(triprp[i]) && PyTuple_Size(triprp[i]) == 3 )
+            {
+                bool settype1 = true;
+                for( unsigned int p = 0; p < 3; ++p )
+                {
+                    if( !PyFloat_CheckExact( PyTuple_GetItem( triprp[i], p ) ) )
+                    {
+                        settype1 = false;
+                        break;
+                    }
+                }
+                if( settype1 )
+                {
+                    type1 = true;
+                }
+            }
+            if( !type2 && PyInt_Check( triprp[i] ) )
+            {
+                type2 = true;
+            }
+        }
+
+        if( type1 && !type2 )
+        {
+            for( unsigned int i = 0; i < 3; ++i )
+            {
+                tri.vertex[i].x = PyFloat_AsDouble( PyTuple_GetItem(triprp[i],0) );
+                tri.vertex[i].y = PyFloat_AsDouble( PyTuple_GetItem(triprp[i],1) );
+                tri.vertex[i].z = PyFloat_AsDouble( PyTuple_GetItem(triprp[i],2) );
+            }
+        }
+        else if( type2 && !type1 )
+        {
+            ind[0] = PyInt_AsLong( triprp[0] );
+            ind[1] = PyInt_AsLong( triprp[1] );
+            ind[2] = PyInt_AsLong( triprp[2] );
+
+            POGEL::TRIANGLE tri2( obj->getVertexListAddress(), obj->getNumVerticies(), ind[0], ind[1], ind[2], NULL, 0 );
+            for( int a = 0; a < 3; ++a )
+            {
+                tri2.vertex[a].u = tri.vertex[a].u;
+                tri2.vertex[a].v = tri.vertex[a].v;
+                tri2.vertex[a].color = tri.vertex[a].color;
+
+                tri2.vertex[a].normal = tri.vertex[a].normal;
+                tri2.vertnormals[a] = tri.vertex[a].normal;
+            }
+            tri = tri2;
+        }
+        else
+        {
+            return NULL;
+        }
+
+        tri.texture = Renderer::requestImage(std::string(img));
+        tri.setproperties((unsigned int)prop);
+
+        tri.updateVert();
+        obj->addtriangle(tri);
+
+        return Py_BuildValue("s", "Added triangle to object.");
+    }
+
+    Object* object_add_vertex(Object* self, Object* args)
+    {
+        Object* name;
+        char* simname;
+        POGEL::VERTEX vert;
+        int weights[3];
+        if( !PyArg_ParseTuple( args,
+            "sO(fff)(ff)|(fff)|(ffff)|(iiii)(iii):object_add_vertex",
+            &simname, &name,
+            &vert.x, &vert.y, &vert.z,
+            &vert.u, &vert.v,
+            &vert.normal.x, &vert.normal.y, &vert.normal.z,
+            &vert.color.r, &vert.color.g, &vert.color.b, &vert.color.a,
+            &vert.boneID, &vert.boneIDs[0], &vert.boneIDs[1], &vert.boneIDs[2],
+            &weights[0], &weights[1], &weights[2]
+            ) )
+        {
+            return NULL;
+        }
+        vert.weights[0] = (unsigned char)weights[0];
+        vert.weights[1] = (unsigned char)weights[1];
+        vert.weights[2] = (unsigned char)weights[2];
+        Py_XINCREF(name);
+        POGEL::OBJECT * obj = pogelInterface::GetObject( std::string(simname), name );
+        Py_XDECREF(name);
+        if(obj == NULL)
+            Py_BuildValue("i", -1);
+        ;
+        unsigned int ret = obj->addVertex(vert);
+        return Py_BuildValue("i", ret);
     }
 }

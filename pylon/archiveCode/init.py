@@ -5,11 +5,11 @@ try:
 	import math
 	
 	# normal pylon interface
-	#import pylon
+	import pylon
 	# pylon versions interface
-	#import _pylon
-	#import _pylon_calc
-	#import _pylon_draw
+	import _pylon
+	import _pylon_calc
+	import _pylon_draw
 	
 	# for comparing the versions
 	import shlex
@@ -380,7 +380,8 @@ def keyfunc2( key, mx, my, tm ):
 keyfunc1index = pylon.key_callback_add_downfunc("","keyfunc1")
 print keyfunc1index
 print pylon.key_callback_remove_downfunc(keyfunc1index)
-pylon.key_callback_add_downfunc("","keyfunc1")
 
-pylon.key_callback_add_upfunc("","keyfunc2")
+pylon.key_callback_add_downfilters( pylon.key_callback_add_downfunc("","keyfunc1"), "\r\no,v"+str(chr(27)) )
+
+pylon.key_callback_add_upfilters( pylon.key_callback_add_upfunc("","keyfunc2"), ",v"+str(chr(27)) )
 

@@ -13,6 +13,7 @@ namespace Threads
         {
             std::cout << "*** THREAD EXCEPTION ***" << std::endl;
             throw;
+            //ThrowError();
         }
         pthread_exit(NULL);
         return NULL;

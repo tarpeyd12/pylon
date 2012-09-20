@@ -9,6 +9,10 @@ namespace ScriptEngine
 {
     class InterpreterThread
     {
+        private:
+            static unsigned int numInterpreterThreads;
+            static Threads::Mutex * threadLock;
+            unsigned int myNumInterpreterThreads;
         protected:
             InterpreterState * mainInterpreterState;
             ThreadState * threadState;

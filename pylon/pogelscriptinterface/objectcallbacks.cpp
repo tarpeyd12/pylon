@@ -14,19 +14,22 @@ namespace pogelInterface
         char* func;
         if(!PyArg_ParseTuple(args, "sOss:object_callback_set_collfunc", &simname, &objname, &inst, &func))
             return NULL;
+        Py_XINCREF(objname);
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("i", -1);
 
-        POGEL::OBJECT* obj = pogelInterface::GetObject(std::string(simname),objname);
-        if(obj==NULL)
+        POGEL::OBJECT* objo = pogelInterface::GetObject(std::string(simname),objname);
+        Py_XDECREF(objname);
+        if(objo==NULL)
             return Py_BuildValue("i", -2);
-        if(obj->GetType() != POGEL_TYPE_SOLID)
+        if(objo->GetType() != POGEL_TYPE_SOLID)
             return Py_BuildValue("i", -3);
-        if(((POGEL::PHYSICS::SOLID*)obj)->callback!=NULL)
+        POGEL::PHYSICS::SOLID* obj = (POGEL::PHYSICS::SOLID*)objo;
+        if(obj->callback!=NULL)
             return Py_BuildValue("i", -4);
 
-        ((POGEL::PHYSICS::SOLID*)obj)->setCallback(new CollisionFunction(std::string(simname),std::string(inst),std::string(func)));
+        obj->setCallback(new CollisionFunction(std::string(simname),std::string(inst),std::string(func)));
         return Py_BuildValue("i", 0);
     }
 
@@ -38,19 +41,22 @@ namespace pogelInterface
         char* func;
         if(!PyArg_ParseTuple(args, "sOss:object_callback_set_stepfunc", &simname, &objname, &inst, &func))
             return NULL;
+        Py_XINCREF(objname);
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("i", -1);
 
-        POGEL::OBJECT* obj = pogelInterface::GetObject(std::string(simname),objname);
-        if(obj==NULL)
+        POGEL::OBJECT* objo = pogelInterface::GetObject(std::string(simname),objname);
+        Py_XDECREF(objname);
+        if(objo==NULL)
             return Py_BuildValue("i", -2);
-        if(obj->GetType() != POGEL_TYPE_SOLID)
+        if(objo->GetType() != POGEL_TYPE_SOLID)
             return Py_BuildValue("i", -3);
-        if(((POGEL::PHYSICS::SOLID*)obj)->function!=NULL)
+        POGEL::PHYSICS::SOLID* obj = (POGEL::PHYSICS::SOLID*)objo;
+        if(obj->function!=NULL)
             return Py_BuildValue("i", -4);
 
-        ((POGEL::PHYSICS::SOLID*)obj)->setStepFunc(new StepFunction(std::string(simname),std::string(inst),std::string(func)));
+        obj->setStepFunc(new StepFunction(std::string(simname),std::string(inst),std::string(func)));
         return Py_BuildValue("i", 0);
     }
 
@@ -62,19 +68,22 @@ namespace pogelInterface
         char* func;
         if(!PyArg_ParseTuple(args, "sOss:object_callback_set_hitfilter", &simname, &objname, &inst, &func))
             return NULL;
+        Py_XINCREF(objname);
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("i", -1);
 
-        POGEL::OBJECT* obj = pogelInterface::GetObject(std::string(simname),objname);
-        if(obj==NULL)
+        POGEL::OBJECT* objo = pogelInterface::GetObject(std::string(simname),objname);
+        Py_XDECREF(objname);
+        if(objo==NULL)
             return Py_BuildValue("i", -2);
-        if(obj->GetType() != POGEL_TYPE_SOLID)
+        if(objo->GetType() != POGEL_TYPE_SOLID)
             return Py_BuildValue("i", -3);
-        if(((POGEL::PHYSICS::SOLID*)obj)->hitfilter!=NULL)
+        POGEL::PHYSICS::SOLID* obj = (POGEL::PHYSICS::SOLID*)objo;
+        if(obj->hitfilter!=NULL)
             return Py_BuildValue("i", -4);
 
-        ((POGEL::PHYSICS::SOLID*)obj)->setHitFilter(new HitFilterFunction(std::string(simname),std::string(inst),std::string(func)));
+        obj->setHitFilter(new HitFilterFunction(std::string(simname),std::string(inst),std::string(func)));
         return Py_BuildValue("i", 0);
     }
 
@@ -106,8 +115,14 @@ namespace pogelInterface
 
     void CollisionFunction::operator()( POGEL::PHYSICS::SOLID * obj, const char * obj2name )
     {
-        std::string args[3] = { "str:"+simulationName, "str:"+obj->getsname(), "str:"+std::string(obj2name) };
-        getInstructions()->setArgs(args,3);
+        //std::string args[3] = { "str:"+simulationName, "str:"+obj->getsname(), "str:"+std::string(obj2name) };
+        //getInstructions()->setArgs(args,3);
+        ScriptEngine::Executor * inst = getInstructions();
+        if( !inst )
+            ThrowError(-3);
+        inst->setArg( Py_BuildValue("s",simulationName.c_str()), 0 );
+        inst->setArg( Py_BuildValue("s",obj->getname()), 1 );
+        inst->setArg( Py_BuildValue("s",obj2name), 2 );
         this->Execute();
     }
 
@@ -120,14 +135,14 @@ namespace pogelInterface
     StepFunction::StepFunction(std::string simname, std::string inst, std::string func)
     {
         simulationName = simname;
-        std::string args[3] = { "str:", "str:", "int:" };
+        std::string args[3] = { "str:"+simulationName, "str:0", "int:-1" };
         instructions = new ScriptEngine::FunctionCaller(inst,func,args,3);
     }
 
     StepFunction::StepFunction(std::string simname, std::string inst, std::string func, bool out)
     {
         simulationName = simname;
-        std::string args[3] = { "str:", "str:", "int:" };
+        std::string args[3] = { "str:"+simulationName, "str:0", "int:-1" };
         instructions = new ScriptEngine::FunctionCaller(inst,func,args,3,out);
     }
 
@@ -138,11 +153,17 @@ namespace pogelInterface
 
     void StepFunction::operator()( POGEL::PHYSICS::SOLID * obj )
     {
-        char * pzstepstaken = POGEL::string("%u");
-        std::string stepstaken(pzstepstaken);
-        delete [] pzstepstaken;
-        std::string args[3] = { "str:"+simulationName, "str:"+obj->getsname(), "int:"+stepstaken };
-        getInstructions()->setArgs(args,3);
+        //char * pzstepstaken = POGEL::string("%u", obj->getstepstaken());
+        //std::string stepstaken(pzstepstaken);
+        //delete [] pzstepstaken;
+        //std::string args[3] = { "str:"+simulationName, "str:"+obj->getsname(), "int:"+stepstaken };
+        //getInstructions()->setArgs(args,3);
+        ScriptEngine::Executor * inst = getInstructions();
+        if( !inst )
+            ThrowError(-3);
+        inst->setArg( Py_BuildValue("s",(simulationName+"\0").c_str()), 0 );
+        inst->setArg( Py_BuildValue("s",obj->getname()), 1 );
+        inst->setArg( Py_BuildValue("i",obj->getstepstaken()), 2 );
         this->Execute();
     }
 
@@ -175,15 +196,31 @@ namespace pogelInterface
     {
         if( !obj1 || !obj2 )
         {
-            throw -1;
+            ThrowError(-1);
             return false;
         }
-        std::string args[3] = { "str:"+simulationName, "str:"+obj1->getsname(), "str:"+obj2->getsname() };
-        getInstructions()->setArgs(args,3);
+        //std::string args[3] = { "str:"+simulationName, "str:"+obj1->getsname(), "str:"+obj2->getsname() };
+        //getInstructions()->setArgs(args,3);
+        ScriptEngine::Executor * inst = getInstructions();
+        if( !inst )
+        {
+            ThrowError(-2);
+            return false;
+        }
+        inst->setArg( Py_BuildValue("s",(simulationName+"\0").c_str()), 0 );
+        inst->setArg( Py_BuildValue("s",obj1->getname()), 1 );
+        inst->setArg( Py_BuildValue("s",obj2->getname()), 2 );
         this->Execute();
-        std::string result = getInstructions()->getResult();
-        if( !result.compare("bool:True") ) return true;
-        if( !result.compare("bool:False") ) return false;
+        /*std::string result = getInstructions()->getResult();
+        //if( !result.compare("bool:True") ) return true;
+        //if( !result.compare("bool:False") ) return false;
+        if( result[5] == 'T' ) return true;
+        if( result[5] == 'F' ) return false;*/
+
+        char resval = inst->getResult().at(5);
+        if( resval == 'T' ) return true;
+        if( resval == 'F' ) return false;
+        ThrowError(-3);
         return true;
     }
 }

@@ -62,13 +62,15 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-s -O3 -fexpensive-optimizations -fexceptions -Wall -Wextra" />
+			<Add option="-fexceptions -Wall -Wextra" />
 		</Compiler>
 		<Linker>
 			<Add library="pthread" />
 		</Linker>
 		<Unit filename="exthread.cpp" />
 		<Unit filename="exthread.h" />
+		<Unit filename="mutex.cpp" />
+		<Unit filename="mutex.h" />
 		<Unit filename="thread.cpp" />
 		<Unit filename="thread.h" />
 		<Unit filename="threads.cpp" />

@@ -82,6 +82,8 @@ namespace pogelInterface
         { "object_add_cube",         (CFunction)object_add_cube,         VarArgs, NULL },
         { "object_add_cube_mat",     (CFunction)object_add_cube_mat,     VarArgs, NULL },
         { "object_add_triangle",     (CFunction)object_add_triangle,     VarArgs, NULL },
+        { "object_add_triangle2",    (CFunction)object_add_triangle2,    VarArgs, NULL },
+        { "object_add_vertex",       (CFunction)object_add_vertex,       VarArgs, NULL },
         // object callback controll
         { "object_callback_set_collfunc",    (CFunction)object_callback_set_collfunc,    VarArgs, NULL },
         { "object_callback_set_stepfunc",    (CFunction)object_callback_set_stepfunc,    VarArgs, NULL },
@@ -96,9 +98,11 @@ namespace pogelInterface
         // key callback controll
         { "key_callback_add_downfunc",    (CFunction)key_callback_add_downfunc,    VarArgs, NULL },
         { "key_callback_add_objdownfunc", (CFunction)key_callback_add_objdownfunc, VarArgs, NULL },
+        { "key_callback_add_downfilters", (CFunction)key_callback_add_downfilters, VarArgs, NULL },
         { "key_callback_remove_downfunc", (CFunction)key_callback_remove_downfunc, VarArgs, NULL },
         { "key_callback_add_upfunc",      (CFunction)key_callback_add_upfunc,      VarArgs, NULL },
         { "key_callback_add_objupfunc",   (CFunction)key_callback_add_objupfunc,   VarArgs, NULL },
+        { "key_callback_add_upfilters",   (CFunction)key_callback_add_upfilters,   VarArgs, NULL },
         { "key_callback_remove_upfunc",   (CFunction)key_callback_remove_upfunc,   VarArgs, NULL },
         // mouse interface
         { "mouse_ispressed",    (CFunction)mouse_ispressed,   VarArgs, NULL },

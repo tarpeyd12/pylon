@@ -8,6 +8,8 @@
 #include <stdio.h>
 #include <iostream>
 
+#define ThrowError(e) { std::cout << "Exception " << e << " " << __FILE__ << ":" << __LINE__ << " (" << __DATE__ << ", " << __TIME__ << ")" << std::endl; throw e; }
+
 #define     THREADTYPE      void*
 #define     THREADARGS      void*
 

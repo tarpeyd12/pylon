@@ -14,8 +14,35 @@ namespace Renderer
 
         volatile char last;
 
-        ClassList< KeyCallback* > keyDownCallBacks;
-        ClassList< KeyCallback* > keyUpCallBacks;
+        ClassList< KeyCallback * > keyDownCallBacks;
+        ClassList< KeyCallback * > keyUpCallBacks;
+
+        KeyCallback::KeyCallback()
+        {
+            remove = false;
+            haskeyfilters = false;
+            memset((void*)keyfilter,(unsigned int)(false),sizeof(bool)*256);
+        }
+
+        bool KeyCallback::hasKeyFilters() const
+        {
+            return haskeyfilters;
+        }
+
+        bool KeyCallback::hasKeyFiltered( unsigned char c ) const
+        {
+            if( haskeyfilters )
+            {
+                return keyfilter[ c ];
+            }
+            return true;
+        }
+
+        void KeyCallback::setKeyFilter( unsigned char c, bool v )
+        {
+            haskeyfilters = true;
+            keyfilter[ c ] = v;
+        }
 
         void Down( unsigned char key, int x, int y )
         {
@@ -28,6 +55,8 @@ namespace Renderer
             Renderer::Key::lastpressed[ key ] = (float)POGEL::GetTimePassed();
             Renderer::Key::mousepospress[ key ][ 0 ] = x;
             Renderer::Key::mousepospress[ key ][ 1 ] = y;
+
+            cout << "Key '" << key  << "' pressed at position (" << x << "," << y << ") at time " << Renderer::Key::lastpressed[ key ] << endl;
 
             unsigned int numcallbacks = keyDownCallBacks.length();
             for( unsigned int i = 0; i < numcallbacks; ++i )
@@ -43,7 +72,10 @@ namespace Renderer
                     delete func;
                     continue;
                 }
-                keyDownCallBacks[ i ]->operator()( key, x, y, Renderer::Key::lastpressed[ key ] );
+                if( keyDownCallBacks[ i ]->hasKeyFiltered( key ) )
+                {
+                    keyDownCallBacks[ i ]->operator()( key, x, y, Renderer::Key::lastpressed[ key ] );
+                }
             }
         }
 
@@ -57,6 +89,8 @@ namespace Renderer
             Renderer::Key::lastreleased[ key ] = (float)POGEL::GetTimePassed();
             Renderer::Key::mouseposrelease[ key ][ 0 ] = x;
             Renderer::Key::mouseposrelease[ key ][ 1 ] = y;
+
+            cout << "Key '" << key << "' released at position (" << x << "," << y << ") at time " << Renderer::Key::lastreleased[ key ] << endl;
 
             unsigned int numcallbacks = keyUpCallBacks.length();
             for( unsigned int i = 0; i < numcallbacks; ++i )
@@ -72,7 +106,10 @@ namespace Renderer
                     delete func;
                     continue;
                 }
-                keyUpCallBacks[ i ]->operator()( key, x, y, Renderer::Key::lastreleased[ key ] );
+                if( keyUpCallBacks[ i ]->hasKeyFiltered( key ) )
+                {
+                    keyUpCallBacks[ i ]->operator()( key, x, y, Renderer::Key::lastreleased[ key ] );
+                }
             }
         }
     }

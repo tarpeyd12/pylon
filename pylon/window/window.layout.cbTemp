@@ -2,46 +2,46 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="calcthread.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="276" topLine="0" />
+		<Cursor position="328" topLine="0" />
 	</File>
 	<File name="calcthread.h" open="0" top="0" tabpos="2">
 		<Cursor position="132" topLine="0" />
 	</File>
 	<File name="cmd.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="599" topLine="9" />
+		<Cursor position="599" topLine="91" />
 	</File>
 	<File name="globals.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="939" topLine="7" />
+		<Cursor position="780" topLine="0" />
 	</File>
 	<File name="globals.h" open="0" top="0" tabpos="4">
 		<Cursor position="549" topLine="9" />
 	</File>
 	<File name="info.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="3036" topLine="23" />
+		<Cursor position="1404" topLine="16" />
 	</File>
 	<File name="init.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="1016" topLine="6" />
+		<Cursor position="6446" topLine="162" />
 	</File>
-	<File name="main.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="833" topLine="10" />
+	<File name="main.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="1016" topLine="17" />
 	</File>
 	<File name="main.h" open="0" top="0" tabpos="2">
 		<Cursor position="925" topLine="22" />
 	</File>
-	<File name="mainscriptdefs.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="6597" topLine="122" />
+	<File name="mainscriptdefs.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="4627" topLine="122" />
 	</File>
 	<File name="mainscriptdefs.h" open="0" top="0" tabpos="9">
 		<Cursor position="969" topLine="0" />
 	</File>
-	<File name="scriptthread.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="4060" topLine="148" />
+	<File name="scriptthread.cpp" open="1" top="1" tabpos="0">
+		<Cursor position="6445" topLine="213" />
 	</File>
 	<File name="scriptthread.h" open="0" top="0" tabpos="1">
 		<Cursor position="320" topLine="0" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="2">
-		<Cursor position="517" topLine="0" />
+		<Cursor position="251" topLine="0" />
 	</File>
 	<File name="versionheaders.h" open="0" top="0" tabpos="0">
 		<Cursor position="807" topLine="6" />

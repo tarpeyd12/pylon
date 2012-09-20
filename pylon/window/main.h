@@ -20,11 +20,11 @@
 
 #include <stdlib.h>
 
+#include "../scriptengine/scriptengine.h"
 #include "../lists/classlist_template.h"
 #include "../threads/threads.h"
 #include "../pogel/pogel.h"
 #include "../fileloader/fileloader.h"
-#include "../scriptengine/scriptengine.h"
 #include "../objectloader/objectloader.h"
 #include "../renderer/renderer.h"
 #include "../pogelscriptinterface/pogelscriptinterface.h"

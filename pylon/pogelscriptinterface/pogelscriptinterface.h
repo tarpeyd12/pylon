@@ -23,6 +23,8 @@ namespace pogelInterface
     void Init();
 
     POGEL::OBJECT * GetObject( const std::string&, Object * );
+    ClassList<std::string> * GetObjectNameList( Object * );
+    Object * GetObjectTupleFromNameList( ClassList<std::string> * );
     std::string GetObjectName( Object * );
 
     // POGEL specific things

@@ -3,24 +3,6 @@ if counter == 0.0:
 	print ''
 	print 'Pylon Engine started:',time.ctime(time.time())
 
-
-# simple object controll
-count = counter
-count = count % 20
-goin = False
-if count > 10:
-	goin = True
-	count = count + 01
-else:
-	count = count - 01
-count = 10 - count
-
-if pylon.key_ispressed('a') or pylon.key_ispressed('A'):
-	movestatetype = 0
-elif pylon.key_ispressed('s') or pylon.key_ispressed('S'):
-	movestatetype = 1
-
-
 # getting the fps
 if pylon.key_ispressed('p') or pylon.key_ispressed('P'):
 	print 'FPS: ', pylon.fps()
@@ -67,44 +49,7 @@ if True or pylon.mouse_pos_x() != Mouse.x1+int(4*mouseScale) or pylon.mouse_pos_
 previouslastkey = lastkey
 lastkey = pylon.key_last()
 
-if False:
-	currentanimation = Beast.getAnimationCurrent()
-	timesinceanimationstart = Beast.getAnimationRuntime()
-	animationlength = Beast.getAnimationLength( currentanimation )
 
-	if timesinceanimationstart > animationlength:
-		if random.random() > 0.1:
-			Beast.setAnimation( "Idle" )
-		else:
-			nextanimation = ""
-			if random.random() > 0.5:
-				nextanimation = "Look"
-			else:
-				nextanimation = "Rear"
-			Beast.setAnimation( nextanimation )
-		Beast.setAnimationStart()
-	else:
-		if pylon.key_ispressed( ' ' ):
-			if currentanimation != "Jump":
-				Beast.setAnimationStart()
-			Beast.setAnimation( "Jump" )
-		elif pylon.key_ispressed( 'w' ) or pylon.key_ispressed( 'W' ):
-			if currentanimation != "Jump" and timesinceanimationstart < animationlength:
-				if currentanimation != "Walk":
-					Beast.setAnimationStart()
-				Beast.setAnimation( "Walk" )
-		elif pylon.key_ispressed( 's' ) or pylon.key_ispressed( 'S' ):
-			if currentanimation != "Jump" and timesinceanimationstart < animationlength:
-				if currentanimation != "WalkReverse":
-					Beast.setAnimationStart()
-				Beast.setAnimation( "WalkReverse" )
-
-	if pylon.key_ispressed( 'd' ) or pylon.key_ispressed( 'D' ):
-		Beast.setSpin( Position(0,30,0) )
-	elif pylon.key_ispressed( 'a' ) or pylon.key_ispressed( 'A' ):
-		Beast.setSpin( Position(0,-30,0) )
-	else:
-		Beast.setSpin( Position(0,0,0) )
 
 # simple debug display toggling, for object trails
 if pylon.key_ispressed('4'):
@@ -112,12 +57,6 @@ if pylon.key_ispressed('4'):
 		pylon.removeproperty(16)
 	else:
 		pylon.addproperty(16)
-
-# clearing all objects from a simulation
-if False and pylon.key_ispressed(','):
-	sim2.stop()
-	pylon.clearsimulation(sim2.name)
-	sim2.restart()
 
 if pylon.key_ispressed('z') and pylon.select_isgood() and pylon.mouse_ispressed():
 	sim = pylon.select_get_sim()
@@ -154,7 +93,7 @@ if not pylon.key_ispressed('z'):
 		pylon.object_move_3f( Sky.name,"Sky",-cam.pos.x,-cam.pos.y,-cam.pos.z )
 		subrenderer1.setCamera( cam )
 
-//subrenderer1.setCamera( Camera(Position(0,0,-10),Position(0,0,0)) )
+#subrenderer1.setCamera( Camera(Position(0,0,-10),Position(0,0,0)) )
 
 Bloop.y1 = pylon.window_height()
 Bloop.x2 = pylon.window_width()

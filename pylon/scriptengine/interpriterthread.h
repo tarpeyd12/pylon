@@ -24,6 +24,9 @@ namespace ScriptEngine
 
             Executor * getInstructions() const;
 
+            static void GetLock();
+            static void ReleaseLock();
+
             void Execute();
     };
 }

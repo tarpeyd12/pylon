@@ -32,6 +32,7 @@ namespace ScriptEngine
             virtual void setArgs(std::string*,unsigned int) {}
             virtual void setArgs( ScriptEngine::MethodInterface::Object**, unsigned int ) {}
             virtual void setArg( ScriptEngine::MethodInterface::Object*, unsigned int ) {}
+            virtual void clearArg( unsigned int ) {}
     };
 
     class FileExecutor : public Executor
@@ -60,6 +61,7 @@ namespace ScriptEngine
             void setArgs( std::string*, unsigned int );
             void setArgs( ScriptEngine::MethodInterface::Object**, unsigned int );
             void setArg( ScriptEngine::MethodInterface::Object*, unsigned int );
+            void clearArg( unsigned int );
 
             void Execute();
 

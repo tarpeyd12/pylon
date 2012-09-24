@@ -231,6 +231,11 @@ namespace ScriptEngine
         arguments.replace( index, arg );
     }
 
+    void FunctionCaller::clearArg( unsigned int index )
+    {
+        arguments.replace( index, NULL );
+    }
+
     void FunctionCaller::Execute()
     {
         if( arguments.length() )
@@ -258,9 +263,12 @@ namespace ScriptEngine
         //if(!is_init) ScriptEngine::Finalize();
 
         if( arguments.length() != numArgs )
+        {
             ThrowError(-2);
+        }
 
         call( func, arguments.getList(), arguments.length(), res);
+
     }
 
     void FunctionCaller::call( const std::string& func, ScriptEngine::MethodInterface::Object** args, unsigned int numArgs, std::string* res )
@@ -287,13 +295,13 @@ namespace ScriptEngine
             if (pFunc && PyCallable_Check(pFunc))
             {
                 pArgs = PyTuple_New(numArgs);
-                if( POGEL::hasproperty(POGEL_DEBUG) )
+                if( POGEL::hasproperty(POGEL_DEBUG) && false )
                 {
                     cout << "FUNC: " << func << "(" << numArgs << ")" << endl;
                 }
                 for( unsigned int i = 0; i < numArgs; ++i )
                 {
-                    if( POGEL::hasproperty(POGEL_DEBUG) )
+                    if( POGEL::hasproperty(POGEL_DEBUG) && false )
                     {
                         PyObject* r = PyObject_Str(args[i]);
                         const char* sres = PyString_AsString(r);
@@ -435,7 +443,7 @@ namespace ScriptEngine
 
             if(!type.compare("int"))
             {
-                pValue = PyInt_FromLong(atoi(data.c_str()));
+                pValue = PyInt_FromLong(atoi((const char*)data.c_str()));
             }
             else
             if(!type.compare("bool"))
@@ -445,17 +453,17 @@ namespace ScriptEngine
                 else if(!data.compare("false") || !data.compare("False"))
                     pValue = PyBool_FromLong(0);
                 else
-                    pValue = PyBool_FromLong(atoi(data.c_str()));
+                    pValue = PyBool_FromLong(atoi((const char*)data.c_str()));
             }
             else
             if(!type.compare("long"))
             {
-                pValue = PyLong_FromLong(atoi(data.c_str()));
+                pValue = PyLong_FromLong(atoi((const char*)data.c_str()));
             }
             else
             if(!type.compare("float"))
             {
-                PyObject* s = PyString_FromString(data.c_str());
+                PyObject* s = PyString_FromString((const char*)data.c_str());
                 pValue = PyFloat_FromString(s,NULL);
                 // delete s;
                 Py_DECREF(s);
@@ -463,7 +471,7 @@ namespace ScriptEngine
             else
             if(!type.compare("str"))
             {
-                pValue = PyString_FromString(data.c_str());
+                pValue = PyString_FromString((const char*)data.c_str());
             }
             else
             if(!type.compare("char"))

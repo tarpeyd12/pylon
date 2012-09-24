@@ -161,13 +161,15 @@ namespace pogelInterface
         //delete[]tmp;
         getInstructions()->setArgs(args,4);*/
 
+        ScriptEngine::InterpreterThread::GetLock();
+
         getInstructions()->setArg( Py_BuildValue("c",key), 0 );
-        //getInstructions()->setArg( PyInt_FromLong(xpos), 1 );
         getInstructions()->setArg( Py_BuildValue("i",xpos), 1 );
-        //getInstructions()->setArg( PyInt_FromLong(ypos), 2 );
         getInstructions()->setArg( Py_BuildValue("i",ypos), 2 );
-        //getInstructions()->setArg( PyFloat_FromDouble(curtime), 3 );
         getInstructions()->setArg( Py_BuildValue("f",curtime), 3 );
+
+        ScriptEngine::InterpreterThread::ReleaseLock();
+
         this->Execute();
     }
 
@@ -221,25 +223,28 @@ namespace pogelInterface
         args[ 3 ] += std::string(tmp);
         //delete[]tmp;
         args[ 4 ] += simulation;
-        args[ 5 ] += object;
+        //args[ 5 ] += object;
         getInstructions()->setArgs(args,6);*/
+
+        ScriptEngine::InterpreterThread::GetLock();
+
         Object * obj = pogelInterface::GetObjectTupleFromNameList( object );
         if( !obj )
             ThrowError(-1);
+
         getInstructions()->setArg( Py_BuildValue("c",key), 0 );
-        //getInstructions()->setArg( PyInt_FromLong(xpos), 1 );
         getInstructions()->setArg( Py_BuildValue("i",xpos), 1 );
-        //getInstructions()->setArg( PyInt_FromLong(ypos), 2 );
         getInstructions()->setArg( Py_BuildValue("i",ypos), 2 );
-        //getInstructions()->setArg( PyFloat_FromDouble(curtime), 3 );
         getInstructions()->setArg( Py_BuildValue("f",curtime), 3 );
         getInstructions()->setArg( Py_BuildValue("s",simulation.c_str()), 4 );
-        //getInstructions()->setArg( object, 5 );
-        //getInstructions()->setArg( Py_BuildValue("s",object.c_str()), 5 );
 
         getInstructions()->setArg( obj, 5 );
 
+        ScriptEngine::InterpreterThread::ReleaseLock();
+
         this->Execute();
+
+        getInstructions()->clearArg( 5 );
 
         //Py_CLEAR(obj);
     }

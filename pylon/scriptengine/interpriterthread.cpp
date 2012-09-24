@@ -4,13 +4,13 @@ namespace ScriptEngine
 {
     int PythonTrace( PyObject * obj, int * frame, int what, PyObject * arg )
     {
-        if( !POGEL::hasproperty(POGEL_DEBUG) && what != PyTrace_EXCEPTION && what != PyTrace_C_EXCEPTION )
+        if( !POGEL::hasproperty( POGEL_DEBUG ) && what != PyTrace_EXCEPTION && what != PyTrace_C_EXCEPTION )
         {
             return 0;
         }
         cout << "PythonInterpriterTrace(";
-        PyObject* reslt1 = PyObject_Str(obj);
-        char* sres1 = PyString_AsString(reslt1);
+        PyObject* reslt1 = PyObject_Str( obj );
+        char* sres1 = PyString_AsString( reslt1 );
         cout << sres1 << "): ";
         sres1 = NULL;
         reslt1 = NULL;
@@ -25,8 +25,8 @@ namespace ScriptEngine
             case PyTrace_C_RETURN: cout << "PyTrace_C_RETURN"; break;
             default: cout << "Unknown Code: " << what; break;
         }
-        PyObject* reslt = PyObject_Str(arg);
-        char* sres = PyString_AsString(reslt);
+        PyObject* reslt = PyObject_Str( arg );
+        char* sres = PyString_AsString( reslt );
         cout << " " << sres;
         sres = NULL;
         reslt = NULL;
@@ -105,6 +105,20 @@ namespace ScriptEngine
         return instructions;
     }
 
+    void InterpreterThread::GetLock()
+    {
+        threadLock->TryLock();
+
+        //usleep(1000);
+        PyEval_AcquireLock();
+    }
+
+    void InterpreterThread::ReleaseLock()
+    {
+        PyEval_ReleaseLock();
+        threadLock->Unlock();
+    }
+
     void InterpreterThread::Execute()
     {
         if( !instructions )
@@ -113,7 +127,9 @@ namespace ScriptEngine
             return;
         }
 
-        threadLock->Lock();
+        threadLock->TryLock();
+
+        //usleep(1000);
 
         /*if( !mainInterpreterState )
         {
@@ -123,7 +139,7 @@ namespace ScriptEngine
         {
             threadState = PyThreadState_New(mainInterpreterState);
         }*/
-        if( POGEL::hasproperty(POGEL_DEBUG) )
+        if( POGEL::hasproperty(POGEL_DEBUG) && false )
         {
             cout << "Executing InterpriterThread(" << myNumInterpreterThreads << "/" << numInterpreterThreads << ")";
             cout << " with Executor(" << instructions->getExecutorIdNum() << "/" << instructions->getNumExecutors() << ")" << endl;
@@ -137,7 +153,10 @@ namespace ScriptEngine
         //PyThreadState_Swap(NULL);
         //PyThreadState_Swap(threadState);
         // register a profiler
-        //PyEval_SetProfile( (Py_tracefunc)PythonTrace, Py_BuildValue("i",myNumInterpreterThreads) );
+        if( POGEL::hasproperty(POGEL_DEBUG) && false )
+        {
+            PyEval_SetProfile( (Py_tracefunc)PythonTrace, Py_BuildValue("i",myNumInterpreterThreads) );
+        }
         // execute some python code
         instructions->Execute();
         // clear the thread state

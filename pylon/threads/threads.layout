@@ -7,8 +7,8 @@
 	<File name="exthread.h" open="0" top="0" tabpos="6">
 		<Cursor position="318" topLine="0" />
 	</File>
-	<File name="mutex.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="219" topLine="0" />
+	<File name="mutex.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="494" topLine="0" />
 	</File>
 	<File name="thread.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="669" topLine="23" />

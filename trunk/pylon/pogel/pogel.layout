@@ -92,7 +92,7 @@
 		<Cursor position="4791" topLine="166" />
 	</File>
 	<File name="classes/physics/solid_class.cpp" open="0" top="0" tabpos="21">
-		<Cursor position="23730" topLine="913" />
+		<Cursor position="23750" topLine="913" />
 	</File>
 	<File name="classes/physics/solid_class.h" open="0" top="0" tabpos="3">
 		<Cursor position="3650" topLine="120" />
@@ -137,7 +137,7 @@
 		<Cursor position="1767" topLine="56" />
 	</File>
 	<File name="pogel.cpp" open="0" top="0" tabpos="11">
-		<Cursor position="2694" topLine="99" />
+		<Cursor position="2694" topLine="16" />
 	</File>
 	<File name="pogel.h" open="0" top="0" tabpos="13">
 		<Cursor position="1263" topLine="51" />
@@ -146,7 +146,7 @@
 		<Cursor position="438" topLine="0" />
 	</File>
 	<File name="pogel_internals.h" open="0" top="0" tabpos="1">
-		<Cursor position="3627" topLine="75" />
+		<Cursor position="4732" topLine="105" />
 	</File>
 	<File name="templates/arraylist.h" open="0" top="0" tabpos="4">
 		<Cursor position="88" topLine="0" />
@@ -191,7 +191,7 @@
 		<Cursor position="181" topLine="0" />
 	</File>
 	<File name="time.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="4147" topLine="153" />
+		<Cursor position="3736" topLine="146" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="0">
 		<Cursor position="694" topLine="18" />

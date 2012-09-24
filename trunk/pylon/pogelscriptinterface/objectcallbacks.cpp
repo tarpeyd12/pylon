@@ -17,7 +17,10 @@ namespace pogelInterface
         Py_XINCREF(objname);
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
+        {
+            Py_XDECREF(objname);
             return Py_BuildValue("i", -1);
+        }
 
         POGEL::OBJECT* objo = pogelInterface::GetObject(std::string(simname),objname);
         Py_XDECREF(objname);
@@ -44,7 +47,10 @@ namespace pogelInterface
         Py_XINCREF(objname);
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
+        {
+            Py_XDECREF(objname);
             return Py_BuildValue("i", -1);
+        }
 
         POGEL::OBJECT* objo = pogelInterface::GetObject(std::string(simname),objname);
         Py_XDECREF(objname);
@@ -115,14 +121,16 @@ namespace pogelInterface
 
     void CollisionFunction::operator()( POGEL::PHYSICS::SOLID * obj, const char * obj2name )
     {
-        //std::string args[3] = { "str:"+simulationName, "str:"+obj->getsname(), "str:"+std::string(obj2name) };
-        //getInstructions()->setArgs(args,3);
+        /*std::string args[3] = { "str:"+simulationName, "str:"+obj->getsname(), "str:"+std::string(obj2name) };
+        getInstructions()->setArgs(args,3);*/
         ScriptEngine::Executor * inst = getInstructions();
         if( !inst )
             ThrowError(-3);
+        ScriptEngine::InterpreterThread::GetLock();
         inst->setArg( Py_BuildValue("s",simulationName.c_str()), 0 );
         inst->setArg( Py_BuildValue("s",obj->getname()), 1 );
         inst->setArg( Py_BuildValue("s",obj2name), 2 );
+        ScriptEngine::InterpreterThread::ReleaseLock();
         this->Execute();
     }
 
@@ -153,17 +161,19 @@ namespace pogelInterface
 
     void StepFunction::operator()( POGEL::PHYSICS::SOLID * obj )
     {
-        //char * pzstepstaken = POGEL::string("%u", obj->getstepstaken());
-        //std::string stepstaken(pzstepstaken);
-        //delete [] pzstepstaken;
-        //std::string args[3] = { "str:"+simulationName, "str:"+obj->getsname(), "int:"+stepstaken };
-        //getInstructions()->setArgs(args,3);
+        /*char * pzstepstaken = POGEL::string("%u", obj->getstepstaken());
+        std::string stepstaken(pzstepstaken);
+        delete [] pzstepstaken;
+        std::string args[3] = { "str:"+simulationName, "str:"+obj->getsname(), "int:"+stepstaken };
+        getInstructions()->setArgs(args,3);*/
         ScriptEngine::Executor * inst = getInstructions();
         if( !inst )
             ThrowError(-3);
-        inst->setArg( Py_BuildValue("s",(simulationName+"\0").c_str()), 0 );
+        ScriptEngine::InterpreterThread::GetLock();
+        inst->setArg( Py_BuildValue("s",simulationName.c_str()), 0 );
         inst->setArg( Py_BuildValue("s",obj->getname()), 1 );
         inst->setArg( Py_BuildValue("i",obj->getstepstaken()), 2 );
+        ScriptEngine::InterpreterThread::ReleaseLock();
         this->Execute();
     }
 
@@ -199,23 +209,20 @@ namespace pogelInterface
             ThrowError(-1);
             return false;
         }
-        //std::string args[3] = { "str:"+simulationName, "str:"+obj1->getsname(), "str:"+obj2->getsname() };
-        //getInstructions()->setArgs(args,3);
+        /*std::string args[3] = { "str:"+simulationName, "str:"+obj1->getsname(), "str:"+obj2->getsname() };
+        getInstructions()->setArgs(args,3);*/
         ScriptEngine::Executor * inst = getInstructions();
         if( !inst )
         {
             ThrowError(-2);
             return false;
         }
-        inst->setArg( Py_BuildValue("s",(simulationName+"\0").c_str()), 0 );
+        ScriptEngine::InterpreterThread::GetLock();
+        inst->setArg( Py_BuildValue("s",simulationName.c_str()), 0 );
         inst->setArg( Py_BuildValue("s",obj1->getname()), 1 );
         inst->setArg( Py_BuildValue("s",obj2->getname()), 2 );
+        ScriptEngine::InterpreterThread::ReleaseLock();
         this->Execute();
-        /*std::string result = getInstructions()->getResult();
-        //if( !result.compare("bool:True") ) return true;
-        //if( !result.compare("bool:False") ) return false;
-        if( result[5] == 'T' ) return true;
-        if( result[5] == 'F' ) return false;*/
 
         char resval = inst->getResult().at(5);
         if( resval == 'T' ) return true;

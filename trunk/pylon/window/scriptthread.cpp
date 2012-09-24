@@ -95,13 +95,13 @@ void _atAbruptScriptInitExit()
 
 int PythonTrace( PyObject * obj, int * frame, int what, PyObject * arg )
 {
-    if( !POGEL::hasproperty(POGEL_DEBUG) && what != PyTrace_EXCEPTION && what != PyTrace_C_EXCEPTION )
+    if( !POGEL::hasproperty( POGEL_DEBUG ) && what != PyTrace_EXCEPTION && what != PyTrace_C_EXCEPTION )
     {
         return 0;
     }
     cout << "PythonTrace(";
-    PyObject* reslt1 = PyObject_Str(obj);
-    const char* sres1 = PyString_AsString(reslt1);
+    PyObject* reslt1 = PyObject_Str( obj );
+    const char* sres1 = PyString_AsString( reslt1 );
     cout << sres1 << "): ";
     sres1 = NULL;
     reslt1 = NULL;
@@ -116,8 +116,8 @@ int PythonTrace( PyObject * obj, int * frame, int what, PyObject * arg )
         case PyTrace_C_RETURN: cout << "PyTrace_C_RETURN"; break;
         default: cout << "Unknown Code: " << what; break;
     }
-    PyObject* reslt = PyObject_Str(arg);
-    const char* sres = PyString_AsString(reslt);
+    PyObject* reslt = PyObject_Str( arg );
+    const char* sres = PyString_AsString( reslt );
     cout << " " << sres;
     sres = NULL;
     reslt = NULL;
@@ -134,7 +134,10 @@ void ScriptThread::FirstRun()
 
     ScriptEngine::Initialize();
 
-    PyEval_SetProfile( (Py_tracefunc)PythonTrace, NULL );
+    if( POGEL::hasproperty(POGEL_DEBUG) && false )
+    {
+        PyEval_SetProfile( (Py_tracefunc)PythonTrace, NULL );
+    }
 
     ScriptEngine::MethodInterface::Add( "_pylon",      Main::getVersionMethod, "" );
     ScriptEngine::MethodInterface::Add( "_pylon_calc", Main::calcLockMethods,  "" );

@@ -40,12 +40,14 @@ namespace pogelInterface
 
     ClassList<std::string> * GetObjectNameList( Object* pyobjreff )
     {
+        Py_XINCREF( pyobjreff );
         if( PyString_CheckExact( pyobjreff ) )
         {
             ClassList< std::string > * ret = new ClassList<std::string>( 1 );
             const char* objname = PyString_AsString( pyobjreff );
             ret->add( std::string(objname) );
             objname = NULL;
+            Py_XDECREF( pyobjreff );
             return ret;
         }
         if( PyTuple_CheckExact( pyobjreff ) )
@@ -53,23 +55,29 @@ namespace pogelInterface
             int tlen = PyTuple_Size( pyobjreff );
             if( tlen <= 0 )
             {
+                Py_XDECREF( pyobjreff );
                 return NULL;
             }
             ClassList<std::string> * ret = new ClassList<std::string>( tlen );
             for( int i = 0; i < tlen; ++i )
             {
                 Object * curpydec = PyTuple_GetItem( pyobjreff, i );
+                Py_XINCREF( curpydec );
                 if( !curpydec || !PyString_CheckExact( curpydec ) )
                 {
                     delete ret;
+                    Py_XDECREF( curpydec );
                     return NULL;
                 }
                 const char * dec = PyString_AsString( curpydec );
                 ret->add( std::string(dec) );
                 dec = NULL;
+                Py_XDECREF( curpydec );
             }
+            Py_XDECREF( pyobjreff );
             return ret;
         }
+        Py_XDECREF( pyobjreff );
         return NULL;
     }
 
@@ -90,25 +98,35 @@ namespace pogelInterface
 
     std::string GetObjectName( Object * pyobjreff )
     {
+        Py_XINCREF( pyobjreff );
         if( PyString_CheckExact( pyobjreff ) )
         {
             const char * objname = PyString_AsString( pyobjreff );
             std::string ret(objname);
             objname = NULL;
+            Py_XDECREF( pyobjreff );
             return ret;
         }
         if( PyTuple_CheckExact( pyobjreff ) )
         {
             if( !PyTuple_Size( pyobjreff ) )
+            {
+                Py_XDECREF( pyobjreff );
                 ThrowError(-1);
+            }
             Object * curpydec = PyTuple_GetItem( pyobjreff,0 );
             if( !PyString_CheckExact( curpydec ) )
+            {
+                Py_XDECREF( pyobjreff );
                 ThrowError(-2);
+            }
             const char * dec = PyString_AsString( curpydec );
             std::string ret(dec);
             dec = NULL;
+            Py_XDECREF( pyobjreff );
             return ret;
         }
+        Py_XDECREF( pyobjreff );
         ThrowError(-3);
         return std::string();
     }

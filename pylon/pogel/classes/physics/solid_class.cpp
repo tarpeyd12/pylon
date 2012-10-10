@@ -584,6 +584,8 @@ POGEL::PHYSICS::SOLID::makebounding()
 	{
 	    forcegetbounding();
 	}
+	refbounding.fin();
+	bounding.fin();
 }
 
 void
@@ -652,6 +654,8 @@ POGEL::PHYSICS::SOLID::forcegetbounding()
         //refbounding.offset(POGEL::POINT());
         verts = NULL;
         stepsatboundingcheck = stepstaken;
+        refbounding.fin();
+        bounding.fin();
         return;
     }
 
@@ -686,6 +690,8 @@ POGEL::PHYSICS::SOLID::forcegetbounding()
 		refbounding.maxdistance = max;
 
 		stepsatboundingcheck = stepstaken;
+		refbounding.fin();
+		bounding.fin();
 		return;
 	}
 
@@ -717,6 +723,8 @@ POGEL::PHYSICS::SOLID::forcegetbounding()
 	//refbounding.offset( POGEL::POINT() );
 
 	stepsatboundingcheck = stepstaken;
+    refbounding.fin();
+    bounding.fin();
 }
 
 POGEL::COLOR

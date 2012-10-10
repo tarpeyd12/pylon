@@ -126,16 +126,16 @@ class POGEL::PHYSICS::SOLID : public POGEL::OBJECT {
 
 		//PROPERTIES_METHODS;
 
-		POGEL::POINT getposition() { return position; }
-		POGEL::BOUNDING getbounding() { return bounding; }
+		inline POGEL::POINT getposition() { return position; }
+		inline POGEL::BOUNDING getbounding() { return bounding; }
 
-		POGEL::PHYSICS::DYNAMICS* getcontainer() { return container; }
+		inline POGEL::PHYSICS::DYNAMICS* getcontainer() { return container; }
 
-		unsigned int getOptions() {return physproperties;}
-		void setOptions(unsigned int prop) {physproperties=prop;}
-		void addOption(unsigned int prop) {physproperties|=prop;}
-		void removeOption(unsigned int prop) {physproperties^=prop;}
-		bool hasOption(unsigned int prop) {return (physproperties & prop);}
+		inline unsigned int getOptions() {return physproperties;}
+		inline void setOptions(unsigned int prop) {physproperties=prop;}
+		inline void addOption(unsigned int prop) {physproperties|=prop;}
+		inline void removeOption(unsigned int prop) {physproperties^=prop;}
+		inline bool hasOption(unsigned int prop) {return (physproperties & prop);}
 
 		unsigned long getstepstaken();
 		void setstepstaken(unsigned long);

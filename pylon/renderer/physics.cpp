@@ -156,12 +156,54 @@ namespace Renderer
             return sim;
         }
 
+        bool Simulation::AddObject( POGEL::PHYSICS::SOLID * obj )
+        {
+            if( !obj )
+            {
+                return false;
+            }
+
+            POGEL::PHYSICS::SOLID * pobj = NULL;
+
+            if( this->isdyn() )
+            {
+                pobj = static_cast<POGEL::PHYSICS::DYNAMICS*>( this->getSim() )->getSolid( obj->getsname().c_str() );
+            }
+            else
+            {
+                pobj = static_cast<POGEL::PHYSICS::SIMULATION*>( this->getSim() )->getSolid( obj->getsname().c_str() );
+            }
+
+            if( pobj )
+            {
+                return false;
+            }
+
+            IncLock.Lock();
+            //int cl = Renderer::calcLockMutex.TryLock();
+            Renderer::drawLockMutex.Lock();
+
+            if( this->isdyn() )
+            {
+                static_cast<POGEL::PHYSICS::DYNAMICS*>( this->getSim() )->addSolid( obj );
+            }
+            else
+            {
+                static_cast<POGEL::PHYSICS::SIMULATION*>( this->getSim() )->addSolid( obj );
+            }
+            IncLock.Unlock();
+            //if(!cl)Renderer::calcLockMutex.Unlock();
+            Renderer::drawLockMutex.Unlock();
+
+            return true;
+        }
+
         unsigned int Simulation::numObjects() const
         {
-            if( clearobjects )
+            /*if( clearobjects )
             {
                 return 0;
-            }
+            }*/
             if( this->isdyn() )
             {
                 return static_cast<POGEL::PHYSICS::DYNAMICS*>( this->getSim() )->numobjs();
@@ -253,6 +295,51 @@ namespace Renderer
             return (POGEL::OBJECT*)ret;
         }
 
+        bool Simulation::RemoveObject( const std::string& sobj )
+        {
+            if( !sobj.length() )
+            {
+                return false;
+            }
+
+            POGEL::PHYSICS::SOLID * obj = NULL;
+
+            if( this->isdyn() )
+            {
+                obj = static_cast<POGEL::PHYSICS::DYNAMICS*>( this->getSim() )->getSolid( sobj );
+            }
+            else
+            {
+                obj = static_cast<POGEL::PHYSICS::SIMULATION*>( this->getSim() )->getSolid( sobj );
+            }
+
+            if( !obj )
+            {
+                return false;
+            }
+
+            IncLock.Lock();
+            Renderer::drawLockMutex.Lock();
+            //Renderer::calcLockMutex.TryLock();
+
+            if( this->isdyn() )
+            {
+                static_cast<POGEL::PHYSICS::DYNAMICS*>( this->getSim() )->removeSolid( obj );
+            }
+            else
+            {
+                static_cast<POGEL::PHYSICS::SIMULATION*>( this->getSim() )->removeSolid( obj );
+            }
+
+            delete obj;
+
+            IncLock.Unlock();
+            Renderer::drawLockMutex.Unlock();
+            //Renderer::calcLockMutex.Unlock();
+
+            return true;
+        }
+
         std::string Simulation::getName() const
         {
             return name;
@@ -284,6 +371,27 @@ namespace Renderer
             return true;
         }
 
+        bool Simulation::ClearObjectsNow()
+        {
+            //Renderer::calcLockMutex.Lock();
+            IncLock.Lock();
+            Renderer::drawLockMutex.Lock();
+            if( this->isdyn() )
+            {
+                static_cast<POGEL::PHYSICS::DYNAMICS*>( this->getSim() )->clearAllSolids();
+            }
+            else
+            {
+                static_cast<POGEL::PHYSICS::SIMULATION*>( this->getSim() )->clearAllSolids();
+            }
+            IncLock.Unlock();
+            Renderer::drawLockMutex.Unlock();
+            //Renderer::calcLockMutex.Unlock();
+            return true;
+        }
+
+
+
         bool Simulation::ShouldClearObjects() const
         {
             return clearobjects;
@@ -312,6 +420,37 @@ namespace Renderer
                 return !static_cast<POGEL::PHYSICS::SIMULATION*>( this->getSim() )->numobjs();
             }
             return false;
+        }
+
+        void Simulation::Incriment()
+        {
+            IncLock.Lock();
+            void* vp_sim = this->getSim();
+            if( !vp_sim )
+            {
+                IncLock.Unlock();
+                throw -10;
+            }
+            if( this->isdyn() )
+            {
+                POGEL::PHYSICS::DYNAMICS* dsim = static_cast<POGEL::PHYSICS::DYNAMICS*>( vp_sim );
+                if( dsim->numobjs() )
+                {
+                    dsim->increment();
+                }
+                dsim = NULL;
+            }
+            else
+            {
+                POGEL::PHYSICS::SIMULATION* ssim = static_cast<POGEL::PHYSICS::SIMULATION*>( vp_sim );
+                if( ssim->numobjs() )
+                {
+                    ssim->increment();
+                }
+                ssim = NULL;
+            }
+            vp_sim = NULL;
+            IncLock.Unlock();
         }
 
         POGEL::PHYSICS::SOLID* Simulation::getIntersected( const POGEL::POINT& origin, const POGEL::VECTOR& direction ) const
@@ -398,6 +537,8 @@ namespace Renderer
             {
                 return false;
             }
+            Renderer::drawLockMutex.Lock();
+            Renderer::calcLockMutex.Lock();
             if( col )
             {
                 new Renderer::Physics::Simulation( name, new POGEL::PHYSICS::SIMULATION() );
@@ -406,6 +547,8 @@ namespace Renderer
             {
                 new Renderer::Physics::Simulation( name, new POGEL::PHYSICS::DYNAMICS() );
             }
+            Renderer::drawLockMutex.Unlock();
+            Renderer::calcLockMutex.Unlock();
             return true;
         }
 
@@ -422,49 +565,113 @@ namespace Renderer
 
         void Incriment()
         {
+            Renderer::calcLockMutex.Lock();
             unsigned int numsimulations = Renderer::Physics::simulations.length();
             for( unsigned int i = 0; i < numsimulations; ++i )
             {
                 Renderer::Physics::Simulation * sim = Renderer::Physics::simulations[ i ];
                 if( doIncrimentSimulations && sim && sim->inc() )
                 {
-                    void* vp_sim = sim->getSim();
-                    if( !vp_sim )
-                    {
-                        throw -10;
-                    }
-                    if( sim->isdyn() )
-                    {
-                        POGEL::PHYSICS::DYNAMICS* dsim = static_cast<POGEL::PHYSICS::DYNAMICS*>( vp_sim );
-                        if( dsim->numobjs() )
-                        {
-                            dsim->increment();
-                        }
-                        dsim = NULL;
-                    }
-                    else
-                    {
-                        POGEL::PHYSICS::SIMULATION* ssim = static_cast<POGEL::PHYSICS::SIMULATION*>( vp_sim );
-                        if( ssim->numobjs() )
-                        {
-                            ssim->increment();
-                        }
-                        ssim = NULL;
-                    }
-                    vp_sim = NULL;
+                    sim->Incriment();
                 }
                 else if( sim->ShouldClearObjects() )
                 {
+                    Renderer::drawLockMutex.Lock();
                     if( !sim->ClearObjects() )
                     {
                         cout << "ERROR could not clear all objects from simulation \"" << sim->getName() << "\"" << endl;
                     }
+                    Renderer::drawLockMutex.Unlock();
                 }
             }
+            Renderer::calcLockMutex.Unlock();
+        }
+
+        class _IncrimentThread : public Threads::ExThread
+        {
+            private:
+                Renderer::Physics::Simulation * sim;
+            public:
+                bool running;
+                _IncrimentThread()
+                {
+                    running = false;
+                    sim = NULL;
+                }
+                _IncrimentThread( Renderer::Physics::Simulation * s )
+                {
+                    running = false;
+                    sim = s;
+                }
+                ~_IncrimentThread()
+                {
+                    running = false;
+                    sim = NULL;
+                }
+                void Start( Renderer::Physics::Simulation * s )
+                {
+                    sim = s;
+                    running = true;
+                    this->startThread();
+                }
+                void Stop()
+                {
+                    this->joinThread();
+                    running = false;
+                }
+                void run()
+                {
+                    if( sim )
+                        sim->Incriment();
+                }
+        };
+
+        void Incriment( int thn )
+        {
+            Renderer::calcLockMutex.Lock();
+            unsigned int numsimulations = Renderer::Physics::simulations.length();
+            ClassList< _IncrimentThread * > incthreads( thn );
+            unsigned int thcount = 0;
+            for( unsigned int i = 0; i < numsimulations; ++i )
+            {
+                Renderer::Physics::Simulation * sim = Renderer::Physics::simulations[ i ];
+                if( doIncrimentSimulations && sim && sim->inc() )
+                {
+                    if( incthreads.length() < thn )
+                    {
+                        incthreads += new _IncrimentThread( sim );
+                        incthreads.last()->Start( sim );
+                    }
+                    else
+                    {
+                        incthreads[ thcount % thn ]->Stop();
+                        incthreads[ thcount % thn ]->Start( sim );
+                    }
+                    ++thcount;
+                }
+                else if( sim->ShouldClearObjects() )
+                {
+                    Renderer::drawLockMutex.Lock();
+                    if( !sim->ClearObjects() )
+                    {
+                        cout << "ERROR could not clear all objects from simulation \"" << sim->getName() << "\"" << endl;
+                    }
+                    Renderer::drawLockMutex.Unlock();
+                }
+            }
+            for( unsigned int i = 0; i < incthreads.length(); ++i )
+            {
+                incthreads[ i ]->Stop();
+                delete incthreads[ i ];
+            }
+            incthreads.clear();
+            Renderer::calcLockMutex.Unlock();
         }
 
         void cleanSimulations()
         {
+            Renderer::drawLockMutex.Lock();
+            Renderer::calcLockMutex.Lock();
             while( Renderer::Physics::simulations.length() )
             {
                 Renderer::Physics::Simulation * sim = Renderer::Physics::simulations.get( Renderer::Physics::simulations.length() - 1 );
@@ -479,6 +686,8 @@ namespace Renderer
                 delete sim;
             }
             Renderer::Physics::simulations.clear();
+            Renderer::drawLockMutex.Unlock();
+            Renderer::calcLockMutex.Unlock();
         }
 
     }

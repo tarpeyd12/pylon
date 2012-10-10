@@ -13,6 +13,9 @@
 
 namespace Renderer
 {
+
+    unsigned int prevNumBlocks = 0;
+
     void Display()
     {
 
@@ -41,6 +44,8 @@ namespace Renderer
                 exit(-1);
             }
         }
+
+        Renderer::drawLockMutex.Lock();
 
         //glDisable( GL_ALPHA_TEST );
         //unsigned int p = POGEL::getproperties();
@@ -93,6 +98,8 @@ namespace Renderer
 
         Renderer::Window::toFrustum();
 
+        Renderer::drawLockMutex.Unlock();
+
         if( !Renderer::drawLock )
         {
             Renderer::timer30->Sleep();
@@ -102,6 +109,9 @@ namespace Renderer
         if( POGEL::frames % 10 == 0 )
         {
             POGEL::PrintFps();
+            unsigned int numBlocks = Threads::Mutex::getNumBlocks();
+            cout << "Mutex Blocks: " << numBlocks-prevNumBlocks << "/" << numBlocks << endl;
+            prevNumBlocks = numBlocks;
         }
 
     }

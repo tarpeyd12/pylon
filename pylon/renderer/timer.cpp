@@ -71,6 +71,34 @@ namespace Renderer
             return FPS;
         }
 
+        inline void wait_f( double waittime )
+        {
+            if( waittime < 0.0 )
+            {
+                return;
+            }
+            if( waittime >= 1.0 )
+            {
+                #if defined(WINDOWS) || defined(_WIN32)
+                Sleep( (unsigned int)( waittime ) );
+                #else
+                if( sleep( (unsigned int)( waittime ) ) )
+                {
+                    cout << "sleep() error" << endl;
+                }
+                #endif
+                waittime -= double( (unsigned int)( waittime ) );
+            }
+            if( waittime <= 0.0 )
+            {
+                return;
+            }
+            if( usleep( (unsigned int)( waittime * 1000000.0 ) ) )
+            {
+                cout << "usleep() error" << endl;
+            }
+        }
+
         void Timer::Sleep()
         {
             curentDuration = POGEL::GetTimePassed();
@@ -82,9 +110,15 @@ namespace Renderer
             }
 
             double durationDifference = curentDuration - lastDuration;
-            double invDurDiff = 1.0 / durationDifference;
+            //double invDurDiff = 1.0 / durationDifference;
             lastStepTime = durationDifference;
-            double waitTime = 1000000.0 / FPS;
+
+
+            double invfps = 1.0 / FPS;
+            double wt = invfps - durationDifference;
+            wait_f( wt );
+
+            /*double waitTime = 1000000.0 / FPS;
             if ( invDurDiff >= FPS )
             {
                 double diffTime = waitTime - durationDifference * 1000000.0;
@@ -110,8 +144,10 @@ namespace Renderer
                 {
                     cout << "usleep() error" << endl;
                 }
-            }
+            }*/
+            //double prevdur = lastDuration;
             lastDuration = POGEL::GetTimePassed();
+            //cout << flush << timerName << ": " << 1.0 / (lastDuration - prevdur) << endl;
         }
 
         void Timer::step()

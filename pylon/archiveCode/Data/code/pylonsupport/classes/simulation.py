@@ -49,7 +49,13 @@ class Simulation:
 		return Object(objname,self.name)
 	
 	def clearAllObjects(self):
-		pylon.sim_clear(self.name)
+		return pylon.sim_clear(self.name)
+	
+	def removeObject(self,objname):
+		if pylon.sim_remove_object(self.name,objname):
+			print "pylon.sim_remove_object(",self.name,",",objname,")"
+			return False
+		return True
 	
 	
 	def setNewtonianGravity(self,chs):

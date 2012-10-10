@@ -195,6 +195,7 @@ namespace ScriptEngine
 
     FunctionCaller::~FunctionCaller()
     {
+        clearArgs();
         arguments.clear();
         outsidefunction = true;
     }
@@ -234,6 +235,14 @@ namespace ScriptEngine
     void FunctionCaller::clearArg( unsigned int index )
     {
         arguments.replace( index, NULL );
+    }
+
+    void FunctionCaller::clearArgs()
+    {
+        for( unsigned int i = 0; i < arguments.length(); ++i )
+        {
+            clearArg(i);
+        }
     }
 
     void FunctionCaller::Execute()

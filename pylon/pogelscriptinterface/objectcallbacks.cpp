@@ -218,7 +218,8 @@ namespace pogelInterface
             return false;
         }
         ScriptEngine::InterpreterThread::GetLock();
-        inst->setArg( Py_BuildValue("s",simulationName.c_str()), 0 );
+        const char * simname = simulationName.c_str();
+        inst->setArg( Py_BuildValue("s",simname), 0 );
         inst->setArg( Py_BuildValue("s",obj1->getname()), 1 );
         inst->setArg( Py_BuildValue("s",obj2->getname()), 2 );
         ScriptEngine::InterpreterThread::ReleaseLock();

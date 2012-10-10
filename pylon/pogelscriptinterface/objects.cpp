@@ -11,18 +11,24 @@ namespace pogelInterface
         Object* objname;
         if(!PyArg_ParseTuple(args, "sO:object_new", &simname, &objname))
             return NULL;
+        Py_XINCREF(objname);
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
+        {
+            Py_XDECREF(objname);
             return Py_BuildValue("i", -1);
+        }
         //char *nm = new char[strlen(objname)];
         //POGEL::PHYSICS::SOLID* obj = new POGEL::PHYSICS::SOLID(strcpy(nm,objname));
-        Py_XINCREF(objname);
         POGEL::PHYSICS::SOLID* obj = new POGEL::PHYSICS::SOLID((char*)pogelInterface::GetObjectName(objname).c_str());
         Py_XDECREF(objname);
-        if(sim->isdyn())
-            static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->addSolid(obj);
-        else
-            static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->addSolid(obj);
+        ScriptEngine::InterpreterThread::ReleaseLock();
+        bool ret = sim->AddObject( obj );
+        ScriptEngine::InterpreterThread::GetLock();
+        if( !ret )
+        {
+            return Py_BuildValue("i", -2);
+        }
         //delete nm;
         return Py_BuildValue("i", 0);
     }
@@ -45,6 +51,7 @@ namespace pogelInterface
         POGEL::PHYSICS::SOLID * obj = (POGEL::PHYSICS::SOLID*)oobj;
         char* objname2 = (char*)pogelInterface::GetObjectName(objname).c_str();
         Py_XDECREF(objname);
+        ScriptEngine::InterpreterThread::ReleaseLock();
         char *nm = strcpy(new char[strlen(objname2)],objname2);
         if(!obj)
         {
@@ -56,11 +63,15 @@ namespace pogelInterface
                 return Py_BuildValue("i", -3);
             }
             obj = new POGEL::PHYSICS::SOLID(nm);
-            if(sim->isdyn())
-                static_cast<POGEL::PHYSICS::DYNAMICS*>(sim->getSim())->addSolid(obj);
-            else
-                static_cast<POGEL::PHYSICS::SIMULATION*>(sim->getSim())->addSolid(obj);
+
+            bool ret = sim->AddObject( obj );
+            if( !ret )
+            {
+                ScriptEngine::InterpreterThread::GetLock();
+                return Py_BuildValue("i", -4);
+            }
         }
+        ScriptEngine::InterpreterThread::GetLock();
         POGEL::OBJECT * animobj = ObjectLoader::newFromFile( filename, filetype, nm, obj, std::string(simname) );
         //delete [] nm;
         if( animobj == NULL)

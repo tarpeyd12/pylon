@@ -30,6 +30,9 @@ namespace Renderer
 
     extern volatile bool drawLock;
 
+    extern Threads::Mutex drawLockMutex;
+    extern Threads::Mutex calcLockMutex;
+
     //extern POGEL::OBJECT * bob;
 
     void Init();

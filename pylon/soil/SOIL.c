@@ -1255,7 +1255,7 @@ unsigned int
 			/*printf( "OpenGL DXT compressor\n" );	*/
 		}
 		/*	are any MIPmaps desired?	*/
-		if( flags & SOIL_FLAG_MIPMAPS )
+		if( flags & SOIL_FLAG_MIPMAPS || flags & SOIL_FLAG_MIPMAP_NEAREST )
 		{
 			int MIPlevel = 1;
 			int MIPwidth = (width+1) / 2;
@@ -1318,8 +1318,16 @@ unsigned int
 			}
 			SOIL_free_image_data( resampled );
 			/*	instruct OpenGL to use the MIPmaps	*/
-			glTexParameteri( opengl_texture_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
-			glTexParameteri( opengl_texture_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+			if( flags & SOIL_FLAG_MIPMAP_NEAREST )
+			{
+				glTexParameteri( opengl_texture_type, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
+				glTexParameteri( opengl_texture_type, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST );
+			}
+			else
+			{
+				glTexParameteri( opengl_texture_type, GL_TEXTURE_MAG_FILTER, GL_LINEAR );
+				glTexParameteri( opengl_texture_type, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR );
+			}
 			check_for_GL_errors( "GL_TEXTURE_MIN/MAG_FILTER" );
 		} else if( flags & SOIL_FLAG_LINEAR )
 		{

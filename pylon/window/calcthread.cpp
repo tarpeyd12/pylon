@@ -10,7 +10,9 @@ CalcThread::CalcThread()
 
 CalcThread::~CalcThread()
 {
+    Renderer::calcLockMutex.Lock();
     Main::calcLock = true;
+    Renderer::HaltPhysics = true;
     Renderer::Physics::StopIncrimentation();
     usleep(1000);
     try
@@ -29,6 +31,7 @@ CalcThread::~CalcThread()
     {
         cout << "Unable to Join the Physics Thread. err:" << e << endl;
     }
+    Renderer::calcLockMutex.Unlock();
 }
 
 void CalcThread::run()
@@ -36,7 +39,10 @@ void CalcThread::run()
     Renderer::Timing::Timer *timer = new Renderer::Timing::Timer(25, "Physics");
     while(!Main::calcLock)
     {
-        Renderer::Physics::Incriment();
+        if( !Renderer::HaltPhysics )
+        {
+            Renderer::Physics::Incriment(10);
+        }
         timer->Sleep();
         POGEL::SetFramerateThrotle((timer->getLastStepTime()+1.0f/float(timer->getFPS()))/2.0f);
     }

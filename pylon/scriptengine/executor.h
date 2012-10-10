@@ -62,6 +62,7 @@ namespace ScriptEngine
             void setArgs( ScriptEngine::MethodInterface::Object**, unsigned int );
             void setArg( ScriptEngine::MethodInterface::Object*, unsigned int );
             void clearArg( unsigned int );
+            void clearArgs();
 
             void Execute();
 

@@ -4,7 +4,11 @@
 
 #define DEFAULTRESOLUTION   256
 
+#define DEFAULTRESOLUTIONX   640
+#define DEFAULTRESOLUTIONY   480
+
 #define DEFAULTFILTER       IMAGE_DEFAULT_FILTER
+//#define DEFAULTFILTER       IMAGE_NEAREST
 
 namespace Renderer
 {
@@ -13,7 +17,7 @@ namespace Renderer
     SubRenderer::SubRenderer() : POGEL::VIEW()
     {
         setbgcolor(POGEL::COLOR(0.0f,0.0f,0.0f,0.0f));
-        setviewport(0,0, DEFAULTRESOLUTION, DEFAULTRESOLUTION);
+        setviewport(0,0, DEFAULTRESOLUTIONX, DEFAULTRESOLUTIONY);
         setretscreensize(&Renderer::Window::Size::width, &Renderer::Window::Size::height);
         setfilter(DEFAULTFILTER);
         tstr = std::string("{(SubRenderer),[void]}");
@@ -28,7 +32,7 @@ namespace Renderer
     SubRenderer::SubRenderer( const std::string& s ) : POGEL::VIEW()
     {
         setbgcolor(POGEL::COLOR(0.0f,0.0f,0.0f,0.0f));
-        setviewport(0,0, DEFAULTRESOLUTION, DEFAULTRESOLUTION);
+        setviewport(0,0, DEFAULTRESOLUTIONX, DEFAULTRESOLUTIONY);
         setretscreensize(&Renderer::Window::Size::width, &Renderer::Window::Size::height);
         setfilter(DEFAULTFILTER);
         tstr = "{(SubRenderer),["+s+"]}";
@@ -43,7 +47,7 @@ namespace Renderer
     SubRenderer::SubRenderer( const std::string& s, float ar ) : POGEL::VIEW()
     {
         setbgcolor(POGEL::COLOR(0.0f,0.0f,0.0f,0.0f));
-        setviewport(0,0, DEFAULTRESOLUTION, DEFAULTRESOLUTION);
+        setviewport(0,0, DEFAULTRESOLUTIONX, DEFAULTRESOLUTIONY);
         setretscreensize(&Renderer::Window::Size::width, &Renderer::Window::Size::height);
         setfilter(DEFAULTFILTER);
         tstr = "{(SubRenderer),["+s+"]}";

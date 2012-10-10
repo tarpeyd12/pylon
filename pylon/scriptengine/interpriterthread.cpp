@@ -36,6 +36,7 @@ namespace ScriptEngine
 
     unsigned int InterpreterThread::numInterpreterThreads = 0;
     Threads::Mutex * InterpreterThread::threadLock = NULL;
+    PyGILState_STATE InterpreterThread::state;
 
     InterpreterThread::InterpreterThread()
     {
@@ -46,10 +47,10 @@ namespace ScriptEngine
         cout << "Creating InterpriterThread(" << numInterpreterThreads << ")" << endl;
         instructions = NULL;
         // get a reference to the PyInterpreterState
-        mainInterpreterState = ScriptEngine::mainThreadState->interp;
+        //mainInterpreterState = ScriptEngine::mainThreadState->interp;
         //mainInterpreterState = PyThreadState_Get()->interp;//ScriptEngine::mainThreadState->interp;
         // create a thread state object for this thread
-        threadState = PyThreadState_New(mainInterpreterState);
+        //threadState = PyThreadState_New(mainInterpreterState);
 
         //PyEval_RestoreThread(threadState);
         //PyEval_ReleaseThread(threadState);
@@ -67,10 +68,10 @@ namespace ScriptEngine
         cout << "Creating InterpriterThread(" << numInterpreterThreads << ") with Executor(" << inst->getExecutorIdNum() << ")" << endl;
         instructions = inst;
         // get a reference to the PyInterpreterState
-        mainInterpreterState = ScriptEngine::mainThreadState->interp;
+        //mainInterpreterState = ScriptEngine::mainThreadState->interp;
         //mainInterpreterState = PyThreadState_Get()->interp;//ScriptEngine::mainThreadState->interp;
         // create a thread state object for this thread
-        threadState = PyThreadState_New(mainInterpreterState);
+        //threadState = PyThreadState_New(mainInterpreterState);
 
         //PyEval_RestoreThread(threadState);
         //PyEval_ReleaseThread(threadState);
@@ -81,6 +82,7 @@ namespace ScriptEngine
 
     InterpreterThread::~InterpreterThread()
     {
+        //int lock = threadLock->TryLock();
         if( instructions )
         {
             delete instructions;
@@ -88,7 +90,7 @@ namespace ScriptEngine
         instructions = NULL;
 
         // grab the lock
-        PyEval_AcquireLock();
+        /*PyEval_AcquireLock();
         // swap my thread state out of the interpreter
         PyThreadState_Swap(NULL);
         // clear out any cruft from thread state object
@@ -96,8 +98,9 @@ namespace ScriptEngine
         // delete my thread state object
         PyThreadState_Delete(threadState);
         // release the lock
-        PyEval_ReleaseLock();
+        PyEval_ReleaseLock();*/
         --numInterpreterThreads;
+        //if( !lock ) threadLock->Unlock();
     }
 
     Executor * InterpreterThread::getInstructions() const
@@ -107,16 +110,26 @@ namespace ScriptEngine
 
     void InterpreterThread::GetLock()
     {
-        threadLock->TryLock();
+        if( !threadLock )
+        {
+            threadLock = new Threads::Mutex();
+        }
+        if( threadLock )
+        {
+            threadLock->TryLock();
 
-        //usleep(1000);
-        PyEval_AcquireLock();
+            state = PyGILState_Ensure();
+        }
     }
 
     void InterpreterThread::ReleaseLock()
     {
-        PyEval_ReleaseLock();
-        threadLock->Unlock();
+        if( threadLock )
+        {
+            PyGILState_Release(state);
+
+            threadLock->Unlock();
+        }
     }
 
     void InterpreterThread::Execute()
@@ -127,7 +140,7 @@ namespace ScriptEngine
             return;
         }
 
-        threadLock->TryLock();
+        int lock = threadLock->TryLock();
 
         //usleep(1000);
 
@@ -144,7 +157,7 @@ namespace ScriptEngine
             cout << "Executing InterpriterThread(" << myNumInterpreterThreads << "/" << numInterpreterThreads << ")";
             cout << " with Executor(" << instructions->getExecutorIdNum() << "/" << instructions->getNumExecutors() << ")" << endl;
         }
-        PyGILState_STATE state = PyGILState_Ensure();
+        state = PyGILState_Ensure();
         // grab the global interpreter lock
         //PyEval_AcquireLock();
         // swap in my thread state
@@ -158,6 +171,13 @@ namespace ScriptEngine
             PyEval_SetProfile( (Py_tracefunc)PythonTrace, Py_BuildValue("i",myNumInterpreterThreads) );
         }
         // execute some python code
+        if( !instructions )
+        {
+            PyGILState_Release(state);
+            if( !lock ) threadLock->Unlock();
+            ThrowError(-10);
+            return;
+        }
         instructions->Execute();
         // clear the thread state
         //PyThreadState_Swap(NULL);
@@ -166,6 +186,6 @@ namespace ScriptEngine
         //PyEval_ReleaseThread(threadState);
         PyGILState_Release(state);
 
-        threadLock->Unlock();
+        if( !lock ) threadLock->Unlock();
     }
 }

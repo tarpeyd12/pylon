@@ -2,6 +2,7 @@ void
 POGEL::BOUNDING::set( float maximum, float gx, float lx, float gy, float ly, float gz, float lz)
 {
     maxdistance = maximum;
+    maxdistance2 = maximum * maximum;
     max.x = gx;
     min.x = lx;
     max.y = gy;
@@ -18,16 +19,11 @@ POGEL::BOUNDING::addpoint( const POGEL::POINT& middle, const POGEL::POINT& point
     if( isactual )
     {
         float dist = middle.distancesquared( point );
-        if( dist > maxdistance * maxdistance )
+        if( dist > maxdistance2 )
         {
-            maxdistance = (float)sqrt( dist );
+            maxdistance2 = dist;
+            maxdistance = (float)sqrt( maxdistance2 );
         }
-
-        /*float dist = middle.distance( point );
-        if( dist > maxdistance )
-        {
-            maxdistance = dist;
-        }*/
     }
 
     if( ++numpoints == 1 )
@@ -65,6 +61,7 @@ POGEL::BOUNDING::fin( float f )
         min.y-=f;
         min.z-=f;
     }
+    //maxdistance = (float)sqrt( maxdistance2 );
 }
 
 void
@@ -78,7 +75,7 @@ void
 POGEL::BOUNDING::clear()
 {
     // chain smoking!
-    maxdistance = max.x = min.x = max.y = min.y = max.z = min.z = 0.0f;
+    maxdistance2 = maxdistance = max.x = min.x = max.y = min.y = max.z = min.z = 0.0f;
     numpoints = 0;
     isactual = true;
 }
@@ -87,6 +84,7 @@ void
 POGEL::BOUNDING::finishactual()
 {
     isactual = false;
+    //maxdistance = (float)sqrt( maxdistance2 );
 }
 
 void

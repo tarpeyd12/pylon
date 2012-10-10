@@ -26,7 +26,10 @@ namespace pogelInterface
         { "sim_get_gravity_3f", (CFunction)sim_get_gravity_3f, VarArgs, NULL },
         { "sim_set_itter",      (CFunction)sim_set_itter,      VarArgs, NULL },
         { "sim_get_itter",      (CFunction)sim_get_itter,      VarArgs, NULL },
+        { "sim_num_objects",    (CFunction)sim_num_objects,    VarArgs, NULL },
+        { "sim_get_object",     (CFunction)sim_get_object,     VarArgs, NULL },
         { "sim_add_object_s",   (CFunction)sim_add_object_s,   VarArgs, NULL },
+        { "sim_remove_object",  (CFunction)sim_remove_object,  VarArgs, NULL },
         { "sim_clear",          (CFunction)sim_clear,          VarArgs, NULL },
         // object controll
         { "object_new",            (CFunction)object_new,            VarArgs, NULL },

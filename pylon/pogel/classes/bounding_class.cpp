@@ -34,7 +34,7 @@ POGEL::BOUNDING::BOUNDING( unsigned int type )
 }
 
 POGEL::BOUNDING::BOUNDING( float maximum, float gx, float lx, float gy, float ly, float gz, float lz )
- : numpoints(1), isactual(true), maxdistance(maximum), min(lx,ly,lz), max(gx,gy,gz), color(BOUNDING_DEFAULT_COLOR)
+ : numpoints(1), isactual(true), maxdistance2(maximum*maximum), maxdistance(maximum), min(lx,ly,lz), max(gx,gy,gz), color(BOUNDING_DEFAULT_COLOR)
 {
     /*maxdistance=maximum;
     max.x=gx;

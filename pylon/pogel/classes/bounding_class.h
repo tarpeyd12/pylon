@@ -24,6 +24,7 @@ namespace POGEL
         private:
             unsigned long numpoints;
             bool isactual;
+            float maxdistance2;
         public:
             float maxdistance;
             POGEL::POINT min;

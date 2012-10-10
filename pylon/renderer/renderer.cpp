@@ -34,6 +34,9 @@ namespace Renderer
     // do not tamper with drawLock
     volatile bool drawLock = false;
 
+    Threads::Mutex drawLockMutex;
+    Threads::Mutex calcLockMutex;
+
     // *******************************
 
     void Idle()

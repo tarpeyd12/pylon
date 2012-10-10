@@ -28,12 +28,13 @@ namespace Renderer
                 volatile bool incrementable;
                 volatile bool drawable;
                 volatile bool clearobjects;
+                Threads::Mutex IncLock;
             protected:
                 Renderer::SubRenderer* binding;
             public:
                 Simulation( const std::string& );
-                Simulation( const std::string&,POGEL::PHYSICS::SIMULATION* );
-                Simulation( const std::string&,POGEL::PHYSICS::DYNAMICS* );
+                Simulation( const std::string&, POGEL::PHYSICS::SIMULATION* );
+                Simulation( const std::string&, POGEL::PHYSICS::DYNAMICS* );
                 ~Simulation();
                 void setinc( bool );
                 void setdraw( bool );
@@ -42,16 +43,20 @@ namespace Renderer
                 bool isdyn() const;
                 bool inc() const;
                 void* getSim() const;
+                bool AddObject( POGEL::PHYSICS::SOLID* );
                 unsigned int numObjects() const;
                 POGEL::PHYSICS::SOLID* getObject( const std::string& ) const;
                 POGEL::PHYSICS::SOLID* getObject( unsigned int ) const;
                 POGEL::OBJECT* getObject( const ClassList<std::string>& ) const;
+                bool RemoveObject( const std::string& );
                 std::string getName() const;
                 bool RequestToClearObjects();
                 bool ClearObjects();
+                bool ClearObjectsNow();
                 bool ShouldClearObjects() const;
                 void draw() const;
                 bool isEmpty() const;
+                void Incriment();
                 POGEL::PHYSICS::SOLID* getIntersected( const POGEL::POINT&, const POGEL::VECTOR& ) const;
                 friend class Renderer::SubRenderer;
         };
@@ -70,6 +75,7 @@ namespace Renderer
 
         void StopIncrimentation();
         void Incriment();
+        void Incriment( int );
 
         void cleanSimulations();
     }

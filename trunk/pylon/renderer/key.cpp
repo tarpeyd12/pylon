@@ -48,11 +48,12 @@ namespace Renderer
         {
             if( Renderer::Key::keys[ key ] == true )
             {
-                //return;
+                return;
             }
             last = key;
+            float presstime = (float)POGEL::GetTimePassed();
+            Renderer::Key::lastpressed[ key ] = presstime;
             Renderer::Key::keys[ key ] = true;
-            Renderer::Key::lastpressed[ key ] = (float)POGEL::GetTimePassed();
             Renderer::Key::mousepospress[ key ][ 0 ] = x;
             Renderer::Key::mousepospress[ key ][ 1 ] = y;
 
@@ -83,14 +84,21 @@ namespace Renderer
         {
             if( Renderer::Key::keys[ key ] == false )
             {
+                return;
+            }
+            float reltime = (float)POGEL::GetTimePassed();
+            if( reltime - Renderer::Key::lastpressed[ key ] < 0.01 )
+            {
                 //return;
             }
+            Renderer::Key::lastreleased[ key ] = reltime;
             Renderer::Key::keys[ key ] = false;
-            Renderer::Key::lastreleased[ key ] = (float)POGEL::GetTimePassed();
             Renderer::Key::mouseposrelease[ key ][ 0 ] = x;
             Renderer::Key::mouseposrelease[ key ][ 1 ] = y;
 
-            cout << "Key '" << key << "' released at position (" << x << "," << y << ") at time " << Renderer::Key::lastreleased[ key ] << endl;
+            cout << "Key '" << key << "' released at position (" << x << "," << y << ") at time ";
+            cout << Renderer::Key::lastreleased[ key ] << ", duration of ";
+            cout << ( Renderer::Key::lastreleased[ key ] - Renderer::Key::lastpressed[ key ] ) << endl;
 
             unsigned int numcallbacks = keyUpCallBacks.length();
             for( unsigned int i = 0; i < numcallbacks; ++i )

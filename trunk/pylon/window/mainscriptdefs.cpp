@@ -8,12 +8,13 @@ namespace Main
 {
     ScriptEngine::MethodInterface::Object* lockCalculations( ScriptEngine::MethodInterface::Object* )
     {
-        if( !Main::calcLock )
+        //if( !Main::calcLock )
         {
             Renderer::Physics::doIncrimentSimulations = false;
-            Main::calcLock = true;
-            usleep( 1000 );
-            if( !Main::SingleThreaded )
+            //Main::calcLock = true;
+            Renderer::HaltPhysics = true;
+            //usleep( 1000 );
+            /*if( !Main::SingleThreaded )
             {
                 try
                 {
@@ -30,18 +31,19 @@ namespace Main
             else
             {
                 Renderer::HaltPhysics = true;
-            }
+            }*/
         }
         Py_RETURN_NONE;
     }
 
     ScriptEngine::MethodInterface::Object* unlockCalculations( ScriptEngine::MethodInterface::Object* )
     {
-        if( Main::calcLock )
+        //if( Main::calcLock )
         {
             Renderer::Physics::doIncrimentSimulations = true;
-            Main::calcLock = false;
-            if( !Main::SingleThreaded )
+            //Main::calcLock = false;
+            Renderer::HaltPhysics = false;
+            /*if( !Main::SingleThreaded )
             {
                 try
                 {
@@ -55,7 +57,7 @@ namespace Main
             else
             {
                 Renderer::HaltPhysics = false;
-            }
+            }*/
         }
         Py_RETURN_NONE;
     }

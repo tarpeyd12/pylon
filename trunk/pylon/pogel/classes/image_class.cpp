@@ -230,6 +230,9 @@ unsigned int POGEL::IMAGE::build()
         case IMAGE_MIPMAP:
             base = SOIL_create_OGL_texture((const unsigned char*)data, sizeX, sizeY, channels, base, SOIL_FLAG_TEXTURE_REPEATS | SOIL_FLAG_POWER_OF_TWO | SOIL_FLAG_MIPMAPS );
         break;
+        case IMAGE_MIPMAP2:
+            base = SOIL_create_OGL_texture((const unsigned char*)data, sizeX, sizeY, channels, base, SOIL_FLAG_TEXTURE_REPEATS | SOIL_FLAG_POWER_OF_TWO | SOIL_FLAG_MIPMAP_NEAREST );
+        break;
     }
     #endif
     return base;
@@ -302,7 +305,7 @@ std::string POGEL::IMAGE::getFileID()
     return fileid;
 }
 
-std::string POGEL::IMAGE::toString()
+std::string POGEL::IMAGE::toString() const
 {
     if(tstr.length())
     {
@@ -316,13 +319,13 @@ std::string POGEL::IMAGE::toString()
     s += "[" + std::string(szx) + "],";
     s += "[" + std::string(szy) + "],";
     s += "[" + std::string(sft) + "]}";
-    free(szx);
-    free(szy);
-    free(sft);
+    delete [] szx;
+    delete [] szy;
+    delete [] sft;
     return s;
 }
 
-bool POGEL::IMAGE::operator == (POGEL::IMAGE other)
+bool POGEL::IMAGE::operator == (const POGEL::IMAGE& other)
 {
     unsigned int x1=0, y1=0;
     int filter1 = 0;

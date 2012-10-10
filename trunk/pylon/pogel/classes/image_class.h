@@ -13,8 +13,12 @@ namespace POGEL
 #define             IMAGE_NEAREST           0
 #define             IMAGE_LINEAR            1
 #define             IMAGE_MIPMAP            2
+#define             IMAGE_MIPMAP2           3
 
-#define             IMAGE_DEFAULT_FILTER    IMAGE_MIPMAP
+//#define             IMAGE_DEFAULT_FILTER    IMAGE_MIPMAP
+#define             IMAGE_DEFAULT_FILTER    IMAGE_MIPMAP2
+//#define             IMAGE_DEFAULT_FILTER    IMAGE_NEAREST
+//#define             IMAGE_DEFAULT_FILTER    IMAGE_LINEAR
 
 namespace POGEL
 {
@@ -68,9 +72,9 @@ namespace POGEL
 
             std::string getFileID();
 
-            std::string toString();
+            std::string toString() const;
 
-            bool operator == (POGEL::IMAGE);
+            bool operator == (const POGEL::IMAGE&);
             bool compare(POGEL::IMAGE*);
 
             bool isClear();

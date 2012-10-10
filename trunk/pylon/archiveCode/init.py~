@@ -141,7 +141,7 @@ TestSphereOutset.setOptions( pylon.solid_stationary | pylon.solid_concave | pylo
 #TestSphereOutset.setProperties( pylon.object_draw_children )
 #TestSphereOutset.setProperties( pylon.object_debug )
 TestSphereOutset.setProperties( 0 )
-pylon.object_add_sphere( TestSphereOutset.simname, TestSphereOutset.name, 2.0, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
+pylon.object_add_sphere( TestSphereOutset.simname, TestSphereOutset.name, 2.0, 200, 200, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
 #pylon.object_add_sphere( TestSphereOutset.simname, TestSphereOutset.name, 2.0, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_doublesided )
 
 #pylon.object_add_sphere( TestSphereOutset.simname, TestSphereOutset.name, 2.0, 20, 20, subrenderer1, 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
@@ -200,6 +200,7 @@ Beast.build()
 #Beast.setAnimationStart()
 #Beast.build()
 Beast.setPos( Position(0,0,0) )
+#Beast.setInvisible()
 
 
 ObjectImportSimulation = Simulation("ObjectImportSimulation",False)
@@ -265,7 +266,7 @@ AnimationSim.newtonianGravityOff()
 SkySim = Simulation("Sky",False)
 Sky = SkySim.newObject("Sky")
 Sky.setOptions( pylon.solid_stationary|pylon.solid_concave|pylon.solid_sphere )
-Sky.setProperties( pylon.object_draw_children )
+#Sky.setProperties( pylon.object_draw_children )
 pylon.object_add_sphere(Sky.simname,Sky.name,750.0,20,20,"{[Data/images/sky/Sky_horiz_"+str(int(random.random()*11+1))+"_2048.jpg]}",2,1,pylon.triangle_invert_normals)
 Sky.build()
 #SkySim.stop()
@@ -322,29 +323,36 @@ def keyfunc1( key, mx, my, tm ):
 	
 	if key == 'o':
 		sim2.halt()
-		pylon.wait_sec_f(1.0/25.0)
-		positionrange = 1.5
-		rpos = Position(rnd_n1p1(),rnd_n1p1(),rnd_n1p1()) * positionrange
-		rot  = Position(rnd_n1p1(),rnd_n1p1(),rnd_n1p1()) * 360.0
-		currentObject = sim2.newObject( "Object_"+str(pylon.get_runtime()) )
-		currentObject.setPos(rpos)
-		currentObject.setRot(rot)
-		currentObject.setMass(20000)
-		currentObject.setBounce(0.25)
-		currentObject.setFriction(0.5)
-		currentObject.setOptions( pylon.solid_volatile | pylon.solid_convex | pylon.solid_sphere )
-		currentObject.setProperties( pylon.object_draw_children )
-		rnum = 1
-		print pylon.object_add_sphere( currentObject.simname, currentObject.name, .25, 10, 10, possibleImages[rnum], 1, 1, possibleTriProps[rnum] )
-		currentObject.setCollisionCallBack( "game", "collisionfunction1" )
-		currentObject.setStepCallBack( "game", "stepfunction1" )
-		currentObject.setHitFilterCallBack( "game", "hitfilter1" )
-		currentObject.build()
+		l = 0
+		while l < 10:
+			#pylon.wait_sec_f(1.0/25.0)
+			positionrange = 1.5
+			rpos = Position(rnd_n1p1(),rnd_n1p1(),rnd_n1p1()) * positionrange
+			rot  = Position(rnd_n1p1(),rnd_n1p1(),rnd_n1p1()) * 360.0
+			currentObject = sim2.newObject( "Object_"+str(pylon.get_runtime()) )
+			currentObject.setPos(rpos)
+			currentObject.setRot(rot)
+			currentObject.setMass(20000)
+			currentObject.setBounce(0.25)
+			currentObject.setFriction(0.5)
+			currentObject.setOptions( pylon.solid_volatile | pylon.solid_convex | pylon.solid_sphere )
+			currentObject.setProperties( pylon.object_draw_children )
+			rnum = 1
+			print pylon.object_add_sphere( currentObject.simname, currentObject.name, .25, 10, 10, possibleImages[rnum], 1, 1, possibleTriProps[rnum] )
+			currentObject.setCollisionCallBack( "game", "collisionfunction1" )
+			currentObject.setStepCallBack( "game", "stepfunction1" )
+			currentObject.setHitFilterCallBack( "game", "hitfilter1" )
+			currentObject.build()
+			l += 1
 		sim2.resume()
 	
 	if key == ',':
-		sim2.halt()
-		sim2.clearAllObjects()
+		#if pylon.sim_remove_object( sim2Outset.simname, sim2Outset.name ):
+			#print " AKHBSDjkHAKJJSD"
+		#sim2.halt()
+		print "clearing sim2"
+		if sim2.clearAllObjects():
+			print "cannot clear sim2"
 	
 	if key == 'v':
 		global sim2Outset
@@ -355,14 +363,18 @@ def keyfunc2( key, mx, my, tm ):
 		print _pylon.exit( 0 )
 		
 	global sim2Outset
+	global sim2
 	
 	if key == ',':
 		#pylon.wait_sec_f(10.0/25.0)
 		#sim2.stop()
 		rnum = 3
 		sim2Outset = None
-		while sim2Outset == None:
-			sim2Outset = sim2.newObject("sim2Outset_"+str(tm))
+		print "'simulation2' =  ",pylon.sim_num_objects( "simulation2" )
+		#while pylon.sim_num_objects( "simulation2" ) > 0:
+			#print "'simulation2' =  ",pylon.sim_num_objects( "simulation2" )
+			#pylon.wait_sec_f(0.1)
+		sim2Outset = sim2.newObject("sim2Outset_"+str(tm))
 		sim2Outset.setOptions( pylon.solid_stationary | pylon.solid_concave | pylon.solid_sphere )
 		#sim2Outset.setProperties( pylon.object_draw_children )
 		#sim2Outset.setProperties( pylon.object_debug )
@@ -372,10 +384,25 @@ def keyfunc2( key, mx, my, tm ):
 		#sim2Outset.setInvisible()
 		#sim2Outset.setVisible()
 		sim2Outset.build()
-		sim2.resume()
+		#sim2.resume()
 	
 	if key == 'v':
 		sim2Outset.setInvisible()
+
+def keyfunc3( key, mx, my, tm ):
+	global sim2Outset
+	if key == 'l':
+		if pylon.sim_remove_object( sim2Outset.simname, sim2Outset.name ):
+			print " AKHBSDjkHAKJJSD"
+		rnum = 3
+		sim2Outset = None
+		while sim2Outset == None:
+			sim2Outset = sim2.newObject("sim2Outset_"+str(tm))
+		sim2Outset.setOptions( pylon.solid_stationary | pylon.solid_concave | pylon.solid_sphere )
+		sim2Outset.setProperties( 0 )
+		pylon.object_add_sphere( sim2Outset.simname, sim2Outset.name, 1.5, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
+		sim2Outset.setVisibility(pylon.key_ispressed('v'))
+		sim2Outset.build()
 
 keyfunc1index = pylon.key_callback_add_downfunc("","keyfunc1")
 print keyfunc1index
@@ -384,4 +411,6 @@ print pylon.key_callback_remove_downfunc(keyfunc1index)
 pylon.key_callback_add_downfilters( pylon.key_callback_add_downfunc("","keyfunc1"), "\r\no,v"+str(chr(27)) )
 
 pylon.key_callback_add_upfilters( pylon.key_callback_add_upfunc("","keyfunc2"), ",v"+str(chr(27)) )
+
+pylon.key_callback_add_upfilters( pylon.key_callback_add_upfunc("","keyfunc3"), "l" )
 

@@ -244,11 +244,15 @@ void POGEL::PHYSICS::DYNAMICS::clearAllSolids()
 {
     for(unsigned int i = 0; i < objects.length(); ++i)
     {
-        delete objects[i];
+        POGEL::PHYSICS::SOLID * tmp = objects[i];
+        objects.getList()[i] = NULL;
+        tmp->container = NULL;
+        delete tmp;
+        tmp = NULL;
     }
     numobjects = 0;
-    objects.clear();
     objectmasses.clearAll();
+    objects.clear();
 }
 
 POGEL::VECTOR POGEL::PHYSICS::DYNAMICS::getpull(POGEL::PHYSICS::SOLID* obj)

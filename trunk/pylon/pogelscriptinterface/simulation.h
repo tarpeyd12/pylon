@@ -21,6 +21,11 @@ namespace pogelInterface
     Object* sim_set_itter(Object*,Object*);
     Object* sim_get_itter(Object*,Object*);
 
+    Object* sim_num_objects(Object*,Object*);
+    Object* sim_get_object(Object*,Object*);
+
+    Object* sim_remove_object(Object*,Object*);
+
     Object* sim_add_object_s(Object*,Object*);
 }
 

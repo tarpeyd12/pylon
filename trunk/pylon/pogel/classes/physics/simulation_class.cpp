@@ -280,9 +280,9 @@ checkcollision( POGEL::PHYSICS::SIMULATION* sim, unsigned long s, unsigned long 
         return;
     }
 
-    unsigned long sim_numobjs = sim->numobjs();
+    //unsigned long sim_numobjs = sim->numobjs();
 
-    for( unsigned long a = s; a < e && a < sim_numobjs; ++a )
+    for( unsigned long a = s; a < e && a < sim->numobjs(); ++a )
     {
         POGEL::PHYSICS::SOLID * obj_a = sim->objs( a );
         if( !obj_a->napping() || obj_a->hasOption( PHYSICS_SOLID_STATIONARY ) )
@@ -290,7 +290,7 @@ checkcollision( POGEL::PHYSICS::SIMULATION* sim, unsigned long s, unsigned long 
             CLASSLIST<unsigned int> *objs = sim->getotree()->releventIndicies(obj_a->bounding);
             if( obj_a->hasOption( PHYSICS_SOLID_CONCAVE ) )
             {
-                for( unsigned long b = 0; b < sim_numobjs; ++b )
+                for( unsigned long b = 0; b < sim->numobjs(); ++b )
                 {
                     if( o != a && o != b && objectIntersectionProcessing( sim, a, b ) && !sim->objs( b )->hasOption(PHYSICS_SOLID_STATIONARY))
                     {
@@ -301,11 +301,11 @@ checkcollision( POGEL::PHYSICS::SIMULATION* sim, unsigned long s, unsigned long 
             }
             else if( objs )
             {
-                unsigned int objs_length = objs->length();
-                for( unsigned long b = 0; b < objs_length; ++b )
+                //unsigned int objs_length = objs->length();
+                for( unsigned long b = 0; b < objs->length(); ++b )
                 {
                     unsigned int obj_b = objs->get( b );
-                    if( o != a && o != obj_b && obj_b < sim_numobjs && objectIntersectionProcessing( sim, a, obj_b ) && !sim->objs( obj_b )->hasOption( PHYSICS_SOLID_STATIONARY ) )
+                    if( o != a && o != obj_b && obj_b < sim->numobjs() && objectIntersectionProcessing( sim, a, obj_b ) && !sim->objs( obj_b )->hasOption( PHYSICS_SOLID_STATIONARY ) )
                     {
                         sim->objs( obj_b )->makebounding();
                         checkcollision( sim, obj_b, obj_b + 1, a, recnum + 1 );

@@ -196,7 +196,7 @@ void ScriptThread::FirstRun()
 
     // end StoneBug fix
 
-    //ScriptEngine::BeginThreads();
+    ScriptEngine::BeginThreads();
     ScriptEngine::RegisterThreads();
 
     try
@@ -214,7 +214,7 @@ void ScriptThread::FirstRun()
         exit(e);
     }
 
-    ScriptEngine::BeginThreads();
+    //ScriptEngine::BeginThreads();
 
     //mainScript = new ScriptEngine::Executor(mainScriptData);
     mainScript = new ScriptEngine::InterpreterThread( new ScriptEngine::Executor(mainScriptData) );

@@ -1,6 +1,6 @@
 
 template < class T >
-float 
+float
 POGEL::OCTREE< T >::avgside() const
 {
 	POGEL::VECTOR v( getbounding().max, getbounding().min );
@@ -58,13 +58,13 @@ POGEL::OCTREE< T >::OCTREE( CLASSLIST< T * > * l, unsigned int lobj )
     level = 0;
     objects.add( l );
     unsigned int numobjects = objects.length();
-    if( numobjects ) 
+    if( numobjects )
     {
     	position = objects[ 0 ]->getposition();
     }
-    for( unsigned int i = 0; i < numobjects; ++i ) 
+    for( unsigned int i = 0; i < numobjects; ++i )
     {
-        if(addboundings) 
+        if(addboundings)
         {
             bounding.addpoint( objects[ i ]->getbounding().max );
             bounding.addpoint( objects[ i ]->getbounding().min );
@@ -88,13 +88,13 @@ POGEL::OCTREE< T >::OCTREE( CLASSLIST< T * > * l, unsigned int lobj, bool addbou
     level = 0;
     objects.add( l );
     unsigned int numobjects = objects.length();
-    if( numobjects ) 
+    if( numobjects )
     {
     	position = objects[ 0 ]->getposition();
     }
-    for( unsigned int i = 0; i < numobjects; ++i ) 
+    for( unsigned int i = 0; i < numobjects; ++i )
     {
-        if(addboundings) 
+        if(addboundings)
         {
             bounding.addpoint( objects[ i ]->getbounding().max );
             bounding.addpoint( objects[ i ]->getbounding().min );
@@ -118,13 +118,13 @@ POGEL::OCTREE< T >::OCTREE(CLASSLIST< T * > * l)
     level = 0;
     objects.add( l );
     unsigned int numobjects = objects.length();
-    if( numobjects ) 
+    if( numobjects )
     {
     	position = objects[ 0 ]->getposition();
     }
-    for( unsigned int i = 0; i < numobjects; ++i ) 
+    for( unsigned int i = 0; i < numobjects; ++i )
     {
-        if(addboundings) 
+        if(addboundings)
         {
             bounding.addpoint( objects[ i ]->getbounding().max );
             bounding.addpoint( objects[ i ]->getbounding().min );
@@ -170,7 +170,7 @@ template < class T >
 float
 POGEL::OCTREE< T >::getDencity() const
 {
-    if(getbounding().min != getbounding().max) 
+    if(getbounding().min != getbounding().max)
     {
         POGEL::VECTOR v( getbounding().max, getbounding().min );
         return getMass() / ( (v.x?v.x:1.0f) * (v.y?v.y:1.0f) * (v.z?v.z:1.0f) );
@@ -199,14 +199,14 @@ POGEL::OCTREE< T >::uintgrvs( unsigned int * b ) const
 }
 
 template < class T >
-POGEL::POINT 
-POGEL::OCTREE< T >::getmasscenter() 
+POGEL::POINT
+POGEL::OCTREE< T >::getmasscenter()
 {
 	if( masscenter_good )
 	{
 		return masscenter;
 	}
-	if( numobjs() ) 
+	if( numobjs() )
 	{
 		masscenter = object( 0 )->getposition() / float( numobjs() );
 		for( unsigned int i = 1; i < numobjs(); ++i )
@@ -240,7 +240,7 @@ POGEL::OCTREE< T >::objhaspos( const POGEL::POINT& p ) const
 }
 
 template < class T >
-POGEL::VECTOR 
+POGEL::VECTOR
 POGEL::OCTREE< T >::getpull( const POGEL::POINT& p, float m ) const
 {
 	if( ( numobjs() <= leastobjs && !objhaspos( p ) ) || bounding.min.distance( getBounding().max ) / getmasscenter().distance( p ) < theta )
@@ -259,10 +259,10 @@ POGEL::OCTREE< T >::getpull( const POGEL::POINT& p, float m ) const
 }
 
 template < class T >
-POGEL::VECTOR 
+POGEL::VECTOR
 POGEL::OCTREE< T >::drawgetpull( const POGEL::POINT& p, float m ) const
 {
-	if( numobjs() <= leastobjs || bounding.min.distance( bounding.max ) / getmasscenter().distance( p ) < theta ) 
+	if( numobjs() <= leastobjs || bounding.min.distance( bounding.max ) / getmasscenter().distance( p ) < theta )
 	{
 		bounding.color = POGEL::COLOR( 0.25f, 0.25f, 0.25f, getMass() / progen()->getMass() );
 		bounding.draw( POGEL::POINT() );
@@ -284,8 +284,8 @@ POGEL::OCTREE< T >::drawgetpull( const POGEL::POINT& p, float m ) const
 }
 
 template < class T >
-void 
-POGEL::OCTREE< T >::grow() 
+void
+POGEL::OCTREE< T >::grow()
 {
 	if( !( objects.length() > leastobjs && level < maxlevels && children.length() < maxchildren ) )
 	{
@@ -296,7 +296,7 @@ POGEL::OCTREE< T >::grow()
 		children += new POGEL::OCTREE< T >( this );
 	}
 	POGEL::POINT thispos = getposition();
-	for( unsigned int i = 0; i < children.length(); ++i) 
+	for( unsigned int i = 0; i < children.length(); ++i)
 	{
 		POGEL::POINT thiscorneri = corner( i );
 		children[ i ]->setpos( ( thispos + thiscorneri )/2.0f );
@@ -304,10 +304,10 @@ POGEL::OCTREE< T >::grow()
 		children[ i ]->bounding.addpoint( childpos, thispos );
 		children[ i ]->bounding.addpoint( childpos, thiscorneri );
 	}
-	masscenter = thispos;//POGEL::POINT(); 
+	masscenter = thispos;//POGEL::POINT();
 	mass = 0.0f;
 	mass_good = masscenter_good = false;
-	for( unsigned int i = 0; i < objects.length(); ++i ) 
+	for( unsigned int i = 0; i < objects.length(); ++i )
 	{
 		if( !masscenter_good )
 		{

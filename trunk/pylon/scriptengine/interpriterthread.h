@@ -12,6 +12,7 @@ namespace ScriptEngine
         private:
             static unsigned int numInterpreterThreads;
             static Threads::Mutex * threadLock;
+            static PyGILState_STATE state;
             unsigned int myNumInterpreterThreads;
         protected:
             InterpreterState * mainInterpreterState;

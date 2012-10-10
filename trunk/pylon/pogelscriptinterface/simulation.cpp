@@ -93,7 +93,11 @@ namespace pogelInterface
         Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation(std::string(simname));
         if(sim == NULL)
             return Py_BuildValue("i", -1);
-        if(sim->RequestToClearObjects())
+        //if(sim->RequestToClearObjects())
+        ScriptEngine::InterpreterThread::ReleaseLock();
+        bool ret = sim->ClearObjectsNow();
+        ScriptEngine::InterpreterThread::GetLock();
+        if( ret )
             return Py_BuildValue("i", 0);
         else
             return Py_BuildValue("i", -2);
@@ -161,6 +165,57 @@ namespace pogelInterface
         else
             Py_RETURN_NONE;
         return Py_BuildValue("i", int(collitters));
+    }
+
+    Object* sim_num_objects(Object* self, Object* args)
+    {
+        char* simname;
+        if( !PyArg_ParseTuple( args, "s:sim_num_objects", &simname) )
+            return NULL;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation( std::string( simname ) );
+        if(sim == NULL)
+            return Py_BuildValue("i", -1);
+        return Py_BuildValue("i", sim->numObjects());
+    }
+
+    Object* sim_get_object(Object* self, Object* args)
+    {
+        char* simname;
+        int objindex;
+        if( !PyArg_ParseTuple( args, "si:sim_get_object", &simname, &objindex) )
+            return NULL;
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation( std::string( simname ) );
+        if( sim == NULL )
+            Py_RETURN_NONE;
+        if( objindex < 0 || objindex >= sim->numObjects() )
+            Py_RETURN_NONE;
+        POGEL::PHYSICS::SOLID * obj = sim->getObject( objindex );
+        if( !obj )
+            Py_RETURN_NONE;
+        return Py_BuildValue("s", obj->getsname().c_str());
+    }
+
+    Object* sim_remove_object(Object* self, Object* args)
+    {
+        Object* name;
+        char* simname;
+        if( !PyArg_ParseTuple( args, "sO:sim_remove_object", &simname, &name) )
+            return NULL;
+        Py_XINCREF(name);
+        std::string objname = pogelInterface::GetObjectName( name );
+        Py_XDECREF(name);
+        ScriptEngine::InterpreterThread::ReleaseLock();
+        Renderer::Physics::Simulation * sim = Renderer::Physics::getSimulation( std::string( simname ) );
+        if(sim == NULL)
+        {
+            ScriptEngine::InterpreterThread::GetLock();
+            return Py_BuildValue("i", -1);
+        }
+        bool ret = sim->RemoveObject( objname );
+        ScriptEngine::InterpreterThread::GetLock();
+        if( !ret )
+            return Py_BuildValue("i", -2);
+        return Py_BuildValue("i", 0);
     }
 
     Object* sim_add_object_s(Object* self, Object* args)

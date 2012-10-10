@@ -13,7 +13,11 @@ namespace Threads
     class Mutex
     {
         private:
+            static unsigned int numBlocks;
+            static unsigned int numMutexes;
+            unsigned int mutexIDnum;
             pthread_mutex_t mutex;
+            volatile bool locked;
         public:
             Mutex();
             ~Mutex();
@@ -22,6 +26,10 @@ namespace Threads
 
             int TryLock();
 
+            bool isLocked() const;
+
+            inline unsigned int getID() { return mutexIDnum; }
+            static inline unsigned int getNumBlocks() { return numBlocks; }
     };
 }
 

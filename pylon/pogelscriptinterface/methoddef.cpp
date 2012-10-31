@@ -207,6 +207,7 @@ namespace pogelInterface
         pylonModule->addIntConstant( "pylon_ancestory", POGEL_ANCESTORY );
         pylonModule->addIntConstant( "pylon_pairs", POGEL_PAIRS );
         pylonModule->addIntConstant( "pylon_label", POGEL_LABEL );
+        pylonModule->addIntConstant( "pylon_time_basis", POGEL_TIMEBASIS );
 
         pylonModule->addIntConstant( "triangle_lit", TRIANGLE_LIT );
         pylonModule->addIntConstant( "triangle_colored", TRIANGLE_COLORED );

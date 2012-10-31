@@ -106,7 +106,7 @@ namespace Renderer
         }
 
         POGEL::IncrementFps();
-        if( POGEL::frames % 10 == 0 )
+        if( POGEL::frames % 1 == 0 )
         {
             POGEL::PrintFps();
             unsigned int numBlocks = Threads::Mutex::getNumBlocks();

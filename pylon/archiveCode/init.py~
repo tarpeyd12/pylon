@@ -141,7 +141,7 @@ TestSphereOutset.setOptions( pylon.solid_stationary | pylon.solid_concave | pylo
 #TestSphereOutset.setProperties( pylon.object_draw_children )
 #TestSphereOutset.setProperties( pylon.object_debug )
 TestSphereOutset.setProperties( 0 )
-pylon.object_add_sphere( TestSphereOutset.simname, TestSphereOutset.name, 2.0, 200, 200, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
+pylon.object_add_sphere( TestSphereOutset.simname, TestSphereOutset.name, 2.0, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )
 #pylon.object_add_sphere( TestSphereOutset.simname, TestSphereOutset.name, 2.0, 20, 20, possibleImages[rnum], 1, 1, possibleTriProps[rnum]|pylon.triangle_doublesided )
 
 #pylon.object_add_sphere( TestSphereOutset.simname, TestSphereOutset.name, 2.0, 20, 20, subrenderer1, 1, 1, possibleTriProps[rnum]|pylon.triangle_invert_normals )

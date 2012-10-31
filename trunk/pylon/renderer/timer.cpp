@@ -147,6 +147,7 @@ namespace Renderer
             }*/
             //double prevdur = lastDuration;
             lastDuration = POGEL::GetTimePassed();
+
             //cout << flush << timerName << ": " << 1.0 / (lastDuration - prevdur) << endl;
         }
 

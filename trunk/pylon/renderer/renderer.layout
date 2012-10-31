@@ -13,8 +13,8 @@
 	<File name="cmd.h" open="0" top="0" tabpos="13">
 		<Cursor position="296" topLine="0" />
 	</File>
-	<File name="display.cpp" open="1" top="1" tabpos="0">
-		<Cursor position="2537" topLine="77" />
+	<File name="display.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="186" topLine="0" />
 	</File>
 	<File name="draw.cpp" open="0" top="0" tabpos="6">
 		<Cursor position="5064" topLine="120" />
@@ -73,17 +73,17 @@
 	<File name="selection.h" open="0" top="0" tabpos="3">
 		<Cursor position="406" topLine="0" />
 	</File>
-	<File name="subrenderer.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="145" topLine="0" />
+	<File name="subrenderer.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="173" topLine="0" />
 	</File>
 	<File name="subrenderer.h" open="0" top="0" tabpos="1">
 		<Cursor position="1297" topLine="0" />
 	</File>
-	<File name="timer.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="4185" topLine="117" />
+	<File name="timer.cpp" open="1" top="1" tabpos="3">
+		<Cursor position="1262" topLine="21" />
 	</File>
-	<File name="timer.h" open="0" top="0" tabpos="2">
-		<Cursor position="554" topLine="0" />
+	<File name="timer.h" open="1" top="0" tabpos="4">
+		<Cursor position="366" topLine="0" />
 	</File>
 	<File name="version.h" open="0" top="0" tabpos="0">
 		<Cursor position="625" topLine="9" />

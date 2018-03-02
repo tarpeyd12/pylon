@@ -1,7 +1,8 @@
 NOTE This was a project from when I was learning C++.
 
-I am rather proud of this project in that it was the first 
-project in which I wrote moret than 10000 lines.
+I am rather nostalgically proud of this project 
+in that it was the first project in which I wrote 
+more than 10000 lines of code.
 
 This was built on my other projet pogel.
 
